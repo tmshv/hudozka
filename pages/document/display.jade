@@ -1,0 +1,15 @@
+extends ../layout
+
+block custom_head
+	link(rel="stylesheet", href="/s/document.css")
+
+block menu
+	.menu
+		h1
+			span.bold ДХШ 
+			span.norm Шлиссельбурга, 
+			span.norm #{doc.name}
+
+block content
+	.displaybox
+		iframe#doc(src="#{doc.url[0]}") 

@@ -1,0 +1,119 @@
+extends ../layout
+
+block custom_head
+	link(rel="stylesheet", href="/s/docs.css")
+
+block menu
+	include ../menu
+
+block content
+	.main
+		for group in blocks
+			.docblock
+				if(group.type == 'documents')
+					h2 #{group.name}
+					for i in group.items
+						.doc
+							img(src='#{i.preview}')
+							a(href='#{i.path}') #{i.name}
+
+		//- .docblock
+		//- 	h2 Лицензии, свидетельства и уставы
+		//- 	.panel
+		//- 	.docs
+		//- 		.doc
+		//- 			img(src='/docs/preview/statue-2013.png')
+		//- 			a(href='/document/statue-2013') Устав школы в 2013 году
+		//- 		.doc
+		//- 			img(src='/docs/preview/license_edu.png')
+		//- 			a(href='/document/edu-license') Образовательная лицензия
+		//- 		.doc
+		//- 			img(src='/docs/preview/certificate_gov.png')
+		//- 			a(href='/document/gov_certificate') Свидетельство о государственной регистрации права
+		//- 		.doc
+		//- 			img(src='/docs/preview/vatin.png')
+		//- 			a(href='/document/VAT') ИНН
+		//- 		.doc
+		//- 			img(src='/docs/preview/certificate_egryl1.png')
+		//- 			a(href='/document/EGRYL1') Свидетельство о внесении в «ЕГРЮЛ»
+		//- 		.doc
+		//- 			img(src='/docs/preview/certificate_egryl2.png')
+		//- 			a(href='/document/EGRYL2') Свидетельство о внесении в «ЕГРЮЛ»
+		//- .docblock
+		//- 	h2 Грамоты
+		//- 	.panel
+		//- 		ul
+		//- 			li
+		//- 				a(href='').act.select ученикам
+		//- 			li
+		//- 				a(href='').act учителям
+		//- 		ul
+		//- 			li
+		//- 				a(href='').act 2014
+		//- 			li
+		//- 				a(href='').act.select 2013
+		//- 			li
+		//- 				a(href='').act 2012
+		//- 			li
+		//- 				a(href='').act 2011
+		//- 			li
+		//- 				a(href='').act 2010
+		//- 			li
+		//- 				a(href='').act 2009
+		//- 			li
+		//- 				a(href='').act 2008
+		//- 			li
+		//- 				a(href='').act 2007
+		//- 	.docs
+		//- 		.doc
+		//- 			img(src='/docs/temp/0002_600_0.jpg')
+		//- 		.doc
+		//- 			img(src='/docs/temp/gramota1296478114.jpg')
+		//- 		.doc
+		//- 			img(src='/docs/temp/Грамота_Буркун_И.Г.jpg')
+		//- 		.doc
+		//- 			img(src='/docs/temp/Грамота_ГребенникО.С.jpg')
+		//- .docblock
+		//- 	h2 Образовательные программы
+		//- 	.panel
+		//- 	.docs
+		//- 		.doc
+		//- 			img(src='/docs/temp/03_.JPG')
+		//- 			.docinfo
+		//- 				p
+		//- 					a(href='') Живопись
+		//- 				p 500 страниц
+		//- 				p
+		//- 					a(href='') Скачать пдф (5 mb)
+		//- 		.doc
+		//- 			img(src='/docs/temp/22.jpg')
+		//- 			.docinfo
+		//- 				p
+		//- 					a(href='') Рисунок
+		//- 				p 500 страниц
+		//- 				p
+		//- 					a(href='') Скачать пдф (5 mb)
+		//- 		.doc
+		//- 			img(src='/docs/temp/dokument.gif')
+		//- 			.docinfo
+		//- 				p
+		//- 					a(href='') Скульптура
+		//- 				p 500 страниц
+		//- 				p
+		//- 					a(href='') Скачать пдф (5 mb)
+		//- 		.doc
+		//- 			img(src='/docs/temp/license_cryptomodulc.jpg')
+		//- 			.docinfo
+		//- 				p
+		//- 					a(href='') ДПИ
+		//- 				p 500 страниц
+		//- 				p
+		//- 					a(href='') Скачать пдф (5 mb)
+		//- 		.doc
+		//- 			img(src='/docs/temp/1340870449_1283936456_dog_bez_pol.jpg')
+		//- 			.docinfo
+		//- 				p
+		//- 					a(href='') История искусств
+		//- 				p 500 страниц
+		//- 				p
+		//- 					a(href='') Скачать пдф (5 mb)

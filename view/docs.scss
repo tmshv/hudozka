@@ -1,0 +1,57 @@
+.act{
+	text-decoration: none;
+	border-bottom: 1px dashed #688fff;
+}
+
+.main{
+	margin-top: 50px;
+}
+
+.docblock{
+	// width:100%;
+	margin-bottom: 40px;
+
+	text-align: center;
+
+	// .docs{
+	// 	text-align: left;
+	// }
+
+	h2{
+		margin-left: 50px;
+		text-align: left;
+	}
+
+	.panel{
+		text-align: left;
+		li{
+			display: inline-block;
+			margin: 0 5px;
+		}
+
+		.select{
+			padding:2px 6px 2px 6px;
+			background-color: #688fff;
+			color: white;
+			border: none;
+		}
+	}
+}
+
+.doc{
+	display: inline-block;
+	margin: 30px 35px;
+
+	img{
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		max-width:360px;
+	}
+
+	.docinfo{
+		margin: 0;
+		padding: 0;
+		display: block;
+	}
+}

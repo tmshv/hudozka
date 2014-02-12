@@ -1,0 +1,10 @@
+.menu
+	ul
+		each i in menu.items
+			li(class='#{i.class}')
+				if(i.url)
+					a(href='#{i.url}') #{i.text}
+				else
+					span #{i.text}
+		a.vk(href='#{menu.vkgroup}')
+			img(src='/img/icon.vk.png')
