@@ -2,8 +2,10 @@ var express = require("express");
 var consolidate = require("consolidate");
 var path = require("path");
 
-var pub = path.resolve("~/Dropbox/Dev/Hud school/public/");
-console.log(pub);
+var pub = ".public";
+// var pub = path.resolve("~/Dropbox/Dev/Hud school/public/");
+// console.log(pub);
+// console.log(pub);
 
 var server = express();
 server.engine("jade", consolidate.jade);
@@ -22,5 +24,5 @@ server.get("/", function(req, res){
 
 server.use(require("./routers/doc.router").middleware);
 
-server.listen(8080);
+server.listen(18010);
 console.log("welcome!");

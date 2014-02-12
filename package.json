@@ -24,6 +24,7 @@
     "should": "~3.1.2",
     "mocha": "~1.17.1",
     "gulp-sass": "~0.6.0",
-    "gulp-minify-css": "~0.3.0"
+    "gulp-minify-css": "~0.3.0",
+    "gulp-imagemin": "~0.1.5"
   }
 }
