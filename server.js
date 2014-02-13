@@ -2,7 +2,7 @@ var express = require("express");
 var consolidate = require("consolidate");
 var path = require("path");
 
-var pub = ".public";
+var pub = "./public";
 // var pub = path.resolve("~/Dropbox/Dev/Hud school/public/");
 // console.log(pub);
 // console.log(pub);

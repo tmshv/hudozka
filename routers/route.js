@@ -2,14 +2,14 @@ const DOCUMENTS = {
 	"statue-2013": {
 		name: "устав школы за 2013 год",
 		path: "/document/statue-2013",
-		preview: "/docs/preview/statue-2013.png",
+		preview: "/img/preview/statue-2013.png",
 		url: ["/files/hudozhka_statue-2013.pdf"],
 		view:"frame"
 	},
 	"edu-license": {
 		name: "образовательная лицензия",
 		path: "/document/edu-license",
-		preview: "/docs/preview/license_edu.png",
+		preview: "/img/preview/license_edu.png",
 		url: [
 			"/files/hudozhka_license_edu.jpg",
 			"/files/hudozhka_license_edu_back.jpg",
@@ -20,28 +20,28 @@ const DOCUMENTS = {
 	"gov-certificate": {
 		name: "свидетельство о государственной регистрации права",
 		path: "/document/gov-certificate",
-		preview: "/docs/preview/certificate_gov.png",
+		preview: "/img/preview/certificate_gov.png",
 		url: ["/files/hudozhka_certificate_gov.jpg"],
 		view:"page"
 	},
 	"VAT": {
 		name: "ИНН",
 		path: "/document/VAT",
-		preview: "/docs/preview/vatin.png",
+		preview: "/img/preview/vatin.png",
 		url: ["/files/hudozhka_vatin.jpg"],
 		view:"page"
 	},
 	"EGRYL1": {
 		name: "свидетельство о внесении в «ЕГРЮЛ»",
 		path: "/document/EGRYL1",
-		preview: "/docs/preview/certificate_egryl1.png",
+		preview: "/img/preview/certificate_egryl1.png",
 		url: ["/files/hudozhka_certificate_egryl1.jpg"],
 		view:"page"
 	},
 	"EGRYL2": {
 		name: "свидетельство о внесении в «ЕГРЮЛ»",
 		path: "/document/EGRYL2",
-		preview: "/docs/preview/certificate_egryl2.png",
+		preview: "/img/preview/certificate_egryl2.png",
 		url: ["/files/hudozhka_certificate_egryl2.jpg"],
 		view:"page"
 	}
