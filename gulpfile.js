@@ -3,7 +3,6 @@ var sass = require("gulp-sass");
 var minifyCSS = require("gulp-minify-css");
 var imageMin = require("gulp-imagemin");
 
-// var pub = "~/Dropbox/Dev/Hud school/public/";
 var pub = "./public/";
 
 gulp.task("sass", function () {
@@ -24,5 +23,5 @@ gulp.task("imagemin", function(){
 		.pipe(gulp.dest(pub+"img"));
 });
 
-gulp.task("compile", ["sass", "copy"]);
-gulp.task("default", ["compile", "imagemin"]);
+gulp.task("default", ["sass", "copy"]);
+gulp.task("deploy", ["default", "imagemin"]);

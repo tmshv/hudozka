@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "node ./server.js",
-    "install": "gulp compile",
+    "install": "gulp deploy",
     "test": "mocha"
   },
   "repository": {
