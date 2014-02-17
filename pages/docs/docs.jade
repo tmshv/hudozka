@@ -3,10 +3,8 @@ extends ../layout
 block custom_head
 	link(rel="stylesheet", href="/s/docs.css")
 
-block menu
-	include ../menu
-
 block content
+	include ../menu
 	.main
 		for group in blocks
 			.docblock

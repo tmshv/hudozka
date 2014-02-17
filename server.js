@@ -22,6 +22,7 @@ server.get("/", function(req, res){
 	});
 });
 
+server.use(require("./routers/team.router").middleware);
 server.use(require("./routers/doc.router").middleware);
 
 server.listen(18010);
