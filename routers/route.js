@@ -3,7 +3,7 @@ const DOCUMENTS = {
 		name: "устав школы за 2013 год",
 		path: "/document/statue-2013",
 		preview: "/img/preview/statue-2013.png",
-		url: ["/files/hudozhka_statue-2013.pdf"],
+		url: ["http://static.shburg.org/art/docs/hudozhka_statue-2013.pdf"],
 		view:"frame"
 	},
 	"edu-license": {
@@ -11,9 +11,9 @@ const DOCUMENTS = {
 		path: "/document/edu-license",
 		preview: "/img/preview/license_edu.png",
 		url: [
-			"/files/hudozhka_license_edu.jpg",
-			"/files/hudozhka_license_edu_back.jpg",
-			"/files/hudozhka_license_edu_attachment.jpg",
+			"http://static.shburg.org/art/docs/hudozhka_license_edu.jpg",
+			"http://static.shburg.org/art/docs/hudozhka_license_edu_back.jpg",
+			"http://static.shburg.org/art/docs/hudozhka_license_edu_attachment.jpg",
 		],
 		view:"page"
 	},
@@ -21,28 +21,28 @@ const DOCUMENTS = {
 		name: "свидетельство о государственной регистрации права",
 		path: "/document/gov-certificate",
 		preview: "/img/preview/certificate_gov.png",
-		url: ["/files/hudozhka_certificate_gov.jpg"],
+		url: ["http://static.shburg.org/art/docs/hudozhka_certificate_gov.jpg"],
 		view:"page"
 	},
 	"VAT": {
 		name: "ИНН",
 		path: "/document/VAT",
 		preview: "/img/preview/vatin.png",
-		url: ["/files/hudozhka_vatin.jpg"],
+		url: ["http://static.shburg.org/art/docs/hudozhka_vatin.jpg"],
 		view:"page"
 	},
 	"EGRYL1": {
 		name: "свидетельство о внесении в «ЕГРЮЛ»",
 		path: "/document/EGRYL1",
 		preview: "/img/preview/certificate_egryl1.png",
-		url: ["/files/hudozhka_certificate_egryl1.jpg"],
+		url: ["http://static.shburg.org/art/docs/hudozhka_certificate_egryl1.jpg"],
 		view:"page"
 	},
 	"EGRYL2": {
 		name: "свидетельство о внесении в «ЕГРЮЛ»",
 		path: "/document/EGRYL2",
 		preview: "/img/preview/certificate_egryl2.png",
-		url: ["/files/hudozhka_certificate_egryl2.jpg"],
+		url: ["http://static.shburg.org/art/docs/hudozhka_certificate_egryl2.jpg"],
 		view:"page"
 	}
 };
@@ -54,7 +54,7 @@ const TEAM = [
 		edu: "Ленинградский инженерно-строительный институт",
 		diplom: "НВ №222567",
 		status: "",
-		picture: "/img/team/teacher5.jpg"
+		picture: "http://static.shburg.org/art/team/teacher5.jpg"
 	},
 	{
 		name: "Валерий Александрович Саржин",
@@ -62,7 +62,7 @@ const TEAM = [
 		edu: "Академия художеств имени И. Е. Репина",
 		diplom: "B-I №259798",
 		status: "Первая квалификационная категория по живописи и станковой композиции",
-		picture: "/img/team/teacher10.jpg"
+		picture: "http://static.shburg.org/art/team/teacher10.jpg"
 	},
 	{
 		name: "Ольга Дмитриевна Гоголева",
@@ -70,7 +70,7 @@ const TEAM = [
 		edu: "Ленинградский инженерно-строительный институт",
 		diplom: "B-I №222572",
 		status: "Высшая квалификационная категория по живописи и станковой композиции",
-		picture: "/img/team/teacher11.jpg"
+		picture: "http://static.shburg.org/art/team/teacher11.jpg"
 	},
 	{
 		name: "Наталья Викторовна Андреева",
@@ -78,7 +78,7 @@ const TEAM = [
 		edu: "Санкт-Петербургский государственный университет технологии и дизайна",
 		diplom: "ИВС 0514253",
 		status: "Вторая квалификационная категория по прикладной композиции",
-		picture: "/img/team/teacher2.jpg"
+		picture: "http://static.shburg.org/art/team/teacher2.jpg"
 	},
 	{
 		name: "Вера Викторовна Воронова",
@@ -86,7 +86,7 @@ const TEAM = [
 		edu: "Российский государственный университет имени А. И. Герцена",
 		diplom: "ВСГ 0530340",
 		status: "Вторая квалификационная категория по прикладной композиции",
-		picture: "/img/team/teacher1.jpg"
+		picture: "http://static.shburg.org/art/team/teacher1.jpg"
 	},
 	{
 		name: "Ирина Николаевна Втюрина",
@@ -94,7 +94,7 @@ const TEAM = [
 		edu: "Кировский государственный педагогический институт имени В. И. Ленина",
 		diplom: "ШВ №164501",
 		status: "Первая квалификационная категория по скульптуре",
-		picture: "/img/team/teacher8.jpg"
+		picture: "http://static.shburg.org/art/team/teacher8.jpg"
 	},
 	{
 		name: "Мария Юрьевна Валькова",
@@ -102,7 +102,7 @@ const TEAM = [
 		edu: "Педагогический институт имени А. И. Герцена",
 		diplom: "ПП №224197",
 		status: "Высшая квалификационная категория по истории искусства",
-		picture: "/img/team/teacher.jpg"
+		picture: "http://static.shburg.org/art/team/teacher.jpg"
 	},
 	{
 		name: "Руслан Камилевич Тимашев",
@@ -110,7 +110,7 @@ const TEAM = [
 		edu: "Санкт-Петербургский государственный архитектурно-строительный университет",
 		diplom: "ВСГ 5344910",
 		status: "",
-		picture: "/img/team/teacher4.jpg"
+		picture: "http://static.shburg.org/art/team/teacher4.jpg"
 	},
 	{
 		name: "Анна Сергеевна Манцева",
@@ -118,7 +118,7 @@ const TEAM = [
 		edu: "Московский архитектурный институт",
 		diplom: "РН 70241",
 		status: "",
-		picture: "/img/team/teacher3.jpg"
+		picture: "http://static.shburg.org/art/team/teacher3.jpg"
 	},
 	{
 		name: "Серафима Александровна Латыпова",
@@ -126,7 +126,7 @@ const TEAM = [
 		edu: "Незаконченный Ленинградский государственный педагогический университет имени А. С. Пушкина",
 		diplom: "",
 		status: "",
-		picture: "/img/team/teacher9.jpg"
+		picture: "http://static.shburg.org/art/team/teacher9.jpg"
 	},
 	{
 		name: "Евгения Юрьевна Тарасова",
@@ -134,7 +134,7 @@ const TEAM = [
 		edu: "Санкт-Петербургский государственный архитектурно-строительный университет",
 		diplom: "ВСВ 1321444",
 		status: "",
-		picture: "/img/team/teacher.jpg"
+		picture: "http://static.shburg.org/art/team/teacher.jpg"
 	},
 ];
 
