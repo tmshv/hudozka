@@ -3,14 +3,12 @@ extends ../layout
 block custom_head
 	link(rel="stylesheet", href="/s/document.css")
 
-block menu
+block content
 	.menu.opac
 		h1
 			span.bold ДХШ 
 			span.norm Шлиссельбурга, 
 			span.norm #{doc.name}
-
-block content
 	.doclist
 		for a in doc.url
 			img(src='#{a}')
