@@ -17,6 +17,8 @@ gulp.task("sass", function () {
 gulp.task("copy", function(){
 	gulp.src("./assets/fonts/*")
 		.pipe(gulp.dest(pub+"fonts"));
+	gulp.src("./assets/style/*.css")
+		.pipe(gulp.dest(pub+"s"));
 });
 
 gulp.task("imagemin", function(){
