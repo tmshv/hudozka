@@ -1,0 +1,190 @@
+.schedule{
+    position: relative;
+    margin: 30px auto 0 auto;
+}
+
+.schedule table{
+    position: relative;
+    margin: 0 auto 0 auto;
+    
+    border-spacing: 0px;
+    text-align: center;
+}
+
+.schedule thead th{
+    font-weight: normal;
+    vertical-align: baseline;
+    height: 80px;
+}
+
+.schedule thead .date{
+    font-size: 1.5em;
+}
+
+.schedule thead th{
+    padding: 10px 0 0;
+}
+
+.schedule thead th.weekend{
+    color: #f52;
+}
+
+.schedule tbody tr:nth-child(odd){
+    background-color: #f9f9fd;
+}
+
+.schedule table td{
+    position: relative;
+}
+
+.schedule table td:not(.group){
+    min-width: 150px;
+/*    width: 15%;*/
+    width: 150px;
+    padding: 8px 10px 8px;
+    
+    vertical-align:baseline;
+}
+
+.schedule thead .group{
+    color: #666;
+}
+
+.schedule table td.group p{
+    position: absolute;
+    width:30px;
+    height: 30px;
+    left: 0;
+    right: 0;
+    margin: 7px auto 0 auto;
+    padding: 7px;
+    border: 1px solid #e8e8e8;
+    background-color: white;
+    border-radius: 50%;
+    font-size: 1.4em;
+}
+
+.schedule table tr:nth-child(even) td.group p{
+    background-color: #f9f9fd;
+}
+
+.schedule table td.group{
+    min-width: 60px;
+/*    width: 5%;*/
+    width: 60px;
+    position: relative;
+    vertical-align:baseline;
+}
+
+.schedule .lesson{
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.schedule .teacher{
+    font-style: italic;
+}
+
+.schedule p{
+    margin-bottom: 10px;
+}
+
+.schedule a{
+    color: black;
+    
+    text-decoration: none;
+    border-bottom: 1px solid #ccc;
+}
+
+.schedule .current{
+    border-left: 2px solid #4b8ff3;
+    border-right: 2px solid #4b8ff3;
+}
+
+.schedule .current.first{
+    border-radius: 15px 15px 0 0;
+    border-top: 2px solid #4b8ff3;
+}
+
+.schedule .current.last{
+    border-radius: 0 0 15px 15px;
+    border-bottom: 2px solid #4b8ff3;
+}
+
+.schedule .canceled:before{
+    position: absolute;
+    content: "";
+    width:70%;
+    height: 100%;
+    top: 0;
+    left: 15%;
+    background-image: url(lesson-canceled.svg);
+}
+
+.schedule ul{
+    margin: 0px auto 30px auto;
+    text-align: center;
+}
+
+.schedule ul li{
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 0 5px;
+}
+
+.schedule ul a{
+    color: #3f9cea;
+    border-bottom: 1px dashed #ccc;
+    display: inline-block;
+    padding: 0px;
+}
+
+.schedule ul li.current{
+    color: #68aeff;
+    border: none;
+    font-weight: bold;
+/*    color: #555;*/
+/*    padding: 5px 15px;*/
+/*    border: 1px solid #4b8ff3;*/
+/*    border-radius: 100px;*/
+}
+
+.schedule thead.fix{
+    position: fixed;
+    top: 0;
+    background-color: rgba(255, 255, 255, 0.96);
+    z-index: 100;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+}
+
+.schedule thead{
+   -webkit-animation-duration: 0.3s;
+}
+
+.schedule thead.fix .current{
+    border: none;
+    border-radius: 0px;
+    color: #3f9cea;
+    width: 155px;
+}
+
+.schedule thead.fix th{
+/*    border: 1px solid black;*/
+}
+
+.schedule thead.fix th:not(.group){
+    min-width: 150px;
+/*    width: 15%;*/
+    width: 150px;
+    padding: 8px 10px 8px;
+}
+
+.schedule thead.fix th.group{
+    width: 63px;
+}
+
+.schedule tbody.fix:before{
+    content: "";    
+    display: block;
+    margin-top: 90px;
+}
