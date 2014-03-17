@@ -9,11 +9,12 @@ block content
 		for group in blocks
 			.docblock
 				if(group.type == 'documents')
-					h2 #{group.name}
+					//- h2 #{group.name}
 					for i in group.items
 						.doc
-							img(src='#{i.preview}')
-							a(href='#{i.path}') #{i.name}
+							a(href='#{i.path}')
+								img(src='#{i.preview}')
+								span #{i.title}
 
 		//- .docblock
 		//- 	h2 Лицензии, свидетельства и уставы

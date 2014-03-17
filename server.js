@@ -1,6 +1,7 @@
 var express = require("express");
 var consolidate = require("consolidate");
 var path = require("path");
+var config = require("./config");
 
 var pub = "./public";
 // var pub = path.resolve("~/Dropbox/Dev/Hud school/public/");
@@ -12,7 +13,6 @@ server.engine("jade", consolidate.jade);
 server.set("view engine", "jade");
 server.set("views", [__dirname, "/pages"].join(""));
 server.use(express.static(pub));
-// server.use(express.static([__dirname, "/public"].join("")));
 
 server.get("/", function(req, res){
 	var url = "/";
@@ -25,5 +25,5 @@ server.get("/", function(req, res){
 server.use(require("./routers/team.router").middleware);
 server.use(require("./routers/doc.router").middleware);
 
-server.listen(18010);
+server.listen(config.port);
 console.log("welcome!");

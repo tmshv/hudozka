@@ -1,0 +1,33 @@
+{
+		"items":[
+			{
+				"text":"Школа",
+				"url":"/",
+				"class":"selected blue"
+			},
+			{
+				"text":"Расписание",
+				"url":"/schedule",
+				"class":"selected green"
+			},
+			{
+				"text":"Занятия",
+				"class":"selected"
+			},
+			{
+				"text":"Коллектив",
+				"url":"/team",
+				"class":"selected pink"
+			},
+			{
+				"text":"Галерея",
+				"class":"selected"
+			},
+			{
+				"text":"Документы",
+				"url":"/docs",
+				"class":"selected yellow"
+			}
+		],
+		"vkgroup":"https://vk.com/club10436104"
+}
