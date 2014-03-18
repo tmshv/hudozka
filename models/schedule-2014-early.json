@@ -3,7 +3,7 @@
 		"name": "1",
 		"monday": {
 			"lesson": "composition",
-			"teacher": "as-mantseva",
+			"teacher": "as-timasheva",
 			"time": [
 				"15:00 15:45",
 				"15:55 16:40"
@@ -46,7 +46,7 @@
 		},
 		"saturday": {
 			"lesson": "composition",
-			"teacher": "as-mantseva",
+			"teacher": "as-timasheva",
 			"time": [
 				"12:00 12:45",
 				"12:55 13:40"
@@ -73,7 +73,7 @@
 		},
 		"saturday": {
 			"lesson": "composition",
-			"teacher": "as-mantseva",
+			"teacher": "as-timasheva",
 			"time": [
 				"10:00 10:45",
 				"10:55 11:40"

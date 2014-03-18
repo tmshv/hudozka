@@ -2,76 +2,42 @@ extends ../layout
 
 block custom_head
     link(rel='stylesheet', href='/s/animate.min.css')
-    link(rel='stylesheet', href='/s/sschedule.css')
+    link(rel='stylesheet', href='/s/schedule.css')
     script(src='http://code.jquery.com/jquery-2.1.0.min.js')
     script(src='/c/schedule.js')
 
 block content
     include ../menu
     .schedule
-      ul
-        li
-          a(href='') 2012, осень
-        li
-          a(href='') 2013, весна
-        li
-          a(href='') 2013, осень
-        li.current 2014, весна
-    table
-        thead
-            - var days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
-            th.group Гр.
-            for day in days
-                //- th.current.first
-                //- th.weekend
-                th
-                    p.day day
-                    p.date
-        tbody
-            for group in groups
-                for 
-          tr
-            td.group
-              p 1
-            td
-              p.lesson
-                a(href='') Рисунок
-              p.teacher
-                a(href='') С. А. Латыпова
-              p.time 15:00—15:45
-              p.time 15:55—16:40
-            td.canceled
-              p.lesson
-                a(href='') Живопись
-              p.teacher
-                a(href='') В. Ю. Саржин
-              p.time 15:00—15:45
-              p.time 15:55—16:40
-            td
-              p.lesson
-                a(href='') Макетирование
-              p.teacher
-                a(href='') А. С. Тимашева
-              p.time 15:00—15:45
-              p.time 15:55—16:40
-            td.current
-              p.lesson
-                a(href='') Композиция
-              p.teacher
-                a(href='') А. А Андеева
-              p.time 15:00—15:45
-              p.time 15:55—16:40
-            td
-              p.lesson
-                a(href='') История искусства
-              p.teacher
-                a(href='') М. Ю. Валькова
-              p.time 15:00—15:45
-              p.time 15:55—16:40
-            td
-              p.lesson
-                a(href='') Комп. графика
-              p.teacher
-                a(href='') Р. К. Тимашев
-              p.time 15:00—15:45
-              p.time 15:55—16:40
+        ul
+            li
+                a(href='') 2012, осень
+            li
+                a(href='') 2013, весна
+            li
+                a(href='') 2013, осень
+            li.current 2014, весна
+        table
+            thead
+                - var days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
+                th.group Гр.
+                for day in days
+                    //- th.current.first
+                    //- th.weekend
+                    th
+                        p.day #{day}
+                        p.date
+            tbody
+                for group in groups
+                  tr
+                    td.group
+                        p #{group.name}
+                    for day in group.days
+                        td
+                            if day
+                                p.lesson
+                                    a(href='') #{day.lesson}
+                                p.teacher
+                                    a(href='') #{day.teacher}
+                                for time in day.time
+                                    p.time #{time}

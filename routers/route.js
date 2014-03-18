@@ -2,7 +2,7 @@ const config = require("../config")
 const DOCUMENTS = config.data.documents;
 
 function getMenu(){
-	return config.data.menu;
+	return clone(config.data.menu);
 }
 
 function getDoc(name, capitalFirstLetter){
