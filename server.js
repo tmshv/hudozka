@@ -22,9 +22,10 @@ server.get("/", function(req, res){
 	});
 });
 
-server.use(require("./routers/schedule.router").middleware);
+server.use(require("./routers/schedule"));
 server.use(require("./routers/team.router").middleware);
-server.use(require("./routers/doc.router").middleware);
+server.use(require("./routers/docs"));
 
 server.listen(config.port);
 console.log("welcome!");
+// console.log(JSON.stringify(config.data.schedule, null, "\t"));

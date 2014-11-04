@@ -26,7 +26,7 @@ gulp.task("copy", function(){
 
 gulp.task("uglify", function(){
 	gulp.src("./client/*.js")
-		.pipe(uglify())
+		// .pipe(uglify())
 		.pipe(gulp.dest("./public/c"));
 });
 

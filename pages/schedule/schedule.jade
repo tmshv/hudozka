@@ -3,20 +3,22 @@ extends ../layout
 block custom_head
     link(rel='stylesheet', href='/s/animate.min.css')
     link(rel='stylesheet', href='/s/schedule.css')
-    script(src='http://code.jquery.com/jquery-2.1.0.min.js')
+    //- script(src='http://code.jquery.com/jquery-2.1.0.min.js')
+    script(src='/c/jquery-2.1.0.js')
     script(src='/c/schedule.js')
 
 block content
     include ../menu
     .schedule
-        ul
-            li
-                a(href='') 2012, осень
-            li
-                a(href='') 2013, весна
-            li
-                a(href='') 2013, осень
-            li.current 2014, весна
+        p   Расписание весеннего семестра 2014 года
+        //- ul
+        //-     li
+        //-         a(href='') 2012, осень
+        //-     li
+        //-         a(href='') 2013, весна
+        //-     li
+        //-         a(href='') 2013, осень
+        //-     li.current 2014, весна
         table
             thead
                 - var days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
@@ -31,7 +33,8 @@ block content
                 for group in groups
                   tr
                     td.group
-                        p #{group.name}
+                        p.name #{group.name}
+                        p.time #{group.time}
                     for day in group.days
                         td
                             if day

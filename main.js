@@ -12,3 +12,7 @@ function gatherNotFoundCollection (dir) {
 	}
 	return [];
 }
+
+var config = require("./config").populate({
+	
+});

@@ -6,35 +6,38 @@
 		"preview": "/img/preview/statue-2013.png",
 		"download": "http://static.shburg.org/art/docs/hudozhka_statue-2013.pdf",
 		"url": [
-			"http://static.shburg.org/art/docs/hudozhka_statue-2013-1.page",
-			"http://static.shburg.org/art/docs/hudozhka_statue-2013-2.page",
-			"http://static.shburg.org/art/docs/hudozhka_statue-2013-3.page",
-			"http://static.shburg.org/art/docs/hudozhka_statue-2013-4.page",
-			"http://static.shburg.org/art/docs/hudozhka_statue-2013-5.page",
-			"http://static.shburg.org/art/docs/hudozhka_statue-2013-6.page",
-			"http://static.shburg.org/art/docs/hudozhka_statue-2013-7.page",
-			"http://static.shburg.org/art/docs/hudozhka_statue-2013-8.page",
-			"http://static.shburg.org/art/docs/hudozhka_statue-2013-9.page",
-			"http://static.shburg.org/art/docs/hudozhka_statue-2013-10.page",
-			"http://static.shburg.org/art/docs/hudozhka_statue-2013-11.page",
-			"http://static.shburg.org/art/docs/hudozhka_statue-2013-12.page",
-			"http://static.shburg.org/art/docs/hudozhka_statue-2013-13.page",
-			"http://static.shburg.org/art/docs/hudozhka_statue-2013-14.page",
-			"http://static.shburg.org/art/docs/hudozhka_statue-2013-15.page",
-			"http://static.shburg.org/art/docs/hudozhka_statue-2013-16.page",
-			"http://static.shburg.org/art/docs/hudozhka_statue-2013-17.page",
-			"http://static.shburg.org/art/docs/hudozhka_statue-2013-18.page",
-			"http://static.shburg.org/art/docs/hudozhka_statue-2013-19.page",
-			"http://static.shburg.org/art/docs/hudozhka_statue-2013-20.page",
-			"http://static.shburg.org/art/docs/hudozhka_statue-2013-21.page",
-			"http://static.shburg.org/art/docs/hudozhka_statue-2013-22.page",
-			"http://static.shburg.org/art/docs/hudozhka_statue-2013-23.page",
-			"http://static.shburg.org/art/docs/hudozhka_statue-2013-24.page",
-			"http://static.shburg.org/art/docs/hudozhka_statue-2013-25.page",
-			"http://static.shburg.org/art/docs/hudozhka_statue-2013-26.page",
-			"http://static.shburg.org/art/docs/hudozhka_statue-2013-27.page"
+			"/f/hudozhka_statue-2013-1.page",
+			"/f/hudozhka_statue-2013-2.page",
+			"/f/hudozhka_statue-2013-3.page",
+			"/f/hudozhka_statue-2013-4.page",
+			"/f/hudozhka_statue-2013-5.page",
+			"/f/hudozhka_statue-2013-6.page",
+			"/f/hudozhka_statue-2013-7.page",
+			"/f/hudozhka_statue-2013-8.page",
+			"/f/hudozhka_statue-2013-9.page",
+			"/f/hudozhka_statue-2013-10.page",
+			"/f/hudozhka_statue-2013-11.page",
+			"/f/hudozhka_statue-2013-12.page",
+			"/f/hudozhka_statue-2013-13.page",
+			"/f/hudozhka_statue-2013-14.page",
+			"/f/hudozhka_statue-2013-15.page",
+			"/f/hudozhka_statue-2013-16.page",
+			"/f/hudozhka_statue-2013-17.page",
+			"/f/hudozhka_statue-2013-18.page",
+			"/f/hudozhka_statue-2013-19.page",
+			"/f/hudozhka_statue-2013-20.page",
+			"/f/hudozhka_statue-2013-21.page",
+			"/f/hudozhka_statue-2013-22.page",
+			"/f/hudozhka_statue-2013-23.page",
+			"/f/hudozhka_statue-2013-24.page",
+			"/f/hudozhka_statue-2013-25.page",
+			"/f/hudozhka_statue-2013-26.page",
+			"/f/hudozhka_statue-2013-27.page"
 		],
-		"view":"frame"
+		"extra": {
+			"style": ["http://static.shburg.org/art/docs/preview/hudozhka_statue-2013.css"]
+		},
+		"viewer": "default"
 	},
 	{
 		"name": "edu-license",
@@ -46,7 +49,7 @@
 			"http://static.shburg.org/art/docs/hudozhka_license_edu_back.jpg",
 			"http://static.shburg.org/art/docs/hudozhka_license_edu_attachment.jpg"
 		],
-		"view":"page"
+		"viewer": "img-sheet"
 	},
 	{
 		"name": "gov-certificate",
@@ -54,7 +57,7 @@
 		"path": "/document/gov-certificate",
 		"preview": "/img/preview/certificate_gov.png",
 		"url": ["http://static.shburg.org/art/docs/hudozhka_certificate_gov.jpg"],
-		"view":"page"
+		"viewer": "img-sheet"
 	},
 	{
 		"name": "VAT",
@@ -62,7 +65,7 @@
 		"path": "/document/VAT",
 		"preview": "/img/preview/vatin.png",
 		"url": ["http://static.shburg.org/art/docs/hudozhka_vatin.jpg"],
-		"view":"page"
+		"viewer": "img-sheet"
 	},
 	{
 		"name": "EGRYL1",
@@ -70,7 +73,7 @@
 		"path": "/document/EGRYL1",
 		"preview": "/img/preview/certificate_egryl1.png",
 		"url": ["http://static.shburg.org/art/docs/hudozhka_certificate_egryl1.jpg"],
-		"view":"page"
+		"viewer": "img-sheet"
 	},
 	{
 		"name": "EGRYL2",
@@ -78,6 +81,6 @@
 		"path": "/document/EGRYL2",
 		"preview": "/img/preview/certificate_egryl2.png",
 		"url": ["http://static.shburg.org/art/docs/hudozhka_certificate_egryl2.jpg"],
-		"view":"page"
+		"viewer": "img-sheet"
 	}
 ]

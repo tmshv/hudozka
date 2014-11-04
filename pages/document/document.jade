@@ -1,14 +1,57 @@
 extends ../layout
 
 block custom_head
-	link(rel="stylesheet", href="/s/document.css")
+	if doc.viewer == "default"
+		link(rel='stylesheet', href='/s/pdf.css')
+
+	link(rel='stylesheet', href='/s/document.css')
+
+	if doc.extra && doc.extra.style
+		for style in doc.extra.style
+			link(rel='stylesheet', href='#{style}')
+
+	if doc.viewer == "default"
+		script(src='http://code.jquery.com/jquery-2.1.0.min.js')
+		script(src='/c/document.js')
+
+	if doc.extra && doc.extra.script
+		for script in doc.extra.script
+			script(src='#{script}')
 
 block content
 	.menu.opac
-		h1
-			span.bold ДХШ 
-			span.norm Шлиссельбурга, 
-			span.norm #{doc.title}
-	.doclist
-		for a in doc.url
-			img(src='#{a}')
+		.panel
+			h1
+				span.bold ДХШ 
+				span.norm Шлиссельбурга, 
+				span.norm #{doc.title}
+		.panel.right
+			if doc.viewer == "default" && doc.url.length > 1
+				.controls
+					p.block
+						span Страница 
+							input#currentPage(pattern='[0-9]{,3}') 
+							|  из 
+							span#totalPages
+
+					p.block
+						button#buttonPrev ←
+						button#buttonNext →
+
+					if doc.download
+						p.block
+							a.download(href='#{doc.download}')
+	if doc.viewer == "default"
+		div(id='page-container')
+			for url in doc.url
+				//- p #{url}
+				.pf(data-page-url='#{url}')
+				//- img(src='#{url}')
+			//- //- for url in doc.url
+			//- //- 	.pf
+			//- //- 	//- 
+
+	if doc.viewer == "img-sheet"
+		.doclist
+			for url in doc.url
+				img(src='#{url}')
