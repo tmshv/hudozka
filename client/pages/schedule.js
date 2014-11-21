@@ -4,8 +4,7 @@ const course = require("../../models/course");
 module.exports = function (app) {
     app.controller("ScheduleController", function ($scope, schedule, team) {
         var now = new Date();
-        var day = now.getDay();
-        var dates = getDates(day);
+        var dates = getDates(now);
 
         var sem = "late";
         $scope.sem = [["early", "весеннего"], ["late", "осеннего"]].reduce(function (s, word) {
@@ -67,16 +66,13 @@ function range(start, num, step) {
 //    return new Date(d.setDate(diff));
 //}
 
-function getDates(day) {
-    var dates = [];
-    var prev = day == 0 ? 0 : day - 1;
-    var next = 6 - prev;
-    var dayMask = range(-1, prev, -1).concat([0]).concat(range(1, next, 1));
-
-    dayMask.forEach(function (m) {
-        var time = Date.now() + (1000 * 60 * 60 * 24) * m;
+function getDates(start) {
+    var day = start.getDay();
+    return range(0, 6, 1).reduce(function (dates, weekDay) {
+        var d = 1 + weekDay - day;
+        var time = start.getTime() + (1000 * 60 * 60 * 24) * d;
         var date = new Date(time);
         dates.push(date.getDate());
-    });
-    return dates;
+        return dates;
+    }, []);
 }
