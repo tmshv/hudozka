@@ -5,24 +5,24 @@
 			"lesson": "composition",
 			"teacher": "vv-voronova",
 			"time": [
-				"15:00 – 15:45",
-				"15:55 – 16:40"
+				"15:00 15:45",
+				"15:55 16:40"
 			]
 		},
 		"thursday": {
 			"lesson": "painting",
 			"teacher": "od-gogoleva",
 			"time": [
-				"15:00 – 15:45",
-				"15:55 – 16:40"
+				"15:00 15:45",
+				"15:55 16:40"
 			]
 		},
 		"saturday": {
 			"lesson": "sculpting",
 			"teacher": "in-vturina",
 			"time": [
-				"11:00 – 11:45",
-				"11:55 – 12:40"
+				"11:00 11:45",
+				"11:55 12:40"
 			]
 		}
 	},
@@ -32,24 +32,24 @@
 			"lesson": "composition",
 			"teacher": "vv-voronova",
 			"time": [
-				"17:00 – 17:45",
-				"17:55 – 18:40"
+				"17:00 17:45",
+				"17:55 18:40"
 			]
 		},
 		"thursday": {
 			"lesson": "painting",
 			"teacher": "od-gogoleva",
 			"time": [
-				"17:00 – 17:45",
-				"17:55 – 18:40"
+				"17:00 17:45",
+				"17:55 18:40"
 			]
 		},
 		"saturday": {
 			"lesson": "sculpting",
 			"teacher": "in-vturina",
 			"time": [
-				"13:00 – 13:45",
-				"13:55 – 14:40"
+				"13:00 13:45",
+				"13:55 14:40"
 			]
 		}
 	},
@@ -59,24 +59,24 @@
 			"lesson": "painting",
 			"teacher": "od-gogoleva",
 			"time": [
-				"15:00 – 15:45",
-				"15:55 – 16:40"
+				"15:00 15:45",
+				"15:55 16:40"
 			]
 		},
 		"friday": {
 			"lesson": "composition",
 			"teacher": "vv-voronova",
 			"time": [
-				"15:00 – 15:45",
-				"15:55 – 16:40"
+				"15:00 15:45",
+				"15:55 16:40"
 			]
 		},
 		"saturday": {
 			"lesson": "sculpting",
 			"teacher": "in-vturina",
 			"time": [
-				"15:00 – 15:45",
-				"15:55 – 16:40"
+				"15:00 15:45",
+				"15:55 16:40"
 			]
 		}
 	},
@@ -84,26 +84,26 @@
 		"name": "2-1",
 		"monday": {
 			"lesson": "composition",
-			"teacher": ".",
+			"teacher": "nv-andreeva",
 			"time": [
-				"15:00 – 15:45",
-				"15:55 – 16:40"
+				"15:00 15:45",
+				"15:55 16:40"
 			]
 		},
 		"wednesday": {
 			"lesson": "painting",
 			"teacher": "od-gogoleva",
 			"time": [
-				"15:00 – 15:45",
-				"15:55 – 16:40"
+				"15:00 15:45",
+				"15:55 16:40"
 			]
 		},
 		"saturday": {
 			"lesson": "composition",
-			"teacher": "Тимашева А.С.",
+			"teacher": "as-timasheva",
 			"time": [
-				"11:00 – 11:45",
-				"11:55 – 12:40"
+				"11:00 11:45",
+				"11:55 12:40"
 			]
 		}
 	},
@@ -113,24 +113,24 @@
 			"lesson": "composition",
 			"teacher": "nv-andreeva",
 			"time": [
-				"17:00 – 17:45",
-				"17:55 – 18:40"
+				"17:00 17:45",
+				"17:55 18:40"
 			]
 		},
 		"wednesday": {
 			"lesson": "painting",
 			"teacher": "od-gogoleva",
 			"time": [
-				"17:00 – 17:45",
-				"17:55 – 18:40"
+				"17:00 17:45",
+				"17:55 18:40"
 			]
 		},
 		"saturday": {
 			"lesson": "composition",
-			"teacher": "Тимашева А.С.",
+			"teacher": "as-timasheva",
 			"time": [
-				"13:00 – 13:45",
-				"13:55 – 14:40"
+				"13:00 13:45",
+				"13:55 14:40"
 			]
 		}
 	},
@@ -138,26 +138,26 @@
 		"name": "2-3",
 		"monday": {
 			"lesson": "painting",
-			"teacher": "         ",
+			"teacher": "od-gogoleva",
 			"time": [
-				"17:00 – 17:45",
-				"17:55 – 18:40"
+				"17:00 17:45",
+				"17:55 18:40"
 			]
 		},
 		"thursday": {
-			"lesson": "cg",
+			"lesson": "composition",
 			"teacher": "nv-andreeva",
 			"time": [
-				"15:00 – 15:45",
-				"15:55 – 16:40"
+				"15:00 15:45",
+				"15:55 16:40"
 			]
 		},
 		"friday": {
 			"lesson": "composition",
-			"teacher": "Тимашева А.С.",
+			"teacher": "as-timasheva",
 			"time": [
-				"15:00 – 15:45",
-				"15:55 – 16:40"
+				"15:00 15:45",
+				"15:55 16:40"
 			]
 		}
 	},
@@ -167,23 +167,23 @@
 			"lesson": "drawing",
 			"teacher": "sa-latipova",
 			"time": [
-				"15:00 – 15:45",
-				"15:55 – 16:40"
+				"15:00 15:45",
+				"15:55 16:40"
 			]
 		},
 		"tuesday": {
 			"lesson": "composition",
 			"teacher": "nv-andreeva",
 			"time": [
-				"15:00 – 15:45",
-				"15:55 – 16:40"
+				"15:00 15:45",
+				"15:55 16:40"
 			]
 		},
 		"wednesday": {
 			"lesson": "history",
 			"teacher": "my-valkova",
 			"time": [
-				"17:00 – 17:45",
+				"17:00 17:45",
 				""
 			]
 		},
@@ -191,16 +191,16 @@
 			"lesson": "painting",
 			"teacher": "sa-latipova",
 			"time": [
-				"15:00 – 15:45",
-				"15:55 – 16:40"
+				"15:00 15:45",
+				"15:55 16:40"
 			]
 		},
 		"saturday": {
 			"lesson": "cg",
 			"teacher": "rk-timashev",
 			"time": [
-				"13:00 – 13:45",
-				"13:55 – 14:40"
+				"13:00 13:45",
+				"13:55 14:40"
 			]
 		}
 	},
@@ -210,40 +210,40 @@
 			"lesson": "drawing",
 			"teacher": "sa-latipova",
 			"time": [
-				"17:00 – 17:45",
-				"17:55 – 18:40"
+				"17:00 17:45",
+				"17:55 18:40"
 			]
 		},
 		"tuesday": {
 			"lesson": "composition",
 			"teacher": "nv-andreeva",
 			"time": [
-				"17:00 – 17:45",
-				"17:55 – 18:40"
+				"17:00 17:45",
+				"17:55 18:40"
 			]
 		},
 		"wednesday": {
 			"lesson": "history",
 			"teacher": "my-valkova",
 			"time": [
-				"17:00 – 17:45",
+				"17:00 17:45",
 				""
 			]
 		},
 		"thursday": {
 			"lesson": "painting",
-			"teacher": ".",
+			"teacher": "sa-latipova",
 			"time": [
-				"17:00 – 17:45",
-				"17:55 – 18:40"
+				"17:00 17:45",
+				"17:55 18:40"
 			]
 		},
 		"saturday": {
 			"lesson": "cg",
 			"teacher": "rk-timashev",
 			"time": [
-				"15:00 – 15:45",
-				"15:55 – 16:40"
+				"15:00 15:45",
+				"15:55 16:40"
 			]
 		}
 	},
@@ -253,7 +253,7 @@
 			"lesson": "history",
 			"teacher": "my-valkova",
 			"time": [
-				"17:00 – 17:45",
+				"17:00 17:45",
 				""
 			]
 		},
@@ -261,24 +261,24 @@
 			"lesson": "composition",
 			"teacher": "nv-andreeva",
 			"time": [
-				"17:00 – 17:45",
-				"17:55 – 18:40"
+				"17:00 17:45",
+				"17:55 18:40"
 			]
 		},
 		"friday": {
 			"lesson": "painting",
-			"teacher": "Тимашева А.С.",
+			"teacher": "as-timasheva",
 			"time": [
-				"17:00 – 17:45",
-				"17:55 – 18:40"
+				"17:00 17:45",
+				"17:55 18:40"
 			]
 		},
 		"saturday": {
 			"lesson": "drawing",
-			"teacher": "Тимашева А.С.",
+			"teacher": "as-timasheva",
 			"time": [
-				"15:00 – 15:45",
-				"15:55 – 16:40"
+				"15:00 15:45",
+				"15:55 16:40"
 			]
 		}
 	},
@@ -288,23 +288,23 @@
 			"lesson": "composition",
 			"teacher": "vv-voronova",
 			"time": [
-				"15:00 – 15:45",
-				"15:55 – 16:40"
+				"15:00 15:45",
+				"15:55 16:40"
 			]
 		},
 		"tuesday": {
 			"lesson": "painting",
 			"teacher": "va-sarzhin",
 			"time": [
-				"15:00 – 15:45",
-				"15:55 – 16:40"
+				"15:00 15:45",
+				"15:55 16:40"
 			]
 		},
 		"wednesday": {
 			"lesson": "history",
 			"teacher": "my-valkova",
 			"time": [
-				"18:00 – 18:45",
+				"18:00 18:45",
 				""
 			]
 		},
@@ -312,8 +312,8 @@
 			"lesson": "drawing",
 			"teacher": "sa-latipova",
 			"time": [
-				"15:00 – 15:45",
-				"15:55 – 16:40"
+				"15:00 15:45",
+				"15:55 16:40"
 			]
 		}
 	},
@@ -323,23 +323,23 @@
 			"lesson": "composition",
 			"teacher": "vv-voronova",
 			"time": [
-				"17:00 – 17:45",
-				"17:55 – 18:40"
+				"17:00 17:45",
+				"17:55 18:40"
 			]
 		},
 		"tuesday": {
 			"lesson": "painting",
 			"teacher": "va-sarzhin",
 			"time": [
-				"17:00 – 17:45",
-				"17:55 – 18:40"
+				"17:00 17:45",
+				"17:55 18:40"
 			]
 		},
 		"wednesday": {
 			"lesson": "history",
 			"teacher": "my-valkova",
 			"time": [
-				"18:00 – 18:45",
+				"18:00 18:45",
 				""
 			]
 		},
@@ -347,8 +347,8 @@
 			"lesson": "drawing",
 			"teacher": "sa-latipova",
 			"time": [
-				"17:00 – 17:45",
-				"17:55 – 18:40"
+				"17:00 17:45",
+				"17:55 18:40"
 			]
 		}
 	},
@@ -356,17 +356,17 @@
 		"name": "5-1",
 		"monday": {
 			"lesson": "painting",
-			"teacher": ".",
+			"teacher": "va-sarzhin",
 			"time": [
-				"15:00 – 15:45",
-				"15:55 – 16:40"
+				"15:00 15:45",
+				"15:55 16:40"
 			]
 		},
 		"thursday": {
 			"lesson": "history",
 			"teacher": "my-valkova",
 			"time": [
-				"17:00 – 17:45",
+				"17:00 17:45",
 				""
 			]
 		}
@@ -377,23 +377,23 @@
 			"lesson": "painting",
 			"teacher": "va-sarzhin",
 			"time": [
-				"17:00 – 17:45",
-				"17:55 – 18:40"
+				"17:00 17:45",
+				"17:55 18:40"
 			]
 		},
 		"tuesday": {
 			"lesson": "drawing",
 			"teacher": "mg-timasheva",
 			"time": [
-				"17:00 – 17:45",
-				"17:55 – 18:40"
+				"17:00 17:45",
+				"17:55 18:40"
 			]
 		},
 		"thursday": {
 			"lesson": "history",
 			"teacher": "my-valkova",
 			"time": [
-				"17:00 – 17:45",
+				"17:00 17:45",
 				""
 			]
 		}
@@ -404,15 +404,15 @@
 			"lesson": "painting",
 			"teacher": "va-sarzhin",
 			"time": [
-				"17:00 – 17:45",
-				"17:55 – 18:40"
+				"17:00 17:45",
+				"17:55 18:40"
 			]
 		},
 		"thursday": {
 			"lesson": "drawing",
 			"teacher": "mg-timasheva",
 			"time": [
-				"16:00 – 17:45",
+				"16:00 17:45",
 				""
 			]
 		},
@@ -420,8 +420,8 @@
 			"lesson": "composition",
 			"teacher": "vv-voronova",
 			"time": [
-				"17:00 – 17:45",
-				"17:55   18:40"
+				"17:00 17:45",
+				"17:55 18:40"
 			]
 		}
 	},
@@ -430,7 +430,7 @@
 			"lesson": "history",
 			"teacher": "my-valkova",
 			"time": [
-				"18:00 – 18:45",
+				"18:00 18:45",
 				""
 			]
 		}

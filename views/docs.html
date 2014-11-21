@@ -1,0 +1,10 @@
+<div class="main" ng-controller="DocumentsController">
+    <div class="docblock"><h2>Лицензии, свидетельства и уставы</h2>
+        <div class="doc" ng-repeat="doc in documents">
+            <a href="{{doc.path}}" target="_blank">
+                <img ng-src="{{doc.preview}}">
+                <span>{{doc.title | uppercaseFirst}}</span>
+            </a>
+        </div>
+    </div>
+</div>

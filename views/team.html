@@ -1,0 +1,15 @@
+<img class="background-picture" src="http://static.shlisselburg.org/art/team/team.jpg">
+
+<ul class="team-list" ng-controller="TeamController">
+    <li class="team-member" ng-repeat="person in team">
+        <img ng-src="{{person.picture}}">
+        <div class="info">
+            <h3>{{person.names[1]}} {{person.names[2]}} <span>{{person.names[3]}}</span></h3>
+            <p>{{person.position}}</p>
+            <p>{{person.status}}</p>
+            <p></p>
+            <p class="edu">{{person.edu}} </p>
+            <p class="diploma">Диплом {{person.diploma}}</p>
+        </div>
+    </li>
+</ul>

@@ -1,0 +1,16 @@
+.page {
+//  position: absolute;
+//  bottom: 0;
+//  top: 0;
+  padding-top: 0px;
+  width: 100%;
+//  z-index: -1;
+}
+
+.page.ng-leave {
+//  z-index: 9999;
+}
+
+.page.ng-enter {
+//  z-index: 8888;
+}

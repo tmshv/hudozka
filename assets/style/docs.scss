@@ -1,3 +1,15 @@
+.page-docs {
+  &.ng-leave {
+	transform-origin: 50% 50%;
+	animation: rotateOutNewspaper .3s both ease-in;
+  }
+
+  &.ng-enter {
+	animation: scaleUp 0.3s both ease-in
+//	animation: slideInUp 0.5s both ease-in;
+  }
+}
+
 .act{
 	text-decoration: none;
 	border-bottom: 1px dashed #688fff;

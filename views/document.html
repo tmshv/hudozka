@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="/document">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/s/animate.min.css">
+    <link rel="stylesheet" href="/fonts/stylesheet.css">
+    <meta name="google-site-verification" content="8BxOTw-Q02DS2KAdcGcnIMwiPZ58DVB18XpOfRibCcg">
+
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/angular/angular.min.js"></script>
+    <script src="/bower_components/angular-route/angular-route.min.js"></script>
+    <script src="/bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="data.js"></script>
+    <script src="document.js"></script>
+</head>
+
+<body ng-app="document.hudozhka" ng-controller="DocumentPageController">
+<div class="document-block">
+    <div class="menu transparent">
+        <div class="panel">
+            <h1>
+                <span class="bold">ДХШ</span>
+                <span class="norm">Шлиссельбурга</span> ,
+                <span class="norm">{{doc.title}}</span>
+            </h1>
+        </div>
+    </div>
+
+    <div class="document">
+        <div class="page {{pageClass}}">
+            <img ng-src="{{url}}" alt="" ng-repeat="url in doc.url"/>
+        </div>
+    </div>
+</div>
+
+<!-- Yandex.Metrika counter -->
+<script>(function (d, w, c) {
+    (w[c] = w[c] || []).push(function () {
+        try {
+            w.yaCounter24027460 = new Ya.Metrika({
+                id: 24027460,
+                webvisor: true,
+                clickmap: true,
+                trackLinks: true,
+                accurateTrackBounce: true
+            });
+        } catch (e) {
+        }
+    });
+    var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () {
+        n.parentNode.insertBefore(s, n);
+    };
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+    if (w.opera == "[object Opera]") {
+        d.addEventListener("DOMContentLoaded", f, false);
+    } else {
+        f();
+    }
+})(document, window, "yandex_metrika_callbacks");</script>
+<noscript>
+    <div><img src="//mc.yandex.ru/watch/24027460" style="position: absolute; left: -9999px;" alt=""></div>
+</noscript>
+<!-- Yandex.Metrika counter -->
+
+</body>
+</html>

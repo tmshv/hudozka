@@ -5,15 +5,18 @@ var minifyCSS = require("gulp-minify-css");
 var autoprefixer = require("gulp-autoprefixer");
 var imageMin = require("gulp-imagemin");
 var uglify = require("gulp-uglify");
+var concat = require("gulp-concat");
+var browserify = require("gulp-browserify");
 
 var pub = "./public/";
 
 gulp.task("sass", function () {
     gulp.src("./assets/style/*.scss")
         .pipe(sass())
-        .pipe(minifyCSS())
-        .pipe(autoprefixer())
-        .pipe(gulp.dest("./public/s"));
+		.pipe(concat("style.css"))
+		.pipe(autoprefixer())
+        //.pipe(minifyCSS({processImport:false}))
+        .pipe(gulp.dest("public"));
 });
 
 gulp.task("copy", function(){
@@ -24,10 +27,18 @@ gulp.task("copy", function(){
 		.pipe(gulp.dest("./public/s"));
 });
 
-gulp.task("uglify", function(){
-	gulp.src("./client/*.js")
-		// .pipe(uglify())
-		.pipe(gulp.dest("./public/c"));
+gulp.task("compile", function(){
+	gulp.src("client/app.js")
+		.pipe(browserify())
+		.pipe(gulp.dest("public"));
+
+	gulp.src("client/document.js")
+		.pipe(browserify())
+		.pipe(gulp.dest("public"));
+
+	gulp.src("client/data.js")
+		.pipe(browserify())
+		.pipe(gulp.dest("public"));
 });
 
 gulp.task("imagemin", function(){
@@ -36,5 +47,5 @@ gulp.task("imagemin", function(){
 		.pipe(gulp.dest("./public/img"));
 });
 
-gulp.task("default", ["sass", "copy", "uglify"]);
-gulp.task("deploy", ["default", "imagemin"]);
+gulp.task("default", ["sass", "compile"]);
+gulp.task("deploy", ["default", "copy", "imagemin"]);

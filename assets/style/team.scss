@@ -1,9 +1,11 @@
-.main-picture{
-    width: 100%;
-    position: fixed;
-    margin: 0;
-    left: 0;
-    z-index: -999;
+.page-team {
+    &.ng-leave {
+        animation: slideOutLeft 0.3s both ease-in;
+    }
+
+    &.ng-enter {
+        animation: slideInRight 0.3s both ease-in;
+    }
 }
 
 ul{

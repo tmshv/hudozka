@@ -1,9 +1,12 @@
 const TEAM = require("./team.json");
 
-exports.team = TEAM;
-exports.person = getPersonByID;
-exports.name = getNameByID;
-exports.short = getShortNameByID;
+module.exports = {
+	team: TEAM,
+	person: getPersonByID,
+	name: getNameByID,
+	short: getShortNameByID,
+	splitName: splitName
+};
 
 function getPersonByID(id){
 	for(var i=0; i<TEAM.length; i++){
@@ -28,9 +31,13 @@ function getShortNameByID(id){
 }
 
 function shortifyName(name){
-	var m = /(.+)\s(.+)\s(.+)/.exec(name);
+	var m = splitName(name);
 	var n = m[1].replace(/^(.).+/, "$1. ") +
 			m[2].replace(/^(.).+/, "$1. ") +
 			m[3];
 	return n;
+}
+
+function splitName(name){
+	return /(.+)\s(.+)\s(.+)/.exec(name);
 }

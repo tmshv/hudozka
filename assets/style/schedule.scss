@@ -1,3 +1,14 @@
+.page-schedule {
+    &.ng-leave {
+        transform-origin: 0% 0%;
+        animation: rotateFall 0.3s both ease-in;
+    }
+
+    &.ng-enter {
+        animation: scaleUp 0.3s both ease-in;
+    }
+}
+
 .schedule{
     position: relative;
     margin: 30px auto 0 auto;
@@ -30,17 +41,9 @@
                 vertical-align:baseline;
 
                 p.name{
-                    // position: absolute;
-                    width:30px;
-                    height: 30px;
-                    left: 0;
-                    right: 0;
-                    margin: 7px auto 10px auto;
-                    padding: 7px;
-                    border: 1px solid #e8e8e8;
-                    // background-color: white;
-                    border-radius: 50%;
                     font-size: 1.4em;
+                    font-weight: 800;
+                    color: #242424;
                 }
             }
         }
@@ -144,7 +147,7 @@
             display: inline-block;
             padding: 0px;
         }
-    }    
+    }
 
     thead.fix{
         position: fixed;
@@ -162,6 +165,8 @@
         }
 
         th{
+            height: auto;
+
             :not(.group){
                 min-width: 150px;
             /*    width: 15%;*/
@@ -171,6 +176,16 @@
 
             &.group{
                 width: 63px;
+            }
+
+            .day{
+                margin: 0;
+                line-height: 0;
+            }
+
+            .date{
+                margin: 15px 0;
+                line-height: 0;
             }
         }
     }
