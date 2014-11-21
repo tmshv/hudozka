@@ -8,8 +8,6 @@ var uglify = require("gulp-uglify");
 var concat = require("gulp-concat");
 var browserify = require("gulp-browserify");
 
-var pub = "./public/";
-
 gulp.task("sass", function () {
     gulp.src("./assets/style/*.scss")
         .pipe(sass())
@@ -25,6 +23,9 @@ gulp.task("copy", function(){
 
 	gulp.src("./assets/style/*.css")
 		.pipe(gulp.dest("./public/s"));
+
+	gulp.src("./assets/graphics/*")
+		.pipe(gulp.dest("./public/graphics"));
 });
 
 gulp.task("compile", function(){
