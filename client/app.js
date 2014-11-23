@@ -41,6 +41,7 @@ app.config(function ($locationProvider, $routeProvider) {
 
 require("./api/api")(app);
 require("./ui/menu")(app);
+require("./ui/timeline")(app);
 require("./filters/uppercase-first")(app);
 require("./pages/home")(app);
 require("./pages/schedule")(app);

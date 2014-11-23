@@ -1,0 +1,24 @@
+.timeline {
+  .post {
+    .user img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    .body{
+      h2{
+        padding: 12px 0 0;
+      }
+
+      img {
+        width: 100%;
+        max-width: 500px;
+        box-sizing: border-box;
+        border-radius: 5px;
+        border: 8px solid white;
+        box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.35);
+      }
+    }
+  }
+}
