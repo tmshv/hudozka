@@ -1,9 +1,26 @@
 .timeline {
   .post {
-    .user img {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
+    .user{
+      margin-top: 4px;
+
+      span{
+        vertical-align: top;
+        line-height: 40px;
+        /*   display: inline-block; */
+        /*   background-color: #333; */
+      }
+
+      img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+      }
+    }
+
+    .date{
+      margin: 5px 0 0;
+      color: #999;
+      font-size: 0.75em;
     }
 
     .body{
