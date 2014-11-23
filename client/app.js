@@ -39,15 +39,13 @@ app.config(function ($locationProvider, $routeProvider) {
     });
 });
 
+require("./api/api")(app);
 require("./ui/menu")(app);
 require("./filters/uppercase-first")(app);
+require("./pages/home")(app);
 require("./pages/schedule")(app);
 require("./pages/team")(app);
 require("./pages/docs")(app);
-
-app.controller("HomePageController", function ($scope) {
-    $scope.pageClass = "page-home";
-});
 
 app.controller("SchedulePageController", function ($scope) {
     $scope.pageClass = "page-schedule";
