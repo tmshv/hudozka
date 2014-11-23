@@ -5,5 +5,7 @@
 module.exports = function (app) {
     app.controller("HomePageController", function ($scope) {
         $scope.pageClass = "page-home";
+
+        $(".fotorama").fotorama();
     });
 };

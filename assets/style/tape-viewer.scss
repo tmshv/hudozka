@@ -1,0 +1,43 @@
+.tape-block{
+  width: 70%;
+  max-width: 700px;
+  min-width: 300px;
+
+  margin: 100px auto 0;
+}
+
+.tape-block-content{
+  position: relative;
+  width: 100%;
+
+  .tape {
+    width: 98px;
+    height: 98px;
+    position: absolute;
+    z-index: 10;
+  }
+
+  .tape-tl {
+    top: -25px;
+    left: -25px;
+    background-image: url(/graphics/tape-tl.png);
+  }
+
+  .tape-tr {
+    top: -25px;
+    right: -25px;
+    background-image: url(/graphics/tape-tr.png);
+  }
+
+  .tape-bl {
+    bottom: 0;
+    left: -25px;
+    background-image: url(/graphics/tape-lb.png);
+  }
+
+  .tape-br {
+    bottom: 0;
+    right: -25px;
+    background-image: url(/graphics/tape-rb.png);
+  }
+}
