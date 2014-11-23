@@ -6,7 +6,8 @@
 		"edu": "Ленинградский инженерно-строительный институт",
 		"diploma": "НВ №222567",
 		"status": "",
-		"picture": "http://static.shburg.org/art/team/teacher5.jpg"
+		"picture": "http://static.shburg.org/art/team/teacher5.jpg",
+	  	"anchor": "director"
 	},
 	{
 		"id": "va-sarzhin",

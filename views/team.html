@@ -3,6 +3,7 @@
 <div class="team-block">
     <ul ng-controller="TeamController">
         <li class="team-member" ng-repeat="person in team">
+            <a name="{{person.anchor}}"></a>
             <img ng-src="{{person.picture}}">
             <div class="info">
                 <h3>{{person.names[1]}} {{person.names[2]}} <span>{{person.names[3]}}</span></h3>
