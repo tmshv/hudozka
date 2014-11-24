@@ -6,8 +6,6 @@
       span{
         vertical-align: top;
         line-height: 40px;
-        /*   display: inline-block; */
-        /*   background-color: #333; */
       }
 
       img {
@@ -24,8 +22,14 @@
     }
 
     .body{
-      h2{
-        padding: 12px 0 0;
+      padding: 20px 20px 50px;
+//      padding: 12px 0 0;
+//      h2{
+//
+//      }
+
+      a{
+        border-bottom: none;
       }
 
       img {

@@ -1,5 +1,19 @@
 .timeline{
   min-width: 500px;
+  position: relative;
+  margin: 0 0 50px;
+
+  &:before{
+    content: '';
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    background-color: black;
+    top: 0;
+    left: calc(50% - 6px);
+    border-radius: 50%;
+    z-index: 1;
+  }
 }
 
 .post{
