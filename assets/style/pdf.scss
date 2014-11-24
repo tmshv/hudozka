@@ -5,6 +5,7 @@
   margin: 0;
   padding: 0;
   border: 0;
+  z-index: -1;
 }
 
 @media screen {
@@ -62,7 +63,6 @@
   position: relative;
   background-color: white;
   overflow: hidden;
-  margin: 0;
   border: 0;
 }
 

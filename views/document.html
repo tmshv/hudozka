@@ -16,21 +16,39 @@
 </head>
 
 <body ng-app="document.hudozhka" ng-controller="DocumentPageController">
-<div class="document-block">
+<div class="document-block" ng-controller="DocumentController">
     <div class="menu transparent">
         <div class="panel">
             <h1>
                 <span class="bold">ДХШ</span>
                 <span class="norm">Шлиссельбурга</span> ,
-                <span class="norm">{{doc.title}}</span>
+                <span class="norm">{{document.title}}</span>
             </h1>
+        </div>
+
+        <div class="panel right">
+            <div class="controls" ng-show="showControls">
+                <p class="block">
+                    <span>Страница</span>
+                    <input ng-model="currentPage" ng-change="update()" type="text" pattern="[0-9]{,3}">
+                    из
+                    <span>{{totalPages}}</span>
+                </p>
+
+                <p class="block">
+                    <button ng-click="prevPage()">←</button>
+                    <button ng-click="nextPage()">→</button>
+                </p>
+
+                <p class="block">
+                    <a class="download" href="{{document.download}}"></a>
+                </p>
+            </div>
         </div>
     </div>
 
     <div class="document">
-        <div class="page {{pageClass}}">
-            <img ng-src="{{url}}" alt="" ng-repeat="url in doc.url"/>
-        </div>
+        <div class="page {{pageClass}}" ng-include="viewDocument()"></div>
     </div>
 </div>
 
