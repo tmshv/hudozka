@@ -79,7 +79,10 @@
 		"edu": "Московский архитектурный институт",
 		"diploma": "РН 70241",
 		"status": "",
-		"picture": "http://static.shburg.org/art/team/teacher3.jpg"
+		"picture": "http://static.shburg.org/art/team/teacher3.jpg",
+	  	"contacts": {
+		  "instagram": "annm101"
+		}
 	},
 	{
 		"id": "sa-latipova",
