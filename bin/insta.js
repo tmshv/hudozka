@@ -74,7 +74,7 @@ function instagramSandbox(ig, res) {
 //    //    res.json(result);
 //    //});
 
-    findByTag(ig, "shlb_hudozka", 10)
+    findByTag(ig, "shlb_hudozka", 50)
         .catch(function (error) {
             console.log(error);
         })
