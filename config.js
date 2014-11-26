@@ -22,7 +22,7 @@ module.exports = {
 	instagram:{
 		client_id: "f17901a26a5e4a5ca4544dd0eebe2a15",
 		client_secret: "ecce08509871427ab9f8f383318315fc",
-		redirect_uri: "http://72.tmshv.ru:1337/auth/instagram/callback"
+		redirect_uri: "http://home.tmshv.ru:1337/auth/instagram/callback"
 	},
 
 	tags: ["shlb_hudozka"]
