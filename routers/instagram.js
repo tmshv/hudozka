@@ -3,15 +3,13 @@
  */
 
 var Router = require("express").Router;
-var instagram = require("./instagram");
+var instagram = require("../core/instagram");
 
 module.exports = function (app) {
     var router;
     router = new Router();
     router.route("/auth/instagram/callback")
         .get(function (req, res) {
-            var api = instagram.client();
-
             var code = req.query.code;
             instagram.authorize(code)
                 .catch(function(error){

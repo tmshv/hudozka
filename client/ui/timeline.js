@@ -18,6 +18,14 @@ function personByInstagram(list, instagram){
     }
 }
 
+function postText(post){
+    try{
+        return post.data.caption.text.replace(/#[\w_]+/, "")
+    }catch(error){
+        return "";
+    }
+}
+
 module.exports = function(app) {
     app.directive("timeline", function (team) {
         return {
@@ -36,13 +44,14 @@ module.exports = function(app) {
                         $scope.feed = list.map(function (post) {
                             var author_id = personByInstagram(team.team, post.data.user.username);
                             var name = author_id ? team.short(author_id) : post.data.user.username;
+
                             return {
                                 date: post.publishDate,
                                 image: post.data.images.standard_resolution.url,
                                 url: post.data.link,
                                 username: name,
                                 userpic: post.data.user.profile_picture,
-                                text: post.data.caption.text.replace(/#[\w_]+/, "")
+                                text: postText(post)
                             };
                         });
                     });
