@@ -25,7 +25,19 @@ app.get("/document/*", function (req, res) {
 	res.sendFile(path.join(__dirname, "views/document.html"));
 });
 
-app.get("*", function (req, res) {
+app.get("/", function (req, res) {
+	res.sendFile(path.join(__dirname, "views/index.html"));
+});
+
+app.get("/schedule", function (req, res) {
+	res.sendFile(path.join(__dirname, "views/index.html"));
+});
+
+app.get("/team", function (req, res) {
+	res.sendFile(path.join(__dirname, "views/index.html"));
+});
+
+app.get("/docs", function (req, res) {
 	res.sendFile(path.join(__dirname, "views/index.html"));
 });
 
