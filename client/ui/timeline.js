@@ -39,7 +39,7 @@ module.exports = function(app) {
                 }
             },
             controller: function($scope, api){
-                api.feed.post()
+                api.news.feed()
                     .success(function (list) {
                         $scope.feed = list.map(function (post) {
                             var author_id = personByInstagram(team.team, post.data.user.username);

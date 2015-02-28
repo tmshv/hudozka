@@ -43,8 +43,8 @@ app.use(route.get("/document/:doc", routes.index(
 	path.join(__dirname, "templates/document.html")
 )));
 
-require("./api/feed")(app);
 require("./routes/schedule")(app);
+require("./routes/news")(app);
 
 module.exports = function (port) {
 	app.listen(port);

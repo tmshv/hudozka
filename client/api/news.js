@@ -6,8 +6,8 @@ function APIFeed(http){
     this.request = http;
 }
 
-APIFeed.prototype.post = function() {
-    return this.request.get("/api/feed");
+APIFeed.prototype.feed = function() {
+    return this.request.get("/news");
 };
 
 module.exports = APIFeed;
