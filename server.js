@@ -5,9 +5,14 @@ var koa = require("koa");
 var route = require("koa-route");
 var serve = require("koa-static");
 var logger = require("koa-logger");
+var prerender = require('koa-prerender');
+
+var config = require("./config");
 
 var app = koa();
 app.use(logger());
+
+app.use(prerender(config.prerender));
 
 app.use(serve(path.join(__dirname, "public")));
 app.use(serve(path.join(__dirname, "templates")));
