@@ -1,6 +1,5 @@
 var express = require("express");
 var path = require("path");
-var Post = require("./schema/post");
 
 var Promise = require("promise");
 var methodOverride = require("method-override");

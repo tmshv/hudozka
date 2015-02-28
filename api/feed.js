@@ -3,20 +3,20 @@
  */
 
 var Router = require("express").Router;
-var Post = require("../schema/post");
+var db = require("../core/db");
 
 module.exports = function (app) {
     var router;
     router = new Router();
     router.route("/api/feed")
         .get(function (req, res) {
-            Post.find({}).exec(function (error, list) {
-                if (error) return res.error(error);
-
-                res.json(list.map(function (post) {
-                    return post.toObject();
-                }));
-            });
+            db.c("posts").find().toArray()
+                .catch(function(e){
+                    res.error(e);
+                })
+                .then(function (docs) {
+                    res.json(docs);
+                });
         });
     app.use(router);
 };
