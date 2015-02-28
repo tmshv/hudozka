@@ -2,7 +2,6 @@
  * Created by tmshv on 22/11/14.
  */
 
-var Promise = require("promise");
 var mongo = require("promised-mongo");
 var ObjectId = mongo.ObjectId;
 

@@ -1,45 +1,37 @@
-var express = require("express");
 var path = require("path");
+var fs = require("mz/fs");
 
-var Promise = require("promise");
-var methodOverride = require("method-override");
-var logger = require("morgan");
-var cookieParser = require("cookie-parser");
-var bodyParser = require("body-parser");
+var koa = require("koa");
+var route = require("koa-route");
+var serve = require("koa-static");
+var logger = require("koa-logger");
 
-var app = express();
-app.use("/bower_components", express.static(path.join(__dirname, "bower_components")));
-app.use("/views", express.static(path.join(__dirname, "views")));
-app.use(express.static(path.join(__dirname, "public")));
+var app = koa();
+app.use(logger());
 
-app.use(logger("dev"));
-app.use(cookieParser());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(methodOverride());
+app.use(serve(path.join(__dirname, "public")));
+app.use(serve(path.join(__dirname, "templates")));
+
+app.use(route.get("/", index));
+app.use(route.get("/schedule", index));
+app.use(route.get("/team", index));
+app.use(route.get("/docs", index));
+
+app.use(route.get("/document/:doc", document));
+
+function *index(){
+	var fn = path.join(__dirname, "templates/index.html");
+	this.type = "text/html";
+	this.body = fs.createReadStream(fn);
+}
+
+function *document(){
+	var fn = path.join(__dirname, "templates/document.html");
+	this.type = "text/html";
+	this.body = fs.createReadStream(fn);
+}
 
 require("./api/feed")(app);
-require("./routers/instagram")(app);
-
-app.get("/document/*", function (req, res) {
-	res.sendFile(path.join(__dirname, "views/document.html"));
-});
-
-app.get("/", function (req, res) {
-	res.sendFile(path.join(__dirname, "views/index.html"));
-});
-
-app.get("/schedule", function (req, res) {
-	res.sendFile(path.join(__dirname, "views/index.html"));
-});
-
-app.get("/team", function (req, res) {
-	res.sendFile(path.join(__dirname, "views/index.html"));
-});
-
-app.get("/docs", function (req, res) {
-	res.sendFile(path.join(__dirname, "views/index.html"));
-});
 
 module.exports = function (port) {
 	app.listen(port);
