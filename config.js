@@ -1,3 +1,4 @@
+var fs = require("fs");
 const MENU = require("./models/menu.json");
 
 const team = require("./models/team");
@@ -5,7 +6,10 @@ const course = require("./models/course");
 const document = require("./models/document");
 const schedule = require("./models/schedule");
 
-module.exports = {
+var privateFile = process.env["PRIVATE"] || "private.json";
+var privateData = JSON.parse(fs.readFileSync(privateFile, "utf-8"));
+
+var config = {
 	port: process.env["PORT"] || 3000,
 	pub: "./",
 	data: {
@@ -19,12 +23,11 @@ module.exports = {
 		uri: "mongodb://localhost:27017/hudozka"
 	},
 
-	instagram:{
-		client_id: "f17901a26a5e4a5ca4544dd0eebe2a15",
-		client_secret: "ecce08509871427ab9f8f383318315fc",
-		redirect_uri: "http://home.tmshv.ru:1337/auth/instagram/callback"
-	},
-
 	tags: ["shlb_hudozka"]
 };
-						
+
+module.exports = Object.keys(privateData)
+	.reduce(function (config, key) {
+		config[key] = privateData[key];
+		return config;
+	}, config);
