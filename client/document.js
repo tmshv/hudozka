@@ -1,4 +1,4 @@
-var app = angular.module("document.hudozhka", ["ngRoute", "data.hudozhka"]);
+var app = angular.module("hudozhka.document", ["ngRoute", "hudozhka.data"]);
 
 app.config(function ($locationProvider, $sceDelegateProvider, $routeProvider) {
     $locationProvider.html5Mode(true);

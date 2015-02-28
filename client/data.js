@@ -2,7 +2,7 @@
  * Created by tmshv on 06/11/14.
  */
 
-angular.module("data.hudozhka", [])
+angular.module("hudozhka.data", [])
     .service("team", function () {
         return require("../models/team");
     })

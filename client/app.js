@@ -3,7 +3,7 @@
  */
 
 var app = angular.module("hudozhka", [
-    "ngRoute", "data.hudozhka",
+    "ngRoute", "hudozhka.data",
     "angulartics", "angulartics.google.analytics",
 ]);
 
