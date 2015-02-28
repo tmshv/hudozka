@@ -14,22 +14,26 @@ app.config(function ($locationProvider, $routeProvider) {
         {
             name: "/",
             templateUrl: "/views/home.html",
-            controller: "HomePageController"
+            controller: "HomePageController",
+            title:"ДШХ Шлиссельбурга"
         },
         {
             name: "/schedule",
             templateUrl: "/views/schedule.html",
-            controller: "SchedulePageController"
+            controller: "SchedulePageController",
+            title:"Расписание"
         },
         {
             name: "/team",
             templateUrl: "/views/team.html",
-            controller: "TeamPageController"
+            controller: "TeamPageController",
+            title:"Преподаватели"
         },
         {
             name: "/docs",
             templateUrl: "/views/docs.html",
-            controller: "DocsPageController"
+            controller: "DocsPageController",
+            title: "Документы"
         }
     ];
 
@@ -39,6 +43,12 @@ app.config(function ($locationProvider, $routeProvider) {
 
     $routeProvider.otherwise({
         redirectTo: "/"
+    });
+});
+
+app.run(function($location, $rootScope) {
+    $rootScope.$on("$routeChangeSuccess", function (event, current, previous) {
+        $rootScope.title = current.$$route.title;
     });
 });
 

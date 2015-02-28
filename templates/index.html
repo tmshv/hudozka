@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="hudozhka">
 <head>
     <base href="/">
     <meta name="fragment" content="!">
+
+    <title ng-bind="title">ДШХ Шлиссельбурга</title>
 
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/s/animate.min.css">
@@ -40,7 +42,7 @@
         //        ga('send', 'pageview');
     </script>
 </head>
-<body ng-app="hudozhka">
+<body>
 <div class="menu" ng-controller="MenuController">
     <ul>
         <li ng-repeat="item in menu" class="{{item.color}}" ng-class="{selected:isCurrent(item)}">
