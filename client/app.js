@@ -2,7 +2,10 @@
  * Created by tmshv on 04/11/14.
  */
 
-var app = angular.module("hudozhka", ["ngRoute", "data.hudozhka"]);
+var app = angular.module("hudozhka", [
+    "ngRoute", "data.hudozhka",
+    "angulartics", "angulartics.google.analytics",
+]);
 
 app.config(function ($locationProvider, $routeProvider) {
     $locationProvider.html5Mode(true);
