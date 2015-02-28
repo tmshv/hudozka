@@ -2,20 +2,28 @@ var populate = require("../../utils/populate").populate;
 const course = require("../../models/course");
 
 module.exports = function (app) {
-    app.controller("ScheduleController", function ($scope, schedule, team) {
+    app.controller("ScheduleController", function ($scope, $http, schedule, team) {
         var now = new Date();
         var dates = getDates(now);
 
-        var sem = "late";
-        $scope.sem = [["early", "весеннего"], ["late", "осеннего"]].reduce(function (s, word) {
+        var sem = "autumn";
+        $scope.sem = [["spring", "весеннего"], ["autumn", "осеннего"]].reduce(function (s, word) {
             if (word[0] === sem) return word[1];
         });
-        $scope.year = 2014;
+        $scope.year = "2014-2015";
 
-        $scope.schedule = schedule($scope.year, sem, [
-            populate(team.short, "teacher"),
-            populate(course.name, "lesson")
-        ]);
+        $http.get("/schedule/2014-2015/spring")
+            .success(function (s) {
+                $scope.schedule = schedule.populate(s.schedule, [
+                    populate(team.short, "teacher"),
+                    populate(course.name, "lesson")
+                ]);
+            });
+
+        //$scope.schedule = schedule($scope.year, sem, [
+        //    populate(team.short, "teacher"),
+        //    populate(course.name, "lesson")
+        //]);
 
         $scope.isToday = function (weekDayIndex) {
             return (now.getDay() - 1) === weekDayIndex;

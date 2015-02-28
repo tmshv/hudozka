@@ -6,17 +6,20 @@ const SCHEDULES = {
 	"2014-late": require("./schedule-2014-late.json")
 };
 
-module.exports = function (year, name, pops) {
+function schedule (year, name, pops){
+	var s = SCHEDULES[year + "-" + name];
+	return populateSchedule(s, pops);
+}
+
+schedule.populate = populateSchedule;
+
+module.exports = schedule;
 	//var s = require(
 	//	[year, name].reduce(function (r, v, i) {
 	//		var n = "{i}".replace("i", i);
 	//		return r.replace(n, v);
 	//	}, "./schedule-{0}-{1}.json")
 	//);
-
-	var s = SCHEDULES[year + "-" + name];
-	return populateSchedule(s, pops);
-};
 
 function populateSchedule(s, pops){
 	var days = function (group) {

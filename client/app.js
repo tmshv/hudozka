@@ -46,10 +46,12 @@ app.config(function ($locationProvider, $routeProvider) {
     });
 });
 
-app.run(function($location, $rootScope) {
+app.run(function($location, $rootScope, $http) {
     $rootScope.$on("$routeChangeSuccess", function (event, current, previous) {
         $rootScope.title = current.$$route.title;
     });
+
+    $http.defaults.headers.common["Accept"] = "application/json";
 });
 
 require("./api/api")(app);
