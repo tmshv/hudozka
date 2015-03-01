@@ -11,6 +11,7 @@ module.exports = function (app) {
         $scope.document.currentPage = 0;
 
         $scope.viewDocument = function () {
+            return "/views/document-image.html";
             switch ($scope.document.viewer) {
                 case "img-sheet":
                     $scope.showControls = false;

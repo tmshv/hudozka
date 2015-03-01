@@ -2,85 +2,47 @@
 	{
 		"name": "statue-2013",
 		"title": "устав школы за 2013 год",
-		"path": "/document/statue-2013",
+		"url": "http://static.shburg.org/art/docs/hudozhka_statue-2013.pdf",
 		"preview": "http://static.shburg.org/art/graphics/statue-2013-preview.png",
-		"download": "http://static.shburg.org/art/docs/hudozhka_statue-2013.pdf",
-		"url": [
-			"http://static.shburg.org/art/html/hudozhka_statue-2013-1.page",
-			"http://static.shburg.org/art/html/hudozhka_statue-2013-2.page",
-			"http://static.shburg.org/art/html/hudozhka_statue-2013-3.page",
-			"http://static.shburg.org/art/html/hudozhka_statue-2013-4.page",
-			"http://static.shburg.org/art/html/hudozhka_statue-2013-5.page",
-			"http://static.shburg.org/art/html/hudozhka_statue-2013-6.page",
-			"http://static.shburg.org/art/html/hudozhka_statue-2013-7.page",
-			"http://static.shburg.org/art/html/hudozhka_statue-2013-8.page",
-			"http://static.shburg.org/art/html/hudozhka_statue-2013-9.page",
-			"http://static.shburg.org/art/html/hudozhka_statue-2013-10.page",
-			"http://static.shburg.org/art/html/hudozhka_statue-2013-11.page",
-			"http://static.shburg.org/art/html/hudozhka_statue-2013-12.page",
-			"http://static.shburg.org/art/html/hudozhka_statue-2013-13.page",
-			"http://static.shburg.org/art/html/hudozhka_statue-2013-14.page",
-			"http://static.shburg.org/art/html/hudozhka_statue-2013-15.page",
-			"http://static.shburg.org/art/html/hudozhka_statue-2013-16.page",
-			"http://static.shburg.org/art/html/hudozhka_statue-2013-17.page",
-			"http://static.shburg.org/art/html/hudozhka_statue-2013-18.page",
-			"http://static.shburg.org/art/html/hudozhka_statue-2013-19.page",
-			"http://static.shburg.org/art/html/hudozhka_statue-2013-20.page",
-			"http://static.shburg.org/art/html/hudozhka_statue-2013-21.page",
-			"http://static.shburg.org/art/html/hudozhka_statue-2013-22.page",
-			"http://static.shburg.org/art/html/hudozhka_statue-2013-23.page",
-			"http://static.shburg.org/art/html/hudozhka_statue-2013-24.page",
-			"http://static.shburg.org/art/html/hudozhka_statue-2013-25.page",
-			"http://static.shburg.org/art/html/hudozhka_statue-2013-26.page",
-			"http://static.shburg.org/art/html/hudozhka_statue-2013-27.page"
-		],
-		"extra": {
-			"style": ["http://static.shburg.org/art/docs/preview/hudozhka_statue-2013.css"]
-		},
-		"viewer": "pdf"
+		"files": ["http://static.shburg.org/art/docs/hudozhka_statue-2013.pdf"]
 	},
 	{
 		"name": "edu-license",
 		"title": "образовательная лицензия",
-		"path": "/document/edu-license",
+		"url": "/document/edu-license",
 		"preview": "http://static.shburg.org/art/graphics/license_edu-preview.png",
-		"url": [
+		"files": [
 			"http://static.shburg.org/art/docs/hudozhka_license_edu.jpg",
 			"http://static.shburg.org/art/docs/hudozhka_license_edu_back.jpg",
 			"http://static.shburg.org/art/docs/hudozhka_license_edu_attachment.jpg"
-		],
-		"viewer": "img-sheet"
+		]
 	},
 	{
 		"name": "gov-certificate",
 		"title": "свидетельство о государственной регистрации права",
-		"path": "/document/gov-certificate",
+		"url": "/document/gov-certificate",
 		"preview": "http://static.shburg.org/art/graphics/certificate_gov-preview.png",
-		"url": ["http://static.shburg.org/art/docs/hudozhka_certificate_gov.jpg"],
-		"viewer": "img-sheet"
+		"files": ["http://static.shburg.org/art/docs/hudozhka_certificate_gov.jpg"]
 	},
 	{
 		"name": "VAT",
 		"title": "ИНН",
-		"path": "/document/VAT",
+		"url": "/document/VAT",
 		"preview": "http://static.shburg.org/art/graphics/vatin-preview.png",
-		"url": ["http://static.shburg.org/art/docs/hudozhka_vatin.jpg"],
-		"viewer": "img-sheet"
+		"files": ["http://static.shburg.org/art/docs/hudozhka_vatin.jpg"]
 	},
 	{
 		"name": "EGRYL1",
 		"title": "свидетельство о внесении в «ЕГРЮЛ»",
-		"path": "/document/EGRYL1",
+		"url": "/document/EGRYL1",
 		"preview": "http://static.shburg.org/art/graphics/certificate_egryl1-preview.png",
-		"url": ["http://static.shburg.org/art/docs/hudozhka_certificate_egryl1.jpg"],
-		"viewer": "img-sheet"
+		"files": ["http://static.shburg.org/art/docs/hudozhka_certificate_egryl1.jpg"]
 	},
 	{
 		"name": "EGRYL2",
 		"title": "свидетельство о внесении в «ЕГРЮЛ»",
-		"path": "/document/EGRYL2",
+		"url": "/document/EGRYL2",
 		"preview": "http://static.shburg.org/art/graphics/certificate_egryl2-preview.png",
-		"url": ["http://static.shburg.org/art/docs/hudozhka_certificate_egryl2.jpg"],
-		"viewer": "img-sheet"
+		"files": ["http://static.shburg.org/art/docs/hudozhka_certificate_egryl2.jpg"]
 	}
 ]
