@@ -22,11 +22,11 @@ gulp.task("copy", function(){
 	gulp.src("./assets/fonts/*")
 		.pipe(gulp.dest("./public/fonts"));
 
-	gulp.src("./assets/style/*.css")
-		.pipe(gulp.dest("./public/s"));
-
 	gulp.src("./assets/graphics/*")
 		.pipe(gulp.dest("./public/graphics"));
+
+	gulp.src("./3rdparty/*")
+		.pipe(gulp.dest("./public"));
 });
 
 gulp.task("compile", function(){
