@@ -7,6 +7,7 @@ var logger = require("koa-logger");
 var conditional = require("koa-conditional-get");
 var etag = require("koa-etag");
 var prerender = require("koa-prerender");
+var helmet = require('koa-helmet');
 
 var config = require("./config");
 var routes = require("./routes");
@@ -21,6 +22,8 @@ app.use(prerender(config.prerender));
 
 app.use(serve(path.join(__dirname, "public")));
 app.use(serve(path.join(__dirname, "templates")));
+
+app.use(helmet.defaults());
 
 app.use(function *(next) {
 	var q = this.query;
