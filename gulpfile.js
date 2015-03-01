@@ -1,7 +1,7 @@
 var path = require("path");
 var gulp = require("gulp");
 var sass = require("gulp-sass");
-var minifyCSS = require("gulp-minify-css");
+var minify_css = require("gulp-minify-css");
 var autoprefixer = require("gulp-autoprefixer");
 var imageMin = require("gulp-imagemin");
 var uglify = require("gulp-uglify");
@@ -13,7 +13,7 @@ gulp.task("sass", function () {
         .pipe(sass())
 		.pipe(concat("style.css"))
 		.pipe(autoprefixer())
-        //.pipe(minifyCSS({processImport:false}))
+        .pipe(minify_css({processImport:false}))
         .pipe(gulp.dest("public"));
 });
 
