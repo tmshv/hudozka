@@ -12,6 +12,8 @@ var config = require("./config");
 var routes = require("./routes");
 
 var app = koa();
+app.proxy = true;
+
 app.use(logger());
 app.use(conditional());
 app.use(etag());
