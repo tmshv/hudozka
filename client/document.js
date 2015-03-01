@@ -1,36 +1,17 @@
-var app = angular.module("hudozhka.document", ["ngRoute", "hudozhka.data"]);
+var app = angular.module("hudozhka.document", [
+    "hudozhka.data",
+    "angulartics",
+    "angulartics.google.analytics"
+]);
 
-app.config(function ($locationProvider, $sceDelegateProvider, $routeProvider) {
-    $locationProvider.html5Mode(true);
-    //$routeProvider
-    //    .when("/document/:doc", {
-    //        controller: "DocumentPageController"
-    //    })
-    //    .otherwise({
-    //        redirectTo: "/"
-    //    });
-
-    $sceDelegateProvider.resourceUrlWhitelist([
-        "self",
-        "http://static.shburg.org/**",
-        "http://static.shlisselburg.org/**"
-    ]);
-});
-
-//app.factory("document", function () {
-//    var document;
-//    return {
-//        init:function(doc) {
-//            document = doc;
-//        },
-//
-//        document: document
-//    };
-//});
-
-app.controller("DocumentPageController", function ($scope) {
+app.controller("DocumentController", function ($scope, $location, docs) {
     $scope.pageClass = "page-document";
-});
+    $scope.showControls = false;
 
-require("./ui/pdf")(app);
-require("./ui/doc-controller")(app);
+    var abs = $location.absUrl();
+    var doc_uri = /\/([\w-]+)$/.exec(abs);
+
+    if(doc_uri.length >= 2) {
+        $scope.document = docs.doc(doc_uri[1]);
+    }
+});
