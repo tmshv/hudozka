@@ -14,6 +14,6 @@ angular.module("hudozhka.data", [])
     })
     .service("config", function(){
         return {
-            telephone: "8 (81362) 77-502"
+            telephone: "8 (81362) 76-312"
         };
     });
