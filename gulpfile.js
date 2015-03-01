@@ -7,6 +7,7 @@ var imageMin = require("gulp-imagemin");
 var uglify = require("gulp-uglify");
 var concat = require("gulp-concat");
 var browserify = require("gulp-browserify");
+var annotate = require("browserify-ngannotate");
 
 gulp.task("sass", function () {
     gulp.src("./assets/style/*.scss")
@@ -30,15 +31,24 @@ gulp.task("copy", function(){
 
 gulp.task("compile", function(){
 	gulp.src("client/app.js")
-		.pipe(browserify())
+		.pipe(browserify({
+			transform: [annotate]
+		}))
+		.pipe(uglify())
 		.pipe(gulp.dest("public"));
 
 	gulp.src("client/document.js")
-		.pipe(browserify())
+		.pipe(browserify({
+			transform: [annotate]
+		}))
+		.pipe(uglify())
 		.pipe(gulp.dest("public"));
 
 	gulp.src("client/data.js")
-		.pipe(browserify())
+		.pipe(browserify({
+			transform: [annotate]
+		}))
+		.pipe(uglify())
 		.pipe(gulp.dest("public"));
 });
 
