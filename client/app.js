@@ -45,7 +45,7 @@ app.config(function ($locationProvider, $routeProvider) {
     });
 
     $routeProvider.otherwise({
-        redirectTo: "/"
+        templateUrl: "/404.html"
     });
 });
 

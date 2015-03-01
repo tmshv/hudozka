@@ -53,6 +53,8 @@ app.use(route.get("/document/:doc", routes.index(
 require("./routes/schedule")(app);
 require("./routes/news")(app);
 
+require("./routes/404")(app);
+
 if (process.env["NODE_ENV"] === "development") {
 	app.use(route.get("/debug", function *() {
 		var out = {};
