@@ -1,5 +1,4 @@
 var path = require("path");
-var fs = require("mz/fs");
 
 var koa = require("koa");
 var route = require("koa-route");
@@ -49,12 +48,3 @@ require("./routes/news")(app);
 module.exports = function (port) {
 	app.listen(port);
 };
-
-function *schedule(){
-	if(this.request.accepts("json")){
-		this.body = {schedule: ["hello", "lol"]};
-		this.type = "application/json";
-	}else{
-		yield index;
-	}
-}

@@ -9,7 +9,8 @@ var client = null;
 
 module.exports = {
     init: function (uri) {
-        return new Promise(function (resolve, reject) {
+        //noinspection JSUnresolvedFunction
+        return new Promise(function (resolve) {
             client = mongo(uri);
             resolve();
         });

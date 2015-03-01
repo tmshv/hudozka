@@ -20,7 +20,6 @@ function accepts(routes, def) {
             yield def;
         }else{
             this.status = 406;
-            return;
         }
     };
 }

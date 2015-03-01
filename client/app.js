@@ -3,8 +3,10 @@
  */
 
 var app = angular.module("hudozhka", [
-    "ngRoute", "hudozhka.data",
-    "angulartics", "angulartics.google.analytics",
+    "hudozhka.data",
+    "ngRoute",
+    "angulartics",
+    "angulartics.google.analytics"
 ]);
 
 app.config(function ($locationProvider, $routeProvider) {
@@ -47,8 +49,8 @@ app.config(function ($locationProvider, $routeProvider) {
 });
 
 app.run(function($location, $rootScope, $http) {
-    $rootScope.$on("$routeChangeSuccess", function (event, current, previous) {
-        $rootScope.title = current.$$route.title;
+    $rootScope.$on("$routeChangeSuccess", function (event, current) {
+        $rootScope.title = current["$$route"].title;
     });
 
     $http.defaults.headers.common["Accept"] = "application/json";

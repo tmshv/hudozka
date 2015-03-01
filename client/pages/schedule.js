@@ -20,11 +20,6 @@ module.exports = function (app) {
                 ]);
             });
 
-        //$scope.schedule = schedule($scope.year, sem, [
-        //    populate(team.short, "teacher"),
-        //    populate(course.name, "lesson")
-        //]);
-
         $scope.isToday = function (weekDayIndex) {
             return (now.getDay() - 1) === weekDayIndex;
         };
