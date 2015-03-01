@@ -1,10 +1,11 @@
 #!/bin/sh
 
+gunzip build.tar.gz
+tar xf build.tar -C ~/art
+rm build.tar
+
 cd ~/art
-tar xvf ../www-build.tar
-rm ../www-build.tar
-npm install --production
-node_modules/bower/bin/bower install
+npm install --production --loglevel error
 
 export NODE_ENV=production
 export PORT=18010

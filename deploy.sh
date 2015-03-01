@@ -1,16 +1,22 @@
 #!/bin/sh
 
-tar cf ~/www-build.tar \
+tarfile=build.tar.gz
+tarpath=$TMPDIR$tarfile
+
+env GZIP=-9 tar -czf $tarpath \
+    --disable-copyfile \
     --exclude=node_modules \
-    --exclude=bower_components \
     --exclude=.git \
     --exclude=.idea \
+    --exclude=.DS_Store \
     --exclude=deploy.sh \
     --exclude=install.sh .
 
+echo "build file: $tarpath"
+
 ssh shburg.et "rm -rf art/*"
-scp ~/www-build.tar shburg@37.139.6.120:~
+scp $tarpath shburg@37.139.6.120:~
 scp install.sh shburg@37.139.6.120:~
-ssh shburg.et "./install.sh && rm ./install.sh"
-rm ~/www-build.tar
-echo "art.shburg.org deployment completed successfully"
+ssh shburg.et "./install.sh"
+rm $tarpath
+echo "art.shlisselburg.org deployment completed successfully"
