@@ -4,14 +4,17 @@ var koa = require("koa");
 var route = require("koa-route");
 var serve = require("koa-static");
 var logger = require("koa-logger");
-var prerender = require('koa-prerender');
+var conditional = require("koa-conditional-get");
+var etag = require("koa-etag");
+var prerender = require("koa-prerender");
 
 var config = require("./config");
 var routes = require("./routes");
 
 var app = koa();
 app.use(logger());
-
+app.use(conditional());
+app.use(etag());
 app.use(prerender(config.prerender));
 
 app.use(serve(path.join(__dirname, "public")));
@@ -44,6 +47,21 @@ app.use(route.get("/document/:doc", routes.index(
 
 require("./routes/schedule")(app);
 require("./routes/news")(app);
+
+if (process.env["NODE_ENV"] === "development") {
+	app.use(route.get("/debug", function *() {
+		var out = {};
+		out.ip = this.ip;
+		out.host = this.host;
+		out.headers = this.headers;
+		out.protocol = this.protocol;
+		out.query = this.query;
+		out.url = this.url;
+
+		this.type = "application/json";
+		this.body = out;
+	}));
+}
 
 module.exports = function (port) {
 	app.listen(port);

@@ -10,6 +10,7 @@ var app = angular.module("hudozhka", [
 ]);
 
 app.config(function ($locationProvider, $routeProvider) {
+    $locationProvider.hashPrefix("!");
     $locationProvider.html5Mode(true);
 
     var routes = [
