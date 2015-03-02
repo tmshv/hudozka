@@ -4,6 +4,7 @@
     <base href="/">
     <meta name="fragment" content="!">
     <meta name="google-site-verification" content="8BxOTw-Q02DS2KAdcGcnIMwiPZ58DVB18XpOfRibCcg">
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
 
     <title ng-bind="title">ДШХ Шлиссельбурга</title>
 
@@ -48,43 +49,51 @@
             <span ng-hide="isValid(item)">{{item.text}}</span>
             <a href="{{item.url}}" ng-show="isValid(item)">{{item.text}}</a>
         </li>
-        <a href="{{vkgroup}}" class="vk"><img src="/graphics/icon.vk.png"></a>
+        <!--<a href="{{vkgroup}}" class="vk"><img src="/graphics/icon.vk.png"></a>-->
     </ul>
 </div>
 
 <div class="page {{pageClass}}" ng-view></div>
 
 <footer>
-    <div class="info-block">
-        <div>
-            <h4>Ссылки на образовательные сайты</h4>
-            <ul>
-                <li><a href="http://минобрнауки.рф">минобрнауки.рф</a> — Министерство образования и науки Российской Федерации</li>
-                <li><a href="http://edu.ru">edu.ru</a> — Федеральный сайт «Российское образование»</li>
-                <li><a href="http://window.edu.ru">window.edu.ru</a> — Единое окно доступа к образовательным ресурсам</li>
-                <li><a href="http://school-collection.edu.ru">school-collection.edu.ru</a> — Единая коллекция цифровых образовательных ресурсов</li>
-                <li><a href="http://fcior.edu.ru">fcior.edu.ru</a> — Федеральный центр информационных образовательных ресурсов</li>
-            </ul>
-            <ul>
-                <li><a href="http://dkhshmga.ru">dkhshmga.ru</a> — Художественная школа Мги</li>
-                <li><a href="http://kirovskdmh.ucoz.ru">kirovskdmh.ucoz.ru</a> — Музыкальная школа Кировска</li>
-            </ul>
+    <div class="footer-content">
+        <div class="info-block">
+            <div>
+                <h4>Ссылки на образовательные сайты</h4>
+                <ul>
+                    <li><a href="http://минобрнауки.рф">минобрнауки.рф</a> — Министерство образования и науки Российской Федерации</li>
+                    <li><a href="http://edu.ru">edu.ru</a> — Федеральный сайт «Российское образование»</li>
+                    <li><a href="http://window.edu.ru">window.edu.ru</a> — Единое окно доступа к образовательным ресурсам</li>
+                    <li><a href="http://school-collection.edu.ru">school-collection.edu.ru</a> — Единая коллекция цифровых образовательных ресурсов</li>
+                    <li><a href="http://fcior.edu.ru">fcior.edu.ru</a> — Федеральный центр информационных образовательных ресурсов</li>
+                </ul>
+                <ul>
+                    <li><a href="http://dkhshmga.ru">dkhshmga.ru</a> — Художественная школа Мги</li>
+                    <li><a href="http://kirovskdmh.ucoz.ru">kirovskdmh.ucoz.ru</a> — Музыкальная школа Кировска</li>
+                </ul>
+            </div>
+
+            <div>
+                <h4>Документы</h4>
+                <ul>
+                    <li><a target="_blank" href="/document/edu-license">Лицензия на осуществление образовательной деятельности</a></li>
+                    <li><a target="_blank" href="/document/gov-certificate">Свидетельство о государственной регистрации права</a></li>
+                    <li><a target="_blank" href="/document/EGRYL1">Свидетельство о внесении в «ЕГРЮЛ»</a></li>
+                    <li><a target="_blank" href="/document/VAT">ИНН</a></li>
+                    <li><a target="_blank" href="/document/statue-2013">Устав школы</a></li>
+                </ul>
+            </div>
         </div>
 
-        <div>
-            <h4>Документы</h4>
-            <ul>
-                <li><a target="_blank" href="/document/edu-license">Лицензия на осуществление образовательной деятельности</a></li>
-                <li><a target="_blank" href="/document/gov-certificate">Свидетельство о государственной регистрации права</a></li>
-                <li><a target="_blank" href="/document/EGRYL1">Свидетельство о внесении в «ЕГРЮЛ»</a></li>
-                <li><a target="_blank" href="/document/VAT">ИНН</a></li>
-                <li><a target="_blank" href="/document/statue-2013">Устав школы</a></li>
-            </ul>
+        <div class="info-block">
+            <div>
+                <p>© 2014...{{now.year}}</p>
+                <p>Художественная школа Шлиссельбурга</p>
+                <p>Адрес: {{contact.address}}</p>
+                <p>Телефон: {{contact.telephone}}</p>
+                <p>Почта: <a href="mailto:{{contact.email}}">{{contact.email}}</a></p>
+            </div>
         </div>
-    </div>
-
-    <div class="info-block">
-        <p>Художественная школа Шлиссельбурга, 2014 год</p>
     </div>
 </footer>
 </body>

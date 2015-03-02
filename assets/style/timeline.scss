@@ -1,5 +1,5 @@
 .timeline{
-  min-width: 500px;
+  min-width: 400px;
   position: relative;
   margin: 0 0 50px;
 
@@ -98,6 +98,73 @@
       top: 0;
       left: calc(100% - 2px);
       background: url(/graphics/timeline-arrow-right.png) no-repeat;
+    }
+  }
+}
+
+@media screen and (max-device-width: 400px) {
+  .timeline {
+    min-width: 0;
+    position: relative;
+    margin: 0 0 50px;
+
+    .head{
+      margin: 0;
+      padding: 0;
+    }
+
+    .body{
+      margin: 0 0 40px;
+      padding: 0;
+    }
+
+    .body p{
+      text-align: left;
+      margin: 0 0 2px;
+      padding: 0;
+    }
+
+    .post {
+      position: relative;
+      display: flex;
+
+      .head, .body {
+        position: relative;
+        width: 90%;
+        box-sizing: border-box;
+      }
+
+      &.left {
+        display: block;
+
+        .body:after, .head:after {
+          background: none;
+        }
+      }
+
+      &.right {
+        display: block;
+
+        .body:after, .head:after {
+          background: none;
+        }
+      }
+
+      &.left .head {
+        text-align: left;
+      }
+
+      &.right .head {
+        text-align: left;
+      }
+
+      .head {
+        padding: 5px 20px;
+      }
+
+      .body {
+        padding: 0 20px;
+      }
     }
   }
 }

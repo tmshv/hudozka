@@ -49,10 +49,20 @@ app.config(function ($locationProvider, $routeProvider) {
     });
 });
 
-app.run(function($location, $rootScope, $http) {
+app.run(function($location, $rootScope, $http, config) {
     $rootScope.$on("$routeChangeSuccess", function (event, current) {
         $rootScope.title = current["$$route"].title;
     });
+
+    $rootScope.contact = {
+        address: config.address,
+        telephone: config.telephone,
+        email: config.email
+    };
+
+    $rootScope.now = {
+        year: new Date().getFullYear()
+    };
 
     $http.defaults.headers.common["Accept"] = "application/json";
 });

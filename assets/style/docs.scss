@@ -15,14 +15,8 @@
 }
 
 .docblock{
-	// width:100%;
 	margin-bottom: 40px;
-
 	text-align: center;
-
-	// .docs{
-	// 	text-align: left;
-	// }
 
 	h2{
 		margin-left: 50px;
@@ -61,4 +55,14 @@
 		padding: 0;
 		display: block;
 	}
+}
+
+@media screen and (max-device-width: 400px){
+  .doc{
+	margin: 30px 35px;
+
+	img{
+	  max-width: 250px;
+	}
+  }
 }

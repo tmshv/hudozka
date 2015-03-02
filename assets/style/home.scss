@@ -8,3 +8,29 @@
     animation: scaleUp 0.3s both ease-in;
   }
 }
+
+.main-block {
+  width: 100%;
+  margin-top: 5px;
+
+  .telephone {
+    font-size: 1.25em;
+    margin-left: 30px;
+  }
+
+  h1 {
+    font-size: 18pt;
+    text-align: center;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+@media screen and (max-device-width: 500px) {
+  .main-block {
+    .telephone {
+      display: none;
+    }
+  }
+}

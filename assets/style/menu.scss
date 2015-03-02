@@ -8,7 +8,7 @@
   font-size: 13pt;
 
   ul {
-    margin: 0 0 0 20px;
+    margin: 0 0 0 10px;
 
     li {
       display: inline-block;
@@ -62,3 +62,19 @@
   }
 }
 
+@media screen and (max-device-width: 500px){
+  .menu {
+    font-size: 10pt;
+
+    ul {
+      margin: 0 0 0 5px;
+      padding: 0 0 0 0;
+
+      li {
+        display: inline-block;
+        padding: 3px 3px 10px 3px;
+        margin: 0 4px 5px 0;
+      }
+    }
+  }
+}
