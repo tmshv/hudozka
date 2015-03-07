@@ -22,7 +22,10 @@ module.exports = function (app) {
             var query = {};
             if(this.query.type) query.type = this.query.type;
 
-            this.body = yield db.c("posts").find(query).skip(skip).limit(count).toArray();
+            this.body = yield db.c("posts").find(query).skip(skip).limit(count).toArray()
+                .then(function(items){
+                    return items.sort(sortNewsByDate);
+                });
         }
     })));
 
@@ -39,3 +42,12 @@ module.exports = function (app) {
         }
     })));
 };
+
+function sortNewsByDate(i1, i2) {
+    var t1 = new Date(i1.date).getTime();
+    var t2 = new Date(i2.date).getTime();
+
+    if (t1 < t2) return 1;
+    if (t1 > t2) return -1;
+    return 0;
+}
