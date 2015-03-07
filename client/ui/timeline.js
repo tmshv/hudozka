@@ -41,20 +41,60 @@ module.exports = function(app) {
             controller: function($scope, api){
                 api.news.feed()
                     .success(function (list) {
-                        $scope.feed = list.map(function (post) {
-                            var author_id = personByInstagram(team.team, post.data.user.username);
-                            var name = author_id ? team.short(author_id) : post.data.user.username;
+                        var feed = list.map(function (post) {
+                            if(post.type == "instagram"){
+                                var author_id = personByInstagram(team.team, post.data.user.username);
+                                var name = author_id ? team.short(author_id) : post.data.user.username;
 
-                            return {
-                                date: post.publishDate,
-                                image: post.data.images.standard_resolution.url,
-                                url: post.data.link,
-                                username: name,
-                                userpic: post.data.user.profile_picture,
-                                text: postText(post)
-                            };
+                                return {
+                                    date: post.publishDate,
+                                    image: post.data.images.standard_resolution.url,
+                                    url: post.data.link,
+                                    username: name,
+                                    userpic: post.data.user.profile_picture,
+                                    text: postText(post),
+                                    type: post.type
+                                };
+                            }else{
+                                return post;
+                            }
                         });
+                        $scope.feed = feed;
                     });
+            }
+        };
+    });
+
+    app.directive("timelineRecord", function ($compile, $http, $sce, team) {
+        var templates = {
+            "post": ["/views/timeline-post.html", linkPost],
+            "instagram": ["/views/timeline-gram.html", linkGram]
+        };
+
+        function linkPost(scope, element, attrs) {
+            scope.message = $sce.trustAsHtml(scope.post.body);
+        }
+
+        function linkGram(scope, element, attrs) {
+            scope.lal = "LAL";
+        }
+
+        return {
+            restrict: "E",
+            scope: {
+                post:"=content"
+            },
+            link: function(scope, element, attrs){
+                var type = scope.post.type;
+                if(type in templates) {
+                    $http.get(templates[type][0])
+                        .success(function (tpl) {
+                            element.html(tpl).show();
+                            $compile(element.contents())(scope);
+                            templates[type][1](scope, element, attrs);
+                        });
+                }
+
             }
         };
     });

@@ -1,22 +1,8 @@
 <div class="timeline">
-    <div class="post"
-         ng-repeat="post in feed"
-         ng-class="{left: isEven($index), right: !isEven($index)}">
+    <timeline-record class="post"
+                     content="post"
+                     ng-repeat="post in feed"
+                     ng-class="{left: isEven($index), right: !isEven($index)}">
 
-        <div class="head">
-            <div class="user">
-                <img ng-src="{{post.userpic}}" alt=""/>
-                <span>{{post.username}}</span>
-            </div>
-            <p class="date">{{post.date | date : "dd.MM.yyyy"}}</p>
-        </div>
-
-        <div class="body">
-            <!--<h2>Рисунок</h2>-->
-            <p>{{post.text}}</p>
-            <a href="{{post.url}}" target="_blank">
-                <img ng-src="{{post.image}}" alt="">
-            </a>
-        </div>
-    </div>
+    </timeline-record>
 </div>

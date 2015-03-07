@@ -1,0 +1,6 @@
+<div class="head">
+    <a name="{{post.uri}}"></a>
+    <p class="date"><a href="#{{post.uri}}">{{post.date | date : "dd.MM.yyyy"}}</a></p>
+</div>
+
+<div class="body" ng-bind-html="message"></div>
