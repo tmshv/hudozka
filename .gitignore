@@ -2,7 +2,7 @@
 .idea
 *.sublime*
 
-private.json
+private*.json
 
 /node_modules
 /bower_components
