@@ -3,7 +3,6 @@
  */
 
 var config = require("../config");
-var Promise = require("promise");
 
 var auth_clients = {};
 
