@@ -39,20 +39,25 @@ module.exports = function(app) {
                 }
             },
             controller: function($scope, api){
+                $scope.recordClass = function (i) {
+                    return i['type'];
+                };
+
                 api.news.feed()
                     .success(function (list) {
                         var feed = list.map(function (post) {
                             if(post.type == "instagram"){
-                                var author_id = personByInstagram(team.team, post.data.user.username);
-                                var name = author_id ? team.short(author_id) : post.data.user.username;
+                                var author_id = personByInstagram(team.team, post.data.author);
+                                var name = author_id ? team.short(author_id) : post.data.author;
 
                                 return {
-                                    date: post.publishDate,
-                                    image: post.data.images.standard_resolution.url,
-                                    url: post.data.link,
+                                    date: post.date,
+                                    image: post.data.image.standard_resolution.url,
+                                    url: post.data.url,
                                     username: name,
-                                    userpic: post.data.user.profile_picture,
-                                    text: postText(post),
+                                    //userpic: post.data.user.profile_picture,
+                                    text: post.body,
+                                    //text: postText(post),
                                     type: post.type
                                 };
                             }else{

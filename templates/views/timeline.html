@@ -1,5 +1,5 @@
 <div class="timeline">
-    <timeline-record class="post"
+    <timeline-record class="timeline-record {{recordClass(post)}}"
                      content="post"
                      ng-repeat="post in feed"
                      ng-class="{left: isEven($index), right: !isEven($index)}">
