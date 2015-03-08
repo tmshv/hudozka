@@ -1,8 +1,16 @@
 <div class="timeline">
     <timeline-record class="timeline-record {{recordClass(post)}}"
                      content="post"
-                     ng-repeat="post in feed"
+                     ng-repeat="post in feed track by $index"
                      ng-class="{left: isEven($index), right: !isEven($index)}">
 
     </timeline-record>
+    <div class="timeline-end">
+        <button class="more"
+                ng-click="loadNext()"
+                ng-disabled="timelineUpdating">
+            <span us-spinner="{radius:5, width:4, length: 4}" spinner-key="timelineMore"></span>
+            <span ng-hide="timelineUpdating">Ещё</span>
+        </button>
+    </div>
 </div>

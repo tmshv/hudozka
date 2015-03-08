@@ -168,3 +168,30 @@
     }
   }
 }
+
+.timeline-end{
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
+
+  button.more{
+    position: relative;
+    top: -2px;
+
+    width: 100px;
+    height: 40px;
+    border: 2px solid black;
+    padding: 0 10px;
+    background: none;
+
+    font-size: 14pt;
+
+    &:hover{
+      background: gainsboro;
+    }
+
+    &:active{
+      top: 0;
+    }
+  }
+}

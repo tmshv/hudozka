@@ -6,7 +6,8 @@ var app = angular.module("hudozhka", [
     "hudozhka.data",
     "ngRoute",
     "angulartics",
-    "angulartics.google.analytics"
+    "angulartics.google.analytics",
+    "angularSpinner"
 ]);
 
 app.config(function ($locationProvider, $routeProvider) {

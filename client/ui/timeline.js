@@ -38,34 +38,60 @@ module.exports = function(app) {
                     return index % 2 === 1;
                 }
             },
-            controller: function($scope, api){
+            controller: function($scope, $timeout, usSpinnerService, api){
+                var portion = 0;
+                var count = 10;
+                $scope.feed = [];
+
+                $scope.timelineUpdating = false;
+                usSpinnerService.stop("timelineMore");
+                //usSpinnerService.spin("timelineMore");
+
                 $scope.recordClass = function (i) {
                     return i['type'];
                 };
 
-                api.news.feed()
-                    .success(function (list) {
-                        var feed = list.map(function (post) {
-                            if(post.type == "instagram"){
-                                var author_id = personByInstagram(team.team, post.data.author);
-                                var name = author_id ? team.short(author_id) : post.data.author;
+                $scope.loadNext = function () {
+                    $scope.timelineUpdating = true;
+                    usSpinnerService.spin("timelineMore");
 
-                                return {
-                                    date: post.date,
-                                    image: post.data.image.standard_resolution.url,
-                                    url: post.data.url,
-                                    username: name,
-                                    //userpic: post.data.user.profile_picture,
-                                    text: post.body,
-                                    //text: postText(post),
-                                    type: post.type
-                                };
-                            }else{
-                                return post;
-                            }
+                    api.news.feed(count, portion)
+                        .error(function(error) {
+                            console.log(error);
+                        })
+                        .success(function (list) {
+                            $scope.timelineUpdating = false;
+                            usSpinnerService.stop("timelineMore");
+                            //$timeout(function () {
+                            //
+                            //}, 5000);
+
+                            var feed = list.map(function (post) {
+                                if(post.type == "instagram"){
+                                    var author_id = personByInstagram(team.team, post.data.author);
+                                    var name = author_id ? team.short(author_id) : post.data.author;
+
+                                    return {
+                                        date: post.date,
+                                        image: post.data.image.standard_resolution.url,
+                                        url: post.data.url,
+                                        username: name,
+                                        //userpic: post.data.user.profile_picture,
+                                        text: post.body,
+                                        //text: postText(post),
+                                        type: post.type
+                                    };
+                                }else{
+                                    return post;
+                                }
+                            });
+
+                            portion++;
+                            $scope.feed = $scope.feed.concat(feed);
                         });
-                        $scope.feed = feed;
-                    });
+                };
+
+                $scope.loadNext();
             }
         };
     });
@@ -81,7 +107,6 @@ module.exports = function(app) {
         }
 
         function linkGram(scope, element, attrs) {
-            scope.lal = "LAL";
         }
 
         return {
