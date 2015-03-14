@@ -34,10 +34,11 @@ module.exports = function (app) {
                 return p["_id"]+"";
             });
 
-            var posts = yield db.c("posts").find(query).skip(skip).limit(count).toArray()
-                .then(function (items) {
-                    return items.sort(sortNewsByDate);
-                })
+            var posts = yield db.c("posts").find(query)
+                .sort({date: -1})
+                .skip(skip)
+                .limit(count)
+                .toArray()
                 .then(function (items) {
                     return items.filter(function (i) {
                         var id = i["_id"]+"";
