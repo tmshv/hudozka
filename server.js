@@ -7,7 +7,7 @@ var logger = require("koa-logger");
 var conditional = require("koa-conditional-get");
 var etag = require("koa-etag");
 var prerender = require("koa-prerender");
-var helmet = require('koa-helmet');
+var helmet = require("koa-helmet");
 var bodyParser = require("koa-bodyparser");
 
 var config = require("./config");
