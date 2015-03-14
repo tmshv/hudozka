@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html ng-app="hudozhka.instagram">
+<head>
+    <base href="/">
+    <meta name="fragment" content="!">
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+
+    <title ng-bind="title">ДШХ Шлиссельбурга</title>
+
+    <link rel="stylesheet" href="/style.css">
+
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/angular/angular.min.js"></script>
+    <script src="/instagram.js"></script>
+</head>
+<body ng-controller="InstagramController">
+    <div class="controls">
+        <a href="/instagram/auth" ng-show="!user">Instagram</a>
+        <a href="//instagram.com/{{user.username}}" ng-show="user">{{user.full_name}}</a>
+        <button ng-click="invite()">Invite</button>
+        {{inviteCode}}
+    </div>
+</body>
+</html>

@@ -14,9 +14,10 @@
   "author": "Roman Timashev",
   "license": "ISC",
   "dependencies": {
+    "co": "^4.4.0",
     "instagram-node": "^0.5.1",
     "koa": "^0.18.0",
-    "koa-bodyparser": "^1.4.0",
+    "koa-bodyparser": "^1.4.1",
     "koa-conditional-get": "^1.0.2",
     "koa-etag": "^2.0.0",
     "koa-helmet": "0.0.3",

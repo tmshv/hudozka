@@ -50,6 +50,13 @@ gulp.task("compile", function(){
 		}))
 		.pipe(uglify())
 		.pipe(gulp.dest("public"));
+
+	gulp.src("client/instagram.js")
+		.pipe(browserify({
+			transform: [annotate]
+		}))
+		.pipe(uglify())
+		.pipe(gulp.dest("public"));
 });
 
 gulp.task("imagemin", function(){

@@ -8,6 +8,7 @@ var conditional = require("koa-conditional-get");
 var etag = require("koa-etag");
 var prerender = require("koa-prerender");
 var helmet = require('koa-helmet');
+var bodyParser = require("koa-bodyparser");
 
 var config = require("./config");
 var routes = require("./routes");
@@ -15,6 +16,7 @@ var routes = require("./routes");
 var app = koa();
 app.proxy = true;
 
+app.use(bodyParser());
 app.use(logger());
 app.use(conditional());
 app.use(etag());
@@ -54,6 +56,8 @@ require("./routes/schedule")(app);
 require("./routes/news")(app);
 
 require("./routes/404")(app);
+
+require("./instagram/router")(app);
 
 if (process.env["NODE_ENV"] === "development") {
 	app.use(route.get("/debug", function *() {
