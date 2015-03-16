@@ -1,6 +1,6 @@
 var path = require("path");
 
-var koa = require("koa");
+var koa = require("koa.io");
 var route = require("koa-route");
 var serve = require("koa-static");
 var logger = require("koa-logger");
@@ -58,6 +58,7 @@ require("./routes/news")(app);
 require("./routes/404")(app);
 
 require("./instagram/router")(app);
+require("./instagram/io")(app);
 
 if (process.env["NODE_ENV"] === "development") {
 	app.use(route.get("/debug", function *() {

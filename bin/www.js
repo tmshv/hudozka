@@ -8,7 +8,7 @@ var server = require("../server");
 var instagram = require("../instagram");
 
 db.init(config.db.uri)
-    .then(instagram)
+    //.then(instagram)
     .then(function () {
         server(config.port);
     });

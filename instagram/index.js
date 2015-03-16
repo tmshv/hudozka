@@ -5,12 +5,10 @@
 var db = require("../core/db");
 var co = require("co");
 var instagram = require("./instagram");
-var publish = require("./publish");
 var config = require("../config");
 
 module.exports = function () {
     return loadUsers()
-        .then(publish)
         .then(updateSubscription)
 };
 
@@ -29,7 +27,7 @@ function loadUsers() {
 }
 
 function updateSubscription() {
-    var tags = [config["tag"]];
+    var tags = config.instagram["tags"];
     return tags.map(function (tag) {
         var cb = config.instagram["tag_callback"];
         return co(function *() {

@@ -28,6 +28,22 @@ function postText(post){
 
 module.exports = function(app) {
     app.directive("timeline", function (team) {
+        function toInstagram(post){
+            var author_id = personByInstagram(team.team, post.data.author);
+            var name = author_id ? team.short(author_id) : post.data.author;
+
+            return {
+                date: post.date,
+                image: post.data.image.standard_resolution.url,
+                url: post.data.url,
+                username: name,
+                //userpic: post.data.user.profile_picture,
+                text: post.body,
+                //text: postText(post),
+                type: post.type
+            };
+        }
+
         return {
             templateUrl: "/views/timeline.html",
             scope: {
@@ -38,7 +54,7 @@ module.exports = function(app) {
                     return index % 2 === 1;
                 }
             },
-            controller: function($scope, $timeout, usSpinnerService, api){
+            controller: function($scope, $timeout, usSpinnerService, io, api){
                 var portion = 0;
                 var count = 10;
                 $scope.feed = [];
@@ -67,23 +83,8 @@ module.exports = function(app) {
                             //}, 5000);
 
                             var feed = list.map(function (post) {
-                                if(post.type == "instagram"){
-                                    var author_id = personByInstagram(team.team, post.data.author);
-                                    var name = author_id ? team.short(author_id) : post.data.author;
-
-                                    return {
-                                        date: post.date,
-                                        image: post.data.image.standard_resolution.url,
-                                        url: post.data.url,
-                                        username: name,
-                                        //userpic: post.data.user.profile_picture,
-                                        text: post.body,
-                                        //text: postText(post),
-                                        type: post.type
-                                    };
-                                }else{
-                                    return post;
-                                }
+                                if(post.type == "instagram") return toInstagram(post);
+                                else return post;
                             });
 
                             portion++;
@@ -92,6 +93,20 @@ module.exports = function(app) {
                 };
 
                 $scope.loadNext();
+
+                io.on("post", function (params) {
+                    var posts = params instanceof Array ? params : [params];
+                    console.log("post", posts);
+
+                    var feed = posts.map(function (post) {
+                        if(post.type == "instagram") return toInstagram(post);
+                        else return post;
+                    });
+
+                    $scope.$apply(function () {
+                        $scope.feed = feed.concat($scope.feed);
+                    });
+                });
             }
         };
     });
