@@ -10,6 +10,7 @@ var privateFile = process.env["PRIVATE"] || "private.json";
 var privateData = JSON.parse(fs.readFileSync(privateFile, "utf-8"));
 
 var config = {
+	defaultIndex: "/templates/index.html" || process.env["INDEX"],
 	port: process.env["PORT"] || 3000,
 	pub: "./",
 	data: {

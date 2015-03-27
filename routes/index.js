@@ -4,6 +4,7 @@
 
 var path = require("path");
 var fs = require("mz/fs");
+var config = require("../config");
 
 function accepts(routes, def) {
     return function *() {
@@ -26,7 +27,7 @@ function accepts(routes, def) {
 
 function index(filename) {
     if (!filename){
-        filename = path.join(__dirname, "../templates/index.html");
+        filename = path.join(__dirname, "..", config.defaultIndex);
     }
 
     return function *() {
