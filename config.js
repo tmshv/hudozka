@@ -22,6 +22,22 @@ var config = {
 
 	db: {
 		uri: "mongodb://localhost:27017/hudozka"
+	},
+
+	prerender: {
+		prerender: "http://service.prerender.io/",
+		prerenderToken: "",
+		protocol: "http",
+		host: "art.shlisselburg.org"
+	},
+
+	instagram:{
+		default_user: "hudozka",
+		tag_callback: "http://art.shlisselburg.org/instagram/callback/11",
+		client_id: "",
+		client_secret: "",
+		redirect_uri: "http://art.shlisselburg.org/instagram/auth/callback",
+		tags: ["shlb_hudozka"]
 	}
 };
 
