@@ -28,20 +28,20 @@ app.use(serve(path.join(__dirname, "templates")));
 app.use(helmet.defaults());
 
 app.use(function *(next) {
-	var q = this.query;
-	this.query = Object.keys(q)
-		.reduce(function (q, key) {
-			var v = q[key];
-			if(v === "true"){
-				v = true;
-			}else if(v === "false"){
-				v = false;
-			}
-			q[key] = v;
-			return q;
-		}, q);
+    var q = this.query;
+    this.query = Object.keys(q)
+        .reduce(function (q, key) {
+            var v = q[key];
+            if (v === "true") {
+                v = true;
+            } else if (v === "false") {
+                v = false;
+            }
+            q[key] = v;
+            return q;
+        }, q);
 
-	yield next;
+    yield next;
 });
 
 app.use(route.get("/", routes.index()));
@@ -49,33 +49,18 @@ app.use(route.get("/team", routes.index()));
 app.use(route.get("/docs", routes.index()));
 
 app.use(route.get("/document/:doc", routes.index(
-	path.join(__dirname, "templates/document.html")
+    path.join(__dirname, "templates/document.html")
 )));
 
 require("./routes/schedule")(app);
 require("./routes/news")(app);
 require("./routes/gallery")(app);
 
-require("./routes/404")(app);
-
 require("./instagram/router")(app);
 require("./instagram/io")(app);
 
-if (process.env["NODE_ENV"] === "development") {
-	app.use(route.get("/debug", function *() {
-		var out = {};
-		out.ip = this.ip;
-		out.host = this.host;
-		out.headers = this.headers;
-		out.protocol = this.protocol;
-		out.query = this.query;
-		out.url = this.url;
-
-		this.type = "application/json";
-		this.body = out;
-	}));
-}
+require("./routes/404")(app);
 
 module.exports = function (port) {
-	app.listen(port);
+    return app;
 };

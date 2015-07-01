@@ -10,5 +10,6 @@ var instagram = require("../instagram");
 db.init(config.db.uri)
     //.then(instagram)
     .then(function () {
-        server(config.port);
+        var app = server();
+        app.listen(config.port);
     });

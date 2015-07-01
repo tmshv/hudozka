@@ -29,15 +29,12 @@
     <script src="/app.js"></script>
 </head>
 <body>
-<div class="menu" ng-controller="MenuController">
-    <ul>
-        <li ng-repeat="item in menu" class="{{item.color}}" ng-class="{selected:isCurrent(item)}">
-            <span ng-hide="isValid(item)">{{item.text}}</span>
-            <a href="{{item.url}}" ng-show="isValid(item)">{{item.text}}</a>
-        </li>
-        <!--<a href="{{vkgroup}}" class="vk"><img src="/graphics/icon.vk.png"></a>-->
-    </ul>
-</div>
+<menu ng-controller="MenuController">
+    <li ng-repeat="item in menu" class="{{item.color}}" ng-class="{selected:isCurrent(item)}">
+        <span ng-hide="isValid(item)">{{item.text}}</span>
+        <a href="{{item.url}}" ng-show="isValid(item)">{{item.text}}</a>
+    </li>
+</menu>
 
 <div class="page {{pageClass}}" ng-view></div>
 

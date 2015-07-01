@@ -17,18 +17,16 @@ function accepts(routes, def) {
         if (types.length) {
             var type = types[0];
             yield routes[type].apply(this, arguments);
-        } else if(def){
+        } else if (def) {
             yield def;
-        }else{
+        } else {
             this.status = 406;
         }
     };
 }
 
 function index(filename) {
-    if (!filename){
-        filename = path.join(__dirname, "..", config.defaultIndex);
-    }
+    if (!filename) filename = config['defaultIndex'];
 
     return function *() {
         this.type = "text/html";
