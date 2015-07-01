@@ -34,6 +34,18 @@ app.config(function ($locationProvider, $routeProvider) {
             title:"Преподаватели"
         },
         {
+            name: "/gallery",
+            templateUrl: "/views/gallery.html",
+            controller: "GalleryPageController",
+            title:"Работы учащихся"
+        },
+        {
+            name: "/gallery/:year/:course/:album",
+            templateUrl: "/views/gallery-album.html",
+            controller: "AlbumPageController",
+            title:"Работы учащихся"
+        },
+        {
             name: "/docs",
             templateUrl: "/views/docs.html",
             controller: "DocsPageController",
@@ -76,6 +88,7 @@ require("./filters/uppercase-first")(app);
 require("./pages/home")(app);
 require("./pages/schedule")(app);
 require("./pages/team")(app);
+require("./pages/gallery")(app);
 require("./pages/docs")(app);
 
 app.controller("SchedulePageController", function ($scope) {

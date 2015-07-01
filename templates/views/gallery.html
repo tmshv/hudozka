@@ -1,0 +1,9 @@
+<div class="gallery-block" ng-controller="GalleryPageController">
+    <div class="gallery-album" ng-repeat="album in albums">
+        <h3><a href="{{album.url}}">{{album.title}}</a></h3>
+        <a href="{{album.url}}" class="invisible">
+            <img ng-src="{{album.preview_url}}" alt=""/>
+        </a>
+        <!--<div class="fotorama" g-fotorama content="album.content"></div>-->
+    </div>
+</div>

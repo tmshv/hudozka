@@ -54,6 +54,7 @@ app.use(route.get("/document/:doc", routes.index(
 
 require("./routes/schedule")(app);
 require("./routes/news")(app);
+require("./routes/gallery")(app);
 
 require("./routes/404")(app);
 

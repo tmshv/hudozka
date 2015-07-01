@@ -1,0 +1,21 @@
+.gallery-block {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.gallery-album {
+  margin: 0 20px 30px;
+}
+
+.gallery-album img {
+  max-width: 400px;
+}
+
+.album-block {
+  width: 70%;
+  margin: 0 auto;
+}

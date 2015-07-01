@@ -20,6 +20,24 @@ a:active {
   border-bottom: 1px solid rgb(63, 156, 234);
 }
 
+h3 a{
+  color: black;
+  text-decoration: none;
+  border-bottom: 1px solid #ddd;
+
+  &:hover {
+    border-bottom: 1px solid #484848;
+  }
+
+  &:active {
+    border-bottom: 1px solid #000000;
+  }
+}
+
+a.invisible {
+  border-bottom: none;
+}
+
 ul.submenu {
   list-style: none;
   display: inline-block;
