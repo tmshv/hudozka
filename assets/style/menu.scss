@@ -1,84 +1,76 @@
-.menu {
-  $text_color: #666;
+header {
+  nav {
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    max-height: 15em;
 
-  position:relative;
-  width: 100%;
-  background-color: black;
-  color: $text_color;
-  font-size: 13pt;
+    background-color: black;
+    font-size: 1.1em;
+    color: #666;
 
-  ul {
-    margin: 0 0 0 10px;
-
-    li {
-      display: inline-block;
-      padding: 5px 3px 13px 3px;
-      margin-right: 30px;
-    }
-  }
-
-  :link, :visited {
-    text-decoration: none;
-    border-bottom: 1px solid #333;
-    color: #ccc;
-  }
-
-  a:hover {
-    color: white;
-    border-bottom: 1px solid #555;
-  }
-
-  .vk {
-    float: right;
-    margin: 13px 15px 0 0;
-    border: none;
-  }
-
-  .selected {
-    border-top: 4px solid white;
-    font-weight: bold;
-
-    a:link, a:visited{
-      color: white;
+    & :link, & :visited {
       text-decoration: none;
-      border-bottom: none;
+      border-bottom: 1px solid #333;
+      color: #a2a2a2;
     }
 
-    &.blue{
-      border-top: 4px solid #3f9cea;
+    ul {
+      list-style: none;
+      white-space: nowrap;
+
+      li {
+        display: inline-block; /* 6 */
+        padding: 0.3em 0.2em 0.5em;
+        margin: 0 0.5em;
+      }
     }
 
-    &.green{
-      border-top: 4px solid #5cbe40;
+    a:hover {
+      color: white;
+      border-bottom: 1px solid #555;
     }
 
-    &.yellow{
-      border-top: 4px solid #ffee00;
-    }
+    .selected {
+      border-top: 4px solid white;
+      font-weight: bold;
 
-    &.pink {
-      border-top: 4px solid #f655a0;
-    }
+      a:link, a:visited {
+        color: white;
+        text-decoration: none;
+        border-bottom: none;
+      }
 
-    &.red {
-      border-top: 4px solid #f61b14;
+      &.blue {
+        border-top: 4px solid #3f9cea;
+      }
+
+      &.green {
+        border-top: 4px solid #5cbe40;
+      }
+
+      &.yellow {
+        border-top: 4px solid #ffee00;
+      }
+
+      &.pink {
+        border-top: 4px solid #f655a0;
+      }
+
+      &.red {
+        border-top: 4px solid #f61b14;
+      }
     }
   }
 }
 
-@media screen and (max-device-width: 500px){
-  .menu {
-    font-size: 10pt;
+@media (min-width: 31.25em) {
+  header nav {
+    max-height: none;
+    overflow: hidden;
+  }
 
-    ul {
-      margin: 0 0 0 5px;
-      padding: 0 0 0 0;
-
-      li {
-        display: inline-block;
-        padding: 3px 3px 10px 3px;
-        margin: 0 4px 5px 0;
-      }
-    }
+  nav ul {
+    width: 100%;
   }
 }

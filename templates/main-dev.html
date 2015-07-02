@@ -29,12 +29,16 @@
     <script src="/app.js"></script>
 </head>
 <body>
-<menu ng-controller="MenuController">
-    <li ng-repeat="item in menu" class="{{item.color}}" ng-class="{selected:isCurrent(item)}">
-        <span ng-hide="isValid(item)">{{item.text}}</span>
-        <a href="{{item.url}}" ng-show="isValid(item)">{{item.text}}</a>
-    </li>
-</menu>
+<header>
+    <nav role="navigation" ng-controller="MenuController">
+        <ul>
+            <li ng-repeat="item in menu" class="{{item.color}}" ng-class="{selected:isCurrent(item)}">
+                <span ng-hide="isValid(item)">{{item.text}}</span>
+                <a href="{{item.url}}" ng-show="isValid(item)">{{item.text}}</a>
+            </li>
+        </ul>
+    </nav>
+</header>
 
 <div class="page {{pageClass}}" ng-view></div>
 
