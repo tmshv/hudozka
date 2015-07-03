@@ -29,22 +29,34 @@
     <script src="/app.js"></script>
 </head>
 <body>
-<header>
-    <nav role="navigation" ng-controller="MenuController">
-        <ul>
-            <li ng-repeat="item in menu" class="{{item.color}}" ng-class="{selected:isCurrent(item)}">
-                <span ng-hide="isValid(item)">{{item.text}}</span>
-                <a href="{{item.url}}" ng-show="isValid(item)">{{item.text}}</a>
-            </li>
-        </ul>
-    </nav>
-</header>
+<div class="wrapper">
+    <header>
+        <nav role="navigation" ng-controller="MenuController">
+            <ul>
+                <li ng-repeat="item in menu" class="{{item.color}}" ng-class="{selected:isCurrent(item)}">
+                    <span ng-hide="isValid(item)">{{item.text}}</span>
+                    <a href="{{item.url}}" ng-show="isValid(item)">{{item.text}}</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
 
-<div class="page {{pageClass}}" ng-view></div>
+    <div class="content">
+        <div class="page {{pageClass}}" ng-view></div>
+    </div>
 
-<footer>
-    <div class="footer-content">
+    <footer>
         <div class="info-block">
+            <div>
+                <h4>Документы</h4>
+                <ul>
+                    <li><a target="_blank" href="/document/edu-license">Лицензия на осуществление образовательной деятельности</a></li>
+                    <li><a target="_blank" href="/document/gov-certificate">Свидетельство о государственной регистрации права</a></li>
+                    <li><a target="_blank" href="/document/EGRYL1">Свидетельство о внесении в «ЕГРЮЛ»</a></li>
+                    <li><a target="_blank" href="/document/VAT">ИНН</a></li>
+                    <li><a target="_blank" href="/document/statue-2013">Устав школы</a></li>
+                </ul>
+            </div>
             <div>
                 <h4>Ссылки на образовательные сайты</h4>
                 <ul>
@@ -59,29 +71,22 @@
                     <li><a href="http://kirovskdmh.ucoz.ru">kirovskdmh.ucoz.ru</a> — Музыкальная школа Кировска</li>
                 </ul>
             </div>
+        </div>
 
+        <div class="contacts">
             <div>
-                <h4>Документы</h4>
-                <ul>
-                    <li><a target="_blank" href="/document/edu-license">Лицензия на осуществление образовательной деятельности</a></li>
-                    <li><a target="_blank" href="/document/gov-certificate">Свидетельство о государственной регистрации права</a></li>
-                    <li><a target="_blank" href="/document/EGRYL1">Свидетельство о внесении в «ЕГРЮЛ»</a></li>
-                    <li><a target="_blank" href="/document/VAT">ИНН</a></li>
-                    <li><a target="_blank" href="/document/statue-2013">Устав школы</a></li>
-                </ul>
+                <h4>Контактная информация</h4>
+                <p>Адрес: ул. 18 января, д. 3</p>
+                <p>Телефон: +7 (81362) 79-123</p>
+                <p>Почта: <a href="#">hudozka@gmail.com</a></p>
             </div>
         </div>
 
-        <div class="info-block">
-            <div>
-                <p>© 2014...{{now.year}}</p>
-                <p>Художественная школа Шлиссельбурга</p>
-                <p>Адрес: {{contact.address}}</p>
-                <p>Телефон: {{contact.telephone}}</p>
-                <p>Почта: <a href="mailto:{{contact.email}}">{{contact.email}}</a></p>
-            </div>
+        <div class="copyright">
+            <span>©&nbsp;2014...2015 Художественная&nbsp;школа&nbsp;Шлиссельбурга</span>
+            <span>Разработка и поддержка сайта — <a href="http://tmshv.com">www.tmshv.ru</a></span>
         </div>
-    </div>
-</footer>
+    </footer>
+</div>
 </body>
 </html>

@@ -65,12 +65,12 @@ header {
 }
 
 @media (min-width: 31.25em) {
-  header nav {
+  header{
     max-height: none;
     overflow: hidden;
-  }
 
-  nav ul {
-    width: 100%;
+    nav ul {
+      width: 100%;
+    }
   }
 }
