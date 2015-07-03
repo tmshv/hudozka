@@ -1,68 +1,40 @@
 .page-docs {
   &.ng-leave {
-	transform-origin: 50% 50%;
-	animation: rotateOutNewspaper .3s both ease-in;
+    transform-origin: 50% 50%;
+    animation: rotateOutNewspaper .3s both ease-in;
   }
 
   &.ng-enter {
-	animation: scaleUp 0.3s both ease-in
+    animation: scaleUp 0.3s both ease-in
   }
 }
 
-.act{
-	text-decoration: none;
-	border-bottom: 1px dashed #688fff;
+.documents-block {
+  margin: 3em 0 0;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: baseline;
 }
 
-.docblock{
-	margin-bottom: 40px;
-	text-align: center;
+.doc {
+  margin: 0 1.2em 2.5em;
 
-	h2{
-		margin-left: 50px;
-		text-align: left;
-	}
-
-	.panel{
-		text-align: left;
-		li{
-			display: inline-block;
-			margin: 0 5px;
-		}
-
-		.select{
-			padding:2px 6px 2px 6px;
-			background-color: #688fff;
-			color: white;
-			border: none;
-		}
-	}
+  p {
+    text-align: center;
+  }
+  img {
+    max-width: 100%;
+  }
 }
 
-.doc{
-	display: inline-block;
-	margin: 30px 35px;
+@media (max-width: 31.25em) {
+  .documents-block {
+    margin: 1em 0 0;
+  }
 
-	img{
-		display: block;
-		margin-left: auto;
-		margin-right: auto;
-		max-width:360px;
-	}
-
-	.docinfo{
-		margin: 0;
-		padding: 0;
-		display: block;
-	}
-}
-
-@media screen and (max-device-width: 400px){
-  .doc{
-	margin: 30px 35px;
-
-	img{
-	  max-width: 250px;
-	}
+  .doc {
+    margin: 0 0 2em;
   }
 }

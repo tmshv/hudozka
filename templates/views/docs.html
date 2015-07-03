@@ -1,10 +1,11 @@
-<div class="main" ng-controller="DocumentsController">
-    <div class="docblock"><h2>Лицензии, свидетельства и уставы</h2>
-        <div class="doc" ng-repeat="doc in documents">
-            <a href="{{doc.url}}" target="_blank">
-                <img ng-src="{{doc.preview}}">
-                <span>{{doc.title | uppercaseFirst}}</span>
-            </a>
-        </div>
+<div class="documents-block"  ng-controller="DocumentsController">
+    <div class="doc" ng-repeat="doc in documents">
+        <a href="{{doc.url}}" target="_blank" class="invisible">
+            <img ng-src="{{doc.preview}}">
+        </a>
+
+        <p>
+            <a href="{{doc.url}}" target="_blank">{{doc.title | uppercaseFirst}}</a>
+        </p>
     </div>
 </div>
