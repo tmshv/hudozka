@@ -1,6 +1,5 @@
 .gallery-block {
-  width: 90%;
-  margin: 0 auto;
+  margin: 2em 0 0;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -8,14 +7,24 @@
 }
 
 .gallery-album {
-  margin: 0 20px 30px;
-}
+  margin: 0 1em 2em;
 
-.gallery-album img {
-  max-width: 400px;
+  h3{
+    margin: 0 0 0.35em;
+  }
+
+  img {
+    max-width: 100%;
+  }
 }
 
 .album-block {
   width: 70%;
   margin: 0 auto;
+}
+
+@media (max-width: 31.25em) {
+  .gallery-album {
+    margin: 0 0 1em;
+  }
 }
