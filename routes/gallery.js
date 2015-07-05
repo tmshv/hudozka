@@ -22,7 +22,26 @@ module.exports = function (app) {
         }
     })));
 
-    app.use(route.get("/gallery/:year/:course/:album", router.accepts({
+    app.use(route.get("/gallery/:year", router.accepts({
+        "text/html": router.index(),
+        "text/plain": router.index(),
+        "application/json": function *(year) {
+            year = parseInt(year);
+            var start = new Date(year, 0, 1);
+            var end = new Date(year, 11, 31);
+            var query = {
+                date: {$gte: start, $lt: end}
+            };
+            var albums = yield db.c("albums")
+                .find(query)
+                .toArray();
+
+            albums = yield albums.map(processAlbum);
+            this.body = albums;
+        }
+    })));
+
+    app.use(route.get("/album/:year/:course/:album", router.accepts({
         "text/html": router.index(),
         "text/plain": router.index(),
         "application/json": function *(year, course, album) {
@@ -46,7 +65,7 @@ module.exports = function (app) {
 
 function processAlbum(album) {
     return co(function *() {
-        album.url = '/gallery/{year}{course}{album}'
+        album.url = '/album/{year}{course}{album}'
             .replace('{year}', album.date.getFullYear())
             .replace('{course}', album.course_uri)
             .replace('{album}', album.uri);

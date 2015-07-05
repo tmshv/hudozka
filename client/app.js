@@ -40,7 +40,7 @@ app.config(function ($locationProvider, $routeProvider) {
             title:"Работы учащихся"
         },
         {
-            name: "/gallery/:year/:course/:album",
+            name: "/album/:year/:course/:album",
             templateUrl: "/views/gallery-album.html",
             controller: "AlbumPageController",
             title:"Работы учащихся"

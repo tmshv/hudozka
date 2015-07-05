@@ -1,9 +1,32 @@
+//.gallery-block {
+//  margin: 2em 0 0;
+//  display: flex;
+//  justify-content: center;
+//  flex-wrap: wrap;
+//  align-items: flex-start;
+//}
+
 .gallery-block {
   margin: 2em 0 0;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  align-items: flex-start;
+  display: block;
+}
+
+.gallery-period{
+  margin-bottom: 2em;
+  
+  & > div{
+    margin: 1.5em 0 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  p.period{
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+  }
 }
 
 .gallery-album {
