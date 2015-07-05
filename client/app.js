@@ -84,6 +84,8 @@ require("./api/api")(app);
 require("./services/io")(app);
 require("./ui/menu")(app);
 require("./ui/timeline")(app);
+require("./filters/strip")(app);
+require("./filters/remove-hashtags")(app);
 require("./filters/uppercase-first")(app);
 require("./pages/home")(app);
 require("./pages/schedule")(app);
