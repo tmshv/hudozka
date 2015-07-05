@@ -37,7 +37,7 @@ module.exports = function(app) {
                 image: post.data.image.standard_resolution.url,
                 url: post.data.url,
                 username: name,
-                //userpic: post.data.user.profile_picture,
+                userpic: 'https://igcdn-photos-a-a.akamaihd.net/hphotos-ak-xaf1/t51.2885-19/11357496_464997000344800_2124591831_a.jpg',
                 text: post.body,
                 //text: postText(post),
                 type: post.type
@@ -78,9 +78,6 @@ module.exports = function(app) {
                         .success(function (list) {
                             $scope.timelineUpdating = false;
                             usSpinnerService.stop("timelineMore");
-                            //$timeout(function () {
-                            //
-                            //}, 5000);
 
                             var feed = list.map(function (post) {
                                 if(post.type == "instagram") return toInstagram(post);
@@ -96,7 +93,6 @@ module.exports = function(app) {
 
                 io.on("post", function (params) {
                     var posts = params instanceof Array ? params : [params];
-                    console.log("post", posts);
 
                     var feed = posts.map(function (post) {
                         if(post.type == "instagram") return toInstagram(post);

@@ -1,72 +1,13 @@
 .timeline{
-  min-width: 400px;
-  position: relative;
-  display: block;
-  width: 75%;
-  margin: 0 auto 50px;
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  margin: 0 auto 2em;
 }
 
-.timeline-record{
-  position: relative;
-
-  .body {
-    margin: 0 0 50px;
-
-    img{
-      margin: 0 auto;
-      display: block;
-      min-height: 500px;
-    }
-  }
-}
-
-@media screen and (max-device-width: 400px) {
-  .timeline {
-    min-width: 0;
-    position: relative;
-    margin: 0 0 50px;
-
-    .head{
-      margin: 0;
-      padding: 0;
-    }
-
-    .body{
-      margin: 0 0 40px;
-      padding: 0;
-    }
-
-    .body p{
-      text-align: left;
-      margin: 0 0 2px;
-      padding: 0;
-    }
-
-    .timeline-record {
-      position: relative;
-      display: flex;
-
-      .head, .body {
-        position: relative;
-        width: 90%;
-        box-sizing: border-box;
-      }
-
-      .head {
-        padding: 5px 20px;
-      }
-
-      .body {
-        padding: 0 20px;
-      }
-    }
-  }
-}
-
-.timeline-end{
-  width: 50%;
-  margin: 0 auto;
-  text-align: center;
+.timeline-footer{
+  display: flex;
+  justify-content: center;
 
   button.more{
     position: relative;
@@ -87,5 +28,11 @@
     &:active{
       top: 0;
     }
+  }
+}
+
+@media screen and (max-device-width: 31.25em) {
+  .timeline {
+    width: 98%;
   }
 }
