@@ -99,9 +99,9 @@
             </div>
         </div>
 
-        <div class="copyright">
-            <span>©&nbsp;2014...2015 Художественная&nbsp;школа&nbsp;Шлиссельбурга</span>
-            <span>Разработка и поддержка сайта — <a href="http://tmshv.com">www.tmshv.ru</a></span>
+        <div class="copyright" ng-controller="CopyrightController">
+            <span>©&nbsp;2014...{{now}} Художественная&nbsp;школа&nbsp;Шлиссельбурга</span>
+            <span ng-show="developer">Разработка и поддержка сайта — <a href="http://tmshv.com">www.tmshv.ru</a></span>
         </div>
     </footer>
 </div>

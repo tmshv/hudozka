@@ -73,10 +73,6 @@ app.run(function($location, $rootScope, $http, config) {
         email: config.email
     };
 
-    $rootScope.now = {
-        year: new Date().getFullYear()
-    };
-
     $http.defaults.headers.common["Accept"] = "application/json";
 });
 
@@ -93,6 +89,7 @@ require("./pages/schedule")(app);
 require("./pages/team")(app);
 require("./pages/gallery")(app);
 require("./pages/docs")(app);
+require("./controllers/CopyrightController")(app);
 
 app.controller("SchedulePageController", function ($scope) {
     $scope.pageClass = "page-schedule";
