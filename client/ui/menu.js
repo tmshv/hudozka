@@ -2,30 +2,45 @@
  * Created by tmshv on 05/11/14.
  */
 
-var menu = require("../../models/menu.json");
+module.exports = function (app) {
+    app.factory("menu", function ($route, $rootScope) {
+        function Menu() {
+            this.items = require("../../models/menu.json");
+            this.current = null;
+        }
 
-module.exports = function(app) {
-    app.service("menu", function ($route) {
-        menu.isActive = function (path) {
-            if ($route.current && $route.current.regexp) {
-                return $route.current.regexp.test(path);
+        Menu.prototype.activate = function (path) {
+            var f = this.items.filter(function (i) {
+                return i.url === path;
+            });
+
+            if(f.length) {
+                this.current = f[0];
             }
-            return false;
         };
+
+        var menu = new Menu();
+        $rootScope.$on('$routeChangeSuccess', function (event, current) {
+            var path = current['$$route'].originalPath;
+            menu.activate(path);
+        });
 
         return menu;
     });
 
     app.controller("MenuController", function ($scope, menu) {
-        $scope.vkgroup = menu.vkgroup;
-        $scope.menu = menu.menu;
+        $scope.menu = menu;
 
-        $scope.isCurrent = function(item) {
-            return menu.isActive(item.url);
+        $scope.isActive = function (item) {
+            if(menu.current) {
+                return item.url == menu.current.url;
+            }else{
+                return false;
+            }
         };
 
-        $scope.isValid = function(item) {
-            return Boolean(item.url);
+        $scope.isValid = function (item) {
+            return 'url' in item;
         };
     });
 };

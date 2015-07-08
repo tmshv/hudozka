@@ -51,7 +51,9 @@ module.exports = function (app) {
         }
     );
 
-    app.controller("AlbumPageController", function ($scope, $http, $routeParams, api) {
+    app.controller("AlbumPageController", function ($scope, $http, $routeParams, api, menu) {
+        menu.activate('/gallery');
+
         api.gallery.album(
             $routeParams.year,
             $routeParams.course,
