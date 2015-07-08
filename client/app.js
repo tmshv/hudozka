@@ -86,6 +86,7 @@ require("./ui/menu")(app);
 require("./ui/timeline")(app);
 require("./filters/strip")(app);
 require("./filters/remove-hashtags")(app);
+require("./filters/removeNewline")(app);
 require("./filters/uppercase-first")(app);
 require("./pages/home")(app);
 require("./pages/schedule")(app);
