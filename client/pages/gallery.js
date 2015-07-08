@@ -4,12 +4,20 @@ module.exports = function (app) {
             restrict: "A",
             link: function (scope, element, attrs) {
                 element.addClass('fotorama');
-                var fotorama = $(element.fotorama()).data('fotorama');
+                var $fotorama = $(element.fotorama());
+                var fotorama = $fotorama.data('fotorama');
                 fotorama.setOptions({
                     width: "100%",
                     maxheight: 500,
                     loop: true,
                     nav: "thumbs"
+                });
+
+                //$fotorama.on('fotorama:show', function (e, fotorama, extra) {
+                $fotorama.on('fotorama:error', function (e, fotorama, extra) {
+                    console.log('## ' + e.type);
+                    console.log('active frame', fotorama.activeFrame);
+                    console.log('additional data', extra);
                 });
 
                 scope.$watch(attrs.gFotorama, function (value) {
@@ -32,7 +40,7 @@ module.exports = function (app) {
                                 albums: albums.map(function (album) {
                                     var preview = album.content[0];
                                     album.preview_url = preview.content.medium.url;
-                                    album.fotorama = album.content.map(productToFotorama);
+                                    //album.fotorama = album.content.map(productToFotorama);
 
                                     return album;
                                 })
@@ -53,7 +61,7 @@ module.exports = function (app) {
         }
     );
 
-    app.controller("AlbumPageController", function ($scope, $http, $routeParams) {
+    app.controller("AlbumPageController", function ($scope, $http, $routeParams, $compile) {
         var url = '/album/{year}/{course}/{album}'
             .replace('{year}', $routeParams.year)
             .replace('{course}', $routeParams.course)
@@ -67,13 +75,23 @@ module.exports = function (app) {
                 $scope.album = album;
             });
     });
-}
-;
+};
 
 function productToFotorama(product) {
+    //var tpl =  '<div class="album-item"><div><p>' + product.author + '</p><p>' + product.authorAge  + ' лет</p></div></div>';
+
+    var $e = $('<div class="album-item"><div></div></div>');
+    var $c = $e.find('.album-item div');
+    $('<p></p>').text(product.author).appendTo($c);
+    if(product['authorAge']) {
+        $('<p></p>').text(product['authorAge'] + ' лет').appendTo($c);
+    }
+
     return {
         img: product.content["big"].url,
         thumb: product.content["small"].url,
-        full: product.content["original"].url
-    }
+        full: product.content["original"].url,
+        //html: $.parseHTML(tpl)[0]
+        html: $e
+    };
 }

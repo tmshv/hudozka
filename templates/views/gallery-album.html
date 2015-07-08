@@ -1,4 +1,17 @@
 <div class="album-block" ng-controller="AlbumPageController">
     <h3>{{album.title}}</h3>
-    <div g-fotorama="album.fotorama"></div>
+    <!--<div g-fotorama="album.fotorama"></div>-->
+    
+    <div class="album">
+        <div class="album-item" ng-repeat="product in album.content">
+            <img ng-src="{{product.content.big.url}}" alt=""/>
+            <div class="product-info">
+                <div>
+                    <p class="title">{{product.title | removeNewline}}</p>
+                    <p>{{product.author}}</p>
+                    <p ng-show="product.authorAge">{{product.authorAge}} лет</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
