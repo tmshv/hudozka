@@ -7,7 +7,7 @@
             <img ng-src="{{product.content.big.url}}" alt=""/>
             <div class="product-info">
                 <div>
-                    <p class="title">{{product.title | removeNewline}}</p>
+                    <p ng-show="product.title" class="title">{{product.title | removeNewline}}</p>
                     <p>{{product.author}}</p>
                     <p ng-show="product.authorAge">{{product.authorAge}} лет</p>
                 </div>
