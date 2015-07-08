@@ -28,11 +28,11 @@ module.exports = function (app) {
         }
     });
 
-    app.controller("GalleryPageController", function ($scope, $http) {
+    app.controller("GalleryPageController", function ($scope, api) {
             $scope.years = [];
             var years = [2015, 2014, 2013, 2012, 2011, 2010];
             years.forEach(function (year, year_index) {
-                $http.get("/gallery/" + year)
+                api.gallery.year(year)
                     .success(function (albums) {
                         if(albums.length) {
                             $scope.years[year_index] = {
@@ -48,29 +48,19 @@ module.exports = function (app) {
                         }
                     })
             });
-            //$http.get("/gallery")
-            //    .success(function (albums) {
-            //        $scope.albums = albums.map(function (album) {
-            //            var preview = album.content[0];
-            //            album.preview_url = preview.content.medium.url;
-            //            album.fotorama = album.content.map(productToFotorama);
-            //
-            //            return album;
-            //        });
-            //    });
         }
     );
 
-    app.controller("AlbumPageController", function ($scope, $http, $routeParams, $compile) {
-        var url = '/album/{year}/{course}/{album}'
-            .replace('{year}', $routeParams.year)
-            .replace('{course}', $routeParams.course)
-            .replace('{album}', $routeParams.album);
-        $http.get(url)
+    app.controller("AlbumPageController", function ($scope, $http, $routeParams, api) {
+        api.gallery.album(
+            $routeParams.year,
+            $routeParams.course,
+            $routeParams.album
+        )
             .success(function (album) {
                 var preview = album.content[0];
                 album.preview_url = preview.content.medium.url;
-                album.fotorama = album.content.map(productToFotorama);
+                //album.fotorama = album.content.map(productToFotorama);
 
                 $scope.album = album;
             });
