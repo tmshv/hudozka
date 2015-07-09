@@ -67,6 +67,11 @@ module.exports = function(app) {
                     return i['type'];
                 };
 
+                $scope.showFooter = function () {
+                    var canLoadMore = true;
+                    return $scope.feed && $scope.feed.length && canLoadMore;
+                };
+
                 $scope.loadNext = function () {
                     $scope.timelineUpdating = true;
                     usSpinnerService.spin("timelineMore");
