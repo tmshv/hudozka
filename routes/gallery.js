@@ -41,7 +41,7 @@ module.exports = function (app) {
         }
     })));
 
-    app.use(route.get("/album/:year/:course/:album", router.accepts({
+    app.use(route.get("/gallery/:year/:course/:album", router.accepts({
         "text/html": router.index(),
         "text/plain": router.index(),
         "application/json": function *(year, course, album) {
@@ -65,7 +65,7 @@ module.exports = function (app) {
 
 function processAlbum(album) {
     return co(function *() {
-        album.url = '/album/{year}{course}{album}'
+        album.url = '/gallery/{year}{course}{album}'
             .replace('{year}', album.date.getFullYear())
             .replace('{course}', album.course_uri)
             .replace('{album}', album.uri);

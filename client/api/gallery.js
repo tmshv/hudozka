@@ -11,7 +11,7 @@ APIGallery.prototype.year = function(year) {
 };
 
 APIGallery.prototype.album = function(year, course, album) {
-    var url = '/album/{year}/{course}/{album}'
+    var url = '/gallery/{year}/{course}/{album}'
         .replace('{year}', year)
         .replace('{course}', course)
         .replace('{album}', album);
