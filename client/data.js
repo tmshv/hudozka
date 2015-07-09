@@ -18,7 +18,7 @@ angular.module("hudozhka.data", [])
             email: "hudozka@gmail.com",
             address: ["г. Шлиссельбург", "ул. 18 января", "д. 3"]
                 .reduce(function(address, item){
-                    return address + ' ' + item.replace(' ', String.fromCharCode(0xA0));
+                    return address + (address == '' ? '' : ' ') + item.replace(' ', String.fromCharCode(0xA0));
                 }, '')
         };
     });
