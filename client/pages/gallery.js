@@ -51,7 +51,7 @@ module.exports = function (app) {
         }
     );
 
-    app.controller("AlbumPageController", function ($scope, $http, $routeParams, api, menu) {
+    app.controller("AlbumPageController", function ($scope, $http, $routeParams, team, api, menu) {
         menu.activate('/gallery');
 
         var year_uri = $routeParams.year;
@@ -66,6 +66,8 @@ module.exports = function (app) {
                 //var preview = album.content[0];
                 //album.preview_url = preview.content.medium.url;
                 //album.fotorama = album.content.map(productToFotorama);
+
+                album.teacherName = team.name(album['teacher']);
 
                 $scope.album = album;
                 $scope.crumbs = [

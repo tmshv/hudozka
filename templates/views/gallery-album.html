@@ -2,9 +2,14 @@
 
 <div class="album-block" ng-controller="AlbumPageController">
     <h3>{{album.title}}</h3>
-    <!--<div g-fotorama="album.fotorama"></div>-->
 
     <div class="album">
+        <div class="album-info">
+            <p>Предмет: {{album.course}}</p>
+            <p>Преподаватель: <a href="/">{{album.teacherName}}</a></p>
+            <p class="description" ng-show="album.description">{{album.description}}</p>
+        </div>
+
         <div class="album-item" ng-repeat="product in album.content">
             <img ng-src="{{product.content.big.url}}" alt=""/>
 

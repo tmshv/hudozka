@@ -61,6 +61,15 @@
     justify-content: center;
   }
 
+  .album-info {
+    width: 80%;
+    margin: 0 0 3em;
+  }
+
+  .album-info p {
+    margin: 0 0 .5em;
+  }
+
   .album-item {
     width: 80%;
     box-sizing: border-box;
@@ -121,6 +130,11 @@
       margin: 1em 0 0.5em;
     }
 
+    .album-info{
+      width: 100%;
+      margin: 0 0 2em;
+    }
+
     .album-item {
       width: 100%;
       padding: 1em 1em 5em;
@@ -145,6 +159,12 @@
 
 @media screen and (min-width: 31.25em) and (max-width: 59.99999em){
   .album-block {
+    .album-info{
+      width: 100%;
+      margin: 0 0 2em;
+      font-size: 0.75em;
+    }
+
     .album-item {
       width: 100%;
       padding: 2em 2em 5em;
