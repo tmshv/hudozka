@@ -3,10 +3,10 @@
 <div class="album-block" ng-controller="AlbumPageController">
     <h3>{{album.title}}</h3>
 
-    <div class="album">
+    <div class="album" ng-show="album">
         <div class="album-info">
             <p>Предмет: {{album.course}}</p>
-            <p>Преподаватель: <a href="/">{{album.teacherName}}</a></p>
+            <p>Преподаватель: {{album.teacherName}}</p>
             <p class="description" ng-show="album.description">{{album.description}}</p>
         </div>
 
