@@ -1,0 +1,23 @@
+nav.breadcrumbs{
+  width: 80%;
+  margin: 0 auto;
+  padding: .35em 0 0;
+  color: #bbb;
+
+  a {
+    color: #9990e0;
+  }
+
+  ul{
+    list-style: none;
+
+    li {
+      display: inline-block;
+
+      &:not(:first-child):before{
+        content: '⟶';
+        margin-left: .4em;
+      }
+    }
+  }
+}

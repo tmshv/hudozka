@@ -79,6 +79,7 @@ app.run(function($location, $rootScope, $http, config) {
 require("./api/api")(app);
 require("./services/io")(app);
 require("./ui/menu")(app);
+require("./ui/breadcrumbs")(app);
 require("./ui/timeline")(app);
 require("./filters/strip")(app);
 require("./filters/remove-hashtags")(app);
