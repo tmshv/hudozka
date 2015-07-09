@@ -19,7 +19,7 @@ app.config(function ($locationProvider, $routeProvider) {
             name: "/",
             templateUrl: "/views/home.html",
             controller: "HomePageController",
-            title:"ДШХ Шлиссельбурга"
+            title:"ДХШ Шлиссельбурга"
         },
         {
             name: "/schedule",
