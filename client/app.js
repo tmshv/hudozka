@@ -42,8 +42,7 @@ app.config(function ($locationProvider, $routeProvider) {
         {
             name: "/gallery/:year/:course/:album",
             templateUrl: "/views/gallery-album.html",
-            controller: "AlbumPageController",
-            title:"Работы учащихся"
+            controller: "AlbumPageController"
         },
         {
             name: "/docs",
@@ -64,7 +63,8 @@ app.config(function ($locationProvider, $routeProvider) {
 
 app.run(function($location, $rootScope, $http) {
     $rootScope.$on("$routeChangeSuccess", function (event, current) {
-        $rootScope.title = current["$$route"].title;
+        var title = current["$$route"].title;
+        if(title) $rootScope.title = title;
     });
 
     $http.defaults.headers.common["Accept"] = "application/json";
