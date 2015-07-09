@@ -34,7 +34,7 @@ module.exports = function (app) {
             years.forEach(function (year, year_index) {
                 api.gallery.year(year)
                     .success(function (albums) {
-                        if(albums.length) {
+                        if (albums.length) {
                             $scope.years[year_index] = {
                                 year: year,
                                 albums: albums.map(function (album) {
@@ -54,17 +54,39 @@ module.exports = function (app) {
     app.controller("AlbumPageController", function ($scope, $http, $routeParams, api, menu) {
         menu.activate('/gallery');
 
+        var year_uri = $routeParams.year;
+        var course_uri = $routeParams.course;
+        var album_uri = $routeParams.album;
         api.gallery.album(
-            $routeParams.year,
-            $routeParams.course,
-            $routeParams.album
+            year_uri,
+            course_uri,
+            album_uri
         )
             .success(function (album) {
-                var preview = album.content[0];
-                album.preview_url = preview.content.medium.url;
+                //var preview = album.content[0];
+                //album.preview_url = preview.content.medium.url;
                 //album.fotorama = album.content.map(productToFotorama);
 
                 $scope.album = album;
+                $scope.crumbs = [
+                    {
+                        url: '/gallery',
+                        name: 'Галерея'
+                    },
+                    {
+                        url: '/gallery/{year}'.replace('{year}', year_uri),
+                        name: year_uri
+                    },
+                    {
+                        url: '/gallery/{year}/{course}'
+                            .replace('{year}', year_uri)
+                            .replace('{course}', course_uri),
+                        name: album.course
+                    },
+                    {
+                        name: album.title
+                    }
+                ];
             });
     });
 };
@@ -75,7 +97,7 @@ function productToFotorama(product) {
     var $e = $('<div class="album-item"><div></div></div>');
     var $c = $e.find('.album-item div');
     $('<p></p>').text(product.author).appendTo($c);
-    if(product['authorAge']) {
+    if (product['authorAge']) {
         $('<p></p>').text(product['authorAge'] + ' лет').appendTo($c);
     }
 
