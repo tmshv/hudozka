@@ -38,3 +38,20 @@ nav.breadcrumbs{
     }
   }
 }
+
+@media screen and (min-width: 31.25em) and (max-width: 59.99999em){
+  nav.breadcrumbs{
+    width: 100%;
+    margin: 0;
+    font-size: 0.75em;
+
+    ul{
+      li {
+        &:not(:first-child):before{
+          content: '>';
+          margin-left: .2em;
+        }
+      }
+    }
+  }
+}
