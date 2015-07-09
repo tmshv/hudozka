@@ -16,6 +16,9 @@ angular.module("hudozhka.data", [])
         return {
             telephone: "+7 (81362) 76-312",
             email: "hudozka@gmail.com",
-            address: "г. Шлиссельбург, ул. 18 января, д. 3"
+            address: ["г. Шлиссельбург", "ул. 18 января", "д. 3"]
+                .reduce(function(address, item){
+                    return address + ' ' + item.replace(' ', String.fromCharCode(0xA0));
+                }, '')
         };
     });
