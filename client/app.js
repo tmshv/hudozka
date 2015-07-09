@@ -62,16 +62,10 @@ app.config(function ($locationProvider, $routeProvider) {
     });
 });
 
-app.run(function($location, $rootScope, $http, config) {
+app.run(function($location, $rootScope, $http) {
     $rootScope.$on("$routeChangeSuccess", function (event, current) {
         $rootScope.title = current["$$route"].title;
     });
-
-    $rootScope.contact = {
-        address: config.address,
-        telephone: config.telephone,
-        email: config.email
-    };
 
     $http.defaults.headers.common["Accept"] = "application/json";
 });
@@ -90,6 +84,7 @@ require("./pages/schedule")(app);
 require("./pages/team")(app);
 require("./pages/gallery")(app);
 require("./pages/docs")(app);
+require("./controllers/ContactsController")(app);
 require("./controllers/CopyrightController")(app);
 
 app.controller("SchedulePageController", function ($scope) {

@@ -73,12 +73,12 @@
             </div>
         </div>
 
-        <div class="contacts">
+        <div class="contacts" ng-controller="ContactsController">
             <div>
                 <h4>Контактная информация</h4>
-                <p>Адрес: г. Шлиссельбург, ул. 18 января, д. 3</p>
-                <p>Телефон: +7 (81362) 79-123</p>
-                <p>Почта: <a href="#">hudozka@gmail.com</a></p>
+                <p>Адрес: {{address}}</p>
+                <p>Телефон: {{telephone}}</p>
+                <p>Почта: <a href="mailto:{{email}}">{{email}}</a></p>
             </div>
         </div>
 
