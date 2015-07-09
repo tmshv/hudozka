@@ -51,7 +51,7 @@ module.exports = function (app) {
         }
     );
 
-    app.controller("AlbumPageController", function ($scope, $http, $routeParams, team, api, menu) {
+    app.controller("AlbumPageController", function ($scope, $rootScope, $http, $routeParams, team, api, menu) {
         menu.activate('/gallery');
 
         var year_uri = $routeParams.year;
@@ -89,6 +89,7 @@ module.exports = function (app) {
                         name: album.title
                     }
                 ];
+                $rootScope.title = album.title;
             });
     });
 };
