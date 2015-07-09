@@ -74,13 +74,13 @@ module.exports = function (app) {
                         name: 'Галерея'
                     },
                     {
-                        url: '/gallery/{year}'.replace('{year}', year_uri),
+                        //url: '/gallery/{year}'.replace('{year}', year_uri),
                         name: year_uri
                     },
                     {
-                        url: '/gallery/{year}/{course}'
-                            .replace('{year}', year_uri)
-                            .replace('{course}', course_uri),
+                        //url: '/gallery/{year}/{course}'
+                        //    .replace('{year}', year_uri)
+                        //    .replace('{course}', course_uri),
                         name: album.course
                     },
                     {
