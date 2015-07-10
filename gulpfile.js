@@ -34,7 +34,7 @@ gulp.task("compile", function(){
 		.pipe(browserify({
 			transform: [annotate]
 		}))
-		//.pipe(uglify())
+		.pipe(uglify())
 		.pipe(gulp.dest("public"));
 
 	gulp.src("client/document.js")
