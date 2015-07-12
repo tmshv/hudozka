@@ -20,6 +20,15 @@ app.use(bodyParser());
 app.use(logger());
 app.use(conditional());
 app.use(etag());
+
+app.use(function *(next) {
+    yield* next;
+
+    try{
+        var xp = this.response.header['x-prerender'] == 'true';
+        if(xp) this.body = this.body.replace('<meta name="fragment" content="!">', '');
+    }catch(e){}
+});
 app.use(prerender(config.prerender));
 
 app.use(serve(path.join(__dirname, "public")));
