@@ -9,6 +9,24 @@ var concat = require("gulp-concat");
 var browserify = require("gulp-browserify");
 var annotate = require("browserify-ngannotate");
 
+gulp.task("concat-bower", function () {
+	var files = [
+		"public/bower_components/jquery/dist/jquery.min.js",
+		"public/bower_components/angular/angular.min.js",
+		"public/bower_components/angular-route/angular-route.min.js",
+		"public/bower_components/angular-animate/angular-animate.min.js",
+		"public/bower_components/angulartics/dist/angulartics.min.js",
+		"public/bower_components/angulartics/dist/angulartics-ga.min.js",
+		"public/bower_components/spin.js/spin.js",
+		"public/bower_components/angular-spinner/angular-spinner.min.js",
+		"public/bower_components/socket.io-client/socket.io.js"
+	];
+    gulp.src(files)
+		.pipe(concat("libs.js"))
+		.pipe(uglify())
+        .pipe(gulp.dest("public"));
+});
+
 gulp.task("sass", function () {
     gulp.src("./assets/style/*.scss")
         .pipe(sass())
