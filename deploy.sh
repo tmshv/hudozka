@@ -15,8 +15,8 @@ env GZIP=-9 tar -czf $tarpath \
 echo "build file: $tarpath"
 
 ssh shburg.et "rm -rf art/*"
-scp $tarpath shburg@37.139.6.120:~
-scp install.sh shburg@37.139.6.120:~
+scp $tarpath shburg@146.185.183.243:~
+scp install.sh shburg@146.185.183.243:~
 ssh shburg.et "./install.sh"
 rm $tarpath
 echo "art.shlisselburg.org deployment completed successfully"
