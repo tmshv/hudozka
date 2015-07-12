@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: 
+Allow: /
+Host: art.shlisselburg.org
+Sitemap: http://art.shlisselburg.org/sitemap.xml
+Crawl-delay: 3
+Crawl-rate: 1/3

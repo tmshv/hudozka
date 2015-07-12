@@ -27,6 +27,12 @@ gulp.task("copy", function(){
 
 	gulp.src("./3rdparty/*")
 		.pipe(gulp.dest("./public"));
+
+	gulp.src("robots.txt")
+		.pipe(gulp.dest("./public"));
+
+	gulp.src("sitemap.xml")
+		.pipe(gulp.dest("./public"));
 });
 
 gulp.task("compile", function(){
