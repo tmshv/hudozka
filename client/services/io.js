@@ -3,9 +3,13 @@
  */
 
 module.exports = function (app) {
-    var socket = io();
+    var socket;
+    function init(){
+        socket = io();
+    }
 
-    app.service("io", function(){
+    app.service("io", function () {
+        if (!socket) init();
         return socket;
-    })
+    }); 
 };
