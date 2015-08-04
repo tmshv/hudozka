@@ -44,4 +44,20 @@ module.exports = function (app) {
             }
         ))
     );
+
+    app.use(
+        route.get("/schedules", router.accepts(
+            {
+                "text/html": router.index(),
+                "text/plain": router.index(),
+
+                "application/json": function *() {
+                    this.type = "application/json";
+                    var data = yield db.c("schedules").find({}, {period:1 , semester: 1}).toArray();
+                    if(!data) this.status = 404;
+                    else this.body = data;
+                }
+            }
+        ))
+    );
 };
