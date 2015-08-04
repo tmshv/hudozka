@@ -61,6 +61,8 @@ app.use(route.get("/document/:doc", routes.index(
     path.join(__dirname, "templates/document.html")
 )));
 
+require("./routes/sitemap")(app);
+
 require("./routes/schedule")(app);
 require("./routes/news")(app);
 require("./routes/gallery")(app);

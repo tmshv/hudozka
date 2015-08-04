@@ -49,9 +49,6 @@ gulp.task("copy", function(){
 
 	gulp.src("robots.txt")
 		.pipe(gulp.dest("./public"));
-
-	gulp.src("sitemap.xml")
-		.pipe(gulp.dest("./public"));
 });
 
 gulp.task("compile", function(){
