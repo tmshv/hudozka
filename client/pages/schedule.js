@@ -8,7 +8,6 @@ module.exports = function (app) {
 
         $http.get("/schedules")
             .success(function (schedules) {
-                //return ;
                 var last = schedules.length - 1;
 
                 $scope.schedules = schedules.map(function (schedule) {
@@ -94,18 +93,6 @@ function range(start, num, step) {
     }
     return list;
 }
-
-///**
-// * Monday date of current week
-// * @param  {[type]} d [description]
-// * @return {[type]}   [description]
-// */
-//function getMonday(d) {
-//    d = new Date(d);
-//    var day = d.getDay();
-//    var diff = d.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is sunday
-//    return new Date(d.setDate(diff));
-//}
 
 function getDates(start) {
     var day = start.getDay();
