@@ -16,10 +16,7 @@ module.exports = function (app) {
                         else return s[1];
                     });
 
-                    schedule.text = 'Расписание {{sem}} семестра {{period}} года'
-                        .replace('{{sem}}', sem)
-                        .replace('{{period}}', schedule.period);
-
+                    schedule.text = `Расписание ${sem} семестра ${schedule.period} года`;
                     return schedule;
                 });
                 $scope.schedules[last].selected = true;
@@ -34,7 +31,7 @@ module.exports = function (app) {
                 var sem = schedule_item.semester;
                 var period = schedule_item.period;
 
-                var url = "/schedule/" + period + "/" + sem;
+                var url = `/schedule/${period}/${sem}`;
                 $http.get(url, {cache: true})
                     .success(function (scheduleRecord) {
                         $scope.groups = schedule.populate(scheduleRecord.schedule, [
