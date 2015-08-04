@@ -1,6 +1,7 @@
 var path = require("path");
 var gulp = require("gulp");
 var sass = require("gulp-sass");
+var babel = require("gulp-babel");
 var minify_css = require("gulp-minify-css");
 var autoprefixer = require("gulp-autoprefixer");
 var imageMin = require("gulp-imagemin");
@@ -54,28 +55,13 @@ gulp.task("copy", function(){
 });
 
 gulp.task("compile", function(){
-	gulp.src("client/app.js")
-		.pipe(browserify({
-			transform: [annotate]
-		}))
-		.pipe(uglify())
-		.pipe(gulp.dest("public"));
-
-	gulp.src("client/document.js")
-		.pipe(browserify({
-			transform: [annotate]
-		}))
-		.pipe(uglify())
-		.pipe(gulp.dest("public"));
-
-	gulp.src("client/data.js")
-		.pipe(browserify({
-			transform: [annotate]
-		}))
-		.pipe(uglify())
-		.pipe(gulp.dest("public"));
-
-	gulp.src("client/instagram.js")
+	gulp.src([
+		"client/app.js",
+		"client/document.js",
+		"client/data.js",
+		"client/instagram.js"
+	])
+		.pipe(babel())
 		.pipe(browserify({
 			transform: [annotate]
 		}))
