@@ -101,5 +101,14 @@
 		"diploma": "ВСВ 1321444",
 		"status": "",
 		"picture": "http://static.shburg.org/art/team/teacher.jpg"
+	},
+	{
+		"id": "ea-burovtseva",
+		"name": "Ев Ал Буровцева",
+		"position": "Преподаватель керамики",
+		"edu": "",
+		"diploma": "",
+		"status": "",
+		"picture": ""
 	}
 ]
