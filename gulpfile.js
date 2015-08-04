@@ -1,7 +1,6 @@
 var path = require("path");
 var gulp = require("gulp");
 var sass = require("gulp-sass");
-//var babel = require("gulp-babel");
 var babel = require("babelify");
 var minify_css = require("gulp-minify-css");
 var autoprefixer = require("gulp-autoprefixer");
