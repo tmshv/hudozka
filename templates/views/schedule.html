@@ -1,6 +1,11 @@
 <div class="schedule" ng-controller="ScheduleController">
-    <p> Расписание {{sem}} семестра {{year}} года</p>
-    <div class="schedule-block">
+    <p>
+        <select ng-model="currentSchedule" ng-change="loadSchedule(currentSchedule)">
+            <option ng-repeat="s in schedules" value="{{s._id}}" selected="{{s.selected}}">{{s.text}}</option>
+        </select>
+    </p>
+
+    <div class="schedule-block" ng-show="groups">
         <table>
             <thead class="">
             <tr>
@@ -37,8 +42,8 @@
                 </th>
             </tr>
             </thead>
-            <tbody class="">
-            <tr ng-repeat="group in schedule">
+            <tbody>
+            <tr ng-repeat="group in groups">
                 <td class="group">
                     <p class="name">{{group.name}}</p>
 

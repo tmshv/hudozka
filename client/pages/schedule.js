@@ -6,19 +6,57 @@ module.exports = function (app) {
         var now = new Date();
         var dates = getDates(now);
 
-        var sem = "autumn";
-        $scope.sem = [["spring", "весеннего"], ["autumn", "осеннего"]].reduce(function (s, word) {
-            if (word[0] === sem) return word[1];
-        });
-        $scope.year = "2014-2015";
+        $http.get("/schedules")
+            .success(function (schedules) {
+                //return ;
+                var last = schedules.length - 1;
 
-        $http.get("/schedule/2014-2015/spring")
-            .success(function (s) {
-                $scope.schedule = schedule.populate(s.schedule, [
-                    populate(team.short, "teacher"),
-                    populate(course.name, "lesson")
-                ]);
+                $scope.schedules = schedules.map(function (schedule) {
+                    var sem = [["spring", "весеннего"], ["autumn", "осеннего"]].reduce(function (s, word) {
+                        if (word[0] === schedule.semester) return word[1];
+                        else return s[1];
+                    });
+
+                    schedule.text = 'Расписание {{sem}} семестра {{period}} года'
+                        .replace('{{sem}}', sem)
+                        .replace('{{period}}', schedule.period);
+
+                    return schedule;
+                });
+                $scope.schedules[last].selected = true;
+                $scope.currentSchedule = $scope.schedules[last]._id;
+                $scope.loadSchedule();
             });
+
+        $scope.$watch('currentSchedule', function (newValue) {
+
+        });
+
+        $scope.loadSchedule = function (id) {
+            var schedule_item = getScheduleByID(id || $scope.currentSchedule);
+
+            if(schedule_item) {
+                var sem = schedule_item.semester;
+                var period = schedule_item.period;
+
+                $http.get("/schedule/" + period + "/" + sem)
+                    .success(function (scheduleRecord) {
+                        $scope.groups = schedule.populate(scheduleRecord.schedule, [
+                            populate(team.short, "teacher"),
+                            populate(course.name, "lesson")
+                        ]);
+                    });
+            }
+        };
+
+        function getScheduleByID(id) {
+            var schedules = $scope.schedules;
+            for (var i in schedules) {
+                var s = schedules[i];
+                if (id === s._id) return s;
+            }
+            return null;
+        }
 
         $scope.isToday = function (weekDayIndex) {
             return (now.getDay() - 1) === weekDayIndex;
