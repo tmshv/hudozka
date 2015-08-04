@@ -6,7 +6,7 @@ module.exports = function (app) {
         var now = new Date();
         var dates = getDates(now);
 
-        $http.get("/schedules")
+        $http.get("/schedules", {cache: true})
             .success(function (schedules) {
                 var last = schedules.length - 1;
 
@@ -27,10 +27,6 @@ module.exports = function (app) {
                 $scope.loadSchedule();
             });
 
-        $scope.$watch('currentSchedule', function (newValue) {
-
-        });
-
         $scope.loadSchedule = function (id) {
             var schedule_item = getScheduleByID(id || $scope.currentSchedule);
 
@@ -38,7 +34,8 @@ module.exports = function (app) {
                 var sem = schedule_item.semester;
                 var period = schedule_item.period;
 
-                $http.get("/schedule/" + period + "/" + sem)
+                var url = "/schedule/" + period + "/" + sem;
+                $http.get(url, {cache: true})
                     .success(function (scheduleRecord) {
                         $scope.groups = schedule.populate(scheduleRecord.schedule, [
                             populate(team.short, "teacher"),
