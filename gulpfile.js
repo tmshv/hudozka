@@ -1,5 +1,6 @@
 var path = require("path");
 var gulp = require("gulp");
+var gulp_if = require("gulp-if");
 var sass = require("gulp-sass");
 var babel = require("babelify");
 var minify_css = require("gulp-minify-css");
@@ -9,6 +10,8 @@ var uglify = require("gulp-uglify");
 var concat = require("gulp-concat");
 var browserify = require("gulp-browserify");
 var annotate = require("browserify-ngannotate");
+
+var is_production = process.env['NODE_ENV'] == 'production';
 
 gulp.task("concat-bower", function () {
 	var files = [
@@ -61,7 +64,7 @@ gulp.task("compile", function(){
 		.pipe(browserify({
 			transform: [annotate, babel]
 		}))
-		.pipe(uglify())
+		.pipe(gulp_if(is_production, uglify()))
 		.pipe(gulp.dest("public"));
 });
 

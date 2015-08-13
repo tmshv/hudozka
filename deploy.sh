@@ -1,5 +1,7 @@
 #!/bin/sh
 
+NODE_ENV=production gulp
+
 tarfile=build.tar.gz
 tarpath=$TMPDIR$tarfile
 
