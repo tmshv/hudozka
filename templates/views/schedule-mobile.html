@@ -1,0 +1,9 @@
+<div class="schedule" ng-controller="MobileScheduleController">
+    <p>
+        <label>
+            <select ng-model="currentSchedule" ng-change="loadSchedule(currentSchedule, true)" ng-options="s.text for s in schedules"></select>
+        </label>
+    </p>
+
+    <schedule-slider schedule="groups"></schedule-slider>
+</div>

@@ -2,13 +2,20 @@
  * Created by tmshv on 04/11/14.
  */
 
-var app = angular.module("hudozhka", [
+var deps = [
+    require('./modules/schedule')
+]
+    .map(function(m){
+        return m.name;
+    });
+
+var app = angular.module("hudozhka", deps.concat([
     "hudozhka.data",
     "ngRoute",
     "angulartics",
     "angulartics.google.analytics",
     "angularSpinner"
-]);
+]));
 
 app.config(function ($locationProvider, $routeProvider) {
     $locationProvider.hashPrefix("!");
@@ -19,25 +26,42 @@ app.config(function ($locationProvider, $routeProvider) {
             name: "/",
             templateUrl: "/views/home.html",
             controller: "HomePageController",
-            title:"ДХШ Шлиссельбурга"
+            title: "ДХШ Шлиссельбурга"
         },
-        {
-            name: "/schedule",
-            templateUrl: "/views/schedule.html",
-            controller: "SchedulePageController",
-            title:"Расписание"
+        function () {
+            var default_route = {
+                name: "/schedule/:period?/:semester?",
+                templateUrl: "/views/schedule.html",
+                controller: "SchedulePageController",
+                title: "Расписание"
+            };
+
+            try {
+                if (window.matchMedia('(max-device-width: 30em)').matches) {
+                    return {
+                        name: "/schedule/:period?/:semester?",
+                        templateUrl: "/views/schedule-mobile.html",
+                        controller: "SchedulePageController",
+                        title: "Расписание"
+                    }
+                } else {
+                    return default_route;
+                }
+            } catch (e) {
+                return default_route;
+            }
         },
         {
             name: "/team",
             templateUrl: "/views/team.html",
             controller: "TeamPageController",
-            title:"Преподаватели"
+            title: "Преподаватели"
         },
         {
             name: "/gallery",
             templateUrl: "/views/gallery.html",
             controller: "GalleryPageController",
-            title:"Работы учащихся"
+            title: "Работы учащихся"
         },
         {
             name: "/gallery/:year/:course/:album",
@@ -53,6 +77,7 @@ app.config(function ($locationProvider, $routeProvider) {
     ];
 
     routes.forEach(function (route) {
+        if (typeof route === 'function') route = route();
         $routeProvider.when(route.name, route);
     });
 
@@ -61,10 +86,10 @@ app.config(function ($locationProvider, $routeProvider) {
     });
 });
 
-app.run(function($location, $rootScope, $http) {
+app.run(function ($location, $rootScope, $http) {
     $rootScope.$on("$routeChangeSuccess", function (event, current) {
         var title = current["$$route"].title;
-        if(title) $rootScope.title = title;
+        if (title) $rootScope.title = title;
     });
 
     $http.defaults.headers.common["Accept"] = "application/json";
@@ -81,6 +106,7 @@ require("./filters/removeNewline")(app);
 require("./filters/uppercase-first")(app);
 require("./pages/home")(app);
 require("./pages/schedule")(app);
+require("./pages/schedule-mobile")(app);
 require("./pages/team")(app);
 require("./pages/gallery")(app);
 require("./pages/docs")(app);

@@ -1,0 +1,10 @@
+<div class="schedule-slider__slide" ng-class="{current: day.current}">
+    <div class="schedule-slider__head">
+        <p>{{day.day}}</p>
+        <p>{{day.date}}</p>
+    </div>
+
+    <div class="schedule-slider__body">
+        <schedule-record ng-repeat="group in day.groups track by $index" record="group" i="$index"></schedule-record>
+    </div>
+</div>
