@@ -4,7 +4,14 @@ module.exports = function (app) {
         $scope.now = new Date().getFullYear();
 
         $rootScope.$on('$routeChangeSuccess', function (event, current) {
-            $scope.developer = current['$$route'].originalPath == '/';
+            var originalPath;
+            try{
+                originalPath = current['$$route'].originalPath;
+            }catch(e){
+                originalPath = null;
+            }
+
+            $scope.developer = originalPath == '/';
         });
     });
 };
