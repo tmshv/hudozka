@@ -1,0 +1,58 @@
+<div class="schedule-block" ng-show="groups">
+    <table>
+        <thead class="">
+        <tr>
+            <th class="group">Гр.</th>
+            <th ng-class="{current: isToday(0)}">
+                <p class="day">Понедельник</p>
+
+                <p class="date">{{weekDay(0)}}</p>
+            </th>
+            <th ng-class="{current: isToday(1)}">
+                <p class="day">Вторник</p>
+
+                <p class="date">{{weekDay(1)}}</p>
+            </th>
+            <th ng-class="{current: isToday(2)}">
+                <p class="day">Среда</p>
+
+                <p class="date">{{weekDay(2)}}</p>
+            </th>
+            <th ng-class="{current: isToday(3)}">
+                <p class="day">Четверг</p>
+
+                <p class="date">{{weekDay(3)}}</p>
+            </th>
+            <th ng-class="{current: isToday(4)}">
+                <p class="day">Пятница</p>
+
+                <p class="date">{{weekDay(4)}}</p>
+            </th>
+            <th ng-class="{current: isToday(5)}">
+                <p class="day">Суббота</p>
+
+                <p class="date">{{weekDay(5)}}</p>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="group in groups">
+            <td class="group">
+                <p class="name">{{group.name}}</p>
+
+                <p class="time">{{group.time}}</p>
+            </td>
+
+            <td ng-repeat="day in group.days track by $index" ng-class="{current: isToday($index)}">
+                <p class="lesson"><a href="">{{day.lesson}}</a></p>
+
+                <p class="teacher"><a href="">{{day.teacher}}</a></p>
+
+                <p class="time">{{day.time[0]}}</p>
+
+                <p class="time">{{day.time[1]}}</p>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

@@ -28,28 +28,11 @@ app.config(function ($locationProvider, $routeProvider) {
             controller: "HomePageController",
             title: "ДХШ Шлиссельбурга"
         },
-        function () {
-            var default_route = {
-                name: "/schedule/:period?/:semester?",
-                templateUrl: "/views/schedule.html",
-                controller: "SchedulePageController",
-                title: "Расписание"
-            };
-
-            try {
-                if (window.matchMedia('(max-device-width: 30em)').matches) {
-                    return {
-                        name: "/schedule/:period?/:semester?",
-                        templateUrl: "/views/schedule-mobile.html",
-                        controller: "SchedulePageController",
-                        title: "Расписание"
-                    }
-                } else {
-                    return default_route;
-                }
-            } catch (e) {
-                return default_route;
-            }
+        {
+            name: "/schedule/:period?/:semester?",
+            templateUrl: "/views/schedule.html",
+            controller: "SchedulePageController",
+            title: "Расписание"
         },
         {
             name: "/team",
@@ -106,7 +89,6 @@ require("./filters/removeNewline")(app);
 require("./filters/uppercase-first")(app);
 require("./pages/home")(app);
 require("./pages/schedule")(app);
-require("./pages/schedule-mobile")(app);
 require("./pages/team")(app);
 require("./pages/gallery")(app);
 require("./pages/docs")(app);

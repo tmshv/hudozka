@@ -1,17 +1,66 @@
 var getDates = require('../../utils/date').getDates;
 
 module.exports = angular.module('hudozka.schedule', [])
+    .directive('schedule', function($compile){
+        return {
+            restrict: 'E',
+            scope: {
+                groups: '='
+            },
+            link: function (scope, element) {
+                var template = `<schedule-table groups="${scope.groups}"></schedule-table>`;
+
+                try {
+                    if (window.matchMedia('(max-device-width: 30em)').matches) {
+                        template = `<schedule-slider groups="${scope.groups}"></schedule-slider>`
+                    }
+                } catch (e) {
+                }
+
+                element.html(template).show();
+                $compile(element.contents())(scope);
+            }
+        };
+    })
+    .directive('scheduleTable', function(){
+        return {
+            templateUrl: '/views/schedule/table.html',
+            link: function(scope, element){
+                var now = new Date();
+                var dates = getDates(now);
+
+                scope.isToday = function (weekDayIndex) {
+                    return (now.getDay() - 1) === weekDayIndex;
+                };
+
+                scope.weekDay = function (weekDayIndex) {
+                    return dates[weekDayIndex];
+                };
+
+                var $tbody = element.find('table tbody');
+                var $thead = element.find('table thead');
+
+                $(window).scroll(function () {
+                    if ($(this).scrollTop() >= 220) {
+                        $thead.addClass('fix animated fadeInDown');
+                        $tbody.addClass('fix');
+                    } else {
+                        $thead.removeClass('fix animated fadeInDown');
+                        $tbody.removeClass('fix');
+                    }
+                });
+            }
+        }
+    })
     .directive('scheduleSlider', function ($compile) {
         return {
             restrict: 'E',
             template: '<div class="schedule-slick"></div>',
-            scope: {
-                schedule: '='
-            },
+
             link: function (scope, element) {
                 var $slick = element.find('.schedule-slick');
 
-                scope.$watch('schedule', function (value) {
+                scope.$watch('groups', function (value) {
                     try {
                         $slick.slick('unslick');
                     } catch (e) {
