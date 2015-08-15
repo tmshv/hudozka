@@ -1,5 +1,5 @@
 .tape-block{
-  width: 70%;
+  width: 60%;
   max-width: 1000px;
 
   margin: 2em auto;
@@ -11,7 +11,7 @@
   }
 }
 
-.tape-block-content{
+.tape-block__body{
   position: relative;
   width: 100%;
 
@@ -53,7 +53,7 @@
     margin: 1.5em auto;
   }
 
-  .tape-block-content {
+  .tape-block__body {
     .tape {
       width: 62px;
       height: 62px;

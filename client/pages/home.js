@@ -3,27 +3,36 @@
  */
 
 module.exports = function (app) {
-    app.controller("HomePageController", function ($scope, config) {
+    app.controller('HomePageController', function ($scope, config) {
         var fotorama;
 
-        $scope.pageClass = "page-home";
+        $scope.pageClass = 'page-home';
 
         var $tape = $('.tape-block');
-        var $fotorama = $('.fotorama');
+        var $fotorama = $tape.find('.tape-block__content');
 
         $tape.addClass('simplified');
         $fotorama.on('fotorama:ready', function () {
             $tape.removeClass('simplified');
             fotorama.setOptions({
-                nav: 'dots'
+                nav: 'dots',
+                transition: 'crossfade',
+                autoplay: '6000',
+                arrows: 'false',
+                width: '100%',
+                fit: 'cover',
+                loop: 'true'
             });
         });
 
         fotorama = $fotorama.fotorama().data('fotorama');
-        fotorama.load([
-            {img: 'http://static.shburg.org/art/img/cat1.jpg'},
-            {img: 'http://static.shburg.org/art/img/cat2.jpg'},
-            {img: 'http://static.shburg.org/art/img/cat3.jpg'}
-        ]);
+
+        setTimeout(function(){
+            fotorama.load([
+                {img: 'http://static.shburg.org/art/img/cat1.jpg'},
+                {img: 'http://static.shburg.org/art/img/cat2.jpg'},
+                {img: 'http://static.shburg.org/art/img/cat3.jpg'}
+            ]);
+        }, 100);
     });
 };
