@@ -1,0 +1,6 @@
+<nav role="navigation" class="main-menu">
+    <li ng-repeat="item in menu" class="{{item.color}}" ng-class="{selected: isActive(item)}">
+        <span ng-hide="isValid(item)">{{item.text}}</span>
+        <a href="{{item.url}}" ng-show="isValid(item)">{{item.text}}</a>
+    </li>
+</nav>
