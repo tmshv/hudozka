@@ -1,76 +1,79 @@
-header {
-  nav {
-    overflow-x: scroll;
-    -webkit-overflow-scrolling: touch;
-    width: 100%;
-    max-height: 15em;
+.main-menu {
 
-    background-color: black;
-    font-size: 1.1em;
-    color: #666;
+  position: fixed;
+  z-index: 100;
+  overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+  //max-height: 15em;
 
-    & :link, & :visited {
-      text-decoration: none;
-      border-bottom: 1px solid #333;
-      color: #a2a2a2;
+  background-color: black;
+  font-size: 1.1em;
+  color: #666;
+
+  list-style: none;
+  white-space: nowrap;
+
+  & :link, & :visited {
+    text-decoration: none;
+    border-bottom: 1px solid #333;
+    color: #a2a2a2;
+  }
+
+  li {
+    display: inline-block; /* 6 */
+    padding: 0.3em 0.2em 0.5em;
+    margin: 0 0.5em;
+
+    &:first-child {
+      margin-left: 1em;
     }
+  }
 
-    ul {
-      list-style: none;
-      white-space: nowrap;
+  a:hover {
+    color: white;
+    border-bottom: 1px solid #555;
+  }
 
-      li {
-        display: inline-block; /* 6 */
-        padding: 0.3em 0.2em 0.5em;
-        margin: 0 0.5em;
-      }
-    }
+  .selected {
+    border-top: 4px solid white;
+    font-weight: bold;
 
-    a:hover {
+    a:link, a:visited {
       color: white;
-      border-bottom: 1px solid #555;
+      text-decoration: none;
+      border-bottom: none;
     }
 
-    .selected {
-      border-top: 4px solid white;
-      font-weight: bold;
+    &.blue {
+      border-top: 4px solid #3f9cea;
+    }
 
-      a:link, a:visited {
-        color: white;
-        text-decoration: none;
-        border-bottom: none;
-      }
+    &.green {
+      border-top: 4px solid #5cbe40;
+    }
 
-      &.blue {
-        border-top: 4px solid #3f9cea;
-      }
+    &.yellow {
+      border-top: 4px solid #ffee00;
+    }
 
-      &.green {
-        border-top: 4px solid #5cbe40;
-      }
+    &.pink {
+      border-top: 4px solid #f655a0;
+    }
 
-      &.yellow {
-        border-top: 4px solid #ffee00;
-      }
-
-      &.pink {
-        border-top: 4px solid #f655a0;
-      }
-
-      &.red {
-        border-top: 4px solid #f61b14;
-      }
+    &.red {
+      border-top: 4px solid #f61b14;
     }
   }
 }
 
 @media (min-width: 31.25em) {
   header{
-    max-height: none;
+    //max-height: none;
     overflow: hidden;
+  }
 
-    nav ul {
-      width: 100%;
-    }
+  .main-menu {
+    width: 100%;
   }
 }

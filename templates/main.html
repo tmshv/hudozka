@@ -44,16 +44,9 @@
     </script>
 </head>
 <body>
-<div class="wrapper">
+<div class="wrapper" ng-controller="AppController">
     <header>
-        <nav role="navigation" ng-controller="MenuController">
-            <ul>
-                <li ng-repeat="item in menu.items" class="{{item.color}}" ng-class="{selected: isActive(item)}">
-                    <span ng-hide="isValid(item)">{{item.text}}</span>
-                    <a href="{{item.url}}" ng-show="isValid(item)">{{item.text}}</a>
-                </li>
-            </ul>
-        </nav>
+        <main-menu items="menuProvider"></main-menu>
     </header>
 
     <div class="content">

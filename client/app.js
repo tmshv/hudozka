@@ -80,6 +80,7 @@ app.run(function ($location, $rootScope, $http) {
 
 require("./api/api")(app);
 require("./services/io")(app);
+require("./directives/mainMenu")(app);
 require("./ui/menu")(app);
 require("./ui/breadcrumbs")(app);
 require("./ui/timeline")(app);
@@ -105,4 +106,8 @@ app.controller("TeamPageController", function ($scope) {
 
 app.controller("DocsPageController", function ($scope) {
     $scope.pageClass = "page-docs";
+});
+
+app.controller("AppController", function ($scope, menu) {
+    $scope.menuProvider = menu.items;
 });

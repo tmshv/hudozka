@@ -21,26 +21,14 @@ module.exports = function (app) {
 
         var menu = new Menu();
         $rootScope.$on('$routeChangeSuccess', function (event, current) {
-            var path = current['$$route'].originalPath;
-            menu.activate(path);
+            try{
+                var path = current['$$route'].originalPath;
+                menu.activate(path);
+            }catch(e){
+
+            }
         });
 
         return menu;
-    });
-
-    app.controller("MenuController", function ($scope, menu) {
-        $scope.menu = menu;
-
-        $scope.isActive = function (item) {
-            if(menu.current) {
-                return item.url == menu.current.url;
-            }else{
-                return false;
-            }
-        };
-
-        $scope.isValid = function (item) {
-            return 'url' in item;
-        };
     });
 };
