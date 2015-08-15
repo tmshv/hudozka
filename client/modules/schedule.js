@@ -1,7 +1,7 @@
 var getDates = require('../../utils/date').getDates;
 
 module.exports = angular.module('hudozka.schedule', [])
-    .directive('schedule', function($compile){
+    .directive('schedule', function ($compile) {
         return {
             restrict: 'E',
             scope: {
@@ -22,10 +22,12 @@ module.exports = angular.module('hudozka.schedule', [])
             }
         };
     })
-    .directive('scheduleTable', function(){
+    .directive('scheduleTable', function () {
         return {
             templateUrl: '/views/schedule/table.html',
-            link: function(scope, element){
+            link: function (scope, element) {
+                //var this_element = element[0];
+
                 var now = new Date();
                 var dates = getDates(now);
 
@@ -39,9 +41,23 @@ module.exports = angular.module('hudozka.schedule', [])
 
                 var $tbody = element.find('table tbody');
                 var $thead = element.find('table thead');
+                var $td_list = [];
 
+                var min;
+                var max;
                 $(window).scroll(function () {
-                    if ($(this).scrollTop() >= 220) {
+                    const scrollOffset = 150;
+                    if(!min) min = element.find('table tbody tr:first-child')[0].offsetTop + scrollOffset;
+                    if(!max) max = element.find('table tbody tr:last-child')[0].offsetTop + scrollOffset;
+
+                    if(!$td_list.length) $td_list = element.find('table tbody tr:first-child td');
+                    $td_list.each(function (i) {
+                        var w = this.offsetWidth;
+                        $thead.find('th')[i].style.width = `${w}px`;
+                    });
+
+                    var scroll = $(this).scrollTop();
+                    if (scroll >= min && scroll <= max) {
                         $thead.addClass('fix animated fadeInDown');
                         $tbody.addClass('fix');
                     } else {

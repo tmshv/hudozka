@@ -1,0 +1,121 @@
+$current-week-day-color: #4b8ff3;
+
+.schedule-table {
+  margin: 0 auto;
+  width: 100%;
+  min-width: 50em;
+  position: relative;
+
+  table {
+    margin: 2em auto;
+    border-spacing: 0;
+    text-align: center;
+
+    thead {
+      animation-duration: 0.3s;
+
+      th {
+        font-weight: normal;
+        vertical-align: baseline;
+        height: 80px;
+      }
+
+      .date {
+        font-size: 1.5em;
+      }
+
+      .group {
+        color: #666;
+      }
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #f0f2da;
+    }
+
+    td {
+      vertical-align: baseline;
+
+      &:not(.group) {
+        width: 15%;
+        padding: .75em 1em;
+      }
+
+      &.group {
+        width: 5%;
+
+        p.name {
+          font-size: 1.25em;
+          font-weight: 800;
+        }
+      }
+    }
+
+    thead.fix {
+      position: fixed;
+      top: 41px;
+      background-color: rgba(255, 255, 255, .95);
+      z-index: 50;
+      box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+
+      .current {
+        border: none;
+        border-radius: 0;
+        color: $current-week-day-color;
+      }
+
+      th {
+        height: auto;
+
+        .day {
+          margin: .5em 0;
+        }
+
+        .date {
+          margin: 0 0 .25em;
+        }
+      }
+    }
+
+    tbody.fix:before {
+      content: '';
+      display: block;
+      margin-top: 80px;
+    }
+  }
+
+  p {
+    margin-bottom: .2em;
+  }
+
+  a {
+    color: black;
+
+    text-decoration: none;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .lesson {
+    font-size: 1.1em;
+    font-weight: bold;
+  }
+
+  .teacher {
+    font-style: italic;
+  }
+
+  .current {
+    border-left: 2px solid $current-week-day-color;
+    border-right: 2px solid $current-week-day-color;
+  }
+
+  .canceled:before {
+    position: absolute;
+    content: "";
+    width: 70%;
+    height: 100%;
+    top: 0;
+    left: 15%;
+    background-image: url(lesson-canceled.svg);
+  }
+}
