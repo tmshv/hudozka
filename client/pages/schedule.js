@@ -14,7 +14,9 @@ function isRequested(period, semester) {
 }
 
 module.exports = function (app) {
-    app.controller('ScheduleController', function ($scope, $http, $location, $routeParams, scheduleData, team) {
+    app.controller('ScheduleController', function ($scope, $http, $location, $routeParams, scheduleData, team, menu) {
+        menu.activate('/schedule');
+
         var current_period = $routeParams.period;
         var current_semester = $routeParams.semester;
         var isScheduleRequested = current_period && current_semester;
