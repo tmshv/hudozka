@@ -81,6 +81,8 @@ app.run(function ($location, $rootScope, $http) {
 require("./api/api")(app);
 require("./services/io")(app);
 require("./directives/mainMenu")(app);
+require("./directives/teamMemberProfile")(app);
+require("./directives/backgroundPicture")(app);
 require("./ui/menu")(app);
 require("./ui/breadcrumbs")(app);
 require("./ui/timeline")(app);
@@ -98,10 +100,6 @@ require("./controllers/CopyrightController")(app);
 
 app.controller("SchedulePageController", function ($scope) {
     $scope.pageClass = "page-schedule";
-});
-
-app.controller("TeamPageController", function ($scope) {
-    $scope.pageClass = "page-team";
 });
 
 app.controller("DocsPageController", function ($scope) {

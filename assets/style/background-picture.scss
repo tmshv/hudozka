@@ -1,0 +1,14 @@
+.background-picture {
+  overflow-x: hidden;
+  width: 100%;
+  height: 95vh;
+  background-repeat: no-repeat;
+
+  &.vertical {
+    background-size: 100% auto;
+  }
+
+  &.horizontal {
+    background-size: auto 100%;
+  }
+}
