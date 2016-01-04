@@ -1,14 +1,19 @@
 #!/bin/sh
 
-gunzip build.tar.gz
-tar xf build.tar -C ~/art
-rm build.tar
+dir_path="$1"
+build_file="$2"
+port="$3"
 
-cd ~/art
+cd $dir_path
+
+gunzip -c $build_file | tar xopf -
+
+#rm build.tar
+
 npm install --production --loglevel error
 
 export NODE_ENV=production
-export PORT=18010
+export PORT=$port
 
 #starting www
 if forever restart bin/www.js; then

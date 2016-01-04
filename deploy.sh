@@ -1,10 +1,16 @@
 #!/bin/sh
 
+echo "Deploying art.shburg.org"
+
 NODE_ENV=production gulp
 
-tarfile=build.tar.gz
+server="art.shburg.org"
+app_port=1800
+tarfile="build.tar.gz"
 tarpath=$TMPDIR$tarfile
+destpath="~/www/art.shburg.org"
 
+echo "Packing..."
 env GZIP=-9 tar -czf $tarpath \
     --disable-copyfile \
     --exclude=node_modules \
@@ -14,11 +20,14 @@ env GZIP=-9 tar -czf $tarpath \
     --exclude=deploy.sh \
     --exclude=install.sh .
 
-echo "build file: $tarpath"
+echo "Build file: $tarpath"
 
-ssh shburg.et "rm -rf art/*"
-scp $tarpath shburg@146.185.183.243:~
-scp install.sh shburg@146.185.183.243:~
-ssh shburg.et "./install.sh"
+ssh hoster.et "rm -rf $destpath/*"
+scp $tarpath hoster@$server:$destpath
+echo "Build file successfully uploaded on server"
+
+echo "Installing..."
+ssh hoster.et "bash -s" -- < ./install.sh $destpath $tarfile $app_port
+
 rm $tarpath
-echo "art.shlisselburg.org deployment completed successfully"
+echo "Done"
