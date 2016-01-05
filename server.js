@@ -34,7 +34,7 @@ app.use(prerender(config.prerender));
 app.use(serve(path.join(__dirname, "public")));
 app.use(serve(path.join(__dirname, "templates")));
 
-app.use(helmet.defaults());
+app.use(helmet());
 
 app.use(function *(next) {
     var q = this.query;
