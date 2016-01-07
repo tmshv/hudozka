@@ -29,9 +29,9 @@ module.exports = function (app) {
 
         setTimeout(function(){
             fotorama.load([
-                {img: 'http://static.shburg.org/art/img/cat1.jpg'},
-                {img: 'http://static.shburg.org/art/img/cat2.jpg'},
-                {img: 'http://static.shburg.org/art/img/cat3.jpg'}
+                {img: 'https://static.shburg.org/art/img/cat1.jpg'},
+                {img: 'https://static.shburg.org/art/img/cat2.jpg'},
+                {img: 'https://static.shburg.org/art/img/cat3.jpg'}
             ]);
         }, 100);
     });

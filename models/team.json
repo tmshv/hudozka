@@ -6,7 +6,7 @@
 		"edu": "Ленинградский инженерно-строительный институт",
 		"diploma": "НВ №222567",
 		"status": "",
-		"picture": "http://static.shburg.org/art/team/teacher5.jpg",
+		"picture": "https://static.shburg.org/art/team/teacher5.jpg",
 	  	"anchor": "director"
 	},
 	{
@@ -16,7 +16,7 @@
 		"edu": "Академия художеств имени И. Е. Репина",
 		"diploma": "B-I №259798",
 		"status": "Первая квалификационная категория по живописи и станковой композиции",
-		"picture": "http://static.shburg.org/art/team/teacher10.jpg"
+		"picture": "https://static.shburg.org/art/team/teacher10.jpg"
 	},
 	{
 		"id": "od-gogoleva",
@@ -25,7 +25,7 @@
 		"edu": "Ленинградский инженерно-строительный институт",
 		"diploma": "B-I №222572",
 		"status": "Высшая квалификационная категория по живописи и станковой композиции",
-		"picture": "http://static.shburg.org/art/team/teacher11.jpg"
+		"picture": "https://static.shburg.org/art/team/teacher11.jpg"
 	},
 	{
 		"id": "nv-andreeva",
@@ -34,7 +34,7 @@
 		"edu": "Санкт-Петербургский государственный университет технологии и дизайна",
 		"diploma": "ИВС 0514253",
 		"status": "Вторая квалификационная категория по прикладной композиции",
-		"picture": "http://static.shburg.org/art/team/teacher2.jpg"
+		"picture": "https://static.shburg.org/art/team/teacher2.jpg"
 	},
 	{
 		"id": "vv-voronova",
@@ -43,7 +43,7 @@
 		"edu": "Российский государственный университет имени А. И. Герцена",
 		"diploma": "ВСГ 0530340",
 		"status": "Вторая квалификационная категория по прикладной композиции",
-		"picture": "http://static.shburg.org/art/team/teacher1.jpg"
+		"picture": "https://static.shburg.org/art/team/teacher1.jpg"
 	},
 	{
 		"id": "in-vturina",
@@ -52,7 +52,7 @@
 		"edu": "Кировский государственный педагогический институт имени В. И. Ленина",
 		"diploma": "ШВ №164501",
 		"status": "Первая квалификационная категория по скульптуре",
-		"picture": "http://static.shburg.org/art/team/teacher8.jpg"
+		"picture": "https://static.shburg.org/art/team/teacher8.jpg"
 	},
 	{
 		"id": "my-valkova",
@@ -61,7 +61,7 @@
 		"edu": "Педагогический институт имени А. И. Герцена",
 		"diploma": "ПП №224197",
 		"status": "Высшая квалификационная категория по истории искусства",
-		"picture": "http://static.shburg.org/art/team/teacher12.jpg"
+		"picture": "https://static.shburg.org/art/team/teacher12.jpg"
 	},
 	{
 		"id": "rk-timashev",
@@ -70,7 +70,7 @@
 		"edu": "Санкт-Петербургский государственный архитектурно-строительный университет",
 		"diploma": "ВСГ 5344910",
 		"status": "",
-		"picture": "http://static.shburg.org/art/team/teacher4.jpg"
+		"picture": "https://static.shburg.org/art/team/teacher4.jpg"
 	},
 	{
 		"id": "as-timasheva",
@@ -79,7 +79,7 @@
 		"edu": "Московский архитектурный институт",
 		"diploma": "РН 70241",
 		"status": "",
-		"picture": "http://static.shburg.org/art/team/teacher3.jpg",
+		"picture": "https://static.shburg.org/art/team/teacher3.jpg",
 	  	"contacts": {
 		  "instagram": "annm101"
 		}
@@ -91,7 +91,7 @@
 		"edu": "Незаконченный Ленинградский государственный педагогический университет имени А. С. Пушкина",
 		"diploma": "",
 		"status": "",
-		"picture": "http://static.shburg.org/art/team/teacher9.jpg"
+		"picture": "https://static.shburg.org/art/team/teacher9.jpg"
 	},
 	{
 		"id": "ey-tarasova",
@@ -100,7 +100,7 @@
 		"edu": "Санкт-Петербургский государственный архитектурно-строительный университет",
 		"diploma": "ВСВ 1321444",
 		"status": "",
-		"picture": "http://static.shburg.org/art/team/teacher.jpg"
+		"picture": "https://static.shburg.org/art/team/teacher.jpg"
 	},
 	{
 		"id": "ea-burovtseva",
