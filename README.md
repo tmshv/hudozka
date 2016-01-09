@@ -1,11 +1,12 @@
-# WWW.HUDOZKA.SU
+# WWW.ART.SHLISSELBURG.ORG
 THE SITE OF ART SCHOOL OF **SHLISSELBURG**
-Visit [www.hudozka.su](www.hudozka.su)
+Visit [art.shlisselburg.org](https://art.shlisselburg.org)
 
 ### Used technologies:
 - node.js
-- express.js
-- jade template language
+- koa.js
+- angular.js 
+- mongodb
 
-## Contribute
+## Contributers
 - Roman Timashev [roman@tmshv.ru](mailto:roman@tmshv.ru)
