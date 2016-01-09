@@ -31,7 +31,7 @@ app.use(function *(next) {
 });
 app.use(prerender(config.prerender));
 
-app.use(serve(path.join(__dirname, "public")));
+app.use(serve(path.join(__dirname, '../public')));
 app.use(serve(path.join(__dirname, "templates")));
 
 app.use(helmet());

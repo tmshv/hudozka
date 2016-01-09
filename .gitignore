@@ -1,6 +1,7 @@
 .DS_Store
 .idea
 *.sublime*
+npm-debug.log
 
 private*.json
 
@@ -8,3 +9,4 @@ private*.json
 /bower_components
 /public
 /build
+**/__pycache__
