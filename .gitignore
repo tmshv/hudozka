@@ -9,3 +9,4 @@ private*.json
 /bower_components
 /public
 /build
+**/__pycache__
