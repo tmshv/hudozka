@@ -3,7 +3,7 @@
   "private": true,
   "version": "3.4.1",
   "description": "",
-  "main": "bin/www.js",
+  "main": "src/bin/www.js",
   "scripts": {
     "test": "mocha"
   },
