@@ -12,20 +12,20 @@ var is_production = process.env['NODE_ENV'] == 'production';
 
 gulp.task("concat-bower", function () {
     var files = [
-        "public/bower_components/jquery/dist/jquery.min.js",
-        "public/bower_components/angular/angular.min.js",
-        "public/bower_components/angular-route/angular-route.min.js",
-        "public/bower_components/angular-animate/angular-animate.min.js",
-        "public/bower_components/angulartics/dist/angulartics.min.js",
-        "public/bower_components/angulartics/dist/angulartics-ga.min.js",
-        "public/bower_components/spin.js/spin.js",
-        "public/bower_components/angular-spinner/angular-spinner.min.js",
-        "public/bower_components/socket.io-client/socket.io.js"
+        './src/public/bower_components/jquery/dist/jquery.min.js',
+        './src/public/bower_components/angular/angular.min.js',
+        './src/public/bower_components/angular-route/angular-route.min.js',
+        './src/public/bower_components/angular-animate/angular-animate.min.js',
+        './src/public/bower_components/angulartics/dist/angulartics.min.js',
+        './src/public/bower_components/angulartics/dist/angulartics-ga.min.js',
+        './src/public/bower_components/spin.js/spin.js',
+        './src/public/bower_components/angular-spinner/angular-spinner.min.js',
+        './src/public/bower_components/socket.io-client/socket.io.js'
     ];
     gulp.src(files)
         .pipe(concat("libs.js"))
         .pipe(uglify())
-        .pipe(gulp.dest("public"));
+        .pipe(gulp.dest('./public'));
 });
 
 gulp.task('styles', function () {
@@ -34,7 +34,7 @@ gulp.task('styles', function () {
         require('cssnano')()
     ];
 
-    gulp.src('./assets/style/*.scss')
+    gulp.src('./src/assets/style/*.scss')
         .pipe(sass())
         .pipe(postcss(processors))
         .pipe(concat('style.css'))
@@ -42,25 +42,25 @@ gulp.task('styles', function () {
 });
 
 gulp.task("copy", function () {
-    gulp.src("./assets/fonts/*")
+    gulp.src('./src/assets/fonts/*')
         .pipe(gulp.dest("./public/fonts"));
 
-    gulp.src("./assets/graphics/*")
+    gulp.src('./src/assets/graphics/*')
         .pipe(gulp.dest("./public/graphics"));
 
     gulp.src([
-            "./3rdparty/*",
-            "robots.txt"
+            './src/3rdparty/*',
+            './robots.txt'
         ])
         .pipe(gulp.dest("./public"));
 });
 
 gulp.task('compile', function () {
     gulp.src([
-            'client/app.js',
-            'client/document.js',
-            'client/data.js',
-            'client/instagram.js'
+            './src/client/app.js',
+            './src/client/document.js',
+            './src/client/data.js',
+            './src/client/instagram.js'
         ])
         .pipe(browserify({
             transform: [
@@ -73,7 +73,7 @@ gulp.task('compile', function () {
 });
 
 gulp.task("imagemin", function () {
-    gulp.src("./assets/img/**/*")
+    gulp.src('./src/assets/img/**/*')
         .pipe(imageMin())
         .pipe(gulp.dest("./public/img"));
 });
