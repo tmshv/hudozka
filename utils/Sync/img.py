@@ -11,7 +11,7 @@ def read_image(src):
     return Image.open(src)
 
 
-def minify(image, dest, size, ext=None):
+def thumbnail(image, dest, size, ext=None):
     image.thumbnail(size)
     image.save(override_extension(dest, ext))
 
