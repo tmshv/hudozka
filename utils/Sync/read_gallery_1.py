@@ -1,23 +1,33 @@
+import os
 from datetime import datetime
 import re
 import lxml.html
 from markdown import markdown
 import time
+
+import img
 from Album import Album
 import lxml_utils
 import settings
+from Product import Product
 
 __author__ = 'Roman Timashev'
 
-artist_name_exp = re.compile('([ %s]+)(\s\(\d+ лет\))?$' % (settings.CYR_LOWER+settings.CYR_UPPER))
+artist_name_exp = re.compile('([ %s]+)(\s\(\d+ лет\))?$' % (settings.CYR_LOWER + settings.CYR_UPPER))
 # artist_name_exp = re.compile('(.+)(\s\(\d+ лет\))?$')
 artist_age_exp = re.compile('.+\((\d+) лет\)$')
 
+
 class GalleryReader:
-    def __init__(self, path):
+    def __init__(self, dir, path):
         super().__init__()
         self.html = None
         self.description_path = path
+        self.dir_path = dir
+
+        self.image_sizes = settings.image_sizes
+        self.image_ext = settings.image_ext
+        self.image_base_url = settings.image_base_url
 
     def read(self):
         with open(self.description_path, 'r', encoding='utf-8') as dfile:
@@ -54,9 +64,13 @@ class GalleryReader:
             # PRODUCT
             content = self.get_drawings()
 
-            a = Album(type='1', title=album_title, uri=album_uri, course=course_title, course_uri=course_uri, date=date, teacher=teacher_name, comment=None)
+            a = Album(type='1', title=album_title, uri=album_uri, course=course_title, course_uri=course_uri, date=date,
+                      teacher=teacher_name, comment=None)
             for p in content:
-                a.add_product(p)
+                author_name, author_age, filename, product_title = p
+                product = self.create_product(a, author_name, author_age, filename, product_title)
+                product.image_original_path = os.path.join(self.dir_path, filename)
+                a.add_product(product)
             return a
 
     def get_drawings(self):
@@ -97,6 +111,42 @@ class GalleryReader:
             drawings.append((artist_name, artist_age, image_filename, product_title))
 
         return drawings
+
+    def create_product(self, album, author_name, author_age, filename, product_title):
+        tr = {ord(a): ord(b) for a, b in zip(*settings.translit_table)}
+
+        author_name_encoded = re.sub(r'[\s()]', '', author_name).lower().translate(tr)
+        image_id = '%s-%s-%s-%s' % (
+            album.date.year,
+            re.sub(r'[/]', '', album.uri),
+            author_name_encoded,
+            os.path.splitext(filename)[0]
+        )
+
+        image = self.create_image(image_id, filename, self.image_sizes, self.image_ext, self.image_base_url)
+        return Product(author_name, author_age, image, product_title)
+
+    def create_image(self, name, filename, sizes, ext, base_url):
+        thumbs = {}
+        for size, width, height in sizes:
+            source_image = img.read_image(filename)
+            sw, sh = source_image.size
+            if sw < sh:
+                width, height = height, width
+
+            width = width if width else sw
+            height = height if height else sh
+
+            out_filename = '{name}-{w}x{h}{ext}'.format(name=name, w=width, h=height, ext=ext)
+            out_url = os.path.join(base_url, out_filename)
+
+            thumbs[size] = {
+                'url': out_url,
+                'size': size,
+                'width': width,
+                'height': height
+            }
+        return thumbs
 
     def get_date(self):
         string = lxml_utils.get_text_following_by_tag(self.html, 'em', "Дата")

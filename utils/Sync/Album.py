@@ -19,4 +19,3 @@ class Album:
 
     def __repr__(self, *args, **kwargs):
         return '[%s by %s (%d items)]' % (self.title, self.teacher, len(self.products))
-
