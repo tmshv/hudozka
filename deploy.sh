@@ -27,7 +27,7 @@ scp $tarpath hoster@$server:$destpath
 echo "Build file successfully uploaded on server"
 
 echo "Installing..."
-ssh hoster.et "bash -s" -- < ./install.sh $destpath $tarfile $app_port
+ssh hoster@$server "bash -s" -- < ./install.sh $destpath $tarfile $app_port
 
 rm $tarpath
 echo "Done"
