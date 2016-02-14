@@ -12,15 +12,15 @@ var is_production = process.env['NODE_ENV'] == 'production';
 
 gulp.task("concat-bower", function () {
     var files = [
-        './src/public/bower_components/jquery/dist/jquery.min.js',
-        './src/public/bower_components/angular/angular.min.js',
-        './src/public/bower_components/angular-route/angular-route.min.js',
-        './src/public/bower_components/angular-animate/angular-animate.min.js',
-        './src/public/bower_components/angulartics/dist/angulartics.min.js',
-        './src/public/bower_components/angulartics/dist/angulartics-ga.min.js',
-        './src/public/bower_components/spin.js/spin.js',
-        './src/public/bower_components/angular-spinner/angular-spinner.min.js',
-        './src/public/bower_components/socket.io-client/socket.io.js'
+        './bower_components/jquery/dist/jquery.min.js',
+        './bower_components/angular/angular.min.js',
+        './bower_components/angular-route/angular-route.min.js',
+        './bower_components/angular-animate/angular-animate.min.js',
+        './bower_components/angulartics/dist/angulartics.min.js',
+        './bower_components/angulartics/dist/angulartics-ga.min.js',
+        './bower_components/spin.js/spin.js',
+        './bower_components/angular-spinner/angular-spinner.min.js',
+        './bower_components/socket.io-client/socket.io.js'
     ];
     gulp.src(files)
         .pipe(concat("libs.js"))
