@@ -5,7 +5,8 @@
   "description": "",
   "main": "src/bin/www.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+	"bower": "bower"
   },
   "repository": {
     "type": "git",
