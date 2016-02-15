@@ -3,7 +3,7 @@ var path = require("path");
 const MENU = require("./models/menu");
 
 const team = require("./models/team");
-const course = require("./models/course");
+import {courses} from "./models/course";
 const document = require("./models/document");
 const schedule = require("./models/schedule");
 
@@ -20,7 +20,7 @@ var config = {
         menu: MENU,
         documents: document.docs,
         team: team.team,
-        courses: course.courses
+        courses: courses
     },
 
     db: {

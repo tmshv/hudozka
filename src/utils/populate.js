@@ -1,7 +1,4 @@
-exports.pop = pop;
-exports.populate = populate;
-
-function pop(data){
+export function pop(data){
 	var Populator = function(data){
 		this.target = data;
 	}
@@ -28,7 +25,7 @@ function pop(data){
 	return fun;
 }
 
-function populate(find, field){
+export function populate(find, field){
 	return function(lesson){
 		var id = lesson[field];
 		var val = find(id);

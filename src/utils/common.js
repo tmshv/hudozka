@@ -1,7 +1,3 @@
-module.exports = {
-    range: range
-};
-
 /**
  * Generates list of numbers
  * @param  {Number} start starting value
@@ -9,7 +5,7 @@ module.exports = {
  * @param  {Number} step  difference value
  * @return {Array}        list of numbers
  */
-function range(start, num, step) {
+export function range(start, num, step) {
     var list = [];
     var val = start;
     for (var i = 0; i < num; i++) {

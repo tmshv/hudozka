@@ -2,7 +2,7 @@
  * Created by tmshv on 22/11/14.
  */
 
-var query = require("../../utils/net").query;
+import {query} from '../../utils/net';
 
 function APIFeed(http){
     this.request = http;

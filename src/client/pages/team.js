@@ -1,5 +1,4 @@
 var populate = require('../../utils/populate').populate;
-const course = require('../../models/course');
 
 module.exports = function (app) {
     app.controller('TeamPageController', function ($scope, team) {

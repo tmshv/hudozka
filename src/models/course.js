@@ -1,4 +1,4 @@
-const COURSES = [
+export const courses = [
 	{
 		"id": "painting",
 		"name": "Живопись"
@@ -29,13 +29,9 @@ const COURSES = [
 	}
 ];
 
-exports.courses = COURSES;
-exports.course = getCourseByID;
-exports.name = getCourseNameByID;
-
-function getCourseByID(id){
-	for(var i=0; i<COURSES.length; i++){
-		var p = COURSES[i];
+export function getCourseByID(id){
+	for(var i=0; i<courses.length; i++){
+		var p = courses[i];
 		if(p.id == id){
 			return p;
 		}
@@ -43,7 +39,7 @@ function getCourseByID(id){
 	return null;
 }
 
-function getCourseNameByID(id){
+export function getCourseNameByID(id){
 	var p = getCourseByID(id);
 	if(p) return p.name;
 	else return null;

@@ -1,4 +1,4 @@
-var getDates = require('../../utils/date').getDates;
+import {getDates} from '../../utils/date';
 
 module.exports = angular.module('hudozka.schedule', [])
     .directive('schedule', function ($compile) {

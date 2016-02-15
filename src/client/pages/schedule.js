@@ -1,5 +1,5 @@
-var populate = require('../../utils/populate').populate;
-const course = require('../../models/course');
+import {populate} from '../../utils/populate';
+import {getCourseNameByID} from '../../models/course';
 
 function indexEquals(i) {
     return function (_, index) {
@@ -59,7 +59,7 @@ module.exports = function (app) {
                     .success(function (scheduleRecord) {
                         $scope.groups = scheduleData.populate(scheduleRecord.schedule, [
                             populate(team.short, 'teacher'),
-                            populate(course.name, 'lesson')
+                            populate(getCourseNameByID, 'lesson')
                         ]);
 
                         if (updateURL) {

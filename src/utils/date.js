@@ -1,15 +1,11 @@
-var range = require('./common').range;
-
-module.exports = {
-    getDates: getDates
-};
+import {range} from './common';
 
 /**
  *
  * @param start
  * @returns {*}
  */
-function getDates(start) {
+export function getDates(start) {
     var day = start.getDay();
     return range(0, 6, 1).reduce(function (dates, weekDay) {
         var d = 1 + weekDay - day;
