@@ -76,8 +76,8 @@ gulp.task('compile', function () {
                 ]
             }
         }))
-        .pipe(ngAnnotate())
-        //.pipe(_if(is_production, minify()))
+        .pipe(_if(is_production, ngAnnotate()))
+        .pipe(_if(is_production, minify()))
         .pipe(gulp.dest('./public'));
 });
 
