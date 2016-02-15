@@ -33,8 +33,12 @@ gulp.task("concat-bower", function () {
 
 gulp.task('styles', function () {
     var processors = [
-        require('autoprefixer')({browsers: ['last 1 version']}),
-        require('cssnano')()
+        require('autoprefixer')({
+            browsers: ['last 1 version']
+        }),
+        require('cssnano')({
+            zindex: false
+        })
     ];
 
     gulp.src('./src/assets/style/*.scss')
