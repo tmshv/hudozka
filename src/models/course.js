@@ -1,4 +1,33 @@
-const COURSES = require("./courses.json");
+const COURSES = [
+	{
+		"id": "painting",
+		"name": "Живопись"
+	},
+	{
+		"id": "drawing",
+		"name": "Рисунок"
+	},
+	{
+		"id": "sculpting",
+		"name": "Скульптура"
+	},
+	{
+		"id": "ceramic",
+		"name": "Керамика"
+	},
+	{
+		"id": "composition",
+		"name": "Композиция"
+	},
+	{
+		"id": "history",
+		"name": "История искусства"
+	},
+	{
+		"id": "cg",
+		"name": "Комп. графика"
+	}
+];
 
 exports.courses = COURSES;
 exports.course = getCourseByID;

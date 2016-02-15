@@ -4,10 +4,7 @@
 
 var deps = [
     require('./modules/schedule')
-]
-    .map(function(m){
-        return m.name;
-    });
+].map(m => m.name);
 
 var app = angular.module("hudozhka", deps.concat([
     "hudozhka.data",

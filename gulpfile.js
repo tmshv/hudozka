@@ -6,7 +6,10 @@ var imageMin = require('gulp-imagemin');
 var uglify = require('gulp-uglify');
 var minify = require('gulp-minify');
 var concat = require('gulp-concat');
-var browserify = require('gulp-browserify');
+var webpack = require('webpack-stream');
+var rename = require("gulp-rename");
+var ngAnnotate = require('gulp-ng-annotate');
+var named = require('vinyl-named');
 
 var is_production = process.env['NODE_ENV'] == 'production';
 
@@ -62,12 +65,18 @@ gulp.task('compile', function () {
             './src/client/data.js',
             './src/client/instagram.js'
         ])
-        .pipe(browserify({
-            transform: [
-                require('browserify-ngannotate'),
-                require('babelify')
-            ]
+        .pipe(named())
+        .pipe(webpack({
+            output: {
+                filename : '[name].js'
+            },
+            module: {
+                loaders: [
+                    { test: /\.js$/, loader: 'babel' }
+                ]
+            }
         }))
+        .pipe(ngAnnotate())
         //.pipe(_if(is_production, minify()))
         .pipe(gulp.dest('./public'));
 });

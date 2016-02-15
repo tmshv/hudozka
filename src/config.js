@@ -1,6 +1,6 @@
 var fs = require("fs");
 var path = require("path");
-const MENU = require("./models/menu.json");
+const MENU = require("./models/menu");
 
 const team = require("./models/team");
 const course = require("./models/course");

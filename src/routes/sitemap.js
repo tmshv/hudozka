@@ -31,7 +31,7 @@ module.exports = function (app) {
 };
 
 function *menu(){
-    return require('../models/menu.json')
+    return require('../models/menu')
         .filter(function(item){
             return 'url' in item
         })

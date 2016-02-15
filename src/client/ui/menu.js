@@ -2,10 +2,12 @@
  * Created by tmshv on 05/11/14.
  */
 
+import menuItems from '../../models/menu';
+
 module.exports = function (app) {
     app.factory("menu", function ($route, $rootScope) {
         function Menu() {
-            this.items = require("../../models/menu.json");
+            this.items = menuItems;
             this.current = null;
         }
 
@@ -14,17 +16,17 @@ module.exports = function (app) {
                 return i.url === path;
             });
 
-            if(f.length) {
+            if (f.length) {
                 this.current = f[0];
             }
         };
 
         var menu = new Menu();
         $rootScope.$on('$routeChangeSuccess', function (event, current) {
-            try{
+            try {
                 var path = current['$$route'].originalPath;
                 menu.activate(path);
-            }catch(e){
+            } catch (e) {
 
             }
         });

@@ -2,6 +2,9 @@
  * Created by tmshv on 22/11/14.
  */
 
+require('babel-core/register');
+require('babel-polyfill');
+
 var config = require("../config");
 var db = require("../core/db");
 var server = require("../server");
