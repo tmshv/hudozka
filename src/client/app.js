@@ -1,6 +1,8 @@
 /**
  * Created by tmshv on 04/11/14.
- */
+ **/
+
+import Document from './components/Document';
 
 var deps = [
     require('./modules/schedule')
@@ -75,34 +77,38 @@ app.run(function ($location, $rootScope, $http) {
     $http.defaults.headers.common["Accept"] = "application/json";
 });
 
-require("./api/api")(app);
-require("./services/io")(app);
-require("./directives/mainMenu")(app);
-require("./directives/teamMemberProfile")(app);
-require("./directives/backgroundPicture")(app);
-require("./ui/menu")(app);
-require("./ui/breadcrumbs")(app);
-require("./ui/timeline")(app);
-require("./filters/strip")(app);
-require("./filters/remove-hashtags")(app);
-require("./filters/removeNewline")(app);
-require("./filters/uppercase-first")(app);
-require("./pages/home")(app);
-require("./pages/schedule")(app);
-require("./pages/team")(app);
-require("./pages/gallery")(app);
-require("./pages/docs")(app);
-require("./controllers/ContactsController")(app);
-require("./controllers/CopyrightController")(app);
+[
+    require("./api/api"),
+    require("./services/io"),
+    require("./directives/mainMenu"),
+    require("./directives/teamMemberProfile"),
+    require("./directives/backgroundPicture"),
+    require("./ui/menu"),
+    require("./ui/breadcrumbs"),
+    require("./ui/timeline"),
+    require("./filters/strip"),
+    require("./filters/remove-hashtags"),
+    require("./filters/removeNewline"),
+    require("./filters/uppercase-first"),
+    require("./pages/home"),
+    require("./pages/schedule"),
+    require("./pages/team"),
+    require("./pages/gallery"),
+    require("./pages/docs"),
+    require("./controllers/ContactsController"),
+    require("./controllers/CopyrightController"),
+    Document,
+    function (app){
+        app.controller("SchedulePageController", function ($scope) {
+            $scope.pageClass = "page-schedule";
+        });
 
-app.controller("SchedulePageController", function ($scope) {
-    $scope.pageClass = "page-schedule";
-});
+        app.controller("DocsPageController", function ($scope) {
+            $scope.pageClass = "page-docs";
+        });
 
-app.controller("DocsPageController", function ($scope) {
-    $scope.pageClass = "page-docs";
-});
-
-app.controller("AppController", function ($scope, menu) {
-    $scope.menuProvider = menu.items;
-});
+        app.controller("AppController", function ($scope, menu) {
+            $scope.menuProvider = menu.items;
+        });
+    }
+].map(i => i(app));
