@@ -50,6 +50,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.1.1",
     "gulp-uglify": "^1.5.0",
+    "html-loader": "^0.4.2",
     "mocha": "~1.17.1",
     "should": "~3.1.2",
     "vinyl-named": "^1.1.0",
