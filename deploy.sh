@@ -22,7 +22,7 @@ env GZIP=-9 tar -czf $tarpath \
 
 echo "Build file: $tarpath"
 
-ssh hoster.et "rm -rf $destpath/*"
+ssh h "rm -rf $destpath/*"
 scp $tarpath hoster@$server:$destpath
 echo "Build file successfully uploaded on server"
 
