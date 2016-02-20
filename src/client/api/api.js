@@ -3,7 +3,7 @@
  */
 
 import APIFeed from './APIFeed';
-var APIGallery = require("./gallery");
+import APIGallery from './APIGallery';
 import APIDocument from './APIDocument';
 
 module.exports = function (app) {
@@ -12,7 +12,7 @@ module.exports = function (app) {
     app.factory("api", function ($http) {
         var api = {};
         api.news = new APIFeed($http);
-        api.gallery = new APIGallery($http, minute);
+        api.gallery = new APIGallery($http);
         api.document = new APIDocument($http);
 
         return api;
