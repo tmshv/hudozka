@@ -1,6 +1,11 @@
 module.exports = function (app) {
-    app.controller("DocumentsController", function ($scope, docs) {
+    app.controller("DocumentsController", function ($scope, api, docs) {
         $scope.documents = docs.docs;
+
+        api.document.awards()
+            .success(data => {
+                $scope.awards = data;
+            });
     });
 };
 

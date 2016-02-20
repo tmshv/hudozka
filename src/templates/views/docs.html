@@ -1,3 +1,11 @@
 <div class="documents-block"  ng-controller="DocumentsController">
-    <document ng-repeat="doc in documents" document="doc"></document>
+    <h2>Устав, Лицензия, пр.</h2>
+    <div class="documents-container">
+        <document ng-repeat="i in documents" document="i"></document>
+    </div>
+
+    <h2>Награды</h2>
+    <div class="documents-container">
+        <award ng-repeat="i in awards" document="i"></award>
+    </div>
 </div>
