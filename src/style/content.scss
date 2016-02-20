@@ -1,0 +1,17 @@
+@import "variables";
+
+.content {
+  margin: $single-margin auto 0;
+
+  &.content_wide{
+    width: $content-wide;
+  }
+
+  &.content_semi-wide{
+    width: $content-semi-wide;
+  }
+
+  &.content_thin{
+    width: $content-thin;
+  }
+}
