@@ -12,6 +12,7 @@ var bodyParser = require("koa-bodyparser");
 
 var config = require("./config");
 var routes = require("./routes");
+import documents from './routes/documents';
 
 var app = koa();
 app.proxy = true;
@@ -24,10 +25,11 @@ app.use(etag());
 app.use(function *(next) {
     yield* next;
 
-    try{
+    try {
         var xp = this.response.header['x-prerender'] == 'true';
-        if(xp) this.body = this.body.replace('<meta name="fragment" content="!">', '');
-    }catch(e){}
+        if (xp) this.body = this.body.replace('<meta name="fragment" content="!">', '');
+    } catch (e) {
+    }
 });
 app.use(prerender(config.prerender));
 
@@ -66,7 +68,7 @@ require("./routes/sitemap")(app);
 require("./routes/schedule")(app);
 require("./routes/news")(app);
 require("./routes/gallery")(app);
-
+documents(app);
 require("./instagram/router")(app);
 require("./instagram/io")(app);
 
