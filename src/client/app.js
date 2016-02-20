@@ -4,6 +4,7 @@
 
 import Document from './components/Document';
 import Award from './components/Award';
+import api from './api/api';
 
 var deps = [
     require('./modules/schedule')
@@ -79,7 +80,7 @@ app.run(function ($location, $rootScope, $http) {
 });
 
 [
-    require("./api/api"),
+    api,
     require("./services/io"),
     require("./directives/mainMenu"),
     require("./directives/teamMemberProfile"),
