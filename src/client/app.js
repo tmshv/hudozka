@@ -3,6 +3,7 @@
  **/
 
 import Document from './components/Document';
+import Award from './components/Award';
 
 var deps = [
     require('./modules/schedule')
@@ -98,7 +99,8 @@ app.run(function ($location, $rootScope, $http) {
     require("./controllers/ContactsController"),
     require("./controllers/CopyrightController"),
     Document,
-    function (app){
+    Award,
+    function (app) {
         app.controller("SchedulePageController", function ($scope) {
             $scope.pageClass = "page-schedule";
         });
