@@ -14,10 +14,12 @@ def read_image(src):
 def thumbnail(image, dest, size, ext=None):
     image.thumbnail(size)
     image.save(override_extension(dest, ext))
+    return image
 
 
 def optimize(image, dest, quality=85, ext=None):
     image.save(override_extension(dest, ext), quality=quality)
+    return image
 
 
 def override_extension(dest, ext=None):
