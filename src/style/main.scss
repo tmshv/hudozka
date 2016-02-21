@@ -14,6 +14,17 @@ body {
   min-width: 320px;
 }
 
+h2{
+  text-align: center;
+  margin-bottom: $single-margin;
+
+  background-color: hsl(0, 0, 95%);
+}
+
+h3{
+  margin-bottom:  $single-margin / 2;
+}
+
 .body-wrapper {
   display: flex;
   min-height: 100%;
@@ -21,8 +32,10 @@ body {
 }
 
 .body-wrapper__content {
+  $margin: $single-margin + $menu-width;
+
   flex: 1;
-  margin: 41px auto 0;
+  margin: $margin auto 0;
 }
 
 a {
