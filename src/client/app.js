@@ -7,6 +7,7 @@ import Award from './components/Award';
 import GalleryItem from './components/GalleryItem';
 import TeamMemberProfile from './components/TeamMemberProfile';
 import AppController from './controllers/AppController';
+import HomeController from './controllers/HomeController';
 import TeamController from './controllers/TeamController';
 import DocumentsController from './controllers/DocumentsController';
 import api from './api/api';
@@ -96,7 +97,6 @@ app.run(($location, $rootScope, $http) => {
     require('./filters/remove-hashtags'),
     require('./filters/removeNewline'),
     require('./filters/uppercase-first'),
-    require('./pages/home'),
     require('./pages/schedule'),
     require('./pages/gallery'),
     require('./controllers/ContactsController'),
@@ -106,9 +106,14 @@ app.run(($location, $rootScope, $http) => {
     GalleryItem,
     TeamMemberProfile,
     AppController,
+    HomeController,
     TeamController,
     DocumentsController,
     function (app) {
+        app.controller('HomePageController', ($scope) => {
+            $scope.pageClass = 'page-home';
+        });
+
         app.controller('SchedulePageController', ($scope) => {
             $scope.pageClass = 'page-schedule';
         });

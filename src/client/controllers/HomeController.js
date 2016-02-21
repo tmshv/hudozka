@@ -1,18 +1,10 @@
-/**
- * Created by tmshv on 22/11/14.
- */
-
-module.exports = function (app) {
-    app.controller('HomePageController', function ($scope, config) {
-        var fotorama;
-
-        $scope.pageClass = 'page-home';
-
-        var $tape = $('.tape-block');
-        var $fotorama = $tape.find('.tape-block__content');
+export default function (app) {
+    app.controller('HomeController', () => {
+        let $tape = $('.tape-block');
+        let $fotorama = $tape.find('.tape-block__content');
 
         $tape.addClass('simplified');
-        $fotorama.on('fotorama:ready', function () {
+        $fotorama.on('fotorama:ready', () => {
             $tape.removeClass('simplified');
             fotorama.setOptions({
                 nav: 'dots',
@@ -25,9 +17,8 @@ module.exports = function (app) {
             });
         });
 
-        fotorama = $fotorama.fotorama().data('fotorama');
-
-        setTimeout(function(){
+        let fotorama = $fotorama.fotorama().data('fotorama');
+        setTimeout(() => {
             fotorama.load([
                 {img: 'https://static.shburg.org/art/img/cat1.jpg'},
                 {img: 'https://static.shburg.org/art/img/cat2.jpg'},
