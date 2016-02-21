@@ -13,6 +13,7 @@ import HomeController from './controllers/HomeController';
 import TeamController from './controllers/TeamController';
 import DocumentsController from './controllers/DocumentsController';
 import CopyrightController from './controllers/CopyrightController';
+import ContactsController from './controllers/CopyrightController';
 import RemoveHashtags from './filters/RemoveHashtags';
 import RemoveNewline from './filters/RemoveNewline';
 import Strip from './filters/Strip';
@@ -105,7 +106,6 @@ app.run(($location, $rootScope, $http) => {
     require('./ui/timeline'),
     require('./pages/schedule'),
     require('./pages/gallery'),
-    require('./controllers/ContactsController'),
     MainMenu,
     Breadcrumbs,
     Document,
@@ -117,6 +117,7 @@ app.run(($location, $rootScope, $http) => {
     TeamController,
     DocumentsController,
     CopyrightController,
+    ContactsController,
     function (app) {
         app.controller('HomePageController', ($scope) => {
             $scope.pageClass = 'page-home';
