@@ -1,22 +1,14 @@
-<div class="gallery-block" ng-controller="GalleryPageController">
-
-    <div class="gallery-period" ng-repeat="period in years">
-        <p class="period">{{period.year}}</p>
-        <div><div class="gallery-album" ng-repeat="album in period.albums">
-            <h3><a href="{{album.url}}">{{album.title}}</a></h3>
-            <a href="{{album.url}}" class="invisible">
-                <img ng-src="{{album.preview_url}}" alt=""/>
-            </a>
-            <p>{{album.course}}</p>
-        </div></div>
+<div class="content content_wide" ng-controller="GalleryPageController">
+    <div class="album-collection" ng-repeat="period in years">
+        <h2 class="album-collection__title">{{period.year}}</h2>
+        <div class="album-collection__body">
+            <div class="gallery-album" ng-repeat="album in period.albums">
+                <h3><a href="{{album.url}}">{{album.title}}</a></h3>
+                <a href="{{album.url}}" class="invisible">
+                    <img ng-src="{{album.preview_url}}" alt="{{album.title}}"/>
+                </a>
+                <p>{{album.course}}</p>
+            </div>
+        </div>
     </div>
-
-
-    <!--<div class="gallery-album" ng-repeat="album in albums">-->
-        <!--<h3><a href="{{album.url}}">{{album.title}}</a></h3>-->
-        <!--<a href="{{album.url}}" class="invisible">-->
-            <!--<img ng-src="{{album.preview_url}}" alt=""/>-->
-        <!--</a>-->
-        <!--<p>{{album.course}}</p>-->
-    <!--</div>-->
 </div>
