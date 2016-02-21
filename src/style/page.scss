@@ -1,12 +1,55 @@
 .page {
   padding-top: 0;
   width: 100%;
+
+  &.ng-leave {
+    //  z-index: 9999;
+  }
+
+  &.ng-enter {
+    //  z-index: 8888;
+  }
 }
 
-.page.ng-leave {
-//  z-index: 9999;
+.page-home {
+  &.ng-leave {
+    transform-origin: 0% 0%;
+    animation: rotateFall .3s both ease-in;
+  }
+
+  &.ng-enter {
+    animation: scaleUp 0.3s both ease-in;
+  }
 }
 
-.page.ng-enter {
-//  z-index: 8888;
+.page-schedule {
+  &.ng-leave {
+    transform-origin: 0% 0%;
+    animation: rotateFall 0.3s both ease-in;
+  }
+
+  &.ng-enter {
+    animation: scaleUp 0.3s both ease-in;
+  }
+}
+
+.page-team {
+  &.ng-leave {
+    animation: slideOutLeft 0.3s both ease-in;
+  }
+
+  &.ng-enter {
+    animation: slideInRight 0.3s both ease-in;
+  }
+}
+
+.page-docs {
+  &.ng-leave {
+    transform-origin: 50% 50%;
+    animation: rotateOutNewspaper .3s both ease-in;
+  }
+
+  &.ng-enter {
+    animation: scaleUp 0.3s both ease-in
+  }
 }
