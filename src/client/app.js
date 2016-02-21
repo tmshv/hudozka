@@ -12,6 +12,10 @@ import AppController from './controllers/AppController';
 import HomeController from './controllers/HomeController';
 import TeamController from './controllers/TeamController';
 import DocumentsController from './controllers/DocumentsController';
+import RemoveHashtags from './filters/RemoveHashtags';
+import RemoveNewline from './filters/RemoveNewline';
+import Strip from './filters/Strip';
+import UppercaseFirst from './filters/UppercaseFirst';
 import IOService from './services/io';
 import MenuService from './services/menu';
 import api from './api/api';
@@ -93,11 +97,11 @@ app.run(($location, $rootScope, $http) => {
     api,
     IOService,
     MenuService,
+    RemoveHashtags,
+    RemoveNewline,
+    Strip,
+    UppercaseFirst,
     require('./ui/timeline'),
-    require('./filters/strip'),
-    require('./filters/remove-hashtags'),
-    require('./filters/removeNewline'),
-    require('./filters/uppercase-first'),
     require('./pages/schedule'),
     require('./pages/gallery'),
     require('./controllers/ContactsController'),
