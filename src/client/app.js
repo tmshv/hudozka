@@ -2,6 +2,7 @@
  * Created by tmshv on 04/11/14.
  **/
 
+import MainMenu from './components/MainMenu';
 import Document from './components/Document';
 import Award from './components/Award';
 import GalleryItem from './components/GalleryItem';
@@ -91,7 +92,6 @@ app.run(($location, $rootScope, $http) => {
     api,
     IOService,
     MenuService,
-    require('./directives/mainMenu'),
     require('./directives/backgroundPicture'),
     require('./ui/breadcrumbs'),
     require('./ui/timeline'),
@@ -103,6 +103,7 @@ app.run(($location, $rootScope, $http) => {
     require('./pages/gallery'),
     require('./controllers/ContactsController'),
     require('./controllers/CopyrightController'),
+    MainMenu,
     Document,
     Award,
     GalleryItem,
