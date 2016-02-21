@@ -13,7 +13,7 @@ import HomeController from './controllers/HomeController';
 import TeamController from './controllers/TeamController';
 import DocumentsController from './controllers/DocumentsController';
 import CopyrightController from './controllers/CopyrightController';
-import ContactsController from './controllers/CopyrightController';
+import ContactsController from './controllers/ContactsController';
 import RemoveHashtags from './filters/RemoveHashtags';
 import RemoveNewline from './filters/RemoveNewline';
 import Strip from './filters/Strip';
