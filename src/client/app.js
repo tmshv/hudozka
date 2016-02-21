@@ -92,7 +92,6 @@ app.run(($location, $rootScope, $http) => {
     api,
     IOService,
     MenuService,
-    require('./directives/backgroundPicture'),
     require('./ui/breadcrumbs'),
     require('./ui/timeline'),
     require('./filters/strip'),
