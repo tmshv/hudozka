@@ -98,7 +98,6 @@ app.run(($location, $rootScope, $http) => {
     require('./filters/uppercase-first'),
     require('./pages/home'),
     require('./pages/schedule'),
-    require('./pages/team'),
     require('./pages/gallery'),
     require('./controllers/ContactsController'),
     require('./controllers/CopyrightController'),
