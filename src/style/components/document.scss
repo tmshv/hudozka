@@ -1,0 +1,18 @@
+@import "../variables";
+
+.document {
+  margin: 0 1.2em $single-margin;
+
+  p {
+    text-align: center;
+  }
+  img {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: $mobile-width) {
+  .document {
+    margin: 0 0 $single-margin;
+  }
+}

@@ -16,23 +16,8 @@
   align-items: baseline;
 }
 
-.doc {
-  margin: 0 1.2em 2.5em;
-
-  p {
-    text-align: center;
-  }
-  img {
-    max-width: 100%;
-  }
-}
-
 @media (max-width: 31.25em) {
   .documents-block {
     margin: 1em 0 0;
-  }
-
-  .doc {
-    margin: 0 0 2em;
   }
 }
