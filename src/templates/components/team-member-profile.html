@@ -1,0 +1,18 @@
+<div class="team-member-profile">
+    <a name="{{$ctrl.member.anchor}}"></a>
+
+    <div class="team-member-profile__picture">
+        <img ng-src="{{$ctrl.member.picture}}">
+    </div>
+
+    <div class="team-member-profile__info">
+        <h3>{{$ctrl.member.names[1]}} {{$ctrl.member.names[2]}} <span>{{$ctrl.member.names[3]}}</span></h3>
+
+        <p>{{$ctrl.member.position}}</p>
+        <p>{{$ctrl.member.status}}</p>
+        <p></p>
+
+        <p class="edu">{{$ctrl.member.edu}} </p>
+        <p class="diploma">Диплом {{$ctrl.member.diploma}}</p>
+    </div>
+</div>

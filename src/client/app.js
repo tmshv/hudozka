@@ -5,6 +5,7 @@
 import Document from './components/Document';
 import Award from './components/Award';
 import GalleryItem from './components/GalleryItem';
+import TeamMemberProfile from './components/TeamMemberProfile';
 import api from './api/api';
 
 var deps = [
@@ -84,7 +85,6 @@ app.run(function ($location, $rootScope, $http) {
     api,
     require("./services/io"),
     require("./directives/mainMenu"),
-    require("./directives/teamMemberProfile"),
     require("./directives/backgroundPicture"),
     require("./ui/menu"),
     require("./ui/breadcrumbs"),
@@ -103,6 +103,7 @@ app.run(function ($location, $rootScope, $http) {
     Document,
     Award,
     GalleryItem,
+    TeamMemberProfile,
     function (app) {
         app.controller("SchedulePageController", function ($scope) {
             $scope.pageClass = "page-schedule";
