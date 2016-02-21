@@ -1,5 +1,6 @@
 export default function (app) {
     app.controller('HomeController', () => {
+        let fotorama;
         let $tape = $('.tape-block');
         let $fotorama = $tape.find('.tape-block__content');
 
@@ -17,7 +18,7 @@ export default function (app) {
             });
         });
 
-        let fotorama = $fotorama.fotorama().data('fotorama');
+        fotorama = $fotorama.fotorama().data('fotorama');
         setTimeout(() => {
             fotorama.load([
                 {img: 'https://static.shburg.org/art/img/cat1.jpg'},
