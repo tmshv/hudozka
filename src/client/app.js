@@ -13,7 +13,7 @@ let deps = [
     require('./modules/schedule')
 ].map(m => m.name);
 
-let app = angular.module('hudozhka', deps.concat([
+let app = angular.module('hudozka', deps.concat([
     'hudozhka.data',
     'ngRoute',
     'angulartics',
