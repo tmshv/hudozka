@@ -6,6 +6,7 @@ import Document from './components/Document';
 import Award from './components/Award';
 import GalleryItem from './components/GalleryItem';
 import TeamMemberProfile from './components/TeamMemberProfile';
+import AppController from './controllers/AppController';
 import api from './api/api';
 
 let deps = [
@@ -104,6 +105,7 @@ app.run(($location, $rootScope, $http) => {
     Award,
     GalleryItem,
     TeamMemberProfile,
+    AppController,
     function (app) {
         app.controller('SchedulePageController', ($scope) => {
             $scope.pageClass = 'page-schedule';
@@ -111,10 +113,6 @@ app.run(($location, $rootScope, $http) => {
 
         app.controller('DocsPageController', ($scope) => {
             $scope.pageClass = 'page-docs';
-        });
-
-        app.controller('AppController', ($scope, menu) => {
-            $scope.menuProvider = menu.items;
         });
     }
 ].map(i => i(app));
