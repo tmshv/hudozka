@@ -1,6 +1,6 @@
 <nav class="breadcrumbs">
     <ul>
-        <li ng-repeat="i in crumbs">
+        <li ng-repeat="i in $ctrl.crumbs">
             <a ng-show="i.url" href="{{i.url}}">{{i.name}}</a>
             <span ng-hide="i.url">{{i.name}}</span>
         </li>

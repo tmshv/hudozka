@@ -3,6 +3,7 @@
  **/
 
 import MainMenu from './components/MainMenu';
+import Breadcrumbs from './components/Breadcrumbs';
 import Document from './components/Document';
 import Award from './components/Award';
 import GalleryItem from './components/GalleryItem';
@@ -92,7 +93,6 @@ app.run(($location, $rootScope, $http) => {
     api,
     IOService,
     MenuService,
-    require('./ui/breadcrumbs'),
     require('./ui/timeline'),
     require('./filters/strip'),
     require('./filters/remove-hashtags'),
@@ -103,6 +103,7 @@ app.run(($location, $rootScope, $http) => {
     require('./controllers/ContactsController'),
     require('./controllers/CopyrightController'),
     MainMenu,
+    Breadcrumbs,
     Document,
     Award,
     GalleryItem,
