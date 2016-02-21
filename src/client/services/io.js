@@ -1,14 +1,11 @@
-/**
- * Created by tmshv on 15/03/15.
- */
+export default function (app) {
+    let socket;
 
-module.exports = function (app) {
-    var socket;
     function init(){
         socket = io();
     }
 
-    app.service("io", function () {
+    app.service('io',  () => {
         if (!socket) init();
         return socket;
     }); 

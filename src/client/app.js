@@ -10,6 +10,7 @@ import AppController from './controllers/AppController';
 import HomeController from './controllers/HomeController';
 import TeamController from './controllers/TeamController';
 import DocumentsController from './controllers/DocumentsController';
+import IOService from './services/io';
 import api from './api/api';
 
 let deps = [
@@ -87,7 +88,7 @@ app.run(($location, $rootScope, $http) => {
 
 [
     api,
-    require('./services/io'),
+    IOService,
     require('./directives/mainMenu'),
     require('./directives/backgroundPicture'),
     require('./ui/menu'),
