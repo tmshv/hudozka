@@ -7,6 +7,7 @@ import Award from './components/Award';
 import GalleryItem from './components/GalleryItem';
 import TeamMemberProfile from './components/TeamMemberProfile';
 import AppController from './controllers/AppController';
+import DocumentsController from './controllers/DocumentsController';
 import api from './api/api';
 
 let deps = [
@@ -98,7 +99,6 @@ app.run(($location, $rootScope, $http) => {
     require('./pages/schedule'),
     require('./pages/team'),
     require('./pages/gallery'),
-    require('./pages/docs'),
     require('./controllers/ContactsController'),
     require('./controllers/CopyrightController'),
     Document,
@@ -106,6 +106,7 @@ app.run(($location, $rootScope, $http) => {
     GalleryItem,
     TeamMemberProfile,
     AppController,
+    DocumentsController,
     function (app) {
         app.controller('SchedulePageController', ($scope) => {
             $scope.pageClass = 'page-schedule';
