@@ -1,10 +1,10 @@
-module.exports = function (app) {
-    app.controller('CopyrightController', function ($scope, $rootScope) {
+export default function (app) {
+    app.controller('CopyrightController', ($scope, $rootScope) => {
         $scope.developer = true;
         $scope.now = new Date().getFullYear();
 
-        $rootScope.$on('$routeChangeSuccess', function (event, current) {
-            var originalPath;
+        $rootScope.$on('$routeChangeSuccess', (event, current) => {
+            let originalPath;
             try{
                 originalPath = current['$$route'].originalPath;
             }catch(e){
