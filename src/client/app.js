@@ -7,6 +7,7 @@ import Award from './components/Award';
 import GalleryItem from './components/GalleryItem';
 import TeamMemberProfile from './components/TeamMemberProfile';
 import AppController from './controllers/AppController';
+import TeamController from './controllers/TeamController';
 import DocumentsController from './controllers/DocumentsController';
 import api from './api/api';
 
@@ -106,6 +107,7 @@ app.run(($location, $rootScope, $http) => {
     GalleryItem,
     TeamMemberProfile,
     AppController,
+    TeamController,
     DocumentsController,
     function (app) {
         app.controller('SchedulePageController', ($scope) => {
@@ -114,6 +116,10 @@ app.run(($location, $rootScope, $http) => {
 
         app.controller('DocsPageController', ($scope) => {
             $scope.pageClass = 'page-docs';
+        });
+
+        app.controller('TeamPageController', ($scope) => {
+            $scope.pageClass = 'page-team';
         });
     }
 ].map(i => i(app));
