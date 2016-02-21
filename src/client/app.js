@@ -11,6 +11,7 @@ import HomeController from './controllers/HomeController';
 import TeamController from './controllers/TeamController';
 import DocumentsController from './controllers/DocumentsController';
 import IOService from './services/io';
+import MenuService from './services/menu';
 import api from './api/api';
 
 let deps = [
@@ -89,9 +90,9 @@ app.run(($location, $rootScope, $http) => {
 [
     api,
     IOService,
+    MenuService,
     require('./directives/mainMenu'),
     require('./directives/backgroundPicture'),
-    require('./ui/menu'),
     require('./ui/breadcrumbs'),
     require('./ui/timeline'),
     require('./filters/strip'),
