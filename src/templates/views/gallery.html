@@ -2,13 +2,7 @@
     <div class="album-collection" ng-repeat="period in years">
         <h2 class="album-collection__title">{{period.year}}</h2>
         <div class="album-collection__body">
-            <div class="gallery-album" ng-repeat="album in period.albums">
-                <h3><a href="{{album.url}}">{{album.title}}</a></h3>
-                <a href="{{album.url}}" class="invisible">
-                    <img ng-src="{{album.preview_url}}" alt="{{album.title}}"/>
-                </a>
-                <p>{{album.course}}</p>
-            </div>
+            <gallery-item ng-repeat="album in period.albums" record="album"></gallery-item>
         </div>
     </div>
 </div>

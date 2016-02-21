@@ -1,0 +1,19 @@
+@import "variables";
+
+$img-max-width: 500px;
+
+.gallery-item {
+  width: calc(33% - #{$single-margin});
+  margin-bottom: $single-margin;
+
+  img {
+    width: 100%;
+    max-width: $img-max-width;
+  }
+}
+
+@media screen and (max-width: $mobile-width) {
+  .gallery-item {
+    margin: 0 0 1em;
+  }
+}

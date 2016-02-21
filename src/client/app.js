@@ -4,6 +4,7 @@
 
 import Document from './components/Document';
 import Award from './components/Award';
+import GalleryItem from './components/GalleryItem';
 import api from './api/api';
 
 var deps = [
@@ -101,6 +102,7 @@ app.run(function ($location, $rootScope, $http) {
     require("./controllers/CopyrightController"),
     Document,
     Award,
+    GalleryItem,
     function (app) {
         app.controller("SchedulePageController", function ($scope) {
             $scope.pageClass = "page-schedule";
