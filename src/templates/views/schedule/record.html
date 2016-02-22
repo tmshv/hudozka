@@ -1,8 +1,0 @@
-<div class="schedule-record" ng-class="{even: i % 2 === 0, empty: !record.content.lesson}">
-    <div class="schedule-record__head">Группа {{record.name}} ({{record.time}})</div>
-    <div class="schedule-record__main">
-        <p class="schedule-record__name">{{record.content.lesson}}</p>
-        <p class="schedule-record__tutor">{{record.content.teacher}}</p>
-        <p class="schedule-record__time" ng-repeat="time in record.content.time">{{time}}</p>
-    </div>
-</div>

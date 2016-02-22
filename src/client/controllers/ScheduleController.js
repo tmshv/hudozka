@@ -48,7 +48,7 @@ export default function (app) {
                 $scope.loadSchedule($scope.currentSchedule, isScheduleRequested);
             });
 
-        $scope.loadSchedule = (s, updateURL) => {
+        $scope.loadSchedule = (s, doUpdateURL) => {
             let id = s._id;
             let schedule_item = getScheduleByID(id);
 
@@ -59,12 +59,12 @@ export default function (app) {
                 let url = `/schedule/${period}/${sem}`;
                 $http.get(url, {cache: true})
                     .success(scheduleRecord => {
-                        $scope.groups = scheduleData.populate(scheduleRecord.schedule, [
+                        $scope.schedule = scheduleData.populate(scheduleRecord.schedule, [
                             populate(team.short, 'teacher'),
                             populate(getCourseNameByID, 'lesson')
                         ]);
 
-                        if (updateURL) $location.url(url);
+                        if (doUpdateURL) $location.url(url);
                     });
             }
         };

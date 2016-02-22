@@ -12,6 +12,11 @@ import Timeline from './components/Timeline';
 import TimelineRecord from './components/TimelineRecord';
 import TimelineRecordPost from './components/TimelineRecordPost';
 import TimelineRecordInstagram from './components/TimelineRecordInstagram';
+import Schedule from './components/Schedule';
+import ScheduleTable from './components/ScheduleTable';
+import ScheduleSlider from './components/ScheduleSlider';
+import ScheduleSlide from './components/ScheduleSlide';
+import ScheduleRecord from './components/ScheduleRecord';
 import AppController from './controllers/AppController';
 import HomeController from './controllers/HomeController';
 import ScheduleController from './controllers/ScheduleController';
@@ -29,17 +34,13 @@ import IOService from './services/io';
 import MenuService from './services/menu';
 import api from './api/api';
 
-let deps = [
-    require('./modules/schedule')
-].map(m => m.name);
-
-let app = angular.module('hudozka', deps.concat([
+let app = angular.module('hudozka', [
     'hudozhka.data',
     'ngRoute',
     'angulartics',
     'angulartics.google.analytics',
     'angularSpinner'
-]));
+]);
 
 app.config(($locationProvider, $routeProvider) => {
     $locationProvider.hashPrefix('!');
@@ -129,6 +130,11 @@ app.run(($location, $rootScope, $http) => {
     DocumentsController,
     CopyrightController,
     ContactsController,
+    Schedule,
+    ScheduleTable,
+    ScheduleSlider,
+    ScheduleSlide,
+    ScheduleRecord,
     function (app) {
         app.controller('HomePageController', ($scope) => {
             $scope.pageClass = 'page-home';

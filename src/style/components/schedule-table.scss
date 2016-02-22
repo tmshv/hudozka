@@ -1,4 +1,6 @@
-$current-week-day-color: #4b8ff3;
+@import "../variables";
+
+$current-week-day-color: $blue-color;
 
 .schedule-table {
   margin: 0 auto;
@@ -7,7 +9,7 @@ $current-week-day-color: #4b8ff3;
   position: relative;
 
   table {
-    margin: 2em auto;
+    //margin: 2em auto;
     border-spacing: 0;
     text-align: center;
 

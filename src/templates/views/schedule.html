@@ -1,9 +1,13 @@
-<div class="schedule" ng-controller="ScheduleController">
+<div class="content content_wide" ng-controller="ScheduleController">
     <p>
         <label>
-            <select ng-model="currentSchedule" ng-change="loadSchedule(currentSchedule, true)" ng-options="s.text for s in schedules"></select>
+            <select
+                ng-model="currentSchedule"
+                ng-change="loadSchedule(currentSchedule, true)"
+                ng-options="s.text for s in schedules">
+            </select>
         </label>
     </p>
 
-    <schedule groups="groups"></schedule>
+    <schedule schedule="schedule"></schedule>
 </div>
