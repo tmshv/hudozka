@@ -14,3 +14,31 @@ export function range(start, num, step) {
     }
     return list;
 }
+
+/**
+ * Return a closure that compares a Number argument with specified Number
+ * @param withNumber Number to compare with
+ * @returns {Function} (i) => {}
+ */
+export function numberEquals(withNumber) {
+    return i => i === withNumber;
+}
+
+/**
+ * Return a closure that compares a second Number argument with specified Number
+ * @param withNumber Number to compare with
+ * @returns {Function} (i) => {}
+ */
+export function indexEquals(withNumber) {
+    return (_, i) => i === withNumber;
+}
+
+/**
+ * Return a reduce function
+ * [['spring', 'Весена'], ['autumn', 'Осень']] -> 'Весна' or 'Осень' depend on byCondition result
+ * @param byCondition
+ * @param map
+ */
+export function translateAnItem(byCondition, map){
+    return (result, item) => byCondition(item) ? map(item): map(result)
+}
