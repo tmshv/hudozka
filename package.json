@@ -5,7 +5,7 @@
   "description": "",
   "main": "src/bin/www.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --compilers js:babel-register",
     "bower": "bower"
   },
   "repository": {
