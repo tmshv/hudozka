@@ -39,6 +39,6 @@ export function indexEquals(withNumber) {
  * @param byCondition
  * @param map
  */
-export function selectItem(byCondition, map = i => i) {
+export function select(byCondition, map = i => i) {
     return (result, item) => byCondition(item) ? map(item): map(result)
 }
