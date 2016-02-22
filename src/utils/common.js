@@ -42,3 +42,13 @@ export function indexEquals(withNumber) {
 export function select(byCondition, map = i => i) {
     return (result, item) => byCondition(item) ? map(item): map(result)
 }
+
+/**
+ * Select an item in Array by specified selector function
+ * @param scope
+ * @param selector
+ * @returns {*}
+ */
+export function choise(scope, selector){
+    return scope.reduce(selector, null);
+}
