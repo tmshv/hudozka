@@ -10,6 +10,7 @@ import GalleryItem from './components/GalleryItem';
 import TeamMemberProfile from './components/TeamMemberProfile';
 import AppController from './controllers/AppController';
 import HomeController from './controllers/HomeController';
+import ScheduleController from './controllers/ScheduleController';
 import TeamController from './controllers/TeamController';
 import GalleryController from './controllers/GalleryController';
 import AlbumController from './controllers/AlbumController';
@@ -106,7 +107,6 @@ app.run(($location, $rootScope, $http) => {
     Strip,
     UppercaseFirst,
     require('./ui/timeline'),
-    require('./pages/schedule'),
     MainMenu,
     Breadcrumbs,
     Document,
@@ -115,6 +115,7 @@ app.run(($location, $rootScope, $http) => {
     TeamMemberProfile,
     AppController,
     HomeController,
+    ScheduleController,
     TeamController,
     GalleryController,
     AlbumController,
