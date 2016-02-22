@@ -11,6 +11,8 @@ import TeamMemberProfile from './components/TeamMemberProfile';
 import AppController from './controllers/AppController';
 import HomeController from './controllers/HomeController';
 import TeamController from './controllers/TeamController';
+import GalleryController from './controllers/GalleryController';
+import AlbumController from './controllers/AlbumController';
 import DocumentsController from './controllers/DocumentsController';
 import CopyrightController from './controllers/CopyrightController';
 import ContactsController from './controllers/ContactsController';
@@ -105,7 +107,6 @@ app.run(($location, $rootScope, $http) => {
     UppercaseFirst,
     require('./ui/timeline'),
     require('./pages/schedule'),
-    require('./pages/gallery'),
     MainMenu,
     Breadcrumbs,
     Document,
@@ -115,6 +116,8 @@ app.run(($location, $rootScope, $http) => {
     AppController,
     HomeController,
     TeamController,
+    GalleryController,
+    AlbumController,
     DocumentsController,
     CopyrightController,
     ContactsController,
@@ -125,6 +128,14 @@ app.run(($location, $rootScope, $http) => {
 
         app.controller('SchedulePageController', ($scope) => {
             $scope.pageClass = 'page-schedule';
+        });
+
+        app.controller('GalleryPageController', ($scope) => {
+            $scope.pageClass = 'page-gallery';
+        });
+
+        app.controller('AlbumPageController', ($scope) => {
+            $scope.pageClass = 'page-album';
         });
 
         app.controller('DocsPageController', ($scope) => {
