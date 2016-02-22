@@ -92,37 +92,4 @@ export default function(app) {
             });
         }
     });
-
-    //app.directive("timelineRecord", function ($compile, $http, $sce, team) {
-    //    var templates = {
-    //        "post": ["/views/timeline-post.html", linkPost],
-    //        "instagram": ["/views/timeline-gram.html", linkGram]
-    //    };
-    //
-    //    function linkPost(scope, element, attrs) {
-    //        scope.message = $sce.trustAsHtml(scope.post.body);
-    //    }
-    //
-    //    function linkGram(scope, element, attrs) {
-    //    }
-    //
-    //    return {
-    //        restrict: "E",
-    //        scope: {
-    //            post:"=content"
-    //        },
-    //        link: function(scope, element, attrs){
-    //            var type = scope.post.type;
-    //            if(type in templates) {
-    //                $http.get(templates[type][0])
-    //                    .success(function (tpl) {
-    //                        element.html(tpl).show();
-    //                        $compile(element.contents())(scope);
-    //                        templates[type][1](scope, element, attrs);
-    //                    });
-    //            }
-    //
-    //        }
-    //    };
-    //});
 };
