@@ -11,3 +11,4 @@ private*.json
 /build
 **/__pycache__
 **/*.pyc
+/coverage

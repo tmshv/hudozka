@@ -6,6 +6,7 @@
   "main": "src/bin/www.js",
   "scripts": {
     "test": "mocha --compilers js:babel-register",
+    "coverage": "istanbul cover mocha -- --compilers js:babel-register",
     "bower": "bower"
   },
   "repository": {
@@ -51,6 +52,7 @@
     "gulp-sass": "^2.1.1",
     "gulp-uglify": "^1.5.0",
     "html-loader": "^0.4.2",
+    "istanbul": "^0.4.2",
     "mocha": "~1.17.1",
     "should": "~3.1.2",
     "vinyl-named": "^1.1.0",
