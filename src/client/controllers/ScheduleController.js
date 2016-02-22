@@ -1,7 +1,7 @@
 import {populate} from '../../utils/populate';
 import {getCourseNameByID} from '../../models/course';
 import {indexEquals} from '../../utils/common';
-import {select} from '../../utils/common';
+import {select, choise} from '../../utils/common';
 
 function isRequested(period, semester) {
     return function (schedule) {
@@ -16,6 +16,11 @@ export default function (app) {
         let current_period = $routeParams.period;
         let current_semester = $routeParams.semester;
         let isScheduleRequested = current_period && current_semester;
+
+        let getScheduleByID = (id) => choise(
+            $scope.schedules,
+            select(i => i._id === id)
+        );
 
         $http.get('/schedules', {cache: true})
             .success(schedules => {
@@ -63,14 +68,5 @@ export default function (app) {
                     });
             }
         };
-
-        function getScheduleByID(id) {
-            let schedules = $scope.schedules;
-            for (let i = 0, l = schedules.length; i < l; i++) {
-                let s = schedules[i];
-                if (id === s._id) return s;
-            }
-            return null;
-        }
     });
 };
