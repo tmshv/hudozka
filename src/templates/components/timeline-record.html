@@ -1,0 +1,10 @@
+<div class="timeline__record"
+    ng-switch="$ctrl.type"
+>
+    <timeline-record-instagram post="$ctrl.post"
+        ng-switch-when="instagram"
+    ></timeline-record-instagram>
+    <timeline-record-post post="$ctrl.post"
+        ng-switch-default
+    ></timeline-record-post>
+</div>

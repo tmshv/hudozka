@@ -1,0 +1,13 @@
+<div class="timeline">
+    <timeline-record type="{{post.type}}" post="post"
+         ng-repeat="post in $ctrl.feed track by $index"
+    ></timeline-record>
+    <div class="timeline__footer" ng-show="showFooter()">
+        <button class="more"
+                ng-click="$ctrl.loadNext()"
+                ng-disabled="$ctrl.timelineUpdating">
+            <span us-spinner="{radius:5, width:2, length: 4}" spinner-key="timelineMore"></span>
+            <span ng-hide="$ctrl.timelineUpdating">Ещё</span>
+        </button>
+    </div>
+</div>

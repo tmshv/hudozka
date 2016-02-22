@@ -1,11 +1,12 @@
+@import "../variables";
+
 .timeline{
   display: flex;
   flex-direction: column;
-  width: 70%;
-  margin: 0 auto 2em;
+  margin: 0 auto $double-margin;
 }
 
-.timeline-footer{
+.timeline__footer{
   display: flex;
   justify-content: center;
 
@@ -15,7 +16,7 @@
 
     width: 100px;
     height: 40px;
-    border: 2px solid black;
+    border: 2px solid $dark-color;
     padding: 0 10px;
     background: none;
 
@@ -31,8 +32,8 @@
   }
 }
 
-@media screen and (max-device-width: 31.25em) {
+@media screen and (max-device-width: $desktop-width) {
   .timeline {
-    width: 98%;
+    //width: 98%;
   }
 }

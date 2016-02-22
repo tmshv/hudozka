@@ -1,0 +1,42 @@
+@import "../variables";
+
+$user-size: 40px;
+$half-margin: $single-margin/2;
+$image-border-radius: .35em;
+$image-border-thickness: $half-margin;
+
+.timeline-record-instagram {
+}
+
+.timeline-record-instagram__head {
+  margin-bottom: $single-margin;
+}
+
+.timeline-record-instagram__body {
+  img {
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    border: $image-border-thickness solid white;
+    box-shadow: $white-shadow;
+    border-radius: $image-border-radius;
+    margin-bottom: $single-margin;
+  }
+}
+
+.timeline-record-instagram__user {
+  padding-top: $half-margin;
+
+  span {
+    margin-left: $half-margin;
+
+    line-height: $user-size;
+    vertical-align: top;
+  }
+
+  img {
+    width: $user-size;
+    height: $user-size;
+    border-radius: 50%;
+  }
+}

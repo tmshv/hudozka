@@ -8,6 +8,10 @@ import Document from './components/Document';
 import Award from './components/Award';
 import GalleryItem from './components/GalleryItem';
 import TeamMemberProfile from './components/TeamMemberProfile';
+import Timeline from './components/Timeline';
+import TimelineRecord from './components/TimelineRecord';
+import TimelineRecordPost from './components/TimelineRecordPost';
+import TimelineRecordInstagram from './components/TimelineRecordInstagram';
 import AppController from './controllers/AppController';
 import HomeController from './controllers/HomeController';
 import ScheduleController from './controllers/ScheduleController';
@@ -106,9 +110,12 @@ app.run(($location, $rootScope, $http) => {
     RemoveNewline,
     Strip,
     UppercaseFirst,
-    require('./ui/timeline'),
     MainMenu,
     Breadcrumbs,
+    Timeline,
+    TimelineRecord,
+    TimelineRecordPost,
+    TimelineRecordInstagram,
     Document,
     Award,
     GalleryItem,
