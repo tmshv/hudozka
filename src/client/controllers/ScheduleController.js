@@ -38,7 +38,7 @@ export default function (app) {
                     return schedule;
                 });
 
-                schedules.forEach(function (schedule, i) {
+                schedules.forEach((schedule, i) => {
                     if (selector(schedule, i)) {
                         $scope.currentSchedule = schedules[i];
                     }
