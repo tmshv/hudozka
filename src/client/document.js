@@ -1,3 +1,5 @@
+import UppercaseFirst from './filters/UppercaseFirst';
+
 var app = angular.module("hudozhka.document", [
     "hudozhka.data",
     "angulartics",
@@ -27,4 +29,4 @@ app.controller("DocumentController", function ($rootScope, $scope, docs, docname
     }
 });
 
-require("./filters/uppercase-first")(app);
+UppercaseFirst(app);
