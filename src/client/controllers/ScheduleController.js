@@ -1,7 +1,7 @@
 import {populate} from '../../utils/populate';
 import {getCourseNameByID} from '../../models/course';
 import {indexEquals} from '../../utils/common';
-import {translateAnItem} from '../../utils/common';
+import {selectItem} from '../../utils/common';
 
 function isRequested(period, semester) {
     return function (schedule) {
@@ -24,7 +24,7 @@ export default function (app) {
 
                 schedules = schedules.map(schedule => {
                     let sem = [['spring', 'Весена'], ['autumn', 'Осень']]
-                        .reduce(translateAnItem(
+                        .reduce(selectItem(
                             i => i[0] === schedule.semester,
                             i => i[1]
                         ));
