@@ -64,7 +64,7 @@ a {
 }
 
 .body-wrapper__content {
-  $margin: $single-margin + $menu-width;
+  $margin: $single-margin + $menu-thickness;
 
   flex: 1;
   margin: $margin auto 0;
