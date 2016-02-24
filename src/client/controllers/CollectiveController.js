@@ -3,7 +3,7 @@ import {collectiveSortPattern} from '../config';
 
 export default function (app) {
     app.controller('CollectiveController', ($scope, api) => {
-        api.collective.collective(collectiveSortPattern)
+        api.collective.list(collectiveSortPattern)
             .success(collective => {
                 $scope.members = collective.map(person => {
                     if (person.picture) person.image = person.picture.big.url;
