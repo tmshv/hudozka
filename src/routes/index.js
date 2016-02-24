@@ -1,21 +1,15 @@
-/**
- * Created by tmshv on 01/03/15.
- */
+import path from 'path';
+import fs from 'mz/fs';
+import config from '../config';
 
-var path = require("path");
-var fs = require("mz/fs");
-var config = require("../config");
-
-function accepts(routes, def) {
+export function accepts(routes, def) {
     return function *() {
-        var req = this.request;
-        var types = Object.keys(routes)
-            .filter(function (type) {
-                return req.accepts(type);
-            });
+        let req = this.request;
+        let types = Object.keys(routes)
+            .filter(type => req.accepts(type));
 
         if (types.length) {
-            var type = types[0];
+            let type = types[0];
             yield routes[type].apply(this, arguments);
         } else if (def) {
             yield def;
@@ -25,16 +19,17 @@ function accepts(routes, def) {
     };
 }
 
-function index(filename) {
+export function index(filename) {
     if (!filename) filename = config['defaultIndex'];
 
     return function *() {
-        this.type = "text/html";
+        this.type = 'text/html';
         this.body = fs.createReadStream(filename);
     }
 }
 
-module.exports = {
-    index: index,
-    accepts: accepts
-};
+export let json = fn => accepts({
+    'text/html': index(),
+    'text/plain': index(),
+    'application/json': fn
+});
