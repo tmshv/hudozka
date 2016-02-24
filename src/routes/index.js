@@ -2,6 +2,32 @@ import path from 'path';
 import fs from 'mz/fs';
 import config from '../config';
 
+export function queryObject(){
+    let assign = (dict, key, value) => {
+        dict[key] = value;
+        return dict;
+    };
+    let map = (v, fn) =>
+        value => fn(value) ? v : value;
+
+    let toTrue = map(true, i => i === 'true');
+    let toFalse = map(false, i => i === 'false');
+    const processors = [toTrue, toFalse];
+
+    return function *(next) {
+        let query = this.query;
+        this.query = Object.keys(query)
+            .reduce((query, key) => assign(
+                query,
+                key,
+                processors
+                    .reduce((value, fn) => fn(value), query[key])
+            ), query);
+
+        yield next;
+    }
+}
+
 export function accepts(routes, def) {
     return function *() {
         let req = this.request;
