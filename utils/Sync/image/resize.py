@@ -2,14 +2,6 @@ import os
 
 from subprocess import call
 
-__author__ = 'Roman Timashev'
-
-from PIL import Image
-
-
-def read_image(src):
-    return Image.open(src)
-
 
 def thumbnail(image, dest, size, ext=None):
     image.thumbnail(size)

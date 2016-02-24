@@ -1,15 +1,16 @@
 import os
-from datetime import datetime
 import re
+import time
+from datetime import datetime
+
 import lxml.html
 from markdown import markdown
-import time
 
-import img
-from Album import Album
 import lxml_utils
 import settings
+from Album import Album
 from Product import Product
+from image import resize
 
 __author__ = 'Roman Timashev'
 
@@ -129,7 +130,7 @@ class GalleryReader:
     def create_image(self, name, filename, sizes, ext, base_url):
         thumbs = {}
         for size, width, height in sizes:
-            source_image = img.read_image(filename)
+            source_image = resize.read_image(filename)
             sw, sh = source_image.size
             if sw < sh:
                 width, height = height, width

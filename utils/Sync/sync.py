@@ -1,13 +1,12 @@
-from glob import glob
 import os
-import markdown as md
+from glob import glob
+
 import lxml.html as html
+import markdown as md
 from lxml.etree import tostring
-import re
-import pymongo
-import requests
-import img
+
 import lxml_utils
+from image import resize
 
 __author__ = 'tmshv'
 
@@ -210,9 +209,9 @@ for cf in catalog_files:
                     d = os.path.join(images_dir, image_filename)
                     pi[size_name] = 'http://static.touchtwin.ru/images/{img}'.format(img=image_filename)
                     if size_name == 'original':
-                        img.optimize(image, d, quality=90)
+                        resize.optimize(image, d, quality=90)
                     else:
-                        img.minify(image, d, size[:2])
+                        resize.minify(image, d, size[:2])
 
                 images.append(pi)
                 i += 1

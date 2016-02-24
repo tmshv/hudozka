@@ -3,8 +3,8 @@ from glob import glob
 
 from pymongo import MongoClient
 
-import img
 import settings
+from image import resize
 
 
 def generate_image_filename(image, size_name, ext):
@@ -24,7 +24,7 @@ def generate_image_filename(image, size_name, ext):
 
 def process_file(file):
     sizes = settings.image_sizes
-    image = img.read_image(file)
+    image = resize.read_image(file)
     images_dir = '/Users/tmshv/Desktop/Hudozka Awards'
     public_base_url = 'https://static.shlisselburg.org/art/awards/'
 
@@ -43,7 +43,7 @@ def process_file(file):
         d = os.path.join(images_dir, image_filename)
         image_url = os.path.join(public_base_url, image_filename)
 
-        thumb = img.optimize(image, d, quality=90) if size_name == 'original' else img.thumbnail(image, d, (width, height))
+        thumb = resize.optimize(image, d, quality=90) if size_name == 'original' else resize.thumbnail(image, d, (width, height))
 
         width, height = thumb.size
         award['thumbs'][size_name] = {

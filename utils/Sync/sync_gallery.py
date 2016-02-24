@@ -1,12 +1,13 @@
-from functools import reduce
-from glob import glob
 import os
 import re
+from functools import reduce
+from glob import glob
+
 from pymongo import MongoClient
-import img as img_util
-from read_gallery_1 import GalleryReader
 
 import settings
+from image import resize as img_util
+from read_gallery_1 import GalleryReader
 
 __author__ = 'Roman Timashev'
 
