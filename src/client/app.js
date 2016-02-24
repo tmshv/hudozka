@@ -1,7 +1,3 @@
-/**
- * Created by tmshv on 04/11/14.
- **/
-
 import MainMenu from './components/MainMenu';
 import Breadcrumbs from './components/Breadcrumbs';
 import Document from './components/Document';
