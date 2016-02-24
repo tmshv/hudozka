@@ -1,12 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 
-import menu from './models/menu';
-import team from './models/team';
-import {courses} from './models/course';
-import document from './models/document';
-import schedule from './models/schedule';
-
 const privateFile = process.env['PRIVATE'] || 'private.json';
 const privateData = JSON.parse(fs.readFileSync(privateFile, 'utf-8'));
 
@@ -17,12 +11,6 @@ const config = {
     defaultIndex: path.join(__dirname, index_file),
     port: port,
     pub: './',
-    data: {
-        menu: menu,
-        documents: document.docs,
-        team: team.team,
-        courses: courses
-    },
 
     db: {
         uri: 'mongodb://localhost:27017/hudozka'
