@@ -18,7 +18,7 @@ import news from './routes/news';
 import gallery from './routes/gallery';
 import instagram from './instagram/router';
 import instagramIO from './instagram/io';
-import e404 from './routes/404';
+import error404 from './routes/404';
 import documents from './routes/documents';
 import collective from './routes/collective';
 
@@ -52,6 +52,6 @@ news(app);
 gallery(app);
 instagram(app);
 instagramIO(app);
-e404(app);
 documents(app);
 collective(app);
+app.use(error404());

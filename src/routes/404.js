@@ -1,31 +1,26 @@
-/**
- * Created by tmshv on 01/03/15.
- */
+import {index, accepts} from './';
 
-var route = require("koa-route");
-var router = require("./");
-
-module.exports = function (app) {
-    app.use(function *(next) {
+export default function () {
+    return function *(next) {
         yield next;
 
         if (404 != this.status) return;
 
         this.status = 404;
-        yield router.accepts({
-            "text/html": router.index(),
+        yield accepts({
+            'text/html': index(),
 
-            "text/plain": function *() {
-                this.type = "text/plain";
-                this.body = "Page not found";
+            'text/plain': function *() {
+                this.type = 'text/plain';
+                this.body = 'Page not found';
             },
 
-            "application/json": function *() {
-                this.type = "application/json";
+            'application/json': function *() {
+                this.type = 'application/json';
                 this.body = {
-                    message: "Not Found"
+                    message: 'Not Found'
                 };
             }
         });
-    });
+    };
 };
