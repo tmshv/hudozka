@@ -34,6 +34,8 @@ import IOService from './services/io';
 import MenuService from './services/menu';
 import API from './services/api';
 
+import {routes} from './config';
+
 let app = angular.module('hudozka', [
     'hudozhka.data',
     'ngRoute',
@@ -45,44 +47,6 @@ let app = angular.module('hudozka', [
 app.config(($locationProvider, $routeProvider) => {
     $locationProvider.hashPrefix('!');
     $locationProvider.html5Mode(true);
-
-    let routes = [
-        {
-            name: '/',
-            templateUrl: '/views/home.html',
-            controller: 'HomePageController',
-            title: 'ДХШ Шлиссельбурга'
-        },
-        {
-            name: '/schedule/:period?/:semester?',
-            templateUrl: '/views/schedule.html',
-            controller: 'SchedulePageController',
-            title: 'Расписание'
-        },
-        {
-            name: '/collective',
-            templateUrl: '/views/collective.html',
-            controller: 'CollectivePageController',
-            title: 'Преподаватели'
-        },
-        {
-            name: '/gallery',
-            templateUrl: '/views/gallery.html',
-            controller: 'GalleryPageController',
-            title: 'Работы учащихся'
-        },
-        {
-            name: '/gallery/:year/:course/:album',
-            templateUrl: '/views/gallery-album.html',
-            controller: 'AlbumPageController'
-        },
-        {
-            name: '/documents',
-            templateUrl: '/views/docs.html',
-            controller: 'DocsPageController',
-            title: 'Документы'
-        }
-    ];
 
     routes.forEach(route => {
         if (typeof route === 'function') route = route();
