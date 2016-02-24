@@ -1,51 +1,52 @@
-var fs = require("fs");
-var path = require("path");
-const MENU = require("./models/menu");
+import fs from 'fs';
+import path from 'path';
 
-const team = require("./models/team");
-import {courses} from "./models/course";
-const document = require("./models/document");
-const schedule = require("./models/schedule");
+import menu from './models/menu';
+import team from './models/team';
+import {courses} from './models/course';
+import document from './models/document';
+import schedule from './models/schedule';
 
-var privateFile = process.env["PRIVATE"] || "private.json";
-var privateData = JSON.parse(fs.readFileSync(privateFile, "utf-8"));
+const privateFile = process.env['PRIVATE'] || 'private.json';
+const privateData = JSON.parse(fs.readFileSync(privateFile, 'utf-8'));
 
-var index_file = process.env["INDEX"] || "templates/main.html";
+const index_file = process.env['INDEX'] || 'templates/main.html';
+const port = process.env['PORT'] || 3000;
 
-var config = {
+const config = {
     defaultIndex: path.join(__dirname, index_file),
-    port: process.env["PORT"] || 3000,
-    pub: "./",
+    port: port,
+    pub: './',
     data: {
-        menu: MENU,
+        menu: menu,
         documents: document.docs,
         team: team.team,
         courses: courses
     },
 
     db: {
-        uri: "mongodb://localhost:27017/hudozka"
+        uri: 'mongodb://localhost:27017/hudozka'
     },
 
     prerender: {
-        prerender: "http://service.prerender.io/",
-        prerenderToken: "",
-        protocol: "http",
-        host: "art.shlisselburg.org"
+        prerender: 'http://service.prerender.io/',
+        prerenderToken: '',
+        protocol: 'http',
+        host: 'art.shlisselburg.org'
     },
 
     instagram: {
-        default_user: "hudozka",
-        tag_callback: "http://art.shlisselburg.org/instagram/callback/11",
-        client_id: "",
-        client_secret: "",
-        redirect_uri: "http://art.shlisselburg.org/instagram/auth/callback",
-        tags: ["shlb_hudozka"]
+        default_user: 'hudozka',
+        tag_callback: 'http://art.shlisselburg.org/instagram/callback/11',
+        client_id: '',
+        client_secret: '',
+        redirect_uri: 'http://art.shlisselburg.org/instagram/auth/callback',
+        tags: ['shlb_hudozka']
     }
 };
 
-module.exports = Object.keys(privateData)
-    .reduce(function (config, key) {
+export default Object.keys(privateData)
+    .reduce((config, key) => {
         config[key] = privateData[key];
         return config;
     }, config);
