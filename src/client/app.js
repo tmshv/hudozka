@@ -60,7 +60,7 @@ app.config(($locationProvider, $routeProvider) => {
             title: 'Расписание'
         },
         {
-            name: '/team',
+            name: '/collective',
             templateUrl: '/views/team.html',
             controller: 'TeamPageController',
             title: 'Преподаватели'
@@ -77,7 +77,7 @@ app.config(($locationProvider, $routeProvider) => {
             controller: 'AlbumPageController'
         },
         {
-            name: '/docs',
+            name: '/documents',
             templateUrl: '/views/docs.html',
             controller: 'DocsPageController',
             title: 'Документы'
