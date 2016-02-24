@@ -1,14 +1,8 @@
 .page {
-  padding-top: 0;
   width: 100%;
 
-  &.ng-leave {
-    //  z-index: 9999;
-  }
-
-  &.ng-enter {
-    //  z-index: 8888;
-  }
+  &.ng-leave {}
+  &.ng-enter {}
 }
 
 .page-home {
@@ -33,7 +27,7 @@
   }
 }
 
-.page-team {
+.page-collective {
   &.ng-leave {
     animation: slideOutLeft 0.3s both ease-in;
   }
