@@ -45,9 +45,7 @@ export function accepts(routes, def) {
     };
 }
 
-export function index(filename) {
-    if (!filename) filename = config['defaultIndex'];
-
+export function index(filename = config['defaultIndex']) {
     return function *() {
         this.type = 'text/html';
         this.body = fs.createReadStream(filename);
