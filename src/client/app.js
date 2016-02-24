@@ -13,6 +13,7 @@ import ScheduleTable from './components/ScheduleTable';
 import ScheduleSlider from './components/ScheduleSlider';
 import ScheduleSlide from './components/ScheduleSlide';
 import ScheduleRecord from './components/ScheduleRecord';
+
 import AppController from './controllers/AppController';
 import HomeController from './controllers/HomeController';
 import ScheduleController from './controllers/ScheduleController';
@@ -22,10 +23,12 @@ import AlbumController from './controllers/AlbumController';
 import DocumentsController from './controllers/DocumentsController';
 import CopyrightController from './controllers/CopyrightController';
 import ContactsController from './controllers/ContactsController';
+
 import RemoveHashtags from './filters/RemoveHashtags';
 import RemoveNewline from './filters/RemoveNewline';
 import Strip from './filters/Strip';
 import UppercaseFirst from './filters/UppercaseFirst';
+
 import IOService from './services/io';
 import MenuService from './services/menu';
 import API from './services/api';
