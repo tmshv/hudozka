@@ -3,9 +3,6 @@
  */
 
 angular.module("hudozhka.data", [])
-    .service("team", function () {
-        return require("../models/team");
-    })
     .service("scheduleData", function () {
         return require("../models/schedule");
     })
