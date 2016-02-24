@@ -30,10 +30,12 @@ teachers_names = {
 }
 
 image_processing = True
-
 image_save_dir = './static_images'
 
 image_base_url = 'https://static.shburg.org/art/image/'
+collective_image_base_url = 'https://static.shburg.org/art/collective/'
+collective_image_output = '/Users/tmshv/Dropbox/Dev/Hud School/Static/collective'
+
 image_ext = '.jpg'
 image_sizes = [
     ('original', None, None),
