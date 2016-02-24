@@ -1,20 +1,28 @@
-var path = require("path");
+import path from 'path';
+import koa from 'koa.io';
+import route from 'koa-route';
+import serve from 'koa-static';
+import logger from 'koa-logger';
+import conditional from 'koa-conditional-get';
+import etag from 'koa-etag';
+import prerender from 'koa-prerender';
+import helmet from 'koa-helmet';
+import bodyParser from 'koa-bodyparser';
 
-var koa = require("koa.io");
-var route = require("koa-route");
-var serve = require("koa-static");
-var logger = require("koa-logger");
-var conditional = require("koa-conditional-get");
-var etag = require("koa-etag");
-var prerender = require("koa-prerender");
-var helmet = require("koa-helmet");
-var bodyParser = require("koa-bodyparser");
+import config from './config';
+import routes from './routes';
 
-var config = require("./config");
-var routes = require("./routes");
+import sitemap from './routes/sitemap';
+import schedule from './routes/schedule';
+import news from './routes/news';
+import gallery from './routes/gallery';
+import instagram from './instagram/router';
+import instagramIO from './instagram/io';
+import e404 from './routes/404';
 import documents from './routes/documents';
+import collective from './routes/collective';
 
-var app = koa();
+export default app = koa();
 app.proxy = true;
 
 app.use(bodyParser());
@@ -26,7 +34,7 @@ app.use(function *(next) {
     yield* next;
 
     try {
-        var xp = this.response.header['x-prerender'] == 'true';
+        let xp = this.response.header['x-prerender'] == 'true';
         if (xp) this.body = this.body.replace('<meta name="fragment" content="!">', '');
     } catch (e) {
     }
@@ -34,18 +42,18 @@ app.use(function *(next) {
 app.use(prerender(config.prerender));
 
 app.use(serve(path.join(__dirname, '../public')));
-app.use(serve(path.join(__dirname, "templates")));
+app.use(serve(path.join(__dirname, 'templates')));
 
 app.use(helmet());
 
 app.use(function *(next) {
-    var q = this.query;
+    let q = this.query;
     this.query = Object.keys(q)
-        .reduce(function (q, key) {
-            var v = q[key];
-            if (v === "true") {
+        .reduce((q, key) => {
+            let v = q[key];
+            if (v === 'true') {
                 v = true;
-            } else if (v === "false") {
+            } else if (v === 'false') {
                 v = false;
             }
             q[key] = v;
@@ -55,25 +63,20 @@ app.use(function *(next) {
     yield next;
 });
 
-app.use(route.get("/", routes.index()));
-app.use(route.get("/team", routes.index()));
-app.use(route.get("/docs", routes.index()));
+app.use(route.get('/', routes.index()));
+app.use(route.get('/team', routes.index()));
+app.use(route.get('/docs', routes.index()));
 
-app.use(route.get("/document/:doc", routes.index(
-    path.join(__dirname, "templates/document.html")
+app.use(route.get('/document/:doc', routes.index(
+    path.join(__dirname, 'templates/document.html')
 )));
 
-require("./routes/sitemap")(app);
-
-require("./routes/schedule")(app);
-require("./routes/news")(app);
-require("./routes/gallery")(app);
+sitemap(app);
+schedule(app);
+news(app);
+gallery(app);
+instagram(app);
+instagramIO(app);
+e404(app);
 documents(app);
-require("./instagram/router")(app);
-require("./instagram/io")(app);
-
-require("./routes/404")(app);
-
-module.exports = function (port) {
-    return app;
-};
+collective(app);
