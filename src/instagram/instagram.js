@@ -4,7 +4,7 @@
 
 var EventEmitter = require("events").EventEmitter;
 var thunkify = require("thunkify");
-var config = require("../config");
+import config from "../config";
 var db = require("../core/db");
 var instagram = require("instagram-node");
 
