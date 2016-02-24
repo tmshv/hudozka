@@ -10,7 +10,7 @@ import helmet from 'koa-helmet';
 import bodyParser from 'koa-bodyparser';
 
 import config from './config';
-import {index} from './routes';
+import {index, queryObject} from './routes';
 
 import sitemap from './routes/sitemap';
 import schedule from './routes/schedule';
@@ -40,29 +40,10 @@ app.use(function *(next) {
     }
 });
 app.use(prerender(config.prerender));
-
 app.use(serve(path.join(__dirname, '../public')));
 app.use(serve(path.join(__dirname, 'templates')));
-
 app.use(helmet());
-
-app.use(function *(next) {
-    let q = this.query;
-    this.query = Object.keys(q)
-        .reduce((q, key) => {
-            let v = q[key];
-            if (v === 'true') {
-                v = true;
-            } else if (v === 'false') {
-                v = false;
-            }
-            q[key] = v;
-            return q;
-        }, q);
-
-    yield next;
-});
-
+app.use(queryObject());
 app.use(route.get('/', index()));
 
 sitemap(app);
