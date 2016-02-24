@@ -7,7 +7,7 @@ import Breadcrumbs from './components/Breadcrumbs';
 import Document from './components/Document';
 import Award from './components/Award';
 import GalleryItem from './components/GalleryItem';
-import TeamMemberProfile from './components/TeamMemberProfile';
+import TeacherProfile from './components/TeacherProfile';
 import Timeline from './components/Timeline';
 import TimelineRecord from './components/TimelineRecord';
 import TimelineRecordPost from './components/TimelineRecordPost';
@@ -20,7 +20,7 @@ import ScheduleRecord from './components/ScheduleRecord';
 import AppController from './controllers/AppController';
 import HomeController from './controllers/HomeController';
 import ScheduleController from './controllers/ScheduleController';
-import TeamController from './controllers/TeamController';
+import CollectiveController from './controllers/CollectiveController';
 import GalleryController from './controllers/GalleryController';
 import AlbumController from './controllers/AlbumController';
 import DocumentsController from './controllers/DocumentsController';
@@ -61,8 +61,8 @@ app.config(($locationProvider, $routeProvider) => {
         },
         {
             name: '/collective',
-            templateUrl: '/views/team.html',
-            controller: 'TeamPageController',
+            templateUrl: '/views/collective.html',
+            controller: 'CollectivePageController',
             title: 'Преподаватели'
         },
         {
@@ -120,11 +120,11 @@ app.run(($location, $rootScope, $http) => {
     Document,
     Award,
     GalleryItem,
-    TeamMemberProfile,
+    TeacherProfile,
     AppController,
     HomeController,
     ScheduleController,
-    TeamController,
+    CollectiveController,
     GalleryController,
     AlbumController,
     DocumentsController,
@@ -156,8 +156,8 @@ app.run(($location, $rootScope, $http) => {
             $scope.pageClass = 'page-docs';
         });
 
-        app.controller('TeamPageController', ($scope) => {
-            $scope.pageClass = 'page-team';
+        app.controller('CollectivePageController', ($scope) => {
+            $scope.pageClass = 'page-collective';
         });
     }
 ].map(i => i(app));

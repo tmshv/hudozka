@@ -1,13 +1,16 @@
 import route from 'koa-route';
 import {index, json} from './';
+import {sortByPattern} from '../utils/sort';
 import db from '../core/db';
-import {getCourseNameByID} from '../models/course';
-import team from '../models/team';
+
+let split = d => s => s.split(d);
+let toArray = split(',');
 
 export default function () {
     return route.get('/collective', json(
         function *() {
             this.type = 'application/json';
+            let pattern = toArray(this.query.sort || '');
 
             let data = yield db.c('collective').find();
             if (!data) {
@@ -15,7 +18,7 @@ export default function () {
                 return;
             }
 
-            this.body = data;
+            this.body = sortByPattern(data, pattern, i => i.id);
         }
     ))
 };

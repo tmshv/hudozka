@@ -7,8 +7,8 @@ var router = require("./");
 var db = require("../core/db");
 var schedule = require("../models/schedule");
 var populate = require("../utils/populate").populate;
-import {getCourseNameByID} from "../models/course";
-const team = require("../models/team");
+//import {getCourseNameByID} from "../models/course";
+//const team = require("../models/team");
 
 module.exports = function (app) {
     app.use(
@@ -33,10 +33,10 @@ module.exports = function (app) {
                     }
 
                     if(doPopulate) {
-                        data.schedule = schedule.populate(data.schedule, [
-                            populate(team.short, "teacher"),
-                            populate(getCourseNameByID, "lesson")
-                        ]);
+                        //data.schedule = schedule.populate(data.schedule, [
+                        //    populate(team.short, "teacher"),
+                        //    populate(getCourseNameByID, "lesson")
+                        //]);
                     }
 
                     this.body = data;

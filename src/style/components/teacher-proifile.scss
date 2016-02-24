@@ -1,6 +1,6 @@
 @import "../variables";
 
-.team-member-profile {
+.teacher-profile {
   margin: 0 auto $double-margin;
 
   display: flex;
@@ -8,7 +8,7 @@
   flex-wrap: wrap;
 }
 
-.team-member-profile__picture {
+.teacher-profile__picture {
   width: 20%;
   max-width: 15em;
   min-width: 12em;
@@ -19,7 +19,7 @@
   }
 }
 
-.team-member-profile__info {
+.teacher-profile__info {
   width: 60%;
   margin: 0 1em;
 

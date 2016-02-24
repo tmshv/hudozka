@@ -1,7 +1,7 @@
-import template from '../../templates/components/team-member-profile.html';
+import template from '../../templates/components/teacher-profile.html';
 
 export default function (app) {
-    app.component('teamMemberProfile', {
+    app.component('teacherProfile', {
         bindings: {
             member: '='
         },
