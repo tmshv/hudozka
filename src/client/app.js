@@ -32,7 +32,7 @@ import Strip from './filters/Strip';
 import UppercaseFirst from './filters/UppercaseFirst';
 import IOService from './services/io';
 import MenuService from './services/menu';
-import api from './api/api';
+import API from './services/api';
 
 let app = angular.module('hudozka', [
     'hudozhka.data',
@@ -104,7 +104,7 @@ app.run(($location, $rootScope, $http) => {
 });
 
 [
-    api,
+    API,
     IOService,
     MenuService,
     RemoveHashtags,
