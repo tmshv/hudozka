@@ -53,5 +53,5 @@ gallery(app);
 instagram(app);
 instagramIO(app);
 documents(app);
-collective(app);
+app.use(collective());
 app.use(error404());
