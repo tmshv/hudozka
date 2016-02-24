@@ -1,33 +1,49 @@
 @import "../variables";
 
+$picture-width: 30%;
+$info-width: 100% - $picture-width;
+
 .teacher-profile {
   margin: 0 auto $double-margin;
 
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   flex-wrap: wrap;
-}
 
-.teacher-profile__picture {
-  width: 20%;
-  max-width: 15em;
-  min-width: 12em;
-  margin: 0 1em;
+  &__picture {
+    width: $picture-width;
+    max-width: 15em;
+    min-width: 12em;
 
-  img {
-    width: 100%;
+    img {
+      width: 100%;
+    }
   }
-}
 
-.teacher-profile__info {
-  width: 60%;
-  margin: 0 1em;
+  &__info {
+    width: $info-width;
 
-  h3 {
-    font-weight: 200;
+    padding-left: $single-margin;
+    box-sizing: border-box;
 
-    span {
-      font-weight: 600;
+    h3 {
+      font-weight: 200;
+
+      strong {
+        font-weight: 600;
+      }
+    }
+
+    .info {
+      margin-bottom: $single-margin;
+    }
+
+    .biography {
+      margin-top: $single-margin;
+
+      p{
+        margin-bottom: $single-margin;
+      }
     }
   }
 }

@@ -8,12 +8,15 @@ export default function (app) {
         },
         template: template,
         controller: function($sce){
-            let [first, middle, last] = splitName(this.member.name);
+            const [_, first, middle, last] = splitName(this.member.name);
             this.firstName = first;
             this.middleName = middle;
             this.lastName = last;
 
-            if (this.member.picture) this.image = this.member.picture.big.url;
+            if(this.member.picture){
+                this.image = this.member.picture.big;
+            }
+
             this.biography = $sce.trustAsHtml(this.member.biography);
         }
     });
