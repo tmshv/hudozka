@@ -18,7 +18,7 @@ export default [
     },
     {
         "text": "Коллектив",
-        "url": "/team",
+        "url": "/collective",
         "color": "pink"
     },
     {

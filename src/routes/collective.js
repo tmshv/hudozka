@@ -1,5 +1,5 @@
 import route from 'koa-route';
-import {json} from './';
+import {index, json} from './';
 import db from '../core/db';
 import {getCourseNameByID} from '../models/course';
 import team from '../models/team';

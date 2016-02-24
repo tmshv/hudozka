@@ -10,7 +10,7 @@ import helmet from 'koa-helmet';
 import bodyParser from 'koa-bodyparser';
 
 import config from './config';
-import routes from './routes';
+import {index} from './routes';
 
 import sitemap from './routes/sitemap';
 import schedule from './routes/schedule';
@@ -63,8 +63,7 @@ app.use(function *(next) {
     yield next;
 });
 
-app.use(route.get('/', routes.index()));
-app.use(route.get('/team', routes.index()));
+app.use(route.get('/', index()));
 
 sitemap(app);
 schedule(app);
