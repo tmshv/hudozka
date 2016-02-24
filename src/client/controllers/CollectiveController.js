@@ -1,13 +1,12 @@
 import {splitName} from '../../models/collective';
+import {collectiveSortPattern} from '../config';
 
 export default function (app) {
     app.controller('CollectiveController', ($scope, api) => {
-        let sort = ['as-timasheva', 'va-sarzhin', 'od-gogoleva', 'my-valkova', 'vv-voronova', 'nv-andreeva'];
-
-        api.collective.collective(sort)
+        api.collective.collective(collectiveSortPattern)
             .success(collective => {
                 $scope.members = collective.map(person => {
-                    if(person.picture) person.image = person.picture.big.url;
+                    if (person.picture) person.image = person.picture.big.url;
                     person.names = splitName(person.name);
                     return person;
                 });
