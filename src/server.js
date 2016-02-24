@@ -65,11 +65,6 @@ app.use(function *(next) {
 
 app.use(route.get('/', routes.index()));
 app.use(route.get('/team', routes.index()));
-app.use(route.get('/docs', routes.index()));
-
-app.use(route.get('/document/:doc', routes.index(
-    path.join(__dirname, 'templates/document.html')
-)));
 
 sitemap(app);
 schedule(app);

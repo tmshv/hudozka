@@ -28,7 +28,7 @@ export default [
     },
     {
         "text": "Документы",
-        "url": "/docs",
+        "url": "/documents",
         "color": "yellow"
     }
 ]
