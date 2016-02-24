@@ -2,11 +2,11 @@
     <a name="{{$ctrl.member.anchor}}"></a>
 
     <div class="teacher-profile__picture">
-        <img ng-src="{{$ctrl.member.image   }}">
+        <img ng-src="{{$ctrl.image   }}">
     </div>
 
     <div class="teacher-profile__info">
-        <h3>{{$ctrl.member.names[1]}} {{$ctrl.member.names[2]}} <span>{{$ctrl.member.names[3]}}</span></h3>
+        <h3>{{$ctrl.firstName}} {{$ctrl.middleName}} <strong>{{$ctrl.lastName}}</strong></h3>
 
         <p>{{$ctrl.member.position}}</p>
         <p>{{$ctrl.member.status}}</p>
@@ -14,5 +14,7 @@
 
         <p class="edu">{{$ctrl.member.edu}} </p>
         <p class="diploma">Диплом {{$ctrl.member.diploma}}</p>
+
+        <div ng-bind-html="$ctrl.biography"></div>
     </div>
 </div>
