@@ -54,7 +54,7 @@ export function index(filename) {
     }
 }
 
-export let json = fn => accepts({
+export const json = fn => accepts({
     'text/html': index(),
     'text/plain': index(),
     'application/json': fn
