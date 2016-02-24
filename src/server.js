@@ -22,7 +22,7 @@ import error404 from './routes/404';
 import documents from './routes/documents';
 import collective from './routes/collective';
 
-export default app = koa();
+export const app = koa();
 app.proxy = true;
 
 app.use(bodyParser());
