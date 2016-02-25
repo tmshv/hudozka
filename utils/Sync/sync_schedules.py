@@ -8,24 +8,31 @@ import settings
 __author__ = 'tmshv'
 
 
-db = MongoClient(settings.database_uri).hudozka
-db.schedules.drop()
+def process_file(schedule_path):
+    with open(schedule_path, 'rb') as schedule_file:
+        data = schedule_file.read().decode('utf-8')
+        try:
+            return json.loads(data)
+        except json.decoder.JSONDecodeError:
+            print(schedule_path)
 
 
-for schedule_path in glob(settings.root_dir_schedule + '/*.json'):
-    with open(schedule_path, 'r') as schedule_file:
-        name = os.path.basename(schedule_path)
+if __name__ == '__main__':
+    db = MongoClient(settings.database_uri).hudozka
+    db.schedules.drop()
 
-        period = re.search('(\d{4}-\d{4})', name).group(1)
-        semester = re.search('([a-zA-Z]+)\.json$', name).group(1)
+    # dir_schedule = settings.root_dir_schedule
+    dir_schedule = '/Users/tmshv/Dropbox/Dev/Hud School/Schedules/'
+    files = glob(dir_schedule + '*.json')
+    ss = list(map(process_file, files))
 
-        schedule = json.loads(schedule_file.read())
-        # print(name, period, semester, schedule)
+    list(map(print, ss))
 
-        db.schedules.insert({
-            'period': period,
-            'semester': semester,
-            'schedule': schedule
-        })
-
-print('schedule sync complete')
+    list(map(
+        db.schedules.insert,
+        filter(
+            lambda i : i is not None,
+            ss
+        )
+    ))
+    print('schedule sync complete')
