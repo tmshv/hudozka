@@ -27,7 +27,7 @@ function postText(post){
 export default function(app) {
     app.component('timeline', {
         template: template,
-        controller: function($timeout, usSpinnerService, io, api, team){
+        controller: function($timeout, usSpinnerService, io, api){
             let portion = 0;
             let count = 10;
             this.feed = [];
@@ -37,8 +37,9 @@ export default function(app) {
             //usSpinnerService.spin("timelineMore");
 
             function toInstagram(post){
-                var author_id = personByInstagram(team.team, post.data.author);
-                var name = author_id ? team.short(author_id) : post.data.author;
+                //var author_id = personByInstagram(team.team, post.data.author);
+                //var name = author_id ? team.short(author_id) : post.data.author;
+                let name = 'hudozka';
 
                 return {
                     date: post.date,
