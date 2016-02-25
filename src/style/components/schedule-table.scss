@@ -3,8 +3,8 @@
 $current-week-day-color: $blue-color;
 
 .schedule-table {
-  margin: 0 auto;
-  width: 100%;
+  //margin: 0 auto;
+  //width: 100%;
   min-width: 50em;
   position: relative;
 
@@ -86,16 +86,16 @@ $current-week-day-color: $blue-color;
     }
   }
 
-  p {
-    margin-bottom: .2em;
-  }
-
-  a {
-    color: black;
-
-    text-decoration: none;
-    border-bottom: 1px solid #ccc;
-  }
+  //p {
+  //  margin-bottom: .2em;
+  //}
+  //
+  //a {
+  //  color: black;
+  //
+  //  text-decoration: none;
+  //  border-bottom: 1px solid #ccc;
+  //}
 
   .lesson {
     font-size: 1.1em;

@@ -1,0 +1,14 @@
+@import "variables";
+
+.body-wrapper {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+}
+
+.body-wrapper__content {
+  $margin: $single-margin + $menu-thickness;
+
+  flex: 1;
+  margin: $margin auto 0;
+}

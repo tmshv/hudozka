@@ -1,0 +1,10 @@
+@import "variables";
+
+.schedule-selector {
+  text-align: center;
+  margin-bottom: $single-margin;
+
+  label{
+    margin: 0 .5em;
+  }
+}

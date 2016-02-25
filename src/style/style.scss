@@ -1,10 +1,27 @@
-@import "./components/gallery-item";
-@import "./components/document";
-@import "./components/teacher-proifile";
-@import "./components/main-menu";
-@import "./components/breadcrumbs";
-@import "./components/timeline";
-@import "./components/timeline-record";
-@import "./components/timeline-record-post";
-@import "./components/timeline-record-instagram";
-@import "./components/schedule-table";
+@import "components/gallery-item";
+@import "components/document";
+@import "components/teacher-proifile";
+@import "components/main-menu";
+@import "components/breadcrumbs";
+@import "components/timeline";
+@import "components/timeline-record";
+@import "components/timeline-record-post";
+@import "components/timeline-record-instagram";
+@import "components/schedule-table";
+
+@import "main";
+@import "body-wrapper";
+@import "page";
+@import "content";
+@import "page-animation";
+
+@import "gallery";
+@import "docs";
+@import "document";
+@import "album";
+@import "schedule-selector";
+@import "schedule-mobile";
+@import "error-404";
+
+@import "tape-viewer";
+@import "footer";

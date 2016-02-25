@@ -41,7 +41,7 @@ gulp.task('styles', function () {
         })
     ];
 
-    gulp.src('./src/style/*.scss')
+    gulp.src('./src/style/style.scss')
         .pipe(sass())
         .pipe(postcss(processors))
         .pipe(concat('style.css'))
