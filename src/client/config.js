@@ -37,8 +37,7 @@ export let routes = [
     },
     {
         name: '/gallery',
-        templateUrl: '/views/gallery.html',
-        controller: 'GalleryPageController',
+        template: '<page-gallery></page-gallery>',
         title: 'Работы учащихся'
     },
     {
