@@ -16,6 +16,10 @@ module.exports = {
         });
     },
 
+    close: function () {
+        client.close();
+    },
+
     get db() {
         return client;
     },

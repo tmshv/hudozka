@@ -25,11 +25,11 @@ export function pop(data){
 	return fun;
 }
 
-export function populate(find, field){
-	return function(lesson){
-		var id = lesson[field];
-		var val = find(id);
-		if(val) lesson[field] = val;
-		return lesson;
+export function populate(fn, key){
+	return (dict) => {
+		let id = dict[key];
+		let value = fn(id);
+		dict[key] = value ? value : id;
+		return dict;
 	}
 }
