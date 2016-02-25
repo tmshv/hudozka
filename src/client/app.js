@@ -40,7 +40,6 @@ import API from './services/api';
 import {routes} from './config';
 
 let app = angular.module('hudozka', [
-    'hudozhka.data',
     'ngRoute',
     'angulartics',
     'angulartics.google.analytics',
@@ -97,7 +96,6 @@ app.run(($location, $rootScope, $http) => {
     PageGalleryAlbum,
     PageDocuments,
     AppController,
-    DocumentsController,
     CopyrightController,
     ContactsController,
     Schedule,
