@@ -1,13 +1,13 @@
-<div class="content content_wide" ng-controller="ScheduleController">
+<div class="content content_wide">
     <div class="schedule-selector">
         <label> Семестр
             <select
-                ng-model="currentSchedule"
-                ng-change="loadSchedule(currentSchedule, true)"
-                ng-options="s.text for s in schedules">
+                ng-model="$ctrl.currentSchedule"
+                ng-change="$ctrl.loadSchedule($ctrl.currentSchedule, true)"
+                ng-options="s.text for s in $ctrl.schedules">
             </select>
         </label>
     </div>
 
-    <schedule schedule="schedule"></schedule>
+    <schedule schedule="$ctrl.schedule"></schedule>
 </div>

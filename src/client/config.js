@@ -27,8 +27,7 @@ export let routes = [
     },
     {
         name: '/schedule/:period?/:semester?',
-        templateUrl: '/views/schedule.html',
-        controller: 'SchedulePageController',
+        template: '<page-schedule></page-schedule>',
         title: 'Расписание'
     },
     {
