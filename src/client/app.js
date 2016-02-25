@@ -20,9 +20,9 @@ import PageSchool from './components/PageSchool';
 import PageSchedule from './components/PageSchedule';
 import PageCollective from './components/PageCollective';
 import PageGallery from './components/PageGallery';
+import PageGalleryAlbum from './components/PageGalleryAlbum';
 
 import AppController from './controllers/AppController';
-import AlbumController from './controllers/AlbumController';
 import DocumentsController from './controllers/DocumentsController';
 import CopyrightController from './controllers/CopyrightController';
 import ContactsController from './controllers/ContactsController';
@@ -94,8 +94,8 @@ app.run(($location, $rootScope, $http) => {
     PageSchedule,
     PageCollective,
     PageGallery,
+    PageGalleryAlbum,
     AppController,
-    AlbumController,
     DocumentsController,
     CopyrightController,
     ContactsController,
@@ -106,10 +106,6 @@ app.run(($location, $rootScope, $http) => {
     ScheduleRecord,
     FooterLinks,
     function (app) {
-        app.controller('AlbumPageController', ($scope) => {
-            $scope.pageClass = 'page-album';
-        });
-
         app.controller('DocumentsPageController', ($scope) => {
             $scope.pageClass = 'page-documents';
         });

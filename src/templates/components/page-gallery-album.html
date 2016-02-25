@@ -1,17 +1,17 @@
-<div class="content content_semi-wide"  ng-controller="AlbumController">
-    <breadcrumbs crumbs="crumbs"></breadcrumbs>
+<div class="content content_semi-wide">
+    <breadcrumbs crumbs="$ctrl.crumbs"></breadcrumbs>
 
     <div class="album-block">
-        <h3>{{album.title}}</h3>
+        <h3>{{$ctrl.album.title}}</h3>
 
-        <div class="album" ng-show="album">
+        <div class="album" ng-show="$ctrl.album">
             <div class="album-info">
-                <p>Предмет: {{album.course}}</p>
-                <p>Преподаватель: {{album.teacherName}}</p>
-                <p class="description" ng-show="album.description">{{album.description}}</p>
+                <p>Предмет: {{$ctrl.album.course}}</p>
+                <p>Преподаватель: {{$ctrl.album.teacherName}}</p>
+                <p class="description" ng-show="$ctrl.album.description">{{$ctrl.album.description}}</p>
             </div>
 
-            <div class="album-item" ng-repeat="product in album.content">
+            <div class="album-item" ng-repeat="product in $ctrl.album.content">
                 <img ng-src="{{product.content.big.url}}" alt=""/>
 
                 <div class="product-info">

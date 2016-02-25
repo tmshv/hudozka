@@ -42,8 +42,7 @@ export let routes = [
     },
     {
         name: '/gallery/:year/:course/:album',
-        templateUrl: '/views/gallery-album.html',
-        controller: 'AlbumPageController'
+        template: '<page-gallery-album></page-gallery-album>'
     },
     {
         name: '/documents',
