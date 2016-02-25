@@ -46,8 +46,7 @@ export let routes = [
     },
     {
         name: '/documents',
-        templateUrl: '/views/documents.html',
-        controller: 'DocumentsPageController',
+        template: '<page-documents></page-documents>',
         title: 'Документы'
     }
 ];

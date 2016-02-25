@@ -21,9 +21,9 @@ import PageSchedule from './components/PageSchedule';
 import PageCollective from './components/PageCollective';
 import PageGallery from './components/PageGallery';
 import PageGalleryAlbum from './components/PageGalleryAlbum';
+import PageDocuments from './components/PageDocuments';
 
 import AppController from './controllers/AppController';
-import DocumentsController from './controllers/DocumentsController';
 import CopyrightController from './controllers/CopyrightController';
 import ContactsController from './controllers/ContactsController';
 
@@ -95,6 +95,7 @@ app.run(($location, $rootScope, $http) => {
     PageCollective,
     PageGallery,
     PageGalleryAlbum,
+    PageDocuments,
     AppController,
     DocumentsController,
     CopyrightController,
@@ -104,10 +105,5 @@ app.run(($location, $rootScope, $http) => {
     ScheduleSlider,
     ScheduleSlide,
     ScheduleRecord,
-    FooterLinks,
-    function (app) {
-        app.controller('DocumentsPageController', ($scope) => {
-            $scope.pageClass = 'page-documents';
-        });
-    }
+    FooterLinks
 ].map(i => i(app));
