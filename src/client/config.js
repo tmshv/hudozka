@@ -22,8 +22,7 @@ export let collectiveSortPattern = [
 export let routes = [
     {
         name: '/',
-        templateUrl: '/views/home.html',
-        controller: 'HomePageController',
+        template: '<page-school></page-school>',
         title: 'ДХШ Шлиссельбурга'
     },
     {

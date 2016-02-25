@@ -16,8 +16,9 @@ import ScheduleSlide from './components/ScheduleSlide';
 import ScheduleRecord from './components/ScheduleRecord';
 import FooterLinks from './components/FooterLinks';
 
+import PageSchool from './components/PageSchool';
+
 import AppController from './controllers/AppController';
-import HomeController from './controllers/HomeController';
 import ScheduleController from './controllers/ScheduleController';
 import CollectiveController from './controllers/CollectiveController';
 import GalleryController from './controllers/GalleryController';
@@ -89,8 +90,8 @@ app.run(($location, $rootScope, $http) => {
     GalleryItem,
     AlbumCollection,
     TeacherProfile,
+    PageSchool,
     AppController,
-    HomeController,
     ScheduleController,
     CollectiveController,
     GalleryController,
@@ -105,10 +106,6 @@ app.run(($location, $rootScope, $http) => {
     ScheduleRecord,
     FooterLinks,
     function (app) {
-        app.controller('HomePageController', ($scope) => {
-            $scope.pageClass = 'page-home';
-        });
-
         app.controller('SchedulePageController', ($scope) => {
             $scope.pageClass = 'page-schedule';
         });
