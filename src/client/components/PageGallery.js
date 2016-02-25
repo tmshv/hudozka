@@ -1,7 +1,7 @@
 import template from '../../templates/components/page-gallery.html';
 
 export default function (app) {
-    app.component('pageCollective', {
+    app.component('pageGallery', {
         template: template,
         controller: function (api) {
             this.pageClass = 'page-gallery';
