@@ -6,10 +6,6 @@ import {query} from '../../utils/net';
 import EndPoint from './EndPoint';
 
 export default class APIFeed extends EndPoint{
-    constructor(http){
-        super(http)
-    }
-
     feed(count, portion) {
         let q = query([['count', count], ['portion', portion]]);
         return this.request.get(`/news?${q}`);
