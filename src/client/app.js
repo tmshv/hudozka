@@ -27,6 +27,7 @@ import ContactsController from './controllers/ContactsController';
 import RemoveHashtags from './filters/RemoveHashtags';
 import RemoveNewline from './filters/RemoveNewline';
 import Strip from './filters/Strip';
+import Join from './filters/Join';
 import UppercaseFirst from './filters/UppercaseFirst';
 
 import IOService from './services/io';
@@ -73,6 +74,7 @@ app.run(($location, $rootScope, $http) => {
     RemoveHashtags,
     RemoveNewline,
     Strip,
+    Join,
     UppercaseFirst,
     MainMenu,
     Breadcrumbs,
