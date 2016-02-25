@@ -1,8 +1,5 @@
 <div class="content content_wide" ng-controller="GalleryController">
-    <div class="album-collection" ng-repeat="period in years">
-        <h2 class="album-collection__title">{{period.year}}</h2>
-        <div class="album-collection__body">
-            <gallery-item ng-repeat="album in period.albums" record="album"></gallery-item>
-        </div>
-    </div>
+    <album-collection ng-repeat="i in years"
+            title="{{i.year}}" albums="i.albums"
+    ></album-collection>
 </div>

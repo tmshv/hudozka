@@ -3,6 +3,7 @@ import Breadcrumbs from './components/Breadcrumbs';
 import Document from './components/Document';
 import Award from './components/Award';
 import GalleryItem from './components/GalleryItem';
+import AlbumCollection from './components/AlbumCollection';
 import TeacherProfile from './components/TeacherProfile';
 import Timeline from './components/Timeline';
 import TimelineRecord from './components/TimelineRecord';
@@ -85,6 +86,7 @@ app.run(($location, $rootScope, $http) => {
     Document,
     Award,
     GalleryItem,
+    AlbumCollection,
     TeacherProfile,
     AppController,
     HomeController,
