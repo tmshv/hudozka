@@ -10,19 +10,20 @@ function isRequested(period, semester) {
 }
 
 export default function (app) {
-    app.controller('ScheduleController', ($scope, $http, $location, $routeParams, scheduleData, team, menu) => {
+    app.controller('ScheduleController', ($scope, $http, $location, $routeParams, api, menu) => {
         menu.activate('/schedule');
 
         let current_period = $routeParams.period;
         let current_semester = $routeParams.semester;
         let isScheduleRequested = current_period && current_semester;
 
+        $scope.schedules = [];
         let getScheduleByID = (id) => choise(
             $scope.schedules,
             select(i => i._id === id)
         );
 
-        $http.get('/schedules', {cache: true})
+        api.schedule.list()
             .success(schedules => {
                 // By url params or last element
                 let selector = isScheduleRequested ? isRequested(current_period, current_semester) : indexEquals(schedules.length - 1);
@@ -56,15 +57,11 @@ export default function (app) {
                 let sem = schedule_item.semester;
                 let period = schedule_item.period;
 
-                let url = `/schedule/${period}/${sem}`;
-                $http.get(url, {cache: true})
+                api.schedule.get(period, sem, true)
                     .success(scheduleRecord => {
-                        $scope.schedule = scheduleData.populate(scheduleRecord.schedule, [
-                            populate(team.short, 'teacher'),
-                            populate(getCourseNameByID, 'lesson')
-                        ]);
+                        $scope.schedule = scheduleRecord.schedule;
 
-                        if (doUpdateURL) $location.url(url);
+                        if (doUpdateURL) $location.url(api.schedule.buildScheduleUrl(period, sem));
                     });
             }
         };
