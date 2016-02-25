@@ -1,55 +1,45 @@
 <div class="schedule-table" ng-show="$ctrl.schedule">
-    <table>
-        <thead>
-        <tr>
-            <th class="group">Гр.</th>
-            <th ng-class="{current: $ctrl.isToday(0)}">
-                <p class="day">Понедельник</p>
+    <div class="schedule-table__head">
+        <div class="group">Гр.</div>
+        <div ng-class="{current: $ctrl.isToday(0)}">
+            <p class="day">Понедельник</p>
+            <p class="date">{{$ctrl.weekDay(0)}}</p>
+        </div>
+        <div ng-class="{current: $ctrl.isToday(1)}">
+            <p class="day">Вторник</p>
+            <p class="date">{{$ctrl.weekDay(1)}}</p>
+        </div>
+        <div ng-class="{current: $ctrl.isToday(2)}">
+            <p class="day">Среда</p>
+            <p class="date">{{$ctrl.weekDay(2)}}</p>
+        </div>
+        <div ng-class="{current: $ctrl.isToday(3)}">
+            <p class="day">Четверг</p>
+            <p class="date">{{$ctrl.weekDay(3)}}</p>
+        </div>
+        <div ng-class="{current: $ctrl.isToday(4)}">
+            <p class="day">Пятница</p>
+            <p class="date">{{$ctrl.weekDay(4)}}</p>
+        </div>
+        <div ng-class="{current: $ctrl.isToday(5)}">
+            <p class="day">Суббота</p>
+            <p class="date">{{$ctrl.weekDay(5)}}</p>
+        </div>
+    </div>
 
-                <p class="date">{{$ctrl.weekDay(0)}}</p>
-            </th>
-            <th ng-class="{current: $ctrl.isToday(1)}">
-                <p class="day">Вторник</p>
+    <div class="schedule-table__body">
+    <div class="schedule-table__body-row" ng-repeat="group in $ctrl.schedule">
+        <div class="schedule-table__body-group">
+            <p class="name">{{group.name}}</p>
+            <p class="time">{{group.time}}</p>
+        </div>
 
-                <p class="date">{{$ctrl.weekDay(1)}}</p>
-            </th>
-            <th ng-class="{current: $ctrl.isToday(2)}">
-                <p class="day">Среда</p>
-
-                <p class="date">{{$ctrl.weekDay(2)}}</p>
-            </th>
-            <th ng-class="{current: $ctrl.isToday(3)}">
-                <p class="day">Четверг</p>
-
-                <p class="date">{{$ctrl.weekDay(3)}}</p>
-            </th>
-            <th ng-class="{current: $ctrl.isToday(4)}">
-                <p class="day">Пятница</p>
-
-                <p class="date">{{$ctrl.weekDay(4)}}</p>
-            </th>
-            <th ng-class="{current: $ctrl.isToday(5)}">
-                <p class="day">Суббота</p>
-
-                <p class="date">{{$ctrl.weekDay(5)}}</p>
-            </th>
-        </tr>
-        </thead>
-
-        <tbody>
-        <tr ng-repeat="group in $ctrl.schedule">
-            <td class="group">
-                <p class="name">{{group.name}}</p>
-                <p class="time">{{group.time}}</p>
-            </td>
-
-            <td ng-repeat="day in group.days track by $index" ng-class="{current: $ctrl.isToday($index)}">
-                <p class="lesson"><a href="">{{day.lesson}}</a></p>
-                <p class="teacher"><a href="">{{day.teacher}}</a></p>
-                <p class="time">{{day.time[0] | join: '—'}}</p>
-                <p class="time">{{day.time[1] | join: '—'}}</p>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+        <div class="schedule-table__record" ng-repeat="day in group.days track by $index" ng-class="{current: $ctrl.isToday($index)}">
+            <p class="lesson"><a href="">{{day.lesson}}</a></p>
+            <p class="teacher"><a href="">{{day.teacher}}</a></p>
+            <p class="time">{{day.time[0] | join: '—'}}</p>
+            <p class="time">{{day.time[1] | join: '—'}}</p>
+        </div>
+    </div>
+    </div>
 </div>
