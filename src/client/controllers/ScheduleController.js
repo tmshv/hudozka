@@ -29,7 +29,7 @@ export default function (app) {
                 let selector = isScheduleRequested ? isRequested(current_period, current_semester) : indexEquals(schedules.length - 1);
 
                 schedules = schedules.map(schedule => {
-                    let sem = [['spring', 'Весена'], ['autumn', 'Осень']]
+                    let sem = [['spring', 'Весна'], ['autumn', 'Осень']]
                         .reduce(select(
                             i => i[0] === schedule.semester,
                             i => i[1]
