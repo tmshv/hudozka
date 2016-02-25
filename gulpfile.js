@@ -66,11 +66,11 @@ gulp.task('compile', function () {
     gulp.src([
             './src/client/app.js',
             './src/client/document.js',
-            './src/client/data.js',
             './src/client/instagram.js'
         ])
         .pipe(named())
         .pipe(webpack({
+            devtool: 'inline-source-map',
             output: {
                 filename : '[name].js'
             },
