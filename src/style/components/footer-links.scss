@@ -1,0 +1,21 @@
+@import "../variables";
+
+.footer-links {
+  &__header {
+    margin-bottom: $single-margin;
+    font-size: $bigger-font-size;
+    color: $light-color;
+  }
+
+  &__link {
+    margin-bottom: $half-margin;
+
+    a {
+      border-bottom: 1px solid darken($link-color, 40%);
+    }
+  }
+
+  ul {
+    list-style: none;
+  }
+}

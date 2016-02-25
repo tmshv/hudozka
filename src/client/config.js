@@ -39,8 +39,56 @@ export let routes = [
     },
     {
         name: '/documents',
-        templateUrl: '/views/docs.html',
-        controller: 'DocsPageController',
+        templateUrl: '/views/documents.html',
+        controller: 'DocumentsPageController',
         title: 'Документы'
     }
 ];
+
+export const footer = {
+    links: {
+        docs: {
+            title: 'Документы',
+            links: [
+                {url: '/document/edu-license', link: 'Лицензия на осуществление образовательной деятельности'},
+                {url: '/document/gov-certificate', link: 'Свидетельство о государственной регистрации права'},
+                {url: '/document/EGRYL1', link: 'Свидетельство о внесении в «ЕГРЮЛ»'},
+                {url: '/document/VAT', link: 'ИНН'},
+                {url: '/document/statue-2013', link: 'Устав школы'}
+            ]
+        },
+        sites: {
+            title: 'Ссылки на образовательные сайты',
+            links: [
+                {
+                    url: 'http://минобрнауки.рф',
+                    link: 'минобрнауки.рф',
+                    description: 'Министерство образования и науки Российской Федерации'
+                },
+                {url: 'http://edu.ru', link: 'edu.ru', description: 'Федеральный сайт «Российское образование»'},
+                {
+                    url: 'http://window.edu.ru',
+                    link: 'window.edu.ru',
+                    description: 'Единое окно доступа к образовательным ресурсам'
+                },
+                {
+                    url: 'http://school-collection.edu.ru',
+                    link: 'school-collection.edu.ru',
+                    description: 'Единая коллекция цифровых образовательных ресурсов'
+                },
+                {
+                    url: 'http://fcior.edu.ru',
+                    link: 'fcior.edu.ru',
+                    description: 'Федеральный центр информационных образовательных ресурсов'
+                },
+                {url: 'http://dkhshmga.ru', link: 'dkhshmga.ru', description: 'Художественная школа Мги'},
+                {
+                    url: 'http://kirovskdmh.ucoz.ru',
+                    link: 'kirovskdmh.ucoz.ru',
+                    description: 'Музыкальная школа Кировска'
+                }
+            ]
+        }
+    }
+};
+

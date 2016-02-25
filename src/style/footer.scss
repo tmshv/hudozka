@@ -1,53 +1,33 @@
+@import "variables";
+
+$uri: '/graphics/rawline.png';
+
 footer {
-  color: #e3e3e3;
-  background-color: #151515;
-  font-size: 0.9em;
-  padding: 0 0.5em 0.5em;
+  color: $light-color;
+  padding: 0 $half-margin $half-margin;
   position: relative;
+  background-color: $darker-color;
 
   &:before {
+    $s: 3px;
+
     content: '';
     position: absolute;
-    top: -3px;
+    top: -$s;
     left: 0;
     width: 100%;
-    height: 3px;
+    height: $s;
     z-index: 100;
-    background-image: url('/graphics/rawline.png');
+    background-image: url($uri);
   }
 
-  h4{
-    font-size: 1.3em;
-    color: white;
-    margin: 0.5em 0 0.7em;
-  }
-
-  ul {
-    padding: 0 0.5em 0 1em;
-    list-style: none;
-
-    li {
-      margin: 0 0 0.5em;
-    }
-  }
-
-  a {
-    padding: 0.15em 0;
-    line-height: 1.5em;
-    color: #738cdb;
-    text-decoration: none;
-    border-bottom: 1px solid #2c3652;
-  }
-
-  .info-block {
+  .footer-info {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
 
-    & > div {
-      box-sizing: border-box;
-      padding: 0 1em;
-    }
+    padding: $double-margin $single-margin 0;
+    margin-bottom: $double-margin;
   }
 
   .contacts {

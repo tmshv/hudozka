@@ -14,6 +14,7 @@ import ScheduleTable from './components/ScheduleTable';
 import ScheduleSlider from './components/ScheduleSlider';
 import ScheduleSlide from './components/ScheduleSlide';
 import ScheduleRecord from './components/ScheduleRecord';
+import FooterLinks from './components/FooterLinks';
 
 import AppController from './controllers/AppController';
 import HomeController from './controllers/HomeController';
@@ -102,6 +103,7 @@ app.run(($location, $rootScope, $http) => {
     ScheduleSlider,
     ScheduleSlide,
     ScheduleRecord,
+    FooterLinks,
     function (app) {
         app.controller('HomePageController', ($scope) => {
             $scope.pageClass = 'page-home';
@@ -119,8 +121,8 @@ app.run(($location, $rootScope, $http) => {
             $scope.pageClass = 'page-album';
         });
 
-        app.controller('DocsPageController', ($scope) => {
-            $scope.pageClass = 'page-docs';
+        app.controller('DocumentsPageController', ($scope) => {
+            $scope.pageClass = 'page-documents';
         });
 
         app.controller('CollectivePageController', ($scope) => {

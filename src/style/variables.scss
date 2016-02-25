@@ -7,8 +7,10 @@ $content-semi-wide: 70%;
 $content-thin: 60%;
 
 //MARGINS
-$single-margin: 1.5em;
-$double-margin: 3em;
+$small-margin: .2em;
+$half-margin: .5em;
+$single-margin: 1.0em;
+$double-margin: 3.0em;
 
 //COLOR
 $dark-color: hsl(0, 0%, 20%);
@@ -33,6 +35,10 @@ $white-shadow: 0 .1em 0.3em rgba(0, 0, 0, 0.2);
 //FONTS
 $title-font: "PT Sans", Arial, sans-serif;
 $text-font: "PT Sans", Arial, sans-serif;
+
+$normal-font-size: 1em;
+$bigger-font-size: 1.5em;
+$smaller-font-size: .8em;
 
 //MENU
 $menu-thickness: 2.5em;

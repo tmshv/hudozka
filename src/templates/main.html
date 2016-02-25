@@ -55,31 +55,9 @@
     </div>
 
     <footer>
-        <div class="info-block">
-            <div>
-                <h4>Документы</h4>
-                <ul>
-                    <li><a target="_blank" href="/document/edu-license">Лицензия на осуществление образовательной деятельности</a></li>
-                    <li><a target="_blank" href="/document/gov-certificate">Свидетельство о государственной регистрации права</a></li>
-                    <li><a target="_blank" href="/document/EGRYL1">Свидетельство о внесении в «ЕГРЮЛ»</a></li>
-                    <li><a target="_blank" href="/document/VAT">ИНН</a></li>
-                    <li><a target="_blank" href="/document/statue-2013">Устав школы</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4>Ссылки на образовательные сайты</h4>
-                <ul>
-                    <li><a href="http://минобрнауки.рф">минобрнауки.рф</a> — Министерство образования и науки Российской Федерации</li>
-                    <li><a href="http://edu.ru">edu.ru</a> — Федеральный сайт «Российское образование»</li>
-                    <li><a href="http://window.edu.ru">window.edu.ru</a> — Единое окно доступа к образовательным ресурсам</li>
-                    <li><a href="http://school-collection.edu.ru">school-collection.edu.ru</a> — Единая коллекция цифровых образовательных ресурсов</li>
-                    <li><a href="http://fcior.edu.ru">fcior.edu.ru</a> — Федеральный центр информационных образовательных ресурсов</li>
-                </ul>
-                <ul>
-                    <li><a href="http://dkhshmga.ru">dkhshmga.ru</a> — Художественная школа Мги</li>
-                    <li><a href="http://kirovskdmh.ucoz.ru">kirovskdmh.ucoz.ru</a> — Музыкальная школа Кировска</li>
-                </ul>
-            </div>
+        <div class="footer-info">
+            <footer-links title="{{footer.links.docs.title}}" links="footer.links.docs.links"></footer-links>
+            <footer-links title="{{footer.links.sites.title}}" links="footer.links.sites.links"></footer-links>
         </div>
 
         <div class="contacts" ng-controller="ContactsController">
