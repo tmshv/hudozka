@@ -1,7 +1,9 @@
+import {contacts} from '../config';
+
 export default function (app) {
-    app.controller('ContactsController', ($scope, config) => {
-        $scope.address = config.address;
-        $scope.telephone = config.telephone;
-        $scope.email = config.email;
+    app.controller('ContactsController', $scope => {
+        $scope.address = contacts.address;
+        $scope.telephone = contacts.telephone;
+        $scope.email = contacts.email;
     });
 };

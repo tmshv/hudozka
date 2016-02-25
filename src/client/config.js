@@ -1,3 +1,15 @@
+import {stringReplace} from '../utils/string';
+
+const nbsp = 0xA0;
+
+export let contacts = {
+    telephone: '+7 (81362) 76-312',
+    email: 'hudozka@gmail.com',
+    address: ['г. Шлиссельбург', 'ул. 18 января', 'д. 3']
+        .map(stringReplace(' ', String.fromCharCode(nbsp)))
+        .join(' ')
+};
+
 export let collectiveSortPattern = [
     'mg-timasheva',
     'va-sarzhin',
