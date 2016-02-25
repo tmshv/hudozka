@@ -1,5 +1,5 @@
 export default function (app) {
-    app.controller('AlbumController', ($scope, $rootScope, $http, $routeParams, team, api, menu) => {
+    app.controller('AlbumController', ($scope, $rootScope, $http, $routeParams, api, menu) => {
         menu.activate('/gallery');
 
         let year_uri = $routeParams.year;
@@ -8,7 +8,8 @@ export default function (app) {
 
         api.gallery.album(year_uri, course_uri, album_uri)
             .success(album => {
-                album.teacherName = team.name(album['teacher']);
+                //album.teacherName = team.name(album['teacher']);
+                album.teacherName = album['teacher'];
 
                 $scope.album = album;
                 $scope.crumbs = [

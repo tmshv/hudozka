@@ -1,83 +1,72 @@
-/**
- * Created by tmshv on 22/11/14.
- */
+import co from 'co';
+import route from 'koa-route';
+import {c} from '../core/db';
+import {json} from './';
 
-var co = require("co");
-var route = require("koa-route");
-var router = require("./");
-var db = require("../core/db");
-
-module.exports = function (app) {
-    app.use(route.get("/gallery", router.accepts({
-        "text/html": router.index(),
-        "text/plain": router.index(),
-        "application/json": function *() {
+export default function (app) {
+    app.use(route.get('/gallery', json(
+        function *() {
             var query = {};
-            var albums = yield db.c("albums")
+            var albums = yield c('albums')
                 .find(query)
                 .toArray();
 
             albums = yield albums.map(processAlbum);
             this.body = albums;
         }
-    })));
+    )));
 
-    app.use(route.get("/gallery/:year", router.accepts({
-        "text/html": router.index(),
-        "text/plain": router.index(),
-        "application/json": function *(year) {
+    app.use(route.get('/gallery/:year', json(
+        function *(year) {
             year = parseInt(year);
-            var start = new Date(year, 0, 1);
-            var end = new Date(year, 11, 31);
-            var query = {
+            let start = new Date(year, 0, 1);
+            let end = new Date(year, 11, 31);
+            let query = {
                 date: {$gte: start, $lt: end}
             };
-            var albums = yield db.c("albums")
+            let albums = yield c('albums')
                 .find(query)
                 .toArray();
 
             albums = yield albums.map(processAlbum);
             this.body = albums;
         }
-    })));
+    )));
 
-    app.use(route.get("/gallery/:year/:course/:album", router.accepts({
-        "text/html": router.index(),
-        "text/plain": router.index(),
-        "application/json": function *(year, course, album) {
+    app.use(route.get('/gallery/:year/:course/:album', json(
+        function *(year, course, album) {
             year = parseInt(year);
             course = '/' + course;
             album = '/' + album;
-            var start = new Date(year, 0, 1);
-            var end = new Date(year, 11, 31);
-            var query = {
+            let start = new Date(year, 0, 1);
+            let end = new Date(year, 11, 31);
+            let query = {
                 date: {$gte: start, $lt: end},
                 course_uri: course,
                 uri: album
             };
 
-            var a = yield db.c("albums").findOne(query);
-            a = yield processAlbum(a);
-            this.body = a;
+            let record = yield c('albums').findOne(query);
+            record = yield processAlbum(record);
+            this.body = record;
         }
-    })));
+    )));
 };
 
-function processAlbum(album) {
-    return co(function *() {
-        album.url = '/gallery/{year}{course}{album}'
-            .replace('{year}', album.date.getFullYear())
-            .replace('{course}', album.course_uri)
-            .replace('{album}', album.uri);
+let processAlbum = album => co(function *() {
+    album.url = `/gallery/{year}{course}{album}`
+        .replace('{year}', album.date.getFullYear())
+        .replace('{course}', album.course_uri)
+        .replace('{album}', album.uri);
 
-        album.content = yield album.content.map(function (product_id) {
-            return co(function *() {
-                var product = yield db.c("products").findOne({_id: product_id});
-                if (product) return product;
-                else return null;
-            });
-        });
+    album.content = yield album.content.map(product_id => co(function *() {
+        let product = yield c('products').findOne({_id: product_id});
+        if (product) return product;
+        else return null;
+    }));
 
-        return album;
-    });
-}
+    let teacher = yield c('collective').findOne({id: album.teacher});
+    album.teacher = teacher.name;
+
+    return album;
+});
