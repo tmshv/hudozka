@@ -18,9 +18,9 @@ import FooterLinks from './components/FooterLinks';
 
 import PageSchool from './components/PageSchool';
 import PageSchedule from './components/PageSchedule';
+import PageCollective from './components/PageCollective';
 
 import AppController from './controllers/AppController';
-import CollectiveController from './controllers/CollectiveController';
 import GalleryController from './controllers/GalleryController';
 import AlbumController from './controllers/AlbumController';
 import DocumentsController from './controllers/DocumentsController';
@@ -92,8 +92,8 @@ app.run(($location, $rootScope, $http) => {
     TeacherProfile,
     PageSchool,
     PageSchedule,
+    PageCollective,
     AppController,
-    CollectiveController,
     GalleryController,
     AlbumController,
     DocumentsController,
@@ -116,10 +116,6 @@ app.run(($location, $rootScope, $http) => {
 
         app.controller('DocumentsPageController', ($scope) => {
             $scope.pageClass = 'page-documents';
-        });
-
-        app.controller('CollectivePageController', ($scope) => {
-            $scope.pageClass = 'page-collective';
         });
     }
 ].map(i => i(app));

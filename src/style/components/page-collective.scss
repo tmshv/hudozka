@@ -1,0 +1,11 @@
+@import "../variables";
+
+.page-collective {
+  &.ng-leave {
+    animation: slideOutLeft $short-duration both ease-in;
+  }
+
+  &.ng-enter {
+    animation: slideInRight $short-duration both ease-in;
+  }
+}

@@ -32,8 +32,7 @@ export let routes = [
     },
     {
         name: '/collective',
-        templateUrl: '/views/collective.html',
-        controller: 'CollectivePageController',
+        template: '<page-collective></page-collective>',
         title: 'Преподаватели'
     },
     {
