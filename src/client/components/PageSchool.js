@@ -3,7 +3,7 @@ import template from '../../templates/components/page-school.html';
 export default function (app) {
     app.component('pageSchool', {
         template: template,
-        controller: () => {
+        controller: function() {
             this.pageClass = 'page-school';
 
             let fotorama;
