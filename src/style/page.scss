@@ -5,17 +5,6 @@
   &.ng-enter {}
 }
 
-.page-schedule {
-  &.ng-leave {
-    transform-origin: 0% 0%;
-    animation: rotateFall 0.3s both ease-in;
-  }
-
-  &.ng-enter {
-    animation: scaleUp 0.3s both ease-in;
-  }
-}
-
 .page-collective {
   &.ng-leave {
     animation: slideOutLeft 0.3s both ease-in;
