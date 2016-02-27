@@ -65,7 +65,6 @@ gulp.task("copy", function () {
 gulp.task('compile', function () {
     gulp.src([
             './src/client/app.js',
-            './src/client/document.js',
             './src/client/instagram.js'
         ])
         .pipe(named())
