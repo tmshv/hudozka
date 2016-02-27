@@ -1,10 +1,8 @@
 import os
-import re
 from datetime import datetime
 from glob import glob
 
 import lxml.html
-from markdown import markdown
 
 import settings
 from db import db

@@ -1,9 +1,7 @@
 import os
 from glob import glob
-
-from tempfile import mkstemp
-
 from shutil import copyfile
+from tempfile import mkstemp
 
 import settings
 from db import db
@@ -126,9 +124,10 @@ if __name__ == '__main__':
     )
 
     # COPY FILE -> STATIC_DIR/URL_FILENAME
-    out_path = lambda doc: os.path.join('/Users/tmshv/Dropbox/Dev/Hud school/Static/uploads', os.path.basename(doc['url']))
+    uploads = '/Users/tmshv/Dropbox/Dev/Hud school/Static/uploads'
+    out_path = lambda doc: os.path.join(uploads, os.path.basename(doc['url']))
     lmap(
-        lambda doc : copyfile(
+        lambda doc: copyfile(
             doc['file']['name'],
             out_path(doc)
         ),
@@ -150,6 +149,9 @@ if __name__ == '__main__':
     #     "url": "https://static.shburg.org/art/uploads/egryul.pdf",
     #     "title": "Свидетельство о внесении в «ЕГРЮЛ»",
     #     "preview": ObjectId("56d07d87ace9573958e5e488"),
-    #     "file": "ЕГРЮЛ.pdf",
+    #     "file": {
+    #       "name": ""ЕГРЮЛ.pdf",
+    #       "size": 100500
+    #     },
     #     "category": "Основные документы"
     # }
