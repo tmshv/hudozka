@@ -24,3 +24,8 @@ def override_extension(dest, ext=None):
 def image_magick_resize(input_file, output_file, size, quality=85):
     s = '%dx%d' % size
     call(['convert', input_file, '-resize', s, '-quality', str(quality), output_file])
+
+
+def image_magick_pdf_to_img(input_file, output_file):
+    i = "{image}[0]".format(image=input_file)
+    call(['convert', i, output_file])

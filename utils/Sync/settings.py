@@ -14,9 +14,10 @@ EN_UPPER = 'QWERTYUIOPASDFGHJKLZXCVBNM'
 DIGITS = '0123456789'
 description_available_chars = CYR_LOWER + CYR_UPPER + EN_LOWER + EN_UPPER + DIGITS + ' _-'
 
+
 translit_table = (
-    'абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ',
-    'abvgdeejzijklmnoprstufhzcss_y_euaABVGDEEJZIJKLMNOPRSTUFHZCSS_Y_EUA'
+    ['а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж',  'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч',  'ш',   'щ',  'ъ', 'ы', 'ь', 'э', 'ю',  'я',  'А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж',  'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч',   'Ш', 'Щ',   'Ъ', 'Ы', 'Ь', 'Э', 'Ю',   'Я', '̆'],
+    ['a', 'b', 'v', 'g', 'd', 'e', 'e', 'zh', 'z', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'r', 's', 't', 'u', 'f', 'h', 'z', 'ch', 'sh', 'sch', '_', 'y', '_', 'e', 'yu', 'ya', 'A', 'B', 'V', 'G', 'D', 'E', 'E', 'ZH', 'Z', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'F', 'H', 'Z', 'CH', 'SH', 'SCH', '_', 'Y', '_', 'E', 'YU', 'YA', '_']
 )
 
 teachers_names = {
@@ -34,7 +35,9 @@ image_save_dir = './static_images'
 
 image_base_url = 'https://static.shburg.org/art/image/'
 collective_image_base_url = 'https://static.shburg.org/art/collective/'
-collective_image_output = '/Users/tmshv/Dropbox/Dev/Hud School/Static/collective'
+collective_image_output = '/Users/tmshv/Dropbox/Dev/Hud School/Static/images'
+
+album_html_img_class = 'hudozka-product'
 
 image_ext = '.jpg'
 image_sizes = [
@@ -46,10 +49,26 @@ image_sizes = [
     ('preview', 50, 50),
 ]
 
+event_image_sizes = [
+    ('big', 1200, 800)
+]
+
 date_formats = [
     '%Y',
     '%m.%Y',
     '%d.%m.%Y',
     '%d.%m.%Y %H:%M',
     '%d.%m.%Y %H:%M:%S'
+]
+
+date_formats_direct = [
+    '%Y',
+    '%m.%Y',
+    '%d.%m.%Y',
+]
+
+date_formats_reverse = [
+    '%Y',
+    '%Y.%m',
+    '%Y.%m.%d'
 ]

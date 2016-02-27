@@ -6,11 +6,11 @@ from datetime import datetime
 import lxml.html
 from markdown import markdown
 
-import lxml_utils
 import settings
-from Album import Album
-from Product import Product
-from image import resize
+from models.Album import Album
+from models.product import Product
+from utils import lxml_utils
+from utils.image import resize
 
 __author__ = 'Roman Timashev'
 
@@ -128,9 +128,11 @@ class GalleryReader:
         return Product(author_name, author_age, image, product_title)
 
     def create_image(self, name, filename, sizes, ext, base_url):
+        print('DEPRECATED: use utils.image.__init__.create_image')
+
         thumbs = {}
         for size, width, height in sizes:
-            source_image = resize.read_image(filename)
+            source_image = read_image(filename)
             sw, sh = source_image.size
             if sw < sh:
                 width, height = height, width
@@ -150,6 +152,8 @@ class GalleryReader:
         return thumbs
 
     def get_date(self):
+        print('DEPRECATED: use sync.__init__.create_date')
+
         string = lxml_utils.get_text_following_by_tag(self.html, 'em', "Дата")
         if string is None:
             return None

@@ -4,7 +4,7 @@ from glob import glob
 from pymongo import MongoClient
 
 import settings
-from image import resize
+from utils.image import resize
 
 
 def generate_image_filename(image, size_name, ext):

@@ -6,8 +6,8 @@ from glob import glob
 from pymongo import MongoClient
 
 import settings
-from image import resize as img_util
 from read_gallery_1 import GalleryReader
+from utils.image import resize as img_util
 
 __author__ = 'Roman Timashev'
 

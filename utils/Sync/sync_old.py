@@ -5,15 +5,15 @@ import lxml.html as html
 import markdown as md
 from lxml.etree import tostring
 
-import lxml_utils
-from image import resize
+from utils import lxml_utils
+from utils.image import resize
 
 __author__ = 'tmshv'
 
 # db = pymongo.MongoClient('mongodb://localhost:27017')['stickers']
 
 # images_dir = os.path.expanduser('~/Dropbox/Dev/Hud school/Static/images')
-catalog_dir = os.path.expanduser('~/Dropbox/Dev/Hud school/Hudozka/Gallery')
+catalog_dir = os.path.expanduser('~/Dropbox/Dev/Hud School/Gallery')
 catalog_files = os.listdir(catalog_dir)
 
 
@@ -79,6 +79,8 @@ def generate_image_filename(src, course, year, theme, author, size, i,ext):
 
 
 for cf in catalog_files:
+    break
+
     os.chdir(catalog_dir)
     if os.path.isdir(cf):
         print('======================================================================================')
