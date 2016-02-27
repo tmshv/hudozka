@@ -23,6 +23,7 @@ import instagramIO from './instagram/io';
 import error404 from './routes/404';
 import documents from './routes/documents';
 import collective from './routes/collective';
+import events from './routes/events';
 
 export const app = koa();
 app.proxy = true;
@@ -56,5 +57,6 @@ gallery(app);
 instagram(app);
 instagramIO(app);
 documents(app);
+events(app);
 app.use(collective());
 app.use(error404());

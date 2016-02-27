@@ -5,7 +5,9 @@ export default [
         "color": "blue"
     },
     {
-        "text": "События"
+        "text": "События",
+        "url": "/events",
+        "color": "orange"
     },
     {
         "text": "Расписание",

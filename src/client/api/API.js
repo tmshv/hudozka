@@ -3,6 +3,7 @@ import APIGallery from './APIGallery';
 import APIDocument from './APIDocument';
 import APICollective from './APICollective';
 import APISchedule from './APISchedule';
+import APIEvent from './APIEvent';
 
 export default class API {
     constructor(request) {
@@ -11,5 +12,6 @@ export default class API {
         this.document = new APIDocument(request);
         this.collective = new APICollective(request);
         this.schedule = new APISchedule(request);
+        this.event = new APIEvent(request);
     }
 }

@@ -1,8 +1,8 @@
 import menuItems from '../../models/menu';
 
 class Menu {
-    constructor() {
-        this.items = menuItems;
+    constructor(items) {
+        this.items = items;
         this.current = null;
     }
 
@@ -16,8 +16,9 @@ class Menu {
 }
 
 export default function (app) {
-    app.factory('menu', ($route, $rootScope) => {
-        const menu = new Menu();
+    app.factory('menu', ($rootScope) => {
+        const menu = new Menu(menuItems);
+
         $rootScope.$on('$routeChangeSuccess', (event, current) => {
             try {
                 let path = current['$$route'].originalPath;

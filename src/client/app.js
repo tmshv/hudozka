@@ -18,8 +18,11 @@ import ScheduleSlider from './components/ScheduleSlider';
 import ScheduleSlide from './components/ScheduleSlide';
 import ScheduleRecord from './components/ScheduleRecord';
 import FooterLinks from './components/FooterLinks';
+import EventPost from './components/EventPost';
 
 import PageSchool from './components/PageSchool';
+import PageEvents from './components/PageEvents';
+import PageEvent from './components/PageEvent';
 import PageSchedule from './components/PageSchedule';
 import PageCollective from './components/PageCollective';
 import PageGallery from './components/PageGallery';
@@ -92,12 +95,15 @@ app.run(($location, $rootScope, $http) => {
     TimelineRecord,
     TimelineRecordPost,
     TimelineRecordInstagram,
+    EventPost,
     Document,
     Award,
     GalleryItem,
     AlbumCollection,
     TeacherProfile,
     PageSchool,
+    PageEvent,
+    PageEvents,
     PageSchedule,
     PageCollective,
     PageGallery,

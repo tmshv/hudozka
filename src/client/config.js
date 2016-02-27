@@ -26,6 +26,15 @@ export let routes = [
         title: 'ДХШ Шлиссельбурга'
     },
     {
+        name: '/events/:page?/:pageNumber?',
+        template: '<page-events></page-events>',
+        title: 'События Школы'
+    },
+    {
+        name: '/event/:event',
+        template: '<page-event></page-event>'
+    },
+    {
         name: '/schedule/:period?/:semester?',
         template: '<page-schedule></page-schedule>',
         title: 'Расписание'

@@ -1,0 +1,33 @@
+@import "../variables";
+
+.event-post {
+  margin-bottom: $double-margin;
+
+  &__head {
+    margin-bottom: $small-margin;
+
+    h3 {
+      font-size: 1.75em;
+      text-align: center;
+    }
+
+    .date {
+      text-align: center;
+      color: #aaa;
+    }
+
+    a {
+      color: $dark-color;
+      border-bottom: none;
+    }
+  }
+
+  &__body{
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      display: block;
+      margin: 0 auto $small-margin;
+    }
+  }
+}
