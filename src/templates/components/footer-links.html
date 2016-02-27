@@ -1,7 +1,7 @@
 <div class="footer-links">
     <h4 class="footer-links__header" ng-show="$ctrl.title">{{$ctrl.title}}</h4>
     <ul>
-        <li class="footer-links__link" ng-repeat="i in $ctrl.links"><a href="{{i.url}}">{{i.link}}</a>
+        <li class="footer-links__link" ng-repeat="i in $ctrl.links"><a href="{{i.url}}" target="_blank">{{i.link}}</a>
             <span ng-show="i.description"> — </span>{{i.description}}</li>
     </ul>
 </div>
