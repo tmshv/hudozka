@@ -3,7 +3,7 @@
 .timeline{
   display: flex;
   flex-direction: column;
-  margin: 0 auto $double-margin;
+  margin: $double-margin auto;
 }
 
 .timeline__footer{
@@ -29,11 +29,5 @@
     &:active{
       top: 0;
     }
-  }
-}
-
-@media screen and (max-device-width: $desktop-width) {
-  .timeline {
-    //width: 98%;
   }
 }
