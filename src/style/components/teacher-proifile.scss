@@ -47,3 +47,19 @@ $info-width: 100% - $picture-width;
     }
   }
 }
+
+@media (max-width: $mobile-width) {
+  .teacher-profile {
+    margin: 0 auto $double-margin;
+
+    &__picture {
+      width: 100%;
+      max-width: $mobile-width;
+    }
+
+    &__info {
+      width: 100%;
+      padding-left: 0;
+    }
+  }
+}
