@@ -52,7 +52,7 @@ def create_preview(pdf, sizes, preview_dir):
     temp_preview_path = pdf_to_jpg(pdf)
 
     id = url_encode_text(pdf)
-    url_base = 'https://static.shburg.org/art/image/document-{id}-{size}{ext}'
+    url_base = 'https://static.shburg.org/art/images/document-{id}-{size}{ext}'
     url = lambda size, ext: url_base.format(id=id, size=size, ext=ext)
 
     img = create_image(temp_preview_path, sizes, url, preview_dir)
@@ -63,9 +63,15 @@ def create_preview(pdf, sizes, preview_dir):
 def create_document(doc):
     sizes = settings.image_sizes
     preview_dir = '/Users/tmshv/Dropbox/Dev/Hud School/Static/images'
+    file = doc['file']
 
-    doc['url'] = 'https://static.shburg.org/art/uploads/' + url_encode_file(doc['file'])
-    doc['preview'] = create_preview(doc['file'], sizes=sizes, preview_dir=preview_dir)
+    doc['type'] = 'document'
+    doc['url'] = 'https://static.shburg.org/art/uploads/' + url_encode_file(file)
+    doc['preview'] = create_preview(file, sizes=sizes, preview_dir=preview_dir)
+    doc['file'] = {
+        'name': file,
+        'size': os.path.getsize((file))
+    }
 
     return doc
 
@@ -123,7 +129,7 @@ if __name__ == '__main__':
     out_path = lambda doc: os.path.join('/Users/tmshv/Dropbox/Dev/Hud school/Static/uploads', os.path.basename(doc['url']))
     lmap(
         lambda doc : copyfile(
-            doc['file'],
+            doc['file']['name'],
             out_path(doc)
         ),
         documents
@@ -137,3 +143,13 @@ if __name__ == '__main__':
 
     lprint(documents)
     print('SYNC DOCUMENTS DONE')
+
+    # DOCUMENT_OBJECT SAMPLE
+    # {
+    #     "_id": ObjectId("56d08411ace9573958e5e490"),
+    #     "url": "https://static.shburg.org/art/uploads/egryul.pdf",
+    #     "title": "Свидетельство о внесении в «ЕГРЮЛ»",
+    #     "preview": ObjectId("56d07d87ace9573958e5e488"),
+    #     "file": "ЕГРЮЛ.pdf",
+    #     "category": "Основные документы"
+    # }
