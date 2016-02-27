@@ -10,7 +10,9 @@ import helmet from 'koa-helmet';
 import bodyParser from 'koa-bodyparser';
 
 import config from './config';
+import {redirectionTable} from './config';
 import {index, queryObject} from './routes';
+import {redirect} from './routes/redirect';
 
 import sitemap from './routes/sitemap';
 import schedule from './routes/schedule';
@@ -42,6 +44,7 @@ app.use(function *(next) {
 app.use(prerender(config.prerender));
 app.use(serve(path.join(__dirname, '../public')));
 app.use(serve(path.join(__dirname, 'templates')));
+app.use(redirect(redirectionTable));
 app.use(helmet());
 app.use(queryObject());
 app.use(route.get('/', index()));
