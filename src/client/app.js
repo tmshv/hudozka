@@ -1,3 +1,5 @@
+import 'babel-polyfill';
+
 import Navigation from './components/Navigation';
 import MainMenu from './components/MainMenu';
 import Breadcrumbs from './components/Breadcrumbs';
