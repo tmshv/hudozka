@@ -4,16 +4,17 @@
   -webkit-overflow-scrolling: touch;
 
   width: 100%;
-  position: fixed;
   z-index: 100;
   overflow-x: scroll;
-
+  position: fixed;
+  top: 0;
+  white-space: nowrap;
   background-color: $darker-color;
+
   font-size: 1.1em;
   color: $menu-inactive-item-color;
 
   list-style: none;
-  white-space: nowrap;
 
   li {
     display: inline-block;
@@ -25,7 +26,7 @@
     }
   }
 
-  a{
+  a {
     text-decoration: none;
 
     color: $light-color;
