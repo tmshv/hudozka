@@ -33,6 +33,8 @@ import RemoveNewline from './filters/RemoveNewline';
 import Strip from './filters/Strip';
 import Join from './filters/Join';
 import UppercaseFirst from './filters/UppercaseFirst';
+import Bytes from './filters/Bytes';
+import Ext from './filters/Ext';
 
 import IOService from './services/io';
 import MenuService from './services/menu';
@@ -79,6 +81,8 @@ app.run(($location, $rootScope, $http) => {
     Strip,
     Join,
     UppercaseFirst,
+    Bytes,
+    Ext,
     MainMenu,
     Navigation,
     Breadcrumbs,
