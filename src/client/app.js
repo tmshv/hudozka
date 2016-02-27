@@ -1,3 +1,4 @@
+import Navigation from './components/Navigation';
 import MainMenu from './components/MainMenu';
 import Breadcrumbs from './components/Breadcrumbs';
 import Document from './components/Document';
@@ -79,6 +80,7 @@ app.run(($location, $rootScope, $http) => {
     Join,
     UppercaseFirst,
     MainMenu,
+    Navigation,
     Breadcrumbs,
     Timeline,
     TimelineRecord,
