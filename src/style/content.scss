@@ -18,6 +18,10 @@
   &.content_thin{
     width: $content-thin;
   }
+
+  &.content--padding-top--double{
+    padding-top: $double-margin;
+  }
 }
 
 @media (max-width: $mobile-width) {
