@@ -1,14 +1,9 @@
 @import "variables";
 
 .body-wrapper {
-  //display: flex;
-  min-height: 100%;
-  //flex-direction: column;
+  background-color: white;
 }
 
 .body-wrapper__content {
-  $margin: $menu-thickness + $double-margin;
-
-  //flex: 1;
-  margin: $margin auto 0;
+  margin: $menu-thickness auto 0;
 }
