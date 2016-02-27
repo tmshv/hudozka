@@ -4,13 +4,16 @@ from PIL import Image
 
 from utils.hash import file_hash
 from utils.image import resize
-from utils.image.resize import optimize, thumbnail
+from utils.image.resize import optimize, thumbnail, orient
 
 
 def read_image(src):
     try:
-        return Image.open(src)
-    except FileNotFoundError:
+        i = Image.open(src)
+        return i
+        # return orient(i)
+    except Exception as e:
+        print(src, e)
         return None
 
 
@@ -33,12 +36,19 @@ def create_image(file, sizes, url_fn, output_dir, skip_processing=False):
     for size in sizes:
         size_name, width, height = size
 
+        image_width, image_height = image.size
+        if image_height > image_width:
+            width, height = height, width
+
         image_url = url_fn(size_name, ext)
         image_filename = os.path.basename(image_url)
-        d = os.path.join(output_dir, image_filename)
+        local_image_path = os.path.join(output_dir, image_filename)
 
         if not skip_processing:
-            thumb = optimize(image, d, quality=90) if size_name == 'original' else thumbnail(image, d, (width, height))
+            if size_name == 'original':
+                thumb = optimize(file, local_image_path, quality=90)
+            else:
+                thumb = thumbnail(file, local_image_path, (width, height))
             width, height = thumb.size
 
         result[size_name] = {

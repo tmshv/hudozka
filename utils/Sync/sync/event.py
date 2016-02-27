@@ -42,7 +42,7 @@ def create_event(doc):
 
     doc['id'] = doc['id'] if 'id' in doc else url_encode_text(doc['title'])
 
-    url_base = 'https://static.shburg.org/art/image/event-{id}-{img}-{size}{ext}'
+    url_base = 'https://static.shburg.org/art/images/event-{id}-{img}-{size}{ext}'
     images_dir = '/Users/tmshv/Dropbox/Dev/Hud School/Static/images'
     sizes = settings.event_image_sizes
 
@@ -58,8 +58,11 @@ def create_event(doc):
             url_fn = lambda size, ext: url_base.format(id=doc['id'], img=img_id, size=size, ext=ext.lower())
 
             image = create_image(img_path, sizes, url_fn, images_dir)
-            images.append(image)
-            img.set('src', image['data']['big']['url'])
+            if image:
+                images.append(image)
+                img.set('src', image['data']['big']['url'])
+            else:
+                print('fail: ', doc['folder'], src)
 
     doc['post'] = lxml.html.tostring(post_html).decode('utf-8')
     doc['images'] = images
