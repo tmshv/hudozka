@@ -3,10 +3,12 @@ import template from '../../templates/components/document.html';
 export default function (app) {
     app.component('document', {
         bindings: {
-            document: '='
+            document: '<'
         },
+        controllerAs: '$',
         controller: function () {
-            //this.testing = 123;
+            this.previewUrl = this.document.preview.data.medium.url;
+            this.file = this.document.file;
         },
         template: template
     });

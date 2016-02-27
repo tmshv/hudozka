@@ -1,8 +1,13 @@
 <div class="document">
-    <a href="{{$ctrl.document.url}}" target="_blank" class="invisible">
-        <img ng-src="{{$ctrl.document.preview}}">
-    </a>
-    <p>
-        <a href="{{$ctrl.document.url}}" target="_blank">{{$ctrl.document.title | uppercaseFirst}}</a>
+    <div class="document__image">
+        <a href="{{$.document.url}}" target="_blank" class="invisible">
+            <img ng-src="{{$.previewUrl}}">
+        </a>
+    </div>
+
+    <p class="document__file">{{$.document.title | uppercaseFirst}}</p>
+    <!--<a href="{{$.document.url}}" target="_blank">{{$.document.title | uppercaseFirst}}</a>-->
+    <p class="document__file-info">
+        <a href="{{$.document.url}}" target="_blank">{{$.file.name | ext}} ({{$.file.size | bytes}})</a>
     </p>
 </div>
