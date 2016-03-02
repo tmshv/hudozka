@@ -22,17 +22,17 @@
   &.content--padding-top--double{
     padding-top: $double-margin;
   }
+
+  &.content--padding-top--menu{
+    padding-top: $menu-thickness + $double-margin;
+  }
 }
 
 @media (max-width: $mobile-width) {
-  $content-mobile: 95%;
+  $content-mobile: 90%;
 
   .content {
-    &.content_full{
-      width: $content-mobile;
-    }
-
-    &.content_wide{
+     &.content_wide{
       width: $content-mobile;
     }
 
@@ -42,6 +42,10 @@
 
     &.content_thin{
       width: $content-mobile;
+    }
+
+    &.content--padding-top--menu{
+      padding-top: $double-margin;
     }
   }
 }
