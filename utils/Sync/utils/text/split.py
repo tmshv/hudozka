@@ -1,4 +1,4 @@
-from utils.fn import lmap, until
+from utils.fn import until
 
 
 def split(data, separator=' '):

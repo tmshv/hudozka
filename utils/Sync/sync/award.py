@@ -6,25 +6,22 @@ from tempfile import mkstemp
 import settings
 from db import db
 from sync.image import sync_image
-from utils.fn import combine, lmap, lprint_json, key_mapper, lprint
+from utils.fn import lmap, lprint_json, key_mapper, lprint
 from utils.hash import hash_file, hash_str
 from utils.image import create_image
 from utils.image.resize import image_magick_pdf_to_img
-from utils.io import read_yaml
 from utils.text.transform import url_encode_text, url_encode_file
 
-prefix = 'document'
-dir_documents = '/Users/tmshv/Dropbox/Dev/Hud school/Documents'
+prefix = 'award'
+dir_documents = '/Users/tmshv/Dropbox/Dev/Hud school/Awards'
 dir_static_uploads = '/Users/tmshv/Desktop/Hudozka Static/uploads'
 dir_static_previews = '/Users/tmshv/Desktop/Hudozka Static/images'
 url_base_preview = 'https://static.shburg.org/art/images/{id}-{size}{ext}'
 url_base_document = 'https://static.shburg.org/art/uploads/{file}'
 
-# Adds specified category to each file in files list
-unwrap_file_list = lambda files, title: map(
-    lambda profile: {'category': title, **profile},
-    files
-)
+
+def collection():
+    return db().awards
 
 
 def pdf_to_jpg(pdf):
@@ -44,10 +41,8 @@ def sync_document(record):
 
     q = {'id': record['id']}
     try:
-        documents = db().documents
-        update_result = documents.update_one(q, {'$set': record}, upsert=True)
-        i = documents.find_one({'id': record['id']})
-        return i
+        collection().update_one(q, {'$set': record}, upsert=True)
+        return collection().find_one(q)
     except ValueError:
         pass
 
@@ -57,7 +52,7 @@ def sync_document(record):
 def read_document(i, query_fn=None):
     q = query_fn(i) if query_fn else {'id': i['id']}
     try:
-        return db().documents.find_one(q)
+        return collection().find_one(q)
     except ValueError:
         pass
 
@@ -65,11 +60,11 @@ def read_document(i, query_fn=None):
 
 
 def query_documents(q):
-    return db().documents.find(q)
+    return collection().find(q)
 
 
 def delete_document(q):
-    return db().documents.find_one_and_delete(q)
+    return collection().find_one_and_delete(q)
 
 
 def create_preview(pdf, sizes, preview_dir):
@@ -84,7 +79,7 @@ def create_preview(pdf, sizes, preview_dir):
 
 
 def create_document(doc):
-    sizes = settings.image_sizes
+    sizes = settings.awards_image_sizes
     file = doc['file']
 
     doc['type'] = prefix
@@ -99,30 +94,10 @@ def create_document(doc):
 
 
 def create_id(doc):
-    return url_encode_text('{type}-{category}-{file}'.format(
+    return url_encode_text('{type}-{file}'.format(
         type=prefix,
-        category=doc['category'],
         file=doc['file']
     ))
-
-
-def unwrap_manifest(param):
-    if isinstance(param, list):
-        return combine(map(
-            unwrap_manifest,
-            param
-        ))
-
-    if 'files' in param:
-        return lmap(
-            unwrap_manifest,
-            unwrap_file_list(param['files'], param['title'])
-        )
-
-    if 'file' not in param:
-        return None
-
-    return param
 
 
 if __name__ == '__main__':
@@ -131,16 +106,15 @@ if __name__ == '__main__':
 
     # GET DOCUMENT YAML_MANIFEST FILES
     os.chdir(dir_documents)
-    documents = glob(dir_documents + '/*.yaml')
+    documents = glob('*.pdf')
 
     # READ YAML_MANIFEST FILES
     documents = lmap(
-        read_yaml,
+        lambda i: {
+            'file': i
+        },
         documents
     )
-
-    # GET FLAT LIST OF DOCUMENTS
-    documents = unwrap_manifest(documents)
 
     # CREATE DOCUMENT IDENTITY
     documents = lmap(
@@ -154,7 +128,7 @@ if __name__ == '__main__':
         documents
     )
 
-    # CREATE HASH OF DOCUMENT FILE
+    # CREATE SCOPE OF CURRENT SESSION
     scope_documents_ids = lmap(
         lambda i: i['id'],
         documents
@@ -220,23 +194,3 @@ if __name__ == '__main__':
     print('UPDATE DOCUMENTS:')
     lprint_json(documents)
     print('[SYNC DOCUMENTS DONE]')
-
-    # DOCUMENT_OBJECT SAMPLE
-    # {
-    #     "hash": "c6a2aaf9a393c683c2250dd916115b7056ef16f023e0cd348c184a85cde9c9a0",
-    #     "_id": {
-    #         "$oid": "56d08411ace9573958e5e497"
-    #     },
-    #     "type": "document",
-    #     "id": "dlya-postupayuschih-dogovor-o-pozhertvovanii-pdf",
-    #     "category": "Для поступающих",
-    #     "file": {
-    #         "size": 53088,
-    #         "name": "Договор о пожертвовании.pdf"
-    #     },
-    #     "url": "https://static.shburg.org/art/uploads/dogovor-o-pozhertvovanii.pdf",
-    #     "preview": {
-    #         "$oid": "56d08007ace9573958e5e48f"
-    #     },
-    #     "title": "Договор о пожертвовании"
-    # }

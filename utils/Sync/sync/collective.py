@@ -9,6 +9,22 @@ from utils.image import create_image
 from utils.io import read_yaml_md
 
 
+def read_teacher_by_id(record):
+    if isinstance(record, list):
+        return lmap(
+            read_teacher_by_id,
+            record
+        )
+
+    q = {'id': record}
+    try:
+        return db().collective.find_one(q)
+    except ValueError:
+        pass
+
+    return None
+
+
 def sync_collective(record):
     if isinstance(record, list):
         return lmap(

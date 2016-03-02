@@ -26,11 +26,29 @@ def read_yaml_md(file):
     data = read_file(file)
     yaml_data, md_data = split_with(['\n\n', '\r\n\r\n'])(data)
 
+    if not yaml_data and not md_data:
+        return (read_yaml(file), None)
+
     try:
         y = yaml.load(yaml_data)
     except:
         y = None
 
     m = markdown(md_data) if md_data else None
+    return y, m
 
+
+def read_md_yaml(file):
+    data = read_file(file)
+    yaml_data, md_data = split_with(['\n\n', '\r\n\r\n'])(data)
+
+    if not yaml_data and not md_data:
+        return (None, read_md(file))
+
+    try:
+        y = yaml.load(yaml_data)
+    except:
+        y = None
+
+    m = markdown(md_data) if md_data else None
     return y, m

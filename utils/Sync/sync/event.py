@@ -70,11 +70,15 @@ def create_event(doc):
     return doc
 
 
-def get_md_manifest(md_path):
+def get_manifest(md_path):
     y, m = read_yaml_md(md_path)
+    y = y if y else {}
 
-    y['date'] = datetime.strptime(y['date'], '%d.%m.%Y')
-    y['id'] = str(y['id'])
+    if 'date' in y:
+        y['date'] = datetime.strptime(y['date'], '%d.%m.%Y')
+
+    if 'id' in y:
+        y['id'] = str(y['id'])
 
     return {
         **y,
@@ -126,13 +130,13 @@ if __name__ == '__main__':
     # TRY TO FILL UP BASIC_MANIFEST WITH MD_MANIFEST
     md_glob = lambda i : first(glob(i + '/*.md'))
     events = lmap(
-        lambda i: {
-            **i,
+        lambda event: {
+            **event,
             **map_cases(
-                i,
+                event,
                 [(
                     lambda i: md_glob(i['folder']),
-                    lambda i: get_md_manifest(md_glob(i['folder'])),
+                    lambda i: get_manifest(md_glob(i['folder'])),
                 )],
 
                 lambda i: {}

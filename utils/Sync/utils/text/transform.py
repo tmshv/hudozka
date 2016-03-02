@@ -4,6 +4,9 @@ from functools import reduce
 import settings
 from utils.fn import iterate_over_fns
 
+remove_pattr = re.compile('[«»,!&]')
+reduce_dash_pattr = re.compile('[-]+')
+
 
 def translit(text):
     """
@@ -35,16 +38,52 @@ def interpolate(text, storage, key_fn=None):
     return storage[key] if key in storage else text
 
 
-interpolate_swift = lambda i: re.search("([\d\w-]+)", i).group(1)
+def interpolate_swift(i):
+    return re.search("([\d\w-]+)", i).group(1)
 
-remove_pattr = re.compile('[«»,!&]')
-remove_punctuation = lambda i: remove_pattr.sub('', i)
 
-space_to_dash = lambda i: i.replace(' ', '-')
-dot_to_dash = lambda i: i.replace('.', '-')
-remove_underscores = lambda i: i.replace('_', '')
-text_lower = lambda i: i.lower()
+def remove_punctuation(i):
+    return remove_pattr.sub('', i)
+
+
+def reduce_dashes(i):
+    return reduce_dash_pattr.sub('-', i)
+
+
+def space_to_dash(i):
+    return i.replace(' ', '-')
+
+
+def short_dash(i):
+    """
+    minus -> dash
+    tire -> dash
+    :param i:
+    :return:
+    """
+    return i.replace('–', '-').replace('—', '-')
+
+
+def dot_to_dash(i):
+    return i.replace('.', '-')
+
+
+def remove_underscores(i):
+    return i.replace('_', '')
+
+
+def text_lower(i):
+    return i.lower()
+
 
 url_encode_file = iterate_over_fns([translit, space_to_dash, remove_underscores, remove_punctuation, text_lower])
-url_encode_text = iterate_over_fns(
-    [translit, space_to_dash, dot_to_dash, remove_underscores, remove_punctuation, text_lower])
+url_encode_text = iterate_over_fns([
+    translit,
+    space_to_dash,
+    dot_to_dash,
+    short_dash,
+    remove_underscores,
+    remove_punctuation,
+    reduce_dashes,
+    text_lower
+])

@@ -11,7 +11,6 @@ def read_image(src):
     try:
         i = Image.open(src)
         return i
-        # return orient(i)
     except Exception as e:
         print(src, e)
         return None
@@ -27,8 +26,10 @@ def create_image(file, sizes, url_fn, output_dir, skip_processing=False):
     :param skip_processing: True/False to skip thumbs generation
     :return:
     """
-    image = read_image(file)
-    if not image:
+    # image = read_image(file)
+    # if not image:
+    #     return None
+    if not os.path.exists(file):
         return None
 
     result = {}
@@ -36,20 +37,13 @@ def create_image(file, sizes, url_fn, output_dir, skip_processing=False):
     for size in sizes:
         size_name, width, height = size
 
-        image_width, image_height = image.size
-        if image_height > image_width:
-            width, height = height, width
-
         image_url = url_fn(size_name, ext)
         image_filename = os.path.basename(image_url)
         local_image_path = os.path.join(output_dir, image_filename)
 
         if not skip_processing:
-            if size_name == 'original':
-                thumb = optimize(file, local_image_path, quality=90)
-            else:
-                thumb = thumbnail(file, local_image_path, (width, height))
-            width, height = thumb.size
+            image = process_image(file, local_image_path, size)
+            width, height = image.size
 
         result[size_name] = {
             'url': image_url,
@@ -63,3 +57,19 @@ def create_image(file, sizes, url_fn, output_dir, skip_processing=False):
         'hash': file_hash(file),
         'data': result
     }
+
+
+def process_image(input_file, output_file, size):
+    size_name, width, height = size
+
+    image = read_image(input_file)
+    image_width, image_height = image.size
+    if image_height > image_width:
+        width, height = height, width
+
+    if size_name == 'original':
+        thumb = optimize(input_file, output_file, quality=90)
+    else:
+        thumb = thumbnail(input_file, output_file, (width, height))
+
+    return  thumb

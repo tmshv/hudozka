@@ -30,6 +30,10 @@ lprint_json = lambda s: lprint(lmap(
 first = lambda i: i[0] if len(i) > 0 else None
 
 
+def ext(ext):
+    return lambda i: os.path.splitext(i)[0] + ext
+
+
 def map_item_key(item, key, map_fn):
     """
 
@@ -42,7 +46,12 @@ def map_item_key(item, key, map_fn):
     return item
 
 
-key_mapper = lambda key, fn: lambda i: map_item_key(i, key, fn)
+def kmap(key):
+    return lambda i: i[key] if key in i else None
+
+
+def key_mapper(key, fn):
+    return lambda i: map_item_key(i, key, fn)
 
 
 def map_cases(param, cases, default_fn=None):

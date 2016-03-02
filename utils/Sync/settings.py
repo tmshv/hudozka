@@ -33,9 +33,7 @@ teachers_names = {
 image_processing = True
 image_save_dir = './static_images'
 
-image_base_url = 'https://static.shburg.org/art/image/'
-collective_image_base_url = 'https://static.shburg.org/art/collective/'
-collective_image_output = '/Users/tmshv/Dropbox/Dev/Hud School/Static/images'
+image_base_url = 'https://static.shburg.org/art/images/'
 
 album_html_img_class = 'hudozka-product'
 
@@ -49,8 +47,28 @@ image_sizes = [
     ('preview', 50, 50),
 ]
 
+awards_image_sizes = [
+    ('medium', 640, 480),
+    ('small', 300, 200),
+    ('preview', 50, 50),
+]
+
 event_image_sizes = [
     ('big', 1200, 800)
+]
+
+teacher_image_url_base = 'https://static.shburg.org/art/images/teacher-{id}-{size}{ext}'
+teacher_image_output = '/Users/tmshv/Desktop/Hudozka Static/images'
+teacher_image_sizes = [
+    ('big', 1200, 800),
+    ('medium', 640, 480),
+    ('preview', 50, 50),
+]
+
+album_image_sizes = [
+    ('big', 1200, 800),
+    ('medium', 640, 480),
+    ('small', 250, 175)
 ]
 
 date_formats = [
