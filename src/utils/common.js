@@ -52,3 +52,30 @@ export function select(byCondition, map = i => i) {
 export function choise(scope, selector){
     return scope.reduce(selector, null);
 }
+
+export function unique(fn) {
+    return list => [...new Set(list.map(fn))];
+}
+
+export function branch(fn) {
+    let keys = unique(fn);
+
+    return list => keys(list)
+        .reduce((dict, key) => {
+            dict[key] = list.filter(
+                i => fn(i) === key
+            );
+
+            return dict;
+        }, {})
+
+}
+
+export function assign(dict, key, value){
+    dict[key] = value;
+    return dict;
+}
+
+export function map(v, fn) {
+    return value => fn(value) ? v : value;
+}
