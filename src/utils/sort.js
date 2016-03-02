@@ -13,3 +13,14 @@ export function sortByWeight(list, fn) {
         .sort((a, b) => b[0] - a[0])
         .map(i => i[1]);
 }
+
+export function sortBy(fn) {
+    return (i1, i2) => {
+        let t1 = fn(i1);
+        let t2 = fn(i2);
+
+        if (t1 < t2) return 1;
+        if (t1 > t2) return -1;
+        return 0;
+    }
+}
