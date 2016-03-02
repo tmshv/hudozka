@@ -6,6 +6,7 @@ export default function (app) {
             title: '@',
             albums: '<'
         },
-        template: template
+        template: template,
+        controllerAs: '$'
     });
 };

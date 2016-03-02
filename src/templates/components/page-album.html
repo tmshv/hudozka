@@ -1,0 +1,34 @@
+<div class="content content_thin content--padding-top--menu">
+    <!--<album album="$.album"></album>-->
+    <album title="{{$.album.title}}">
+        <div ng-bind-html="$.post"></div>
+    </album>
+
+    <!--<breadcrumbs crumbs="$.crumbs"></breadcrumbs>-->
+
+    <!--<div class="album-block">-->
+        <!--<h1>{{$.album.title}}</h1>-->
+
+        <!--<div class="album" ng-show="$.album">-->
+            <!--<div class="album-info">-->
+                <!--<p>Предмет: {{$.album.course}}</p>-->
+                <!--<p>Преподаватель: {{$.album.teacherName}}</p>-->
+                <!--<p class="description" ng-show="$.album.description">{{$.album.description}}</p>-->
+            <!--</div>-->
+
+            <!--<div class="album-item" ng-repeat="product in $.album.content">-->
+                <!--<img ng-src="{{product.content.big.url}}" alt=""/>-->
+
+                <!--<div class="product-info">-->
+                    <!--<div>-->
+                        <!--<p ng-show="product.title" class="title">{{product.title | removeNewline}}</p>-->
+
+                        <!--<p>{{product.author}}</p>-->
+
+                        <!--<p ng-show="product.authorAge">{{product.authorAge}} лет</p>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+</div>

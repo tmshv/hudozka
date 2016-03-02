@@ -1,6 +1,7 @@
 @import "components/album-collection";
 @import "components/gallery-item";
 @import "components/document";
+@import "components/documents-container";
 @import "components/teacher-proifile";
 @import "components/main-menu";
 @import "components/navigation";
@@ -12,6 +13,8 @@
 @import "components/schedule-table";
 @import "components/footer-links";
 @import "components/event-post";
+@import "components/album";
+@import "components/parallax";
 
 @import "components/page-school";
 @import "components/page-schedule";
@@ -23,8 +26,6 @@
 @import "content";
 @import "page-animation";
 
-@import "documents";
-@import "album";
 @import "schedule-selector";
 @import "schedule-mobile";
 @import "error-404";

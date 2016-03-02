@@ -1,0 +1,15 @@
+<article class="album">
+    <!--<header class="album__head">-->
+        <!--<h2>{{$.album.title}}</h2>-->
+        <!--<p class="date">{{$.album.date | date : "dd.MM.yyyy"}}</p>-->
+    <!--</header>-->
+
+    <!--<div class="album__body" ng-bind-html="$.post"></div>-->
+
+    <header class="album__head">
+        <h2>{{$.title}}</h2>
+        <!--<p class="date">{{$.album.date | date : "dd.MM.yyyy"}}</p>-->
+    </header>
+
+    <div class="album__body" ng-transclude></div>
+</article>

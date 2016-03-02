@@ -2,6 +2,8 @@ import {stringReplace} from '../utils/string';
 
 const nbsp = 0xA0;
 
+export const mobileMatchSelector = '(max-device-width: 30em)';
+
 export let contacts = {
     telephone: '+7 (81362) 76-312',
     email: 'hudozka@gmail.com',
@@ -17,47 +19,6 @@ export let collectiveSortPattern = [
     'my-valkova',
     'vv-voronova',
     'nv-andreeva'
-];
-
-export let routes = [
-    {
-        name: '/',
-        template: '<page-school></page-school>',
-        title: 'ДХШ Шлиссельбурга'
-    },
-    {
-        name: '/events/:page?/:pageNumber?',
-        template: '<page-events></page-events>',
-        title: 'События Школы'
-    },
-    {
-        name: '/event/:event',
-        template: '<page-event></page-event>'
-    },
-    {
-        name: '/schedule/:period?/:semester?',
-        template: '<page-schedule></page-schedule>',
-        title: 'Расписание'
-    },
-    {
-        name: '/collective',
-        template: '<page-collective></page-collective>',
-        title: 'Преподаватели'
-    },
-    {
-        name: '/gallery',
-        template: '<page-gallery></page-gallery>',
-        title: 'Работы учащихся'
-    },
-    {
-        name: '/gallery/:year/:course/:album',
-        template: '<page-gallery-album></page-gallery-album>'
-    },
-    {
-        name: '/documents',
-        template: '<page-documents></page-documents>',
-        title: 'Документы'
-    }
 ];
 
 export const footer = {

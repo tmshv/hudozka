@@ -1,27 +1,37 @@
 import template from '../../templates/components/page-gallery.html';
+import {branch} from '../../utils/common';
 
 export default function (app) {
+    let branchYears = branch(
+        i => 'date' in i ? i.date.getFullYear() : 'XXXX'
+    );
+
     app.component('pageGallery', {
+        bindings: {
+            albums: '<'
+        },
         template: template,
-        controller: function (api) {
+        controllerAs: '$',
+        controller: function () {
             this.pageClass = 'page-gallery';
 
-            this.years = [];
-            [2015, 2014, 2013, 2012, 2011, 2010]
-                .forEach((year, year_index) => {
-                    api.gallery.year(year)
-                        .success(albums => {
-                            if (albums.length) {
-                                this.years[year_index] = {
-                                    year: year,
-                                    albums: albums.map(album => {
-                                        let preview = album.content[0];
-                                        album.preview_url = preview.content.medium.url;
-                                        return album;
-                                    })
-                                };
-                            }
-                        })
+            let years = branchYears(
+                this.albums
+                    .map(i => {
+                        i['date'] = new Date(i['date']);
+                        return i;
+                    })
+            );
+
+            this.collections = Object
+                .keys(years)
+                .map(i => parseInt(i))
+                .sort((a, b) => b - a)
+                .map(i => {
+                    return {
+                        title: i,
+                        albums: years[i]
+                    }
                 });
         }
     });

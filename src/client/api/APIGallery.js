@@ -2,11 +2,11 @@ import EndPoint from './EndPoint';
 
 export default class APIGallery extends EndPoint {
     year(year) {
-        return this.request.get(`/gallery/${year}`, {cache: true});
+        return this.get(`/gallery/${year}`);
     }
 
     album(year, course, album, doPopulate) {
         let url = `/gallery/${year}/${course}/${album}?populate=${doPopulate}`;
-        return this.request.get(url, {cache: true});
+        return this.get(url);
     }
 }

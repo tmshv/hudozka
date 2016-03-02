@@ -13,9 +13,9 @@ function week(schedule) {
                 date: dates[i],
                 groups: schedule.map(group => {
                     return {
-                        name: group.name,
+                        name: group.group,
                         time: group.time,
-                        content: group.days[i]
+                        content: group.week[i]
                     }
                 })
             }

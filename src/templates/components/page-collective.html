@@ -1,7 +1,12 @@
 <div class="page-collective content content_full">
-    <!--<img ng-style="$ctrl.imageStyle" class="collective-image" src="https://static.shlisselburg.org/art/collective/collective.jpg" alt="">-->
-    <!--<div class="page-collective__body content content_semi-wide content_down-screen content_padding">-->
-    <div class="content content_semi-wide">
-        <teacher-profile ng-repeat="person in $ctrl.members track by $index" member="person"></teacher-profile>
+    <img class="page-collective__collective-image"
+         width="100%"
+         src="https://static.shlisselburg.org/art/graphics/collective.jpg">
+
+    <div class="content content_semi-wide content--padding-top--double">
+        <teacher-profile
+                ng-repeat="i in $ctrl.members"
+                profile="i"
+                show-url="{{true}}"></teacher-profile>
     </div>
 </div>

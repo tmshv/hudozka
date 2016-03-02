@@ -9,3 +9,17 @@
     animation: slideInRight $short-duration both ease-in;
   }
 }
+
+.page-collective {
+  &__collective-image {
+    min-height: 40em;
+  }
+}
+
+@media (max-width: $mobile-width) {
+  .page-collective {
+    &__collective-image {
+      display: none;
+    }
+  }
+}

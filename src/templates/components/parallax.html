@@ -1,0 +1,6 @@
+<div class="parallax">
+    <div class="parallax__layer" ng-repeat="i in layers" ng-style="{top: i.y, left: i.x}">
+        <img ng-src="{{i.url}}" alt="">
+    </div>
+    <div class="parallax__end"></div>
+</div>

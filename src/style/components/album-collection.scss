@@ -5,7 +5,8 @@
     display: flex;
     flex-wrap: wrap;
     position: relative;
-    align-items:flex-end;
+    justify-content: center;
+    align-items:flex-start;
   }
 
   &__title{

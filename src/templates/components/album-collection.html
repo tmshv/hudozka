@@ -1,6 +1,6 @@
 <div class="album-collection">
-    <h2 class="album-collection__title">{{$ctrl.title}}</h2>
+    <h2 class="album-collection__title">{{$.title}}</h2>
     <div class="album-collection__body">
-        <gallery-item ng-repeat="album in $ctrl.albums" record="album"></gallery-item>
+        <gallery-item ng-repeat="i in $.albums" record="i"></gallery-item>
     </div>
 </div>

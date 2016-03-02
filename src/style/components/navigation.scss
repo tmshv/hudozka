@@ -19,20 +19,28 @@
 .navigation__right {
   color: $light-color;
   margin-right: 3em;
+
+  z-index:1000;
 }
 
 @media (max-width: $mobile-width) {
   .navigation {
     overflow: hidden;
 
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
+    width: 100%;
+    z-index: 100;
+    position: relative;
+    top: 0;
+
+    display: block;
+    //display: flex;
+    //justify-content: flex-start;
+    //align-items: center;
   }
 
   .navigation__right {
     //display: none;
-    margin-right: 0;
+    //margin-right: 0;
   }
 }
 

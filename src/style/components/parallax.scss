@@ -1,0 +1,19 @@
+@import "../variables";
+
+.parallax {
+  height: 1000px;
+  position: relative;
+
+  overflow: hidden;
+
+  &__layer {
+    position: absolute;
+  }
+
+  &__end {
+    position: absolute;
+    width: 100%;
+    background-color: white;
+    bottom: 0;
+  }
+}

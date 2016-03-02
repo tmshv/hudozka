@@ -3,8 +3,12 @@ import template from '../../templates/components/gallery-item.html';
 export default function (app) {
     app.component('galleryItem', {
         bindings: {
-            record: '='
+            record: '<'
         },
-        template: template
+        template: template,
+        controllerAs: '$',
+        controller: function () {
+            this.previewImage = this.record.preview.url;
+        }
     });
 };

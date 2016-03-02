@@ -5,6 +5,7 @@ export default function (app) {
         bindings: {
             menu: '<'
         },
-        template: template
+        template: template,
+        controllerAs: '$'
     });
 };

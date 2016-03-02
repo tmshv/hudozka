@@ -5,5 +5,11 @@
 }
 
 .body-wrapper__content {
-  margin: $menu-thickness auto 0;
+  margin: 0 auto 0;
+}
+
+@media (max-width: $mobile-width) {
+  .body-wrapper__content {
+    margin: $menu-thickness auto 0;
+  }
 }

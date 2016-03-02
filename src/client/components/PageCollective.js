@@ -1,16 +1,16 @@
 import template from '../../templates/components/page-collective.html';
-import {collectiveSortPattern} from '../config';
 
 export default function (app) {
     app.component('pageCollective', {
+        bindings:{
+            members: '<'
+        },
         template: template,
-        controller: function(api) {
-            this.pageClass = 'page-collective';
-
-            api.collective.list(collectiveSortPattern)
-                .success(collective => {
-                    this.members = collective;
-                });
+        controller: function() {
+            //api.collective.list(collectiveSortPattern)
+            //    .success(collective => {
+            //        this.members = collective;
+            //    });
 
             //let rangelen = r => r[1] - r[0];
             //let interpolate = (r, i) => (i - r[0]) / rangelen(r);

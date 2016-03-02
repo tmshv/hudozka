@@ -27,7 +27,7 @@ function Publisher() {
 
                 return uploadInstagrams(posts)
                     .then(function () {
-                        return db.c("posts").find({"data.id": {$in: ids}}).toArray();
+                        return db.c("timeline").find({"data.id": {$in: ids}}).toArray();
                     });
             })
             .then(function (posts) {
@@ -91,7 +91,7 @@ function findInstagrams(tag){
 function uploadInstagrams(list){
     return Promise.all(
         list.map(function (g) {
-            return db.c("posts").update({"data.id": g.data.id}, g, {upsert: true});
+            return db.c("timeline").update({"data.id": g.data.id}, g, {upsert: true});
         })
     );
 }

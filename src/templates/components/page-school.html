@@ -1,8 +1,14 @@
-<div class="content content_full">
-    <img src="https://static.shlisselburg.org/art/graphics/entrance.jpg" width="100%">
+<div class="content content_full" ng-switch="$.helloBlock">
+    <img ng-switch-when="mobile-image"
+            src="https://static.shlisselburg.org/art/graphics/entrance.jpg" width="100%">
+    <parallax ng-switch-default></parallax>
 </div>
 
 <div class="content content_thin">
+    <div class="hudozka-title">
+        <p>МБОУДОД</p>
+        <h1>Шлиссельбургская детская художественная&nbsp;школа</h1>
+    </div>
     <!--<div class="main-block">-->
         <!--<div>-->
         <!--&lt;!&ndash;<a href="tel://{{telephone}}"></a>&ndash;&gt;-->

@@ -1,18 +1,19 @@
 <div class="teacher-profile">
     <div class="teacher-profile__picture">
-        <img ng-src="{{$ctrl.image.url}}" >
+        <img ng-src="{{$.image.url}}" >
     </div>
 
     <div class="teacher-profile__info">
-        <h3>{{$ctrl.firstName}} {{$ctrl.middleName}} <strong>{{$ctrl.lastName}}</strong></h3>
+        <h3 ng-hide="$.url">{{$.firstName}} {{$.middleName}} <strong>{{$.lastName}}</strong></h3>
+        <h3 ng-show="$.url"><a href="{{$.profile.url}}">{{$.firstName}} {{$.middleName}} <strong>{{$.lastName}}</strong></a></h3>
 
-        <div class="info">
-            <p><strong>{{$ctrl.member.position}}</strong></p>
-            <p>{{$ctrl.member.status}}</p>
-            <p>Образование: {{$ctrl.member.edu}}</p>
-            <p>Диплом: {{$ctrl.member.diploma}}</p>
+        <div>
+            <p class="teacher-profile__position"><i><strong>{{$.profile.position}}</strong></i></p>
+            <p>{{$.profile.status}}</p>
+            <p>Образование: {{$.profile.edu}}</p>
+            <p>Диплом: <i>{{$.profile.diploma}}</i></p>
         </div>
 
-        <div class="biography" ng-bind-html="$ctrl.biography"></div>
+        <div class="teacher-profile__biography" ng-bind-html="$.biography"></div>
     </div>
 </div>

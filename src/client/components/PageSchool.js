@@ -1,10 +1,19 @@
 import template from '../../templates/components/page-school.html';
+import {mobileMatchSelector} from '../config';
 
 export default function (app) {
     app.component('pageSchool', {
         template: template,
+        controllerAs: '$',
         controller: function() {
-            this.pageClass = 'page-school';
+            this.helloBlock = 'parallax';
+
+            try {
+                if (window.matchMedia(mobileMatchSelector).matches) {
+                    this.helloBlock = 'mobile-image';
+                }
+            } catch (e) {
+            }
 
             //let fotorama;
             //let $tape = $('.tape-block');

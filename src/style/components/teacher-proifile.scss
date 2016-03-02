@@ -27,23 +27,32 @@ $info-width: 100% - $picture-width;
     box-sizing: border-box;
 
     h3 {
+      font-size: $big-font-size;
       font-weight: 200;
 
       strong {
         font-weight: 600;
       }
-    }
 
-    .info {
-      margin-bottom: $single-margin;
-    }
+      a {
+        color: $dark-color;
 
-    .biography {
-      margin-top: $single-margin;
-
-      p{
-        margin-bottom: $single-margin;
+        &:hover{
+          border-bottom-color: lighten($dark-color, 40%);
+        }
       }
+    }
+  }
+
+  &__position {
+    font-size: $bigger-font-size;
+  }
+
+  &__biography {
+    margin-top: $double-margin;
+
+    p {
+      margin-bottom: $single-margin;
     }
   }
 }

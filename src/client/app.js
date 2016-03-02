@@ -19,14 +19,17 @@ import ScheduleSlide from './components/ScheduleSlide';
 import ScheduleRecord from './components/ScheduleRecord';
 import FooterLinks from './components/FooterLinks';
 import EventPost from './components/EventPost';
+import Album from './components/Album';
+import Parallax from './components/Parallax';
 
 import PageSchool from './components/PageSchool';
 import PageEvents from './components/PageEvents';
 import PageEvent from './components/PageEvent';
 import PageSchedule from './components/PageSchedule';
 import PageCollective from './components/PageCollective';
+import PageTeacher from './components/PageTeacher';
 import PageGallery from './components/PageGallery';
-import PageGalleryAlbum from './components/PageGalleryAlbum';
+import PageAlbum from './components/PageAlbum';
 import PageDocuments from './components/PageDocuments';
 
 import AppController from './controllers/AppController';
@@ -45,7 +48,7 @@ import IOService from './services/io';
 import MenuService from './services/menu';
 import API from './services/api';
 
-import {routes} from './config';
+import {collectiveSortPattern} from './config';
 
 let app = angular.module('hudozka', [
     'ngRoute',
@@ -58,9 +61,109 @@ app.config(($locationProvider, $routeProvider) => {
     $locationProvider.hashPrefix('!');
     $locationProvider.html5Mode(true);
 
-    routes.forEach(route => {
-        if (typeof route === 'function') route = route();
-        $routeProvider.when(route.name, route);
+    let routers = [
+        {
+            name: '/',
+            template: '<page-school></page-school>',
+            title: 'ДХШ Шлиссельбурга'
+        },
+        {
+            name: '/events/:page?/:pageNumber?',
+            template: '<page-events events="$resolve.posts"></page-events>',
+            title: 'События Школы',
+
+            resolve: {
+                posts: api => api.event
+                    .list()
+                    .then(i => i.data)
+            }
+        },
+        {
+            name: '/event/:event',
+            template: '<page-event></page-event>'
+        },
+        {
+            name: '/schedule/:period?/:semester?',
+            template: '<page-schedule schedules="$resolve.list"></page-schedule>',
+            title: 'Расписание',
+            resolve: {
+                list: api => api.schedule
+                    .list()
+                    .then(i => i.data)
+            }
+        },
+        {
+            name: '/collective',
+            template: '<page-collective members="$resolve.list"></page-collective>',
+            title: 'Преподаватели',
+            resolve: {
+                list: api => api.teacher
+                    .list(collectiveSortPattern)
+                    .then(i => i.data)
+            }
+        },
+        {
+            name: '/teacher/:id',
+            template: '<page-teacher member="$resolve.profile"></page-teacher>',
+            title: 'Преподаватели',
+            resolve: {
+                profile: ($route, api) => {
+                    let id = $route.current.params.id;
+                    return api.teacher
+                        .fetch(id)
+                        .then(i => i.data);
+                }
+            }
+        },
+        {
+            name: '/gallery',
+            template: '<page-gallery albums="$resolve.list"></page-gallery>',
+            title: 'Работы учащихся',
+            resolve: {
+                list: api => api.album
+                    .list()
+                    .then(i => i.data)
+            }
+        },
+        {
+            name: '/album/:id',
+            template: '<page-album album="$resolve.album"></page-album>',
+            resolve: {
+                album: ($route, api) => {
+                    let id = $route.current.params.id;
+
+                    return api.album
+                        .fetch(id)
+                        .then(i => i.data)
+                }
+            }
+        },
+        {
+            name: '/documents',
+            template: '<page-documents awards="$resolve.awards" documents="$resolve.documents"></page-documents>',
+            title: 'Документы',
+            resolve: {
+                awards: api => api.document
+                    .awards()
+                    .then(i => i.data),
+
+                documents: api => api.document
+                    .documents()
+                    .then(i => i.data)
+            }
+        }
+    ]
+        .map(i => {
+            let path = i.name;
+            delete i.name;
+            return {
+                path: path,
+                route: i
+            }
+        });
+
+    routers.forEach(i => {
+        $routeProvider.when(i.path, i.route);
     });
 
     $routeProvider.otherwise({
@@ -96,6 +199,8 @@ app.run(($location, $rootScope, $http) => {
     TimelineRecordPost,
     TimelineRecordInstagram,
     EventPost,
+    Album,
+    Parallax,
     Document,
     Award,
     GalleryItem,
@@ -106,8 +211,9 @@ app.run(($location, $rootScope, $http) => {
     PageEvents,
     PageSchedule,
     PageCollective,
+    PageTeacher,
     PageGallery,
-    PageGalleryAlbum,
+    PageAlbum,
     PageDocuments,
     AppController,
     CopyrightController,

@@ -23,6 +23,6 @@
 
 @media (max-width: $mobile-width) {
   .document {
-    margin: 0 0 $single-margin;
+    margin: 0 $single-margin/2 $single-margin;
   }
 }

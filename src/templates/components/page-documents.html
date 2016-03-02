@@ -1,5 +1,5 @@
-<div class="content content_wide">
-    <div ng-repeat="c in $ctrl.collections">
+<div class="content content_wide content--padding-top--menu">
+    <div ng-repeat="c in $.collections">
         <h2>{{c.name}}</h2>
 
         <div class="documents-container">
@@ -9,6 +9,6 @@
 
     <h2>Награды</h2>
     <div class="documents-container">
-        <award ng-repeat="i in $ctrl.awards" document="i"></award>
+        <award ng-repeat="i in $.awards" document="i"></award>
     </div>
 </div>

@@ -7,7 +7,7 @@ export default function (app) {
         },
         template: template,
         controller: function($sce){
-            this.message = $sce.trustAsHtml(this.post.body);
+            this.message = $sce.trustAsHtml(this.post.message);
         }
     });
 };

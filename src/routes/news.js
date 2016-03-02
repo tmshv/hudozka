@@ -1,78 +1,75 @@
-/**
- * Created by tmshv on 22/11/14.
- */
+import route from 'koa-route';
+import {accepts, index} from './';
+import {c} from '../core/db';
+import {sortBy} from '../utils/sort';
 
-var route = require("koa-route");
-var router = require("./");
-var db = require("../core/db");
+export default function (app) {
+    let sortNewsByDate = sortBy(
+        i => (new Date(i.date))
+            .getTime()
+    );
 
-module.exports = function (app) {
-    app.use(route.get("/news", router.accepts({
-        "text/html": function *() {
-            this.redirect("/");
+    app.use(route.get('/news', accepts({
+        'text/html': function *() {
+            this.redirect('/');
         },
-        "text/plain": function *() {
-            this.redirect("/");
+        'text/plain': function *() {
+            this.redirect('/');
         },
-        "application/json": function *() {
-            var count = parseInt(this.query["count"]) || 10;
-            var portion = parseInt(this.query["portion"]) || 0;
-            var skip = portion * count;
+        'application/json': function *() {
+            let limit = parseInt(this.query['limit']) || 10;
+            let skip = parseInt(this.query['skip']) || 0;
 
-            var query = {};
+            let query = {};
             if (this.query.type) query.type = this.query.type;
 
-            var pinned = [];
-            if(portion == 0) {
-                var now = new Date();
-                pinned = yield db.c("posts").find({until: {$gte: now}}).toArray()
-                    .then(function (items) {
-                        return items.sort(sortNewsByDate);
-                    });
+            let pinned = [];
+            if(skip == 0) {
+                const now = new Date();
+                pinned = yield c('timeline')
+                    .find({until: {$gte: now}})
+                    .toArray()
+                    .then(i => i.sort(sortNewsByDate));
             }
-            var pinned_ids = pinned.map(function (p) {
-                return p["_id"]+"";
-            });
 
-            var posts = yield db.c("posts").find(query)
+            let sid = id => id + '';
+            let pinnedIds = pinned.map(p => sid(p['_id']));
+
+            let posts = yield c('timeline')
+                .find(query)
                 .sort({date: -1})
                 .skip(skip)
-                .limit(count)
+                .limit(limit)
                 .toArray()
-                .then(function (items) {
-                    return items.filter(function (i) {
-                        var id = i["_id"]+"";
-                        return pinned_ids.indexOf(id) < 0;
-                    });
-                });
+                .then(items => items.filter(
+                    i => pinnedIds.indexOf(sid(i['_id'])) < 0
+                ));
 
             this.body = pinned.concat(posts);
-            //this.body = pinned_ids
         }
     })));
 
-    app.use(route.get("/news/pinned", router.accepts({
-        "text/html": function *() {
-            this.redirect("/");
+    app.use(route.get('/news/pinned', accepts({
+        'text/html': function *() {
+            this.redirect('/');
         },
-        "text/plain": function *() {
-            this.redirect("/");
+        'text/plain': function *() {
+            this.redirect('/');
         },
-        "application/json": function *() {
-            var now = new Date();
-            var pinned = yield db.c("posts").find({until: {$gte: now}}).toArray()
-                .then(function (items) {
-                    return items.sort(sortNewsByDate);
-                });
-            this.body = pinned;
+        'application/json': function *() {
+            let now = new Date();
+            this.body = yield c('timeline')
+                .find({until: {$gte: now}})
+                .toArray()
+                .then(i => i.sort(sortNewsByDate));
         }
     })));
 
-    app.use(route.get("/news/:uri", router.accepts({
-        "text/html": router.index(),
-        "text/plain": router.index(),
-        "application/json": function *(uri) {
-            var item = yield db.c("posts").findOne({uri: uri});
+    app.use(route.get('/news/:id', accepts({
+        'text/html': index(),
+        'text/plain': index(),
+        'application/json': function *(id) {
+            let item = yield c('timeline').findOne({uri: id});
             if (item) {
                 this.body = item;
             } else {
@@ -81,12 +78,3 @@ module.exports = function (app) {
         }
     })));
 };
-
-function sortNewsByDate(i1, i2) {
-    var t1 = new Date(i1.date).getTime();
-    var t2 = new Date(i2.date).getTime();
-
-    if (t1 < t2) return 1;
-    if (t1 > t2) return -1;
-    return 0;
-}

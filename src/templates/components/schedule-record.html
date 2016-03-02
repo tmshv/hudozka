@@ -2,7 +2,7 @@
     <div class="schedule-record__head">Группа {{$ctrl.record.name}} ({{$ctrl.record.time}})</div>
     <div class="schedule-record__main">
         <p class="schedule-record__name">{{$ctrl.record.content.lesson}}</p>
-        <p class="schedule-record__tutor">{{$ctrl.record.content.teacher}}</p>
+        <p class="schedule-record__tutor"><a href="{{$ctrl.record.content.teacher.url}}">{{$ctrl.record.content.teacher.name}}</a></p>
         <p class="schedule-record__time" ng-repeat="time in $ctrl.record.content.time">{{time}}</p>
     </div>
 </div>

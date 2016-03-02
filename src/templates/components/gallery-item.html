@@ -1,9 +1,6 @@
 <div class="gallery-item">
-    <h3>
-        <a href="{{$ctrl.record.url}}">{{$ctrl.record.title}}</a>
-    </h3>
-    <a href="{{$ctrl.record.url}}" class="invisible">
-        <img ng-src="{{$ctrl.record.preview_url}}" alt="{{$ctrl.record.title}}"/>
+    <a href="{{$.record.url}}">
+        <h3>{{$.record.title}}</h3>
+        <img ng-src="{{$.previewImage}}" alt="{{$.record.title}}"/>
     </a>
-    <p>{{$ctrl.record.course}}</p>
 </div>

@@ -1,4 +1,5 @@
 import template from '../../templates/components/schedule.html';
+import {mobileMatchSelector} from '../config';
 
 export default function(app) {
     app.component('schedule', {
@@ -10,7 +11,7 @@ export default function(app) {
             this.type = 'table';
 
             try {
-                if (window.matchMedia('(max-device-width: 30em)').matches) {
+                if (window.matchMedia(mobileMatchSelector).matches) {
                     this.type = 'slider';
                 }
             } catch (e) {

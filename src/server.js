@@ -22,7 +22,7 @@ import instagram from './instagram/router';
 import instagramIO from './instagram/io';
 import error404 from './routes/404';
 import documents from './routes/documents';
-import collective from './routes/collective';
+import teachers from './routes/teachers';
 import events from './routes/events';
 
 export const app = koa();
@@ -58,5 +58,5 @@ instagram(app);
 instagramIO(app);
 documents(app);
 events(app);
-app.use(collective());
+teachers(app);
 app.use(error404());

@@ -28,8 +28,8 @@ export default function(app) {
     app.component('timeline', {
         template: template,
         controller: function($timeout, usSpinnerService, io, api){
-            let portion = 0;
-            let count = 10;
+            let skip = 0;
+            let limit = 10;
             this.feed = [];
 
             this.timelineUpdating = false;
@@ -59,7 +59,7 @@ export default function(app) {
                 this.timelineUpdating = true;
                 usSpinnerService.spin('timelineMore');
 
-                api.news.feed(count, portion)
+                api.timeline.feed(limit, skip)
                     .error(error => {
                         console.log(error);
                     })
@@ -72,7 +72,7 @@ export default function(app) {
                             else return post;
                         });
 
-                        portion++;
+                        skip++;
                         this.feed = this.feed.concat(feed2);
                     });
             };
