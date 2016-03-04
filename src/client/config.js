@@ -4,7 +4,7 @@ const nbsp = 0xA0;
 
 export const mobileMatchSelector = '(max-device-width: 30em)';
 
-export let contacts = {
+export const contacts = {
     telephone: '+7 (81362) 76-312',
     email: 'hudozka@gmail.com',
     address: ['г. Шлиссельбург', 'ул. 18 января', 'д. 3']
@@ -12,7 +12,7 @@ export let contacts = {
         .join(' ')
 };
 
-export let collectiveSortPattern = [
+export const collectiveSortPattern = [
     'mg-timasheva',
     'va-sarzhin',
     'od-gogoleva',

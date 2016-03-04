@@ -9,7 +9,8 @@
   position: fixed;
   top: 0;
   white-space: nowrap;
-  background-color: $darker-color;
+
+  background-color: rgba(255, 255, 255, 0.95);
 
   display: flex;
   justify-content: space-between;
@@ -17,30 +18,19 @@
 }
 
 .navigation__right {
-  color: $light-color;
-  margin-right: 3em;
+  color: $dark-color;
+  margin-right: 1em;
 
-  z-index:1000;
+  z-index: 1000;
 }
 
 @media (max-width: $mobile-width) {
   .navigation {
-    overflow: hidden;
-
-    width: 100%;
-    z-index: 100;
-    position: relative;
-    top: 0;
-
-    display: block;
-    //display: flex;
-    //justify-content: flex-start;
-    //align-items: center;
+    background-color: white;
   }
 
   .navigation__right {
-    //display: none;
-    //margin-right: 0;
+    padding: 0 $single-margin;
   }
 }
 

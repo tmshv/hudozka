@@ -47,16 +47,8 @@
 <body>
 <div class="body-wrapper" ng-controller="AppController">
     <header ng-switch="navigation">
-        <main-menu items="menuProvider"></main-menu>
+        <navigation menu="menuProvider" right-text="{{phone}}"></navigation>
     </header>
-    <!--<header ng-switch="navigation">-->
-        <!--<navigation menu="menuProvider"-->
-                    <!--ng-switch-when="navigation"-->
-        <!--&gt;</navigation>-->
-        <!--&lt;!&ndash;<main-menu items="menuProvider"&ndash;&gt;-->
-        <!--&lt;!&ndash;ng-switch-default&ndash;&gt;-->
-        <!--&lt;!&ndash;&gt;</main-menu>&ndash;&gt;-->
-    <!--</header>-->
 
     <div class="body-wrapper__content">
         <ng-view class="page" autoscroll></ng-view>

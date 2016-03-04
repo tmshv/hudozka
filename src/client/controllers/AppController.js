@@ -1,4 +1,4 @@
-import {footer, mobileMatchSelector} from '../config';
+import {footer, mobileMatchSelector, contacts} from '../config';
 
 export default function (app) {
     app.controller('AppController', ($scope, menu) => {
@@ -12,6 +12,7 @@ export default function (app) {
             $scope.navigation = 'main-menu';
         }
 
+        $scope.phone = contacts.telephone;
         $scope.menuProvider = menu.items;
         $scope.footer = footer;
     });

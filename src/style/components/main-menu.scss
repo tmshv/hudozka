@@ -1,15 +1,7 @@
 @import "../variables";
 
 .main-menu {
-  -webkit-overflow-scrolling: touch;
-
-  width: 100%;
-  z-index: 100;
-  overflow-x: scroll;
-  position: fixed;
-  top: 0;
   white-space: nowrap;
-  background-color: rgba(255, 255, 255, 0.95);
 
   font-size: 1.1em;
   color: $menu-inactive-item-color;
@@ -30,14 +22,7 @@
     text-decoration: none;
 
     color: $dark-color;
-    //border-bottom: 1px solid darken($light-color, 50%);
     border-bottom: 1px solid lighten($dark-color, 60%);
-
-    //&:hover {
-    //  color: $dark-color;
-    //
-    //  border-bottom: 1px solid darken($lighter-color, 50%);
-    //}
   }
 
   .selected {
@@ -77,11 +62,7 @@
 }
 
 @media (max-width: $mobile-width) {
-  header{
-    overflow: hidden;
-  }
-
   .main-menu{
-    background-color: white;
+    font-size: 1em;
   }
 }
