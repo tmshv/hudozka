@@ -1,5 +1,5 @@
-from sync.teacher import read_teacher_by_id
 from sync.image import sync_image
+from sync.teacher import Teacher
 from utils.fn import key_mapper
 from utils.text.transform import interpolate_swift
 
@@ -20,7 +20,8 @@ unpop_image = key_mapper('image', lambda i: sync_image(i)['_id'])
 
 
 def resolve_teacher(i):
-    return resolve_value(i, read_teacher_by_id)
+    sync = Teacher()
+    return resolve_value(i, lambda i: sync.read({'id': i}))
 
 
 def create_product(doc):

@@ -1,7 +1,7 @@
 import hashlib
 import json
 
-from utils.fn import map_cases
+from utils.fn import map_cases, to_json
 
 
 def hash_file(file):
@@ -16,7 +16,6 @@ def hash_data(data):
 
 
 def hash_str(data):
-    to_json = lambda i: json.dumps(i, sort_keys=True)
     data = map_cases(data, [
         (lambda i: isinstance(i, dict), to_json),
         (lambda i: isinstance(i, tuple), to_json),
@@ -25,6 +24,6 @@ def hash_str(data):
         (lambda i: isinstance(i, float), float),
     ])
     if isinstance(data, dict):
-        data = json.dumps(data, sort_keys=True)
+        data = to_json(data)
 
     return hash_data(str(data).encode())

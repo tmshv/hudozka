@@ -15,48 +15,6 @@ class SyncSchedule(Sync):
         super().__init__()
         self.collection = db().schedules
 
-    # def sync_collective(self, record):
-    #     if isinstance(record, list):
-    #         return lmap(
-    #             self.sync_collective,
-    #             record
-    #         )
-    #
-    #     q = {'id': record['id']}
-    #     try:
-    #         collection = db().collective
-    #         update_result = collection.update_one(q, {'$set': record}, upsert=True)
-    #         i = collection.find_one({'id': record['id']})
-    #         return i
-    #     except ValueError:
-    #         pass
-    #
-    #     return None
-    #
-    # def compile(self, profile):
-    #     profile['picture'] = create_image(
-    #         profile['picture'],
-    #         sizes,
-    #         lambda size, ext: url_base.format(id=profile['id'], size=size, ext=ext),
-    #         dir_local_images
-    #     )
-    #     return profile
-    #
-    # def read_document(self, i, query_fn=None):
-    #     q = query_fn(i) if query_fn else {'id': i['id']}
-    #     try:
-    #         return self.collection().find_one(q)
-    #     except ValueError:
-    #         pass
-    #
-    #     return None
-    #
-    # def query_documents(self, q):
-    #     return self.collection().find(q)
-    #
-    # def delete_document(self, q):
-    #     return self.collection().find_one_and_delete(q)
-
     def create_id(self, document):
         id = document['id'] if 'id' in document and document['id'] else None
         if not id:

@@ -2,7 +2,9 @@ import os
 
 from subprocess import call
 
+import smartcrop
 from PIL import Image
+from smartcrop import SmartCrop
 
 import utils.image
 
@@ -30,6 +32,29 @@ def override_extension(dest, ext=None):
     return dest
 
 
+def crop(src, dest, size):
+    width, height = size
+    image = utils.image.read_image(src)
+    crop_options = smartcrop.DEFAULTS
+    crop_options['width'] = width
+    crop_options['height'] = height
+
+    crop = SmartCrop()
+    result = crop.crop(image.copy(), crop_options)
+
+    box = (result['topCrop']['x'],
+           result['topCrop']['y'],
+           result['topCrop']['x'] + result['topCrop']['width'],
+           result['topCrop']['y'] + result['topCrop']['height'])
+
+    i = utils.image\
+        .read_image(src)\
+        .crop(box)
+    i.thumbnail(size, Image.ANTIALIAS)
+    i.save(dest)
+
+
+
 def orient(image):
     orientation = 0x0112
     rotations = {
@@ -50,6 +75,22 @@ def orient(image):
 def image_magick_resize(input_file, output_file, size, quality=85):
     s = '%dx%d' % size
     call(['convert', input_file, '-strip', '-auto-orient', '-resize', s, '-quality', str(quality), output_file])
+
+
+# def image_magick_resize(input_file, output_file, size, quality=85):
+#     from wand.image import Image
+#
+#     w, h = size
+#     s = '{w}x{h}>'.format(w=w, h=h)
+#
+#     with Image(filename=input_file) as img:
+#         # print(img.size)
+#         # print(list(img.metadata.items()))
+#         with img.clone() as i:
+#             i.transform(resize=s)
+#             i.auto_orient()
+#             i.strip()
+#             i.save(filename=output_file)
 
 
 def image_magick_pdf_to_img(input_file, output_file):

@@ -34,6 +34,7 @@ image_processing = True
 image_save_dir = './static_images'
 
 image_base_url = 'https://static.shburg.org/art/images/'
+image_output = '/Users/tmshv/Desktop/Hudozka Static/images'
 
 album_html_img_class = 'hudozka-product'
 

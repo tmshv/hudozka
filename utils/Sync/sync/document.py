@@ -5,26 +5,67 @@ from tempfile import mkstemp
 
 import settings
 from db import db
-from sync.image import sync_image
-from utils.fn import combine, lmap, lprint_json, key_mapper, lprint
+from sync import Sync, untouched, synced_image_id
+from utils.fn import combine, lmap, lprint_json, lprint, key_mapper
 from utils.hash import hash_file, hash_str
 from utils.image import create_image
 from utils.image.resize import image_magick_pdf_to_img
 from utils.io import read_yaml
 from utils.text.transform import url_encode_text, url_encode_file
 
-prefix = 'document'
-dir_documents = '/Users/tmshv/Dropbox/Dev/Hud school/Documents'
-dir_static_uploads = '/Users/tmshv/Desktop/Hudozka Static/uploads'
-dir_static_previews = '/Users/tmshv/Desktop/Hudozka Static/images'
-url_base_preview = 'https://static.shburg.org/art/images/{id}-{size}{ext}'
-url_base_document = 'https://static.shburg.org/art/uploads/{file}'
 
-# Adds specified category to each file in files list
-unwrap_file_list = lambda files, title: map(
-    lambda profile: {'category': title, **profile},
-    files
-)
+class SyncDocument(Sync):
+    def __init__(self, collection_name, document_type, sizes):
+        super().__init__()
+        self.collection = db()[collection_name]
+        self.document_type = document_type
+        self.sizes = sizes
+        self.dir_static_previews = '/Users/tmshv/Desktop/Hudozka Static/images'
+        self.url_base_preview = 'https://static.shburg.org/art/images/{id}-{size}{ext}'
+        self.url_base_document = 'https://static.shburg.org/art/uploads/{file}'
+
+    def create(self, document):
+        file = document['file']
+        filename = os.path.basename(document['file'])
+
+        document['type'] = self.document_type
+        document['preview'] = self.create_preview(file, sizes=self.sizes, preview_dir=self.dir_static_previews)
+        document['file'] = {
+            'name': filename,
+            'size': os.path.getsize((file))
+        }
+
+        return document
+
+    def create_id(self, document):
+        bn = os.path.basename(document['file'])
+        document['id'] = url_encode_text('{type}-{category}-{file}'.format(
+            type=self.document_type,
+            category=document['category'],
+            file=bn
+        ))
+        return document
+
+    def create_url(self, document):
+        filename = os.path.basename(document['file'])
+        document['url'] = self.url_base_document.format(file=url_encode_file(filename))
+        return document
+
+    def create_hash(self, document):
+        document['hash'] = hash_str(
+            hash_str(document) + hash_file(document['file'])
+        )
+        return document
+
+    def create_preview(self, pdf, sizes, preview_dir):
+        temp_preview_path = pdf_to_jpg(pdf)
+
+        id = url_encode_text(pdf)
+        url = lambda size, ext: self.url_base_preview.format(id=id, size=size, ext=ext)
+
+        img = create_image(temp_preview_path, sizes, url, preview_dir)
+        os.remove(temp_preview_path)
+        return img
 
 
 def pdf_to_jpg(pdf):
@@ -35,75 +76,20 @@ def pdf_to_jpg(pdf):
     return temp
 
 
-def sync_document(record):
-    if isinstance(record, list):
-        return lmap(
-            sync_document,
-            record
-        )
-
-    q = {'id': record['id']}
-    try:
-        documents = db().documents
-        update_result = documents.update_one(q, {'$set': record}, upsert=True)
-        i = documents.find_one({'id': record['id']})
-        return i
-    except ValueError:
-        pass
-
-    return None
-
-
-def read_document(i, query_fn=None):
-    q = query_fn(i) if query_fn else {'id': i['id']}
-    try:
-        return db().documents.find_one(q)
-    except ValueError:
-        pass
-
-    return None
-
-
-def query_documents(q):
-    return db().documents.find(q)
-
-
-def delete_document(q):
-    return db().documents.find_one_and_delete(q)
-
-
-def create_preview(pdf, sizes, preview_dir):
-    temp_preview_path = pdf_to_jpg(pdf)
-
-    id = url_encode_text(pdf)
-    url = lambda size, ext: url_base_preview.format(id=id, size=size, ext=ext)
-
-    img = create_image(temp_preview_path, sizes, url, preview_dir)
-    os.remove(temp_preview_path)
-    return img
-
-
-def create_document(doc):
-    sizes = settings.image_sizes
-    file = doc['file']
-
-    doc['type'] = prefix
-    doc['url'] = url_base_document.format(file=url_encode_file(file))
-    doc['preview'] = create_preview(file, sizes=sizes, preview_dir=dir_static_previews)
-    doc['file'] = {
-        'name': file,
-        'size': os.path.getsize((file))
-    }
-
-    return doc
-
-
-def create_id(doc):
-    return url_encode_text('{type}-{category}-{file}'.format(
-        type=prefix,
-        category=doc['category'],
-        file=doc['file']
-    ))
+def categorize_files_list(files, title):
+    """
+    Adds specified category to each file in files list
+    :param files:
+    :param title:
+    :return:
+    """
+    return map(
+        lambda profile: {
+            **profile,
+            'category': title
+        },
+        files
+    )
 
 
 def unwrap_manifest(param):
@@ -116,7 +102,7 @@ def unwrap_manifest(param):
     if 'files' in param:
         return lmap(
             unwrap_manifest,
-            unwrap_file_list(param['files'], param['title'])
+            categorize_files_list(param['files'], param['title'])
         )
 
     if 'file' not in param:
@@ -125,12 +111,9 @@ def unwrap_manifest(param):
     return param
 
 
-if __name__ == '__main__':
-    # ALL DOCUMENTS IDS FOUNDED
-    scope_documents_ids = []
-
+def documents_from_yaml():
     # GET DOCUMENT YAML_MANIFEST FILES
-    os.chdir(dir_documents)
+
     documents = glob(dir_documents + '/*.yaml')
 
     # READ YAML_MANIFEST FILES
@@ -142,84 +125,127 @@ if __name__ == '__main__':
     # GET FLAT LIST OF DOCUMENTS
     documents = unwrap_manifest(documents)
 
+    return documents
+
+
+def documents_from_subdirs():
+    documents = lmap(
+        lambda i: i.path,
+        filter(
+            lambda i: i.is_dir(),
+            os.scandir('.')
+        )
+    )
+
+    documents = lmap(
+        lambda folder: lmap(
+            lambda path: {
+                'file': path,
+                'title': os.path.splitext(os.path.basename(os.path.relpath(path, folder)))[0],
+                'category': os.path.basename(folder)
+            },
+            glob(folder + '/*.pdf')
+        ),
+        documents
+    )
+
+    documents = combine(documents)
+    return documents
+
+
+def main(dir_documents, dir_static_uploads, sync):
+    os.chdir(dir_documents)
+
+    # documents = documents_from_yaml()
+    documents = documents_from_subdirs()
+
     # CREATE DOCUMENT IDENTITY
-    documents = lmap(
-        lambda i: {**i, 'id': create_id(i)},
-        documents
-    )
+    documents = lmap(sync.create_id, documents)
 
     # CREATE HASH OF DOCUMENT FILE
-    documents = lmap(
-        lambda i: {**i, 'hash': hash_str(i) + hash_file(i['file'])},
-        documents
-    )
+    documents = lmap(sync.create_hash, documents)
 
-    # CREATE HASH OF DOCUMENT FILE
+    # CREATE SCOPE
     scope_documents_ids = lmap(
         lambda i: i['id'],
         documents
     )
 
+    file_names = set(lmap(
+        lambda i: i['file'],
+        documents
+    ))
+    if len(file_names) != len(documents):
+        raise Exception('File names should be unique')
+
     # SKIP UNTOUCHED DOCUMENTS
-    documents = lmap(
-        lambda i: i[0],
-        filter(
-            lambda i: i[1] is None or (i[0]['hash'] != i[1]['hash']),
-            lmap(
-                lambda document: (document, read_document(document)),
-                documents
-            )
-        ))
+    documents = untouched(documents, sync)
 
-    # MAP DOCUMENT PROFILE FROM MANIFEST TO DOCUMENT_OBJECT
-    documents = lmap(
-        create_document,
-        documents
-    )
-
-    # REPLACE PREVIEW_OBJECT WITH IT _ID IN MONGODB
-    documents = lmap(
-        key_mapper('preview', lambda i: sync_image(i)['_id']),
-        documents
-    )
+    # URL
+    documents = lmap(sync.create_url, documents)
 
     # COPY FILE -> STATIC_DIR/URL_FILENAME
     out_path = lambda doc: os.path.join(dir_static_uploads, os.path.basename(doc['url']))
     lmap(
         lambda doc: copyfile(
-            doc['file']['name'],
+            doc['file'],
             out_path(doc)
         ),
         documents
     )
 
-    # SYNC DOCUMENT_OBJECT WITH DB
+    # MAP DOCUMENT PROFILE FROM MANIFEST TO DOCUMENT_OBJECT
     documents = lmap(
-        sync_document,
+        sync.create,
         documents
     )
 
-    documents_to_remove = query_documents({'id': {'$nin': scope_documents_ids}})
+    # REPLACE PREVIEW_OBJECT WITH IT _ID IN MONGODB
+    documents = lmap(
+        key_mapper('preview', lambda i: synced_image_id(i)),
+        documents
+    )
+
+    # SYNC DOCUMENT_OBJECT WITH DB
+    documents = lmap(
+        sync.update,
+        documents
+    )
+
+    documents_to_remove = sync.query({'id': {'$nin': scope_documents_ids}})
     documents_to_remove = lmap(
-        delete_document,
+        sync.delete,
         map(
             lambda i: {'_id': i['_id']},
             documents_to_remove
         )
     )
 
-    # SCOPE
-    print('SCOPE:')
+    print('SCOPE:', len(scope_documents_ids))
     lprint(scope_documents_ids)
 
-    # DELETE
-    print('DELETE DOCUMENTS:')
+    print('DELETE DOCUMENTS:', len(documents_to_remove))
     lprint_json(documents_to_remove)
 
-    # DELETE
-    print('UPDATE DOCUMENTS:')
+    print('UPDATE DOCUMENTS:', len(documents))
     lprint_json(documents)
+
     print('[SYNC DOCUMENTS DONE]')
+
+
+if __name__ == '__main__':
+    dir_documents = '/Users/tmshv/Dropbox/Dev/Hud school/Documents'
+    dir_static_uploads = '/Users/tmshv/Desktop/Hudozka Static/uploads'
+
+    main(
+        dir_documents,
+        dir_static_uploads,
+        SyncDocument(
+            'documents',
+            'document',
+            sizes=settings.image_sizes
+        )
+    )
 
     # DOCUMENT_OBJECT SAMPLE
     # {

@@ -2,7 +2,7 @@ import os
 
 from PIL import Image
 
-from utils.hash import file_hash
+from utils.hash import hash_file
 from utils.image import resize
 from utils.image.resize import optimize, thumbnail, orient
 
@@ -54,7 +54,7 @@ def create_image(file, sizes, url_fn, output_dir, skip_processing=False):
 
     return {
         'file': os.path.basename(file),
-        'hash': file_hash(file),
+        'hash': hash_file(file),
         'data': result
     }
 

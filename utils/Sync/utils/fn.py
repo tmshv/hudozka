@@ -3,12 +3,19 @@ import os
 from functools import reduce
 from glob import glob
 
-from bson import json_util
+import bson.json_util
 
-combine = lambda i: reduce(
-    lambda s, i: s + i,
-    i
-)
+
+def combine(items):
+    return reduce(
+        lambda total, i: total + i,
+        items
+    )
+
+
+def to_json(i):
+    return json.dumps(i, sort_keys=True, ensure_ascii=False, default=bson.json_util.default)
+
 
 iterate_over_fns = lambda fns: lambda i: reduce(
     lambda out, fn: fn(out),
@@ -20,12 +27,16 @@ iterate_iter_over_fns = lambda fns: lambda i: lmap(
     i
 )
 
-lmap = lambda fn, ls: list(map(fn, ls))
+
+def lmap(fn, ls):
+    return list(map(fn, ls))
+
+def lmapfn(ls):
+    return lambda fn: list(map(fn, ls))
+
+
 lprint = lambda i: lmap(print, i)
-lprint_json = lambda s: lprint(lmap(
-    lambda i: json.dumps(i, ensure_ascii=False, indent=4, default=json_util.default),
-    s
-))
+lprint_json = lambda i: lprint(lmap(to_json, i))
 
 first = lambda i: i[0] if len(i) > 0 else None
 

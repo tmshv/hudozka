@@ -1,16 +1,17 @@
 import os
 from glob import glob
-from lxml import etree
 
 import lxml.html
+from lxml import etree
 
 import settings
 from db import db
 from models.product import create_product
-from sync import create_date_and_title_from_folder_name, create_post_from_image_list, create_date
-from sync.image import sync_image
-from utils.fn import lmap, dir_globber, lprint_json, key_mapper, iterate_iter_over_fns, first, map_cases
-from utils.hash import file_hash
+from sync import create_date_and_title_from_folder_name, create_post_from_image_list, create_date, Sync, list_images, \
+    untouched, synced_images_ids
+from utils.fn import lmap, dir_globber, lprint_json, iterate_iter_over_fns, first, map_cases, combine, lmapfn, \
+    key_mapper, lprint
+from utils.hash import hash_file, hash_str
 from utils.image import create_image
 from utils.io import read_yaml_md
 from utils.text.transform import url_encode_text
@@ -22,31 +23,12 @@ class ImageCreator:
         self.cache = cache if cache else set()
 
     def create_image(self, file, sizes, url_fn, output_dir, skip_processing=False):
-        hash = file_hash(file)
+        hash = hash_file(file)
         cached = self.cached(hash)
         return create_image(file, sizes, url_fn, output_dir, skip_processing=skip_processing) if not cached else cached
 
     def cached(self, hash):
         return self.cache[hash] if hash in self.cache else None
-
-
-def sync_album(record):
-    if isinstance(record, list):
-        return lmap(
-            sync_album,
-            record
-        )
-
-    q = {'id': record['id']}
-    try:
-        collection = db().events
-        collection.update_one(q, {'$set': record}, upsert=True)
-        i = collection.find_one({'id': record['id']})
-        return i
-    except ValueError:
-        pass
-
-    return None
 
 
 def create_post(md, image_path_fn):
@@ -64,7 +46,7 @@ def create_post(md, image_path_fn):
 
 
 def create_url(a, i, s, e):
-    return 'https://static.shburg.org/art/image/product-{album}-{id}-{size}{ext}'.format(
+    return 'https://static.shburg.org/art/images/product-{album}-{id}-{size}{ext}'.format(
         album=a,
         id=i,
         size=s,
@@ -76,18 +58,41 @@ def url_creator(aid, pid):
     return lambda size, ext: create_url(aid, pid, size, ext.lower())
 
 
-class Album:
+class SyncAlbum(Sync):
     @staticmethod
     def id_from_file(i):
         return url_encode_text(
             os.path.splitext(i)[0]
         )
 
-    def __init__(self, image_creator):
+    def __init__(self, image_creator, images_dir):
         super().__init__()
+        self.collection = db().albums
         self.image_creator = image_creator
         self.skip_image_processing = False
-        self.images_dir = '/Users/tmshv/Dropbox/Dev/Hud School/Static/images'
+        self.images_dir = images_dir
+
+    def create_id(self, document):
+        if 'id' in document:
+            return document
+
+        y = str(document['date'].year)
+        document['id'] = url_encode_text('-'.join([y, document['title']]))
+        return document
+
+    def create_hash(self, document):
+        hash_images = lmap(
+            hash_file,
+            lmap(
+                lambda i: os.path.join(document['folder'], i),
+                document['images']
+            )
+        )
+        document['hash'] = hash_str(
+            combine([hash_str(document)] + hash_images)
+        )
+
+        return document
 
     def create_image(self, file, url_fn):
         ss = settings.album_image_sizes
@@ -99,7 +104,7 @@ class Album:
     def create_album(self, doc):
         # url_base = 'https://static.shburg.org/art/image/product-{album}-{id}-{size}{ext}'
 
-        image_id = Album.id_from_file
+        image_id = SyncAlbum.id_from_file
         image_path = lambda i: os.path.join(doc['folder'], i)
 
         if 'title' not in doc or not doc['title']:
@@ -138,7 +143,7 @@ class Album:
         return doc
 
     def create_products(self, doc, image_file_fn):
-        image_id = Album.id_from_file
+        image_id = SyncAlbum.id_from_file
         iter_album = iterate_iter_over_fns([
             lambda product: {
                 **product,
@@ -188,16 +193,11 @@ def get_manifest(filepath):
     return {**data, **post}
 
 
-if __name__ == '__main__':
-    image_creator = ImageCreator(cache=None)
-    alb = Album(image_creator=image_creator)
-    # alb.skip_image_processing = True
-
-    albums_dir = '/Users/tmshv/Dropbox/Dev/Hud school/Gallery'
-    os.chdir(albums_dir)
+def main(dir_documents, sync):
+    os.chdir(dir_documents)
 
     # GET ALBUMS FOLDERS
-    albums = lmap(
+    documents = lmap(
         lambda i: i.path,
         filter(
             lambda i: i.is_dir(),
@@ -205,22 +205,20 @@ if __name__ == '__main__':
         )
     )
 
-    # print(get_md_manifest('./2012 Техника мокрого валяния/WET FELTING 2012.md'))
-    # print(get_manifest('./2016.02.17 Путешествие вокруг света/AROUND THE WORLD.md'))
-    # exit()
-    # albums = [albums[5]]
+    # documents = [documents[3]]
+    # documents = documents[:15]
 
     # PARSE FOLDER NAME -> GET OPTIONAL DATE/TITLE
-    albums = lmap(
+    documents = lmap(
         lambda i: (i,) + create_date_and_title_from_folder_name(
             os.path.basename(i)
         ),
-        albums
+        documents
     )
 
     # CREATE BASIC_MANIFEST BASED ON FOLDER NAME AND IMAGE CONTENT
     glob_in = dir_globber(['*.jpg', '*.JPG', '*.png', '*.PNG'])
-    albums = lmap(
+    documents = lmap(
         lambda i: {
             'folder': i[0],
             'date': i[1],
@@ -230,12 +228,12 @@ if __name__ == '__main__':
                 glob_in(i[0])
             ))
         },
-        albums
+        documents
     )
 
     # TRY TO FILL UP BASIC_MANIFEST WITH MD_MANIFEST
     md_glob = lambda i: first(glob(i + '/*.md'))
-    albums = lmap(
+    documents = lmap(
         lambda album: {
             **album,
             **map_cases(
@@ -247,37 +245,88 @@ if __name__ == '__main__':
                 lambda i: {}
             )
         },
-        albums
+        documents
+    )
+    documents = lmap(
+        lambda i: {
+            **i,
+            'images': lmap(
+                lambda path: os.path.relpath(path, i['folder']),
+                list_images(i['folder'])
+            )
+        },
+        documents
     )
 
+    # CREATE DOCUMENT IDENTITY
+    documents = lmap(sync.create_id, documents)
+
+    # CREATE HASH OF DOCUMENT FILE
+    documents = lmap(sync.create_hash, documents)
+
+    # CREATE SCOPE OF CURRENT SESSION
+    scope_documents_ids = lmapfn(documents)(
+        lambda i: i['id']
+    )
+
+    # SKIP UNTOUCHED DOCUMENTS
+    documents = untouched(documents, sync)
+
     # MAP EVENT MANIFEST -> EVENT_OBJECT
-    albums = lmap(
+    documents = lmap(
         alb.create_album,
-        albums
+        documents
     )
 
     # FILTER INCORRECT EVENTS
-    albums = list(filter(None, albums))
-
+    documents = list(filter(None, documents))
 
     # REPLACE IMAGES OBJECTS WITH IT _ID IN MONGODB
-    def sync_images(i):
-        return lmap(
-            lambda image: image['_id'],
-            sync_image(i)
+    documents = lmap(
+        key_mapper('images', synced_images_ids),
+        documents
+    )
+
+    # SYNC OBJECT WITH DB
+    documents = lmap(
+        sync.update,
+        documents
+    )
+
+    documents_to_remove = sync.query({'id': {'$nin': scope_documents_ids}})
+    documents_to_remove = lmap(
+        sync.delete,
+        map(
+            lambda i: {'_id': i['_id']},
+            documents_to_remove
         )
-
-
-    albums = lmap(
-        key_mapper('images', sync_images),
-        albums
     )
 
-    # SYNC EVENT_OBJECT WITH DB
-    albums = lmap(
-        sync_album,
-        albums
-    )
+    # SCOPE
+    print('SCOPE:')
+    lprint(scope_documents_ids)
 
-    lprint_json(albums)
-    print('SYNC ALBUMS DONE')
+    # DELETE
+    print('DELETE DOCUMENTS:')
+    lprint_json(lmap(
+        lambda i: i['id'],
+        documents_to_remove
+    ))
+
+    # DELETE
+    print('UPDATE DOCUMENTS:')
+    lprint_json(lmap(
+        lambda i: i['id'],
+        documents
+    ))
+    # lprint_json(documents)
+    print('[SYNC DOCUMENTS DONE]')
+
+
+if __name__ == '__main__':
+    image_creator = ImageCreator(cache=None)
+    alb = SyncAlbum(image_creator=image_creator, images_dir=settings.image_output)
+    alb.skip_image_processing = True
+
+    albums_dir = '/Users/tmshv/Dropbox/Dev/Hud school/Gallery'
+    main(dir_documents=albums_dir, sync=alb)

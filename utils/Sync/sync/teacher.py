@@ -3,8 +3,9 @@ from glob import glob
 
 import settings
 from db import db
+from sync import Sync
 from sync.image import sync_image
-from utils.fn import lmap, lprint, key_mapper, lprint_json, ext
+from utils.fn import lmap, lprint, key_mapper, lprint_json, ext, lmapfn
 from utils.hash import hash_str, hash_file
 from utils.image import create_image
 from utils.io import read_yaml_md
@@ -15,42 +16,11 @@ url_base = settings.teacher_image_url_base
 dir_local_images = settings.teacher_image_output
 sizes = settings.teacher_image_sizes
 
-class Teacher:
-    def collection(self):
-        return db().collective
 
-    def read_teacher_by_id(self, record):
-        if isinstance(record, list):
-            return lmap(
-                self.read_teacher_by_id,
-                record
-            )
-
-        q = {'id': record}
-        try:
-            return db().collective.find_one(q)
-        except ValueError:
-            pass
-
-        return None
-
-    def sync_collective(self, record):
-        if isinstance(record, list):
-            return lmap(
-                self.sync_collective,
-                record
-            )
-
-        q = {'id': record['id']}
-        try:
-            collection = db().collective
-            update_result = collection.update_one(q, {'$set': record}, upsert=True)
-            i = collection.find_one({'id': record['id']})
-            return i
-        except ValueError:
-            pass
-
-        return None
+class Teacher(Sync):
+    def __init__(self):
+        super().__init__()
+        self.collection = db().collective
 
     def compile(self, profile):
         profile['picture'] = create_image(
@@ -61,39 +31,27 @@ class Teacher:
         )
         return profile
 
-    def read_document(self, i, query_fn=None):
-        q = query_fn(i) if query_fn else {'id': i['id']}
-        try:
-            return self.collection().find_one(q)
-        except ValueError:
-            pass
-
-        return None
-
-    def query_documents(self, q):
-        return self.collection().find(q)
-
-    def delete_document(self, q):
-        return self.collection().find_one_and_delete(q)
-
     def create_id(self, document):
         if 'id' in document and document['id']:
-            return document['id']
+            return document
 
         document['id'] = url_encode_text(document['name'])
+        return document
+
+    def create_hash(self, document):
+        document['hash'] = hash_str(
+            hash_file(document['file']) + hash_file(document['picture'])
+        )
+        return document
 
 
-if __name__ == '__main__':
-    # ALL DOCUMENTS IDS FOUNDED
-    scope_documents_ids = []
-
+def main(dir_teachers, sync):
     os.chdir(dir_teachers)
-    sync = Teacher()
 
     # GET TEACHER YAML/MD MANIFEST FILES
     documents = glob('*.md')
 
-    # # READ TEACHER YAML/MD MANIFEST
+    # READ TEACHER YAML/MD MANIFEST
     documents = lmap(
         lambda i: (i,) + read_yaml_md(i),
         documents
@@ -119,20 +77,10 @@ if __name__ == '__main__':
     )
 
     # CREATE DOCUMENT IDENTITY
-    documents = lmap(
-        lambda i: {**i, 'id': sync.create_id(i)},
-        documents
-    )
+    documents = lmapfn(documents)(sync.create_id)
 
     # CREATE HASH OF DOCUMENT FILES
-    documents = lmap(
-        lambda i: {
-            **i, 'hash': hash_str(
-                hash_file(i['file']) + hash_file(i['picture'])
-            )
-        },
-        documents
-    )
+    documents = lmapfn(documents)(sync.create_hash)
 
     # CREATE SCOPE OF CURRENT SESSION
     scope_documents_ids = lmap(
@@ -146,7 +94,7 @@ if __name__ == '__main__':
         filter(
             lambda i: (i[1] is None) or ('hash' not in i[1]) or (i[0]['hash'] != i[1]['hash']),
             lmap(
-                lambda document: (document, sync.read_document(document)),
+                lambda document: (document, sync.read(document)),
                 documents
             )
         ))
@@ -157,22 +105,22 @@ if __name__ == '__main__':
         documents
     )
 
-    # # REPLACE PICTURE_OBJECT WITH IT _ID IN MONGODB
+    # REPLACE PICTURE_OBJECT WITH IT _ID IN MONGODB
     sync_picture = lambda i: None if i is None else sync_image(i)['_id']
     documents = lmap(
         key_mapper('picture', sync_picture),
         documents
     )
 
-    # # SYNC TEACHER_PROFILE
+    # SYNC TEACHER_PROFILE
     documents = lmap(
-        sync.sync_collective,
+        sync.update,
         documents
     )
 
-    documents_to_remove = sync.query_documents({'id': {'$nin': scope_documents_ids}})
+    documents_to_remove = sync.query({'id': {'$nin': scope_documents_ids}})
     documents_to_remove = lmap(
-        sync.delete_document,
+        sync.delete,
         map(
             lambda i: {'_id': i['_id']},
             documents_to_remove
@@ -191,3 +139,7 @@ if __name__ == '__main__':
     print('UPDATE DOCUMENTS:')
     lprint_json(documents)
     print('[SYNC DOCUMENTS DONE]')
+
+
+if __name__ == '__main__':
+    main(dir_teachers, Teacher())

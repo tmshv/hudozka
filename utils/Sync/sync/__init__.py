@@ -1,10 +1,21 @@
+import os
 import re
 from datetime import datetime
+from glob import glob
 
+import lxml.html
 from markdown import markdown
 
-from db import db
-from utils.fn import lmap, key_mapper
+from sync.image import sync_image
+from utils.fn import lmap, combine
+
+
+def list_images(dir):
+    image_types = ['*.jpg', '*.JPG', '*.png', '*.PNG']
+    return combine(map(
+        lambda type: glob(os.path.join(dir, type)),
+        image_types
+    ))
 
 
 def create_date(date_str, date_formats=None):
@@ -50,19 +61,41 @@ def untouched(documents, store):
         ))
 
 
+def synced_images_ids(images):
+    ids = lmap(
+        lambda image: image['_id'],
+        sync_image(images)
+    )
+    return ids
+
+
+def synced_image_id(image):
+    return sync_image(image)['_id']
+
+
 def create_date_and_title_from_folder_name(folder_name, date_formats=None):
     m = folder_name_pattern.findall(folder_name)
     if not m:
         return None, None
 
     date_str, title = m[0]
-    title = title.strip()
+    title = os.path.splitext(title.strip())[0]
     date = create_date(date_str, date_formats)
 
     if not date:
         return None, title
 
     return date, title
+
+
+def images_from_html(md):
+    post_html = lxml.html.fromstring(md)
+
+    images = []
+    for img in post_html.cssselect('img'):
+        src = img.get('src')
+        images.append(src)
+    return images
 
 
 create_post_from_image_list = lambda images: markdown(
