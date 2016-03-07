@@ -1,18 +1,18 @@
-/**
- * Created by tmshv on 22/11/14.
- */
-
 var path = require("path");
 var route = require("koa-route");
 var router = require("../routes");
 var instagram = require("../instagram/instagram");
 
-module.exports = function (app) {
+function expire(time) {
+    return time || new Date(Date.now() + 1000 * 60 * 60 * 24 * 7);
+}
+
+export default function (app) {
     app.use(function *(next) {
-        var code = this.cookies.get("instagram_code");
+        let code = this.cookies.get('instagram_code');
         if (code) {
-            var client = instagram.client(code);
-            var user = instagram.user(code);
+            let client = instagram.client(code);
+            let user = instagram.user(code);
             if (client && user) {
                 this.instagram = {
                     client: client,
@@ -25,28 +25,28 @@ module.exports = function (app) {
     });
 
     app.use(
-        route.get("/instagram", function *() {
-            var invite = this.cookies.get("invite_code") || this.query.code;
+        route.get('/instagram', function *() {
+            let invite = this.cookies.get('invite_code') || this.query.code;
 
             if(!this.instagram) {
                 if(invite == undefined){
-                    this.body = "invite required";
+                    this.body = 'invite required';
                     this.status = 401;
-                }else if(invite == "LOL"){
-                    this.cookies.set("invite_code", invite, {expires: expire()});
+                }else if(invite == 'LOL'){
+                    this.cookies.set('invite_code', invite, {expires: expire()});
 
                     //todo: invalidate invite
 
                     yield router.index(
-                        path.join(__dirname, "../templates/instagram.html")
+                        path.join(__dirname, '../templates/instagram.html')
                     );
                 }else{
-                    this.body = "invite ist correct";
+                    this.body = 'invite ist correct';
                     this.status = 401;
                 }
             }else{
                 yield router.index(
-                    path.join(__dirname, "../templates/instagram.html")
+                    path.join(__dirname, '../templates/instagram.html')
                 );
             }
         })
@@ -54,21 +54,21 @@ module.exports = function (app) {
 
     app.use(
         route.get("/instagram/auth", function *() {
-            var invite = this.cookies.get("invite_code");
+            let invite = this.cookies.get('invite_code');
             if(invite) {
-                var url = instagram.authorizationURL(null, "/instagram");
+                let url = instagram.authorizationURL(null, '/instagram');
                 this.redirect(url);
             }else{
                 this.status = 401;
-                this.body = "invite required";
+                this.body = 'invite required';
             }
         })
     );
 
     app.use(
-        route.get("/instagram/user", function *() {
-            var code = this.cookies.get("instagram_code");
-            var user = instagram.user(code);
+        route.get('/instagram/user', function *() {
+            let code = this.cookies.get('instagram_code');
+            let user = instagram.user(code);
 
             if(user) {
                 this.body = user;
@@ -79,13 +79,19 @@ module.exports = function (app) {
     );
 
     app.use(
-        route.get("/instagram/auth/callback", function *() {
-            var state = this.query.state || "/";
-            var code = this.query.code;
-            var client = yield instagram.authorize(code);
+        route.get('/instagram/auth/callback', function *() {
+            let state = this.query.state || '/';
+            let code = this.query.code;
+
+            let client;
+            try {
+                client = yield instagram.authorize(code);
+            } catch (e) {
+                client = null;
+            }
 
             if (client) {
-                this.cookies.set("instagram_code", code, {expires: expire()});
+                this.cookies.set('instagram_code', code, {expires: expire()});
                 this.redirect(state);
             } else {
                 this.status = 401;
@@ -94,8 +100,8 @@ module.exports = function (app) {
         })
     );
 
-    app.use(route.get("/instagram/subscription/list", function *() {
-        var result = yield instagram.api.subscriptions();
+    app.use(route.get('/instagram/subscription/list', function *() {
+        let result = yield instagram.api.subscriptions();
         if(result) {
             this.body = result;
         }else{
@@ -103,9 +109,9 @@ module.exports = function (app) {
         }
     }));
 
-    app.use(route.get("/instagram/subscription/add", function *() {
-        var tag = this.query.tag;
-        var cu = this.query.url;
+    app.use(route.get('/instagram/subscription/add', function *() {
+        let tag = this.query.tag;
+        let cu = this.query.url;
 
         var result = yield instagram.api.subscribe(tag, cu);
         if(result) {
@@ -115,8 +121,8 @@ module.exports = function (app) {
         }
     }));
 
-    app.use(route.get("/instagram/subscription/delete", function *() {
-        var id = this.query.id;
+    app.use(route.get('/instagram/subscription/delete', function *() {
+        let id = this.query.id;
 
         var result = yield instagram.api.unsubscribe(id);
         if(result) {
@@ -126,19 +132,19 @@ module.exports = function (app) {
         }
     }));
 
-    app.use(route.get("/instagram/callback/:rnd", function *() {
-        if(this.query["hub.mode"] == "subscribe"){
-            this.body = this.query["hub.challenge"];
+    app.use(route.get('/instagram/callback/:rnd', function *() {
+        if(this.query['hub.mode'] == 'subscribe'){
+            this.body = this.query['hub.challenge'];
         }else{
             this.status = 400;
         }
     }));
 
-    app.use(route.post("/instagram/callback/:rnd", function *(rnd) {
-        var sign = this.header["x-hub-signature"];
+    app.use(route.post('/instagram/callback/:rnd', function *(rnd) {
+        let sign = this.header['x-hub-signature'];
         //console.log(this.headers);
 
-        var body = this.request.body;
+        let body = this.request.body;
 
         //var hmac = crypto.createHmac("sha1", instagram.client_secret);
         //hmac.update(body);
@@ -153,10 +159,6 @@ module.exports = function (app) {
         instagram.update(body);
         //}
 
-        this.body = "";
+        this.body = '';
     }));
 };
-
-function expire(time){
-    return time || new Date(Date.now() + 1000 * 60 * 60 * 24 * 7);
-}

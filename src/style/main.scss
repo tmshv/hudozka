@@ -18,7 +18,11 @@ h2{
   text-align: center;
   margin-bottom: $single-margin;
 
-  background-color: hsl(0, 0, 95%);
+  //background-color: hsl(0, 0, 95%);
+}
+
+h1, h2{
+  font-family: $title-font;
 }
 
 h3{

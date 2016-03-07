@@ -1,3 +1,15 @@
 <section class="content content_thin content--padding-top--menu">
-    <event-post ng-repeat="i in $.events" post="i"></event-post>
+    <article-page-control
+        ng-show="$.prevPage"
+        page="{{$.prevPage}}"
+        direction="indirect"
+    ></article-page-control>
+
+    <h-article ng-repeat="i in $.posts" post="i"></h-article>
+
+    <article-page-control
+            ng-show="$.nextPage"
+            page="{{$.nextPage}}"
+            direction="direct"
+    ></article-page-control>
 </section>

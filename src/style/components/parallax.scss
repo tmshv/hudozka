@@ -1,9 +1,11 @@
 @import "../variables";
 
 .parallax {
+  width: 1280px;
   height: 1000px;
-  position: relative;
+  margin: 0 auto;
 
+  position: relative;
   overflow: hidden;
 
   &__layer {

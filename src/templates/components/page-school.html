@@ -1,7 +1,9 @@
 <div class="content content_full" ng-switch="$.helloBlock">
-    <img ng-switch-when="mobile-image"
-            src="https://static.shlisselburg.org/art/graphics/entrance.jpg" width="100%">
-    <parallax ng-switch-default></parallax>
+    <div class="main-image">
+        <img ng-switch-when="mobile-image"
+             src="https://static.shlisselburg.org/art/graphics/entrance.jpg" width="100%">
+        <parallax ng-switch-default></parallax>
+    </div>
 </div>
 
 <div class="content content_thin">

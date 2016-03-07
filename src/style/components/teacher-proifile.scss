@@ -26,9 +26,10 @@ $info-width: 100% - $picture-width;
     padding-left: $single-margin;
     box-sizing: border-box;
 
-    h3 {
+    h2 {
       font-size: $big-font-size;
       font-weight: 200;
+      text-align: left;
 
       strong {
         font-weight: 600;

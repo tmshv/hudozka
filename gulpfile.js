@@ -49,7 +49,7 @@ gulp.task('styles', function () {
 });
 
 gulp.task("copy", function () {
-    gulp.src('./src/assets/fonts/*')
+    gulp.src('./src/assets/fonts/*/*')
         .pipe(gulp.dest("./public/fonts"));
 
     gulp.src('./src/assets/graphics/*')

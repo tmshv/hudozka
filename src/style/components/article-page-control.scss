@@ -1,0 +1,21 @@
+@import "../variables";
+
+.article-page-control{
+  text-align: center;
+
+  a{
+    color: #aaa;
+  }
+
+  &__top {
+    //padding: $single-margin 0 0;
+    //margin: $single-margin 0 0;
+    padding: 0 0 $single-margin;
+    margin: 0 0 $single-margin;
+  }
+
+  &__bottom {
+    padding: 0 0 $single-margin;
+    margin: 0 0 $single-margin;
+  }
+}

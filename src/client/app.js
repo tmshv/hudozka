@@ -10,7 +10,6 @@ import AlbumCollection from './components/AlbumCollection';
 import TeacherProfile from './components/TeacherProfile';
 import Timeline from './components/Timeline';
 import TimelineRecord from './components/TimelineRecord';
-import TimelineRecordPost from './components/TimelineRecordPost';
 import TimelineRecordInstagram from './components/TimelineRecordInstagram';
 import Schedule from './components/Schedule';
 import ScheduleTable from './components/ScheduleTable';
@@ -18,7 +17,8 @@ import ScheduleSlider from './components/ScheduleSlider';
 import ScheduleSlide from './components/ScheduleSlide';
 import ScheduleRecord from './components/ScheduleRecord';
 import FooterLinks from './components/FooterLinks';
-import EventPost from './components/EventPost';
+import Article from './components/Article';
+import ArticlePageControl from './components/ArticlePageControl';
 import Album from './components/Album';
 import Parallax from './components/Parallax';
 
@@ -48,7 +48,8 @@ import IOService from './services/io';
 import MenuService from './services/menu';
 import API from './services/api';
 
-import {collectiveSortPattern} from './config';
+import {sortByPattern} from '../utils/sort';
+import {documentsSortPattern, collectiveSortPattern} from './config';
 
 let app = angular.module('hudozka', [
     'ngRoute',
@@ -68,18 +69,31 @@ app.config(($locationProvider, $routeProvider) => {
             title: 'ДХШ Шлиссельбурга'
         },
         {
-            name: '/events/:page?/:pageNumber?',
-            template: '<page-events events="$resolve.posts"></page-events>',
+            name: '/events/:page?',
+            template: '<page-events page="{{$.page.page}}" total-pages="{{$.page.totalPages}}" posts="$.page.data"></page-events>',
             title: 'События Школы',
-
+            resolveAs: '$',
             resolve: {
-                posts: api => api.event
-                    .list()
-                    .then(i => i.data)
+                page: ($route, api) => {
+                    let page = $route.current.params.page;
+                    if(!page) page = 1;
+
+                    return api.event
+                        .list(page)
+                        .then(i => i.data)
+                        .then(i => {
+                            let totalPages = Math.ceil(i.total / i.limit);
+                            return {
+                                data: i.data,
+                                page: page,
+                                totalPages: totalPages
+                            }
+                        });
+                }
             }
         },
         {
-            name: '/event/:event',
+            name: '/article/:event',
             template: '<page-event></page-event>'
         },
         {
@@ -150,6 +164,9 @@ app.config(($locationProvider, $routeProvider) => {
                 documents: api => api.document
                     .documents()
                     .then(i => i.data)
+                    .then(i => {
+                        return sortByPattern(i, documentsSortPattern, i => i.category);
+                    })
             }
         }
     ]
@@ -196,9 +213,9 @@ app.run(($location, $rootScope, $http) => {
     Breadcrumbs,
     Timeline,
     TimelineRecord,
-    TimelineRecordPost,
     TimelineRecordInstagram,
-    EventPost,
+    Article,
+    ArticlePageControl,
     Album,
     Parallax,
     Document,

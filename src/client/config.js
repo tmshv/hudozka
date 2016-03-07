@@ -21,6 +21,14 @@ export const collectiveSortPattern = [
     'nv-andreeva'
 ];
 
+export const documentsSortPattern = [
+    'Основные документы',
+    'Документы для поступления',
+    'Учебные программы',
+    'Прочее',
+    'Архив'
+];
+
 export const footer = {
     links: {
         docs: {

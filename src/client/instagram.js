@@ -1,9 +1,5 @@
-/**
- * Created by tmshv on 06/11/14.
- */
-
-angular.module("hudozhka.instagram", [])
-    .controller("InstagramController", function($scope, $http, $window){
+angular.module('hudozka.instagram', [])
+    .controller('InstagramController', function ($scope, $http) {
         //$scope.auth = function() {
         //    $http.get("/instagram/auth/url")
         //        .success(function (data) {
@@ -11,17 +7,16 @@ angular.module("hudozhka.instagram", [])
         //        });
         //};
 
-        $http.get("/instagram/user")
-            .error(function() {
-
-            })
-            .success(function (user) {
+        $http.get('/instagram/user')
+            .then(i => i.data)
+            .then(user => {
                 $scope.user = user;
             });
 
         $scope.invite = function() {
-            $http.get("/instagram/invite")
-                .success(function (data) {
+            $http.get('/instagram/invite')
+                .then(i => i.data)
+                .success(data => {
                     $scope.inviteCode = data.code;
                 });
         };

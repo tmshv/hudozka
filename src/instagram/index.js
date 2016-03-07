@@ -1,37 +1,40 @@
-/**
- * Created by tmshv on 12/03/15.
- */
-
 var db = require("../core/db");
 var co = require("co");
 var instagram = require("./instagram");
 var config = require("../config");
 
-module.exports = function () {
-    return loadUsers()
-        .then(updateSubscription)
+export default function () {
+    return co(function*() {
+        yield loadUsers();
+
+        let tags = config.instagram['tags'];
+        console.log(tags);
+
+        yield updateSubscription(['love']);
+    });
 };
 
-function loadUsers() {
-    return new Promise(function (resolve, reject) {
-        db.c("users").find({provider: "instagram"})
-            .toArray()
-            .then(function (users) {
-                users.forEach(function (u) {
-                    return instagram.initUser(u);
-                });
-                return users;
-            })
-            .then(resolve);
+function* loadUsers() {
+    let users = yield db.c('users').find({provider: 'instagram'})
+        .toArray();
+
+    users.forEach(u => {
+        instagram.initUser(u);
     });
+
+    return users;
 }
 
-function updateSubscription() {
-    var tags = config.instagram["tags"];
-    return tags.map(function (tag) {
-        var cb = config.instagram["tag_callback"];
-        return co(function *() {
-            return yield instagram.api.subscribe(tag, cb);
-        })
-    });
+function* updateSubscription(tags) {
+    console.log(tags);
+
+    //return tags.map(tag => {
+    //    let callbackUrl = config.instagram['tag_callback'];
+    //
+    //    return co(function *() {
+    //        return yield instagram.api.subscribe(tag, callbackUrl);
+    //    });
+    //}
+
+    return 1;
 }

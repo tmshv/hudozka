@@ -53,17 +53,13 @@ export default function(app) {
                 };
             }
 
-            this.showFooter = () => this.feed && this.feed.length;
-
             this.loadNext = () => {
                 this.timelineUpdating = true;
                 usSpinnerService.spin('timelineMore');
 
                 api.timeline.feed(limit, skip)
-                    .error(error => {
-                        console.log(error);
-                    })
-                    .success(feed => {
+                    .then(i => i.data)
+                    .then(feed => {
                         this.timelineUpdating = false;
                         usSpinnerService.stop('timelineMore');
 
@@ -72,8 +68,10 @@ export default function(app) {
                             else return post;
                         });
 
-                        skip++;
+                        //skip++;
+                        skip += limit;
                         this.feed = this.feed.concat(feed2);
+                        this.showFooter = this.feed && this.feed.length;
                     });
             };
 

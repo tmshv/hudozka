@@ -40,7 +40,6 @@
              ng-repeat="day in i.week track by $index"
              ng-class="{current: $ctrl.isToday($index)}"
         >
-
             <p class="lesson"><a href="">{{day.lesson}}</a></p>
             <p class="teacher"><a href="{{day.teacher.url}}">{{day.teacher.name}}</a></p>
             <p class="time" ng-repeat="time in day.time">{{time}}</p>

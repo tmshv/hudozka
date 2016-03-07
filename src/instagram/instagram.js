@@ -1,7 +1,3 @@
-/**
- * Created by tmshv on 22/11/14.
- */
-
 var EventEmitter = require("events").EventEmitter;
 var thunkify = require("thunkify");
 import config from "../config";
@@ -59,7 +55,7 @@ Instagram.prototype.getUsers = function () {
 };
 
 Instagram.prototype.update = function (body) {
-    this.emit("update", body);
+    this.emit('update', body);
 };
 
 Instagram.prototype.client = function (code) {

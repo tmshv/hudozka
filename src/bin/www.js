@@ -10,4 +10,10 @@ db.init(config.db.uri)
     //.then(instagram)
     .then(function () {
         app.listen(config.port);
+    })
+    .then(function () {
+        return instagram()
+            .then(function () {
+                console.log('INSTAGRAM INITED');
+            });
     });

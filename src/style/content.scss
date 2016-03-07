@@ -28,7 +28,7 @@
   }
 }
 
-@media (max-width: $mobile-width) {
+@media screen and (max-width: $mobile-width) {
   $content-mobile: 90%;
 
   .content {
@@ -46,6 +46,52 @@
 
     &.content--padding-top--menu{
       padding-top: $double-margin;
+    }
+  }
+}
+
+@media screen and (min-width: $tablet-min-width) and (max-width: $tablet-max-width) {
+  $thin-value: 70%;
+  $wide-value: 95%;
+  $semi-wide-value: 80%;
+
+  .content {
+    overflow-x: scroll;
+
+    &.content_wide {
+      width: $wide-value;
+    }
+
+    &.content_semi-wide {
+      width: $semi-wide-value;
+    }
+
+    &.content_thin {
+      width: $thin-value;
+    }
+
+    &.content--padding-top--menu {
+      padding-top: $menu-thickness + $double-margin;
+    }
+  }
+
+  @media screen and (orientation: portrait) {
+    $wide-value: 100%;
+    $thin-value: 80%;
+    $semi-wide-value: 95%;
+
+    .content {
+      &.content_wide {
+        width: $wide-value;
+      }
+
+      &.content_semi-wide {
+        width: $semi-wide-value;
+      }
+
+      &.content_thin {
+        width: $thin-value;
+      }
     }
   }
 }

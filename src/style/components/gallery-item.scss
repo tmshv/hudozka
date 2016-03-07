@@ -11,6 +11,7 @@ $percentage: 25%;
   width: 13em;
   height: 15em;
   margin: 0 $single-margin $double-margin;
+  overflow: hidden;
 
   h3 {
     text-align: center;

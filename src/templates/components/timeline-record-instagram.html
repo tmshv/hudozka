@@ -1,16 +1,16 @@
 <div class="timeline-record-instagram">
     <div class="timeline-record-instagram__head">
         <p class="date">{{$ctrl.post.date | date : "dd.MM.yyyy"}}</p>
-        <div class="timeline-record-instagram__user">
-            <img ng-src="{{$ctrl.post.userpic}}" alt=""/>
-            <span>{{$ctrl.post.username}}</span>
-        </div>
     </div>
 
     <div class="timeline-record-instagram__body">
         <a href="{{$ctrl.post.url}}" target="_blank" class="invisible">
             <img ng-src="{{$ctrl.post.image}}" alt="">
         </a>
+        <div class="timeline-record-instagram__user">
+            <img ng-src="{{$ctrl.post.userpic}}" alt=""/>
+            <span>{{$ctrl.post.username}}</span>
+        </div>
         <p>{{$ctrl.post.text | removeHashtags | strip}}</p>
     </div>
 </div>

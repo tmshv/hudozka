@@ -19,7 +19,7 @@ export default function (app) {
             function *(type) {
                 let types = {
                     'document': ['documents', {type: 'document'}, populateDocPreview],
-                    'award': ['awards', {}, populateDocPreview]
+                    'award': ['documents', {type: 'award'}, populateDocPreview]
                 };
 
                 if (type in types) {

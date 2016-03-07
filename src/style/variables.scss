@@ -2,6 +2,9 @@
 $mobile-width: 31.25em;
 $desktop-width: 59.99999em;
 
+$tablet-min-width: 31.25em;
+$tablet-max-width: 64em;
+
 $content-full: 100%;
 $content-wide: 80%;
 $content-semi-wide: 70%;
@@ -12,6 +15,7 @@ $small-margin: .2em;
 $half-margin: .5em;
 $single-margin: 1.0em;
 $double-margin: 3.0em;
+$post-margin: 5.0em;
 
 //COLOR
 $dark-color: hsl(0, 0%, 20%);
@@ -35,7 +39,7 @@ $schedule-row-color: hsl(210, 55%, 90%);
 $white-shadow: 0 .1em 0.3em rgba(0, 0, 0, 0.2);
 
 //FONTS
-$title-font: "PT Sans", Arial, sans-serif;
+$title-font: "PT Serif", Georgia, serif;
 $text-font: "PT Sans", Arial, sans-serif;
 
 $normal-font-size: 1em;
