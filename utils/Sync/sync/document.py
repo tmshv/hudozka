@@ -5,8 +5,8 @@ from tempfile import mkstemp
 
 import settings
 from db import db
-from sync import Sync, untouched, synced_image_id
-from utils.fn import combine, lmap, lprint_json, lprint, key_mapper
+from sync import Sync, synced_image_id, untouched
+from utils.fn import combine, lmap, lprint_json, lprint, key_mapper, lmapfn
 from utils.hash import hash_file, hash_str
 from utils.image import create_image
 from utils.image.resize import image_magick_pdf_to_img
@@ -15,10 +15,9 @@ from utils.text.transform import url_encode_text, url_encode_file
 
 
 class SyncDocument(Sync):
-    def __init__(self, collection_name, document_type, sizes):
+    def __init__(self, collection_name, sizes):
         super().__init__()
         self.collection = db()[collection_name]
-        self.document_type = document_type
         self.sizes = sizes
         self.dir_static_previews = '/Users/tmshv/Desktop/Hudozka Static/images'
         self.url_base_preview = 'https://static.shburg.org/art/images/{id}-{size}{ext}'
@@ -28,7 +27,7 @@ class SyncDocument(Sync):
         file = document['file']
         filename = os.path.basename(document['file'])
 
-        document['type'] = self.document_type
+        document['type'] = self.document_type(document)
         document['preview'] = self.create_preview(file, sizes=self.sizes, preview_dir=self.dir_static_previews)
         document['file'] = {
             'name': filename,
@@ -37,10 +36,14 @@ class SyncDocument(Sync):
 
         return document
 
+    def document_type(self, document):
+        if document['category'] == 'Награды':
+            return 'award'
+        return 'document'
+
     def create_id(self, document):
         bn = os.path.basename(document['file'])
-        document['id'] = url_encode_text('{type}-{category}-{file}'.format(
-            type=self.document_type,
+        document['id'] = url_encode_text('{category}-{file}'.format(
             category=document['category'],
             file=bn
         ))
@@ -57,11 +60,12 @@ class SyncDocument(Sync):
         )
         return document
 
-    def create_preview(self, pdf, sizes, preview_dir):
-        temp_preview_path = pdf_to_jpg(pdf)
+    def create_preview(self, file, sizes, preview_dir):
+        temp_preview_path = pdf_to_jpg(file)
 
-        id = url_encode_text(pdf)
-        url = lambda size, ext: self.url_base_preview.format(id=id, size=size, ext=ext)
+        file = os.path.basename(file)
+        file = url_encode_text(file)
+        url = lambda size, ext: self.url_base_preview.format(id=file, size=size, ext=ext)
 
         img = create_image(temp_preview_path, sizes, url, preview_dir)
         os.remove(temp_preview_path)
@@ -153,11 +157,48 @@ def documents_from_subdirs():
     return documents
 
 
+def get_pdf_title(file):
+    from PyPDF2 import PdfFileReader
+    from PyPDF2.generic import TextStringObject
+    from PyPDF2.generic import IndirectObject
+
+    pdf = PdfFileReader(open(file, 'rb'))
+    info = pdf.getDocumentInfo()
+
+    if info:
+        if type(info.title) == TextStringObject:
+            return str(info.title)
+
+        if type(info.title_raw) == IndirectObject:
+            o = pdf.getObject(info.title_raw)
+            return str(o)
+    return None
+
+
+def until_none(ls):
+    better = None
+    for i in ls:
+        if (i is not None) and i != '':
+            better = i
+    return better
+
+
 def main(dir_documents, dir_static_uploads, sync):
     os.chdir(dir_documents)
 
     # documents = documents_from_yaml()
     documents = documents_from_subdirs()
+
+    # CHOICE BETTER TITLE
+    documents = lmapfn(documents)(
+        lambda i: {
+            **i,
+            'title': until_none([i['title'], get_pdf_title(i['file'])])
+        }
+    )
+
+    # lprint_json(documents)
+    # return
 
     # CREATE DOCUMENT IDENTITY
     documents = lmap(sync.create_id, documents)
@@ -242,7 +283,6 @@ if __name__ == '__main__':
         dir_static_uploads,
         SyncDocument(
             'documents',
-            'document',
             sizes=settings.image_sizes
         )
     )

@@ -1,6 +1,8 @@
 import os
+import re
 from glob import glob
 
+import frontmatter
 import lxml.html
 from lxml import etree
 
@@ -13,7 +15,7 @@ from utils.fn import lmap, dir_globber, lprint_json, iterate_iter_over_fns, firs
     key_mapper, lprint
 from utils.hash import hash_file, hash_str
 from utils.image import create_image
-from utils.io import read_yaml_md
+from utils.io import read_yaml_md, read_file, parse_yaml_front_matter
 from utils.text.transform import url_encode_text
 
 
@@ -326,7 +328,25 @@ def main(dir_documents, sync):
 if __name__ == '__main__':
     image_creator = ImageCreator(cache=None)
     alb = SyncAlbum(image_creator=image_creator, images_dir=settings.image_output)
-    alb.skip_image_processing = True
+    # alb.skip_image_processing = True
 
-    albums_dir = '/Users/tmshv/Dropbox/Dev/Hud school/Gallery'
-    main(dir_documents=albums_dir, sync=alb)
+    # dir_docs = '/Users/tmshv/Dropbox/Dev/Hud school/Gallery'
+    # dir_docs = '/Volumes/webdav.yandex.ru/Hudozka/Site/Gallery'
+    dir_docs = '/Users/tmshv/Yandex.Disk.localized/Hudozka/Site/Gallery'
+    main(dir_documents=dir_docs, sync=alb)
+
+    # dir_docs += '/2013 Валяние Зверушки'
+    # dir_docs += '/Валяние Зверушки.md'
+
+    # dir_docs = '/Users/tmshv/Yandex.Disk.localized/Hudozka/Site/News/2015 Выставка 70-летия победы.md'
+
+    # print(frontmatter.load(dir_docs).content)
+    # d = read_file(dir_docs)
+    # d = d.replace('\u0D0A', '\n')
+    # print(frontmatter.loads(d).metadata)
+    # print(parse_yaml_front_matter(d))
+    #
+    # print(len(re.split('^---', d, 2, re.MULTILINE)))
+    # print(re.split('^---', d, 2)[1])
+    #
+    # print(read_yaml_md(dir_docs))

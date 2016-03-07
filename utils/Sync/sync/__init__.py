@@ -89,6 +89,9 @@ def create_date_and_title_from_folder_name(folder_name, date_formats=None):
 
 
 def images_from_html(md):
+    if not md:
+        return []
+
     post_html = lxml.html.fromstring(md)
 
     images = []

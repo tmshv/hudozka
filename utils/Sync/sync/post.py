@@ -7,7 +7,7 @@ import lxml.html
 import settings
 from db import db
 from sync import create_date_and_title_from_folder_name, create_post_from_image_list, Sync, create_date, \
-    images_from_html, list_images, synced_images_ids
+    images_from_html, list_images, synced_images_ids, untouched
 from sync.image import sync_image
 from utils.fn import combine, lmap, map_cases, first, lprint, key_mapper, lprint_json, lmapfn
 from utils.hash import hash_file, hash_str
@@ -77,6 +77,14 @@ class SyncPost(Sync):
         document['post'] = lxml.html.tostring(post_html).decode('utf-8')
         document['images'] = images
         return document
+
+    def create_remove_query(self, query):
+        if self.type:
+            query = {
+                **query,
+                'type': self.type
+            }
+        return query
 
 
 def get_manifest(path):
@@ -223,15 +231,7 @@ def main(dir_documents, sync, file_time_formats):
     )
 
     # SKIP UNTOUCHED DOCUMENTS
-    documents = lmap(
-        lambda i: i[0],
-        filter(
-            lambda i: (i[1] is None) or ('hash' not in i[1]) or (i[0]['hash'] != i[1]['hash']),
-            lmap(
-                lambda document: (document, sync.read(document)),
-                documents
-            )
-        ))
+    documents = untouched(documents, sync)
 
     # MAP EVENT MANIFEST -> EVENT_OBJECT
     documents = lmap(
@@ -254,7 +254,8 @@ def main(dir_documents, sync, file_time_formats):
         documents
     )
 
-    documents_to_remove = sync.query({'id': {'$nin': scope_documents_ids}})
+    remove_query = sync.create_remove_query({'id': {'$nin': scope_documents_ids}})
+    documents_to_remove = sync.query(remove_query)
     documents_to_remove = lmap(
         sync.delete,
         map(
@@ -280,14 +281,16 @@ def main(dir_documents, sync, file_time_formats):
         lambda i: i['id'],
         documents
     ))
-    lprint_json(documents)
+    # lprint_json(documents)
     print('[SYNC DOCUMENTS DONE]')
 
 
 if __name__ == '__main__':
     image_url_base = settings.image_base_url + 'post-{id}-{img}-{size}{ext}'
+    # dir_docs = '/Users/tmshv/Dropbox/Dev/Hud school/Events'
+    dir_docs = '/Volumes/webdav.yandex.ru/Hudozka/Site/Events'
     main(
-        '/Users/tmshv/Dropbox/Dev/Hud school/Events',
+        dir_docs,
         SyncPost(
             'events',
             None,
@@ -299,8 +302,10 @@ if __name__ == '__main__':
     )
 
     image_url_base = settings.image_base_url + 'post-{id}-{img}-{size}{ext}'
+    # dir_docs = '/Users/tmshv/Dropbox/Dev/Hud school/News'
+    dir_docs = '/Volumes/webdav.yandex.ru/Hudozka/Site/News'
     main(
-        '/Users/tmshv/Dropbox/Dev/Hud school/News',
+        dir_docs,
         SyncPost(
             'timeline',
             'post',
