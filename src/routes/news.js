@@ -64,17 +64,4 @@ export default function (app) {
                 .then(i => i.sort(sortNewsByDate));
         }
     })));
-
-    app.use(route.get('/news/:id', accepts({
-        'text/html': index(),
-        'text/plain': index(),
-        'application/json': function *(id) {
-            let item = yield c('timeline').findOne({uri: id});
-            if (item) {
-                this.body = item;
-            } else {
-                this.status = 404;
-            }
-        }
-    })));
 };
