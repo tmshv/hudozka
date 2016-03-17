@@ -40,8 +40,17 @@ export function accepts(routes, def) {
     };
 }
 
-export function index(filename = config['defaultIndex']) {
+export function index(fn) {
+    let filename = config['defaultIndex'];
+
     return function *() {
+        let test = true;
+        if(fn) test = yield fn();
+
+        if(!test) {
+            this.status = 404;
+        }
+
         this.type = 'text/html';
         this.body = fs.createReadStream(filename);
     }
