@@ -9,7 +9,7 @@ export default function (app) {
             .getTime()
     );
 
-    app.use(route.get('/events', json(
+    app.use(route.get('/events/:page?', json(
         function *() {
             let limit = parseInt(this.query['limit']) || 10;
             let skip = parseInt(this.query['skip']) || 0;
@@ -31,19 +31,6 @@ export default function (app) {
                 total: total,
                 data: documents
             };
-
-            //this.body = events
-            //    .sort(sortByDate);
-        }
-    )));
-
-    app.use(route.get('/event/:event', json(
-        function *(event) {
-            let document = yield c('events').findOne({id: event});
-            if (!document) {
-                document = yield c('timeline').findOne({id: event});
-            }
-            this.body = document;
         }
     )));
 };
