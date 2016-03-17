@@ -50,3 +50,9 @@ export const redirectionTable = fs.readFileSync(redirectPath, 'utf-8')
             'redirect': to
         }
     });
+
+export const host = 'art.shlisselburg.org';
+export const protocol = 'https://';
+export const homeUrl = protocol + host;
+
+export const sitemapCacheTime = 600000;// 600 sec - cache purge period
