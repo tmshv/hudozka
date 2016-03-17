@@ -66,7 +66,7 @@ app.config(($locationProvider, $routeProvider) => {
         {
             name: '/',
             template: '<page-school></page-school>',
-            title: 'ДХШ Шлиссельбурга'
+            title: 'Шлиссельбургская детская художественная школа'
         },
         {
             name: '/events/:page?',
