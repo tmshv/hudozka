@@ -1,8 +1,14 @@
-<div class="content content_full" ng-switch="$.helloBlock">
-    <div class="main-image">
-        <img ng-switch-when="mobile-image"
-             src="https://static.shlisselburg.org/art/graphics/entrance.jpg" width="100%">
-        <parallax ng-switch-default></parallax>
+<div class="content content_full">
+    <div class="main-image" ng-switch="$.helloBlock">
+        <img src="https://static.shlisselburg.org/art/graphics/entrance.jpg"
+             ng-switch-when="mobile-image"
+        />
+
+        <div class="main-image__content"
+             ng-switch-default
+        >
+            <parallax></parallax>
+        </div>
     </div>
 </div>
 
