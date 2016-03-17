@@ -19,7 +19,7 @@ const config = {
     prerender: {
         prerender: 'http://service.prerender.io/',
         prerenderToken: '',
-        protocol: 'http',
+        protocol: 'https',
         host: 'art.shlisselburg.org'
     },
 
