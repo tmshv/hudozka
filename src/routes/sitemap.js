@@ -1,40 +1,35 @@
-/**
- * Created by tmshv on 22/11/14.
- */
+import sitemap  from 'sitemap';
+import route  from 'koa-route';
+import {c}  from '../core/db';
 
-var co = require("co");
-var sitemap = require("sitemap");
-var route = require("koa-route");
-var router = require("./");
-var db = require("../core/db");
+import {homeUrl, sitemapCacheTime} from '../config';
+import menu from '../models/menu';
 
-module.exports = function (app) {
-    app.use(route.get("/sitemap.xml", function *() {
-        var urls = yield [menu(), gallery()];
-        urls = urls.reduce(function (urls, i) {
-            return urls.concat(i);
-        });
+export default function (app) {
+    app.use(route.get('/sitemap.xml', function *() {
+        let urls = yield [
+            getMenuUrls(),
+            getGalleryUrls(),
+            getTeacherUrls(),
+            getEventsUrls(),
+            getNewsUrls()
+        ];
+        urls = urls.reduce((urls, i) => urls.concat(i));
 
-        var sm = sitemap.createSitemap({
-            hostname: 'http://art.shlisselburg.org',
-            cacheTime: 600000, // 600 sec - cache purge period
+        let sm = sitemap.createSitemap({
+            hostname: homeUrl,
+            cacheTime: sitemapCacheTime,
             urls: urls
         });
 
-        var data = yield new Promise(function (resolve) {
-            sm.toXML(resolve);
-        });
-
         this.set('Content-Type', 'application/xml');
-        this.body = data;
+        this.body = yield new Promise(resolve => sm.toXML(resolve));
     }));
 };
 
-function *menu(){
-    return require('../models/menu')
-        .filter(function(item){
-            return 'url' in item
-        })
+function *getMenuUrls() {
+    return menu
+        .filter(i => 'url' in i)
         .map(function (item) {
             return {
                 url: item.url,
@@ -43,14 +38,53 @@ function *menu(){
         });
 }
 
-function *gallery(){
-    var albums = yield db.c("albums")
+function *getGalleryUrls() {
+    let docs = yield c('albums')
         .find({})
         .toArray();
 
-    return albums.map(function (album) {
+    return docs.map(i => {
         return {
-            url: `/gallery/${album.date.getFullYear()}${album.course_uri}${album.uri}`,
+            url: `/album/${i.id}`,
+            changefreq: 'monthly'
+        }
+    });
+}
+
+function *getTeacherUrls() {
+    let docs = yield c('collective')
+        .find({})
+        .toArray();
+
+    return docs.map(i => {
+        return {
+            url: `/teacher/${i.id}`,
+            changefreq: 'monthly'
+        }
+    });
+}
+
+function *getEventsUrls() {
+    let docs = yield c('events')
+        .find({})
+        .toArray();
+
+    return docs.map(i => {
+        return {
+            url: `/article/${i.id}`,
+            changefreq: 'monthly'
+        }
+    });
+}
+
+function *getNewsUrls() {
+    let docs = yield c('timeline')
+        .find({type: 'post'})
+        .toArray();
+
+    return docs.map(i => {
+        return {
+            url: `/article/${i.id}`,
             changefreq: 'monthly'
         }
     });
