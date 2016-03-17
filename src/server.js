@@ -24,6 +24,7 @@ import error404 from './routes/404';
 import documents from './routes/documents';
 import teachers from './routes/teachers';
 import events from './routes/events';
+import articles from './routes/articles';
 
 export const app = koa();
 app.proxy = true;
@@ -58,5 +59,6 @@ instagram(app);
 instagramIO(app);
 documents(app);
 events(app);
+articles(app);
 teachers(app);
 app.use(error404());

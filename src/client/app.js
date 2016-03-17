@@ -24,7 +24,7 @@ import Parallax from './components/Parallax';
 
 import PageSchool from './components/PageSchool';
 import PageEvents from './components/PageEvents';
-import PageEvent from './components/PageEvent';
+import PageArticle from './components/PageArticle';
 import PageSchedule from './components/PageSchedule';
 import PageCollective from './components/PageCollective';
 import PageTeacher from './components/PageTeacher';
@@ -93,8 +93,17 @@ app.config(($locationProvider, $routeProvider) => {
             }
         },
         {
-            name: '/article/:event',
-            template: '<page-event></page-event>'
+            name: '/article/:id',
+            template: '<page-article article="$.data"></page-article>',
+            resolveAs: '$',
+            resolve:{
+                data: ($route, api) => {
+                    let id = $route.current.params.id;
+                    if(!id) return null;
+                    return api.article.id(id)
+                        .then(i => i.data)
+                }
+            }
         },
         {
             name: '/schedule/:period?/:semester?',
@@ -194,6 +203,11 @@ app.run(($location, $rootScope, $http) => {
         if (title) $rootScope.title = title;
     });
 
+    $rootScope.$on('$routeChangeError', (event, current) => {
+        //let title = current['$$route'].title;
+        //if (title) $rootScope.title = title;
+    });
+
     $http.defaults.headers.common['Accept'] = 'application/json';
 });
 
@@ -224,7 +238,7 @@ app.run(($location, $rootScope, $http) => {
     AlbumCollection,
     TeacherProfile,
     PageSchool,
-    PageEvent,
+    PageArticle,
     PageEvents,
     PageSchedule,
     PageCollective,

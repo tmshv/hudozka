@@ -8,9 +8,4 @@ export default class APIEvent extends EndPoint {
         let url = `/events?skip=${skip}&limit=${limit}`;
         return this.get(url);
     }
-
-    post(id) {
-        let url = `/event/${id}`;
-        return this.get(url);
-    }
 }
