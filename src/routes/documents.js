@@ -1,6 +1,6 @@
 import co from 'co';
 import route from 'koa-route';
-import {index, json} from './';
+import {json} from './';
 import {c} from '../core/db';
 
 export default function (app) {

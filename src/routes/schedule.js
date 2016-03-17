@@ -3,7 +3,7 @@ import {json} from './';
 
 import {getSchedule, getScheduleList, populateSchedule} from '../core/schedule';
 
-module.exports = function (app) {
+export default function (app) {
     app.use(
         route.get('/schedule/list', json(
             function *() {

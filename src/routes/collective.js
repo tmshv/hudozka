@@ -1,5 +1,5 @@
 import route from 'koa-route';
-import {index, json} from './';
+import {json} from './';
 import {sortByPattern} from '../utils/sort';
 import db from '../core/db';
 
