@@ -2,4 +2,5 @@ User-agent: *
 Disallow: /news 
 Allow: /
 Host: art.shlisselburg.org
-Sitemap: http://art.shlisselburg.org/sitemap.xml
+Sitemap: https://art.shlisselburg.org/sitemap.xml
+
