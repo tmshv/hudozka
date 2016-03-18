@@ -45,7 +45,7 @@ import UppercaseFirst from './filters/UppercaseFirst';
 import Bytes from './filters/Bytes';
 import Ext from './filters/Ext';
 
-import IOService from './services/io';
+// import IOService from './services/io';
 import MenuService from './services/menu';
 import API from './services/api';
 
@@ -227,7 +227,7 @@ app.run(($location, $rootScope, $http) => {
 
 [
     API,
-    IOService,
+    // IOService,
     MenuService,
     RemoveHashtags,
     RemoveNewline,

@@ -27,7 +27,7 @@ function postText(post){
 export default function(app) {
     app.component('timeline', {
         template: template,
-        controller: function($timeout, usSpinnerService, io, api){
+        controller: function($timeout, usSpinnerService, api){
             let skip = 0;
             let limit = 10;
             this.feed = [];
@@ -77,7 +77,7 @@ export default function(app) {
 
             this.loadNext();
 
-            io.on('post', params => {
+            // io.on('post', params => {
                 //let posts = params instanceof Array ? params : [params];
                 //
                 //let feed2 = posts.map(post => {
@@ -88,7 +88,7 @@ export default function(app) {
                 //this.$apply(() => {
                 //    this.feed = feed2.concat(this.feed);
                 //});
-            });
+            // });
         }
     });
 };
