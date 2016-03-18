@@ -22,7 +22,9 @@ gulp.task('compile 3rdparty', () => {
         './bower_components/angulartics/dist/angulartics-ga.min.js',
         './bower_components/spin.js/spin.js',
         './bower_components/angular-spinner/angular-spinner.min.js',
-        './bower_components/socket.io-client/socket.io.js'
+        './bower_components/socket.io-client/socket.io.js',
+        
+        './node_modules/babel-polyfill/dist/polyfill.min.js'
     ];
 
     return gulp.src(files)
