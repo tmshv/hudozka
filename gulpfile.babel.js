@@ -31,7 +31,7 @@ gulp.task('concat-bower', () => {
         .pipe(gulp.dest('./public'));
 });
 
-gulp.task('styles', () => {
+gulp.task('style', () => {
     const processors = [
         autoprefixer({
             browsers: ['last 1 version']
