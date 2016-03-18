@@ -114,7 +114,7 @@ gulp.task('production', () => {
     isProduction = true;
 });
 
-gulp.task('default', ['styles', 'compile']);
+gulp.task('default', ['style', 'compile']);
 gulp.task('copy', ['copy fonts', 'copy graphics', 'copy 3rdparty', 'copy robots.txt']);
 gulp.task('deploy', ['default', 'copy', 'compile 3rdparty', 'imagemin']);
 gulp.task('compile production', ['production', 'compile']);
