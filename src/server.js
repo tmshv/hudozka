@@ -26,6 +26,9 @@ import teachers from './routes/teachers';
 import events from './routes/events';
 import articles from './routes/articles';
 
+const dirPublic = path.join(__dirname, '../public');
+const dirTemplates = path.join(__dirname, 'templates');
+
 export const app = koa();
 app.proxy = true;
 
@@ -44,8 +47,8 @@ app.use(function *(next) {
     }
 });
 app.use(prerender(config.prerender));
-app.use(serve(path.join(__dirname, '../public')));
-app.use(serve(path.join(__dirname, 'templates')));
+app.use(serve(dirPublic));
+app.use(serve(dirTemplates));
 app.use(redirect(redirectionTable));
 app.use(helmet());
 app.use(queryObject());
