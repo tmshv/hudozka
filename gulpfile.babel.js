@@ -69,13 +69,16 @@ gulp.task('copy robots.txt', () => {
 });
 
 gulp.task('compile', () => {
-    gulp.src([
+    const doWatch = !isProduction;
+    
+    return gulp.src([
             './src/client/app.js',
             './src/client/instagram.js'
         ])
         .pipe(named())
         .pipe(webpack({
             // devtool: 'inline-source-map',
+            watch: doWatch,
             output: {
                 filename: '[name].js'
             },
