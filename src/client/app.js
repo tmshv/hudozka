@@ -31,6 +31,7 @@ import PageTeacher from './components/PageTeacher';
 import PageGallery from './components/PageGallery';
 import PageAlbum from './components/PageAlbum';
 import PageDocuments from './components/PageDocuments';
+import PageDocument from './components/PageDocument';
 
 import AppController from './controllers/AppController';
 import CopyrightController from './controllers/CopyrightController';
@@ -177,6 +178,19 @@ app.config(($locationProvider, $routeProvider) => {
                         return sortByPattern(i, documentsSortPattern, i => i.category);
                     })
             }
+        },
+        {
+            name: '/documents/:id',
+            template: '<page-document item="$resolve.document"></page-document>',
+            resolve: {
+                document: ($route, api) => {
+                    let id = $route.current.params.id;
+
+                    return api.document
+                        .id(id)
+                        .then(i => i.data)
+                }
+            }
         }
     ]
         .map(i => {
@@ -246,6 +260,7 @@ app.run(($location, $rootScope, $http) => {
     PageGallery,
     PageAlbum,
     PageDocuments,
+    PageDocument,
     AppController,
     CopyrightController,
     ContactsController,

@@ -1,7 +1,11 @@
-import co from 'co';
 import route from 'koa-route';
-import {json} from './';
+import {index, json, accepts} from './';
 import {c} from '../core/db';
+
+function* exists(id) {
+    let i = yield c('documents').findOne({id: id});
+    return i ? true : false;
+}
 
 export default function (app) {
     [
@@ -36,6 +40,21 @@ export default function (app) {
                     this.status = 404;
                 }
             }
+        ],
+        [
+            '/documents/:id',
+            accepts({
+                'text/html': index(exists),
+                'text/plain': index(exists),
+                'application/json': function* (id) {
+                    let i = yield c('documents').findOne({id: id});
+                    if (!i) this.status = 404;
+                    else {
+                        i = yield populateDocPreview(i);
+                        this.body = i;
+                    }
+                }
+            })
         ]
     ].forEach(item => {
         let [path, fn] = item;

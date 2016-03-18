@@ -10,4 +10,9 @@ export default class APIDocument extends EndPoint {
         let url = '/documents/type/award';
         return this.get(url);
     }
+
+    id(id){
+        let url = `/documents/${id}`;
+        return this.get(url);
+    }
 }

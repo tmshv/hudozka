@@ -10,7 +10,6 @@ export default function (app) {
         template: template,
         controllerAs: '$',
         controller: function () {
-            this.pageClass = 'page-documents';
             let categories = unique(i => i.category);
 
             this.collections = [];

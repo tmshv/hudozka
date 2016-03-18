@@ -13,12 +13,18 @@
 }
 
 .document__image{
-  max-width: 7.5em;
-
   img {
     width: 100%;
     box-shadow: $white-shadow;
   }
+}
+
+.document__image--medium{
+  max-width: 7.5em;
+}
+
+.document__image--big{
+  max-width: 20em;
 }
 
 @media (max-width: $mobile-width) {
