@@ -45,7 +45,7 @@ export function index(fn) {
 
     return function *() {
         let test = true;
-        if(fn) test = yield fn();
+        if(fn) test = yield fn.apply(this, arguments);
 
         if(!test) {
             this.status = 404;
