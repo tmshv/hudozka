@@ -18,7 +18,6 @@ gulp.task('concat-bower', () => {
         './bower_components/jquery/dist/jquery.min.js',
         './bower_components/angular/angular.min.js',
         './bower_components/angular-route/angular-route.min.js',
-        './bower_components/angular-animate/angular-animate.min.js',
         './bower_components/angulartics/dist/angulartics.min.js',
         './bower_components/angulartics/dist/angulartics-ga.min.js',
         './bower_components/spin.js/spin.js',
