@@ -13,7 +13,7 @@ import $if from 'gulp-if';
 
 let isProduction = process.env['NODE_ENV'] === 'production';
 
-gulp.task('concat-bower', () => {
+gulp.task('compile 3rdparty', () => {
     const files = [
         './bower_components/jquery/dist/jquery.min.js',
         './bower_components/angular/angular.min.js',
@@ -114,5 +114,5 @@ gulp.task('production', () => {
 
 gulp.task('default', ['styles', 'compile']);
 gulp.task('copy', ['copy fonts', 'copy graphics', 'copy 3rdparty', 'copy robots.txt']);
-gulp.task('deploy', ['default', 'copy', 'imagemin']);
+gulp.task('deploy', ['default', 'copy', 'compile 3rdparty', 'imagemin']);
 gulp.task('compile production', ['production', 'compile']);
