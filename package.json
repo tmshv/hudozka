@@ -32,7 +32,7 @@
     "koa-static": "^2.0.0",
     "koa": "^1.2.0",
     "mz": "^2.3.1",
-    "promised-mongo": "^1.2.0",
+    "promised-mongo": "git+https://git@github.com/tmshv/promised-mongo",
     "sitemap": "^1.5.0",
     "thunkify": "^2.1.2"
   },
