@@ -1,5 +1,5 @@
 import path from 'path';
-import koa from 'koa.io';
+import koa from 'koa';
 import route from 'koa-route';
 import serve from 'koa-static';
 import logger from 'koa-logger';
