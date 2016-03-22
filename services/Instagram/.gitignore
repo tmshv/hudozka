@@ -1,0 +1,10 @@
+.DS_Store
+.idea
+*.sublime*
+npm-debug.log
+
+.private*
+
+/node_modules
+/build
+/coverage
