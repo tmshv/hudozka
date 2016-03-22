@@ -79,7 +79,7 @@ gulp.task('compile', () => {
         ])
         .pipe(named())
         .pipe(webpack({
-            // devtool: 'inline-source-map',
+            devtool: isProduction ? 'inline-source-map' : null,
             watch: doWatch,
             output: {
                 filename: '[name].js'

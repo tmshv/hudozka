@@ -2,7 +2,7 @@
 
 echo "Deploying art.shburg.org"
 
-NODE_ENV=production gulp
+NODE_ENV=production gulp deploy
 
 server="art.shburg.org"
 app_port=1800
@@ -23,7 +23,8 @@ env GZIP=-9 tar -czf ${tarpath} \
 
 echo "Build file: $tarpath"
 
-ssh h "rm -rf $destpath/*"
+#ssh h "rm -rf $destpath/*"
+ssh h "rm -rf $destpath/public/*"
 scp ${tarpath} hoster@${server}:${destpath}
 echo "Build file successfully uploaded on server"
 
