@@ -74,8 +74,7 @@ gulp.task('compile', () => {
     const doWatch = !isProduction;
     
     return gulp.src([
-            './src/client/app.js',
-            './src/client/instagram.js'
+            './src/client/app.js'
         ])
         .pipe(named())
         .pipe(webpack({
