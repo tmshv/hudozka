@@ -24,12 +24,7 @@ const config = {
     },
 
     instagram: {
-        default_user: 'hudozka',
-        tag_callback: 'http://art.shlisselburg.org/instagram/callback/11',
-        client_id: '',
-        client_secret: '',
-        redirect_uri: 'http://art.shlisselburg.org/instagram/auth/callback',
-        tags: ['shlb_hudozka']
+        secret: ''
     }
 };
 
