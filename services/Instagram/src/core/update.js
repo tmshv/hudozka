@@ -15,8 +15,8 @@ export default async function update(id, data) {
         let data = await instagram.user.mediaRecent(null, 1, updateTimestamp);
         let items = data.medias.map(postFromInstagramMedia);
 
-        for (i of items) {
-            await service.feed.add(i);
+        for (let post of items) {
+            await service.feed.add(post);
         }
     } catch (e) {
         console.log(e);
