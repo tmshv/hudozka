@@ -1,32 +1,38 @@
+import compose from 'koa-compose';
 import route from 'koa-route';
-import {accepts, index} from './';
+import {accepts} from './';
 import {c} from '../core/db';
 import {sortBy} from '../utils/sort';
 
-export default function (app) {
-    let sortNewsByDate = sortBy(
-        i => (new Date(i.date))
-            .getTime()
-    );
+const sortNewsByDate = sortBy(
+    i => (new Date(i.date))
+        .getTime()
+);
 
-    app.use(route.get('/news', accepts({
-        'text/html': function *() {
-            this.redirect('/');
-        },
-        'text/plain': function *() {
-            this.redirect('/');
-        },
-        'application/json': function *() {
-            let limit = parseInt(this.query['limit']) || 10;
-            let skip = parseInt(this.query['skip']) || 0;
+const redirect = async ctx => ctx.redirect('/');
+
+export default function () {
+    return compose([
+        news(),
+        pinned()
+    ]);
+};
+
+function news() {
+    return route.get('/news', accepts({
+        'text/html': redirect,
+        'text/plain': redirect,
+        'application/json': async ctx => {
+            let limit = parseInt(ctx.query['limit']) || 10;
+            let skip = parseInt(ctx.query['skip']) || 0;
 
             let query = {};
-            if (this.query.type) query.type = this.query.type;
+            if (ctx.query.type) query.type = ctx.query.type;
 
             let pinned = [];
             if(skip == 0) {
                 const now = new Date();
-                pinned = yield c('timeline')
+                pinned = await c('timeline')
                     .find({until: {$gte: now}})
                     .toArray()
                     .then(i => i.sort(sortNewsByDate));
@@ -35,7 +41,7 @@ export default function (app) {
             let sid = id => id + '';
             let pinnedIds = pinned.map(p => sid(p['_id']));
 
-            let posts = yield c('timeline')
+            let posts = await c('timeline')
                 .find(query)
                 .sort({date: -1})
                 .skip(skip)
@@ -45,23 +51,21 @@ export default function (app) {
                     i => pinnedIds.indexOf(sid(i['_id'])) < 0
                 ));
 
-            this.body = pinned.concat(posts);
+            ctx.body = pinned.concat(posts);
         }
-    })));
+    }));
+}
 
-    app.use(route.get('/news/pinned', accepts({
-        'text/html': function *() {
-            this.redirect('/');
-        },
-        'text/plain': function *() {
-            this.redirect('/');
-        },
-        'application/json': function *() {
+function pinned(){
+    return route.get('/news/pinned', accepts({
+        'text/html': redirect,
+        'text/plain': redirect,
+        'application/json': async ctx => {
             let now = new Date();
-            this.body = yield c('timeline')
+            ctx.body = await c('timeline')
                 .find({until: {$gte: now}})
                 .toArray()
                 .then(i => i.sort(sortNewsByDate));
         }
-    })));
-};
+    }));
+}

@@ -5,41 +5,39 @@ import {c}  from '../core/db';
 import {homeUrl, sitemapCacheTime} from '../config';
 import menu from '../models/menu';
 
-export default function (app) {
-    app.use(route.get('/sitemap.xml', function *() {
-        let urls = yield [
+export default function () {
+    return route.get('/sitemap.xml', async ctx => {
+        let urls = await Promise.all([
             getMenuUrls(),
             getGalleryUrls(),
             getTeacherUrls(),
             getEventsUrls(),
             getNewsUrls()
-        ];
+        ]);
         urls = urls.reduce((urls, i) => urls.concat(i));
 
-        let sm = sitemap.createSitemap({
+        let map = sitemap.createSitemap({
             hostname: homeUrl,
             cacheTime: sitemapCacheTime,
             urls: urls
         });
 
-        this.set('Content-Type', 'application/xml');
-        this.body = yield new Promise(resolve => sm.toXML(resolve));
-    }));
+        ctx.set('Content-Type', 'application/xml');
+        ctx.body = map.toString();
+    })
 };
 
-function *getMenuUrls() {
+async function getMenuUrls(frequency='daily') {
     return menu
         .filter(i => 'url' in i)
-        .map(function (item) {
-            return {
-                url: item.url,
-                changefreq: 'daily'
-            }
-        });
+        .map(i => ({
+            url: i.url,
+            changefreq: frequency
+        }));
 }
 
-function *getGalleryUrls() {
-    let docs = yield c('albums')
+async function getGalleryUrls() {
+    let docs = await c('albums')
         .find({})
         .toArray();
 
@@ -51,8 +49,8 @@ function *getGalleryUrls() {
     });
 }
 
-function *getTeacherUrls() {
-    let docs = yield c('collective')
+async function getTeacherUrls() {
+    let docs = await c('collective')
         .find({})
         .toArray();
 
@@ -64,8 +62,8 @@ function *getTeacherUrls() {
     });
 }
 
-function *getEventsUrls() {
-    let docs = yield c('events')
+async function getEventsUrls() {
+    let docs = await c('events')
         .find({})
         .toArray();
 
@@ -77,8 +75,8 @@ function *getEventsUrls() {
     });
 }
 
-function *getNewsUrls() {
-    let docs = yield c('timeline')
+async function getNewsUrls() {
+    let docs = await c('timeline')
         .find({type: 'post'})
         .toArray();
 

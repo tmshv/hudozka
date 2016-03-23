@@ -6,8 +6,8 @@ import {populate, scheduleDate} from '../models/schedule';
 import {shortifyName} from '../models/collective';
 import {courses} from '../models/course';
 
-export function* getSchedule(period, semester) {
-    let data = yield c('schedules').findOne({
+export async function getSchedule(period, semester) {
+    let data = await c('schedules').findOne({
         period: period,
         semester: semester
     });
@@ -15,8 +15,8 @@ export function* getSchedule(period, semester) {
     return null;
 }
 
-export function* getScheduleList() {
-    let list = yield c('schedules')
+export async function getScheduleList() {
+    let list = await c('schedules')
         .find({}, {period: 1, semester: 1})
         .toArray();
     return list
@@ -28,8 +28,8 @@ export function* getScheduleList() {
         });
 }
 
-export function* populateSchedule(schedule) {
-    let collective = yield getCollective({}, {id: 1, name: 1});
+export async  function populateSchedule(schedule) {
+    let collective = await getCollective({}, {id: 1, name: 1});
     let collective_dict = collective.reduce((dict, i) => {
         dict[i.id] = i.name;
         return dict;

@@ -1,38 +1,28 @@
 import route from 'koa-route';
 import {c} from '../core/db';
 import {accepts, index} from './';
-import {sortBy} from '../utils/sort';
 
-export default function (app) {
+async function exists(ctx, id) {
+    let i = await article(id);
+    return i ? true : false;
+}
 
-    function* exists(id) {
-        let i = yield c('events').findOne({id: id});
-        if (!i) {
-            i = yield c('timeline').findOne({id: id});
-        }
-        return i ? true : false;
+async function article(id){
+    let i = await c('events').findOne({id: id});
+    if (!i) {
+        i = await c('timeline').findOne({id: id});
     }
+    return i;
+}
 
-    app.use(route.get('/article/:id', accepts({
-        //'text/html': function* (id){
-        //    let test = yield exists(id);
-        //    if(test){
-        //        return yield index();
-        //    }else{
-        //        this.status = 404;
-        //        return yield index();
-        //    }
-        //},
+export default function () {
+    return route.get('/article/:id', accepts({
         'text/html': index(exists),
         'text/plain': index(exists),
-        'application/json': function* (id) {
-            let i = yield c('events').findOne({id: id});
-            if (!i) {
-                i = yield c('timeline').findOne({id: id});
-            }
-
-            if (!i) this.status = 404;
-            else  this.body = i;
+        'application/json': async (ctx, id) => {
+            let i = await article(id);
+            if (!i) ctx.status = 404;
+            else  ctx.body = i;
         }
-    })));
+    }))
 };

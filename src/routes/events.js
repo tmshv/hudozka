@@ -3,34 +3,34 @@ import {c} from '../core/db';
 import {json} from './';
 import {sortBy} from '../utils/sort';
 
-export default function (app) {
-    let sortByDate = sortBy(
-        i => (new Date(i.date))
-            .getTime()
-    );
+let sortByDate = sortBy(
+    i => (new Date(i.date))
+        .getTime()
+);
 
-    app.use(route.get('/events/:page?', json(
-        function *() {
-            let limit = parseInt(this.query['limit']) || 10;
-            let skip = parseInt(this.query['skip']) || 0;
+export default function () {
+    return route.get('/events/:page?', json(
+        async(ctx) => {
+            let limit = parseInt(ctx.query['limit']) || 10;
+            let skip = parseInt(ctx.query['skip']) || 0;
 
             let query = {};
-            let documents = yield c('events')
+            let documents = await c('events')
                 .find(query)
                 .sort({date: -1})
                 .skip(skip)
                 .limit(limit)
                 .toArray();
 
-            let total = yield c('events')
+            let total = await c('events')
                 .find(query).count();
 
-            this.body = {
+            ctx.body = {
                 skip: skip,
                 limit: limit,
                 total: total,
                 data: documents
             };
         }
-    )));
+    ));
 };

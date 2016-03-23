@@ -1,5 +1,6 @@
 import fs from 'mz/fs';
 import route from 'koa-route';
+import compose from 'koa-compose';
 
 import {map, assign} from '../utils/common';
 import config from '../config';
@@ -16,19 +17,19 @@ import articles from './articles';
 
 let main = () => route.get('/', index());
 
-export function routes(app){
-    app.use(main());
-
-    sitemap(app);
-    schedule(app);
-    news(app);
-    gallery(app);
-    documents(app);
-    events(app);
-    articles(app);
-    teachers(app);
-
-    app.use(error404());
+export function routes(){
+    return compose([
+        main(),
+        sitemap(),
+        schedule(),
+        news(),
+        gallery(),
+        documents(),
+        teachers(),
+        events(),
+        articles(),
+        error404()
+    ]);
 }
 
 export function queryObject() {
@@ -36,9 +37,9 @@ export function queryObject() {
     let toFalse = map(false, i => i === 'false');
     const processors = [toTrue, toFalse];
 
-    return function *(next) {
-        let query = this.query;
-        this.query = Object.keys(query)
+    return async (ctx, next) => {
+        let query = ctx.query;
+        ctx.query = Object.keys(query)
             .reduce((query, key) => assign(
                 query,
                 key,
@@ -46,23 +47,22 @@ export function queryObject() {
                     .reduce((value, fn) => fn(value), query[key])
             ), query);
 
-        yield next;
+        await next();
     }
 }
 
-export function accepts(routes, def) {
-    return function *() {
-        let req = this.request;
+export function accepts(routes) {
+    return async function (ctx) {
+        let request = ctx.request;
         let types = Object.keys(routes)
-            .filter(type => req.accepts(type));
+            .filter(type => request.accepts(type));
 
         if (types.length) {
-            let type = types[0];
-            yield routes[type].apply(this, arguments);
-        } else if (def) {
-            yield def;
+            let fn = routes[types[0]];
+
+            await fn.apply(ctx, arguments);
         } else {
-            this.status = 406;
+            ctx.status = 406;
         }
     };
 }
@@ -70,21 +70,21 @@ export function accepts(routes, def) {
 export function index(fn) {
     let filename = config['defaultIndex'];
 
-    return function *() {
+    return async function (ctx){
         let test = true;
-        if(fn) test = yield fn.apply(this, arguments);
+        if (fn) test = await fn.apply(ctx, arguments);
 
-        if(!test) {
-            this.status = 404;
-        }
+        if (!test) ctx.status = 404;
 
-        this.type = 'text/html';
-        this.body = fs.createReadStream(filename);
+        ctx.type = 'text/html';
+        ctx.body = fs.createReadStream(filename);
     }
 }
 
-export const json = fn => accepts({
-    'text/html': index(),
-    'text/plain': index(),
-    'application/json': fn
-});
+export function json(fn){
+    return accepts({
+        'text/html': index(),
+        'text/plain': index(),
+        'application/json': fn
+    });
+}

@@ -1,26 +1,26 @@
 import {index, accepts} from './';
 
 export default function () {
-    return function *(next) {
-        yield next;
+    return async(ctx) => {
+        if (ctx.status != 404) return;
 
-        if (404 != this.status) return;
+        ctx.status = 404;
+        ctx.body = 'lol found';
 
-        this.status = 404;
-        yield accepts({
+        await accepts({
             'text/html': index(),
-
-            'text/plain': function *() {
-                this.type = 'text/plain';
-                this.body = 'Page not found';
+            'text/plain': async ctx => {
+                ctx.type = 'text/plain';
+                ctx.body = 'Page not found';
             },
 
-            'application/json': function *() {
-                this.type = 'application/json';
-                this.body = {
+            'application/json': async ctx => {
+                ctx.type = 'application/json';
+                ctx.body = {
+                    error: 404,
                     message: 'Not Found'
                 };
             }
-        });
+        })(ctx);
     };
 };
