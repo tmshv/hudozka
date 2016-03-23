@@ -1,7 +1,7 @@
 import {c} from '../core/db';
 
 export async function getCollective(query={}, show={}) {
-    let data = await c('collective').find(query, show);
+    let data = await c('collective').find(query, show).toArray();
     if (!data) {
         return null;
     }

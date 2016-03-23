@@ -1,46 +1,24 @@
-/**
- * Created by tmshv on 22/11/14.
- */
+import {MongoClient, ObjectId} from 'mongodb';
+import co from 'co';
 
-var mongo = require("promised-mongo");
-var ObjectId = mongo.ObjectId;
+export var db;
 
-var client = null;
+export function connect(uri){
+    return co(function*() {
+        db =  yield MongoClient.connect(uri);
+        return db;
+    })
+}
 
-module.exports = {
-    init: function (uri) {
-        //noinspection JSUnresolvedFunction
-        return new Promise(function (resolve) {
-            client = mongo(uri);
-            resolve();
-        });
-    },
+export function collection(name){
+    return db.collection(name);
+}
 
-    close: function () {
-        client.close();
-    },
+export const c = collection;
 
-    get db() {
-        return client;
-    },
-
-    c: function(name){
-        return client.collection(name);
-    },
-
-    id: function(i) {
-        if(typeof i === "string"){
-            return ObjectId(i);
-        }
-
-        else if(i instanceof ObjectId) {
-            return i;
-        }
-
-        else if(i instanceof Object) {
-            return "_id" in i ? ObjectId(i._id) : null;
-        }
-
-        return null;
-    }
-};
+export function id(i){
+    if(typeof i === 'string')return ObjectId(i);
+    else if(i instanceof ObjectId) return i;
+    else if(i instanceof Object) return '_id' in i ? ObjectId(i._id) : null;
+    return null;
+}

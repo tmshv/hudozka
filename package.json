@@ -33,9 +33,10 @@
     "koa-prerender": "^1.0.3",
     "koa-route": "^3.1.0",
     "koa-static": "^2.0.0",
+    "mongodb": "^2.1.11",
     "mz": "^2.3.1",
-    "promised-mongo": "git+https://git@github.com/tmshv/promised-mongo",
     "sitemap": "^1.5.0",
+    "socket.io": "^1.4.5",
     "thunkify": "^2.1.2"
   },
   "devDependencies": {

@@ -1,4 +1,5 @@
 import path from 'path';
+import {Server} from 'http';
 import Koa from 'koa';
 import serve from 'koa-static';
 import logger from 'koa-logger';
@@ -12,13 +13,13 @@ import bodyParser from 'koa-bodyparser';
 import config from './config';
 import {redirectionTable} from './config';
 import {routes, queryObject} from './routes';
-import api from './routes/api';
+import api from './api';
 import {redirect} from './routes/redirect';
 
 const dirPublic = path.join(__dirname, '../public');
 const dirTemplates = path.join(__dirname, 'templates');
 
-export function server(){
+export default function(){
     const $ = convert;
     
     const app = new Koa();
@@ -37,8 +38,8 @@ export function server(){
     app.use($(helmet()));
     app.use(queryObject());
     app.use(routes());
-    
-    return app;
+
+    return Server(app.callback());
 }
 
 function prerenderRmFragment(){

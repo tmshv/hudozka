@@ -27,14 +27,13 @@ function postText(post){
 export default function(app) {
     app.component('timeline', {
         template: template,
-        controller: function($timeout, usSpinnerService, api){
+        controller: function($timeout, usSpinnerService, api, io){
             let skip = 0;
             let limit = 10;
             this.feed = [];
 
             this.timelineUpdating = false;
             usSpinnerService.stop('timelineMore');
-            //usSpinnerService.spin("timelineMore");
 
             function toInstagram(post){
                 //var author_id = personByInstagram(team.team, post.data.author);
@@ -68,7 +67,6 @@ export default function(app) {
                             else return post;
                         });
 
-                        //skip++;
                         skip += limit;
                         this.feed = this.feed.concat(feed2);
                         this.showFooter = this.feed && this.feed.length;
@@ -77,18 +75,16 @@ export default function(app) {
 
             this.loadNext();
 
-            // io.on('post', params => {
-                //let posts = params instanceof Array ? params : [params];
-                //
-                //let feed2 = posts.map(post => {
-                //    if(post.type == 'instagram') return toInstagram(post);
-                //    else return post;
-                //});
+            io.on('feed', feed => {
+                // console.log(feed);
 
-                //this.$apply(() => {
-                //    this.feed = feed2.concat(this.feed);
-                //});
-            // });
+                feed = feed instanceof Array ? feed : [feed];
+                feed = feed.map(i => i.type === 'instagram' ? toInstagram(i) : i);
+
+                $timeout(()=>{
+                    this.feed = feed.concat(this.feed);
+                }, 0);
+            });
         }
     });
 };

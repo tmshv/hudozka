@@ -33,4 +33,4 @@ export default [
         "url": "/documents",
         "color": "yellow"
     }
-]
+];

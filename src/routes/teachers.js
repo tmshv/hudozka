@@ -26,7 +26,7 @@ function list() {
             ctx.type = 'application/json';
             let pattern = toArray(ctx.query.sort || '');
 
-            let data = await c('collective').find();
+            let data = await c('collective').find().toArray();
             if (!data) {
                 ctx.status = 404;
                 return;
