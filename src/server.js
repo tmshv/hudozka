@@ -11,7 +11,7 @@ import bodyParser from 'koa-bodyparser';
 import config from './config';
 import {redirectionTable} from './config';
 import {routes, queryObject} from './routes';
-import api from './routes/api';
+// import api from './routes/api';
 import {redirect} from './routes/redirect';
 
 const dirPublic = path.join(__dirname, '../public');
@@ -23,7 +23,7 @@ export function server(){
 
     app.use(bodyParser());
     app.use(logger());
-    api(app);
+    // api(app);
     app.use(conditional());
     app.use(etag());
     app.use(prerenderRmFragment());
