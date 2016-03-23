@@ -21,10 +21,6 @@ const config = {
         prerenderToken: '',
         protocol: 'https',
         host: 'art.shlisselburg.org'
-    },
-
-    instagram: {
-        secret: ''
     }
 };
 
@@ -51,3 +47,5 @@ export const protocol = 'https://';
 export const homeUrl = protocol + host;
 
 export const sitemapCacheTime = 600000;// 600 sec - cache purge period
+
+export const instagramToken = privateData['instagramToken'];
