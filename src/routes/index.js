@@ -1,8 +1,35 @@
-import path from 'path';
 import fs from 'mz/fs';
-import config from '../config';
+import route from 'koa-route';
 
 import {map, assign} from '../utils/common';
+import config from '../config';
+
+import sitemap from './sitemap';
+import schedule from './schedule';
+import news from './news';
+import gallery from './gallery';
+import error404 from './404';
+import documents from './documents';
+import teachers from './teachers';
+import events from './events';
+import articles from './articles';
+
+let main = () => route.get('/', index());
+
+export function routes(app){
+    app.use(main());
+
+    sitemap(app);
+    schedule(app);
+    news(app);
+    gallery(app);
+    documents(app);
+    events(app);
+    articles(app);
+    teachers(app);
+
+    app.use(error404());
+}
 
 export function queryObject() {
     let toTrue = map(true, i => i === 'true');
