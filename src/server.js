@@ -1,6 +1,5 @@
 import path from 'path';
 import koa from 'koa';
-import route from 'koa-route';
 import serve from 'koa-static';
 import logger from 'koa-logger';
 import conditional from 'koa-conditional-get';
@@ -11,53 +10,42 @@ import bodyParser from 'koa-bodyparser';
 
 import config from './config';
 import {redirectionTable} from './config';
-import {index, queryObject} from './routes';
+import {routes, queryObject} from './routes';
+import api from './routes/api';
 import {redirect} from './routes/redirect';
-
-import sitemap from './routes/sitemap';
-import schedule from './routes/schedule';
-import news from './routes/news';
-import gallery from './routes/gallery';
-import error404 from './routes/404';
-import documents from './routes/documents';
-import teachers from './routes/teachers';
-import events from './routes/events';
-import articles from './routes/articles';
 
 const dirPublic = path.join(__dirname, '../public');
 const dirTemplates = path.join(__dirname, 'templates');
 
-export const app = koa();
-app.proxy = true;
+export function server(){
+    const app = koa();
+    app.proxy = true;
 
-app.use(bodyParser());
-app.use(logger());
-app.use(conditional());
-app.use(etag());
+    app.use(bodyParser());
+    app.use(logger());
+    api(app);
+    app.use(conditional());
+    app.use(etag());
+    app.use(prerenderRmFragment());
+    app.use(prerender(config.prerender));
+    app.use(serve(dirPublic));
+    app.use(serve(dirTemplates));
+    app.use(redirect(redirectionTable));
+    app.use(helmet());
+    app.use(queryObject());
+    routes(app);
+    
+    return app;
+}
 
-app.use(function *(next) {
-    yield* next;
+function prerenderRmFragment(){
+    return function *(next) {
+        yield* next;
 
-    try {
-        let xp = this.response.header['x-prerender'] == 'true';
-        if (xp) this.body = this.body.replace('<meta name="fragment" content="!">', '');
-    } catch (e) {
+        try {
+            let xp = this.response.header['x-prerender'] == 'true';
+            if (xp) this.body = this.body.replace('<meta name="fragment" content="!">', '');
+        } catch (e) {
+        }
     }
-});
-app.use(prerender(config.prerender));
-app.use(serve(dirPublic));
-app.use(serve(dirTemplates));
-app.use(redirect(redirectionTable));
-app.use(helmet());
-app.use(queryObject());
-app.use(route.get('/', index()));
-
-sitemap(app);
-schedule(app);
-news(app);
-gallery(app);
-documents(app);
-events(app);
-articles(app);
-teachers(app);
-app.use(error404());
+}
