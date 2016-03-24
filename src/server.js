@@ -25,7 +25,11 @@ export default function(){
     const app = new Koa();
     app.proxy = true;
 
-    app.use(bodyParser());
+    app.use(bodyParser({
+        extendTypes: {
+            json: 'application/ejson'
+        }
+    }));
     app.use($(logger()));
     app.use(api());
     app.use($(conditional()));

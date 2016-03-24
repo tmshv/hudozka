@@ -21,6 +21,7 @@
     "babel-preset-es2015": "^6.5.0",
     "babel-preset-stage-0": "^6.5.0",
     "co": "^4.4.0",
+    "ejson": "^2.1.2",
     "instagram-node": "^0.5.1",
     "koa": "^2.0.0-alpha.3",
     "koa-bodyparser": "^3.0.0",
