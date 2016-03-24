@@ -47,7 +47,18 @@ export default class Subscription extends EndPoint {
     }
 
     removeAll(){
-        // ig.del_subscription({ all: true }, function(err, subscriptions, remaining, limit){});
+        const m = this.method('del_subscription');
+        
+        return new Promise((resolve, reject) => {
+            m({all: true}, (error, result, remaining, limit) => {
+                if (error) return reject(error);
+                resolve({
+                    result: result,
+                    remaining: remaining,
+                    limit: limit
+                });
+            });
+        });
     }
 
     remove(id){

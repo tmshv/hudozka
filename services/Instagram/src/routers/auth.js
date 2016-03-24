@@ -30,6 +30,7 @@ export function authCallback() {
                 var accessToken = client.access_token;
             }
 
+            if(user) ctx.cookies.set('jwt', user.jwtToken);
             ctx.status = user ? 200 : 401;
             ctx.session.user = user;
             ctx.session.accessToken = accessToken;

@@ -1,5 +1,5 @@
 export default class EndPoint{
-    constructor() {
-        
+    constructor(request) {
+        this.request = request;
     }
 }

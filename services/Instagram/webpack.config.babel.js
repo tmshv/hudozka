@@ -5,6 +5,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 module.exports = {
     entry: './src/app.js',
+    watch: true,
     //resolve: {
     //    modulesDirectories: [
     //        './node_modules'

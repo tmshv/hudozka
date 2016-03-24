@@ -1,3 +1,5 @@
+import {postType} from '../config';
+
 let date = i => new Date(parseInt(i) * 1000);
 
 /**
@@ -61,7 +63,7 @@ let date = i => new Date(parseInt(i) * 1000);
  */
 export const postFromInstagramMedia = i => ({
     data: i,
-    type: 'instagram',
+    type: postType,
     date: date(i['created_time']),
     id: i.id
 });
