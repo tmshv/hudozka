@@ -4,9 +4,9 @@ import {accepts} from './';
 import {c} from '../core/db';
 import {sortBy} from '../utils/sort';
 
+const timestamp = i => i.getTime();
 const sortNewsByDate = sortBy(
-    i => (new Date(i.date))
-        .getTime()
+    i => timestamp(new Date(i.date))
 );
 
 const redirect = async ctx => ctx.redirect('/');

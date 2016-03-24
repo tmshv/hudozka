@@ -6,21 +6,26 @@ export default class Feed extends Data {
     }
 
     add(post) {
-        let add = async(post) => {
+        let savePost = async(post) => {
             const id = post.id;
             const type = post.type;
             const query = {id: id, type: type};
-
+            
             await this.store.update(query, post, {upsert: true});
-
             let document = await this.store.find(query).limit(1).toArray();
-            document = document[0];
-            // post._id = `schachlo-${Date.now()}`;
-            // let document = post;
-
+            return document[0];
+        };
+        
+        let add = async(post) => {
+            let document = post;
+            if(this.save){
+                document = await savePost(post);
+            }
+            
             this.update(document);
             return document;
         };
+        
         return add(post);
     }
 
