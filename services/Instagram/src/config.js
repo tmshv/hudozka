@@ -3,7 +3,7 @@ import {readFileSync} from 'fs';
 const env = process.env['NODE_ENV'] || 'production';
 const isProduction = env === 'production';
 
-let privatePath = '../.private';
+let privatePath = process.env['PRIVATE'] || '../.private';
 let privateData = JSON.parse(
     readFileSync(privatePath, 'utf-8')
 );
