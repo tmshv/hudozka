@@ -8,6 +8,7 @@ import {auth, authCallback, authOut} from './auth';
 import {list, addTag, addUser} from './subscription';
 import {ensureAuth} from './auth';
 import {callbackGet, callbackPost} from './callback';
+import {shortname} from './media';
 
 export function statelessRouters() {
     return compose([
@@ -25,7 +26,8 @@ export function routers() {
         user(),
         list(),
         addTag(),
-        addUser()
+        addUser(),
+        shortname()
     ]);
 }
 
