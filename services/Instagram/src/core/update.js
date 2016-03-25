@@ -10,16 +10,30 @@ var instagramClient;
 
 export default async function update(id, data) {
     const updateTimestamp = data.time;
+    let items = await fetch(updateTimestamp);
+    return await Promise.all(
+        items.map(post => push(post))
+    );
+}
+
+export async function fetch(updateTimestamp) {
     const instagram = await client();
     try {
         let data = await instagram.user.mediaRecent(null, 1, updateTimestamp);
-        let items = data.medias.map(postFromInstagramMedia);
-
-        return await Promise.all(
-            items.map(post => service.feed.add(post))
-        );
+        return data.medias.map(postFromInstagramMedia);
     } catch (e) {
         console.log(e);
+        return [];
+    }
+}
+
+export async function push(data) {
+    try {
+        return await service.feed.add(data);
+    } catch (e) {
+        console.log('PUSHING ERROR');
+        console.log(e);
+        return null;
     }
 }
 
