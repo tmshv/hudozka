@@ -1,21 +1,27 @@
-require('babel-core/register');
-require('babel-polyfill');
+import 'babel-polyfill';
 
-var config = require('./config').default;
-var db = require('./core/db');
+import config from './config';
+import {connect} from './core/db';
 
-db.connect(config.db.uri)
-    .then(function () {
-        var server = require('./server').default;
-        var io = require('./io').default;
+function main() {
+    async function loop(){
+        await connect(config.db.uri);
 
-        var app = server();
-        io(app);
-        app.listen(config.port);
-    })
-    .catch(function(e){
-        console.error(e.stack);
-    })
-    .then(function(){
+        try{
+            var server = require('./server').default;
+            var io = require('./io').default;
+
+            var app = server();
+            io(app);
+            app.listen(config.port);
+        }catch(e){
+            console.error(e.stack);
+        }
+
         console.log(`Start listening ${config.port}`);
-    });
+    }
+
+    loop();
+}
+
+main();

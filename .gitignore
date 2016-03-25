@@ -9,6 +9,7 @@ private*.json
 /bower_components
 /public
 /build
+/out
 **/__pycache__
 **/*.pyc
 /coverage
