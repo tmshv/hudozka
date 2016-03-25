@@ -36,8 +36,8 @@ export default function(){
     app.use($(etag()));
     app.use(prerenderRmFragment());
     app.use($(prerender(config.prerender)));
-    app.use($(serve(dirPublic)));
-    app.use($(serve(dirTemplates)));
+    app.use(serve(dirPublic));
+    app.use(serve(dirTemplates));
     app.use($(redirect(redirectionTable)));
     app.use($(helmet()));
     app.use(queryObject());

@@ -35,7 +35,7 @@
     "koa-logger": "^2.0.0",
     "koa-prerender": "^1.0.3",
     "koa-route": "^3.1.0",
-    "koa-static": "^2.0.0",
+    "koa-static": "^3.0.0",
     "mongodb": "^2.1.11",
     "mz": "^2.3.1",
     "request-promise": "^2.0.1",
