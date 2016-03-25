@@ -2,6 +2,8 @@
 
 dir_path="$1"
 build_file="$2"
+app="hudozka"
+script="forever.json"
 
 cd ${dir_path}
 
@@ -12,9 +14,9 @@ gunzip -c ${build_file} | tar xopf -
 npm install --production --loglevel error
 
 #starting www
-if forever restart src/bin/www.js; then
-    echo www.js restarted
+if forever restart ${app}; then
+    echo App restarted
 else
-    forever start src/bin/www.js
-    echo www.js started
+    forever start ${script}
+    echo App started
 fi
