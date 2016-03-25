@@ -34,8 +34,6 @@ export async function updateSubscription(callbackUrl) {
     let data = await instagram.subscriptions.list();
     let activeSubscriptions = data.result;
 
-    console.log(data);
-
     let objectSubscriptions = activeSubscriptions.filter(i => i.object === 'user' && !i.object_id && i.callback_url === callbackUrl)
     
     if (!objectSubscriptions.length) {
@@ -65,10 +63,6 @@ export async function updateSubscription(callbackUrl) {
         //     limit: 5000
         // }
         await instagram.subscriptions.subscribeUser(callbackUrl);
-        // let data = await instagram.subscriptions.subscribeTag('love', callbackUrl);
-        console.log(data);
-
-        return data;
     }
 }
 

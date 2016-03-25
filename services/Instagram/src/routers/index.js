@@ -30,13 +30,18 @@ export function routers() {
 }
 
 export const url = path => `${root}${path}`;
+// export const url = path => path;
 export const get = (path, fn) => route['get'](url(path), fn);
 export const post = (path, fn) => route['post'](url(path), fn);
 
 export function index(fn){
-    return async function (ctx){
-        ctx.type = 'text/html';
-        ctx.body = await fs.createReadStream(indexPath);
+    return async (ctx) => {
+        try{
+            ctx.type = 'text/html';
+            ctx.body = await fs.createReadStream(indexPath);
+        }catch(e){
+            console.log(e);
+        }
     }
 }
 

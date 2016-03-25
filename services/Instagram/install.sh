@@ -2,6 +2,7 @@
 
 dir_path="$1"
 build_file="$2"
+script="out/index.js"
 
 cd ${dir_path}
 gunzip -c ${build_file} | tar xopf -

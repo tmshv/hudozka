@@ -1,11 +1,14 @@
 import webpack from'webpack';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
+import HTML from 'html-webpack-plugin';
+
+const env = process.env['NODE_ENV'] || 'production';
+const isProduction = env === 'production';
 
 // import autoprefixer from 'autoprefixer';
 
 module.exports = {
     entry: './src/app.js',
-    watch: true,
+    watch: !isProduction,
     //resolve: {
     //    modulesDirectories: [
     //        './node_modules'
@@ -25,7 +28,7 @@ module.exports = {
     // },
     plugins: [
         // new webpack.HotModuleReplacementPlugin(),
-        new HtmlWebpackPlugin({
+        new HTML({
             filename: 'main.html',
             title: 'Instagram',
             template: 'src/templates/index.html',

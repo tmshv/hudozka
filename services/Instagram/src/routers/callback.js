@@ -3,7 +3,7 @@ import update from '../core/update';
 
 export function callbackGet() {
     return get('/callback/:id', async (ctx, id) => {
-        console.log('challenge', id);
+        // console.log('challenge', id);
 
         if(ctx.query['hub.mode'] == 'subscribe'){
             ctx.body = ctx.query['hub.challenge'];
@@ -16,7 +16,7 @@ export function callbackGet() {
 export function callbackPost() {
     return post('/callback/:id', async (ctx, id) => {
         let body = ctx.request.body;
-        console.log(id, body);
+        // console.log(id, body);
         update(id, body);
 
         ctx.status = 200;

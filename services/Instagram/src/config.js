@@ -1,16 +1,26 @@
+import path from 'path';
 import {readFileSync} from 'fs';
 
 const env = process.env['NODE_ENV'] || 'production';
 const isProduction = env === 'production';
 
-let privatePath = process.env['PRIVATE'] || '../.private';
+let privatePath = path.join(
+    __dirname,
+    process.env['PRIVATE'] || '../.private'
+);
 let privateData = JSON.parse(
     readFileSync(privatePath, 'utf-8')
 );
 
 export const port = isProduction ? 18000 : 3000;
-export const pathPrefix = isProduction ? '/service/instagram' : '';
-export const indexPath = '../build/main.html';
+// export const pathPrefix = isProduction ? '/service/instagram' : '';
+export const pathPrefix = '';
+export const indexPath = path.join(
+    __dirname,
+    './templates/index.html'
+    // '../build/main.html'
+);
+// export const indexPath = '../build/main.html';
 
 export const clientId = privateData['clientId'];
 export const clientSecret = privateData['clientSecret'];
@@ -43,8 +53,9 @@ export const database = {
     host: 'localhost',
     port: 27017,
     db: 'hudozka',
-    username: '',
-    password: ''
+    username: privateData['databaseUser'],
+    password: privateData['databasePassword']
 };
 
-export const databaseUri = `mongodb://${database.host}:${database.port}/${database.db}`;
+const databaseAuth = database.username && database.password ? `${database.username}:${database.password}@` : '';
+export const databaseUri = `mongodb://${databaseAuth}${database.host}:${database.port}/${database.db}`;
