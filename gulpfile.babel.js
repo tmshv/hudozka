@@ -11,7 +11,8 @@ import cssnano from 'cssnano';
 import ngAnnotate from 'gulp-ng-annotate';
 import $if from 'gulp-if';
 
-let isProduction = process.env['NODE_ENV'] === 'production';
+let env = process.env['NODE_ENV'] || 'production';
+let isProduction = env === 'production';
 
 gulp.task('compile 3rdparty', () => {
     const files = [
@@ -70,15 +71,21 @@ gulp.task('copy robots.txt', () => {
         .pipe(gulp.dest('./public'));
 });
 
+gulp.task('copy templates', () => {
+    return gulp.src('./src/templates/**')
+        .pipe(gulp.dest('./out/templates'));
+});
+
 gulp.task('compile', () => {
     const doWatch = !isProduction;
-    
+    const doSourceMaps = false;
+
     return gulp.src([
             './src/client/app.js'
         ])
         .pipe(named())
         .pipe(webpack({
-            devtool: isProduction ? 'inline-source-map' : null,
+            devtool: doSourceMaps ? 'inline-source-map' : null,
             watch: doWatch,
             output: {
                 filename: '[name].js'
@@ -114,6 +121,6 @@ gulp.task('production', () => {
 });
 
 gulp.task('default', ['style', 'compile']);
-gulp.task('copy', ['copy fonts', 'copy graphics', 'copy 3rdparty', 'copy robots.txt']);
+gulp.task('copy', ['copy templates', 'copy fonts', 'copy graphics', 'copy 3rdparty', 'copy robots.txt']);
 gulp.task('deploy', ['default', 'copy', 'compile 3rdparty', 'imagemin']);
 gulp.task('compile production', ['production', 'compile']);
