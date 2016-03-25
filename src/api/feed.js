@@ -19,8 +19,10 @@ export function add() {
             
             try {
                 if(!doSave) data.feed.disableSaving();
-                ctx.body = await data.feed.add(post);
+                let result = await data.feed.add(post);
                 if(!doSave) data.feed.enableSaving();
+
+                ctx.body = result;
             } catch (e) {
                 ctx.status = 400;
                 ctx.body = e;
