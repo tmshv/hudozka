@@ -12,7 +12,6 @@ gunzip -c ${build_file} | tar xopf -
 
 npm install --production --loglevel error
 
-export NODE_ENV=production
 export PORT=${port}
 
 #starting www
