@@ -30,7 +30,7 @@ export default function(){
             json: 'application/ejson'
         }
     }));
-    app.use($(logger()));
+    app.use(logger());
     app.use(api());
     app.use($(conditional()));
     app.use($(etag()));
