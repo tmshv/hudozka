@@ -1,7 +1,7 @@
 import fs from 'mz/fs';
 import compose from 'koa-compose';
 import route from 'koa-route';
-import {indexPath, pathPrefix as  root} from '../config';
+import {indexPath, pathPrefix} from '../config';
 
 import main from './main';
 import {auth, authCallback, authOut} from './auth';
@@ -18,7 +18,7 @@ export function statelessRouters() {
 
 export function routers() {
     return compose([
-        main(),
+        // main(),
         auth(),
         authCallback(),
         authOut(),
@@ -29,10 +29,10 @@ export function routers() {
     ]);
 }
 
-export const url = path => `${root}${path}`;
+export const url = (path, root=pathPrefix) => `${root}${path}`;
 // export const url = path => path;
-export const get = (path, fn) => route['get'](url(path), fn);
-export const post = (path, fn) => route['post'](url(path), fn);
+export const get = (path, fn) => route['get'](url(path, ''), fn);
+export const post = (path, fn) => route['post'](url(path, ''), fn);
 
 export function index(fn){
     return async (ctx) => {

@@ -1,6 +1,7 @@
 import Koa from 'koa';
 import mount from 'koa-mount';
 import serve from 'koa-static';
+import logger from 'koa-logger';
 import convert from 'koa-convert';
 import sessionStore from 'koa-session-store';
 import store from 'koa-session-mongo';
@@ -9,14 +10,15 @@ import bodyParser from 'koa-bodyparser';
 import {db} from './core/db';
 import instagram from './middlewares/instagram';
 import {routers, statelessRouters} from './routers';
-import {pathPrefix, sessionSecret, sessionExpirationTime} from './config';
+import {pathPrefix, staticPath, sessionSecret, sessionExpirationTime} from './config';
 
 export default function(){
     const app = new Koa();
     app.proxy = true;
     app.keys = [sessionSecret];
 
-    app.use(convert(serve('../build')));
+    app.use(logger());
+    app.use(serve(staticPath));
     app.use(bodyParser());
     app.use(statelessRouters());
     app.use(session('sid', sessionExpirationTime));

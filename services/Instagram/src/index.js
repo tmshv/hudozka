@@ -25,7 +25,6 @@ function main(){
         }
 
         await clearSubscriptions();
-
         await updateSubscription(updateSubscriptionCallbackUrl);
         repeat(updateSubscriptionDelay)(() => {
             updateSubscription(updateSubscriptionCallbackUrl);

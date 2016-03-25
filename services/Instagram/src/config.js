@@ -12,13 +12,19 @@ let privateData = JSON.parse(
     readFileSync(privatePath, 'utf-8')
 );
 
+export const staticPath = path.join(
+    __dirname,
+    '../build'
+);
+
 export const port = isProduction ? 18000 : 3000;
-// export const pathPrefix = isProduction ? '/service/instagram' : '';
-export const pathPrefix = '';
+export const pathPrefix = isProduction ? '/service/instagram' : '';
+export const baseHref = isProduction ? '/service/instagram/' : '/';
+// export const pathPrefix = '';
 export const indexPath = path.join(
     __dirname,
-    './templates/index.html'
-    // '../build/main.html'
+    // './templates/index.html'
+    '../build/main.html'
 );
 // export const indexPath = '../build/main.html';
 

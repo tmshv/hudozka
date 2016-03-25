@@ -34,6 +34,8 @@ export async function updateSubscription(callbackUrl) {
     let data = await instagram.subscriptions.list();
     let activeSubscriptions = data.result;
 
+    console.log(`Active subscriptions ${activeSubscriptions}`);
+
     let objectSubscriptions = activeSubscriptions.filter(i => i.object === 'user' && !i.object_id && i.callback_url === callbackUrl)
     
     if (!objectSubscriptions.length) {

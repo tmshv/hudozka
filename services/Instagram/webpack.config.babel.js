@@ -6,6 +6,8 @@ const isProduction = env === 'production';
 
 // import autoprefixer from 'autoprefixer';
 
+import {baseHref} from './src/config';
+
 module.exports = {
     entry: './src/app.js',
     watch: !isProduction,
@@ -29,10 +31,10 @@ module.exports = {
     plugins: [
         // new webpack.HotModuleReplacementPlugin(),
         new HTML({
-            filename: 'main.html',
-            title: 'Instagram',
-            template: 'src/templates/index.html',
-            inject: 'body'
+            filename: 'index.html',
+            template: 'src/templates/index.ejs',
+            inject: 'body',
+            baseHref: baseHref
         })
     ],
     module: {

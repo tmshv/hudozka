@@ -9,9 +9,9 @@ gunzip -c ${build_file} | tar xopf -
 npm install --production --loglevel error
 
 #starting www
-if forever restart src/index.js; then
-    echo Instagram Microservice restarted
-else
-    forever start src/index.js
-    echo Instagram Microservice started
-fi
+#if forever restart ${script}; then
+#    echo Instagram Microservice restarted
+#else
+#    forever start ${script}
+#    echo Instagram Microservice started
+#fi
