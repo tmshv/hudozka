@@ -5,7 +5,6 @@ echo "Deploying art.shburg.org"
 NODE_ENV=production gulp deploy
 
 server="art.shburg.org"
-app_port=1800
 tarfile="build.tar.gz"
 tarpath=$TMPDIR${tarfile}
 destpath="~/www/art.shburg.org"
@@ -29,7 +28,7 @@ scp ${tarpath} hoster@${server}:${destpath}
 echo "Build file successfully uploaded on server"
 
 echo "Installing..."
-ssh hoster@${server} "bash -s" -- < ./install.sh ${destpath} ${tarfile} ${app_port}
+ssh hoster@${server} "bash -s" -- < ./install.sh ${destpath} ${tarfile}
 
 rm ${tarpath}
 echo "Done"

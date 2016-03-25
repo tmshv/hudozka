@@ -2,7 +2,6 @@
 
 dir_path="$1"
 build_file="$2"
-port="$3"
 
 cd ${dir_path}
 
@@ -11,8 +10,6 @@ gunzip -c ${build_file} | tar xopf -
 #rm build.tar
 
 npm install --production --loglevel error
-
-export PORT=${port}
 
 #starting www
 if forever restart src/bin/www.js; then

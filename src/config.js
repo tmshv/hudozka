@@ -5,7 +5,7 @@ const privateFile = process.env['PRIVATE'] || 'private.json';
 const privateData = JSON.parse(fs.readFileSync(privateFile, 'utf-8'));
 
 const index_file = process.env['INDEX'] || 'templates/main.html';
-const port = process.env['PORT'] || 3000;
+const port = process.env['PORT'] || 1800;
 
 const config = {
     defaultIndex: path.join(__dirname, index_file),
