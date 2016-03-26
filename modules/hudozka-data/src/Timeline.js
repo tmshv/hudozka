@@ -1,10 +1,6 @@
 import Data from './Data';
 
-export default class Feed extends Data {
-    constructor() {
-        super('timeline');
-    }
-
+export default class Timeline extends Data {
     add(post) {
         let savePost = async(post) => {
             const id = post.id;
@@ -27,13 +23,5 @@ export default class Feed extends Data {
         };
         
         return add(post);
-    }
-
-    read(id) {
-
-    }
-
-    portion() {
-
     }
 }

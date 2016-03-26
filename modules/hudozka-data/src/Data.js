@@ -1,23 +1,21 @@
 import {EventEmitter} from 'events';
-import {collection} from '../core/db';
 
 export default class Data extends EventEmitter {
-    constructor(storeName) {
+    constructor(store) {
         super();
         this.save = true;
-        this.name = storeName;
-        this.store = collection(storeName);
+        this.store = store;
     }
-    
-    update(document){
+
+    update(document) {
         this.emit('update', document);
     }
-    
-    disableSaving(){
+
+    disableSaving() {
         this.save = false;
     }
 
-    enableSaving(){
+    enableSaving() {
         this.save = true;
     }
 }

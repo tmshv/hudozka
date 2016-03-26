@@ -1,7 +1,6 @@
 import socketIO from 'socket.io';
-import data from './data';
 
-export default function(server) {
+export default function(server, store) {
     let io = socketIO(server);
     io.on('connection', socket => {
         // console.log('a user connected');
@@ -18,11 +17,10 @@ export default function(server) {
     });
 
     let transfer = name => i => io.emit(name, i);
-    let feed = transfer('feed');
+    let timeline = transfer('timeline');
 
-    data.feed.on('update', feed);
-
-    data.feed.on('update', i => {
-        console.log(`io update ${JSON.stringify(i, null, '\t')}`);
-    });
+    store.timeline.on('update', timeline);
+    // store.timeline.on('update', i => {
+    //     console.log(`io update ${JSON.stringify(i, null, '\t')}`);
+    // });
 }

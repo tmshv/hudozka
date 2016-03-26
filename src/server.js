@@ -8,6 +8,7 @@ import conditional from 'koa-conditional-get';
 import etag from 'koa-etag';
 import prerender from 'koa-prerender';
 import helmet from 'koa-helmet';
+import mount from 'koa-mount';
 import bodyParser from 'koa-bodyparser';
 
 import config from './config';
@@ -15,11 +16,12 @@ import {redirectionTable} from './config';
 import {routes, queryObject} from './routes';
 import api from './api';
 import {redirect} from './routes/redirect';
+import {checkAuth} from './core/service';
 
 const dirPublic = path.join(__dirname, '../public');
 const dirTemplates = path.join(__dirname, 'templates');
 
-export default function(){
+export default function(store){
     const $ = convert;
     
     const app = new Koa();
@@ -31,7 +33,7 @@ export default function(){
         }
     }));
     app.use(logger());
-    app.use(api());
+    app.use(apis(store));
     app.use($(conditional()));
     app.use($(etag()));
     app.use(prerenderRmFragment());
@@ -44,6 +46,10 @@ export default function(){
     app.use(routes());
 
     return Server(app.callback());
+}
+
+function apis(store){
+    return mount('/api/v1', api(checkAuth, store));
 }
 
 function prerenderRmFragment(){
