@@ -1,14 +1,13 @@
 import {put} from 'koa-route';
 import compose from 'koa-compose';
-import {ensureServiceAuth} from '../middlewares/ensureServiceAuth';
-import {ejson} from '../middlewares/ejson';
+import hm from 'hudozka-middlewares';
 import query from 'koa-query';
 import {toBoolean} from 'koa-query';
 
-export function add(auth, store) {
+export function add(auth, data) {
     return put('/timeline', compose([
-        ensureServiceAuth(),
-        ejson(),
+        hm.ensureServiceAuth(auth),
+        hm.ejson(),
         query({
             save: toBoolean()
         }),
@@ -17,10 +16,10 @@ export function add(auth, store) {
             let post = ctx.request.body;
             
             try {
-                if(!doSave) store.timeline.disableSaving();
-                let result = await store.timeline.add(post);
-                if(!doSave) store.timeline.enableSaving();
-                
+                if(!doSave) data.timeline.disableSaving();
+                let result = await data.timeline.add(post);
+                if(!doSave) data.timeline.enableSaving();
+
                 ctx.body = result;
             } catch (e) {
                 ctx.status = 400;

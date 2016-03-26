@@ -11,10 +11,10 @@ import helmet from 'koa-helmet';
 import mount from 'koa-mount';
 import bodyParser from 'koa-bodyparser';
 
+import api_v1 from 'hudozka-api-v1';
 import config from './config';
 import {redirectionTable} from './config';
 import {routes, queryObject} from './routes';
-import api from './api';
 import {redirect} from './routes/redirect';
 import {checkAuth} from './core/service';
 
@@ -49,7 +49,7 @@ export default function(store){
 }
 
 function apis(store){
-    return mount('/api/v1', api(checkAuth, store));
+    return mount('/api/v1', api_v1(checkAuth, store));
 }
 
 function prerenderRmFragment(){
