@@ -28,13 +28,18 @@ export function fromInstagram1(post) {
 }
 
 export function fromInstagram2(post) {
+    const caption = safe(post => post.data.caption.text, '');
+    const username = safe(post => post.data.user['username'], '');
+    const userpic = safe(post => post.data.user['profile_picture'], '');
+    const image = safe(post => post.data.images['standard_resolution'].url, '');
+
     return new TimelinePostInstagram(
         post.date,
-        post.data.images.standard_resolution.url,
+        image(post),
         post.data.link,
-        post.data.user.username,
-        post.data.user.profile_picture,
-        post.data.caption.text
+        username(post),
+        userpic(post),
+        caption(post)
     );
 }
 
@@ -46,7 +51,23 @@ export const types = {
 export function createInstance(post) {
     if(post.type in types) {
         let fn = types[post.type];
-        return fn(post);
+        
+        try{
+            return fn(post);           
+        }catch(e){
+            return null;
+        }
     }
     return null;
+}
+
+function safe(fn, defaultValue=null){
+    return function(){
+        try{
+            let i = fn.apply(undefined, arguments);
+            return i ? i : defaultValue;
+        }catch(e){
+            return defaultValue
+        }
+    }
 }

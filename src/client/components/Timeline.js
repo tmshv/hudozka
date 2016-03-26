@@ -1,6 +1,6 @@
 import template from '../../templates/components/timeline.html';
 
-import {createInstance} from '../../models/TimelinePostInstagram';
+import {createInstance as createInstagram} from '../../models/TimelinePostInstagram';
 
 // function personByInstagram(list, instagram){
 //     list = list.filter(function (member) {
@@ -43,11 +43,18 @@ import {createInstance} from '../../models/TimelinePostInstagram';
 //     };
 // }
 
-const createPost = post => [createInstance]
-    .reduce((post, map) => {
-        let result = map(post);
-        return result ? result : post
-    }, post);
+const createPost = post => post.type === 'post' ? post : null;
+const createPosts = items => items
+    .map(createRecord)
+    .filter(i => i);
+
+function createRecord(post){
+    for (let fn of [createInstagram, createPost]){
+        let result = fn(post);
+        if(result) return result;
+    }
+    return null;
+}
 
 export default function (app) {
     app.component('timeline', {
@@ -74,7 +81,7 @@ export default function (app) {
                         //     if (post.type == 'instagram') return toInstagram(post);
                         //     else return post;
                         // });
-                        feed = feed.map(createPost);
+                        feed = createPosts(feed);
 
                         skip += limit;
                         this.feed = this.feed.concat(feed);
@@ -86,9 +93,7 @@ export default function (app) {
 
             io.on('feed', feed => {
                 console.log(feed);
-
-                feed = feed instanceof Array ? feed : [feed];
-                feed = feed.map(createPost);
+                feed = createPosts(feed instanceof Array ? feed : [feed]);
 
                 $timeout(()=> {
                     this.feed = feed.concat(this.feed);
