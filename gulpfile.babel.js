@@ -16,14 +16,14 @@ let isProduction = env === 'production';
 
 gulp.task('compile 3rdparty', () => {
     const files = [
-        './bower_components/jquery/dist/jquery.min.js',
-        './bower_components/angular/angular.min.js',
-        './bower_components/angular-route/angular-route.min.js',
-        './bower_components/angulartics/dist/angulartics.min.js',
-        './bower_components/angulartics/dist/angulartics-ga.min.js',
-        './bower_components/spin.js/spin.js',
-        './bower_components/angular-spinner/angular-spinner.min.js',
-        './bower_components/socket.io-client/socket.io.js',
+        './node_modules/jquery/dist/jquery.min.js',
+        './node_modules/angular/angular.min.js',
+        './node_modules/angular-route/angular-route.min.js',
+        './node_modules/angulartics/dist/angulartics.min.js',
+        './node_modules/angulartics-google-analytics/dist/angulartics-ga.min.js',
+        './node_modules/spin.js/spin.js',
+        './node_modules/angular-spinner/angular-spinner.min.js',
+        './node_modules/socket.io-client/socket.io.js',
         
         './node_modules/babel-polyfill/dist/polyfill.min.js'
     ];
