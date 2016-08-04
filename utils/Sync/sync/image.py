@@ -1,4 +1,5 @@
 from db import db
+from settings import image_name_format, image_base_url
 from utils.fn import lmap
 
 
@@ -58,3 +59,8 @@ def sync_image(record):
         pass
 
     return None
+
+
+def image_create_url(file):
+    url = image_base_url + image_name_format
+    return url.format(file)

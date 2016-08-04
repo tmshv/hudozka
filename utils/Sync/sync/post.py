@@ -218,7 +218,7 @@ def get_file_documents(sync, file_time_formats):
     return documents
 
 
-def main(dir_documents, sync, file_time_formats):
+def main(dir_documents, sync, file_time_formats, update_documents=True, delete_documents=True):
     # INIT
     os.chdir(dir_documents)
 
@@ -249,30 +249,34 @@ def main(dir_documents, sync, file_time_formats):
     )
 
     # SYNC EVENT_OBJECT WITH DB
-    documents = lmap(
-        sync.update,
-        documents
-    )
-
-    remove_query = sync.create_remove_query({'id': {'$nin': scope_documents_ids}})
-    documents_to_remove = sync.query(remove_query)
-    documents_to_remove = lmap(
-        sync.delete,
-        map(
-            lambda i: {'_id': i['_id']},
-            documents_to_remove
+    if update_documents:
+        documents = lmap(
+            sync.update,
+            documents
         )
-    )
+
+    if delete_documents:
+        remove_query = sync.create_remove_query({'id': {'$nin': scope_documents_ids}})
+        documents_to_delete = sync.query(remove_query)
+        documents_to_delete = lmap(
+            sync.delete,
+            map(
+                lambda i: {'_id': i['_id']},
+                documents_to_delete
+            )
+        )
+    else:
+        documents_to_delete = []
 
     # SCOPE
     print('SCOPE:')
     lprint(scope_documents_ids)
 
     # DELETE
-    print('DELETE DOCUMENTS:')
+    print('DELETE DOCUMENTS: %s' % ('NO' if not delete_documents else str(len(documents_to_delete))))
     lprint_json(lmap(
         lambda i: i['id'],
-        documents_to_remove
+        documents_to_delete
     ))
 
     # DELETE
@@ -287,10 +291,8 @@ def main(dir_documents, sync, file_time_formats):
 
 if __name__ == '__main__':
     image_url_base = settings.image_base_url + 'post-{id}-{img}-{size}{ext}'
-    # dir_docs = '/Users/tmshv/Dropbox/Dev/Hud school/Events'
-    dir_docs = '/Volumes/webdav.yandex.ru/Hudozka/Site/Events'
     main(
-        dir_docs,
+        settings.dir_events,
         SyncPost(
             'events',
             None,
@@ -302,10 +304,8 @@ if __name__ == '__main__':
     )
 
     image_url_base = settings.image_base_url + 'post-{id}-{img}-{size}{ext}'
-    # dir_docs = '/Users/tmshv/Dropbox/Dev/Hud school/News'
-    dir_docs = '/Volumes/webdav.yandex.ru/Hudozka/Site/News'
     main(
-        dir_docs,
+        settings.dir_news,
         SyncPost(
             'timeline',
             'post',

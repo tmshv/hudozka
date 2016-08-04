@@ -15,13 +15,13 @@ from utils.text.transform import url_encode_text, url_encode_file
 
 
 class SyncDocument(Sync):
-    def __init__(self, collection_name, sizes):
+    def __init__(self, collection_name, sizes, dir_static_previews, url_base_preview, url_base_document):
         super().__init__()
         self.collection = db()[collection_name]
         self.sizes = sizes
-        self.dir_static_previews = '/Users/tmshv/Desktop/Hudozka Static/images'
-        self.url_base_preview = 'https://static.shburg.org/art/images/{id}-{size}{ext}'
-        self.url_base_document = 'https://static.shburg.org/art/uploads/{file}'
+        self.dir_static_previews = dir_static_previews
+        self.url_base_preview = url_base_preview
+        self.url_base_document = url_base_document
 
     def create(self, document):
         file = document['file']
@@ -115,10 +115,9 @@ def unwrap_manifest(param):
     return param
 
 
-def documents_from_yaml():
+def documents_from_yaml(dirpath):
     # GET DOCUMENT YAML_MANIFEST FILES
-
-    documents = glob(dir_documents + '/*.yaml')
+    documents = glob(dirpath + '/*.yaml')
 
     # READ YAML_MANIFEST FILES
     documents = lmap(
@@ -183,7 +182,17 @@ def until_none(ls):
     return better
 
 
-def main(dir_documents, dir_static_uploads, sync):
+def main(dir_documents, dir_static_uploads, sync, update_documents=True, delete_documents=True):
+    """
+
+    :param dir_documents:
+    :param dir_static_uploads:
+    :param sync:
+    :param update_documents:
+    :param delete_documents:
+    :return:
+    """
+
     os.chdir(dir_documents)
 
     # documents = documents_from_yaml()
@@ -196,9 +205,6 @@ def main(dir_documents, dir_static_uploads, sync):
             'title': until_none([i['title'], get_pdf_title(i['file'])])
         }
     )
-
-    # lprint_json(documents)
-    # return
 
     # CREATE DOCUMENT IDENTITY
     documents = lmap(sync.create_id, documents)
@@ -241,32 +247,36 @@ def main(dir_documents, dir_static_uploads, sync):
         documents
     )
 
-    # REPLACE PREVIEW_OBJECT WITH IT _ID IN MONGODB
-    documents = lmap(
-        key_mapper('preview', lambda i: synced_image_id(i)),
-        documents
-    )
-
-    # SYNC DOCUMENT_OBJECT WITH DB
-    documents = lmap(
-        sync.update,
-        documents
-    )
-
-    documents_to_remove = sync.query({'id': {'$nin': scope_documents_ids}})
-    documents_to_remove = lmap(
-        sync.delete,
-        map(
-            lambda i: {'_id': i['_id']},
-            documents_to_remove
+    if update_documents:
+        # REPLACE PREVIEW_OBJECT WITH IT _ID IN MONGODB
+        documents = lmap(
+            key_mapper('preview', lambda i: synced_image_id(i)),
+            documents
         )
-    )
+
+        # SYNC DOCUMENT_OBJECT WITH DB
+        documents = lmap(
+            sync.update,
+            documents
+        )
+
+    if delete_documents:
+        documents_to_delete = sync.query({'id': {'$nin': scope_documents_ids}})
+        documents_to_delete = lmap(
+            sync.delete,
+            map(
+                lambda i: {'_id': i['_id']},
+                documents_to_delete
+            )
+        )
+    else:
+        documents_to_delete = []
 
     print('SCOPE:', len(scope_documents_ids))
     lprint(scope_documents_ids)
 
-    print('DELETE DOCUMENTS:', len(documents_to_remove))
-    lprint_json(documents_to_remove)
+    print('DELETE DOCUMENTS: %s' % ('NO' if not delete_documents else str(len(documents_to_delete))))
+    lprint_json(documents_to_delete)
 
     print('UPDATE DOCUMENTS:', len(documents))
     lprint_json(documents)
@@ -275,16 +285,18 @@ def main(dir_documents, dir_static_uploads, sync):
 
 
 if __name__ == '__main__':
-    dir_documents = '/Users/tmshv/Dropbox/Dev/Hud school/Documents'
-    dir_static_uploads = '/Users/tmshv/Desktop/Hudozka Static/uploads'
-
     main(
-        dir_documents,
-        dir_static_uploads,
+        settings.dir_documents,
+        settings.dir_static_uploads,
         SyncDocument(
             'documents',
-            sizes=settings.image_sizes
-        )
+            sizes=settings.image_sizes,
+            dir_static_previews=settings.dir_static_images,
+            url_base_preview=settings.url_base_preview,
+            url_base_document=settings.url_base_document,
+        ),
+        update_documents=True,
+        delete_documents=True
     )
 
     # DOCUMENT_OBJECT SAMPLE

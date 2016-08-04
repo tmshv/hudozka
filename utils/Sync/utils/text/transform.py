@@ -76,7 +76,16 @@ def text_lower(i):
     return i.lower()
 
 
-url_encode_file = iterate_over_fns([translit, space_to_dash, remove_underscores, remove_punctuation, text_lower])
+url_encode_file = iterate_over_fns([
+    translit,
+    space_to_dash,
+    short_dash,
+    remove_underscores,
+    remove_punctuation,
+    reduce_dashes,
+    text_lower
+])
+
 url_encode_text = iterate_over_fns([
     translit,
     space_to_dash,

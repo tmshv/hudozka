@@ -1,3 +1,5 @@
+import os
+
 __author__ = 'Roman Timashev'
 
 root_dir_gallery = './Gallery'
@@ -5,7 +7,7 @@ root_dir_schedule = './Schedules'
 
 default_description_version = 1
 
-database_uri = 'mongodb://localhost/hudozka'
+database_uri = os.environ['MONGO_URI']
 
 CYR_LOWER = 'йцукенгшщзхъфывапролджэячсмитьбю'
 CYR_UPPER = 'ЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ'
@@ -13,7 +15,6 @@ EN_LOWER = 'qwertyuiopasdfghjklzxcvbnm'
 EN_UPPER = 'QWERTYUIOPASDFGHJKLZXCVBNM'
 DIGITS = '0123456789'
 description_available_chars = CYR_LOWER + CYR_UPPER + EN_LOWER + EN_UPPER + DIGITS + ' _-'
-
 
 translit_table = (
     ['а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж',  'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч',  'ш',   'щ',  'ъ', 'ы', 'ь', 'э', 'ю',  'я',  'А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж',  'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч',   'Ш', 'Щ',   'Ъ', 'Ы', 'Ь', 'Э', 'Ю',   'Я', '̆'],
@@ -27,14 +28,10 @@ teachers_names = {
     'В.А.Саржин': 'va-sarzhin',
     'Р.К.Тимашев': 'rk-timashev',
     'А.С.Тимашева': 'as-timasheva',
-    # '': '',
 }
 
 image_processing = True
 image_save_dir = './static_images'
-
-image_base_url = 'https://static.shburg.org/art/images/'
-image_output = '/Users/tmshv/Desktop/Hudozka Static/images'
 
 album_html_img_class = 'hudozka-product'
 
@@ -91,3 +88,16 @@ date_formats_reverse = [
     '%Y.%m',
     '%Y.%m.%d'
 ]
+
+dir_documents = '/Users/tmshv/Yandex.Disk/Hudozka/Site/Documents'
+dir_events = '/Users/tmshv/Yandex.Disk/Hudozka/Site/Events'
+dir_news = '/Users/tmshv/Yandex.Disk/Hudozka/Site/News'
+
+dir_static_uploads = '/Users/tmshv/Desktop/Hudozka Static/uploads'
+dir_static_images = '/Users/tmshv/Desktop/Hudozka Static/images'
+url_base_preview = 'https://static.shburg.org/art/images/{id}-{size}{ext}'
+url_base_document = 'https://static.shburg.org/art/uploads/{file}'
+
+image_base_url = 'https://static.shburg.org/art/images/'
+image_name_format = '{type}-{id}-{img}-{size}{ext}'
+image_output = '/Users/tmshv/Desktop/Hudozka Static/images'
