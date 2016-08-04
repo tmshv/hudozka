@@ -20,7 +20,7 @@ gulp.task('compile 3rdparty', () => {
         './node_modules/angular/angular.min.js',
         './node_modules/angular-route/angular-route.min.js',
         './node_modules/angulartics/dist/angulartics.min.js',
-        './node_modules/angulartics-google-analytics/dist/angulartics-ga.min.js',
+        './node_modules/angulartics-google-analytics/dist/angulartics-google-analytics.min.js',
         './node_modules/spin.js/spin.js',
         './node_modules/angular-spinner/angular-spinner.min.js',
         './node_modules/socket.io-client/socket.io.js',
