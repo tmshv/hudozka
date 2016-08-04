@@ -94,7 +94,7 @@ def main(dir_teachers, sync):
         filter(
             lambda i: (i[1] is None) or ('hash' not in i[1]) or (i[0]['hash'] != i[1]['hash']),
             lmap(
-                lambda document: (document, sync.read(document)),
+                lambda document: (document, sync.open(document)),
                 documents
             )
         ))

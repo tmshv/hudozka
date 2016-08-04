@@ -7,6 +7,9 @@ import bson.json_util
 
 
 def combine(items):
+    if len(items) == 0:
+        return []
+
     return reduce(
         lambda total, i: total + i,
         items
