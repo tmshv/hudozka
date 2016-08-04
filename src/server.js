@@ -16,7 +16,7 @@ import config from './config';
 import {redirectionTable} from './config';
 import {routes, queryObject} from './routes';
 import {redirect} from './routes/redirect';
-import {checkAuth} from './core/service';
+import {services as serviceKeys, authChecker} from './core/service';
 
 const dirPublic = path.join(__dirname, '../public');
 const dirTemplates = path.join(__dirname, 'templates');
@@ -49,6 +49,7 @@ export default function(store){
 }
 
 function apis(store){
+    let checkAuth = authChecker(serviceKeys);
     return mount('/api/v1', api_v1(checkAuth, store));
 }
 

@@ -1,13 +1,13 @@
 import {put} from 'koa-route';
 import compose from 'koa-compose';
-import hm from 'hudozka-middlewares';
 import query from 'koa-query';
 import {toBoolean} from 'koa-query';
+import {ejson, ensureServiceAuth} from 'hudozka-middlewares';
 
 export function add(auth, data) {
     return put('/timeline', compose([
-        hm.ensureServiceAuth(auth),
-        hm.ejson(),
+        ensureServiceAuth(auth),
+        ejson(),
         query({
             save: toBoolean()
         }),

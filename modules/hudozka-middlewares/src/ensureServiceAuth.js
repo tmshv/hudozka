@@ -1,3 +1,4 @@
+// auth - fn that returns boolean
 export function ensureServiceAuth(auth) {
     return async (ctx, next) => {
         let service = ctx.request.headers['x-service-name'];
@@ -10,3 +11,4 @@ export function ensureServiceAuth(auth) {
         }
     };
 }
+
