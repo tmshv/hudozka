@@ -7,12 +7,18 @@ def abs_fn(root):
     return lambda path: os.path.join(root, path)
 
 
+def env(param, default=None):
+    if param in os.environ:
+        return os.environ[param]
+    return default
+
+
 root_dir_gallery = './Gallery'
 root_dir_schedule = './Schedules'
 
 default_description_version = 1
 
-database_uri = os.environ['MONGO_URI']
+database_uri = env('MONGO_URI')
 
 teachers_names = {
     'Н.В.Андреева': 'nv-andreeva',
@@ -84,7 +90,7 @@ date_formats_reverse = [
 
 collection_documents = 'documents'
 
-sync_provider_type = os.environ['SYNC_PROVIDER']
+sync_provider_type = env('SYNC_PROVIDER')
 
 _providers_roots = {
     'fs': abs_fn('/Users/tmshv/Yandex.Disk'),
@@ -105,4 +111,4 @@ image_base_url = 'https://static.shburg.org/art/images/'
 image_name_format = '{type}-{id}-{img}-{size}{ext}'
 image_output = '/Users/tmshv/Desktop/Hudozka Static/images'
 
-yandex_disk_access_token = os.environ['YANDEX_DISK_ACCESS_TOKEN']
+yandex_disk_access_token = env('YANDEX_DISK_ACCESS_TOKEN')
