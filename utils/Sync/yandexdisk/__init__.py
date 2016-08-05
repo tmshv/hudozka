@@ -39,7 +39,10 @@ class YDClient:
         """
         url = '{0}/resources'.format(self.base_url)
 
-        payload = {'path': path}
+        payload = dict(
+            path=path,
+            limit=1000000
+        )
         r = requests.get(url, headers=self.base_headers, params=payload)
         self.check_code(r)
 
