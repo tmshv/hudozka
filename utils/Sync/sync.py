@@ -1,12 +1,8 @@
 import settings
-from sync.core.document import pdf_to_jpg, SyncDocument
 from sync.data.fs import FSProvider
 from sync.data.yandexdisk import YDProvider
-from sync.document import sync_documents, read_document, get_documents
+from sync.document import sync_documents
 from utils.fn import lprint_json
-from utils.image.resize import image_magick_pdf_to_img
-from utils.text.transform import url_encode_text
-from yandexdisk import YDClient
 
 
 def get_provider(provider_type, root):
@@ -17,44 +13,17 @@ def get_provider(provider_type, root):
     return None
 
 
-if __name__ == '__main__':
-    provider = get_provider(settings.sync_provider_type, settings.dir_documents)
-
-    update = False
-    delete = False
-    # update = True
-    # delete = True
-
+def main(provider, fn, name):
     if provider:
-        u, d = sync_documents(provider, update=update, delete=delete)
-        print('DELETE DOCUMENTS: %s' % ('NO' if not delete else str(len(d))))
+        u, d = fn(provider, update=settings.do_update, delete=settings.do_update)
+        print('DELETE %s: %s' % (name.upper(), 'NO' if not settings.do_delete else str(len(d))))
         lprint_json(d)
 
-        print('UPDATE DOCUMENTS: %s' % ('NO' if not update else str(len(u))))
+        print('UPDATE %s: %s' % (name.upper(), 'NO' if not settings.do_update else str(len(u))))
         lprint_json(u)
 
-        # s = SyncDocument(
-        #     {},
-        #     provider,
-        #     sizes=settings.image_sizes,
-        #     dir_static_previews=settings.dir_static_images,
-        #     url_base_preview=settings.url_base_preview,
-        #     url_base_document=settings.url_base_document,
-        # )
-        # # print(read_document(s, 'Награды/2016 В мире фантазий — Диплом.pdf'))
-        # lprint_json(get_documents(s))
 
-        # print(api.scan('.'))
-        # print(list(filter(
-        #     lambda i: api.is_dir(i),
-        #     api.scan('.')
-        # )))
+if __name__ == '__main__':
+    client = get_provider(settings.sync_provider_type, settings.dir_documents)
 
-        # print(api.hash('./Архив/Устав 2013.pdf'))
-        # print(api.size('./Архив/Устав 2013.pdf'))
-
-        # print(api.glob('./Архив/*.pdf'))
-        # lprint_json(provider.type_filter('Награды', '.pdf'))
-
-        # path = api.type_filter('./Архив', '.pdf')[0]
-        # print(api.copy(path, '/Users/tmshv/Desktop/fafo'))
+    main(client, sync_documents, 'documents')

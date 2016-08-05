@@ -112,3 +112,6 @@ image_name_format = '{type}-{id}-{img}-{size}{ext}'
 image_output = '/Users/tmshv/Desktop/Hudozka Static/images'
 
 yandex_disk_access_token = env('YANDEX_DISK_ACCESS_TOKEN')
+
+do_update = env('SYNC_ENV', 'production') == 'production'
+do_delete = env('SYNC_ENV', 'production') == 'production'
