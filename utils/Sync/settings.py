@@ -14,23 +14,6 @@ default_description_version = 1
 
 database_uri = os.environ['MONGO_URI']
 
-CYR_LOWER = 'йцукенгшщзхъфывапролджэячсмитьбю'
-CYR_UPPER = 'ЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ'
-EN_LOWER = 'qwertyuiopasdfghjklzxcvbnm'
-EN_UPPER = 'QWERTYUIOPASDFGHJKLZXCVBNM'
-DIGITS = '0123456789'
-description_available_chars = CYR_LOWER + CYR_UPPER + EN_LOWER + EN_UPPER + DIGITS + ' _-'
-
-translit_table = (
-    ['а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х',
-     'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я', 'А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж', 'З', 'И', 'Й', 'К', 'Л',
-     'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я', '̆'],
-    ['a', 'b', 'v', 'g', 'd', 'e', 'e', 'zh', 'z', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'r', 's', 't', 'u', 'f', 'h',
-     'z', 'ch', 'sh', 'sch', '_', 'y', '_', 'e', 'yu', 'ya', 'A', 'B', 'V', 'G', 'D', 'E', 'E', 'ZH', 'Z', 'I', 'J',
-     'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'F', 'H', 'Z', 'CH', 'SH', 'SCH', '_', 'Y', '_', 'E', 'YU', 'YA',
-     '_']
-)
-
 teachers_names = {
     'Н.В.Андреева': 'nv-andreeva',
     'И.Н.Втюрина': 'in-vturina',

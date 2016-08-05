@@ -1,33 +1,18 @@
 import re
-from functools import reduce
 
-import settings
+from unidecode import unidecode
+
 from utils.fn import iterate_over_fns
 
-remove_pattr = re.compile('[«»,!&]')
+remove_pattr = re.compile('[«»,!&"\']')
 reduce_dash_pattr = re.compile('[-]+')
 
 
 def translit(text):
     """
     RUSSIAN TEXT => ENGLISH TEXT
-    based on table like:
-    (
-        ['а', 'б', 'в'],
-        ['a', 'b', 'v']
-    )
-    Leave if character is not founded
     """
-    table = settings.translit_table
-    ins, outs = table
-    out = lambda i: outs[ins.index(i)]
-    replace = lambda i: out(i) if i in ins else i
-
-    return reduce(
-        lambda t, i: t + replace(i),
-        list(text),
-        ''
-    )
+    return unidecode(text)
 
 
 def interpolate(text, storage, key_fn=None):
