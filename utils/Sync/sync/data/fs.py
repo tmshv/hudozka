@@ -9,7 +9,7 @@ from utils.hash import hash_file
 
 
 class FSProvider(Provider):
-    def open(self, path):
+    def read(self, path):
         return open(self.get_abs(path), 'rb')
 
     def scan(self, path):

@@ -2,6 +2,7 @@ import os
 from tempfile import mkstemp
 
 from sync.core import Sync
+from utils.fn import last_good, lmap
 from utils.hash import hash_file, hash_str
 from utils.image import create_image
 from utils.image.resize import image_magick_pdf_to_img
@@ -24,6 +25,10 @@ class SyncDocument(Sync):
 
         document['type'] = document_type(document)
         document['preview'] = self.create_preview(file, sizes=self.sizes, preview_dir=self.dir_static_previews)
+        document['title'] = last_good([
+            document['title'],
+            get_pdf_title(self.provider, document['file'])
+        ])
         document['file'] = {
             'name': filename,
             'size': self.provider.size(file)
@@ -45,8 +50,13 @@ class SyncDocument(Sync):
         return document
 
     def create_hash(self, document):
+        hash_keys = ['id', 'url']
+        hash_doc = lmap(
+            lambda key: document[key],
+            hash_keys
+        )
         document['hash'] = hash_str(
-            hash_str(document) + self.provider.hash(document['file'])
+            hash_str(hash_doc) + self.provider.hash(document['file'])
         )
         return document
 
@@ -77,3 +87,21 @@ def pdf_to_jpg(provider, pdf):
 
     os.remove(temp_in)
     return temp_out
+
+
+def get_pdf_title(provider, file):
+    from PyPDF2 import PdfFileReader
+    from PyPDF2.generic import TextStringObject
+    from PyPDF2.generic import IndirectObject
+
+    pdf = PdfFileReader(provider.read(file))
+    info = pdf.getDocumentInfo()
+
+    if info:
+        if type(info.title) == TextStringObject:
+            return str(info.title)
+
+        if type(info.title_raw) == IndirectObject:
+            o = pdf.getObject(info.title_raw)
+            return str(o)
+    return None

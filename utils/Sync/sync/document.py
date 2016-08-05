@@ -116,27 +116,27 @@ def get_documents(sync):
     # documents = documents_from_yaml()
     documents = documents_from_subdirs(sync.provider)
 
-    # SETUP TITLE BASED ON FILE NAME
-    documents = lmapfn(documents)(
-        lambda i: {
-            **i,
-            'title': os.path.splitext(os.path.basename(i['file']))[0]
-        }
+    documents = lmap(
+        lambda document: read_document(sync, document),
+        documents
     )
-
-    # CHOICE BETTER TITLE
-    # documents = lmapfn(documents)(
-    #     lambda i: {
-    #         **i,
-    #         'title': until_none([i['title'], get_pdf_title(sync.provider, i['file'])])
-    #     }
-    # )
-
-    documents = lmap(sync.create_id, documents)
-    documents = lmap(sync.create_hash, documents)
-    documents = lmap(sync.create_url, documents)
-
     return documents
+
+
+def read_document(sync, path):
+    name = os.path.basename(path)
+
+    document = {
+        'file': path,
+        'category': os.path.dirname(path),
+        'title': os.path.splitext(name)[0]
+    }
+
+    document = sync.create_id(document)
+    document = sync.create_url(document)
+    document = sync.create_hash(document)
+
+    return document
 
 
 def static_path_fn(dir_path):
@@ -202,42 +202,9 @@ def documents_from_subdirs(provider):
     ))
 
     documents = lmap(
-        lambda folder: lmap(
-            lambda path: {
-                # 'file': provider.get_rel(path),
-                'file': path,
-                'category': os.path.basename(folder)
-            },
-            provider.type_filter(folder, '.pdf')
-        ),
+        lambda folder: provider.type_filter(folder, '.pdf'),
         documents
     )
 
     documents = combine(documents)
     return documents
-
-
-def get_pdf_title(provider, file):
-    from PyPDF2 import PdfFileReader
-    from PyPDF2.generic import TextStringObject
-    from PyPDF2.generic import IndirectObject
-
-    pdf = PdfFileReader(provider.read(file))
-    info = pdf.getDocumentInfo()
-
-    if info:
-        if type(info.title) == TextStringObject:
-            return str(info.title)
-
-        if type(info.title_raw) == IndirectObject:
-            o = pdf.getObject(info.title_raw)
-            return str(o)
-    return None
-
-
-def until_none(ls):
-    better = None
-    for i in ls:
-        if (i is not None) and i != '':
-            better = i
-    return better

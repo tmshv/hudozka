@@ -34,6 +34,7 @@ iterate_iter_over_fns = lambda fns: lambda i: lmap(
 def lmap(fn, ls):
     return list(map(fn, ls))
 
+
 def lmapfn(ls):
     return lambda fn: list(map(fn, ls))
 
@@ -89,3 +90,11 @@ dir_globber = lambda mask_list: lambda dir: combine(map(
     lambda mask: glob(os.path.join(dir, mask)),
     mask_list
 ))
+
+
+def last_good(ls):
+    better = None
+    for i in ls:
+        if (i is not None) and i != '':
+            better = i
+    return better
