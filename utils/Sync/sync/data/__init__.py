@@ -1,4 +1,5 @@
 import os
+from io import BytesIO
 
 
 class Provider:
@@ -6,13 +7,16 @@ class Provider:
         super().__init__()
         self.root = root
 
-    def open(self, path, mode):
-        return ''
+    def read(self, path):
+        return BytesIO(bytes())
 
     def scan(self, path):
         return []
 
     def glob(self, pattr):
+        return []
+
+    def type_filter(self, path, ext):
         return []
 
     def copy(self, path, out):
@@ -29,4 +33,8 @@ class Provider:
         return os.path.normpath(abs)
 
     def get_rel(self, path):
-        return os.path.relpath(path, self.root)
+        rel = os.path.relpath(path, self.root)
+        return rel
+
+    def is_dir(self, path):
+        return False

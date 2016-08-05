@@ -5,17 +5,41 @@ import settings
 from db import db
 from sync import synced_image_id, untouched
 from sync.core.document import SyncDocument
-from sync.data.fs import FSProvider
-from utils.fn import combine, lmap, lprint_json, lprint, key_mapper, lmapfn, kmap
+from utils.fn import combine, lmap, key_mapper, lmapfn
 from utils.io import read_yaml
 
 
-def sync_documents(update=True, delete=True):
-    provider = FSProvider(settings.dir_documents)
+def sync_documents(provider, update=True, delete=True):
+    """
+    DOCUMENT_OBJECT SAMPLE
+    {
+        "hash": "c6a2aaf9a393c683c2250dd916115b7056ef16f023e0cd348c184a85cde9c9a0",
+        "_id": {
+            "$oid": "56d08411ace9573958e5e497"
+        },
+        "type": "document",
+        "id": "dlya-postupayuschih-dogovor-o-pozhertvovanii-pdf",
+        "category": "Для поступающих",
+        "file": {
+            "size": 53088,
+            "name": "Договор о пожертвовании.pdf"
+        },
+        "url": "https://static.shburg.org/art/uploads/dogovor-o-pozhertvovanii.pdf",
+        "preview": {
+            "$oid": "56d08007ace9573958e5e48f"
+        },
+        "title": "Договор о пожертвовании"
+    }
+
+    :param provider:
+    :param update:
+    :param delete:
+    :return:
+    """
 
     static_path = static_path_fn(settings.dir_static_uploads)
 
-    u, d = main(
+    return main(
         SyncDocument(
             db()[settings.collection_documents],
             provider,
@@ -29,23 +53,17 @@ def sync_documents(update=True, delete=True):
         delete_documents=delete
     )
 
-    print('DELETE DOCUMENTS: %s' % ('NO' if not delete else str(len(d))))
-    lprint_json(d)
-
-    print('UPDATE DOCUMENTS: %s' % ('NO' if not update else str(len(u))))
-    lprint_json(u)
-
 
 def main(sync, static_path, update_documents, delete_documents):
     documents = get_documents(sync)
     documents_id = lmap(
-        lambda i: i['id'],
+        lambda document: document['id'],
         documents
     )
 
     # CHECKING
     file_names = set(lmap(
-        lambda i: i['file'],
+        lambda document: document['file'],
         documents
     ))
     if len(file_names) != len(documents):
@@ -70,7 +88,7 @@ def main(sync, static_path, update_documents, delete_documents):
     if update_documents:
         # REPLACE PREVIEW_OBJECT WITH IT _ID IN MONGODB
         documents = lmap(
-            key_mapper('preview', lambda i: synced_image_id(i)),
+            key_mapper('preview', lambda img: synced_image_id(img)),
             documents
         )
 
@@ -86,7 +104,7 @@ def main(sync, static_path, update_documents, delete_documents):
         documents_delete = lmap(
             sync.delete,
             map(
-                lambda i: {'_id': i['_id']},
+                lambda document: {'_id': document['_id']},
                 documents_delete
             )
         )
@@ -107,12 +125,12 @@ def get_documents(sync):
     )
 
     # CHOICE BETTER TITLE
-    documents = lmapfn(documents)(
-        lambda i: {
-            **i,
-            'title': until_none([i['title'], get_pdf_title(sync.provider, i['file'])])
-        }
-    )
+    # documents = lmapfn(documents)(
+    #     lambda i: {
+    #         **i,
+    #         'title': until_none([i['title'], get_pdf_title(sync.provider, i['file'])])
+    #     }
+    # )
 
     documents = lmap(sync.create_id, documents)
     documents = lmap(sync.create_hash, documents)
@@ -121,8 +139,8 @@ def get_documents(sync):
     return documents
 
 
-def static_path_fn(dir):
-    return lambda document: os.path.join(dir, os.path.basename(document['url']))
+def static_path_fn(dir_path):
+    return lambda document: os.path.join(dir_path, os.path.basename(document['url']))
 
 
 def categorize_files_list(files, title):
@@ -177,21 +195,20 @@ def documents_from_yaml(dirpath):
 
 
 def documents_from_subdirs(provider):
-    documents = lmap(
-        lambda i: i.path,
-        filter(
-            lambda i: i.is_dir(),
-            provider.scan('.')
-        )
-    )
+    documents = provider.scan('.')
+    documents = list(filter(
+        lambda i: provider.is_dir(i),
+        documents
+    ))
 
     documents = lmap(
         lambda folder: lmap(
             lambda path: {
-                'file': provider.get_rel(path),
+                # 'file': provider.get_rel(path),
+                'file': path,
                 'category': os.path.basename(folder)
             },
-            provider.glob(folder + '/*.pdf')
+            provider.type_filter(folder, '.pdf')
         ),
         documents
     )
@@ -205,7 +222,7 @@ def get_pdf_title(provider, file):
     from PyPDF2.generic import TextStringObject
     from PyPDF2.generic import IndirectObject
 
-    pdf = PdfFileReader(provider.open(file, 'rb'))
+    pdf = PdfFileReader(provider.read(file))
     info = pdf.getDocumentInfo()
 
     if info:
@@ -224,28 +241,3 @@ def until_none(ls):
         if (i is not None) and i != '':
             better = i
     return better
-
-
-if __name__ == '__main__':
-    sync_documents()
-    # sync_documents(delete=False, update=False)
-
-    # DOCUMENT_OBJECT SAMPLE
-    # {
-    #     "hash": "c6a2aaf9a393c683c2250dd916115b7056ef16f023e0cd348c184a85cde9c9a0",
-    #     "_id": {
-    #         "$oid": "56d08411ace9573958e5e497"
-    #     },
-    #     "type": "document",
-    #     "id": "dlya-postupayuschih-dogovor-o-pozhertvovanii-pdf",
-    #     "category": "Для поступающих",
-    #     "file": {
-    #         "size": 53088,
-    #         "name": "Договор о пожертвовании.pdf"
-    #     },
-    #     "url": "https://static.shburg.org/art/uploads/dogovor-o-pozhertvovanii.pdf",
-    #     "preview": {
-    #         "$oid": "56d08007ace9573958e5e48f"
-    #     },
-    #     "title": "Договор о пожертвовании"
-    # }

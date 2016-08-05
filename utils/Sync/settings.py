@@ -2,6 +2,11 @@ import os
 
 __author__ = 'Roman Timashev'
 
+
+def abs_fn(root):
+    return lambda path: os.path.join(root, path)
+
+
 root_dir_gallery = './Gallery'
 root_dir_schedule = './Schedules'
 
@@ -96,9 +101,17 @@ date_formats_reverse = [
 
 collection_documents = 'documents'
 
-dir_documents = '/Users/tmshv/Yandex.Disk/Hudozka/Site/Documents'
-dir_events = '/Users/tmshv/Yandex.Disk/Hudozka/Site/Events'
-dir_news = '/Users/tmshv/Yandex.Disk/Hudozka/Site/News'
+sync_provider_type = os.environ['SYNC_PROVIDER']
+
+_providers_roots = {
+    'fs': abs_fn('/Users/tmshv/Yandex.Disk'),
+    'yd': abs_fn('/'),
+}
+f = _providers_roots[sync_provider_type]
+
+dir_documents = f('Hudozka/Site/Documents')
+dir_events = f('Hudozka/Site/Events')
+dir_news = f('Hudozka/Site/News')
 
 dir_static_uploads = '/Users/tmshv/Desktop/Hudozka Static/uploads'
 dir_static_images = '/Users/tmshv/Desktop/Hudozka Static/images'
@@ -108,3 +121,5 @@ url_base_document = 'https://static.shburg.org/art/uploads/{file}'
 image_base_url = 'https://static.shburg.org/art/images/'
 image_name_format = '{type}-{id}-{img}-{size}{ext}'
 image_output = '/Users/tmshv/Desktop/Hudozka Static/images'
+
+yandex_disk_access_token = os.environ['YANDEX_DISK_ACCESS_TOKEN']

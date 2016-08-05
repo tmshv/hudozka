@@ -22,7 +22,7 @@ class SyncDocument(Sync):
         file = document['file']
         filename = os.path.basename(file)
 
-        document['type'] = self.document_type(document)
+        document['type'] = document_type(document)
         document['preview'] = self.create_preview(file, sizes=self.sizes, preview_dir=self.dir_static_previews)
         document['file'] = {
             'name': filename,
@@ -30,11 +30,6 @@ class SyncDocument(Sync):
         }
 
         return document
-
-    def document_type(self, document):
-        if document['category'] == 'Награды':
-            return 'award'
-        return 'document'
 
     def create_id(self, document):
         bn = os.path.basename(document['file'])
@@ -56,23 +51,29 @@ class SyncDocument(Sync):
         return document
 
     def create_preview(self, file, sizes, preview_dir):
-        temp_preview_path = pdf_to_jpg(self.provider, file)
+        def url(size, ext):
+            return self.url_base_preview.format(id=file, size=size, ext=ext)
 
+        temp_preview_path = pdf_to_jpg(self.provider, file)
         file = os.path.basename(file)
         file = url_encode_text(file)
-        url = lambda size, ext: self.url_base_preview.format(id=file, size=size, ext=ext)
-
         img = create_image(temp_preview_path, sizes, url, preview_dir)
         os.remove(temp_preview_path)
         return img
 
 
+def document_type(document):
+    if document['category'] == 'Награды':
+        return 'award'
+    return 'document'
+
+
 def pdf_to_jpg(provider, pdf):
-    # cwd = os.getcwd()
-    # abspdf = os.path.join(cwd, pdf)
-    abspdf = provider.get_abs(pdf)
-    _, temp = mkstemp('.jpg')
-    image_magick_pdf_to_img(abspdf, temp)
-    return temp
+    _, temp_in = mkstemp(suffix='.pdf')
+    _, temp_out = mkstemp(suffix='.jpg')
 
+    abspdf = provider.copy(pdf, temp_in)
+    image_magick_pdf_to_img(abspdf, temp_out)
 
+    os.remove(temp_in)
+    return temp_out
