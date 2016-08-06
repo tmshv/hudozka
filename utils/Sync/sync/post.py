@@ -297,7 +297,7 @@ if __name__ == '__main__':
             'events',
             None,
             image_url_base,
-            settings.image_output,
+            settings.dir_static_images,
             settings.event_image_sizes
         ),
         file_time_formats=['%Y.%m.%d']
@@ -310,7 +310,7 @@ if __name__ == '__main__':
             'timeline',
             'post',
             image_url_base,
-            settings.image_output,
+            settings.dir_static_images,
             settings.event_image_sizes
         ),
         file_time_formats=settings.date_formats_reverse

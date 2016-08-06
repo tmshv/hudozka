@@ -3,6 +3,13 @@ import os
 __author__ = 'Roman Timashev'
 
 
+def absolute(path, ensure=True):
+    a = os.path.expanduser(path)
+    if ensure:
+        os.makedirs(a, exist_ok=True)
+    return a
+
+
 def abs_fn(root):
     return lambda path: os.path.join(root, path)
 
@@ -30,7 +37,6 @@ teachers_names = {
 }
 
 image_processing = True
-image_save_dir = './static_images'
 
 album_html_img_class = 'hudozka-product'
 
@@ -90,7 +96,7 @@ date_formats_reverse = [
 
 collection_documents = 'documents'
 
-sync_provider_type = env('SYNC_PROVIDER')
+sync_provider_type = env('SYNC_PROVIDER', 'fs')
 
 _providers_roots = {
     'fs': abs_fn('/Users/tmshv/Yandex.Disk'),
@@ -102,14 +108,15 @@ dir_documents = f('Hudozka/Site/Documents')
 dir_events = f('Hudozka/Site/Events')
 dir_news = f('Hudozka/Site/News')
 
-dir_static_uploads = '/Users/tmshv/Desktop/Hudozka Static/uploads'
-dir_static_images = '/Users/tmshv/Desktop/Hudozka Static/images'
+dir_static = env('SYNC_STATIC', '~/Hudozka Static')
+dir_static_uploads = absolute(dir_static + '/uploads')
+dir_static_images = absolute(dir_static + '/images')
+
 url_base_preview = 'https://static.shburg.org/art/images/{id}-{size}{ext}'
 url_base_document = 'https://static.shburg.org/art/uploads/{file}'
 
 image_base_url = 'https://static.shburg.org/art/images/'
 image_name_format = '{type}-{id}-{img}-{size}{ext}'
-image_output = '/Users/tmshv/Desktop/Hudozka Static/images'
 
 yandex_disk_access_token = env('YANDEX_DISK_ACCESS_TOKEN')
 

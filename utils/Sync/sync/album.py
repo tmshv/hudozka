@@ -327,7 +327,7 @@ def main(dir_documents, sync):
 
 if __name__ == '__main__':
     image_creator = ImageCreator(cache=None)
-    alb = SyncAlbum(image_creator=image_creator, images_dir=settings.image_output)
+    alb = SyncAlbum(image_creator=image_creator, images_dir=settings.dir_static_images)
     # alb.skip_image_processing = True
 
     # dir_docs = '/Users/tmshv/Dropbox/Dev/Hud school/Gallery'
