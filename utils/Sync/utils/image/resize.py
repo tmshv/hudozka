@@ -54,7 +54,6 @@ def crop(src, dest, size):
     i.save(dest)
 
 
-
 def orient(image):
     orientation = 0x0112
     rotations = {
