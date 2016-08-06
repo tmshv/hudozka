@@ -11,6 +11,7 @@ private*.json
 /public
 /build
 /out
+**/env
 **/__pycache__
 **/*.pyc
 /coverage
