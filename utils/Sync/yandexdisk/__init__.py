@@ -47,8 +47,7 @@ class YDClient:
         self.check_code(r)
 
         json_dict = r.json()
-        return json_dict
-        # return Directory(**json_dict)
+        return Directory(**json_dict)
 
     def create_folder(self, path_to_folder):
         """
@@ -106,13 +105,11 @@ class YDClient:
         json_dict = self._get_dictionary_of_published_files()
 
         elements = []
-
-        # for item in json_dict["items"]:
-        #     if item["type"] == "dir":
-        #         elements.append(Directory(**item))
-        #     elif item["type"] == "file":
-        #         elements.append(File(**item))
-
+        for item in json_dict['items']:
+            if item['type'] == 'dir':
+                elements.append(Directory(**item))
+            elif item['type'] == 'file':
+                elements.append(File(**item))
         return elements
 
     def get_public_link_to_folder_or_file(self, path):
@@ -120,26 +117,24 @@ class YDClient:
         :param path: path
         :return: public link to folder or file
         """
-        url = self.base_url + "/resources/publish"
+        url = '{0}/resources/publish'.format(self.base_url)
 
         payload = {'path': path}
         r = requests.put(url, headers=self.base_headers, params=payload)
         self.check_code(r)
 
         files = self._get_dictionary_of_published_files()
-
-        for file in files["items"]:
-            if str(file["path"]).endswith(path):
-                return file["public_url"]
-
-        return ""
+        for file in files['items']:
+            if str(file['path']).endswith(path):
+                return file['public_url']
+        return ''
 
     def unpublish_folder_or_file(self, path):
         """
         Unpublish folder of file
         :param path: path to file or folder
         """
-        url = self.base_url + "/resources/unpublish"
+        url = '{0}/resources/unpublish'.format(self.base_url)
 
         payload = {'path': path}
         r = requests.put(url, headers=self.base_headers, params=payload)
@@ -149,7 +144,7 @@ class YDClient:
         """
         :return: List of all files
         """
-        url = self.base_url + "/resources/files"
+        url = '{0}/resources/files'.format(self.base_url)
 
         r = requests.get(url, headers=self.base_headers)
         self.check_code(r)
@@ -157,11 +152,9 @@ class YDClient:
         json_dict = r.json()
 
         files = []
-
-        # for item in json_dict["items"]:
-        #     f = File(**item)
-        #     files.append(f)
-
+        for item in json_dict['items']:
+            f = File(**item)
+            files.append(f)
         return files
 
     def move_folder_or_file(self, path_from, path_to):
@@ -170,7 +163,7 @@ class YDClient:
         :param path_from: path from
         :param path_to: path to
         """
-        url = self.base_url + "/resources/move"
+        url = '{0}/resources/move'.format(self.base_url)
 
         payload = {'path': path_to, 'from': path_from}
         r = requests.post(url, headers=self.base_headers, params=payload)
@@ -182,7 +175,7 @@ class YDClient:
         :param path_from: path from
         :param path_to: path to yandex disk
         """
-        url = self.base_url + "/resources/upload"
+        url = '{0}/resources/upload'.format(self.base_url)
 
         payload = {'path': path_to}
         r = requests.get(url, headers=self.base_headers, params=payload)
@@ -203,14 +196,14 @@ class YDClient:
         :param from_url: URL path from
         :param path_to: path to yandex disk
         """
-        url = self.base_url + "/resources/upload"
+        url = '{0}/resources/upload'.format(self.base_url)
 
         payload = {'path': path_to, 'url': from_url}
         r = requests.post(url, headers=self.base_headers, params=payload)
         self.check_code(r)
 
     def _get_dictionary_of_published_files(self):
-        url = self.base_url + "/resources/public"
+        url = '{0}/resources/public'.format(self.base_url)
 
         r = requests.get(url, headers=self.base_headers)
         self.check_code(r)
@@ -218,7 +211,7 @@ class YDClient:
         return r.json()
 
     def check_code(self, req):
-        if not str(req.status_code).startswith("2"):
+        if not str(req.status_code).startswith('2'):
             raise YDException(req.status_code, req.text)
 
 
@@ -231,3 +224,39 @@ class YDException(Exception):
 
     def __str__(self):
         return "%d. %s" % (self.code, super(YDException, self).__str__())
+
+
+class Directory:
+    def __init__(self, **kwargs):
+        self.children = []
+
+        for key in kwargs:
+            if key is not '_embedded':
+                setattr(self, key, kwargs[key])
+
+        if "_embedded" in kwargs:
+            for item in kwargs['_embedded']['items']:
+                if item['type'] == 'dir':
+                    d = Directory(**item)
+                    self.children.append(d)
+
+                if item['type'] == 'file':
+                    f = File(**item)
+                    self.children.append(f)
+
+    def get_children(self):
+        return self.children
+
+
+class File:
+    def __init__(self, **kwargs):
+        for key in kwargs:
+            setattr(self, key, kwargs[key])
+
+
+class Disk:
+    def __init__(self, trash_size, total_space, used_space, system_folders):
+        self.trash_size = trash_size
+        self.total_space = total_space
+        self.used_space = used_space
+        self.system_folders = system_folders

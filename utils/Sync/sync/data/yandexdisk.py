@@ -25,8 +25,8 @@ class YDProvider(Provider):
     def scan(self, path):
         res = self.api.get_content(self.get_abs(path))
         files = []
-        for item in res['_embedded']['items']:
-            files.append(item['path'])
+        for item in res.children:
+            files.append(item.path)
 
         files = map(
             lambda fp: re.sub('disk:', '', fp),
@@ -45,7 +45,7 @@ class YDProvider(Provider):
 
     def hash(self, path):
         res = self.api.get_content(self.get_abs(path))
-        return res['sha256']
+        return res.sha256
 
     def copy(self, path, out):
         data = self.read(path)
@@ -60,5 +60,4 @@ class YDProvider(Provider):
 
     def is_dir(self, path):
         res = self.api.get_content(self.get_abs(path))
-        return res['type'] == 'dir'
-
+        return res.type == 'dir'
