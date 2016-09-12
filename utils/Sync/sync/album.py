@@ -1,21 +1,19 @@
 import os
-import re
 from glob import glob
 
-import frontmatter
 import lxml.html
 from lxml import etree
 
 import settings
 from db import db
-from models.product import create_product
 from sync import create_date_and_title_from_folder_name, create_post_from_image_list, create_date, Sync, list_images, \
     untouched, synced_images_ids
+from sync.models import create_product
 from utils.fn import lmap, dir_globber, lprint_json, iterate_iter_over_fns, first, map_cases, combine, lmapfn, \
     key_mapper, lprint
 from utils.hash import hash_file, hash_str
 from utils.image import create_image
-from utils.io import read_yaml_md, read_file, parse_yaml_front_matter
+from utils.io import read_yaml_md
 from utils.text.transform import url_encode_text
 
 

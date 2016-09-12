@@ -5,11 +5,13 @@ import settings
 from db import db
 from sync import synced_image_id, untouched
 from sync.core.document import SyncDocument
+from sync.data import scan_subdirs
+from sync.models.document import Document
 from utils.fn import combine, lmap, key_mapper, lmapfn
 from utils.io import read_yaml
 
 
-def sync_documents(provider, update=True, delete=True):
+def sync_documents(provider, collection, update=True, delete=True):
     """
     DOCUMENT_OBJECT SAMPLE
     {
@@ -41,7 +43,7 @@ def sync_documents(provider, update=True, delete=True):
 
     return main(
         SyncDocument(
-            db()[settings.collection_documents],
+            collection,
             provider,
             sizes=settings.image_sizes,
             dir_static_previews=settings.dir_static_images,
@@ -55,7 +57,11 @@ def sync_documents(provider, update=True, delete=True):
 
 
 def main(sync, static_path, update_documents, delete_documents):
-    documents = get_documents(sync)
+    documents = scan_subdirs(sync.provider, '.pdf')
+    documents = lmap(
+        lambda document: read_document(sync, document),
+        documents
+    )
     documents_id = lmap(
         lambda document: document['id'],
         documents
@@ -112,17 +118,6 @@ def main(sync, static_path, update_documents, delete_documents):
     return documents, documents_delete
 
 
-def get_documents(sync):
-    # documents = documents_from_yaml()
-    documents = documents_from_subdirs(sync.provider)
-
-    documents = lmap(
-        lambda document: read_document(sync, document),
-        documents
-    )
-    return documents
-
-
 def read_document(sync, path):
     name = os.path.basename(path)
 
@@ -137,6 +132,13 @@ def read_document(sync, path):
     document = sync.create_hash(document)
 
     return document
+
+
+def create_document(provider, m):
+    # dir_static_previews = settings.dir_static_images,
+    # url_base_preview = settings.url_base_preview,
+    # url_base_document = settings.url_base_document
+    return Document(provider, m, {})
 
 
 def static_path_fn(dir_path):
@@ -191,20 +193,4 @@ def documents_from_yaml(dirpath):
     # GET FLAT LIST OF DOCUMENTS
     documents = unwrap_manifest(documents)
 
-    return documents
-
-
-def documents_from_subdirs(provider):
-    documents = provider.scan('.')
-    documents = list(filter(
-        lambda i: provider.is_dir(i),
-        documents
-    ))
-
-    documents = lmap(
-        lambda folder: provider.type_filter(folder, '.pdf'),
-        documents
-    )
-
-    documents = combine(documents)
     return documents

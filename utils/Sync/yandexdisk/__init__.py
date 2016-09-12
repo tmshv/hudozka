@@ -2,9 +2,9 @@ import requests
 
 
 class YDClient:
-    '''
+    """
     Implementation of https://tech.yandex.ru/disk/poligon/
-    '''
+    """
 
     base_url = 'https://cloud-api.yandex.net:443/v1/disk'
 
@@ -23,9 +23,8 @@ class YDClient:
         url = self.base_url
         r = requests.get(url, headers=self.base_headers)
         self.check_code(r)
-
         disk = r.json()
-        return dict(
+        return Disk(
             trash_size=disk['trash_size'],
             total_space=disk['total_space'],
             used_space=disk['used_space'],

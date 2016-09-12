@@ -1,7 +1,12 @@
+from sync.models import Model
 from utils.fn import lmap
 
 
 class Sync:
+    @staticmethod
+    def compile(document):
+        return document.bake()
+
     def __init__(self):
         super().__init__()
 
@@ -22,6 +27,9 @@ class Sync:
         if isinstance(document, list):
             return lmap(self.update, document)
 
+        if isinstance(document, Model):
+            return self.update(self.compile(document))
+
         q = {'id': document['id']}
         try:
             self.collection.update_one(q, {'$set': document}, upsert=True)
@@ -29,9 +37,6 @@ class Sync:
         except ValueError:
             pass
         return None
-
-    def compile(self, document):
-        return document
 
     def query(self, q):
         return self.collection.find(q)
