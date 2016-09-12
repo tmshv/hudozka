@@ -2,6 +2,7 @@ lxml==3.6.1
 Markdown==2.6.6
 Pillow==3.3.0
 pymongo==3.3.0
+PyPDF2==1.26.0
 python-frontmatter==0.3.1
 PyYAML==3.11
 requests==2.10.0
