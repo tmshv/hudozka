@@ -6,6 +6,10 @@ from glob import glob
 import bson.json_util
 
 
+def constant(value):
+    return lambda _: value
+
+
 def combine(items):
     if len(items) == 0:
         return []
