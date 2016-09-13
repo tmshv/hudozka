@@ -4,7 +4,7 @@ from toml import loads as toml_str
 from sync import untouched
 from sync.core.schedule import SyncSchedule
 from sync.data import scan_subdirs, get_data
-from utils.fn import lmap
+from utils.fn import lmap, constant
 from utils.io import read_yaml
 
 dir_documents = '/Users/tmshv/Dropbox/Dev/Hud school/Schedules'
@@ -38,10 +38,6 @@ def combine(fns):
                 pass
         return None
     return call
-
-
-def constant(value):
-    return lambda _: value
 
 
 def toml(bytes_value):
