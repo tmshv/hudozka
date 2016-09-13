@@ -69,3 +69,11 @@ def scan_subdirs(provider, ext, path='.'):
 def get_data(provider, path, transform):
     data = provider.read(path)
     return transform(data)
+
+
+def list_images(provider, path):
+    image_types = ['.jpg', '.JPG', '.png', '.PNG']
+    return combine(lmap(
+        lambda ext: provider.type_filter(path, ext),
+        image_types
+    ))

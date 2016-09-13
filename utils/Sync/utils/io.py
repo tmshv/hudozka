@@ -27,9 +27,9 @@ def read_md(file):
         return markdown(data)
 
 
-def read_yaml_md(file):
-    yaml, content = parse_yaml_front_matter(read_file(file))
-    return yaml, markdown(content)
+def read_yaml_md(data):
+    yaml_front_matter, content = parse_yaml_front_matter(data)
+    return yaml_front_matter, markdown(content)
 
     # data = frontmatter.load(file)
     # return data.metadata, markdown(data.content)

@@ -10,14 +10,6 @@ from sync.image import sync_image
 from utils.fn import lmap, combine
 
 
-def list_images(dir):
-    image_types = ['*.jpg', '*.JPG', '*.png', '*.PNG']
-    return combine(map(
-        lambda type: glob(os.path.join(dir, type)),
-        image_types
-    ))
-
-
 def create_date(date_str, date_formats=None):
     """
     2016
