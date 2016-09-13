@@ -2,12 +2,11 @@ import os
 from glob import glob
 
 import settings
-from db import db
 from sync import synced_image_id, untouched
 from sync.core.document import SyncDocument
 from sync.data import scan_subdirs
 from sync.models.document import Document
-from utils.fn import combine, lmap, key_mapper, lmapfn
+from utils.fn import combine, lmap, key_mapper
 from utils.io import read_yaml
 
 
