@@ -64,3 +64,8 @@ def scan_subdirs(provider, ext, path='.'):
 
     items = combine(items)
     return items
+
+
+def get_data(provider, path, transform):
+    data = provider.read(path)
+    return transform(data)

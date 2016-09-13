@@ -3,6 +3,7 @@ from db import db
 from sync.data.fs import FSProvider
 from sync.data.yandexdisk import YDProvider
 from sync.document import sync_documents
+from sync.schedule import sync_schedules
 from utils.fn import lprint_json
 
 
@@ -27,6 +28,8 @@ def main(provider, fn, collection_name):
 
 
 if __name__ == '__main__':
-    client = get_provider(settings.sync_provider_type, settings.dir_documents)
+    # client = get_provider(settings.sync_provider_type, settings.dir_documents)
+    # main(client, sync_documents, settings.collection_documents)
 
-    main(client, sync_documents, settings.collection_documents)
+    client = get_provider(settings.sync_provider_type, settings.dir_schedules)
+    main(client, sync_schedules, settings.collection_schedules)

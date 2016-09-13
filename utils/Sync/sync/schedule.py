@@ -1,95 +1,101 @@
-import os
-from glob import glob
+from yaml import load as yaml
+from toml import loads as toml_str
 
-from db import db
-from sync import Sync, untouched
-from utils.fn import lprint, lprint_json, lmap
-from utils.hash import hash_file
+from sync import untouched
+from sync.core.schedule import SyncSchedule
+from sync.data import scan_subdirs, get_data
+from utils.fn import lmap
 from utils.io import read_yaml
 
 dir_documents = '/Users/tmshv/Dropbox/Dev/Hud school/Schedules'
 
 
-class SyncSchedule(Sync):
-    def __init__(self):
-        super().__init__()
-        self.collection = db().schedules
+def sync_schedules(provider, collection, update=True, delete=True):
+    """
+    :param provider:
+    :param update:
+    :param delete:
+    :return:
+    """
 
-    def create_id(self, document):
-        id = document['id'] if 'id' in document and document['id'] else None
-        if not id:
-            id = 'schedule-{period}-{semester}'.format(**document)
-        document['id'] = id
-        return document
-
-    def create_hash(self, document):
-        return {
-            **document,
-            'hash': hash_file(document['file'])
-        }
+    return main(
+        SyncSchedule(
+            collection,
+            provider
+        ),
+        update_documents=update,
+        delete_documents=delete
+    )
 
 
-if __name__ == '__main__':
-    # ALL DOCUMENTS IDS FOUNDED
-    scope_documents_ids = []
+def combine(fns):
+    def call(value):
+        data = value.read()
+        for f in fns:
+            try:
+                return f(data)
+            except Exception as e:
+                pass
+        return None
+    return call
 
-    # INIT
-    os.chdir(dir_documents)
-    sync = SyncSchedule()
 
+def constant(value):
+    return lambda _: value
+
+
+def toml(bytes_value):
+    s = bytes_value.decode('utf-8')
+    return toml_str(s)
+
+
+def main(sync, update_documents=False, delete_documents=False):
     # COLLECT YAML/MD/JPG/PDF MANIFEST FILES
-    documents = glob('*.yaml')
+    documents = sync.provider.type_filter('.', '.yaml')
+    documents += sync.provider.type_filter('.', '.toml')
 
     # READ MANIFEST
     documents = lmap(
         lambda i: {
             'file': i,
-            **read_yaml(i)
+            **get_data(sync.provider, i, combine([yaml, toml, constant({})]))
         },
         documents
     )
 
-    # # CREATE DOCUMENT IDENTITY
+    # CREATE DOCUMENT IDENTITY
     documents = lmap(sync.create_id, documents)
 
     # CREATE DOCUMENT HASH
     documents = lmap(sync.create_hash, documents)
 
-    # # CREATE SCOPE OF CURRENT SESSION
+    # CREATE SCOPE OF CURRENT SESSION
+    # ALL DOCUMENTS IDS FOUNDED
     scope_documents_ids = lmap(
         lambda i: i['id'],
         documents
     )
 
-    # # SKIP UNTOUCHED DOCUMENTS
+    # SKIP UNTOUCHED DOCUMENTS
     documents = untouched(documents, sync)
 
     # DO HEAVY PROCESS WITH DOCUMENTS
 
-    # SYNC TEACHER_PROFILE
-    documents = lmap(
-        sync.update,
-        documents
-    )
+    # SYNC SCHEDULE
+    if update_documents:
+        documents = lmap(
+            sync.update,
+            documents
+        )
 
     documents_to_remove = sync.query({'id': {'$nin': scope_documents_ids}})
-    documents_to_remove = lmap(
-        sync.delete,
-        map(
-            lambda i: {'_id': i['_id']},
-            documents_to_remove
+    if delete_documents:
+        documents_to_remove = lmap(
+            sync.delete,
+            map(
+                lambda i: {'_id': i['_id']},
+                documents_to_remove
+            )
         )
-    )
 
-    # SCOPE
-    print('SCOPE:')
-    lprint(scope_documents_ids)
-
-    # # DELETE
-    print('DELETE DOCUMENTS:')
-    lprint_json(documents_to_remove)
-
-    # DELETE
-    print('UPDATE DOCUMENTS:')
-    lprint_json(documents)
-    print('[SYNC DOCUMENTS DONE]')
+    return documents, documents_to_remove

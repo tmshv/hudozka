@@ -95,6 +95,7 @@ date_formats_reverse = [
 ]
 
 collection_documents = 'documents'
+collection_schedules = 'schedules'
 
 sync_provider_type = env('SYNC_PROVIDER', 'fs')
 
@@ -105,6 +106,7 @@ _providers_roots = {
 f = _providers_roots[sync_provider_type]
 
 dir_documents = f('Hudozka/Site/Documents')
+dir_schedules = f('Hudozka/Site/Schedules')
 dir_events = f('Hudozka/Site/Events')
 dir_news = f('Hudozka/Site/News')
 
