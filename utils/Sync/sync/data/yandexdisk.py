@@ -3,6 +3,8 @@ import os
 import re
 
 import io
+from tempfile import mkstemp
+
 import requests
 
 from sync.data import Provider
@@ -61,3 +63,8 @@ class YDProvider(Provider):
     def is_dir(self, path):
         res = self.api.get_content(self.get_abs(path))
         return res.type == 'dir'
+
+    def get_local(self, path):
+        ext = os.path.splitext(path)[1]
+        _, temp_in = mkstemp(suffix=ext)
+        return self.copy(path, temp_in)

@@ -3,7 +3,7 @@ import os
 from PIL import Image
 
 from utils.hash import hash_file
-from utils.image import resize
+# from utils.image import resize
 from utils.image.resize import optimize, thumbnail, orient
 
 
@@ -62,14 +62,11 @@ def create_image(file, sizes, url_fn, output_dir, skip_processing=False):
 def process_image(input_file, output_file, size):
     size_name, width, height = size
 
-    image = read_image(input_file)
-    image_width, image_height = image.size
-    if image_height > image_width:
-        width, height = height, width
-
     if size_name == 'original':
-        thumb = optimize(input_file, output_file, quality=90)
+        return optimize(input_file, output_file, quality=90)
     else:
-        thumb = thumbnail(input_file, output_file, (width, height))
-
-    return  thumb
+        image = read_image(input_file)
+        image_width, image_height = image.size
+        if image_height > image_width:
+            width, height = height, width
+        return thumbnail(input_file, output_file, (width, height))

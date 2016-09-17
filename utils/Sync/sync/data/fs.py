@@ -44,3 +44,5 @@ class FSProvider(Provider):
     def is_dir(self, path):
         return os.path.isdir(self.get_abs(path))
 
+    def get_local(self, path):
+        return self.get_abs(path)

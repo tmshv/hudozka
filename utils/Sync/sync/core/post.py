@@ -26,16 +26,17 @@ class SyncPost(Sync):
         return document
 
     def create_hash(self, document):
-        hash_images = lmap(
+        files = sorted(document['images'])
+        hashes = lmap(
             self.provider.hash,
             lmap(
                 lambda i: os.path.join(document['folder'], i),
-                document['images']
+                files
             )
         )
 
         document['hash'] = hash_str(
-            combine([hash_str(document)] + hash_images)
+            combine([hash_str(document)] + hashes)
         )
 
         return document
@@ -54,10 +55,9 @@ class SyncPost(Sync):
         images = []
         for img in post_html.cssselect('img'):
             src = img.get('src')
-            img_path = os.path.abspath(
-                os.path.join(document['folder'], src)
-            )
+            relative_image_path = os.path.join(document['folder'], src)
 
+            img_path = self.provider.get_local(relative_image_path)
             if os.path.exists(img_path):
                 img_id = url_encode_text(os.path.splitext(src)[0])
                 url_fn = lambda size, ext: self.image_url_base.format(

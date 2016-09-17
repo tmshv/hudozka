@@ -38,6 +38,9 @@ class Provider:
         rel = os.path.relpath(path, self.root)
         return rel
 
+    def get_local(self, path):
+        return path
+
     def is_dir(self, path):
         return False
 

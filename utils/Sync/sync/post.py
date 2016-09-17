@@ -1,21 +1,12 @@
 import os
-from datetime import datetime
-from glob import glob
-
-import lxml.html
 
 import settings
 from sync.data import list_images
-from db import db
 from sync import create_date_and_title_from_folder_name, create_post_from_image_list, create_date, images_from_html, \
     synced_images_ids, untouched
 from sync.core.post import SyncPost
-from sync.image import sync_image
-from utils.fn import combine, lmap, map_cases, first, lprint, key_mapper, lprint_json, lmapfn, constant
-from utils.hash import hash_file, hash_str
-from utils.image import create_image
+from utils.fn import lmap, map_cases, first, key_mapper, lmapfn, constant
 from utils.io import read_yaml_md
-from utils.text.transform import url_encode_text
 
 
 def get_manifest(provider, path):

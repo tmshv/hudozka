@@ -10,13 +10,13 @@ import utils.image
 
 
 def thumbnail(src, dest, size, ext=None):
-    image_magick_resize(src, dest, size, quality=85)
-    return utils.image.read_image(dest)
+    # image_magick_resize(src, dest, size, quality=85)
+    # return utils.image.read_image(dest)
 
-    # image = read_image(src)
-    # image.thumbnail(size)
-    # image.save(override_extension(dest, ext))
-    # return image
+    image = utils.image.read_image(src)
+    image.thumbnail(size)
+    image.save(override_extension(dest, ext))
+    return image
 
 
 def optimize(src, dest, quality=85, ext=None):
@@ -39,17 +39,15 @@ def crop(src, dest, size):
     crop_options['width'] = width
     crop_options['height'] = height
 
-    crop = SmartCrop()
-    result = crop.crop(image.copy(), crop_options)
+    crop_instance = SmartCrop()
+    result = crop_instance.crop(image.copy(), crop_options)
 
     box = (result['topCrop']['x'],
            result['topCrop']['y'],
            result['topCrop']['x'] + result['topCrop']['width'],
            result['topCrop']['y'] + result['topCrop']['height'])
 
-    i = utils.image\
-        .read_image(src)\
-        .crop(box)
+    i = utils.image.read_image(src).crop(box)
     i.thumbnail(size, Image.ANTIALIAS)
     i.save(dest)
 
