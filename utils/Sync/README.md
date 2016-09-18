@@ -11,9 +11,16 @@ Sync Hudozka
 **YANDEX_DISK_ACCESS_TOKEN**
 For access to files using Yandex.Disk API
 
+[How to obtain token for testing](https://tech.yandex.ru/oauth/doc/dg/tasks/get-oauth-token-docpage/)
+
 Example: 
 ```bash
 YANDEX_DISK_ACCESS_TOKEN=<Your_Access_Token>
+```
+
+Authorize url. Replace with your app id
+```
+https://oauth.yandex.ru/authorize?response_type=token&client_id=<идентификатор приложения>
 ```
 
 **SYNC_STATIC**
