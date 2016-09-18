@@ -96,7 +96,8 @@ date_formats_reverse = [
 
 collection_documents = 'documents'
 collection_schedules = 'schedules'
-collection_events = 'posts'
+collection_events = 'events'
+collection_news = 'news'
 
 sync_provider_type = env('SYNC_PROVIDER', 'fs')
 

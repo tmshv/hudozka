@@ -22,7 +22,8 @@ class SyncPost(Sync):
         self.dir_local_images = dir_local_images
 
     def create_id(self, document):
-        document['id'] = document['id'] if 'id' in document else url_encode_text(document['title'])
+        new_id = url_encode_text(document['title'])
+        document['id'] = document['id'] if 'id' in document else new_id
         return document
 
     def create_hash(self, document):

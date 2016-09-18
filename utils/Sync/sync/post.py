@@ -9,6 +9,44 @@ from utils.fn import lmap, map_cases, first, key_mapper, lmapfn, constant
 from utils.io import read_yaml_md
 
 
+def create_document_from_folder(sync, path, file_time_formats):
+    # PARSE FOLDER NAME -> GET OPTIONAL DATE/TITLE
+    doc_date, doc_title = create_date_and_title_from_folder_name(path, file_time_formats)
+    document = {
+        'folder': path,
+        'date': doc_date,
+        'title': doc_title,
+    }
+
+    # CREATE BASIC_MANIFEST BASED ON FOLDER NAME AND IMAGE CONTENT
+    images = lmap(
+        lambda img: os.path.relpath(img, path),
+        list_images(sync.provider, path)
+    )
+    post = create_post_from_image_list(images)
+
+    # TRY TO FILL UP BASIC_MANIFEST WITH MD_MANIFEST
+    params = map_cases(
+        document,
+        [(
+            lambda doc: md_from_folder(sync.provider, path),
+            lambda doc: get_manifest(sync.provider, md_from_folder(sync.provider, path)),
+        )],
+        constant({})
+    )
+
+    document = {
+        **document,
+        **params,
+        'images': images,
+        'post': post
+    }
+
+    document = sync.create_id(document)
+    document = sync.create_hash(document)
+    return document
+
+
 def get_manifest(provider, path):
     data = provider.read(path).read().decode('utf-8')
     y, m = read_yaml_md(data)
@@ -44,62 +82,10 @@ def get_folder_documents(sync, file_time_formats):
         )
     )
 
-    # PARSE FOLDER NAME -> GET OPTIONAL DATE/TITLE
-    documents = lmap(
-        lambda i: (i,) + create_date_and_title_from_folder_name(i, file_time_formats),
+    return lmap(
+        lambda doc: create_document_from_folder(sync, doc, file_time_formats),
         documents
     )
-    documents = lmap(
-        lambda i: {
-            'folder': i[0],
-            'date': i[1],
-            'title': i[2],
-        },
-        documents
-    )
-
-    # CREATE BASIC_MANIFEST BASED ON FOLDER NAME AND IMAGE CONTENT
-    documents = lmap(
-        lambda i: {
-            **i,
-            'images': lmap(
-                lambda path: os.path.relpath(path, i['folder']),
-                list_images(sync.provider, i['folder'])
-            )
-        },
-        documents
-    )
-    documents = lmap(
-        lambda i: {
-            **i,
-            'post': create_post_from_image_list(i['images'])
-        },
-        documents
-    )
-
-    # TRY TO FILL UP BASIC_MANIFEST WITH MD_MANIFEST
-    documents = lmap(
-        lambda i: {
-            **i,
-            **map_cases(
-                i,
-                [(
-                    lambda doc: md_from_folder(sync.provider, doc['folder']),
-                    lambda doc: get_manifest(sync.provider, md_from_folder(sync.provider, doc['folder'])),
-                )],
-                constant({})
-            )
-        },
-        documents
-    )
-
-    # CREATE DOCUMENT IDENTITY
-    documents = lmap(sync.create_id, documents)
-
-    # CREATE HASH OF DOCUMENT FILE
-    documents = lmap(sync.create_hash, documents)
-
-    return documents
 
 
 # GET EVENT FILES
@@ -149,20 +135,20 @@ def main(sync, file_time_formats, update_documents=True, delete_documents=True):
     # SKIP UNTOUCHED DOCUMENTS
     documents = untouched(documents, sync)
 
-    # MAP EVENT MANIFEST -> EVENT_OBJECT
-    documents = lmap(
-        sync.create,
-        documents
-    )
+    # # MAP EVENT MANIFEST -> EVENT_OBJECT
+    # documents = lmap(
+    #     sync.create,
+    #     documents
+    # )
 
     # FILTER INCORRECT EVENTS
     documents = list(filter(None, documents))
 
-    # REPLACE IMAGES OBJECTS WITH IT _ID IN MONGODB
-    documents = lmap(
-        key_mapper('images', synced_images_ids),
-        documents
-    )
+    # # REPLACE IMAGES OBJECTS WITH IT _ID IN MONGODB
+    # documents = lmap(
+    #     key_mapper('images', synced_images_ids),
+    #     documents
+    # )
 
     # SYNC EVENT_OBJECT WITH DB
     if update_documents:
@@ -171,6 +157,7 @@ def main(sync, file_time_formats, update_documents=True, delete_documents=True):
             documents
         )
 
+    documents_to_delete = []
     if delete_documents:
         remove_query = sync.create_remove_query({'id': {'$nin': scope_documents_ids}})
         documents_to_delete = sync.query(remove_query)
@@ -181,8 +168,6 @@ def main(sync, file_time_formats, update_documents=True, delete_documents=True):
                 documents_to_delete
             )
         )
-    else:
-        documents_to_delete = []
 
     return documents, documents_to_delete
 

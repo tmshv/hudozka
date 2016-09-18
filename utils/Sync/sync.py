@@ -1,5 +1,3 @@
-from subprocess import call
-
 import settings
 from db import db
 from sync.data.fs import FSProvider
@@ -8,8 +6,6 @@ from sync.document import sync_documents
 from sync.post import sync_posts
 from sync.schedule import sync_schedules
 from utils.fn import lprint_json
-from utils.image import read_image
-from utils.image import thumbnail
 
 
 def get_provider(provider_type, root):
@@ -42,3 +38,4 @@ if __name__ == '__main__':
     main(io(settings.dir_documents), sync_documents, settings.collection_documents)
     main(io(settings.dir_schedules), sync_schedules, settings.collection_schedules)
     main(io(settings.dir_events), sync_posts, settings.collection_events)
+    main(io(settings.dir_news), sync_posts, settings.collection_news)
