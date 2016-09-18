@@ -37,11 +37,8 @@ def main(provider, fn, collection_name):
 
 
 if __name__ == '__main__':
-    client = get_provider(settings.sync_provider_type, settings.dir_documents)
-    main(client, sync_documents, settings.collection_documents)
+    io = lambda root: get_provider(settings.sync_provider_type, root)
 
-    client = get_provider(settings.sync_provider_type, settings.dir_schedules)
-    main(client, sync_schedules, settings.collection_schedules)
-
-    client = get_provider(settings.sync_provider_type, settings.dir_events)
-    main(client, sync_posts, settings.collection_events)
+    main(io(settings.dir_documents), sync_documents, settings.collection_documents)
+    main(io(settings.dir_schedules), sync_schedules, settings.collection_schedules)
+    main(io(settings.dir_events), sync_posts, settings.collection_events)
