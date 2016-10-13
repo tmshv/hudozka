@@ -102,7 +102,7 @@ collection_news = 'news'
 sync_provider_type = env('SYNC_PROVIDER', 'fs')
 
 _providers_roots = {
-    'fs': abs_fn('/Users/tmshv/Yandex.Disk'),
+    'fs': abs_fn(env('SYNC_LOCAL_PATH')),
     'yd': abs_fn('/'),
 }
 f = _providers_roots[sync_provider_type]

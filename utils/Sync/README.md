@@ -23,6 +23,14 @@ Authorize url. Replace with your app id
 https://oauth.yandex.ru/authorize?response_type=token&client_id=<идентификатор приложения>
 ```
 
+**SYNC_LOCAL_PATH**
+Path to scan files from
+
+Example:
+```bash
+SYNC_LOCAL_PATH=/Users/tmshv/Yandex.Disk
+```
+
 **SYNC_STATIC**
 Path to local folder for compiled files (images, uploads)
 
