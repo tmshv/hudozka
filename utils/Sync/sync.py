@@ -3,6 +3,7 @@ from db import db
 from sync.data.fs import FSProvider
 from sync.data.yandexdisk import YDProvider
 from sync.document import sync_documents
+from sync.person import sync_persons
 from sync.post import sync_posts
 from sync.schedule import sync_schedules
 from utils.fn import lprint_json
@@ -39,3 +40,4 @@ if __name__ == '__main__':
     main(io(settings.dir_schedules), sync_schedules, settings.collection_schedules)
     main(io(settings.dir_events), sync_posts, settings.collection_events)
     main(io(settings.dir_news), sync_posts, settings.collection_news)
+    main(io(settings.dir_collective), sync_persons, settings.collection_collective)
