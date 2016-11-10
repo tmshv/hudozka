@@ -1,64 +1,116 @@
-import co from 'co';
 import {c} from '../core/db';
+import {select} from '../utils/fn';
+import {createMap} from '../utils/common';
 import {getCollective} from './collective';
 
-import {populate, scheduleDate} from '../models/schedule';
-import {shortifyName} from '../models/collective';
-import {courses} from '../models/course';
+import {scheduleDate, getPeriod as schedulePeriod} from '../models/schedule';
+import {getCourseName} from '../models/course';
+
+const SCHEDULES = 'schedules';
 
 export async function getSchedule(period, semester) {
-    let data = await c('schedules').findOne({
-        period: period,
+    const schedule = await c(SCHEDULES).findOne({
+        $or: [
+            {period: period},
+            {period: schedulePeriod(period)}
+        ],
         semester: semester
     });
-    if (data) return data;
-    return null;
+
+    return schedule ? migrate(schedule) : null;
 }
 
-export async function getScheduleList() {
-    let list = await c('schedules')
-        .find({}, {period: 1, semester: 1})
+export async function getSchedules(fields = ['_id', 'id', 'period', 'semester']) {
+    const list = await c(SCHEDULES)
+        .find({})
         .toArray();
-    return list
-        .sort((a, b) => {
-            let ad = scheduleDate(a);
-            let bd = scheduleDate(b);
 
-            return ad.getTime() - bd.getTime();
-        });
+    const schedules = await Promise.all(list.map(migrate));
+    return schedules
+        .sort((a, b) => {
+            const ad = scheduleDate(a).getTime();
+            const bd = scheduleDate(b).getTime();
+            return ad - bd;
+        })
+        .map(select(fields));
 }
 
-export async  function populateSchedule(schedule) {
-    let collective = await getCollective({}, {id: 1, name: 1});
-    let collective_dict = collective.reduce((dict, i) => {
-        dict[i.id] = i.name;
-        return dict;
+async function migrate(schedule) {
+    const versions = {
+        '1.0': migrate_10_to_20,
+        '2.0': migrate_20_to_30,
+    };
+
+    const version = schedule.version;
+    const update = versions[version];
+    return version in versions ? migrate(update(schedule)) : schedule;
+}
+
+function migrate_10_to_20(schedule) {
+    const dayNames = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+    const time = time => time
+        .map(i => i.split(' '));
+
+    const week = days => days.reduce((week, lesson, index) => {
+        if (lesson) {
+            const day = dayNames[index];
+            week[day] = [Object.assign(lesson, {
+                time: time(lesson.time)
+            })];
+        }
+
+        return week;
     }, {});
 
-    let populateLesson = populate(courses);
-    let populateTeacher = populate(collective_dict, i => shortifyName(i));
+    return Object.assign(schedule, {
+        version: '2.0',
+        period: schedulePeriod(schedule.period),
+        groups: schedule.schedule
+            .map(group => ({
+                name: group.group,
+                time: group.time,
+                week: week(group.week)
+            }))
+    });
+}
 
-    return schedule.map(i => {
-        return {
-            group: i.group,
-            time: i.time,
-            week: i.week.map(record => {
-                if (!record) return record;
+async function migrate_20_to_30(schedule) {
+    const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 
-                let lesson = record.lesson;
-                let teacher = record.teacher;
-                let time = record.time;
+    const persons = await getCollective();
+    const person = createMap(i => i.id, persons);
 
-                return {
-                    time: time,
-                    lesson: populateLesson(lesson),
-                    teacher: {
-                        id: teacher,
-                        url: `/teacher/${teacher}`,
-                        name: populateTeacher(teacher)
-                    }
-                };
-            })
-        };
+    const week = week => days
+        .map(day => week[day] || [])
+        .map(lessons => lessons.map(lesson));
+
+    const lesson = i => ({
+        time: i.time,
+        course: course(i.lesson),
+        teacher: teacher(i.teacher)
+    });
+
+    const teacher = id => ({
+        id: id,
+        url: `/teacher/${id}`,
+        name: personName(id)
+    });
+
+    const personName = id => person.has(id) ? person.get(id).name : null;
+
+    const course = id => ({
+        id: id,
+        url: null,
+        title: getCourseName(id)
+    });
+
+    return Object.assign(schedule, {
+        version: '3.0',
+        groups: schedule.groups
+            .map(group => ({
+                name: group.name,
+                time: group.time,
+                week: week(group.week)
+            }))
     });
 }

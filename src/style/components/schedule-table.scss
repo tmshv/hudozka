@@ -2,7 +2,6 @@
 
 $current-week-day-color: $blue-color;
 
-
 $cell-width: 9em;
 $cell-tablet-width: 7.5em;
 
@@ -36,7 +35,6 @@ $current-day-column-border-thickness: 3px;
 
   &__head{
     display: flex;
-    justify-content: space-between;
 
     .date {
       margin: .5em 0 0;
@@ -89,17 +87,11 @@ $current-day-column-border-thickness: 3px;
 
     text-align: center;
   }
-}
 
-//.canceled:before {
-//  position: absolute;
-//  content: "";
-//  width: 70%;
-//  height: 100%;
-//  top: 0;
-//  left: 15%;
-//  background-image: url(lesson-canceled.svg);
-//}
+  &__course{
+    margin-bottom: $half-margin;
+  }
+}
 
 @media screen and (min-width: $tablet-min-width) and (max-width: $tablet-max-width) {
   .schedule-table {
@@ -125,10 +117,6 @@ $current-day-column-border-thickness: 3px;
       }
     }
 
-    //&__body-row{
-    //  justify-content: center;
-    //}
-
     &__body-group{
       min-width: $group-cell-tablet-width;
 
@@ -141,7 +129,4 @@ $current-day-column-border-thickness: 3px;
       min-width: $cell-tablet-width;
     }
   }
-
-  //@media screen and (orientation: portrait) {
-  //}
 }

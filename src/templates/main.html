@@ -12,6 +12,12 @@
     <base href="/">
     <title ng-bind="title">Шлиссельбургская Детская Художественная Школа</title>
 
+    <link rel="icon" type="image/png" href="//static.shlisselburg.org/art/graphics/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="57x57" href="//static.shlisselburg.org/art/graphics/favicon-57.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="//static.shlisselburg.org/art/graphics/favicon-72.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="//static.shlisselburg.org/art/graphics/favicon-114.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="//static.shlisselburg.org/art/graphics/favicon-144.png" />
+
     <link rel="stylesheet" href="/style.css">
     <!--<link rel="stylesheet" href="/animate.min.css">-->
     <link rel="stylesheet" href="/fonts/PTSans/stylesheet.css">
@@ -76,5 +82,15 @@
         </div>
     </footer>
 </div>
+
+<script>
+    (function() {
+        var d = document;
+        var s = d.createElement('script');
+        s.src = '//hudozka.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', Date.now());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
 </body>
 </html>

@@ -46,7 +46,7 @@ import {createInstance as createInstagram} from '../../models/TimelinePostInstag
 const createPost = post => post.type === 'post' ? post : null;
 const createPosts = items => items
     .map(createRecord)
-    .filter(i => i);
+    .filter(Boolean);
 
 function createRecord(post){
     for (let fn of [createInstagram, createPost]){

@@ -210,10 +210,25 @@ app.config(($locationProvider, $routeProvider) => {
 });
 
 app.run(($location, $rootScope, $http) => {
-    $rootScope.$on('$routeChangeSuccess', (event, current) => {
-        let title = current['$$route'].title;
-        if (title) $rootScope.title = title;
-    });
+	$rootScope.$on('$routeChangeSuccess', (event, current) => {
+		const url = location.href;
+		const title = current['$$route'].title;
+
+		if (title) $rootScope.title = title;
+
+		setTimeout(() => {
+			try {
+				DISQUS.reset({
+					reload: true,
+					config: function () {
+						this.page.identifier = url;
+						this.page.url = url;
+					}
+				});
+			} catch (e) {
+			}
+		}, 500)
+	});
 
     $rootScope.$on('$routeChangeError', (event, current) => {
         //let title = current['$$route'].title;

@@ -1,6 +1,7 @@
 import 'babel-polyfill';
 
 import config from './config';
+import {name} from './config';
 import {connect, collection} from './core/db';
 import io from './io';
 import server from './server';
@@ -10,11 +11,13 @@ import DataManager from 'hudozka-data';
 
 function main() {
     async function loop() {
-        await connect(config.db.uri);
+        const db = config.db.uri;
+        await connect(db);
 
         try {
             let data = new DataManager({
-                timeline: collection('timeline')
+                timeline: collection('timeline'),
+                schedules: collection('schedules')
             });
 
             let app = server(data);
@@ -26,7 +29,9 @@ function main() {
             return;
         }
 
-        console.log(`Start listening ${config.port}`);
+        console.log(`App ${name} started`);
+        console.log(`listening ${config.port}`);
+        console.log(`db address ${db}`);
     }
 
     loop();

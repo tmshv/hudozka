@@ -1,4 +1,6 @@
 import template from '../../templates/components/schedule-record.html';
+import {shortName} from '../../models/collective';
+import {nullSafe} from "../../utils/common";
 
 export default function(app) {
     app.component('scheduleRecord', {
@@ -6,6 +8,9 @@ export default function(app) {
             record: '<',
             i: '<'
         },
-        template: template
+        template: template,
+        controller: function() {
+            this.short = nullSafe(shortName);
+        }
     })
 };

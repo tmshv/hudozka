@@ -1,5 +1,6 @@
 import template from '../../templates/components/schedule-table.html';
 import {getDates} from '../../utils/date';
+import {shortName} from '../../models/collective';
 
 export default function(app) {
     app.component('scheduleTable', {
@@ -11,8 +12,10 @@ export default function(app) {
             const now = new Date();
             const dates = getDates(now);
 
+            this.days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
             this.isToday = weekDayIndex => (now.getDay() - 1) === weekDayIndex;
             this.weekDay = weekDayIndex => dates[weekDayIndex];
+            this.short = shortName;
 
             //var $tbody = element.find('table tbody');
             //var $thead = element.find('table thead');

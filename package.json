@@ -20,7 +20,7 @@
     "angular": "^1.5.3",
     "angular-route": "^1.5.3",
     "angular-spinner": "^0.8.1",
-    "angulartics": "^1.0.3",
+    "angulartics": "^1.2.1",
     "angulartics-google-analytics": "^0.1.4",
     "babel-core": "^6.7.4",
     "babel-polyfill": "^6.7.4",
@@ -48,6 +48,10 @@
     "koa-static": "^3.0.0",
     "mongodb": "^2.1.14",
     "mz": "^2.4.0",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-redux": "^4.4.5",
+    "redux": "^3.6.0",
     "request-promise": "^2.0.1",
     "sitemap": "^1.5.0",
     "socket.io": "^1.4.5",
@@ -75,10 +79,10 @@
     "gulp-uglify": "~1.5.0",
     "html-minify-loader": "~1.1.0",
     "istanbul": "~0.4.2",
+    "mocha": "~2.4.5",
     "raw-loader": "~0.5.1",
     "should": "^8.2.2",
     "vinyl-named": "~1.1.0",
-    "mocha": "~2.4.5",
     "webpack-stream": "~3.1.0"
   }
 }

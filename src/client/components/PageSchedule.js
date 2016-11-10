@@ -1,46 +1,41 @@
 import template from '../../templates/components/page-schedule.html';
 import APISchedule from '../api/APISchedule';
-import {populate} from '../../utils/populate';
-import {getCourseNameByID} from '../../models/course';
-import {indexEquals} from '../../utils/common';
-import {select, choise} from '../../utils/common';
 
 export default function (app) {
     app.component('pageSchedule', {
         template: template,
         bindings: {
-            //currentSchedule: '<',
             schedules: '<'
         },
         controller: function($http, $location, $routeParams, api, menu) {
-            this.pageClass = 'page-schedule';
             menu.activate('/schedule');
 
             const period = $routeParams.period;
             const semester = $routeParams.semester;
-            const useRoute = period && semester;
+            const useRoute = Boolean(period) && Boolean(semester);
 
-            this.loadSchedule = (record, doUpdateURL) => {
+            const stringPeriod = period => period.join('-');
+
+            this.loadSchedule = (record, doUpdateUrl) => {
                 let id = record._id;
-                let scheduleItem = getScheduleByID(id);
+                let scheduleItem = getScheduleById(id);
                 if (scheduleItem) {
-                    let p = scheduleItem.period;
+                    let p = scheduleItem.period.join('-');
                     let s = scheduleItem.semester;
                     api.schedule.fetch(p, s, true)
                         .then(i => i.data)
                         .then(i => {
-                            this.schedule = i.schedule;
-                            if (doUpdateURL) $location.url(APISchedule.buildScheduleUrl(p, s));
+                            this.schedule = i;
+                            if (doUpdateUrl) $location.url(APISchedule.buildScheduleUrl(p, s));
                         });
                 }
             };
 
-            let getScheduleByID = id => this.schedules
+            const getScheduleById = id => this.schedules
                 .find(i => i._id === id);
 
-            let getRoutedSchedule = list => {
-                return list.find(i => i.period === period && i.semester === semester)
-            };
+            const getSchedule = (period, semester) => this.schedules
+                .find(i => stringPeriod(i.period) === period && i.semester === semester);
 
             let last = list => list.length ? list[list.length - 1] : null;
             let getDefaultSchedule = list => last(list);
@@ -51,12 +46,12 @@ export default function (app) {
 
             this.schedules.forEach(i => {
                 let periodIndex = i.semester === 'spring' ? 1 : 0;
-                let year = i.period.split('-')[periodIndex];
+                let year = i.period[periodIndex];
                 i.text = `${word(i.semester)} ${year} года`;
             });
-            this.currentSchedule = useRoute ? getRoutedSchedule(this.schedules) : getDefaultSchedule(this.schedules);
 
-            this.loadSchedule(this.currentSchedule, useRoute);
+            this.currentSchedule = useRoute ? getSchedule(period, semester) : getDefaultSchedule(this.schedules);
+            if(this.currentSchedule) this.loadSchedule(this.currentSchedule, useRoute);
         }
     });
 };

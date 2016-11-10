@@ -36,21 +36,14 @@ export default function (app) {
                             return Math.min(max, Math.max(min, value));
                         };
 
-                        return value => fit ?
-                            constrain(map_range(value, r1, r2, d1, d2))
-                            :
-                            map_range(value, r1, r2, d1, d2)
+						return value => fit ? constrain(map_range(value, r1, r2, d1, d2)) : map_range(value, r1, r2, d1, d2);
                     }
 
-                    let hm = mapper([0, 900], [0, 900], true);
-                    let em = mapper([340, 900], [0, 400], true);
-                    //let pm = mapper([0, 1000], [1000, 900], true);
+					const hm = mapper([0, 900], [0, 900], true);
+					const em = mapper([340, 900], [0, 400], true);
 
                     function updateHead(value) {
-                        //console.log(value);
-
-                        let v = hm(value);
-                        //let v = value;
+						const v = hm(value);
 
                         try {
                             [...document.querySelectorAll('.parallax .parallax__layer')]
@@ -59,15 +52,9 @@ export default function (app) {
                                     e.style.top = `${layer.y + v * layer.s}px`;
                                 });
 
-                            let end = document.querySelector('.parallax .parallax__end');
-                            end.style.height = `${em(value)}px`;
-
-                            //let container = document.querySelector('.parallax');
-                            //container.style.height = '1000px';
-                            //container.style.height = `${pm(value)}px`;
-
+							const end = document.querySelector('.parallax .parallax__end');
+							if (end) end.style.height = `${em(value)}px`;
                         } catch (error) {
-                            console.log(error);
                         }
                     }
 
@@ -77,6 +64,5 @@ export default function (app) {
                     });
                 }
             };
-        }
-    );
+	});
 }

@@ -79,3 +79,26 @@ export function assign(dict, key, value){
 export function map(v, fn) {
     return value => fn(value) ? v : value;
 }
+
+/**
+ *
+ * f(g, [x, y, z, ...]) => map of {g(x): x, g(y): y, g(z): z}
+ *
+ * @param list
+ * @param selector
+ * @returns {*}
+ */
+export function createMap(selector, list){
+    return list.reduce((map, i) => map.set(selector(i), i), new Map());
+}
+
+/**
+ *
+ * f(g) => x ? g(x) : null
+ *
+ * @param {function} fn
+ * @returns {function(*=): null}
+ */
+export function nullSafe(fn){
+    return i => i ? fn(i) : null;
+}

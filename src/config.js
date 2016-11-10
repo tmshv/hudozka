@@ -42,6 +42,7 @@ export const redirectionTable = fs.readFileSync(redirectPath, 'utf-8')
         }
     });
 
+export const name = 'Hudozka';
 export const host = 'art.shlisselburg.org';
 export const protocol = 'https://';
 export const homeUrl = protocol + host;

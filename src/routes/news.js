@@ -23,35 +23,33 @@ function news() {
         'text/html': redirect,
         'text/plain': redirect,
         'application/json': async ctx => {
-            let limit = parseInt(ctx.query['limit']) || 10;
-            let skip = parseInt(ctx.query['skip']) || 0;
+            const limit = parseInt(ctx.query['limit']) || 20;
+            const skip = parseInt(ctx.query['skip']) || 0;
 
-            let query = {};
+            const query = {};
             if (ctx.query.type) query.type = ctx.query.type;
 
-            let pinned = [];
-            if(skip == 0) {
-                const now = new Date();
-                pinned = await c('timeline')
-                    .find({until: {$gte: now}})
-                    .toArray()
-                    .then(i => i.sort(sortNewsByDate));
-            }
+            const now = new Date();
+            const pinned = skip != 0 ? [] : await c('timeline')
+                .find({until: {$gte: now}})
+                .toArray();
 
-            let sid = id => id + '';
-            let pinnedIds = pinned.map(p => sid(p['_id']));
+            const id = i => i._id;
+            const pinnedIds = pinned.map(id);
 
             let posts = await c('timeline')
                 .find(query)
                 .sort({date: -1})
                 .skip(skip)
                 .limit(limit)
-                .toArray()
-                .then(items => items.filter(
-                    i => pinnedIds.indexOf(sid(i['_id'])) < 0
-                ));
+                .toArray();
 
-            ctx.body = pinned.concat(posts);
+            ctx.body = [
+                ...pinned.sort(sortNewsByDate),
+                ...posts.filter(
+                    i => !pinnedIds.includes(id(i))
+                )
+            ];
         }
     }));
 }

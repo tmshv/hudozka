@@ -16,3 +16,9 @@
     width: 1280px;
   }
 }
+
+@media (max-width: $mobile-width) {
+  .main-image {
+    display: none;
+  }
+}

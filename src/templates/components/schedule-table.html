@@ -29,10 +29,10 @@
 
     <div class="schedule-table__body">
     <div class="schedule-table__body-row"
-         ng-repeat="i in $ctrl.schedule">
+         ng-repeat="i in $ctrl.schedule.groups">
 
         <div class="schedule-table__body-group">
-            <p class="name">{{i.group}}</p>
+            <p class="name">{{i.name}}</p>
             <p class="time">{{i.time}}</p>
         </div>
 
@@ -40,9 +40,13 @@
              ng-repeat="day in i.week track by $index"
              ng-class="{current: $ctrl.isToday($index)}"
         >
-            <p class="lesson"><a href="">{{day.lesson}}</a></p>
-            <p class="teacher"><a href="{{day.teacher.url}}">{{day.teacher.name}}</a></p>
-            <p class="time" ng-repeat="time in day.time">{{time}}</p>
+            <div class="schedule-table__course"
+                ng-repeat="lesson in day track by $index"
+            >
+                <p class="lesson"><a href="">{{lesson.course.title}}</a></p>
+                <p class="teacher"><a href="{{lesson.teacher.url}}">{{$ctrl.short(lesson.teacher.name)}}</a></p>
+                <p class="time" ng-repeat="time in lesson.time">{{time.join(' — ')}}</p>
+            </div>
         </div>
     </div>
     </div>

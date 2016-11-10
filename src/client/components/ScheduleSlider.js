@@ -11,13 +11,11 @@ function week(schedule) {
                 current: i === now.getDay() - 1,
                 day: day,
                 date: dates[i],
-                groups: schedule.map(group => {
-                    return {
-                        name: group.group,
-                        time: group.time,
-                        content: group.week[i]
-                    }
-                })
+                groups: schedule.groups.map(group => ({
+                    name: group.group,
+                    time: group.time,
+                    content: group.week[i]
+                }))
             }
         });
 }
@@ -41,7 +39,7 @@ export default function(app) {
                     }
 
                     if (value) {
-                        let days = week(value);
+                        const days = week(value);
                         scope.days = days;
 
                         $slick.html(

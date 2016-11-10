@@ -1,4 +1,3 @@
-import co from 'co';
 import compose from 'koa-compose';
 import route from 'koa-route';
 import {c} from '../core/db';
@@ -9,53 +8,29 @@ export default function () {
         gallery(),
         album()
     ]);
-
-    //app.use(route.get('/gallery/:year', json(
-    //    function *(year) {
-    //        year = parseInt(year);
-    //        let start = new Date(year, 0, 1);
-    //        let end = new Date(year, 11, 31);
-    //        let query = {
-    //            date: {$gte: start, $lt: end}
-    //        };
-    //        let albums = yield c('albums')
-    //            .find(query)
-    //            .toArray();
-    //
-    //        albums = yield albums.map(processAlbum);
-    //        this.body = albums;
-    //    }
-    //)));
 };
 
-function gallery(){
+function gallery() {
     return route.get('/gallery', json(
         async(ctx) => {
             let query = {};
-            let fields = ['_id', 'id', 'title', 'date'];
-            //.reduce((f, i) => {
-            //    f[i] = 1;
-            //    return f;
-            //}, {});
-
             let albums = await c('albums')
                 .find(query)
                 .toArray();
 
-            //albums = albums.map(i => {
-            //    return fields.reduce((a, key)=> {
-            //        a[key] = i[key];
-            //        return a;
-            //    }, {});
-            //});
-
-            albums = await Promise.all(albums.map(processAlbum));
-            ctx.body = albums;
+            ctx.body = await Promise.all(albums
+                .sort((a, b) => {
+                    const da = a.date.getTime();
+                    const db = b.date.getTime();
+                    return db - da;
+                })
+                .map(processAlbum)
+            );
         }
     ));
 }
 
-function album(){
+function album() {
     return route.get('/album/:id', json(
         async(ctx, id) => {
             let record = await c('albums').findOne({
@@ -67,25 +42,14 @@ function album(){
     ));
 }
 
-let processAlbum = album => co(function *() {
-    //album.url = `/gallery/{year}{course}{album}`
-    //    .replace('{year}', album.date.getFullYear())
-    //    .replace('{course}', album.course_uri)
-    //    .replace('{album}', album.uri);
+const processAlbum = async album => {
     album.url = `/album/${album.id}`;
 
-    //album.content = yield album.content.map(product_id => co(function *() {
-    //    let product = yield c('products').findOne({_id: product_id});
-    //    if (product) return product;
-    //    else return null;
-    //}));
-
-    //let teacher = yield c('collective').findOne({id: album.teacher});
-    //album.teacher = teacher.name;
-
-    let previewImageId = album.images[0];
-    let image = yield c('images').findOne({_id: previewImageId});
-    album.preview = image.data.medium;
+    const previewImageId = album.images.length ? album.images[0] : null;
+    if (previewImageId) {
+        const image = await c('images').findOne({_id: previewImageId});
+        album.preview = image.data.medium;
+    }
 
     return album;
-});
+};

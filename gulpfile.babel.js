@@ -78,7 +78,7 @@ gulp.task('copy templates', () => {
 
 gulp.task('compile', () => {
     const doWatch = !isProduction;
-    const doSourceMaps = false;
+    const doSourceMaps = !isProduction;
 
     return gulp.src([
             './src/client/app.js'
