@@ -1,6 +1,6 @@
 import settings
 from sync.core import Sync
-from utils.hash import hash_str, hash_file
+from utils.hash import hash_str
 from utils.image import create_image
 from utils.text.transform import url_encode_text
 
@@ -16,8 +16,9 @@ class SyncPerson(Sync):
         self.dir_local_images = dir_local_images
 
     def compile(self, profile):
+        image_path = self.provider.get_abs(profile['picture'])
         profile['picture'] = create_image(
-            profile['picture'],
+            image_path,
             sizes,
             lambda size, ext: url_base.format(id=profile['id'], size=size, ext=ext),
             self.dir_local_images

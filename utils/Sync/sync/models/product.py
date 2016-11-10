@@ -1,5 +1,7 @@
+import settings
+from db import collection
+from sync.core.person import SyncPerson
 from sync.image import sync_image
-from sync.teacher import Teacher
 from utils.fn import key_mapper
 from utils.text.transform import interpolate_swift
 
@@ -18,10 +20,13 @@ def resolve_value(param, store):
 unpop_image = key_mapper('image', lambda i: sync_image(i)['_id'])
 
 
-
 def resolve_teacher(i):
-    sync = Teacher()
-    return resolve_value(i, lambda i: sync.read({'id': i}))
+    sync = SyncPerson(
+        collection(settings.collection_collective),
+        None,
+        ''
+    )
+    return resolve_value(i, lambda teacher_id: sync.read({'id': teacher_id}))
 
 
 def create_product(doc):
@@ -33,7 +38,7 @@ def create_product(doc):
     unpop_image(product)
 
     product['teacher'] = resolve_teacher(doc['teacher'])
-    if(product['teacher']):
+    if (product['teacher']):
         unpop_teacher(product)
 
     return product

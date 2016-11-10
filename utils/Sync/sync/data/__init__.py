@@ -30,6 +30,9 @@ class Provider:
     def size(self, path):
         return 0
 
+    def exists(self, path):
+        return True
+
     def get_abs(self, path):
         a = os.path.join(self.root, path)
         return os.path.normpath(a)

@@ -1,17 +1,17 @@
-from yaml import load as yaml
 from toml import loads as toml_str
+from yaml import load as yaml
 
 from sync import untouched
 from sync.core.schedule import SyncSchedule
-from sync.data import scan_subdirs, get_data
+from sync.data import get_data
 from utils.fn import lmap, constant
-from utils.io import read_yaml
 
 dir_documents = '/Users/tmshv/Dropbox/Dev/Hud school/Schedules'
 
 
 def sync_schedules(provider, collection, update=True, delete=True):
     """
+    :param collection:
     :param provider:
     :param update:
     :param delete:

@@ -9,6 +9,7 @@ Sync Hudozka
 ### Environment variables
 
 **YANDEX_DISK_ACCESS_TOKEN**
+
 For access to files using Yandex.Disk API
 
 [How to obtain token for testing](https://tech.yandex.ru/oauth/doc/dg/tasks/get-oauth-token-docpage/)
@@ -23,7 +24,8 @@ Authorize url. Replace with your app id
 https://oauth.yandex.ru/authorize?response_type=token&client_id=<идентификатор приложения>
 ```
 
-**SYNC_LOCAL_PATH**
+#### SYNC_LOCAL_PATH
+
 Path to scan files from
 
 Example:
@@ -31,7 +33,8 @@ Example:
 SYNC_LOCAL_PATH=/Users/tmshv/Yandex.Disk
 ```
 
-**SYNC_STATIC**
+#### SYNC_STATIC
+
 Path to local folder for compiled files (images, uploads)
 
 Example: 
@@ -39,7 +42,8 @@ Example:
 SYNC_STATIC=~/Desktop/Hudozka Static
 ```
 
-**SYNC_PROVIDER**
+#### SYNC_PROVIDER
+
 Type of file provider
 
 - *fs* for local access
@@ -50,10 +54,18 @@ Example:
 SYNC_PROVIDER=fs
 ```
 
-**MONGO_URI**
-URI for access to MongoDB
-Example: mongodb://localhost:27017/hudozka
+#### MONGO_URI
 
-**SYNC_ENV**
+URI for MongoDB access
+
+Example:
+ ```bash
+ mongodb://localhost:27017/hudozka
+ ```
+
+#### SYNC_ENV
+
+Environment like *NODE_ENV*
+
 - *production* default value
 - *development* don't update/delete documents from DB

@@ -1,54 +1,14 @@
 import re
-
-import frontmatter
 import yaml
-from markdown import markdown
 
-from utils.text.split import split, split_with
+from kazimir import kazimir_to_html
 
-# FM_BOUNDARY = re.compile(r'^-{3,}$', re.MULTILINE)
 FM_BOUNDARY = re.compile(r'^-{3,}', re.MULTILINE)
-
-def read_file(file):
-    with open(file, 'rb') as f:
-        data = f.read().decode('utf-8')
-        return data
-
-
-def read_yaml(file):
-    with open(file, 'rb') as f:
-        data = f.read().decode('utf-8')
-        return yaml.load(data)
-
-
-def read_md(file):
-    with open(file, 'rb') as f:
-        data = f.read().decode('utf-8')
-        return markdown(data)
 
 
 def read_yaml_md(data):
     yaml_front_matter, content = parse_yaml_front_matter(data)
-    return yaml_front_matter, markdown(content)
-
-    # data = frontmatter.load(file)
-    # return data.metadata, markdown(data.content)
-
-
-def read_md_yaml(file):
-    data = read_file(file)
-    yaml_data, md_data = split_with(['\n\n', '\r\n\r\n'])(data)
-
-    if not yaml_data and not md_data:
-        return (None, read_md(file))
-
-    try:
-        y = yaml.load(yaml_data)
-    except:
-        y = None
-
-    m = markdown(md_data) if md_data else None
-    return y, m
+    return yaml_front_matter, kazimir_to_html(content)
 
 
 def parse_yaml_front_matter(text, **defaults):

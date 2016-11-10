@@ -12,7 +12,7 @@ from utils.text.transform import url_encode_text, url_encode_file
 
 
 class SyncPost(Sync):
-    def __init__(self, collection, provider, document_type, image_url_base, dir_local_images, sizes):
+    def __init__(self, collection, provider, document_type, image_url_base, dir_local_images, sizes, origin):
         super().__init__()
         self.collection = collection
         self.provider = provider
@@ -20,6 +20,7 @@ class SyncPost(Sync):
         self.type = document_type
         self.image_url_base = image_url_base
         self.dir_local_images = dir_local_images
+        self.origin = origin
 
     def create_id(self, document):
         new_id = url_encode_text(document['title'])
@@ -77,12 +78,14 @@ class SyncPost(Sync):
 
         document['post'] = lxml.html.tostring(post_html).decode('utf-8')
         document['images'] = images
+        document['origin'] = self.origin
         return document
 
     def create_remove_query(self, query):
         if self.type:
             query = {
                 **query,
-                'type': self.type
+                'type': self.type,
+                'orogin': self.origin
             }
         return query

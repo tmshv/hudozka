@@ -1,5 +1,4 @@
 import os
-from glob import glob
 
 import settings
 from sync import synced_image_id, untouched
@@ -7,7 +6,6 @@ from sync.core.document import SyncDocument
 from sync.data import scan_subdirs
 from sync.models.document import Document
 from utils.fn import combine, lmap, key_mapper
-from utils.io import read_yaml
 
 
 def sync_documents(provider, collection, update=True, delete=True):
@@ -177,19 +175,3 @@ def unwrap_manifest(param):
         return None
 
     return param
-
-
-def documents_from_yaml(dirpath):
-    # GET DOCUMENT YAML_MANIFEST FILES
-    documents = glob(dirpath + '/*.yaml')
-
-    # READ YAML_MANIFEST FILES
-    documents = lmap(
-        read_yaml,
-        documents
-    )
-
-    # GET FLAT LIST OF DOCUMENTS
-    documents = unwrap_manifest(documents)
-
-    return documents

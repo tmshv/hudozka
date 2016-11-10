@@ -41,6 +41,10 @@ class FSProvider(Provider):
         file = self.get_abs(path)
         return os.path.getsize(file)
 
+    def exists(self, path):
+        file = self.get_abs(path)
+        return os.path.exists(file)
+
     def is_dir(self, path):
         return os.path.isdir(self.get_abs(path))
 

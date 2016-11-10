@@ -36,10 +36,10 @@ def create_document_from_folder(sync, path, file_time_formats):
     )
 
     document = {
+        'images': images,
+        'post': post,
         **document,
         **params,
-        'images': images,
-        'post': post
     }
 
     document = sync.create_id(document)
@@ -135,20 +135,20 @@ def main(sync, file_time_formats, update_documents=True, delete_documents=True):
     # SKIP UNTOUCHED DOCUMENTS
     documents = untouched(documents, sync)
 
-    # # MAP EVENT MANIFEST -> EVENT_OBJECT
-    # documents = lmap(
-    #     sync.create,
-    #     documents
-    # )
+    # MAP EVENT MANIFEST -> EVENT_OBJECT
+    documents = lmap(
+        sync.create,
+        documents
+    )
 
     # FILTER INCORRECT EVENTS
     documents = list(filter(None, documents))
 
-    # # REPLACE IMAGES OBJECTS WITH IT _ID IN MONGODB
-    # documents = lmap(
-    #     key_mapper('images', synced_images_ids),
-    #     documents
-    # )
+    # REPLACE IMAGES OBJECTS WITH IT _ID IN MONGODB
+    documents = lmap(
+        key_mapper('images', synced_images_ids),
+        documents
+    )
 
     # SYNC EVENT_OBJECT WITH DB
     if update_documents:
@@ -179,10 +179,11 @@ def sync_posts(provider, collection, update=True, delete=True):
         SyncPost(
             collection,
             provider,
-            None,
+            'post',
             image_url_base,
             settings.dir_static_images,
-            settings.event_image_sizes
+            settings.event_image_sizes,
+            origin=settings.origin
         ),
         file_time_formats=['%Y.%m.%d'],
         update_documents=update,

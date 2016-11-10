@@ -10,13 +10,13 @@ import utils.image
 
 
 def thumbnail(src, dest, size, ext=None):
-    # image_magick_resize(src, dest, size, quality=85)
-    # return utils.image.read_image(dest)
+    image_magick_resize(src, dest, size, quality=85)
+    return utils.image.read_image(dest)
 
-    image = utils.image.read_image(src)
-    image.thumbnail(size)
-    image.save(override_extension(dest, ext))
-    return image
+    # image = utils.image.read_image(src)
+    # image.thumbnail(size)
+    # image.save(override_extension(dest, ext))
+    # return image
 
 
 def optimize(src, dest, quality=85, ext=None):
@@ -69,9 +69,9 @@ def orient(image):
     return image
 
 
-def image_magick_resize(input_file, output_file, size, quality=85):
+def image_magick_resize(ifile, ofile, size, quality=85):
     s = '%dx%d' % size
-    call(['convert', input_file, '-strip', '-auto-orient', '-resize', s, '-quality', str(quality), output_file])
+    call(['/usr/local/bin/convert', ifile, '-strip', '-auto-orient', '-resize', s, '-quality', str(quality), ofile])
 
 
 # def image_magick_resize(input_file, output_file, size, quality=85):

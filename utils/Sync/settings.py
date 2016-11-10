@@ -20,14 +20,9 @@ def env(param, default=None):
     return default
 
 
-root_dir_gallery = './Gallery'
-root_dir_schedule = './Schedules'
-
-default_description_version = 1
-
 database_uri = env('MONGO_URI')
 
-teachers_names = {
+person_uri = {
     'Н.В.Андреева': 'nv-andreeva',
     'И.Н.Втюрина': 'in-vturina',
     'О.Д.Гоголева': 'od-gogoleva',
@@ -94,11 +89,14 @@ date_formats_reverse = [
     '%Y.%m.%d'
 ]
 
+origin = 'Yandex.Disk'
+
 collection_documents = 'documents'
 collection_schedules = 'schedules'
 collection_events = 'events'
-collection_news = 'news'
+collection_news = 'timeline'
 collection_collective = 'collective'
+collection_albums = 'albums'
 
 sync_provider_type = env('SYNC_PROVIDER', 'fs')
 
@@ -113,6 +111,7 @@ dir_schedules = f('Hudozka/Site/Schedules')
 dir_events = f('Hudozka/Site/Events')
 dir_news = f('Hudozka/Site/News')
 dir_collective = f('Hudozka/Site/Collective')
+dir_gallery = f('Hudozka/Site/Gallery')
 
 dir_static = env('SYNC_STATIC', '~/Hudozka Static')
 dir_static_uploads = absolute(dir_static + '/uploads')

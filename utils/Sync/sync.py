@@ -1,5 +1,6 @@
 import settings
-from db import db
+from db import db, collection
+from sync.album import sync_albums
 from sync.data.fs import FSProvider
 from sync.data.yandexdisk import YDProvider
 from sync.document import sync_documents
@@ -7,6 +8,7 @@ from sync.person import sync_persons
 from sync.post import sync_posts
 from sync.schedule import sync_schedules
 from utils.fn import lprint_json
+from utils.image import thumbnail
 
 
 def get_provider(provider_type, root):
@@ -19,10 +21,8 @@ def get_provider(provider_type, root):
 
 def main(provider, fn, collection_name):
     if provider:
-        collection = db()[collection_name]
-
         print('SYNC: %s' % (collection_name.upper()))
-        u, d = fn(provider, collection, update=settings.do_update, delete=settings.do_update)
+        u, d = fn(provider, collection(collection_name), update=settings.do_update, delete=settings.do_update)
 
         print('DELETE %s: %s' % (collection_name.upper(), 'NO' if not settings.do_delete else str(len(d))))
         lprint_json(d)
@@ -41,3 +41,4 @@ if __name__ == '__main__':
     main(io(settings.dir_events), sync_posts, settings.collection_events)
     main(io(settings.dir_news), sync_posts, settings.collection_news)
     main(io(settings.dir_collective), sync_persons, settings.collection_collective)
+    main(io(settings.dir_gallery), sync_albums, settings.collection_albums)

@@ -9,10 +9,3 @@ __check_description_filename_exp = re.compile('^[%s]+(\[\d+\])\.md$' % settings.
 
 def check_description_filename(filename):
     return __check_description_filename_exp.match(filename)
-
-
-def suggest_description_filename(filename):
-    bn = os.path.basename(filename)
-    bn = os.path.splitext(bn)[0]
-    v = settings.default_description_version
-    return '%s [%s].md' % (bn, v)

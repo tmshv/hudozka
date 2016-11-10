@@ -33,6 +33,10 @@ def sync_persons(provider, collection, update=True, delete=True):
     )
 
 
+def make_person(provider, file):
+    pass
+
+
 def main(sync, update_documents=False, delete_documents=False):
     # GET TEACHER YAML/MD MANIFEST FILES
     documents = sync.provider.type_filter('', '.md')
@@ -75,17 +79,7 @@ def main(sync, update_documents=False, delete_documents=False):
     )
 
     # SKIP UNTOUCHED DOCUMENTS
-    documents = untouched(documents, sync)
-
-    # documents = lmap(
-    #     lambda i: i[0],
-    #     filter(
-    #         lambda i: (i[1] is None) or ('hash' not in i[1]) or (i[0]['hash'] != i[1]['hash']),
-    #         lmap(
-    #             lambda document: (document, sync.open(document)),
-    #             documents
-    #         )
-    #     ))
+    # documents = untouched(documents, sync)
 
     # DO HEAVY PROCESS WITH DOCUMENTS
     documents = lmap(
