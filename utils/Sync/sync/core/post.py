@@ -86,6 +86,6 @@ class SyncPost(Sync):
             query = {
                 **query,
                 'type': self.type,
-                'orogin': self.origin
+                'origin': self.origin
             }
         return query
