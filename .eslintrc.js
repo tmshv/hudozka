@@ -9,6 +9,7 @@ module.exports = {
 		"promise"
 	],
 	"globals": {
+		"angular": true,
 		"DISQUS": true
 	},
 	"rules": {
