@@ -4,6 +4,7 @@ from sync.album import sync_albums
 from sync.data.fs import FSProvider
 from sync.data.yandexdisk import YDProvider
 from sync.document import sync_documents
+from sync.page import sync_pages
 from sync.person import sync_persons
 from sync.post import sync_posts
 from sync.schedule import sync_schedules
@@ -42,3 +43,4 @@ if __name__ == '__main__':
     main(io(settings.dir_news), sync_posts, settings.collection_news)
     main(io(settings.dir_collective), sync_persons, settings.collection_collective)
     main(io(settings.dir_gallery), sync_albums, settings.collection_albums)
+    main(io(settings.dir_pages), sync_pages, settings.collection_pages)

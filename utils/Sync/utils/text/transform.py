@@ -5,7 +5,10 @@ from unidecode import unidecode
 from utils.fn import iterate_over_fns
 
 remove_pattr = re.compile('[«»<>,!&"\']')
-reduce_dash_pattr = re.compile('[-]+')
+reduce_dash_patterns = [
+    (re.compile('[-]+'), '-'),
+    (re.compile('^-'), '')
+]
 
 
 def translit(text):
@@ -32,7 +35,10 @@ def remove_punctuation(i):
 
 
 def reduce_dashes(i):
-    return reduce_dash_pattr.sub('-', i)
+    value = i
+    for reg_exp, replace in reduce_dash_patterns:
+        value = reg_exp.sub(replace, value)
+    return value
 
 
 def space_to_dash(i):
@@ -51,6 +57,10 @@ def short_dash(i):
 
 def dot_to_dash(i):
     return i.replace('.', '-')
+
+
+def slash_to_dash(i):
+    return i.replace('/', '-')
 
 
 def remove_underscores(i):
@@ -76,6 +86,7 @@ url_encode_text = iterate_over_fns([
     space_to_dash,
     dot_to_dash,
     short_dash,
+    slash_to_dash,
     remove_underscores,
     remove_punctuation,
     reduce_dashes,

@@ -49,3 +49,6 @@ class Sync:
 
     def create_hash(self, document):
         return None
+
+    def create_remove_query(self, query):
+        return query

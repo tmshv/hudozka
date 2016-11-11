@@ -97,6 +97,7 @@ collection_events = 'events'
 collection_news = 'timeline'
 collection_collective = 'collective'
 collection_albums = 'albums'
+collection_pages = 'pages'
 
 sync_provider_type = env('SYNC_PROVIDER', 'fs')
 
@@ -112,6 +113,7 @@ dir_events = f('Hudozka/Site/Events')
 dir_news = f('Hudozka/Site/News')
 dir_collective = f('Hudozka/Site/Collective')
 dir_gallery = f('Hudozka/Site/Gallery')
+dir_pages = f('Hudozka/Site/Pages')
 
 dir_static = env('SYNC_STATIC', '~/Hudozka Static')
 dir_static_uploads = absolute(dir_static + '/uploads')

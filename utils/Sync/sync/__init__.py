@@ -93,6 +93,16 @@ def images_from_html(md):
     return images
 
 
+def title_from_html(md):
+    if not md:
+        return None
+
+    doc = lxml.html.fromstring(md)
+    ts = doc.cssselect('h1')
+    if len(ts):
+        return ts[0].text
+
+
 create_post_from_image_list = lambda images: markdown(
     '\n'.join(map(
         lambda i: '![]({img})'.format(img=i),
