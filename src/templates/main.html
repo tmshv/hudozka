@@ -48,7 +48,11 @@
             //ga('send', 'pageview');
         }
     </script>
+
+    <script>window.hudozka={{{data}}}</script>
 </head>
+
+{{{{raw-helper}}}}
 <body>
 <div class="body-wrapper" ng-controller="AppController">
     <header ng-switch="navigation">
@@ -62,7 +66,6 @@
     <footer>
         <div class="footer-info">
             <footer-links title="{{footer.links.docs.title}}" links="footer.links.docs.links"></footer-links>
-            <footer-links title="{{footer.links.sites.title}}" links="footer.links.sites.links"></footer-links>
         </div>
 
         <div class="contacts" ng-controller="ContactsController">
@@ -77,7 +80,7 @@
         </div>
 
         <div class="copyright" ng-controller="CopyrightController">
-            <span>©&nbsp;2012...{{now}} Шлиссельбургская Детская Художественная Школа</span>
+            <span>©&nbsp;2012—{{now}} Шлиссельбургская Детская Художественная Школа</span>
             <span ng-show="developer">Разработка и поддержка сайта — <a href="http://tmshv.ru?utm_source=artshburg&utm_medium=developer&utm_campaign=tmshv_ru">www.tmshv.ru</a></span>
         </div>
     </footer>
@@ -93,4 +96,6 @@
     })();
 </script>
 </body>
+{{{{/raw-helper}}}}
+
 </html>

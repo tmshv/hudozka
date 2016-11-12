@@ -2,6 +2,9 @@
 
 .body-wrapper {
   background-color: white;
+
+  font-family: $text-font;
+  font-size: $default-font-size;
 }
 
 .body-wrapper__content {

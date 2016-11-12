@@ -4,11 +4,10 @@ import path from 'path';
 const privateFile = process.env['PRIVATE'] || 'private.json';
 const privateData = JSON.parse(fs.readFileSync(privateFile, 'utf-8'));
 
-const index_file = process.env['INDEX'] || 'templates/main.html';
+const indexFile = process.env['INDEX'] || 'templates/main.html';
 const port = process.env['PORT'] || 1800;
 
 const config = {
-    defaultIndex: path.join(__dirname, index_file),
     port: port,
     pub: './',
 
@@ -47,6 +46,7 @@ export const host = 'art.shlisselburg.org';
 export const protocol = 'https://';
 export const homeUrl = protocol + host;
 
+export const index = path.join(__dirname, indexFile);
 export const sitemapCacheTime = 600000;// 600 sec - cache purge period
 
 export const instagramToken = privateData['instagramToken'];

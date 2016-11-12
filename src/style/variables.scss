@@ -16,7 +16,7 @@ $embed-video-ratio: 56.25%;
 $small-margin: .2em;
 $half-margin: .5em;
 $single-margin: 1.0em;
-$double-margin: 3.0em;
+$double-margin: 2.0em;
 $post-margin: 5.0em;
 
 //COLOR
@@ -44,15 +44,28 @@ $white-shadow: 0 .1em 0.3em rgba(0, 0, 0, 0.2);
 $title-font: "PT Serif", Georgia, serif;
 $text-font: "PT Sans", Arial, sans-serif;
 
-$normal-font-size: 1em;
-$bigger-font-size: 1.2em;
-$big-font-size: 1.75em;
-$smaller-font-size: .8em;
+$default-font-size: 14pt;
+$smaller-font-size: 0.9rem;
+$normal-font-size: 1.0rem;
+$bigger-font-size: 1.2rem;
+$big-font-size: 1.5rem;
+$biggest-font-size: 2.5rem;
 
 //MENU
 $menu-thickness: 2.5em;
-$menu-colored-mark-thickness: 4px;
+$menu-colored-mark-thickness: 2px;
 $menu-inactive-item-color: hsl(0, 0%, 50%);
 
 //ANIMATION
 $short-duration: 0.3s;
+
+
+@media (max-width: $mobile-width) {
+  //FONTS
+  $default-font-size: 14pt;
+  $smaller-font-size: 0.9rem;
+  $normal-font-size: 1.0rem;
+  $bigger-font-size: 1.1rem;
+  $big-font-size: 1.3rem;
+  $biggest-font-size: 2.0rem;
+}

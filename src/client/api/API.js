@@ -5,6 +5,7 @@ import APITeacher from './APITeacher';
 import APISchedule from './APISchedule';
 import APIEvent from './APIEvent';
 import APIArticle from './APIArticle';
+import APIPage from './APIPage';
 
 export default class API {
     constructor(request) {
@@ -15,5 +16,6 @@ export default class API {
         this.schedule = new APISchedule(request);
         this.event = new APIEvent(request);
         this.article = new APIArticle(request);
+        this.page = new APIPage(request);
     }
 }

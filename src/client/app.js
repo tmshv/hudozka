@@ -1,3 +1,4 @@
+import {getInitialData} from './core/init';
 import Navigation from './components/Navigation';
 import MainMenu from './components/MainMenu';
 import Breadcrumbs from './components/Breadcrumbs';
@@ -20,6 +21,7 @@ import ArticlePageControl from './components/ArticlePageControl';
 import Album from './components/Album';
 import Parallax from './components/Parallax';
 
+import Page from './components/CloudPage';
 import PageSchool from './components/PageSchool';
 import PageEvents from './components/PageEvents';
 import PageArticle from './components/PageArticle';
@@ -60,6 +62,21 @@ let app = angular.module('hudozka', [
 app.config(($locationProvider, $routeProvider) => {
 	$locationProvider.hashPrefix('!');
 	$locationProvider.html5Mode(true);
+
+	const pages = getInitialData().pages
+		.map(i => i.url)
+		.map(i => ({
+			name: i,
+			template: '<cloud-page data="$.data"></cloud-page>',
+			resolveAs: '$',
+			resolve: {
+				data: (api) => {
+					return api.page
+						.url(location.pathname)
+						.then(i => i.data)
+				}
+			}
+		}));
 
 	let routers = [
 		{
@@ -191,6 +208,7 @@ app.config(($locationProvider, $routeProvider) => {
 			}
 		}
 	]
+		.concat(pages)
 		.map(i => {
 			let path = i.name;
 			delete i.name;
@@ -264,6 +282,7 @@ app.run(($location, $rootScope, $http) => {
 	GalleryItem,
 	AlbumCollection,
 	TeacherProfile,
+	Page,
 	PageSchool,
 	PageArticle,
 	PageEvents,

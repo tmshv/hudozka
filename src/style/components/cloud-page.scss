@@ -1,36 +1,35 @@
 @import "../variables";
 
-.article {
+.cloud-page {
   margin-bottom: $post-margin;
 
-  &__head {
-    margin-bottom: 1.25em;
-
-    h3 {
-      font-size: $biggest-font-size;
-      text-align: center;
-    }
-
-    .date {
-      text-align: center;
-      color: #aaa;
-    }
+  &__body{
 
     a {
       color: $dark-color;
-      border-bottom: none;
+      text-decoration: none;
+      border-bottom: 1px solid lighten($dark-color, 10%);
+
+      &:hover {
+        border-bottom: 1px solid lighten($dark-color, 25%);
+      }
+
+      &:active {
+        border-bottom: 1px solid $dark-color;
+      }
     }
-  }
 
-  &__body{
-    img {
-      max-width: 100%;
-      //max-height: 100%;
+    h1{
+      text-align: center;
+      margin-bottom: $single-margin;
 
-      max-height: 40em;
+      font-size: $biggest-font-size;
+    }
 
-      display: block;
-      margin: 1.25em auto $small-margin;
+    h2 {
+      text-align: left;
+      margin-top: $double-margin;
+      font-family: $text-font;
     }
 
     ul, ol{
@@ -70,7 +69,7 @@
 }
 
 @media (max-width: $mobile-width) {
-  .article {
+  .cloud-page {
     &__body {
       img {
         max-height: 20em;

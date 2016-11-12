@@ -9,6 +9,8 @@ footer {
   position: relative;
   background-color: $darker-color;
 
+  font-size: $smaller-font-size;
+
   &:before {
     $s: 3px;
 
