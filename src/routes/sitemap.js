@@ -1,6 +1,7 @@
 import sitemap  from 'sitemap';
 import route  from 'koa-route';
 import {c}  from '../core/db';
+import {getPageUrls as pages}  from '../core/pages';
 
 import {homeUrl, sitemapCacheTime} from '../config';
 import menu from '../models/menu';
@@ -9,6 +10,7 @@ export default function () {
     return route.get('/sitemap.xml', async ctx => {
         let urls = await Promise.all([
             getMenuUrls(),
+            getPageUrls(),
             getGalleryUrls(),
             getTeacherUrls(),
             getEventsUrls(),
@@ -34,6 +36,14 @@ async function getMenuUrls(frequency='daily') {
             url: i.url,
             changefreq: frequency
         }));
+}
+
+async function getPageUrls(frequency = 'daily') {
+	const ps = await pages();
+	return ps.map(i => ({
+		url: i.url,
+		changefreq: frequency
+	}));
 }
 
 async function getGalleryUrls() {
