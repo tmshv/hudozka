@@ -9,7 +9,7 @@ destpath="~/www/art.shburg.org"
 
 echo "Building..."
 npm run out
-NODE_ENV=production gulp deploy
+NODE_ENV=production npm run gulp deploy
 
 echo "Packing $tarpath"
 env GZIP=-9 tar -czf ${tarpath} \
@@ -24,8 +24,7 @@ env GZIP=-9 tar -czf ${tarpath} \
     .
 
 echo "Uploading..."
-#ssh h "rm -rf $destpath/*"
-ssh h "rm -rf $destpath/public/*"
+ssh hoster@${server} "rm -rf $destpath/public/*"
 scp ${tarpath} hoster@${server}:${destpath}
 
 echo "Installing..."
