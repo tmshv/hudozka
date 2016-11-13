@@ -79,7 +79,7 @@ def main(sync, update_documents=False, delete_documents=False):
     )
 
     # SKIP UNTOUCHED DOCUMENTS
-    # documents = untouched(documents, sync)
+    documents = untouched(documents, sync)
 
     # DO HEAVY PROCESS WITH DOCUMENTS
     documents = lmap(
