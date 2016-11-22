@@ -26,11 +26,8 @@ function news() {
             const limit = parseInt(ctx.query['limit']) || 20;
             const skip = parseInt(ctx.query['skip']) || 0;
 
-            const query = {};
-            if (ctx.query.type) query.type = ctx.query.type;
-
             const now = new Date();
-            const pinned = skip != 0 ? [] : await c('timeline')
+			const pinned = skip !== 0 ? [] : await c('timeline')
                 .find({until: {$gte: now}})
                 .toArray();
 
@@ -38,18 +35,18 @@ function news() {
             const pinnedIds = pinned.map(id);
 
             let posts = await c('timeline')
-                .find(query)
+				.find({
+					_id: {$nin: pinnedIds}
+				})
                 .sort({date: -1})
                 .skip(skip)
                 .limit(limit)
                 .toArray();
 
-            ctx.body = [
-                ...pinned.sort(sortNewsByDate),
-                ...posts.filter(
-                    i => !pinnedIds.includes(id(i))
-                )
-            ];
+			ctx.body = [
+				...pinned.sort(sortNewsByDate),
+				...posts
+			];
         }
     }));
 }

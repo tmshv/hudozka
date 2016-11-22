@@ -45,7 +45,8 @@ function album() {
 const processAlbum = async album => {
     album.url = `/album/${album.id}`;
 
-    const previewImageId = album.images.length ? album.images[0] : null;
+    const previewFromImage = imgs => imgs.length ? imgs[0] : null;
+    const previewImageId = album.preview ? album.preview : previewFromImage(album.images);
     if (previewImageId) {
         const image = await c('images').findOne({_id: previewImageId});
         album.preview = image.data.medium;
