@@ -37,10 +37,10 @@ def main(provider, fn, collection_name):
 if __name__ == '__main__':
     io = lambda root: get_provider(settings.sync_provider_type, root)
 
-    main(io(settings.dir_documents), sync_documents, settings.collection_documents)
-    main(io(settings.dir_schedules), sync_schedules, settings.collection_schedules)
-    main(io(settings.dir_events), sync_posts, settings.collection_events)
-    main(io(settings.dir_news), sync_posts, settings.collection_news)
-    main(io(settings.dir_collective), sync_persons, settings.collection_collective)
-    main(io(settings.dir_gallery), sync_albums, settings.collection_albums)
+    # main(io(settings.dir_documents), sync_documents, settings.collection_documents)
+    # main(io(settings.dir_schedules), sync_schedules, settings.collection_schedules)
+    # main(io(settings.dir_events), sync_posts, settings.collection_events)
+    # main(io(settings.dir_news), sync_posts, settings.collection_news)
+    # main(io(settings.dir_collective), sync_persons, settings.collection_collective)
+    # main(io(settings.dir_gallery), sync_albums, settings.collection_albums)
     main(io(settings.dir_pages), sync_pages, settings.collection_pages)

@@ -61,7 +61,8 @@ def map_item_key(item, key, map_fn):
     :param map_fn:
     :return:
     """
-    item[key] = map_fn(item[key])
+    if key in item:
+        item[key] = map_fn(item[key])
     return item
 
 

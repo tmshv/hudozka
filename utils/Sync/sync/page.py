@@ -2,14 +2,34 @@ import os
 
 import settings
 from sync.core import Sync
-from sync.data import list_images
+from sync.data import list_images, Provider
 from sync import create_date_and_title_from_folder_name, create_post_from_image_list, create_date, images_from_html, \
-    synced_images_ids, untouched, title_from_html
+    synced_images_ids, untouched, title_from_html, create_post
 from sync.core.post import SyncPost
 from utils.fn import lmap, map_cases, first, key_mapper, lmapfn, constant
 from utils.hash import hash_str
+from utils.image import create_image
 from utils.io import read_yaml_md
 from utils.text.transform import url_encode_text
+
+
+class ImageCreator:
+    def __init__(self, provider: Provider, sizes: list, output_dir: str, cache: dict):
+        super().__init__()
+        self.provider = provider
+        self.sizes = sizes
+        self.output_dir = output_dir
+        self.cache = cache if cache else set()
+
+    def create(self, file, name_fn):
+        filehash = self.provider.hash(file)
+        cached = self.cached(filehash)
+        if cached:
+            return cached
+        return create_image(self.provider.get_abs(file), self.sizes, name_fn, self.output_dir, skip_processing=False)
+
+    def cached(self, name):
+        return self.cache[name] if name in self.cache else None
 
 
 def create_document_from_folder(provider, path):
@@ -75,13 +95,48 @@ def create_hash(provider, document):
 
     return {
         **document,
-        'hash':hash_str(''.join(hashes))
+        'hash': hash_str(''.join(hashes))
     }
 
 
+def create_page(provider: Provider, img: ImageCreator, document):
+    image_path = lambda x: os.path.join(document['folder'], x)
+    image_id = lambda filename: url_encode_text(
+        os.path.splitext(filename)[0]
+    )
+
+    def process_image(src: str):
+        path = image_path(src)
+
+        if provider.exists(path):
+            url = lambda s, e: 'https://static.shburg.org/art/images/page-{page}-{id}-{size}{ext}'.format(
+                page=document['id'],
+                id=image_id(src),
+                size=s,
+                ext=e
+            )
+
+            image = img.create(path, url)
+            if image:
+                images.append(image)
+                return image['data']['big']['url']
+        return None
+
+    images = []
+    post_html = create_post(document['data'], process_image)
+
+    document['data'] = post_html
+    document['images'] = images
+    return document
+
+
 def sync_pages(provider, collection, update=True, delete=True, skip_unchanged=True):
+    img_sizes = settings.album_image_sizes
+    output_dir = settings.dir_static_images
+
     sync = Sync()
     sync.collection = collection
+    image_creator = ImageCreator(provider, img_sizes, output_dir, {})
 
     documents = list(filter(
         lambda x: provider.is_dir(x),
@@ -119,6 +174,11 @@ def sync_pages(provider, collection, update=True, delete=True, skip_unchanged=Tr
     #     sync.create,
     #     documents
     # )
+
+    documents = lmap(
+        lambda document: create_page(provider, image_creator, document),
+        documents
+    )
 
     # REPLACE IMAGES OBJECTS WITH IT _ID IN MONGODB
     documents = lmap(

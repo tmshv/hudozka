@@ -3,25 +3,12 @@ from lxml import etree
 
 import lxml.html
 import settings
+from sync import create_post
 from sync.core import Sync
 from sync.models.product import create_product
 from utils.fn import lmap, iterate_iter_over_fns, combine
 from utils.hash import hash_file, hash_str
 from utils.text.transform import url_encode_text
-
-
-def create_post(md, image_path_fn):
-    html = lxml.html.fromstring(md)
-
-    for img in html.cssselect('img'):
-        src = img.get('src')
-        path = image_path_fn(src)
-
-        if path:
-            img.set('src', path)
-            img.set('class', settings.album_html_img_class)
-            img.set('data-file', src)
-    return etree.tounicode(html)
 
 
 def create_url(a, i, s, e):
@@ -119,6 +106,13 @@ class SyncAlbum(Sync):
 
         images = []
         post_html = create_post(doc['post'], process_post_image)
+
+        if 'preview' in doc:
+            preview = os.path.join(doc['folder'], doc['preview'])
+            doc['preview'] = self.create_image(preview, url_creator(
+                doc['id'],
+                image_id(doc['preview'])
+            ))
 
         doc['post'] = post_html
         doc['images'] = images

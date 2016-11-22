@@ -2,7 +2,7 @@ import os
 
 import settings
 from sync import create_date_and_title_from_folder_name, create_post_from_image_list, create_date, untouched, \
-    synced_images_ids
+    synced_images_ids, synced_image_id
 from sync.core.album import SyncAlbum
 from sync.data import list_images
 from utils.fn import lmap, lmapfn, key_mapper
@@ -19,10 +19,11 @@ class ImageCreator:
     def create_image(self, file, sizes, url_fn, output_dir, skip_processing=False):
         filehash = self.provider.hash(file)
         cached = self.cached(filehash)
-        return create_image(self.provider.get_abs(file), sizes, url_fn, output_dir, skip_processing=skip_processing) if not cached else cached
+        return create_image(self.provider.get_abs(file), sizes, url_fn, output_dir,
+                            skip_processing=skip_processing) if not cached else cached
 
-    def cached(self, hash):
-        return self.cache[hash] if hash in self.cache else None
+    def cached(self, name):
+        return self.cache[name] if name in self.cache else None
 
 
 def get_manifest(provider, filepath):
@@ -119,6 +120,10 @@ def main(sync, do_update, do_delete):
     # REPLACE IMAGES OBJECTS WITH IT _ID IN MONGODB
     documents = lmap(
         key_mapper('images', synced_images_ids),
+        documents
+    )
+    documents = lmap(
+        key_mapper('preview', synced_image_id),
         documents
     )
 
