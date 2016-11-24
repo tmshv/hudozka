@@ -29,6 +29,7 @@ function news() {
             const now = new Date();
 			const pinned = skip !== 0 ? [] : await c('timeline')
                 .find({until: {$gte: now}})
+                .sort({date: -1})
                 .toArray();
 
             const id = i => i._id;
