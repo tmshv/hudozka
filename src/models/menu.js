@@ -15,6 +15,11 @@ export default [
         "color": "green"
     },
     {
+        "text": "Предметы",
+        "url": "/courses",
+        "color": "magenta"
+    },
+    {
         "text": "Коллектив",
         "url": "/collective",
         "color": "pink"
@@ -32,6 +37,6 @@ export default [
     {
         "text": "Сведения об образовательной организации",
         "url": "/info",
-        "color": "red"
+        "color": "gray"
     }
 ];
