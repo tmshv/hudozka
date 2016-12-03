@@ -13,7 +13,7 @@ module.exports = {
 		"DISQUS": true
 	},
 	"rules": {
-		"semi": "off",
+		"semi": ["error", "never"],
 		"space-before-function-paren": "off",
 		"no-tabs": "off",
 		"indent": ["error", "tab"]
