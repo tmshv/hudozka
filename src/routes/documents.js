@@ -8,12 +8,20 @@ async function exists(ctx, id) {
 	return Boolean(i)
 }
 
-export default function () {
+export default function (store) {
 	return compose([
+		docs(store),
 		documents(),
 		document(),
 		type()
 	])
+}
+
+function docs(store) {
+	return route.get('/docs', async ctx => {
+		const docs = await store.document.find({})
+		ctx.body = docs
+	})
 }
 
 function documents() {

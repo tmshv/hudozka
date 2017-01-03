@@ -20,14 +20,14 @@ import pages from './pages';
 
 let main = () => route.get('/', index());
 
-export function routes() {
+export function routes(store) {
 	return compose([
 		main(),
 		sitemap(),
 		schedule(),
 		news(),
 		gallery(),
-		documents(),
+		documents(store),
 		teachers(),
 		events(),
 		articles(),

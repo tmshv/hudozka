@@ -45,7 +45,7 @@ export default function (store) {
 	app.use($(redirect(redirectionTable)));
 	app.use($(helmet()));
 	app.use(queryObject());
-	app.use(routes());
+	app.use(routes(store));
 
 	return Server(app.callback());
 }
