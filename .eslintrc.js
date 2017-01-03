@@ -15,6 +15,7 @@ module.exports = {
 	"rules": {
 		"semi": ["error", "never"],
 		"space-before-function-paren": "off",
+		"comma-dangle": "off",
 		"no-tabs": "off",
 		"indent": ["error", "tab"]
 	}
