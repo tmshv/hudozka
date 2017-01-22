@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html ng-app="hudozka">
+
 <head>
     <meta name="fragment" content="!">
     <meta name="google-site-verification" content="8BxOTw-Q02DS2KAdcGcnIMwiPZ58DVB18XpOfRibCcg">
@@ -8,6 +9,8 @@
     <meta name="msvalidate.01" content="E878301FE3E3F12D233A6B1156889601" />
     <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
     <meta name="referrer" content="unsafe-url">
+
+    {{{{raw-helper}}}}
 
     <base href="/">
     <title ng-bind="title">Шлиссельбургская Детская Художественная Школа</title>
@@ -18,16 +21,21 @@
     <link rel="apple-touch-icon" sizes="114x114" href="//static.shlisselburg.org/art/graphics/favicon-114.png" />
     <link rel="apple-touch-icon" sizes="144x144" href="//static.shlisselburg.org/art/graphics/favicon-144.png" />
 
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" ng-href="{{theme}}" href="style.css"/>
+    <!--<link rel="stylesheet" href="style-accessibility.css" />-->
     <!--<link rel="stylesheet" href="/animate.min.css">-->
-    <link rel="stylesheet" href="/fonts/PTSans/stylesheet.  css">
+    <link rel="stylesheet" href="/fonts/PTSans/stylesheet.css">
     <link rel="stylesheet" href="/fonts/PTSerif/stylesheet.css">
+
+    <script src="/libs.js"></script>
 
     <script src="//cdn.jsdelivr.net/jquery.slick/1.5.7/slick.min.js"></script>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/jquery.slick/1.5.7/slick.css"/>
 
-    <script src="/libs.js"></script>
     <script src="/app.js"></script>
+
+    {{{{/raw-helper}}}}
 
     <script>
         if(window.location.host.indexOf('localhost') === -1){

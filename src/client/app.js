@@ -20,6 +20,7 @@ import Article from './components/Article'
 import ArticlePageControl from './components/ArticlePageControl'
 import Album from './components/Album'
 import Parallax from './components/Parallax'
+import ThemeSelector from './components/ThemeSelector'
 
 import Page from './components/CloudPage'
 import PageSchool from './components/PageSchool'
@@ -48,6 +49,7 @@ import Ext from './filters/Ext'
 import IOService from './services/io'
 import MenuService from './services/menu'
 import API from './services/api'
+import Theme from './services/theme'
 
 import {sortByPattern} from '../utils/sort'
 import {documentsSortPattern, collectiveSortPattern} from './config'
@@ -260,6 +262,7 @@ app.run(($location, $rootScope, $http) => {
 	API,
 	IOService,
 	MenuService,
+	Theme,
 	RemoveHashtags,
 	RemoveNewline,
 	Strip,
@@ -301,5 +304,6 @@ app.run(($location, $rootScope, $http) => {
 	ScheduleSlider,
 	ScheduleSlide,
 	ScheduleRecord,
-	FooterLinks
+	FooterLinks,
+	ThemeSelector
 ].map(i => i(app))
