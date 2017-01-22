@@ -9,6 +9,7 @@ import etag from 'koa-etag'
 import prerender from 'koa-prerender'
 import helmet from 'koa-helmet'
 import mount from 'koa-mount'
+import cookie from 'koa-cookie'
 import bodyParser from 'koa-bodyparser'
 
 import apiV1 from 'hudozka-api-v1'
@@ -36,6 +37,7 @@ export default function (store) {
 	}))
 	app.use(logger())
 	app.use(apis(store))
+	app.use(cookie())
 	app.use($(conditional()))
 	app.use($(etag()))
 	app.use(prerenderRmFragment())
