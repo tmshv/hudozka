@@ -43,8 +43,27 @@
             <div class="schedule-table__course"
                 ng-repeat="lesson in day track by $index"
             >
-                <p class="lesson"><a href="">{{lesson.course.title}}</a></p>
-                <p class="teacher"><a href="{{lesson.teacher.url}}">{{$ctrl.short(lesson.teacher.name)}}</a></p>
+                <p class="lesson">
+                    <a ng-if="lesson.course.url"
+                       href="{{lesson.course.url}}"
+                    >
+                        {{lesson.course.title}}
+                    </a>
+                    <span ng-if="!lesson.course.url">
+                        {{lesson.course.title}}
+                    </span>
+                </p>
+                <p class="teacher">
+                    <a ng-if="lesson.teacher.url"
+                       href="{{lesson.teacher.url}}"
+                    >
+                        {{$ctrl.short(lesson.teacher.name)}}
+                    </a>
+                    <span ng-if="!lesson.teacher.url"
+                    >
+                        {{$ctrl.short(lesson.teacher.name)}}
+                    </span>
+                </p>
                 <p class="time" ng-repeat="time in lesson.time">{{time.join(' — ')}}</p>
             </div>
         </div>

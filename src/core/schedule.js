@@ -4,7 +4,7 @@ import {createMap} from '../utils/common'
 import {getCollective} from './collective'
 
 import {scheduleDate, getPeriod as schedulePeriod} from '../models/schedule'
-import {getCourseName} from '../models/course'
+import {getCourse} from '../models/course'
 
 const SCHEDULES = 'schedules'
 
@@ -86,8 +86,8 @@ async function migrate20to30(schedule) {
 
 	const lesson = i => ({
 		time: i.time,
-		course: course(i.lesson),
-		teacher: teacher(i.teacher)
+		course: getCourse(i.lesson),
+		teacher: person.has(i.teacher) ? teacher(i.teacher) : teacherDummy(i.teacher)
 	})
 
 	const teacher = id => ({
@@ -96,13 +96,13 @@ async function migrate20to30(schedule) {
 		name: personName(id)
 	})
 
-	const personName = id => person.has(id) ? person.get(id).name : null
-
-	const course = id => ({
-		id: id,
+	const teacherDummy = name => ({
+		id: name,
 		url: null,
-		title: getCourseName(id)
+		name: name
 	})
+
+	const personName = id => person.has(id) ? person.get(id).name : null
 
 	return Object.assign(schedule, {
 		version: '3.0',

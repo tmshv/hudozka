@@ -1,18 +1,19 @@
-export const courses = {
-	painting: 'Живопись',
-	drawing: 'Рисунок',
-	sculpting: 'Скульптура',
-	sculpture: 'Скульптура',
-	ceramic: 'Керамика',
-	ceramics: 'Керамика',
-	composition: 'Композиция',
-	history: 'История искусства',
-	cg: 'Комп. графика'
+const courses = {
+	painting: ['Живопись', ''],
+	drawing: ['Рисунок', '/courses/drawing'],
+	sculpting: ['Скульптура', ''],
+	sculpture: ['Скульптура', ''],
+	ceramic: ['Керамика', '/courses/ceramics'],
+	ceramics: ['Керамика', '/courses/ceramics'],
+	composition: ['Композиция', ''],
+	history: ['История искусства', '/courses/art-history'],
+	cg: ['Комп. графика', '/courses/cg'],
 }
 
-export function getCourseName(id) {
-	const course = Object
-        .entries(courses)
-        .find(([key]) => key === id)
-	return course ? course[1] : null
+export function getCourse(id) {
+	const course = id in courses ? courses[id] : null
+	if (!course) return null
+
+	const [title, url] = course
+	return {id, title, url}
 }
