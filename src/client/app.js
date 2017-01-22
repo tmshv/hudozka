@@ -1,67 +1,67 @@
-import {getInitialData} from './core/init';
-import Navigation from './components/Navigation';
-import MainMenu from './components/MainMenu';
-import Breadcrumbs from './components/Breadcrumbs';
-import Document from './components/Document';
-import Award from './components/Award';
-import GalleryItem from './components/GalleryItem';
-import AlbumCollection from './components/AlbumCollection';
-import TeacherProfile from './components/TeacherProfile';
-import Timeline from './components/Timeline';
-import TimelineRecord from './components/TimelineRecord';
-import TimelineRecordInstagram from './components/TimelineRecordInstagram';
-import Schedule from './components/Schedule';
-import ScheduleTable from './components/ScheduleTable';
-import ScheduleSlider from './components/ScheduleSlider';
-import ScheduleSlide from './components/ScheduleSlide';
-import ScheduleRecord from './components/ScheduleRecord';
-import FooterLinks from './components/FooterLinks';
-import Article from './components/Article';
-import ArticlePageControl from './components/ArticlePageControl';
-import Album from './components/Album';
-import Parallax from './components/Parallax';
+import {getInitialData} from './core/init'
+import Navigation from './components/Navigation'
+import MainMenu from './components/MainMenu'
+import Breadcrumbs from './components/Breadcrumbs'
+import Document from './components/Document'
+import Award from './components/Award'
+import GalleryItem from './components/GalleryItem'
+import AlbumCollection from './components/AlbumCollection'
+import TeacherProfile from './components/TeacherProfile'
+import Timeline from './components/Timeline'
+import TimelineRecord from './components/TimelineRecord'
+import TimelineRecordInstagram from './components/TimelineRecordInstagram'
+import Schedule from './components/Schedule'
+import ScheduleTable from './components/ScheduleTable'
+import ScheduleSlider from './components/ScheduleSlider'
+import ScheduleSlide from './components/ScheduleSlide'
+import ScheduleRecord from './components/ScheduleRecord'
+import FooterLinks from './components/FooterLinks'
+import Article from './components/Article'
+import ArticlePageControl from './components/ArticlePageControl'
+import Album from './components/Album'
+import Parallax from './components/Parallax'
 
-import Page from './components/CloudPage';
-import PageSchool from './components/PageSchool';
-import PageEvents from './components/PageEvents';
-import PageArticle from './components/PageArticle';
-import PageSchedule from './components/PageSchedule';
-import PageCollective from './components/PageCollective';
-import PageTeacher from './components/PageTeacher';
-import PageGallery from './components/PageGallery';
-import PageAlbum from './components/PageAlbum';
-import PageDocuments from './components/PageDocuments';
-import PageDocument from './components/PageDocument';
+import Page from './components/CloudPage'
+import PageSchool from './components/PageSchool'
+import PageEvents from './components/PageEvents'
+import PageArticle from './components/PageArticle'
+import PageSchedule from './components/PageSchedule'
+import PageCollective from './components/PageCollective'
+import PageTeacher from './components/PageTeacher'
+import PageGallery from './components/PageGallery'
+import PageAlbum from './components/PageAlbum'
+import PageDocuments from './components/PageDocuments'
+import PageDocument from './components/PageDocument'
 
-import AppController from './controllers/AppController';
-import CopyrightController from './controllers/CopyrightController';
-import ContactsController from './controllers/ContactsController';
+import AppController from './controllers/AppController'
+import CopyrightController from './controllers/CopyrightController'
+import ContactsController from './controllers/ContactsController'
 
-import RemoveHashtags from './filters/RemoveHashtags';
-import RemoveNewline from './filters/RemoveNewline';
-import Strip from './filters/Strip';
-import Join from './filters/Join';
-import UppercaseFirst from './filters/UppercaseFirst';
-import Bytes from './filters/Bytes';
-import Ext from './filters/Ext';
+import RemoveHashtags from './filters/RemoveHashtags'
+import RemoveNewline from './filters/RemoveNewline'
+import Strip from './filters/Strip'
+import Join from './filters/Join'
+import UppercaseFirst from './filters/UppercaseFirst'
+import Bytes from './filters/Bytes'
+import Ext from './filters/Ext'
 
-import IOService from './services/io';
-import MenuService from './services/menu';
-import API from './services/api';
+import IOService from './services/io'
+import MenuService from './services/menu'
+import API from './services/api'
 
-import {sortByPattern} from '../utils/sort';
-import {documentsSortPattern, collectiveSortPattern} from './config';
+import {sortByPattern} from '../utils/sort'
+import {documentsSortPattern, collectiveSortPattern} from './config'
 
 let app = angular.module('hudozka', [
 	'ngRoute',
 	'angulartics',
 	'angulartics.google.analytics',
 	'angularSpinner'
-]);
+])
 
 app.config(($locationProvider, $routeProvider) => {
-	$locationProvider.hashPrefix('!');
-	$locationProvider.html5Mode(true);
+	$locationProvider.hashPrefix('!')
+	$locationProvider.html5Mode(true)
 
 	const pages = getInitialData().pages
 		.map(i => i.url)
@@ -76,7 +76,7 @@ app.config(($locationProvider, $routeProvider) => {
 						.then(i => i.data)
 				}
 			}
-		}));
+		}))
 
 	let routers = [
 		{
@@ -91,20 +91,20 @@ app.config(($locationProvider, $routeProvider) => {
 			resolveAs: '$',
 			resolve: {
 				page: ($route, api) => {
-					let page = $route.current.params.page;
-					if (!page) page = 1;
+					let page = $route.current.params.page
+					if (!page) page = 1
 
 					return api.event
 						.list(page)
 						.then(i => i.data)
 						.then(i => {
-							let totalPages = Math.ceil(i.total / i.limit);
+							let totalPages = Math.ceil(i.total / i.limit)
 							return {
 								data: i.data,
 								page: page,
 								totalPages: totalPages
 							}
-						});
+						})
 				}
 			}
 		},
@@ -114,8 +114,8 @@ app.config(($locationProvider, $routeProvider) => {
 			resolveAs: '$',
 			resolve: {
 				data: ($route, api) => {
-					let id = $route.current.params.id;
-					if (!id) return null;
+					let id = $route.current.params.id
+					if (!id) return null
 					return api.article.id(id)
 						.then(i => i.data)
 				}
@@ -147,10 +147,10 @@ app.config(($locationProvider, $routeProvider) => {
 			title: 'Преподаватели',
 			resolve: {
 				profile: ($route, api) => {
-					let id = $route.current.params.id;
+					let id = $route.current.params.id
 					return api.teacher
 						.fetch(id)
-						.then(i => i.data);
+						.then(i => i.data)
 				}
 			}
 		},
@@ -169,7 +169,7 @@ app.config(($locationProvider, $routeProvider) => {
 			template: '<page-album album="$resolve.album"></page-album>',
 			resolve: {
 				album: ($route, api) => {
-					let id = $route.current.params.id;
+					let id = $route.current.params.id
 
 					return api.album
 						.fetch(id)
@@ -190,7 +190,7 @@ app.config(($locationProvider, $routeProvider) => {
 					.documents()
 					.then(i => i.data)
 					.then(i => {
-						return sortByPattern(i, documentsSortPattern, i => i.category);
+						return sortByPattern(i, documentsSortPattern, i => i.category)
 					})
 			}
 		},
@@ -199,7 +199,7 @@ app.config(($locationProvider, $routeProvider) => {
 			template: '<page-document item="$resolve.document"></page-document>',
 			resolve: {
 				document: ($route, api) => {
-					let id = $route.current.params.id;
+					let id = $route.current.params.id
 
 					return api.document
 						.id(id)
@@ -210,50 +210,50 @@ app.config(($locationProvider, $routeProvider) => {
 	]
 		.concat(pages)
 		.map(i => {
-			let path = i.name;
-			delete i.name;
+			let path = i.name
+			delete i.name
 			return {
 				path: path,
 				route: i
 			}
-		});
+		})
 
 	routers.forEach(i => {
-		$routeProvider.when(i.path, i.route);
-	});
+		$routeProvider.when(i.path, i.route)
+	})
 
 	$routeProvider.otherwise({
 		templateUrl: '/404.html'
-	});
-});
+	})
+})
 
 app.run(($location, $rootScope, $http) => {
 	$rootScope.$on('$routeChangeSuccess', (event, current) => {
-		const url = location.href;
-		const title = current['$$route'].title;
+		const url = location.href
+		const title = current['$$route'].title
 
-		if (title) $rootScope.title = title;
+		if (title) $rootScope.title = title
 
 		setTimeout(() => {
 			try {
 				DISQUS.reset({
 					reload: true,
 					config: function () {
-						this.page.identifier = url;
-						this.page.url = url;
+						this.page.identifier = url
+						this.page.url = url
 					}
-				});
+				})
 			} catch (e) {
 			}
 		}, 500)
-	});
+	})
 
 	$rootScope.$on('$routeChangeError', (event, current) => {
 		// let title = current['$$route'].title;
 		// if (title) $rootScope.title = title;
-	});
+	})
 
-	$http.defaults.headers.common['Accept'] = 'application/json';
+	$http.defaults.headers.common['Accept'] = 'application/json'
 });
 
 [
@@ -302,4 +302,4 @@ app.run(($location, $rootScope, $http) => {
 	ScheduleSlide,
 	ScheduleRecord,
 	FooterLinks
-].map(i => i(app));
+].map(i => i(app))
