@@ -1,0 +1,48 @@
+@import "../variables";
+
+.main-menu {
+  white-space: nowrap;
+
+  font-size: $normal-font-size;
+  color: $menu-inactive-item-color;
+
+  list-style: none;
+
+  li {
+    display: inline-block;
+    padding: 0.3em 0.2em 0.5em;
+    margin: 0 0.5em;
+
+    &:first-child {
+      margin-left: 1em;
+    }
+  }
+
+  a {
+    text-decoration: none;
+
+    color: $dark-color;
+    border-bottom: 1px solid $dark-color;
+  }
+
+  a:hover {
+    border-width: 2px;
+  }
+
+  .selected {
+    font-weight: bold;
+    border-top: $menu-colored-mark-thickness solid $dark-color;
+
+    a:link, a:visited {
+      color: $dark-color;
+      text-decoration: none;
+      border-bottom: none;
+    }
+  }
+}
+
+@media (max-width: $mobile-width) {
+  .main-menu{
+    font-size: 1em;
+  }
+}

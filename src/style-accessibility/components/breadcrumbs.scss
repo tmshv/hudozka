@@ -1,0 +1,45 @@
+@import "../variables";
+
+$font-size: 0.75em;
+$item-active-color: $link-color;
+$item-inactive-color: $inactive-link-color;
+$separator: '⟶';
+$mobile-separator: '>';
+
+breadcrumbs{
+  padding: .35em 0 0;
+  color: $item-inactive-color;
+
+  a {
+    color: $item-active-color;
+  }
+
+  ul{
+    list-style: none;
+
+    li {
+      display: inline-block;
+
+      &:not(:first-child):before{
+        content: $separator;
+        margin-left: .4em;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $mobile-width) {
+  breadcrumbs{
+    margin: 0;
+    font-size: $font-size;
+
+    ul{
+      li {
+        &:not(:first-child):before{
+          content: $mobile-separator;
+          margin-left: .2em;
+        }
+      }
+    }
+  }
+}

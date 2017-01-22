@@ -1,0 +1,32 @@
+@import "variables";
+
+.body-wrapper {
+  background-color: white;
+
+  font-family: $text-font;
+  font-size: $default-font-size;
+}
+
+.body-wrapper__content {
+  margin: 0 auto 0;
+
+  a {
+    color: $dark-color;
+    text-decoration: none;
+    border-bottom: 1px solid $dark-color;
+
+    &:hover {
+      border-width: 2px;
+    }
+
+    &.invisible {
+      border-bottom: none;
+    }
+  }
+}
+
+@media (max-width: $mobile-width) {
+  .body-wrapper__content {
+    margin: $menu-thickness auto 0;
+  }
+}

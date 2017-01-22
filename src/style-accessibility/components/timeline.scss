@@ -1,0 +1,33 @@
+@import "../variables";
+
+.timeline{
+  display: flex;
+  flex-direction: column;
+  margin: $double-margin auto;
+}
+
+.timeline__footer{
+  display: flex;
+  justify-content: center;
+
+  button.more {
+    position: relative;
+    top: -2px;
+
+    width: 100px;
+    height: 40px;
+    border: 2px solid $dark-color;
+    padding: 0 10px;
+    background: none;
+
+    font-size: $normal-font-size;
+
+    &:hover {
+      background: gainsboro;
+    }
+
+    &:active {
+      top: 0;
+    }
+  }
+}

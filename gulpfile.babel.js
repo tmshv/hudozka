@@ -51,6 +51,23 @@ gulp.task('style', () => {
         .pipe(gulp.dest('./public'));
 });
 
+gulp.task('style-accessibility', () => {
+    const processors = [
+        autoprefixer({
+            browsers: ['last 1 version']
+        }),
+        cssnano({
+            zindex: false
+        })
+    ];
+
+    return gulp.src('./src/style-accessibility/style.scss')
+        .pipe(sass())
+        .pipe(postcss(processors))
+        .pipe(concat('style-accessibility.css'))
+        .pipe(gulp.dest('./public'));
+});
+
 gulp.task('copy fonts', () => {
     return gulp.src('./src/assets/fonts/*/*')
         .pipe(gulp.dest('./public/fonts'));
@@ -120,7 +137,7 @@ gulp.task('production', () => {
     isProduction = true;
 });
 
-gulp.task('default', ['style', 'compile']);
+gulp.task('default', ['style', 'style-accessibility', 'compile']);
 gulp.task('copy', ['copy templates', 'copy fonts', 'copy graphics', 'copy 3rdparty', 'copy robots.txt']);
 gulp.task('deploy', ['default', 'copy', 'compile 3rdparty', 'imagemin']);
 gulp.task('compile production', ['production', 'compile']);

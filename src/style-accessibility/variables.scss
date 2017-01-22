@@ -1,0 +1,73 @@
+//SIZE
+$mobile-width: 31.25em;
+$desktop-width: 59.99999em;
+
+$tablet-min-width: 31.25em;
+$tablet-max-width: 64em;
+
+$content-full: 100%;
+$content-wide: 80%;
+$content-semi-wide: 70%;
+$content-thin: 60%;
+
+$embed-video-ratio: 56.25%;
+
+//MARGINS
+$small-margin: .2em;
+$half-margin: .5em;
+$single-margin: 1.0em;
+$double-margin: 2.0em;
+$post-margin: 5.0em;
+
+//COLOR
+$dark-color: #1a1a1a;
+$darker-color: #1a1a1a;
+$light-color: #fff;
+$lighter-color: #fff;
+
+$blue-color: $dark-color;
+$orange-color: $dark-color;
+$green-color: $dark-color;
+$yellow-color: $dark-color;
+$pink-color: $dark-color;
+$magenta-color: $dark-color;
+$red-color: $dark-color;
+$gray-color: $dark-color;
+
+$link-color: $blue-color;
+$inactive-link-color: $light-color;
+
+$schedule-row-color: #fff;
+
+//SHADOW
+$white-shadow: 0 .1em 0.3em rgba(0, 0, 0, 0.2);
+
+//FONTS
+$title-font: "PT Serif", Georgia, serif;
+$text-font: "PT Sans", Arial, sans-serif;
+
+$default-font-size: 14pt;
+$smaller-font-size: 0.9rem;
+$normal-font-size: 1.0rem;
+$bigger-font-size: 1.2rem;
+$big-font-size: 1.5rem;
+$biggest-font-size: 3rem;
+
+//MENU
+$menu-thickness: 2.5em;
+$menu-colored-mark-thickness: 4px;
+$menu-inactive-item-color: $dark-color;
+
+//ANIMATION
+$short-duration: 0.3s;
+
+
+@media (max-width: $mobile-width) {
+  //FONTS
+  $default-font-size: 14pt;
+  $smaller-font-size: 0.9rem;
+  $normal-font-size: 1.0rem;
+  $bigger-font-size: 1.1rem;
+  $big-font-size: 1.3rem;
+  $biggest-font-size: 2.0rem;
+}
