@@ -1,6 +1,6 @@
 const themes = {
-	main: 'style.css',
-	accessibility: 'style-accessibility.css',
+	main: 'theme-default',
+	accessibility: 'accessibility theme-accessibility-bw',
 }
 
 const defaultTheme = 'main'

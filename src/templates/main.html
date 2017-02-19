@@ -22,8 +22,7 @@
     <link rel="apple-touch-icon" sizes="144x144" href="//static.shlisselburg.org/art/graphics/favicon-144.png" />
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-    <link rel="stylesheet" ng-href="{{theme}}" href="style.css"/>
-    <!--<link rel="stylesheet" href="style-accessibility.css" />-->
+    <link rel="stylesheet" href="style.css"/>
     <!--<link rel="stylesheet" href="/animate.min.css">-->
     <link rel="stylesheet" href="/fonts/PTSans/stylesheet.css">
     <link rel="stylesheet" href="/fonts/PTSerif/stylesheet.css">
@@ -61,7 +60,7 @@
 
 {{{{raw-helper}}}}
 <body>
-<div class="body-wrapper" ng-controller="AppController">
+<div class="body-wrapper {{theme}}" ng-controller="AppController">
     <header ng-switch="navigation">
         <navigation menu="menuProvider" right-text="{{phone}}"></navigation>
     </header>
@@ -94,13 +93,13 @@
 </div>
 
 <script>
-    (function() {
-        var d = document;
-        var s = d.createElement('script');
-        s.src = '//hudozka.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', Date.now());
-        (d.head || d.body).appendChild(s);
-    })();
+//    (function() {
+//        var d = document;
+//        var s = d.createElement('script');
+//        s.src = '//hudozka.disqus.com/embed.js';
+//        s.setAttribute('data-timestamp', Date.now());
+//        (d.head || d.body).appendChild(s);
+//    })();
 </script>
 </body>
 {{{{/raw-helper}}}}

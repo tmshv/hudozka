@@ -1,0 +1,38 @@
+@import "../variables";
+
+.theme-default {
+  a {
+    color: $dark-color;
+
+    text-decoration: none;
+    border-width: 1px;
+    border-bottom-style: solid;
+
+    &:hover {
+      border-width: 2px;
+    }
+
+    &:active {
+      border-width: 2px;
+    }
+
+    &.invisible {
+      border-bottom: none;
+    }
+  }
+
+  .accessibility-control {
+    display: none;
+  }
+
+  footer {
+    color: $light-color;
+    background-color: $darker-color;
+
+    font-size: $smaller-font-size;
+
+    a {
+      color: $light-color;
+    }
+  }
+}

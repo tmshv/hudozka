@@ -1,28 +1,8 @@
 @import "variables";
 
-$uri: '/graphics/rawline.png';
-
 footer {
-  //width: 100%;
-  color: $light-color;
   padding: 0 $half-margin $half-margin;
   position: relative;
-  background-color: $darker-color;
-
-  font-size: $smaller-font-size;
-
-  &:before {
-    $s: 3px;
-
-    content: '';
-    position: absolute;
-    top: -$s;
-    left: 0;
-    width: 100%;
-    height: $s;
-    z-index: 100;
-    background-image: url($uri);
-  }
 
   .footer-info {
     display: flex;

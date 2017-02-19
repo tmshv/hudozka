@@ -21,6 +21,7 @@ import ArticlePageControl from './components/ArticlePageControl'
 import Album from './components/Album'
 import Parallax from './components/Parallax'
 import ThemeSelector from './components/ThemeSelector'
+import AccessibilityControl from './components/AccessibilityControl'
 
 import Page from './components/CloudPage'
 import PageSchool from './components/PageSchool'
@@ -313,5 +314,6 @@ app.run(($location, $rootScope, $http) => {
 	ScheduleSlide,
 	ScheduleRecord,
 	FooterLinks,
-	ThemeSelector
+	ThemeSelector,
+	AccessibilityControl,
 ].map(i => i(app))

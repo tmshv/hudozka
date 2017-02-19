@@ -16,6 +16,7 @@
 @import "components/article-page-control";
 @import "components/album";
 @import "components/parallax";
+@import "components/accessibility-control";
 
 @import "components/page-schedule";
 @import "components/page-collective";
@@ -37,3 +38,8 @@
 @import "footer";
 
 @import "kazimir/video";
+
+// THEMES
+
+@import "themes/theme-default";
+@import "themes/theme-accessibility-bw";
