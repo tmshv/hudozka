@@ -4,7 +4,6 @@ import {unique} from '../../utils/common';
 export default function (app) {
     app.component('pageDocuments', {
         bindings: {
-            awards: '<',
             documents: '<'
         },
         template: template,

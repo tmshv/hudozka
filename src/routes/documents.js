@@ -54,7 +54,7 @@ function type() {
 	return route.get('/documents/type/:type', async(ctx, type) => {
 		let types = {
 			'document': ['documents', {type: 'document'}, populateDocPreview],
-			'award': ['documents', {type: 'award'}, populateDocPreview]
+			'award': ['awards', {type: 'award'}, populateDocPreview]
 		}
 
 		if (type in types) {

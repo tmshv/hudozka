@@ -32,6 +32,7 @@ import PageTeacher from './components/PageTeacher'
 import PageGallery from './components/PageGallery'
 import PageAlbum from './components/PageAlbum'
 import PageDocuments from './components/PageDocuments'
+import PageAwards from './components/PageAwards'
 import PageDocument from './components/PageDocument'
 
 import AppController from './controllers/AppController'
@@ -180,14 +181,20 @@ app.config(($locationProvider, $routeProvider) => {
 			}
 		},
 		{
-			name: '/documents',
-			template: '<page-documents awards="$resolve.awards" documents="$resolve.documents"></page-documents>',
-			title: 'Документы',
+			name: '/awards',
+			template: '<page-awards items="$resolve.awards"></page-awards>',
+			title: 'Награды',
 			resolve: {
 				awards: api => api.document
 					.awards()
 					.then(i => i.data),
-
+			}
+		},
+		{
+			name: '/documents',
+			template: '<page-documents documents="$resolve.documents"></page-documents>',
+			title: 'Документы',
+			resolve: {
 				documents: api => api.document
 					.documents()
 					.then(i => i.data)
@@ -295,6 +302,7 @@ app.run(($location, $rootScope, $http) => {
 	PageGallery,
 	PageAlbum,
 	PageDocuments,
+	PageAwards,
 	PageDocument,
 	AppController,
 	CopyrightController,

@@ -30,6 +30,11 @@ export default [
         "color": "red"
     },
     {
+        "text": "Награды",
+        "url": "/awards",
+        "color": "yellow"
+    },
+    {
         "text": "Документы",
         "url": "/documents",
         "color": "yellow"
