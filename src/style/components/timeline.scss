@@ -11,6 +11,8 @@
   justify-content: center;
 
   button.more {
+    cursor: hand;
+
     position: relative;
     top: -2px;
 
@@ -18,7 +20,8 @@
     height: 40px;
     border: 2px solid $dark-color;
     padding: 0 10px;
-    background: none;
+    color: $dark-color;
+    background: $lighter-color;
 
     font-size: $normal-font-size;
 

@@ -34,14 +34,6 @@ $info-width: 100% - $picture-width;
       strong {
         font-weight: 600;
       }
-
-      a {
-        color: $dark-color;
-
-        &:hover{
-          border-bottom-color: lighten($dark-color, 40%);
-        }
-      }
     }
   }
 

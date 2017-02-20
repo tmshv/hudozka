@@ -1,13 +1,19 @@
 @import "../variables";
 
 .theme-accessibility-font-biggest {
-  font-size: 24pt;
+  font-size: 36pt;
+
+  a {
+    &:hover {
+      border-width: 8px;
+    }
+  }
 
   .main-menu {
-    font-size: $bigger-font-size;
+    font-size: $big-font-size;
   }
 
   footer {
-    font-size: $bigger-font-size;
+    font-size: $big-font-size;
   }
 }
