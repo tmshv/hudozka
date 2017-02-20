@@ -1,0 +1,13 @@
+@import "../variables";
+
+.theme-accessibility-font-biggest {
+  font-size: 24pt;
+
+  .main-menu {
+    font-size: $bigger-font-size;
+  }
+
+  footer {
+    font-size: $bigger-font-size;
+  }
+}

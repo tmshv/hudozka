@@ -4,16 +4,35 @@ export default function (app) {
 	app.component('accessibilityControl', {
 		template,
 		controller: ($scope, theme) => {
-			//const update = () => {
-			//	$scope.isMainTheme = theme.currentTheme === theme.mainTheme
-			//}
-			//
-			//$scope.toggleTheme = () => {
-			//	theme.toggle()
-			//	update()
-			//}
-			//
-			//update()
+			const themeSet = {
+				accessibility: 'accessibility',
+				color: '',
+				fontSize: '',
+				fontFamily: '',
+			}
+
+			const install = () => {
+				const baked = Object
+					.values(themeSet)
+					.filter(Boolean)
+					.join(' ')
+				theme.setTheme(baked)
+			}
+
+			$scope.setColorTheme = (color) => {
+				themeSet.color = color
+				install()
+			}
+
+			$scope.setFontTheme = (font) => {
+				themeSet.fontSize = font
+				install()
+			}
+
+			$scope.setFontFamilyTheme = (font) => {
+				themeSet.fontFamily = font
+				install()
+			}
 		},
 	})
 }

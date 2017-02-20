@@ -1,29 +1,43 @@
-const themes = {
-	main: 'theme-default',
-	accessibility: 'accessibility theme-accessibility-bw',
-}
+const defaultTheme = 'theme-default'
+const defaultAccessibilityTheme = 'accessibility theme-accessibility-black-white'
 
-const defaultTheme = 'main'
+const getTheme = () => localStorage.getItem('theme')
+
+const isDefaultTheme = () => {
+	const theme = getTheme()
+	if (!theme) return true
+	return theme === defaultTheme
+}
 
 class Theme {
 	constructor($rootScope) {
 		this.mainTheme = defaultTheme
-		this.currentTheme = null
-
-		const getTheme = value => themes[value]
-		const setTheme = value => {
-			const theme = value in themes ? value : defaultTheme
-			localStorage.setItem('theme', theme)
-			this.currentTheme = theme
-			$rootScope.theme = getTheme(theme)
-		}
-
-		setTheme(localStorage.getItem('theme'))
+		this.currentTheme = defaultAccessibilityTheme
 
 		this.toggle = () => {
-			const t = this.currentTheme === 'main' ? 'accessibility' : 'main'
-			setTheme(t)
+			if (isDefaultTheme()) {
+				this.setTheme(this.currentTheme)
+			} else {
+				this.setMainTheme()
+			}
 		}
+
+		this.setTheme = (themeName) => {
+			if (!themeName) {
+				this.setMainTheme()
+			} else {
+				localStorage.setItem('theme', themeName)
+				this.currentTheme = themeName
+				$rootScope.theme = themeName
+			}
+		}
+
+		this.setMainTheme = () => {
+			localStorage.removeItem('theme')
+			$rootScope.theme = this.mainTheme
+		}
+
+		this.setTheme(getTheme())
 	}
 }
 

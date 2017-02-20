@@ -1,3 +1,58 @@
 <div class="accessibility-control">
-    <button>Let's rock!</button>
+    <ul>
+        <li>
+            <button ng-click="setColorTheme('theme-accessibility-black-white')"
+            >Белым по черному
+            </button>
+        </li>
+        <li>
+            <button ng-click="setColorTheme('theme-accessibility-white-black')"
+            >Черным по белому
+            </button>
+        </li>
+        <!--<li>-->
+            <!--<button ng-click="setTheme('dark-blue')"-->
+            <!--&gt;Темно-синим по голубому-->
+            <!--</button>-->
+        <!--</li>-->
+        <!--<li>-->
+            <!--<button ng-click="setTheme('brown')"-->
+            <!--&gt;Коричневым по бежевому</button>-->
+        <!--</li>-->
+        <!--<li>-->
+            <!--<button ng-click="setTheme('green')"-->
+            <!--&gt;Зеленым по темно-коричневому</button>-->
+        <!--</li>-->
+    </ul>
+
+    <ul>
+        <li>
+            <button ng-click="setFontTheme('')"
+            >Нормально
+            </button>
+        </li>
+        <li>
+            <button ng-click="setFontTheme('theme-accessibility-font-big')"
+            >Большие
+            </button>
+        </li>
+        <li>
+            <button ng-click="setFontTheme('theme-accessibility-font-biggest')"
+            >Огромные
+            </button>
+        </li>
+    </ul>
+
+    <ul>
+        <li>
+            <button ng-click="setFontFamilyTheme('theme-accessibility-font-sans')"
+            >Без засечек
+            </button>
+        </li>
+        <li>
+            <button ng-click="setFontFamilyTheme('theme-accessibility-font-serif')"
+            >С засечками
+            </button>
+        </li>
+    </ul>
 </div>

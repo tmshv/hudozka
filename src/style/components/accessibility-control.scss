@@ -1,9 +1,11 @@
 @import "../variables";
 
 .accessibility-control{
-  //display: none;
-
-  background-color: gold;
+  background-color: white;
   height: 100px;
   width: 100%;
+
+  ul li {
+    display: inline;
+  }
 }

@@ -1,6 +1,10 @@
 @import "../variables";
 
 .theme-default {
+  h1, h2{
+    font-family: $title-font;
+  }
+
   a {
     color: $dark-color;
 

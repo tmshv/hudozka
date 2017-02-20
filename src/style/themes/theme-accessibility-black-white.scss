@@ -1,6 +1,6 @@
 @import "../variables";
 
-.theme-accessibility-bw {
+.theme-accessibility-black-white {
   background-color: $darker-color;
   color: $lighter-color;
 
@@ -23,9 +23,7 @@
         border-width: 2px;
       }
     }
-  }
 
-  .main-menu {
     .selected {
       border-top: $menu-colored-mark-thickness solid $dark-color;
 
