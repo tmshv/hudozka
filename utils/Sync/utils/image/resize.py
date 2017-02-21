@@ -93,7 +93,11 @@ def image_magick_resize(ifile, ofile, size, quality=85):
 
 def image_magick_pdf_to_img(input_file, output_file):
     call([
-        '/usr/local/bin/convert',
-        '{image}[0]'.format(image=input_file),
-        output_file
+        '/usr/local/bin/gs',
+        '-q',
+        '-sDEVICE=jpeg',
+        '-dLastPage=1',
+        '-o',
+        output_file,
+        input_file
     ])
