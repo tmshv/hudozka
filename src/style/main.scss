@@ -21,3 +21,11 @@ h2{
 h3{
   margin-bottom:  $single-margin / 2;
 }
+
+.actor {
+  border-bottom: 1px dashed black;
+
+  &:hover {
+    border-bottom: 2px solid black;
+  }
+}

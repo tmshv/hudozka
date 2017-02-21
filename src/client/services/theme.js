@@ -14,9 +14,19 @@ const themeScheme = {
 	},
 
 	fontSize: {
-		normal: 'theme-accessibility-font-normal',
+		normal: '',
 		big: 'theme-accessibility-font-big',
 		biggest: 'theme-accessibility-font-biggest',
+	},
+
+	image: {
+		yesImg: '',
+		noImg: 'theme-accessibility-no-image',
+	},
+
+	kerning: {
+		normal: '',
+		big: 'theme-accessibility-kerning-big',
 	},
 }
 
@@ -26,7 +36,9 @@ const defaultAccessibilityTheme = () => ({
 		accessibility: 'accessibility',
 		color: 'wb',
 		font: 'sans',
-		fontSize: 'big',
+		fontSize: 'normal',
+		image: 'yesImg',
+		kerning: 'normal',
 	},
 })
 
@@ -121,13 +133,36 @@ class Theme {
 		this.install()
 	}
 
+	setImageTheme(theme) {
+		this.themeSetup.theme.image = theme
+		this.install()
+	}
+
+	setKerningTheme(theme) {
+		this.themeSetup.theme.kerning = theme
+		this.install()
+	}
+
 	install() {
 		this.setTheme(this.themeSetup)
 	}
 
-	isDefaultTheme(){
-		const theme = loadTheme()
-		return !theme // default theme cleared up local storage
+	isDefaultTheme() {
+		return this.__scope.theme === this.mainTheme
+	}
+
+	isActive(scope, name) {
+		if (this.isDefaultTheme()) return false
+
+		try {
+			return this.themeSetup.theme[scope] === name
+		} catch (e) {
+			return false
+		}
+	}
+
+	setDefaultAccessibilityTheme () {
+		this.setTheme(defaultAccessibilityTheme())
 	}
 }
 

@@ -1,58 +1,75 @@
 <div class="accessibility-control">
-    <ul>
-        <li>
-            <button ng-click="setColorTheme('bw')"
-            >Белым по черному
-            </button>
-        </li>
-        <li>
-            <button ng-click="setColorTheme('wb')"
-            >Черным по белому
-            </button>
-        </li>
-        <!--<li>-->
-            <!--<button ng-click="setTheme('dark-blue')"-->
-            <!--&gt;Темно-синим по голубому-->
-            <!--</button>-->
-        <!--</li>-->
-        <!--<li>-->
-            <!--<button ng-click="setTheme('brown')"-->
-            <!--&gt;Коричневым по бежевому</button>-->
-        <!--</li>-->
-        <!--<li>-->
-            <!--<button ng-click="setTheme('green')"-->
-            <!--&gt;Зеленым по темно-коричневому</button>-->
-        <!--</li>-->
-    </ul>
+    <div class="accessibility-control__block">
+        <span>Цветовая схема: </span>
+        <ul>
+            <li ng-repeat="i in scopes.color">
+                <span
+                        class="actor"
+                        ng-class="{active: isActive('color', i)}"
+                        ng-click="setColorTheme(i[0])"
+                >{{i[1]}}</span>
+            </li>
+        </ul>
+    </div>
 
-    <ul>
-        <li>
-            <button ng-click="setFontTheme('')"
-            >Нормально
-            </button>
-        </li>
-        <li>
-            <button ng-click="setFontTheme('big')"
-            >Большие
-            </button>
-        </li>
-        <li>
-            <button ng-click="setFontTheme('biggest')"
-            >Огромные
-            </button>
+    <div class="accessibility-control__block">
+        <span>Размер шрифта: </span>
+        <ul>
+            <li ng-repeat="i in scopes.fontSize">
+                <span
+                        class="actor"
+                        ng-class="{active: isActive('fontSize', i)}"
+                        ng-click="setFontTheme(i[0])"
+                >{{i[1]}}</span>
         </li>
     </ul>
+    </div>
 
-    <ul>
-        <li>
-            <button ng-click="setFontFamilyTheme('sans')"
-            >Без засечек
-            </button>
-        </li>
-        <li>
-            <button ng-click="setFontFamilyTheme('serif')"
-            >С засечками
-            </button>
-        </li>
-    </ul>
+    <div class="accessibility-control__block">
+        <span>Начертание: </span>
+        <ul>
+            <li ng-repeat="i in scopes.fontFamily">
+                <span
+                        class="actor"
+                        ng-class="{active: isActive('font', i)}"
+                        ng-click="setFontFamilyTheme(i[0])"
+                >{{i[1]}}</span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="accessibility-control__block">
+        <span>Картинки: </span>
+        <ul>
+            <li ng-repeat="i in scopes.image">
+                <span
+                        class="actor"
+                        ng-class="{active: isActive('image', i)}"
+                        ng-click="setImageTheme(i[0])"
+                >{{i[1]}}</span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="accessibility-control__block">
+        <span>Кернинг: </span>
+        <ul>
+            <li ng-repeat="i in scopes.kerning">
+                <span
+                        class="actor"
+                        ng-class="{active: isActive('kerning', i)}"
+                        ng-click="setKerningTheme(i[0])"
+                >{{i[1]}}</span>
+            </li>
+        </ul>
+    </div>
+
+    <div style="margin: 1em 0">
+        <span class="actor"
+              ng-click="setDefaultSettings()"
+        >Стандартная настройка</span>
+        <span class="actor"
+              ng-click="setDefaultTheme()"
+        >Обычный режим</span>
+    </div>
 </div>
