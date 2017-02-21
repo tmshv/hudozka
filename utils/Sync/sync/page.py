@@ -109,7 +109,7 @@ def create_page(provider: Provider, img: ImageCreator, document):
         path = image_path(src)
 
         if provider.exists(path):
-            url = lambda s, e: 'https://static.shburg.org/art/images/page-{page}-{id}-{size}{ext}'.format(
+            url = lambda s, e: settings.url_page_base_preview.format(
                 page=document['id'],
                 id=image_id(src),
                 size=s,
