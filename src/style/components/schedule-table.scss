@@ -20,7 +20,6 @@ $current-day-column-border-thickness: 3px;
   }
 
   .lesson {
-    font-size: 1.1em;
     font-weight: bold;
   }
 
@@ -29,8 +28,8 @@ $current-day-column-border-thickness: 3px;
   }
 
   .current {
-    border-left: $current-day-column-border-thickness solid $current-week-day-color;
-    border-right: $current-day-column-border-thickness solid $current-week-day-color;
+    border-left: $current-day-column-border-thickness solid;
+    border-right: $current-day-column-border-thickness solid;
   }
 
   &__head{
@@ -39,10 +38,6 @@ $current-day-column-border-thickness: 3px;
     .date {
       margin: .5em 0 0;
       font-size: 1.5em;
-    }
-
-    .group {
-      color: #666;
     }
 
     & > div{
@@ -63,10 +58,6 @@ $current-day-column-border-thickness: 3px;
   &__body-row{
     display: flex;
     justify-content: space-between;
-
-    &:nth-child(even) {
-      background-color: $schedule-row-color;
-    }
   }
 
   &__body-group{

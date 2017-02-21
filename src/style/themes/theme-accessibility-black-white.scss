@@ -58,6 +58,12 @@
     }
   }
 
+  .schedule-table {
+    .current {
+      border-color: $lighter-color;
+    }
+  }
+
   footer {
     color: $lighter-color;
     background-color: $darker-color;

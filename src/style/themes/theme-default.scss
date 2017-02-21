@@ -28,6 +28,32 @@
     display: none;
   }
 
+  .schedule-table {
+    a{
+      color: $dark-color;
+    }
+
+    .lesson {
+      font-size: 1.1em;
+    }
+
+    .current {
+      border-color: $current-week-day-color;
+    }
+
+    &__head{
+      .group {
+        color: #666;
+      }
+    }
+
+    &__body-row{
+      &:nth-child(even) {
+        background-color: $schedule-row-color;
+      }
+    }
+  }
+
   footer {
     color: $light-color;
     background-color: $darker-color;
