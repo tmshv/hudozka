@@ -54,24 +54,29 @@ def create_document_from_folder(provider, path):
 
 
 def get_manifest(provider, path):
+    dirname = os.path.dirname(path)
     data = provider.read(path).read().decode('utf-8')
-    y, m = read_yaml_md(data)
-    y = y if y else {}
+    manifest, body = read_yaml_md(data)
+    manifest = manifest if manifest else {}
 
-    if 'date' in y:
-        y['date'] = create_date(y['date'], settings.date_formats)
+    if 'date' in manifest:
+        manifest['date'] = create_date(manifest['date'], settings.date_formats)
 
-    if 'until' in y:
-        y['until'] = create_date(y['until'], settings.date_formats)
+    if 'until' in manifest:
+        manifest['until'] = create_date(manifest['until'], settings.date_formats)
 
-    if 'id' in y:
-        y['id'] = str(y['id'])
+    if 'id' in manifest:
+        manifest['id'] = str(manifest['id'])
+
+    if 'content' in manifest:
+        body = provider.read(os.path.join(dirname, manifest['content'])).read().decode('utf-8')
+        del manifest['content']
 
     return {
-        **y,
-        'data': m,
-        'title': title_from_html(m),
-        'images': images_from_html(m)
+        **manifest,
+        'data': body,
+        'title': title_from_html(body),
+        'images': images_from_html(body)
     }
 
 
