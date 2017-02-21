@@ -92,6 +92,7 @@ date_formats_reverse = [
 origin = 'Yandex.Disk'
 
 collection_documents = 'documents'
+collection_awards = 'awards'
 collection_schedules = 'schedules'
 collection_events = 'events'
 collection_news = 'timeline'
@@ -108,6 +109,7 @@ _providers_roots = {
 f = _providers_roots[sync_provider_type]
 
 dir_documents = f('Hudozka/Site/Documents')
+dir_awards = f('Hudozka/Site/Awards')
 dir_schedules = f('Hudozka/Site/Schedules')
 dir_events = f('Hudozka/Site/Events')
 dir_news = f('Hudozka/Site/News')

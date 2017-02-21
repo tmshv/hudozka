@@ -38,6 +38,7 @@ if __name__ == '__main__':
     io = lambda root: get_provider(settings.sync_provider_type, root)
 
     main(io(settings.dir_documents), sync_documents, settings.collection_documents)
+    main(io(settings.dir_awards), sync_documents, settings.collection_awards)
     main(io(settings.dir_schedules), sync_schedules, settings.collection_schedules)
     main(io(settings.dir_events), sync_posts, settings.collection_events)
     main(io(settings.dir_news), sync_posts, settings.collection_news)
