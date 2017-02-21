@@ -8,7 +8,7 @@ export default function (app) {
 		`,
 		controller: ($scope, theme) => {
 			const update = () => {
-				$scope.isMainTheme = theme.currentTheme === theme.mainTheme
+				$scope.isMainTheme = theme.isDefaultTheme()
 			}
 
 			$scope.toggleTheme = () => {
