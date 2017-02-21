@@ -2,7 +2,7 @@
 
 echo "Deploying art.shburg.org"
 
-server="art.shburg.org"
+server="art.shlisselburg.org"
 tarfile="build.tar.gz"
 tarpath=$TMPDIR${tarfile}
 destpath="~/www/art.shburg.org"
