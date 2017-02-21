@@ -55,7 +55,7 @@ event_image_sizes = [
     ('big', 1200, 800)
 ]
 
-teacher_image_url_base = 'https://static.shburg.org/art/images/teacher-{id}-{size}{ext}'
+teacher_image_url_base = 'https://static.shlisselburg.org/art/images/teacher-{id}-{size}{ext}'
 teacher_image_output = '/Users/tmshv/Desktop/Hudozka Static/images'
 teacher_image_sizes = [
     ('big', 1200, 800),
@@ -119,10 +119,11 @@ dir_static = env('SYNC_STATIC', '~/Hudozka Static')
 dir_static_uploads = absolute(dir_static + '/uploads')
 dir_static_images = absolute(dir_static + '/images')
 
-url_base_preview = 'https://static.shburg.org/art/images/{id}-{size}{ext}'
-url_base_document = 'https://static.shburg.org/art/uploads/{file}'
+url_page_base_preview = 'https://static.shlisselburg.org/art/images/page-{page}-{id}-{size}{ext}'
+url_base_preview = 'https://static.shlisselburg.org/art/images/{id}-{size}{ext}'
+url_base_document = 'https://static.shlisselburg.org/art/uploads/{file}'
 
-image_base_url = 'https://static.shburg.org/art/images/'
+image_base_url = 'https://static.shlisselburg.org/art/images/'
 image_name_format = '{type}-{id}-{img}-{size}{ext}'
 
 yandex_disk_access_token = env('YANDEX_DISK_ACCESS_TOKEN')
