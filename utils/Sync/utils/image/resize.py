@@ -21,7 +21,8 @@ def thumbnail(src, dest, size, ext=None):
 
 def optimize(src, dest, quality=85, ext=None):
     image = utils.image.read_image(src)
-    image.save(override_extension(dest, ext), quality=quality)
+    if image:
+        image.save(override_extension(dest, ext), quality=quality)
     return image
 
 
