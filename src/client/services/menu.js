@@ -17,7 +17,9 @@ class Menu {
 
 export default function (app) {
     app.factory('menu', ($rootScope) => {
-        const menu = new Menu(menuItems);
+        const menu = new Menu(menuItems
+            .filter(i => i.url !== '/documents')
+        );
 
         $rootScope.$on('$routeChangeSuccess', (event, current) => {
             try {
