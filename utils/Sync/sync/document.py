@@ -1,5 +1,7 @@
 import os
 
+import requests
+
 import settings
 from sync import synced_image_id, untouched
 from sync.core.document import SyncDocument
@@ -53,6 +55,30 @@ def sync_documents(provider, collection, update=True, delete=True):
     )
 
 
+def upload(provider, document):
+    f = document['file']
+    p = provider.get_local(f)
+    n = os.path.basename(document['url'])
+
+    files = {'file': open(p, 'rb')}
+    # values = {'DB': 'photcat', 'OUT': 'csv', 'SHORT': 'short'}
+
+    r = requests.put(
+        url='https://static.shlisselburg.org/upload/art/uploads/{}'.format(n),
+        files=files,
+        auth=('uploader', '1207690962638465')
+    )
+    if r.status_code == 200:
+        print('Document {} uploaded'.format(document['url']))
+    else:
+        print('Failed to upload document {}'.format(document['url']))
+        print('https://static.shlisselburg.org/upload/art/uploads/{}'.format(n))
+        print(r.request.headers)
+        print(r.headers)
+        print(r.text)
+        print()
+
+
 def main(sync, static_path, update_documents, delete_documents):
     documents = scan_subdirs(sync.provider, '.pdf')
     documents = lmap(
@@ -81,6 +107,9 @@ def main(sync, static_path, update_documents, delete_documents):
             i['file'],
             static_path(i)
         )
+
+    for i in documents:
+        upload(sync.provider, i)
 
     # MAP DOCUMENT PROFILE FROM MANIFEST TO DOCUMENT_OBJECT
     documents = lmap(
