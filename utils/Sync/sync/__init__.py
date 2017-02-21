@@ -44,6 +44,8 @@ folder_name_pattern = re.compile('([\d.]+)(.*)')
 
 
 def untouched(documents, store):
+    if settings.skip_unchanged:
+        return documents
     return lmap(
         lambda i: i[0],
         filter(

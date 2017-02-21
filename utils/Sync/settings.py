@@ -22,6 +22,8 @@ def env(param, default=None):
 
 database_uri = env('MONGO_URI')
 
+skip_unchanged = False
+
 person_uri = {
     'Н.В.Андреева': 'nv-andreeva',
     'И.Н.Втюрина': 'in-vturina',
