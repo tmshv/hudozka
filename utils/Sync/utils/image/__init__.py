@@ -2,6 +2,7 @@ import os
 
 from PIL import Image
 
+from sync.data import upload
 from utils.hash import hash_file
 # from utils.image import resize
 from utils.image.resize import optimize, thumbnail, orient
@@ -43,7 +44,12 @@ def create_image(file, sizes, url_fn, output_dir, skip_processing=False):
 
         if not skip_processing:
             image = process_image(file, local_image_path, size)
+            if not image:
+                continue
             width, height = image.size
+            upload_url = upload(local_image_path, '/images/{}'.format(image_filename))
+            if not upload_url:
+                print('Image {} not uploaded'.format(file))
 
         result[size_name] = {
             'url': image_url,
@@ -66,6 +72,8 @@ def process_image(input_file, output_file, size):
         return optimize(input_file, output_file, quality=90)
     else:
         image = read_image(input_file)
+        if not image:
+            return None
         image_width, image_height = image.size
         if image_height > image_width:
             width, height = height, width
