@@ -1,8 +1,12 @@
-<div class="content content_wide content--padding-top--menu">
-    <div ng-repeat="c in $.collections">
-        <h2>{{c.name}}</h2>
+<div class="content content_thin content--padding-top--menu">
+    <div class="documents-container"
+         ng-repeat="c in $.collections"
+    >
+        <div class="documents-container__head">
+            <h3>{{c.name}}</h3>
+        </div>
 
-        <div class="documents-container">
+        <div class="documents-container__body">
             <document ng-repeat="i in c.documents" document="i"></document>
         </div>
     </div>

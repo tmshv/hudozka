@@ -1,35 +1,25 @@
-import template from '../../templates/components/page-documents.html';
-import {unique} from '../../utils/common';
+import template from '../../templates/components/page-documents.html'
+import {unique} from '../../utils/common'
 
 export default function (app) {
-    app.component('pageDocuments', {
-        bindings: {
-            documents: '<'
-        },
-        template: template,
-        controllerAs: '$',
-        controller: function () {
-            let categories = unique(i => i.category);
+	app.component('pageDocuments', {
+		bindings: {
+			documents: '<'
+		},
+		template: template,
+		controllerAs: '$',
+		controller: function () {
+			const documents = this.documents
+			const uniqueCategories = unique(i => i.category)
+			const documentsOf = category => documents.filter(i => i.category === category)
 
-            this.collections = [];
-
-            let documents = this.documents;
-            let cats = categories(documents)
-                .map(cat => new Object({
-                    name: cat,
-                    documents: []
-                }));
-
-            let docCollections = documents.reduce(
-                (cats, doc) => {
-                    let c = cats.find(i => i.name === doc.category);
-                    c.documents.push(doc);
-                    return cats;
-                },
-                cats
-            );
-
-            this.collections = this.collections.concat(docCollections);
-        }
-    });
+			this.collections = uniqueCategories(documents)
+				.reduce((acc, category) => (
+					[...acc, {
+						name: category,
+						documents: documentsOf(category)
+					}]
+				), [])
+		}
+	})
 };
