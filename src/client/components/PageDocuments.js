@@ -20,9 +20,11 @@ const priority = {
 		'https://static.shlisselburg.org/art/uploads/ustav-2015.pdf',
 		'https://static.shlisselburg.org/art/uploads/obrazovatelnaia-litsenziia-2015.pdf',
 		'https://static.shlisselburg.org/art/uploads/svidetelstvo-na-pomeshchenie.pdf',
+		'https://static.shlisselburg.org/art/uploads/egriul.pdf',
+		'https://static.shlisselburg.org/art/uploads/inn.pdf',
 		'https://static.shlisselburg.org/art/uploads/reshenie-o-sozdanii-shkoly.pdf',
-		'https://static.shlisselburg.org/art/uploads/postanovlenie-o-sozdanii-munitsipalnogo-obrazovatelnogo-uchrezhdeniia-kultury-detskaia-khudozhestvennaia-shkola.jpg.pdf',
 		'https://static.shlisselburg.org/art/uploads/kopiia-resheniia-o-naznachenii-rukovoditelia.pdf',
+		'https://static.shlisselburg.org/art/uploads/postanovlenie-o-sozdanii-munitsipalnogo-obrazovatelnogo-uchrezhdeniia-kultury-detskaia-khudozhestvennaia-shkola.pdf',
 	],
 	'Учебные программы': [
 		'https://static.shlisselburg.org/art/uploads/uchebnaia-programma-zhivopis.pdf',
