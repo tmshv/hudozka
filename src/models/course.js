@@ -6,6 +6,9 @@ const courses = {
 	ceramic: ['Керамика', '/courses/ceramics'],
 	ceramics: ['Керамика', '/courses/ceramics'],
 	composition: ['Композиция', ''],
+	'easel-composition': ['Станковая композиция', ''],
+	dpi: ['ДПИ', ''],
+	'art-talks': ['Беседа по искусству', ''],
 	history: ['История искусства', '/courses/art-history'],
 	cg: ['Комп. графика', '/courses/cg'],
 }
