@@ -15,6 +15,11 @@ export default [
 		'color': 'green'
 	},
 	{
+		'text': 'Поступление',
+		'url': '/join',
+		'color': 'yellow'
+	},
+	{
 		'text': 'Предметы',
 		'url': '/courses',
 		'color': 'magenta'
@@ -30,11 +35,6 @@ export default [
 		'color': 'red'
 	},
 	{
-		'text': 'Награды',
-		'url': '/awards',
-		'color': 'yellow'
-	},
-	{
 		'text': 'Документы',
 		'url': '/documents',
 		'color': 'yellow'
@@ -42,6 +42,11 @@ export default [
 	{
 		'text': 'Сведения об образовательной организации',
 		'url': '/info',
+		'color': 'gray'
+	},
+	{
+		'text': 'Текущий контроль',
+		'url': '/info/audit',
 		'color': 'gray'
 	}
 ]
