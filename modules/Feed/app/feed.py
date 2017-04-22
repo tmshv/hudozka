@@ -18,14 +18,12 @@ def get_feed():
     articles = sorted(events + news, key=lambda item: item['date'], reverse=True)
 
     fg = FeedGenerator()
-    fg.id('1')
+    fg.id('art.shlisselburg.org')
     fg.title('Шлиссельбургская ДХШ')
-    # fg.author({'name': 'John Doe', 'email': 'john@example.de'})
     fg.link(href='https://art.shlisselburg.org', rel='alternate')
-    # fg.logo('http://ex.com/logo.jpg')
-    # fg.subtitle('События ')
+    fg.logo('https://static.shlisselburg.org/art/graphics/favicon-144.png')
     fg.link(href='https://art.shlisselburg.org/feed', rel='self')
-    fg.language('en')
+    fg.language('ru')
 
     for article in articles:
         content = html.unescape(article['post'])
@@ -38,6 +36,4 @@ def get_feed():
         fe.content(content, None, 'CDATA')
         fe.link({'href': url})
 
-    # return articles
     return fg.atom_str(pretty=True)
-    # return fg.atom_str()
