@@ -5,11 +5,17 @@ from feedgen.feed import FeedGenerator
 from db import collection
 
 
-def get_feed():
-    events = list(collection('events').find({}))
-    news = list(collection('timeline').find({'type': 'post'}))
+def get_items(collection_name, query={}):
+    return list(
+        collection(collection_name).find(query)
+    )
 
-    articles = events + news
+
+def get_feed():
+    events = get_items('events')
+    news = get_items('timeline', {'type': 'post'})
+
+    articles = sorted(events + news, key=lambda item: item['date'], reverse=True)
 
     fg = FeedGenerator()
     fg.id('1')
