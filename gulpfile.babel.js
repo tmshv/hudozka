@@ -74,6 +74,11 @@ gulp.task('copy templates', () => {
 		.pipe(gulp.dest('./out/templates'))
 })
 
+gulp.task('copy views', () => {
+	return gulp.src('./src/views/**')
+		.pipe(gulp.dest('./out/views'))
+})
+
 gulp.task('compile', () => {
 	const doWatch = !isProduction
 	const doSourceMaps = !isProduction
@@ -117,6 +122,6 @@ gulp.task('production', () => {
 })
 
 gulp.task('default', ['style', 'compile'])
-gulp.task('copy', ['copy templates', 'copy fonts', 'copy graphics', 'copy 3rdparty', 'copy robots.txt'])
+gulp.task('copy', ['copy views', 'copy templates', 'copy fonts', 'copy graphics', 'copy 3rdparty', 'copy robots.txt'])
 gulp.task('deploy', ['default', 'copy', 'compile 3rdparty', 'imagemin'])
 gulp.task('compile production', ['production', 'compile'])
