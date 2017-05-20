@@ -14,12 +14,14 @@ footer {
   }
 
   .contacts {
+    margin: $double-margin 0 $half-margin;
+
     & > div {
-      padding: 0 1em;
+      padding: 0 $single-margin;
     }
 
     p {
-      margin: 0.5em 1em;
+      margin: $half-margin $single-margin;
     }
   }
 
