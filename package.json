@@ -67,6 +67,7 @@
     "autoprefixer": "^6.3.6",
     "babel-cli": "^6.6.5",
     "babel-loader": "^6.2.2",
+    "babel-plugin-transform-react-jsx": "^6.23.0",
     "cssnano": "^3.4.0",
     "eslint": "^3.9.1",
     "eslint-config-standard": "^6.2.1",
