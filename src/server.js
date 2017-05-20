@@ -13,12 +13,13 @@ import cookie from 'koa-cookie'
 import bodyParser from 'koa-bodyparser'
 
 import apiV1 from 'hudozka-api-v1'
-import config, {redirectionTable} from './config'
+import {redirectionTable} from './config'
 import {routes, queryObject} from './routes'
 import {redirect} from './routes/redirect'
 import {services as serviceKeys, authChecker} from './core/service'
 import handlebars from 'handlebars'
 
+const config = require('./config')
 const error = require('./middlewares/error')
 
 const dirPublic = path.join(__dirname, '../public')
@@ -50,7 +51,7 @@ export default function (store) {
 	app.use($(helmet()))
 	app.use(queryObject())
 
-	app.use(error.notFound('src/views/404.hbs'))
+	app.use(error.notFound(config.view404))
 	app.use(routes(store))
 
 	return Server(app.callback())

@@ -50,3 +50,6 @@ export const index = path.join(__dirname, indexFile);
 export const sitemapCacheTime = 600000;// 600 sec - cache purge period
 
 export const instagramToken = privateData['instagramToken'];
+
+export const viewMain = path.join(__dirname, 'views/main.hbs')
+export const view404 = path.join(__dirname, 'views/404.hbs')

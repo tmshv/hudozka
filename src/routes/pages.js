@@ -11,6 +11,7 @@ const getPathWithNoTrailingSlash = require('../lib/url').getPathWithNoTrailingSl
 const {compose, any} = require('../lib/common')
 
 const menuModel = require('../models/menu').default
+const config = require('../config')
 
 async function getPage(path) {
 	return await c('pages').findOne({url: path})
@@ -59,7 +60,7 @@ module.exports = function () {
 			const menu = buildMenu(path, menuModel)
 			const content = renderApp({menu, page})
 
-			const source = await readFile('src/views/main.hbs', 'utf-8')
+			const source = await readFile(config.viewMain, 'utf-8')
 			const template = handlebars.compile(source)
 
 			ctx.type = 'text/html'
