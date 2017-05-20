@@ -11,7 +11,6 @@ import schedule from './schedule'
 import {getPageUrls} from '../core/pages'
 import news from './news'
 import gallery from './gallery'
-import error404 from './404'
 import documents from './documents'
 import teachers from './teachers'
 import events from './events'
@@ -32,7 +31,6 @@ export function routes(store) {
 		events(),
 		articles(),
 		pages(),
-		error404()
 	])
 }
 
@@ -96,6 +94,5 @@ export function json(fn) {
 }
 
 async function getInitialData() {
-	const pages = await getPageUrls()
-	return {pages: pages}
+	return {pages: []}
 }

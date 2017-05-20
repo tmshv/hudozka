@@ -233,16 +233,25 @@ app.config(($locationProvider, $routeProvider) => {
 	})
 
 	$routeProvider.otherwise({
-		templateUrl: '/404.html'
+		template: '',
+		controller: function($window) {
+			console.log('otherwise')
+			$window.location.reload()
+		}
 	})
 })
 
-app.run(($location, $rootScope, $http) => {
+app.run(($window, $location, $rootScope, $http) => {
 	$rootScope.$on('$routeChangeSuccess', (event, current) => {
 		const url = location.href
-		const title = current['$$route'].title
 
-		if (title) $rootScope.title = title
+		try {
+			const title = current['$$route'].title
+
+			if (title) $rootScope.title = title
+		} catch (e) {
+
+		}
 
 		setTimeout(() => {
 			try {

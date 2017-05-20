@@ -19,6 +19,8 @@ import {redirect} from './routes/redirect'
 import {services as serviceKeys, authChecker} from './core/service'
 import handlebars from 'handlebars'
 
+const error = require('./middlewares/error')
+
 const dirPublic = path.join(__dirname, '../public')
 const dirTemplates = path.join(__dirname, 'templates')
 
@@ -47,6 +49,8 @@ export default function (store) {
 	app.use($(redirect(redirectionTable)))
 	app.use($(helmet()))
 	app.use(queryObject())
+
+	app.use(error.notFound('src/views/404.hbs'))
 	app.use(routes(store))
 
 	return Server(app.callback())

@@ -1,24 +1,71 @@
-import route from 'koa-route'
-import {c} from '../core/db'
-import {accepts, index} from './'
+const {readFile} = require('async-file')
+const handlebars = require('handlebars')
 
-async function exists(ctx) {
-	const page = await getPage(ctx.path)
-	return Boolean(page)
-}
+const {get} = require('koa-route')
+const {c} = require('../core/db')
+
+const url = require('url')
+const renderApp = require('../lib/component').renderApp
+const isEqualPath = require('../lib/url').isEqualPath
+const getPathWithNoTrailingSlash = require('../lib/url').getPathWithNoTrailingSlash
+const {compose, any} = require('../lib/common')
+
+const menuModel = require('../models/menu').default
 
 async function getPage(path) {
 	return await c('pages').findOne({url: path})
 }
 
-export default function () {
-	return route.get('*', accepts({
-		'text/html': index(exists),
-		'text/plain': index(exists),
-		'application/json': async(ctx) => {
-			const page = await getPage(ctx.path)
-			if (!page) ctx.status = 404
-			else ctx.body = page
-		}
+function isActive(path, menuItem) {
+	return any(flatMenuItem(menuItem)
+		.map(i => isEqualPath(path, i.url, true))
+	)
+}
+
+function flatMenuItem(item) {
+	const rootUrl = item.url
+	const flatUrls = items => {
+		return items.map(item => ({
+			...item,
+			url: url.resolve(rootUrl, item.url)
+		}))
+	}
+
+	return !item.items
+		? [item]
+		: item.items.reduce((acc, i) => [...acc, ...compose(flatUrls, flatMenuItem)(i)], [item])
+}
+
+/**
+ * Takes plain menu model and sample path and defines is an item of menu should be active
+ *
+ * @param path
+ * @param menu
+ * @return {{items}}
+ */
+function buildMenu(path, menu) {
+	const items = menu.map(item => ({
+		...item,
+		active: isActive(path, item)
 	}))
-};
+	return {items}
+}
+
+module.exports = function () {
+	return get('*', async ctx => {
+		const path = getPathWithNoTrailingSlash(ctx.path)
+		const page = await getPage(path)
+		if (page) {
+			const menu = buildMenu(path, menuModel)
+			const content = renderApp({menu, page})
+
+			const source = await readFile('src/views/main.hbs', 'utf-8')
+			const template = handlebars.compile(source)
+
+			ctx.type = 'text/html'
+			ctx.body = template({content})
+		} else {
+			ctx.status = 404
+		}
+	})
+}
