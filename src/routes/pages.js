@@ -63,8 +63,16 @@ module.exports = function () {
 			const source = await readFile(config.viewMain, 'utf-8')
 			const template = handlebars.compile(source)
 
+			const title = page.title
+			const meta = {
+				title,
+				description: title,
+				image: 'https://art.shlisselburg.org/entrance.jpg',
+				url: `https://art.shlisselburg.org${path}`,
+			}
+
 			ctx.type = 'text/html'
-			ctx.body = template({content})
+			ctx.body = template({content, title, meta})
 		} else {
 			ctx.status = 404
 		}
