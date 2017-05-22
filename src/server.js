@@ -6,7 +6,6 @@ import logger from 'koa-logger'
 import convert from 'koa-convert'
 import conditional from 'koa-conditional-get'
 import etag from 'koa-etag'
-import prerender from 'koa-prerender'
 import helmet from 'koa-helmet'
 import mount from 'koa-mount'
 import cookie from 'koa-cookie'
@@ -45,8 +44,6 @@ export default function (store) {
 	app.use(cookie())
 	app.use($(conditional()))
 	app.use($(etag()))
-	app.use(prerenderRmFragment())
-	app.use($(prerender(config.prerender)))
 	app.use(serve(dirPublic))
 	app.use(serve(dirTemplates))
 	app.use($(redirect(redirectionTable)))
@@ -65,16 +62,4 @@ export default function (store) {
 function apis(store) {
 	let checkAuth = authChecker(serviceKeys)
 	return mount('/api/v1', apiV1(checkAuth, store))
-}
-
-function prerenderRmFragment() {
-	return async(ctx, next) => {
-		await next()
-
-		try {
-			let xp = ctx.response.header['x-prerender'] === 'true'
-			if (xp) ctx.body = ctx.body.replace('<meta name="fragment" content="!">', '')
-		} catch (e) {
-		}
-	}
 }
