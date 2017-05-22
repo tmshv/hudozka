@@ -15,6 +15,7 @@ const ArticleList = ({articles, nextPage, prevPage}) => (
 				title={article.title}
 				date={article.date}
 				data={article.post}
+				shareable={false}
 			/>
 		))}
 

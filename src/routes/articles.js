@@ -127,6 +127,7 @@ function getArticle() {
 							title={article.title}
 							date={article.date}
 							data={article.post}
+							shareable={true}
 						/>
 					</div>
 				)

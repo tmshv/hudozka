@@ -8,7 +8,16 @@ const Head = ({url, children}) => (
 		: <a href={url}><h2>{children}</h2></a>
 )
 
-const Article = ({data, url, title, date}) => (
+const Share = () => (
+	<div className="likely">
+		<div className="vkontakte">Поделиться</div>
+		<div className="facebook">Поделиться</div>
+		<div className="telegram">Отправить</div>
+		<div className="twitter">Твитнуть</div>
+	</div>
+)
+
+const Article = ({data, url, title, date, shareable}) => (
 	<article className="article">
 		<header className="article__head">
 			<Head url={url}>{title}</Head>
@@ -18,6 +27,10 @@ const Article = ({data, url, title, date}) => (
 		<div className="article__body">
 			{getHtml(data)}
 		</div>
+
+		{!shareable ? null : (
+			<Share/>
+		)}
 	</article>
 )
 
