@@ -6,7 +6,6 @@ import {json} from './';
 export default function () {
     return compose([
         gallery(),
-        album()
     ]);
 };
 
@@ -26,18 +25,6 @@ function gallery() {
                 })
                 .map(processAlbum)
             );
-        }
-    ));
-}
-
-function album() {
-    return route.get('/album/:id', json(
-        async(ctx, id) => {
-            let record = await c('albums').findOne({
-                id: id
-            });
-            record = await processAlbum(record);
-            ctx.body = record;
         }
     ));
 }

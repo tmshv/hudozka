@@ -22,6 +22,7 @@ const config = require('./config')
 const error = require('./middlewares/error')
 const home = require('./routes/home')
 const article = require('./routes/articles')
+const albums = require('./routes/albums')
 
 const dirPublic = path.join(__dirname, '../public')
 const dirTemplates = path.join(__dirname, 'templates')
@@ -54,6 +55,7 @@ export default function (store) {
 	app.use(home.getHome(5))
 	app.use(article.getArticles(5))
 	app.use(article.getArticle())
+	app.use(albums.getAlbum())
 	app.use(routes(store))
 
 	return Server(app.callback())

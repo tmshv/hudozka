@@ -45,9 +45,12 @@ export default [
 		'color': 'pink'
 	},
 	{
-		'text': 'Галерея',
-		'url': '/gallery',
-		'color': 'red'
+		text: 'Галерея',
+		url: '/gallery',
+		color: 'red',
+		items: [
+			{url: '/album/*', text: ''},
+		]
 	},
 	{
 		'text': 'Документы',

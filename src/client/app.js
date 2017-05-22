@@ -127,19 +127,6 @@ app.config(($locationProvider, $routeProvider) => {
 			}
 		},
 		{
-			name: '/album/:id',
-			template: '<page-album album="$resolve.album"></page-album>',
-			resolve: {
-				album: ($route, api) => {
-					let id = $route.current.params.id
-
-					return api.album
-						.fetch(id)
-						.then(i => i.data)
-				}
-			}
-		},
-		{
 			name: '/awards',
 			template: '<page-awards items="$resolve.awards"></page-awards>',
 			title: 'Награды',
