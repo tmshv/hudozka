@@ -49,12 +49,6 @@
     font-weight: bold;
     border-top: $menu-colored-mark-thickness solid $light-color;
 
-    a:link, a:visited {
-      color: $dark-color;
-      text-decoration: none;
-      border-bottom: none;
-    }
-
     &.blue {
       border-top: $menu-colored-mark-thickness solid $blue-color;
     }

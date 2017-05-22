@@ -3,13 +3,20 @@ import {renderToStaticMarkup} from 'react-dom/server'
 
 const App = require('../components/App')
 
-function renderApp({menu, page}) {
+function renderApp({menu, component}) {
 	const app = (
 		<App menu={menu}>
-			<div dangerouslySetInnerHTML={{__html: page.data}}/>
+			{component}
 		</App>
 	)
 	return renderToStaticMarkup(app)
 }
 
+function getHtml(html) {
+	return (
+		<div dangerouslySetInnerHTML={{__html: html}}/>
+	)
+}
+
 exports.renderApp = renderApp
+exports.getHtml = getHtml

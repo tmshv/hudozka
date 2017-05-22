@@ -13,10 +13,8 @@ const App = ({children, menu}) => (
 		</header>
 
 		<main className="body-wrapper__content">
-			<section className="content content_thin content--padding-top--menu">
-				<div className="cloud-page__body">
-					{children}
-				</div>
+			<section className="content content_full content--padding-top--menu">
+				{children}
 			</section>
 		</main>
 

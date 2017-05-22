@@ -1,6 +1,5 @@
 import {readFile} from 'async-file'
 import handlebars from 'handlebars'
-import route from 'koa-route'
 import compose from 'koa-compose'
 
 import {map, assign} from '../utils/common'
@@ -8,20 +7,15 @@ import {index as indexFile} from '../config'
 
 import sitemap from './sitemap'
 import schedule from './schedule'
-import {getPageUrls} from '../core/pages'
 import news from './news'
 import gallery from './gallery'
 import documents from './documents'
 import teachers from './teachers'
 import events from './events'
-import articles from './articles'
 import pages from './pages'
-
-let main = () => route.get('/', index())
 
 export function routes(store) {
 	return compose([
-		main(),
 		sitemap(),
 		schedule(),
 		news(),
@@ -29,7 +23,6 @@ export function routes(store) {
 		documents(store),
 		teachers(),
 		events(),
-		articles(),
 		pages(),
 	])
 }

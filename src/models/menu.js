@@ -5,13 +5,10 @@ export default [
 		color: 'blue',
 		items: [
 			{url: '/summer-school/2017', text: 'Летние каникулы 2017'},
+			{url: '/articles/*', text: 'Статьи'},
+			{url: '/article/*', text: ''},
 		],
-	},
-	{
-		'text': 'События',
-		'url': '/events',
-		'color': 'orange'
-	},
+	}, ,
 	{
 		'text': 'Расписание',
 		'url': '/schedule',
@@ -60,7 +57,7 @@ export default [
 	{
 		url: '/info/',
 		text: 'Сведения об образовательной организации',
-		color: 'gray',
+		color: 'orange',
 		items: [
 			{url: 'main', text: 'Основные сведения'},
 			{url: 'structure', text: 'Структура и органы управления образовательной организацией'},
@@ -75,6 +72,8 @@ export default [
 
 			{url: 'tools', text: 'Список рекомендованных материалов'},
 			{url: 'history', text: 'История школы'},
+
+			{url: '*', text: ''},
 		]
 	},
 	{
