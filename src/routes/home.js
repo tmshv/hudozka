@@ -2,6 +2,7 @@ const React = require('react')
 const Article = require('../components/Article')
 const {get} = require('koa-route')
 const {c} = require('../core/db')
+const getArticleListComponent = require('./articles').getArticleListComponent
 const {render} = require('../lib/render')
 const getPathWithNoTrailingSlash = require('../lib/url').getPathWithNoTrailingSlash
 const timestamp = require('../lib/date').timestamp
@@ -34,17 +35,6 @@ async function findPinned(page) {
 			.toArray()
 }
 
-function getComponent(path, article) {
-	return (
-		<Article
-			url={path}
-			title={article.title}
-			date={article.date}
-			data={article.post}
-		/>
-	)
-}
-
 function getMeta(article) {
 	return {
 		title: article.title,
@@ -52,33 +42,19 @@ function getMeta(article) {
 }
 
 function getHome(pageSize) {
-	return get('/', async (ctx, page) => {
-		const path = getPathWithNoTrailingSlash(ctx.path) || '/'
-		page = parseInt(page) || 1
+	return get('/', async ctx => {
+		const path = getPathWithNoTrailingSlash(ctx.path)
+		const articles = await getArticleListComponent(path, 1, pageSize)
 
-		const limit = pageSize
-		const skip = (page - 1) * pageSize
-
-		const pinnedArticles = await findPinned(page)
-
-		const id = i => i._id
-		const pinnedIds = pinnedArticles.map(id)
-		const articles = await findArticlesNin(pinnedIds, skip, limit, {date: -1})
-
-		const content = [
-			...pinnedArticles.sort(sortArticleByDate),
-			...articles
-		]
-			.map(article => getComponent(articleUrl(article), article))
 		const Component = (
-				<div className="content content_thin">
-					<div className="hudozka-title">
-						<p>МБУДО</p>
-						<h1>Шлиссельбургская детская художественная&nbsp;школа</h1>
-					</div>
-
-					{content}
+			<div className="content content_thin">
+				<div className="hudozka-title">
+					<p>МБУДО</p>
+					<h1>Шлиссельбургская детская художественная&nbsp;школа</h1>
 				</div>
+
+				{articles}
+			</div>
 		)
 
 		ctx.body = await render(path, Component, getMeta({title: 'Шлиссельбургская ДХШ'}), {showAuthor: true})

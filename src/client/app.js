@@ -84,48 +84,6 @@ app.config(($locationProvider, $routeProvider) => {
 
 	let routers = [
 		{
-			name: '/',
-			template: '<page-school></page-school>',
-			title: 'Шлиссельбургская детская художественная школа'
-		},
-		{
-			name: '/events/:page?',
-			template: '<page-events page="{{$.page.page}}" total-pages="{{$.page.totalPages}}" posts="$.page.data"></page-events>',
-			title: 'События Школы',
-			resolveAs: '$',
-			resolve: {
-				page: ($route, api) => {
-					let page = $route.current.params.page
-					if (!page) page = 1
-
-					return api.event
-						.list(page)
-						.then(i => i.data)
-						.then(i => {
-							let totalPages = Math.ceil(i.total / i.limit)
-							return {
-								data: i.data,
-								page: page,
-								totalPages: totalPages
-							}
-						})
-				}
-			}
-		},
-		{
-			name: '/article/:id',
-			template: '<page-article article="$.data"></page-article>',
-			resolveAs: '$',
-			resolve: {
-				data: ($route, api) => {
-					let id = $route.current.params.id
-					if (!id) return null
-					return api.article.id(id)
-						.then(i => i.data)
-				}
-			}
-		},
-		{
 			name: '/schedule/:period?/:semester?',
 			template: '<page-schedule schedules="$resolve.list"></page-schedule>',
 			title: 'Расписание',

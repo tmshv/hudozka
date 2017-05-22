@@ -47,6 +47,46 @@ async function findPinned(page) {
 			.toArray()
 }
 
+async function getArticleListComponent(path, page, pageSize) {
+	path = getPathWithNoTrailingSlash(path)
+
+	const limit = pageSize
+	const skip = (page - 1) * pageSize
+
+	const pinnedArticles = await findPinned(page)
+	const total = await totalArticles()
+	const totalPages = total / pageSize
+
+	const id = i => i._id
+	const pinnedIds = pinnedArticles.map(id)
+	const articles = await findArticlesNin(pinnedIds, skip, limit, {date: -1})
+
+	const prevPage = page > 1
+		? page - 1
+		: null
+
+	const nextPage = page < totalPages
+		? page + 1
+		: null
+
+	const content = [
+		...pinnedArticles.sort(sortArticleByDate),
+		...articles
+	]
+		.map(article => ({
+			...article,
+			url: articleUrl(article),
+		}))
+
+	return (
+		<ArticleList
+			articles={content}
+			prevPage={prevPage}
+			nextPage={nextPage}
+		/>
+	)
+}
+
 function getMeta(article) {
 	return {
 		title: article.title,
@@ -55,45 +95,22 @@ function getMeta(article) {
 
 function getArticles(pageSize) {
 	return get('/articles/:page?', async (ctx, page) => {
-		const path = getPathWithNoTrailingSlash(ctx.path)
 		page = parseInt(page) || 1
 
-		const limit = pageSize
-		const skip = (page - 1) * pageSize
+		if (page === 1) {
+			ctx.redirect('/')
+		} else {
+			const path = getPathWithNoTrailingSlash(ctx.path)
 
-		const pinnedArticles = await findPinned(page)
-		const total = await totalArticles()
-		const totalPages = total / pageSize
+			const articles = await getArticleListComponent(path, page, pageSize)
+			const Component = (
+				<div className="content content_thin">
+					{articles}
+				</div>
+			)
 
-		const id = i => i._id
-		const pinnedIds = pinnedArticles.map(id)
-		const articles = await findArticlesNin(pinnedIds, skip, limit, {date: -1})
-
-		const prevPage = page > 1
-			? page - 1
-			: null
-
-		const nextPage = page < totalPages
-			? page + 1
-			: null
-
-		const content = [
-			...pinnedArticles.sort(sortArticleByDate),
-			...articles
-		]
-			.map(article => ({
-				...article,
-				url: articleUrl(article),
-			}))
-		const Component = (
-			<ArticleList
-				articles={content}
-				prevPage={prevPage}
-				nextPage={nextPage}
-			/>
-		)
-
-		ctx.body = await render(path, Component, getMeta({title: `Статьи`}))
+			ctx.body = await render(path, Component, getMeta({title: `Статьи`}))
+		}
 	})
 }
 
@@ -132,5 +149,6 @@ function getArticle() {
 	}))
 }
 
+exports.getArticleListComponent = getArticleListComponent
 exports.getArticles = getArticles
 exports.getArticle = getArticle

@@ -7,22 +7,18 @@ import {index as indexFile} from '../config'
 
 import sitemap from './sitemap'
 import schedule from './schedule'
-import news from './news'
 import gallery from './gallery'
 import documents from './documents'
 import teachers from './teachers'
-import events from './events'
 import pages from './pages'
 
 export function routes(store) {
 	return compose([
 		sitemap(),
 		schedule(),
-		news(),
 		gallery(),
 		documents(store),
 		teachers(),
-		events(),
 		pages(),
 	])
 }

@@ -8,7 +8,7 @@ export default [
 			{url: '/articles/*', text: 'Статьи'},
 			{url: '/article/*', text: ''},
 		],
-	}, ,
+	},
 	{
 		'text': 'Расписание',
 		'url': '/schedule',

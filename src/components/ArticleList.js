@@ -3,7 +3,7 @@ const Paginator = require('./Paginator')
 const Article = require('./Article')
 
 const ArticleList = ({articles, nextPage, prevPage}) => (
-	<div className="content content_thin">
+	<div>
 		{!prevPage ? null : (
 			<Paginator url={`/articles/${prevPage}`} type="top"/>
 		)}
