@@ -28,12 +28,13 @@ function main() {
 			return
 		}
 
+		console.log(`Using node ${process.version}`)
 		console.log(`App ${name} started`)
-		console.log(`listening ${config.port}`)
-		console.log(`db address ${db}`)
+		console.log(`Listening ${config.port}`)
+		console.log(`DB Address ${db}`)
 	}
 
-	loop()
+	return loop()
 }
 
 main()
