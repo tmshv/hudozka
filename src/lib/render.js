@@ -13,6 +13,11 @@ const {compose, any} = require('../lib/common')
 const menuModel = require('../models/menu').default
 const config = require('../config')
 
+const defaultOptions = {
+	commentsEnabled: false,
+	showAuthor: false,
+}
+
 function isActive(path, menuItem) {
 	return isEqualPate(path, menuItem.url, true)
 }
@@ -63,17 +68,18 @@ const getTitle = meta => 'title' in meta
 
 const isHtml = data => typeof data === 'string'
 
-async function render(path, data, meta) {
+async function render(path, data, meta, options = {}) {
 	const component = isHtml(data)
 		? getHtml(data)
 		: data
 
 	const menu = buildMenu(path, menuModel)
-	const content = renderApp({menu, component})
+	const content = renderApp({...options, menu, component})
 
 	const source = await readFile(config.viewMain, 'utf-8')
 	const template = handlebars.compile(source)
 
+	const renderOptions = {...defaultOptions, ...options}
 	const metaData = {
 		...meta,
 		description: 'Сайт Шлиссельбургской художественной школы',
@@ -83,6 +89,7 @@ async function render(path, data, meta) {
 
 	return template({
 		content,
+		options: renderOptions,
 		title: getTitle(meta),
 		meta: metaData,
 	})

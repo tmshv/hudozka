@@ -2,7 +2,13 @@ const React = require('react')
 const Menu = require('./Menu')
 const Footer = require('./Footer')
 
-const App = ({children, menu}) => (
+const Comments = () => (
+	<div className="content content_semi-wide">
+		<div id="disqus_thread"></div>
+	</div>
+)
+
+const App = ({children, menu, showAuthor}) => (
 	<div className="body-wrapper theme-default">
 		<header>
 			<div className="navigation">
@@ -16,10 +22,12 @@ const App = ({children, menu}) => (
 			<section className="content content_full content--padding-top--menu">
 				{children}
 			</section>
+
+			<Comments/>
 		</main>
 
-		<Footer showAuthor={false}
-				address="г. Шлиссельбург ул. 18 января д. 3"
+		<Footer showAuthor={showAuthor}
+				address=" г. Шлиссельбург ул. 18 января д. 3"
 				telephone="+7 (81362) 76-312"
 				email="hudozka@gmail.com"
 		/>

@@ -3,9 +3,9 @@ import {renderToStaticMarkup} from 'react-dom/server'
 
 const App = require('../components/App')
 
-function renderApp({menu, component}) {
+function renderApp({component, ...options}) {
 	const app = (
-		<App menu={menu}>
+		<App {...options}>
 			{component}
 		</App>
 	)

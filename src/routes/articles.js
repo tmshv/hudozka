@@ -115,7 +115,7 @@ function getArticle() {
 				)
 
 				ctx.type = 'text/html'
-				ctx.body = await render(path, Component, getMeta(article))
+				ctx.body = await render(path, Component, getMeta(article), {commentsEnabled: true})
 			} else {
 				ctx.status = 404
 			}

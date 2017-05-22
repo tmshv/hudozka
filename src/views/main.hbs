@@ -87,7 +87,7 @@
         script.setAttribute('data-timestamp', Date.now());
         (document.head || document.body).appendChild(script);
     }
-    const doInitDisqus = false
+    const doInitDisqus = {{options.commentsEnabled}}
     if (doInitDisqus) initDisqus()
 </script>
 </body>

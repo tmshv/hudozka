@@ -81,7 +81,7 @@ function getHome(pageSize) {
 				</div>
 		)
 
-		ctx.body = await render(path, Component, getMeta({title: 'Шлиссельбургская ДХШ'}))
+		ctx.body = await render(path, Component, getMeta({title: 'Шлиссельбургская ДХШ'}), {showAuthor: true})
 	})
 }
 
