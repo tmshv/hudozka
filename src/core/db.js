@@ -1,24 +1,33 @@
-import {MongoClient, ObjectId} from 'mongodb';
-import co from 'co';
+const Data = require('./Data')
+const Album = require('./Album')
+const Image = require('./Image')
 
-export var db;
+const {MongoClient, ObjectId} = require('mongodb')
 
-export function connect(uri){
-    return co(function*() {
-        db =  yield MongoClient.connect(uri);
-        return db;
-    })
+export var db
+
+export async function connect(uri) {
+	const c = await MongoClient.connect(uri)
+	db = init(c)
+	return db
 }
 
-export function collection(name){
-    return db.collection(name);
+export function collection(name) {
+	return db.collection(name)
 }
 
-export const c = collection;
+export const c = collection
 
-export function id(i){
-    if(typeof i === 'string')return ObjectId(i);
-    else if(i instanceof ObjectId) return i;
-    else if(i instanceof Object) return '_id' in i ? ObjectId(i._id) : null;
-    return null;
+export function id(i) {
+	if (typeof i === 'string') return ObjectId(i)
+	else if (i instanceof ObjectId) return i
+	else if (i instanceof Object) return '_id' in i ? ObjectId(i._id) : null
+	return null
+}
+
+function init(db) {
+	Data.setStore(Album, db.collection('albums'))
+	Data.setStore(Image, db.collection('images'))
+
+	return db
 }
