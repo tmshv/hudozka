@@ -61,8 +61,9 @@ function getGallery() {
 				<div className="content content_wide">
 					<Article title={meta.title}>
 						{
-							[...albumsByYear.entries()].map(([year, albums]) => (
+							[...albumsByYear.entries()].map(([year, albums], index) => (
 								<ACollection
+									key={index}
 									title={year}
 									albums={albums}
 								/>
