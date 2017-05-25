@@ -5,6 +5,10 @@ const {render} = require('../lib/render')
 const getPathWithNoTrailingSlash = require('../lib/url').getPathWithNoTrailingSlash
 const {get} = require('koa-route')
 
+const previewUrl = preview => preview
+	? preview.url
+	: null
+
 function getMeta() {
 	return {
 		title: 'Галерея',
@@ -16,7 +20,7 @@ const GItem = ({album}) => (
 	<div className="gallery-item">
 		<a href={album.url}>
 			<h2>{album.title}</h2>
-			<img src={album.preview.url} alt={album.title}/>
+			<img src={previewUrl(album.preview)} alt={album.title}/>
 		</a>
 	</div>
 )
