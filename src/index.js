@@ -9,8 +9,8 @@ import DataManager from 'hudozka-data'
 
 function main() {
 	async function loop() {
-		const db = config.db.uri
-		await connect(db)
+		const dbUri = config.db.uri
+		await connect(dbUri)
 
 		try {
 			let data = new DataManager({
@@ -31,7 +31,7 @@ function main() {
 		console.log(`Using node ${process.version}`)
 		console.log(`App ${name} started`)
 		console.log(`Listening ${config.port}`)
-		console.log(`DB Address ${db}`)
+		console.log(`DB Address ${dbUri}`)
 	}
 
 	return loop()
