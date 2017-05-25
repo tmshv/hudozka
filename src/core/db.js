@@ -1,5 +1,6 @@
 const Data = require('./Data')
 const Album = require('./Album')
+const Teacher = require('./Teacher')
 const Image = require('./Image')
 
 const {MongoClient, ObjectId} = require('mongodb')
@@ -28,6 +29,7 @@ export function id(i) {
 function init(db) {
 	Data.setStore(Album, db.collection('albums'))
 	Data.setStore(Image, db.collection('images'))
+	Data.setStore(Teacher, db.collection('collective'))
 
 	return db
 }

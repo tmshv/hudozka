@@ -8,7 +8,6 @@ import {index as indexFile} from '../config'
 import sitemap from './sitemap'
 import schedule from './schedule'
 import documents from './documents'
-import teachers from './teachers'
 import pages from './pages'
 
 export function routes(store) {
@@ -16,7 +15,6 @@ export function routes(store) {
 		sitemap(),
 		schedule(),
 		documents(store),
-		teachers(),
 		pages(),
 	])
 }

@@ -1,65 +1,100 @@
-import co from 'co';
-import compose from 'koa-compose';
-import route from 'koa-route';
-import {index, json} from './';
-import {sortByPattern} from '../utils/sort';
-import {c} from '../core/db';
+const React = require('react')
+const Article = require('../components/Article')
+const TeacherProfile = require('../components/TeacherProfile')
+const Teacher = require('../core/Teacher')
+const ImageArtifactType = require('../core/ImageArtifactType')
+const {render} = require('../lib/render')
+const {prioritySort} = require('../lib/sort')
+const getPathWithNoTrailingSlash = require('../lib/url').getPathWithNoTrailingSlash
 
-let split = d => s => s.split(d);
-let toArray = split(',');
+const {get} = require('koa-route')
 
-export default function () {
-    return compose([
-        collective(),
-        list(),
-        teacher()
-    ]);
-};
-
-function collective() {
-    return route.get('/collective', index());
+function getCollectiveMeta() {
+	return {
+		title: 'Преподаватели',
+		description: 'Преподаватели Шлиссельбургской ДХШ',
+	}
 }
 
-function list() {
-    return route.get('/teacher/list', json(
-        async(ctx) => {
-            ctx.type = 'application/json';
-            let pattern = toArray(ctx.query.sort || '');
-
-            let data = await c('collective').find().toArray();
-            if (!data) {
-                ctx.status = 404;
-                return;
-            }
-
-            let collective = await Promise.all(
-                data.map(processProfile)
-            );
-
-            ctx.body = sortByPattern(collective, pattern, i => i.id);
-        }
-    ));
+function getMeta(teacher) {
+	return {
+		title: teacher.name,
+		description: 'Преподаватель Шлиссельбургской ДХШ',
+	}
 }
 
-function teacher() {
-    return route.get('/teacher/:id', json(
-        async (ctx, id) => {
-            ctx.type = 'application/json';
+const pictureTypes = [
+	ImageArtifactType.BIG,
+	ImageArtifactType.MEDIUM,
+	ImageArtifactType.ORIGIN,
+]
 
-            let data = await c('collective').findOne({id: id});
-            if (!data) {
-                ctx.status = 404;
-                return;
-            }
+const profilePicture = profile => profile.picture.findArtifact(pictureTypes)
 
-            ctx.body = await processProfile(data);
-        }
-    ))
+function getCollective(order) {
+	const teachersSorted = prioritySort.bind(null, order, t => t.id)
+
+	return get('/collective', async ctx => {
+		const path = getPathWithNoTrailingSlash(ctx.path)
+		let teachers = await Teacher.find({})
+
+		if (teachers) {
+			teachers = teachersSorted(teachers)
+
+			const Component = (
+				<div className="page-collective content content_full">
+					<img className="page-collective__collective-image"
+						 width="100%"
+						 src="https://static.shlisselburg.org/art/graphics/collective.jpg"
+					/>
+
+					<div className="content content_semi-wide">
+						{teachers.map((teacher, index) => (
+							<TeacherProfile key={index}
+											profile={teacher}
+											picture={profilePicture(teacher)}
+											url={teacher.url}
+											biography={teacher.biography}
+											name={teacher.splitName()}
+							/>
+						))}
+					</div>
+				</div>
+			)
+
+			ctx.type = 'text/html'
+			ctx.body = await render(path, Component, getCollectiveMeta(), {menuPadding: false})
+		} else {
+			ctx.status = 404
+		}
+	})
 }
 
-let processProfile = profile => co(function *() {
-    let imageId = profile.picture;
-    profile.picture = yield c('images').findOne({_id: imageId});
-    profile.url = `/teacher/${profile.id}`;
-    return profile;
-});
+function getTeacher() {
+	return get('/teacher/:id', async (ctx, id) => {
+		const path = getPathWithNoTrailingSlash(ctx.path)
+		const teacher = await Teacher.findById(id)
+
+		if (teacher) {
+			const Component = (
+				<div className="content content_semi-wide">
+					<TeacherProfile profile={teacher}
+									picture={profilePicture(teacher)}
+									biography={teacher.biography}
+									name={teacher.splitName()}
+									shareable={true}
+					/>
+				</div>
+			)
+
+			ctx.type = 'text/html'
+			ctx.body = await render(path, Component, getMeta(teacher), {commentsEnabled: true})
+		} else {
+			ctx.status = 404
+		}
+	})
+
+}
+
+exports.getCollective = getCollective
+exports.getTeacher = getTeacher

@@ -24,11 +24,21 @@ const home = require('./routes/home')
 const article = require('./routes/articles')
 const albums = require('./routes/albums')
 const gallery = require('./routes/gallery')
+const teachers = require('./routes/teachers')
 
 const dirPublic = path.join(__dirname, '../public')
 const dirTemplates = path.join(__dirname, 'templates')
 
 handlebars.registerHelper('raw-helper', options => options.fn())
+
+const collectiveOrder = [
+	'mg-timasheva',
+	'va-sarzhin',
+	'od-gogoleva',
+	'my-valkova',
+	'vv-voronova',
+	'nv-andreeva',
+]
 
 export default function (store) {
 	const $ = convert
@@ -58,6 +68,8 @@ export default function (store) {
 	app.use(article.getArticles(5))
 	app.use(article.getArticle())
 	app.use(albums.getAlbum())
+	app.use(teachers.getCollective(collectiveOrder))
+	app.use(teachers.getTeacher())
 	app.use(routes(store))
 
 	return Server(app.callback())

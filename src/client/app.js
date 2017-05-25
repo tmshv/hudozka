@@ -94,29 +94,6 @@ app.config(($locationProvider, $routeProvider) => {
 			}
 		},
 		{
-			name: '/collective',
-			template: '<page-collective members="$resolve.list"></page-collective>',
-			title: 'Преподаватели',
-			resolve: {
-				list: api => api.teacher
-					.list(collectiveSortPattern)
-					.then(i => i.data)
-			}
-		},
-		{
-			name: '/teacher/:id',
-			template: '<page-teacher member="$resolve.profile"></page-teacher>',
-			title: 'Преподаватели',
-			resolve: {
-				profile: ($route, api) => {
-					let id = $route.current.params.id
-					return api.teacher
-						.fetch(id)
-						.then(i => i.data)
-				}
-			}
-		},
-		{
 			name: '/awards',
 			template: '<page-awards items="$resolve.awards"></page-awards>',
 			title: 'Награды',

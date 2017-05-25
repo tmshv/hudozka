@@ -40,9 +40,12 @@ export default [
 		]
 	},
 	{
-		'text': 'Коллектив',
-		'url': '/collective',
-		'color': 'pink'
+		text: 'Коллектив',
+		url: '/collective',
+		color: 'pink',
+		items: [
+			{url: '/teacher/*', text: ''},
+		]
 	},
 	{
 		text: 'Галерея',
@@ -66,7 +69,7 @@ export default [
 			{url: 'structure', text: 'Структура и органы управления образовательной организацией'},
 			{url: 'education', text: 'Образование'},
 			{url: 'standards', text: 'Образовательные стандарты'},
-			{url: '/collective', text: 'Руководство. Педагогический (научно-педагогический) состав'},
+			//{url: '/collective', text: 'Руководство. Педагогический (научно-педагогический) состав'},
 			{url: 'support', text: 'Материально-техническое обеспечение образовательного процесса'},
 			{url: 'grants', text: 'Стипендии и иные виды материальной поддержки'},
 			{url: 'paid-services', text: 'Платные образовательные услуги'},
