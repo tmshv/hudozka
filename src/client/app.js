@@ -117,16 +117,6 @@ app.config(($locationProvider, $routeProvider) => {
 			}
 		},
 		{
-			name: '/gallery',
-			template: '<page-gallery albums="$resolve.list"></page-gallery>',
-			title: 'Работы учащихся',
-			resolve: {
-				list: api => api.album
-					.list()
-					.then(i => i.data)
-			}
-		},
-		{
 			name: '/awards',
 			template: '<page-awards items="$resolve.awards"></page-awards>',
 			title: 'Награды',

@@ -1,43 +1,79 @@
-import compose from 'koa-compose';
-import route from 'koa-route';
-import {c} from '../core/db';
-import {json} from './';
+const React = require('react')
+const Article = require('../components/Article')
+const Album = require('../core/Album')
+const {render} = require('../lib/render')
+const getPathWithNoTrailingSlash = require('../lib/url').getPathWithNoTrailingSlash
+const {get} = require('koa-route')
 
-export default function () {
-    return compose([
-        gallery(),
-    ]);
-};
-
-function gallery() {
-    return route.get('/gallery', json(
-        async(ctx) => {
-            let query = {};
-            let albums = await c('albums')
-                .find(query)
-                .toArray();
-
-            ctx.body = await Promise.all(albums
-                .sort((a, b) => {
-                    const da = a.date.getTime();
-                    const db = b.date.getTime();
-                    return db - da;
-                })
-                .map(processAlbum)
-            );
-        }
-    ));
+function getMeta() {
+	return {
+		title: 'Галерея',
+		description: 'Галерея работ учащихся Шлиссельбургской Детской Художественной Школы'
+	}
 }
 
-const processAlbum = async album => {
-    album.url = `/album/${album.id}`;
+const GItem = ({album}) => (
+	<div className="gallery-item">
+		<a href={album.url}>
+			<h2>{album.title}</h2>
+			<img src={album.preview.url} alt={album.title}/>
+		</a>
+	</div>
+)
 
-    const previewFromImage = imgs => imgs.length ? imgs[0] : null;
-    const previewImageId = album.preview ? album.preview : previewFromImage(album.images);
-    if (previewImageId) {
-        const image = await c('images').findOne({_id: previewImageId});
-        album.preview = image.data.medium;
-    }
+const ACollection = ({title, albums}) => (
+	<div className="album-collection">
+		<div className="album-collection__title">{title}</div>
+		<div className="album-collection__body">{
+			albums.map((album, index) => (
+				<GItem key={index} album={album}/>
+			))
+		}</div>
+	</div>
+)
 
-    return album;
-};
+function splitBy(key) {
+	return items => {
+		return items.reduce((acc, item) => {
+			const name = key(item)
+			const items = acc.get(name) || []
+
+			return acc.set(key(item), [...items, item])
+		}, new Map())
+	}
+}
+
+function getGallery() {
+	return get('/gallery', async ctx => {
+		const path = getPathWithNoTrailingSlash(ctx.path)
+		const query = {}
+		const albums = await Album.find(query, {sort: {date: -1}})
+
+		if (albums.length) {
+			const meta = getMeta()
+			const albumsByYear = splitBy(a => a.date.getFullYear())(albums)
+
+			const Component = (
+				<div className="content content_wide">
+					<Article title={meta.title}>
+						{
+							[...albumsByYear.entries()].map(([year, albums]) => (
+								<ACollection
+									title={year}
+									albums={albums}
+								/>
+							))
+						}
+					</Article>
+				</div>
+			)
+
+			ctx.type = 'text/html'
+			ctx.body = await render(path, Component, getMeta())
+		} else {
+			ctx.status = 404
+		}
+	})
+}
+
+exports.getGallery = getGallery

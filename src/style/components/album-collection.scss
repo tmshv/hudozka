@@ -7,9 +7,12 @@
     position: relative;
     justify-content: center;
     align-items:flex-start;
+
+    margin: 0 0 $double-margin;
   }
 
   &__title{
-
+    text-align: center;
+    margin: $single-margin 0;
   }
 }
