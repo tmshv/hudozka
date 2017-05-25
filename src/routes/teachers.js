@@ -19,7 +19,7 @@ function getCollectiveMeta() {
 function getMeta(teacher) {
 	return {
 		title: teacher.name,
-		description: 'Преподаватель Шлиссельбургской ДХШ',
+		description: teacher.name,
 	}
 }
 

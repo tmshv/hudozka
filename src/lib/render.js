@@ -19,6 +19,12 @@ const defaultOptions = {
 	menuPadding: true,
 }
 
+const defaultMeta = {
+	title: 'Шлиссельбургская Детская Художественная Школа',
+	description: 'Сайт Шлиссельбургской художественной школы',
+	image: 'https://art.shlisselburg.org/entrance.jpg',
+}
+
 function isActive(path, menuItem) {
 	return isEqualPate(path, menuItem.url, true)
 }
@@ -83,9 +89,8 @@ async function render(path, data, meta, options = {}) {
 	const template = handlebars.compile(source)
 
 	const metaData = {
+		...defaultMeta,
 		...meta,
-		description: 'Сайт Шлиссельбургской художественной школы',
-		image: 'https://art.shlisselburg.org/entrance.jpg',
 		url: `https://art.shlisselburg.org${path}`,
 	}
 
