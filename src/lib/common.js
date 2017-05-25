@@ -31,6 +31,22 @@ function any(list) {
 	return list.reduce((t, i) => t || i, false)
 }
 
+/**
+ *
+ * {a: {}, b: {}, ...} -> Map (a: Class, b: Class)
+ *
+ * @param Class
+ * @param object
+ */
+function mapOf(Class, object) {
+	return Object
+		.entries(object)
+		.reduce((map, i) => (
+			map.set(i[0], new Class(i[1]))
+		), new Map())
+}
+
 exports.compose = compose
 exports.all = all
 exports.any = any
+exports.mapOf = mapOf
