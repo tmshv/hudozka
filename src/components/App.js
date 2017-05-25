@@ -8,7 +8,7 @@ const Comments = () => (
 	</div>
 )
 
-const App = ({children, menu, showAuthor}) => (
+const App = ({children, menu, showAuthor, menuPadding}) => (
 	<div className="body-wrapper theme-default">
 		<header>
 			<div className="navigation">
@@ -19,7 +19,7 @@ const App = ({children, menu, showAuthor}) => (
 		</header>
 
 		<main className="body-wrapper__content">
-			<section className="content content_full content--padding-top--menu">
+			<section className={`content content_full ${menuPadding ? 'content--padding-top--menu' : ''}`}>
 				{children}
 			</section>
 

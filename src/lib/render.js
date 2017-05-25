@@ -16,6 +16,7 @@ const config = require('../config')
 const defaultOptions = {
 	commentsEnabled: false,
 	showAuthor: false,
+	menuPadding: true,
 }
 
 function isActive(path, menuItem) {
@@ -69,17 +70,18 @@ const getTitle = meta => 'title' in meta
 const isHtml = data => typeof data === 'string'
 
 async function render(path, data, meta, options = {}) {
+	const renderOptions = {...defaultOptions, ...options}
+
 	const component = isHtml(data)
 		? getHtml(data)
 		: data
 
 	const menu = buildMenu(path, menuModel)
-	const content = renderApp({...options, menu, component})
+	const content = renderApp({...renderOptions, menu, component})
 
 	const source = await readFile(config.viewMain, 'utf-8')
 	const template = handlebars.compile(source)
 
-	const renderOptions = {...defaultOptions, ...options}
 	const metaData = {
 		...meta,
 		description: 'Сайт Шлиссельбургской художественной школы',
