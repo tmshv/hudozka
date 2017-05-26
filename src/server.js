@@ -13,7 +13,7 @@ import bodyParser from 'koa-bodyparser'
 
 import apiV1 from 'hudozka-api-v1'
 import {redirectionTable} from './config'
-import {routes, queryObject} from './routes'
+import {queryObject} from './routes'
 import {redirect} from './routes/redirect'
 import {services as serviceKeys, authChecker} from './core/service'
 import handlebars from 'handlebars'
@@ -28,6 +28,8 @@ const teachers = require('./routes/teachers')
 const documents = require('./routes/documents')
 const document = require('./routes/document')
 const schedule = require('./routes/schedule')
+const pages = require('./routes/pages')
+const sitemap = require('./routes/sitemap')
 
 const dirPublic = path.join(__dirname, '../public')
 const dirTemplates = path.join(__dirname, 'templates')
@@ -66,6 +68,8 @@ export default function (store) {
 	app.use(queryObject())
 
 	app.use(error.notFound(config.view404))
+	app.use(sitemap())
+
 	app.use(home.getHome(5))
 	app.use(gallery.getGallery())
 	app.use(article.getArticles(5))
@@ -76,7 +80,7 @@ export default function (store) {
 	app.use(documents.getDocuments())
 	app.use(document.getDocument())
 	app.use(schedule.getSchedule())
-	app.use(routes(store))
+	app.use(pages())
 
 	return Server(app.callback())
 }

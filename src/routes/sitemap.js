@@ -1,12 +1,12 @@
-import sitemap from 'sitemap';
-import route from 'koa-route';
-import {c} from '../core/db';
-import {getPageUrls as pages} from '../core/pages';
+const sitemap = require('sitemap')
+const route = require('koa-route')
+const {c} = require('../core/db')
+const {getPageUrls: pages} = require('../core/pages')
 
-import {homeUrl, sitemapCacheTime} from '../config';
-import menu from '../models/menu';
+const {homeUrl, sitemapCacheTime} = require('../config')
+const menu = require('../models/menu')
 
-export default function () {
+module.exports = function () {
 	return route.get('/sitemap.xml', async ctx => {
 		let urls = await Promise.all([
 			getMenuUrls(),
@@ -14,19 +14,19 @@ export default function () {
 			getGalleryUrls(),
 			getTeacherUrls(),
 			getArticleUrls(),
-		]);
-		urls = urls.reduce((urls, i) => urls.concat(i));
+		])
+		urls = urls.reduce((urls, i) => urls.concat(i))
 
 		let map = sitemap.createSitemap({
 			hostname: homeUrl,
 			cacheTime: sitemapCacheTime,
 			urls: urls
-		});
+		})
 
-		ctx.set('Content-Type', 'application/xml');
-		ctx.body = map.toString();
+		ctx.set('Content-Type', 'application/xml')
+		ctx.body = map.toString()
 	})
-};
+}
 
 async function getMenuUrls(frequency = 'daily') {
 	return menu
@@ -34,52 +34,52 @@ async function getMenuUrls(frequency = 'daily') {
 		.map(i => ({
 			url: i.url,
 			changefreq: frequency
-		}));
+		}))
 }
 
 async function getPageUrls(frequency = 'daily') {
-	const ps = await pages();
+	const ps = await pages()
 	return ps.map(i => ({
 		url: i.url,
 		changefreq: frequency
-	}));
+	}))
 }
 
 async function getGalleryUrls() {
 	let docs = await c('albums')
 		.find({})
-		.toArray();
+		.toArray()
 
 	return docs.map(i => {
 		return {
 			url: `/album/${i.id}`,
 			changefreq: 'monthly'
 		}
-	});
+	})
 }
 
 async function getTeacherUrls() {
 	let docs = await c('collective')
 		.find({})
-		.toArray();
+		.toArray()
 
 	return docs.map(i => {
 		return {
 			url: `/teacher/${i.id}`,
 			changefreq: 'monthly'
 		}
-	});
+	})
 }
 
 async function getArticleUrls() {
 	let docs = await c('articles')
 		.find({})
-		.toArray();
+		.toArray()
 
 	return docs.map(i => {
 		return {
 			url: `/article/${i.id}`,
 			changefreq: 'monthly'
 		}
-	});
+	})
 }
