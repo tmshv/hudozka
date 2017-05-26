@@ -1,17 +1,8 @@
 import {readFile} from 'async-file'
 import handlebars from 'handlebars'
-import compose from 'koa-compose'
 
 import {map, assign} from '../utils/common'
 import {index as indexFile} from '../config'
-
-import sitemap from './sitemap'
-
-export function routes(store) {
-	return compose([
-		sitemap(),
-	])
-}
 
 export function queryObject() {
 	let toTrue = map(true, i => i === 'true')
