@@ -32,7 +32,6 @@ const pages = require('./routes/pages')
 const sitemap = require('./routes/sitemap')
 
 const dirPublic = path.join(__dirname, '../public')
-const dirTemplates = path.join(__dirname, 'templates')
 
 handlebars.registerHelper('raw-helper', options => options.fn())
 
@@ -62,7 +61,6 @@ export default function (store) {
 	app.use($(conditional()))
 	app.use($(etag()))
 	app.use(serve(dirPublic))
-	app.use(serve(dirTemplates))
 	app.use($(redirect(redirectionTable)))
 	app.use($(helmet()))
 	app.use(queryObject())

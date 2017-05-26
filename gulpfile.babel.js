@@ -69,11 +69,6 @@ gulp.task('copy robots.txt', () => {
 		.pipe(gulp.dest('./public'))
 })
 
-gulp.task('copy templates', () => {
-	return gulp.src('./src/templates/**')
-		.pipe(gulp.dest('./out/templates'))
-})
-
 gulp.task('copy views', () => {
 	return gulp.src('./src/views/**')
 		.pipe(gulp.dest('./out/views'))
@@ -122,6 +117,6 @@ gulp.task('production', () => {
 })
 
 gulp.task('default', ['style', 'compile'])
-gulp.task('copy', ['copy views', 'copy templates', 'copy fonts', 'copy graphics', 'copy 3rdparty', 'copy robots.txt'])
+gulp.task('copy', ['copy views', 'copy fonts', 'copy graphics', 'copy 3rdparty', 'copy robots.txt'])
 gulp.task('deploy', ['default', 'copy', 'compile 3rdparty', 'imagemin'])
 gulp.task('compile production', ['production', 'compile'])
