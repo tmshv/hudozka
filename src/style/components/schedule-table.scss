@@ -15,6 +15,7 @@ $current-day-column-border-thickness: 3px;
 .schedule-table {
   margin-bottom: $double-margin;
 
+  max-width: 70em;
   overflow-x: auto;
 
   a{
@@ -58,6 +59,7 @@ $current-day-column-border-thickness: 3px;
 
   &__head-record {
     min-width: $cell-width;
+    max-width: $cell-width;
     padding: $row-padding;
 
     text-align: center;
@@ -74,6 +76,7 @@ $current-day-column-border-thickness: 3px;
 
   &__record{
     min-width: $cell-width;
+    max-width: $cell-width;
     padding: $row-padding;
 
     text-align: center;
