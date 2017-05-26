@@ -13,8 +13,7 @@ export default function () {
 			getPageUrls(),
 			getGalleryUrls(),
 			getTeacherUrls(),
-			getEventsUrls(),
-			getNewsUrls()
+			getArticleUrls(),
 		]);
 		urls = urls.reduce((urls, i) => urls.concat(i));
 
@@ -72,22 +71,9 @@ async function getTeacherUrls() {
 	});
 }
 
-async function getEventsUrls() {
-	let docs = await c('events')
+async function getArticleUrls() {
+	let docs = await c('articles')
 		.find({})
-		.toArray();
-
-	return docs.map(i => {
-		return {
-			url: `/article/${i.id}`,
-			changefreq: 'monthly'
-		}
-	});
-}
-
-async function getNewsUrls() {
-	let docs = await c('timeline')
-		.find({type: 'post'})
 		.toArray();
 
 	return docs.map(i => {
