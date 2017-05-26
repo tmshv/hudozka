@@ -2,6 +2,7 @@ const React = require('react')
 const Article = require('../components/Article')
 const Album = require('../core/Album')
 const {render} = require('../lib/render')
+const {splitBy} = require('../lib/array')
 const getPathWithNoTrailingSlash = require('../lib/url').getPathWithNoTrailingSlash
 const {get} = require('koa-route')
 
@@ -35,17 +36,6 @@ const ACollection = ({title, albums}) => (
 		}</div>
 	</div>
 )
-
-function splitBy(key) {
-	return items => {
-		return items.reduce((acc, item) => {
-			const name = key(item)
-			const items = acc.get(name) || []
-
-			return acc.set(key(item), [...items, item])
-		}, new Map())
-	}
-}
 
 function getGallery() {
 	return get('/gallery', async ctx => {
