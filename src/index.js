@@ -2,7 +2,6 @@ import 'babel-polyfill'
 
 import config, {name} from './config'
 import {connect, collection} from './core/db'
-import io from './io'
 import server from './server'
 
 import DataManager from 'hudozka-data'
@@ -20,7 +19,6 @@ function main() {
 			})
 
 			let app = server(data)
-			io(app, data)
 
 			app.listen(config.port)
 		} catch (e) {
