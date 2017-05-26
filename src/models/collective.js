@@ -6,9 +6,13 @@
  * @returns {string}
  */
 export function shortName(name) {
-    const f = i => i.replace(/^(.).+/, '$1');
-    const [, first, middle, last] = splitName(name);
-    return `${f(first)}. ${f(middle)}. ${last}`;
+	try {
+		const f = i => i.replace(/^(.).+/, '$1')
+		const [, first, middle, last] = splitName(name)
+		return `${f(first)}. ${f(middle)}. ${last}`
+	} catch (e) {
+		return name
+	}
 }
 
 /**
@@ -19,5 +23,5 @@ export function shortName(name) {
  * @returns {Array|{index: number, input: string}}
  */
 export function splitName(name) {
-    return /(.+)\s(.+)\s(.+)/.exec(name);
+	return /(.+)\s(.+)\s(.+)/.exec(name)
 }
