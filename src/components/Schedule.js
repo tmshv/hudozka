@@ -1,28 +1,27 @@
 const React = require('react')
 
-import {getDates} from '../utils/date'
-import {shortName} from '../models/collective'
+const {getDates} = require('../utils/date')
+const {shortName} = require('../models/collective')
 
 const now = new Date()
-const dates = getDates(now);
+const dates = getDates(now)
 
-const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
-const isToday = weekDayIndex => (now.getDay() - 1) === weekDayIndex;
-const weekDay = weekDayIndex => dates[weekDayIndex];
-const short = shortName;
+const isToday = weekDayIndex => (now.getDay() - 1) === weekDayIndex
+const weekDay = weekDayIndex => dates[weekDayIndex]
+const short = shortName
 
 const todayClass = i => isToday(i)
 	? 'current'
 	: ''
 
 const HeadDay = ({i, children}) => (
-	<div className={`${todayClass(i)}`}>
+	<div className={`schedule-table__head-record ${todayClass(i)}`}>
 		<p className="day">{children}</p>
 		<p className="date">{weekDay(i)}</p>
 	</div>
 )
 
-const days2 = [
+const days = [
 	'Понедельник',
 	'Вторник',
 	'Среда',
@@ -33,15 +32,15 @@ const days2 = [
 
 const Schedule = ({groups}) => (
 	<div className="schedule-table">
-		<div className="schedule-table__head">
-			<div className="group">Гр.</div>
-
-			{days2.map((day, index) => (
-				<HeadDay key={index} i={index}>{day}</HeadDay>
-			))}
-		</div>
-
 		<div className="schedule-table__body">
+			<div className="schedule-table__body-row">
+				<div className="schedule-table__body-group">Гр.</div>
+
+				{days.map((day, index) => (
+					<HeadDay i={index}>{day}</HeadDay>
+				))}
+			</div>
+
 			{groups.map((group, index) => (
 				<GroupRow key={index} {...group}/>
 			))}

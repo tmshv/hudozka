@@ -35,7 +35,7 @@ function getSchedule() {
 				//}))
 
 				const Component = (
-					<div className="content content_full">
+					<div className="content content_wide">
 						{/*<ScheduleList schedules={schedules}/>*/}
 
 						<Schedule {...data}/>
