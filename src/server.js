@@ -27,6 +27,7 @@ const gallery = require('./routes/gallery')
 const teachers = require('./routes/teachers')
 const documents = require('./routes/documents')
 const document = require('./routes/document')
+const schedule = require('./routes/schedule')
 
 const dirPublic = path.join(__dirname, '../public')
 const dirTemplates = path.join(__dirname, 'templates')
@@ -74,6 +75,7 @@ export default function (store) {
 	app.use(teachers.getTeacher())
 	app.use(documents.getDocuments())
 	app.use(document.getDocument())
+	app.use(schedule.getSchedule())
 	app.use(routes(store))
 
 	return Server(app.callback())

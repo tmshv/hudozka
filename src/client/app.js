@@ -82,18 +82,7 @@ app.config(($locationProvider, $routeProvider) => {
 			}
 		}))
 
-	let routers = [
-		{
-			name: '/schedule/:period?/:semester?',
-			template: '<page-schedule schedules="$resolve.list"></page-schedule>',
-			title: 'Расписание',
-			resolve: {
-				list: api => api.schedule
-					.list()
-					.then(i => i.data)
-			}
-		}
-	]
+	let routers = []
 		.concat(pages)
 		.map(i => {
 			let path = i.name

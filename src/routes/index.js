@@ -6,14 +6,10 @@ import {map, assign} from '../utils/common'
 import {index as indexFile} from '../config'
 
 import sitemap from './sitemap'
-import schedule from './schedule'
-import pages from './pages'
 
 export function routes(store) {
 	return compose([
 		sitemap(),
-		schedule(),
-		pages(),
 	])
 }
 

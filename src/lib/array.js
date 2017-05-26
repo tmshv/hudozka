@@ -9,4 +9,18 @@ function splitBy(key) {
 	}
 }
 
+function head(list) {
+	return Array.isArray(list) && list.length
+		? list[0]
+		: null
+}
+
+function last(list) {
+	return Array.isArray(list) && list.length
+		? list[list.length - 1]
+		: null
+}
+
 exports.splitBy = splitBy
+exports.head = head
+exports.last = last
