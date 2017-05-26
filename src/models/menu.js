@@ -56,9 +56,12 @@ export default [
 		]
 	},
 	{
-		'text': 'Документы',
-		'url': '/documents',
-		'color': 'yellow'
+		text: 'Документы',
+		url: '/documents',
+		color: 'yellow',
+		items: [
+			{url: '/document/*', text: ''},
+		]
 	},
 	{
 		url: '/info/',

@@ -7,14 +7,12 @@ import {index as indexFile} from '../config'
 
 import sitemap from './sitemap'
 import schedule from './schedule'
-import documents from './documents'
 import pages from './pages'
 
 export function routes(store) {
 	return compose([
 		sitemap(),
 		schedule(),
-		documents(store),
 		pages(),
 	])
 }

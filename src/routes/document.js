@@ -1,6 +1,6 @@
 const React = require('react')
-const Article = require('../components/Article')
-const DocumentList = require('../components/DocumentList')
+const Share = require('../components/Share')
+const DocumentComponent = require('../components/Document')
 const Document = require('../core/Document')
 const ImageArtifactType = require('../core/ImageArtifactType')
 const {render} = require('../lib/render')
@@ -16,17 +16,10 @@ const sizes = [
 	ImageArtifactType.ORIGIN,
 ]
 
-function getDocumentsMeta() {
+function getMeta(document) {
 	return {
-		title: 'Документы',
-		description: 'Документы Шлиссельбургской ДХШ',
-	}
-}
-
-function getMeta(teacher) {
-	return {
-		title: teacher.name,
-		description: teacher.name,
+		title: document.title,
+		description: document.title,
 	}
 }
 
@@ -49,29 +42,25 @@ async function bakeDocument(document) {
 	}
 }
 
-function getDocuments() {
-	return get('/documents', async (ctx) => {
+function getDocument() {
+	return get('/document/:id', async (ctx, id) => {
 		const path = getPathWithNoTrailingSlash(ctx.path)
-		let documents = await Document.find({})
+		const document = await Document.findById(id)
+		const data = document
+			? await bakeDocument(document)
+			: null
 
-		if (documents) {
-			//documents = teachersSorted(documents)
-			documents = await Promise.all(documents.map(bakeDocument))
-			documents = documents.filter(Boolean)
-
-			//const collections = splitBy(d => d.category)(documents)
-			const collections = getSorted(documents)
-
+		if (data) {
 			const Component = (
-				<div className="content content_thin">
-					{collections.map(({name, items}, index) => (
-						<DocumentList key={index} name={name} documents={items}/>
-					))}
+				<div className="content content_wide">
+					<DocumentComponent {...data}/>
+
+					<Share/>
 				</div>
 			)
 
 			ctx.type = 'text/html'
-			ctx.body = await render(path, Component, getDocumentsMeta())
+			ctx.body = await render(path, Component, getMeta(document))
 		} else {
 			ctx.status = 404
 		}
@@ -152,4 +141,4 @@ function getSorted(documents) {
 		}], [])
 }
 
-exports.getDocuments = getDocuments
+exports.getDocument = getDocument

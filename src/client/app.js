@@ -54,7 +54,7 @@ import API from './services/api'
 import Theme from './services/theme'
 
 import {sortByPattern} from '../utils/sort'
-import {documentsSortPattern, collectiveSortPattern} from './config'
+import {documentsSortPattern} from './config'
 
 let app = angular.module('hudozka', [
 	'ngRoute',
@@ -91,42 +91,6 @@ app.config(($locationProvider, $routeProvider) => {
 				list: api => api.schedule
 					.list()
 					.then(i => i.data)
-			}
-		},
-		{
-			name: '/awards',
-			template: '<page-awards items="$resolve.awards"></page-awards>',
-			title: 'Награды',
-			resolve: {
-				awards: api => api.document
-					.awards()
-					.then(i => i.data),
-			}
-		},
-		{
-			name: '/documents',
-			template: '<page-documents documents="$resolve.documents"></page-documents>',
-			title: 'Документы',
-			resolve: {
-				documents: api => api.document
-					.documents()
-					.then(i => i.data)
-					.then(i => {
-						return sortByPattern(i, documentsSortPattern, i => i.category)
-					})
-			}
-		},
-		{
-			name: '/documents/:id',
-			template: '<page-document item="$resolve.document"></page-document>',
-			resolve: {
-				document: ($route, api) => {
-					let id = $route.current.params.id
-
-					return api.document
-						.id(id)
-						.then(i => i.data)
-				}
 			}
 		}
 	]

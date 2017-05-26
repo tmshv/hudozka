@@ -1,0 +1,50 @@
+@import "../variables";
+
+.document-row {
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+  margin-bottom: $single-margin;
+}
+
+.document-row__image{
+  min-width: 4em;
+  width: 4em;
+  height: 4em;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  //align-items: center;
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    box-shadow: $white-shadow;
+  }
+}
+
+.document-row__image--medium{
+}
+
+.document-row__image--big{
+  max-width: 20em;
+}
+
+.document-row__file {
+  margin-left: $single-margin;
+  flex-grow: 10;
+}
+
+.document-row__file-info {
+  width: 25%;
+  flex-grow: 1;
+  font-size: $smaller-font-size;
+  text-align: right;
+}
+
+@media (max-width: $mobile-width) {
+  .document-row {
+    margin: 0 $single-margin/2 $single-margin;
+  }
+}

@@ -25,6 +25,8 @@ const article = require('./routes/articles')
 const albums = require('./routes/albums')
 const gallery = require('./routes/gallery')
 const teachers = require('./routes/teachers')
+const documents = require('./routes/documents')
+const document = require('./routes/document')
 
 const dirPublic = path.join(__dirname, '../public')
 const dirTemplates = path.join(__dirname, 'templates')
@@ -70,6 +72,8 @@ export default function (store) {
 	app.use(albums.getAlbum())
 	app.use(teachers.getCollective(collectiveOrder))
 	app.use(teachers.getTeacher())
+	app.use(documents.getDocuments())
+	app.use(document.getDocument())
 	app.use(routes(store))
 
 	return Server(app.callback())
