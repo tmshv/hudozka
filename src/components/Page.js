@@ -1,11 +1,16 @@
 const React = require('react')
+const Share = require('./Share')
 const getHtml = require('../lib/component').getHtml
 
-const Page = ({children}) => (
+const Page = ({children, shareable}) => (
 	<div className="content content_thin">
 		<div className="cloud-page__body">
 			{getHtml(children)}
 		</div>
+
+		{!shareable ? null : (
+			<Share/>
+		)}
 	</div>
 )
 

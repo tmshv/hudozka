@@ -19,7 +19,7 @@ function getPageMeta(page) {
 }
 
 function getComponent(page) {
-	return <Page>{page.data}</Page>
+	return <Page shareable={true}>{page.data}</Page>
 }
 
 module.exports = function () {
