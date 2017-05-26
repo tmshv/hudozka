@@ -19,7 +19,11 @@ function getPageMeta(page) {
 }
 
 function getComponent(page) {
-	return <Page shareable={true}>{page.data}</Page>
+	return (
+		<div className="content content_thin">
+			<Page shareable={true}>{page.data}</Page>
+		</div>
+	)
 }
 
 module.exports = function () {
