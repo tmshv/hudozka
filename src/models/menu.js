@@ -11,7 +11,7 @@ export default [
 	},
 	{
 		text: 'Расписание',
-		url: '/schedule',
+		url: '/schedule/',
 		color: 'green',
 		items: [
 			{url: '*', text: ''},
