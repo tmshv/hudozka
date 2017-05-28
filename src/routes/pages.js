@@ -15,6 +15,7 @@ async function getPage(path) {
 function getPageMeta(page) {
 	return {
 		title: page.title,
+		description: page.title,
 	}
 }
 
