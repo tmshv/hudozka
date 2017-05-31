@@ -93,7 +93,9 @@
   /*-webkit-transition: opacity 0.5s ease-in-out;*/
 }
 
-
+.HMenu--folded .HMenu__item {
+  max-width: 10em;
+}
 
 
 
@@ -101,16 +103,6 @@
 ._HMenu--folded li:last-child {
   margin-bottom: 2em;
 }
-
-
-
-
-
-.HMenu__item {
-  max-width: 10em;
-}
-
-
 
 
 
