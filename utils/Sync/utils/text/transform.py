@@ -4,7 +4,7 @@ from unidecode import unidecode
 
 from utils.fn import iterate_over_fns
 
-remove_pattr = re.compile('[«»<>,!&"\']')
+remove_pattr = re.compile('[«»<>#,!&"\']')
 reduce_dash_patterns = [
     (re.compile('[-]+'), '-'),
     (re.compile('^-'), '')
