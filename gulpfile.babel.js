@@ -14,14 +14,7 @@ let isProduction = env === 'production'
 
 gulp.task('compile 3rdparty', () => {
 	const files = [
-		'./node_modules/jquery/dist/jquery.min.js',
-		'./node_modules/angular/angular.min.js',
-		'./node_modules/angular-route/angular-route.min.js',
-		'./node_modules/angulartics/dist/angulartics.min.js',
-		'./node_modules/angulartics-google-analytics/dist/angulartics-ga.min.js',
 		'./node_modules/spin.js/spin.js',
-		'./node_modules/angular-spinner/angular-spinner.min.js',
-		'./node_modules/socket.io-client/socket.io.js',
 
 		'./node_modules/babel-polyfill/dist/polyfill.min.js'
 	]
@@ -79,7 +72,7 @@ gulp.task('compile', () => {
 	const doSourceMaps = !isProduction
 
 	return gulp.src([
-		'./src/client/app.js'
+		'./src/public/app.js'
 	])
         .pipe(named())
         .pipe(webpack({
