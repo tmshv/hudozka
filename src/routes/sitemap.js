@@ -4,7 +4,7 @@ const {c} = require('../core/db')
 const {getPageUrls: pages} = require('../core/pages')
 
 const {homeUrl, sitemapCacheTime} = require('../config')
-const menu = require('../models/menu')
+const menu = require('../models/menu').default
 
 module.exports = function () {
 	return route.get('/sitemap.xml', async ctx => {
