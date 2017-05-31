@@ -2,6 +2,7 @@ const sitemap = require('sitemap')
 const route = require('koa-route')
 const {c} = require('../core/db')
 const {getPageUrls: pages} = require('../core/pages')
+const getPathWithNoTrailingSlash = require('../lib/url').getPathWithNoTrailingSlash
 
 const {homeUrl, sitemapCacheTime} = require('../config')
 const menu = require('../models/menu').default
@@ -32,7 +33,7 @@ async function getMenuUrls(frequency = 'daily') {
 	return menu
 		.filter(i => 'url' in i)
 		.map(i => ({
-			url: i.url,
+			url: getPathWithNoTrailingSlash(i.url),
 			changefreq: frequency
 		}))
 }
