@@ -1,12 +1,13 @@
 import os
 
 import settings
+from kazimir import markdown_to_html
 from sync.data import list_images
 from sync import create_date_and_title_from_folder_name, create_post_from_image_list, create_date, images_from_html, \
     synced_images_ids, untouched
 from sync.core.post import SyncPost
 from utils.fn import lmap, map_cases, first, key_mapper, lmapfn, constant
-from utils.io import read_yaml_md
+from utils.io import read_yaml_md, parse_yaml_front_matter
 
 
 def create_document_from_folder(sync, path, file_time_formats):
@@ -49,22 +50,22 @@ def create_document_from_folder(sync, path, file_time_formats):
 
 def get_manifest(provider, path):
     data = provider.read(path).read().decode('utf-8')
-    y, m = read_yaml_md(data)
-    y = y if y else {}
+    manifest = parse_yaml_front_matter(data)
 
-    if 'date' in y:
-        y['date'] = create_date(y['date'], settings.date_formats)
+    if 'date' in manifest:
+        manifest['date'] = create_date(manifest['date'], settings.date_formats)
 
-    if 'until' in y:
-        y['until'] = create_date(y['until'], settings.date_formats)
+    if 'until' in manifest:
+        manifest['until'] = create_date(manifest['until'], settings.date_formats)
 
-    if 'id' in y:
-        y['id'] = str(y['id'])
+    if 'id' in manifest:
+        manifest['id'] = str(manifest['id'])
 
+    html = markdown_to_html(manifest['content'])
     return {
-        **y,
-        'post': m,
-        'images': images_from_html(m)
+        **manifest,
+        'post': html,
+        'images': images_from_html(html)  # Add images for hashing
     }
 
 
@@ -127,7 +128,7 @@ def main(sync, file_time_formats, update_documents=True, delete_documents=True):
     documents = get_folder_documents(sync, file_time_formats)
     documents += get_file_documents(sync, file_time_formats)
 
-    # # CREATE SCOPE OF CURRENT SESSION
+    # CREATE SCOPE OF CURRENT SESSION
     scope_documents_ids = lmapfn(documents)(
         lambda i: i['id']
     )

@@ -3,6 +3,7 @@ from tempfile import mkstemp
 
 import lxml.html
 
+import kazimir
 from sync.core import Sync
 from utils.fn import last_good, lmap, combine
 from utils.hash import hash_str, hash_file
@@ -76,7 +77,7 @@ class SyncPost(Sync):
                 else:
                     print('fail: ', document['folder'], src)
 
-        document['post'] = lxml.html.tostring(post_html).decode('utf-8')
+        document['post'] = kazimir.html_from_tree(post_html)
         document['images'] = images
         document['origin'] = self.origin
         return document

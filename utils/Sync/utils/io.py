@@ -1,17 +1,26 @@
 import re
 import yaml
 
-from kazimir import kazimir_to_html
+from kazimir import markdown_to_html
 
 FM_BOUNDARY = re.compile(r'^-{3,}', re.MULTILINE)
 
 
 def read_yaml_md(data):
-    yaml_front_matter, content = parse_yaml_front_matter(data)
-    return yaml_front_matter, kazimir_to_html(content)
+    yaml_front_matter, content = split_yaml_front_matter(data)
+    return yaml_front_matter, markdown_to_html(content)
 
 
-def parse_yaml_front_matter(text, **defaults):
+def parse_yaml_front_matter(data: str):
+    fm, content = split_yaml_front_matter(data)
+    fm = fm if fm else {}
+    return {
+        **fm,
+        'content': content,
+    }
+
+
+def split_yaml_front_matter(text, **defaults):
     """
     Parse text with YAML frontmatter, return metadata and content.
     Pass in optional metadata defaults as keyword args.
