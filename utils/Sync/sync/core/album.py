@@ -12,7 +12,7 @@ from utils.text.transform import url_encode_text
 
 
 def create_url(a, i, s, e):
-    return 'https://static.shburg.org/art/images/product-{album}-{id}-{size}{ext}'.format(
+    return 'https://static.shlisselburg.org/art/images/product-{album}-{id}-{size}{ext}'.format(
         album=a,
         id=i,
         size=s,
