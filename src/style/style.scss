@@ -38,9 +38,6 @@
 @import "tape-viewer";
 @import "footer";
 
-@import "kazimir/video";
-@import "hmenu";
-
 // THEMES
 
 @import "themes/theme-default";
@@ -52,3 +49,6 @@
 @import "themes/theme-accessibility-font-serif";
 @import "themes/theme-accessibility-no-image";
 @import "themes/theme-accessibility-kerning-big";
+
+@import "kazimir/video";
+@import "hmenu";

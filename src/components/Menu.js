@@ -18,6 +18,12 @@ const MenuItem = ({active, text, url}) => (active
 		: <a href={itemUrl(url)}>{text}</a>
 )
 
+const MenuToggle = () => (
+	<div className="HMenu__toggle">
+		<a href="#"></a>
+	</div>
+)
+
 const Menu = ({items}) => {
 	const content = items.map((item, index) => (
 		<li key={index}
@@ -32,9 +38,7 @@ const Menu = ({items}) => {
 	))
 	return (
 		<menu className="main-menu HMenu" data-toggle-width="900">
-			<div className="HMenu__toggle">
-				<a href="#">✕</a>
-			</div>
+			<MenuToggle/>
 
 			{content}
 		</menu>
