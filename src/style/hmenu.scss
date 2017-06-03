@@ -117,6 +117,8 @@ $hmenu-icon-height: 32px;
 
 
 .HMenu--folded.HMenu--open {
+  z-index: 100;
+  
   display: flex;
   align-items: center;
 
