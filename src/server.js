@@ -21,6 +21,7 @@ import handlebars from 'handlebars'
 
 const config = require('./config')
 const error = require('./middlewares/error')
+const redirectFragment = require('./middlewares/redirectFragment')
 const home = require('./routes/home')
 const article = require('./routes/articles')
 const albums = require('./routes/albums')
@@ -86,6 +87,7 @@ export default function (store) {
 
 	app.use(error.notFound(config.view404))
 	app.use(sitemap())
+	app.use(redirectFragment())
 
 	app.use(home.getHome(5))
 	app.use(gallery.getGallery())
