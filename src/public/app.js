@@ -1,5 +1,12 @@
 const body = document.querySelector('body')
 
+function isFoldedState(element) {
+	const w = body.clientWidth
+	const toggleWidth = getToggleWidth(element)
+
+	return w <= toggleWidth
+}
+
 function isFolded(element) {
 	return element.classList.contains('HMenu--folded')
 }
@@ -73,8 +80,6 @@ function runHmenu() {
 	const menus = [...document.querySelectorAll('.HMenu')]
 
 	function initMenus() {
-		const w = body.clientWidth
-
 		return menus
 			.map(menu => {
 				const toggle = menu.querySelector('.HMenu__toggle')
@@ -83,10 +88,7 @@ function runHmenu() {
 					toggleMenu(menu)
 				})
 
-				const toggleWidth = getToggleWidth(menu)
-				const foldedState = w < toggleWidth
-
-				if (foldedState) {
+				if (isFoldedState(menu)) {
 					return foldMenu(menu)
 				} else {
 					return unfoldMenu(menu)
@@ -96,11 +98,8 @@ function runHmenu() {
 	}
 
 	function handleMenus() {
-		const w = body.clientWidth
-
 		return menus.map(menu => {
-			const toggleWidth = getToggleWidth(menu)
-			const foldedState = w < toggleWidth
+			const foldedState = isFoldedState(menu)
 
 			if (foldedState && !isFolded(menu)) {
 				return foldMenu(menu)

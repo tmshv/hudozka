@@ -118,7 +118,7 @@ $hmenu-icon-height: 32px;
 
 .HMenu--folded.HMenu--open {
   z-index: 100;
-  
+
   display: flex;
   align-items: center;
 
@@ -143,11 +143,6 @@ $hmenu-icon-height: 32px;
   /*-webkit-transition: opacity 0.5s ease-in-out;*/
 }
 
-.HMenu--folded .HMenu__item {
-  max-width: 10em;
-}
-
-
 
 
 ._HMenu--folded li:last-child {
@@ -155,6 +150,10 @@ $hmenu-icon-height: 32px;
 }
 
 @media (max-width: $mobile-width) {
+  .HMenu--folded .HMenu__item {
+    max-width: 10em;
+  }
+
   .HMenu--folded.HMenu--closed {
     .HMenu__toggle {
       a {

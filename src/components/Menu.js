@@ -37,7 +37,7 @@ const Menu = ({items}) => {
 		</li>
 	))
 	return (
-		<menu className="main-menu HMenu" data-toggle-width="900">
+		<menu className="main-menu HMenu" data-toggle-width="1024">
 			<MenuToggle/>
 
 			{content}
