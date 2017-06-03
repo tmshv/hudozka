@@ -3,10 +3,14 @@ import requests
 from markdown import markdown
 
 from kazimir.video import VideoExtension
+from kazimir.instagram import InstagramExtension
 
 
 def markdown_to_html(text):
-    return markdown(text, extensions=[VideoExtension()])
+    return markdown(text, extensions=[
+        VideoExtension(),
+        InstagramExtension(),
+    ])
 
 
 def kazimir_to_html(text):
@@ -33,3 +37,17 @@ def typo(html):
     if res.status_code == 200:
         return res.text
     return html
+
+
+if __name__ == '__main__':
+    sample_text = '''
+Hello!
+
+https://www.instagram.com/p/BUelE04l1kU
+
+https://www.instagram.com/p/BUrOXoBFayG/?taken-by=hudozka
+
+Bye!
+    '''
+
+    print(markdown_to_html(sample_text))
