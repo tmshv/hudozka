@@ -7,7 +7,6 @@ const {c} = require('../core/db')
 const getPathWithNoTrailingSlash = require('../lib/url').getPathWithNoTrailingSlash
 const {render} = require('../lib/render')
 
-
 async function getPage(path) {
 	return await c('pages').findOne({url: path})
 }
