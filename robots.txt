@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
-Host: art.shlisselburg.org
+Host: https://art.shlisselburg.org
 Sitemap: https://art.shlisselburg.org/sitemap.xml
