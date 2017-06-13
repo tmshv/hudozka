@@ -26,12 +26,7 @@
   &__body{
     img {
       max-width: 100%;
-      //max-height: 100%;
-
-      max-height: 40em;
-
-      display: block;
-      margin: 1.25em auto $small-margin;
+      max-height: 35em;
     }
 
     ul, ol{
@@ -44,8 +39,9 @@
       list-style: disc;
     }
 
-    p{
-      margin-bottom: 1.25em;
+    p {
+      margin-bottom: 1.75em;
+      line-height: 1.75em;
     }
 
     blockquote {
