@@ -16,3 +16,4 @@ private*.json
 **/__pycache__
 **/*.pyc
 /coverage
+**/.vscode
