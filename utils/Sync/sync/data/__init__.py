@@ -3,6 +3,7 @@ from io import BytesIO
 
 import requests
 
+import settings
 from utils.fn import combine, lmap
 
 
@@ -96,6 +97,10 @@ def upload(file_path, relative_path):
     """
     files = {'file': open(file_path, 'rb')}
     url = 'https://static.shlisselburg.org/upload/art{}'.format(relative_path)
+
+    if not settings.upload_enabled:
+        return url
+
     r = requests.put(
         url=url,
         files=files,

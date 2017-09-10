@@ -135,6 +135,17 @@ def create_page(provider: Provider, img: ImageCreator, document):
     return document
 
 
+def check_url(documents):
+    urls = list(map(
+        lambda i: i['url'],
+        documents
+    ))
+
+    unique_urls = set(urls)
+    if len(urls) != len(unique_urls):
+        raise Exception('URL of pages should be unique')
+
+
 def sync_pages(provider, collection, update=True, delete=True, skip_unchanged=True):
     img_sizes = settings.album_image_sizes
     output_dir = settings.dir_static_images
@@ -169,6 +180,8 @@ def sync_pages(provider, collection, update=True, delete=True, skip_unchanged=Tr
     documents_ids = lmapfn(documents)(
         lambda i: i['id']
     )
+
+    check_url(documents)
 
     # SKIP UNTOUCHED DOCUMENTS
     if skip_unchanged:

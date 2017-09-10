@@ -1,7 +1,7 @@
 import os
 
 import settings
-from kazimir import markdown_to_html
+from kazimir import kazimir_to_html
 from sync.data import list_images
 from sync import create_date_and_title_from_folder_name, create_post_from_image_list, create_date, images_from_html, \
     synced_images_ids, untouched
@@ -61,7 +61,7 @@ def get_manifest(provider, path):
     if 'id' in manifest:
         manifest['id'] = str(manifest['id'])
 
-    html = markdown_to_html(manifest['content'])
+    html = kazimir_to_html(manifest['content'])
     return {
         **manifest,
         'post': html,
@@ -134,7 +134,7 @@ def main(sync, file_time_formats, update_documents=True, delete_documents=True):
     )
 
     # SKIP UNTOUCHED DOCUMENTS
-    documents = untouched(documents, sync)
+    # documents = untouched(documents, sync)
 
     # MAP EVENT MANIFEST -> EVENT_OBJECT
     documents = lmap(
@@ -174,7 +174,7 @@ def main(sync, file_time_formats, update_documents=True, delete_documents=True):
 
 
 def sync_posts(provider, collection, update=True, delete=True):
-    image_url_base = settings.image_base_url + 'post-{id}-{img}-{size}{ext}'
+    image_url_base = settings.image_url_base + 'post-{id}-{img}-{size}{ext}'
 
     return main(
         SyncPost(

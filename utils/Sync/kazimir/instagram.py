@@ -55,7 +55,7 @@ def embed_instagram(media):
         i = etree.fromstring(html)
 
         obj = etree.Element('div')
-        obj.set('class', "kazimir-embed")
+        obj.set('class', "kazimir__embed")
         obj.append(i)
         return obj
     else:

@@ -9,6 +9,7 @@ from markdown import markdown
 
 import settings
 from sync.image import sync_image
+from sync.models import Model
 from utils.fn import lmap, combine
 
 
@@ -43,26 +44,30 @@ def create_date(date_str, date_formats=None):
 folder_name_pattern = re.compile('([\d.]+)(.*)')
 
 
-def untouched(documents, store):
+async def untouched(items: [Model]) -> [Model]:
     if settings.skip_unchanged:
-        return documents
-    return lmap(
-        lambda i: i[0],
-        filter(
-            lambda i: (i[1] is None) or ('hash' not in i[1]) or (i[0]['hash'] != i[1]['hash']),
-            map(
-                lambda i: (i, store.read(i)),
-                documents
-            )
-        ))
+        return items
+
+    result = []
+    for item in items:
+        status = await item.is_changed()
+        if status:
+            result.append(item)
+    return result
+
+    # def is_equals(e, n):
+    #     return (n is None) or ('hash' not in n) or (e.hash != n['hash'])
+    #
+    # doc = lambda i: {'id': i.id, 'hash': i.hash}
+    #
+    # stored_documents = [(i, store.read(doc(i))) for i in documents]
+    # filtered_documents = [i[0] for i in stored_documents if is_equals(*i)]
+
+    # return filtered_documents
 
 
 def synced_images_ids(images):
-    ids = lmap(
-        lambda image: image['_id'],
-        sync_image(images)
-    )
-    return ids
+    return [i['_id'] for i in sync_image(images)]
 
 
 def synced_image_id(image):

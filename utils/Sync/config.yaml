@@ -1,0 +1,21 @@
+---
+database_uri: 'mongodb://localhost:27017/hudozka'
+
+env: 'production'
+
+skip_unchanged: True
+image_processing: True
+upload_enabled: True
+origin: 'Yandex.Disk'
+upload_auth:
+  login: '<LOGIN>'
+  password: '<PASSWORD>'
+
+provider:
+  name: 'fs'
+  root: '<FS_ROOT>'
+
+yandex_disk_access_token: '<YANDEX_DISK_TOKEN>'
+
+update_enabled: True
+delete_enabled: True

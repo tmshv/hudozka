@@ -1,6 +1,12 @@
 import os
 
+import yaml
+
 __author__ = 'Roman Timashev'
+
+name = 'HudozkaSync'
+
+config = yaml.load(open('config.yaml', 'r'))
 
 
 def absolute(path, ensure=True):
@@ -20,9 +26,9 @@ def env(param, default=None):
     return default
 
 
-database_uri = env('MONGO_URI')
+database_uri = config['database_uri']  # env('MONGO_URI')
 
-skip_unchanged = False
+skip_unchanged = config['skip_unchanged']
 
 person_uri = {
     'Н.В.Андреева': 'nv-andreeva',
@@ -33,18 +39,32 @@ person_uri = {
     'А.С.Тимашева': 'as-timasheva',
 }
 
-image_processing = True
+upload_enabled = config['upload_enabled']
+upload_url_image = 'https://static.shlisselburg.org/upload/art/images/{}'
+upload_auth = (
+    config['upload_auth']['login'],
+    config['upload_auth']['password'],
+)
+
+image_processing_enabled = config['image_processing']
 
 album_html_img_class = 'hudozka-product'
 
 image_ext = '.jpg'
 image_sizes = [
     ('original', None, None),
+
     ('big', 1500, 667),
+    ('big@2', 3000, 1334),
+
     ('medium', 400, 300),
+    ('medium@2', 800, 600),
+
     ('small', 250, 175),
+    ('small@2', 500, 350),
+
     ('little', 100, 100),
-    ('preview', 50, 50),
+    ('little@2', 200, 200),
 ]
 
 awards_image_sizes = [
@@ -91,8 +111,9 @@ date_formats_reverse = [
     '%Y.%m.%d'
 ]
 
-origin = 'Yandex.Disk'
+origin = config['origin']
 
+collection_images = 'images'
 collection_documents = 'documents'
 collection_awards = 'awards'
 collection_schedules = 'schedules'
@@ -101,34 +122,37 @@ collection_collective = 'collective'
 collection_albums = 'albums'
 collection_pages = 'pages'
 
-sync_provider_type = env('SYNC_PROVIDER', 'fs')
+provider_name = config['provider']['name']  # env('SYNC_PROVIDER', 'fs')
+provider_root = config['provider']['root']  # env('SYNC_PROVIDER', 'fs')
 
-_providers_roots = {
-    'fs': abs_fn(env('SYNC_LOCAL_PATH')),
-    'yd': abs_fn('/'),
-}
-f = _providers_roots[sync_provider_type]
+# _providers_roots = {
+#     'fs': abs_fn(env('SYNC_LOCAL_PATH')),
+#     'yd': abs_fn('/'),
+# }
+# f = _providers_roots[provider_name]
+f = abs_fn(provider_root)
 
-dir_documents = f('Hudozka/Site/Documents')
-dir_awards = f('Hudozka/Site/Awards')
-dir_schedules = f('Hudozka/Site/Schedules')
-dir_articles = f('Hudozka/Site/Articles')
-dir_collective = f('Hudozka/Site/Collective')
-dir_gallery = f('Hudozka/Site/Gallery')
-dir_pages = f('Hudozka/Site/Pages')
-
-dir_static = env('SYNC_STATIC', '~/Hudozka Static')
-dir_static_uploads = absolute(dir_static + '/uploads')
-dir_static_images = absolute(dir_static + '/images')
+dir_documents = f('Documents')
+dir_awards = f('Awards')
+dir_schedules = f('Schedules')
+dir_articles = f('Articles')
+dir_collective = f('Collective')
+dir_gallery = f('Gallery')
+dir_pages = f('Pages')
 
 url_page_base_preview = 'https://static.shlisselburg.org/art/images/page-{page}-{id}-{size}{ext}'
-url_base_preview = 'https://static.shlisselburg.org/art/images/{id}-{size}{ext}'
-url_base_document = 'https://static.shlisselburg.org/art/uploads/{file}'
 
-image_base_url = 'https://static.shlisselburg.org/art/images/'
+document_url_template = 'https://static.shlisselburg.org/art/uploads/{file}'
+document_url_upload_template = 'https://static.shlisselburg.org/upload/art/uploads/{file}'
+document_url_preview_template = 'https://static.shlisselburg.org/art/images/{id}-{size}{ext}'
+
+image_url_upload = 'https://static.shlisselburg.org/upload/art/images/'
+image_url_base = 'https://static.shlisselburg.org/art/images/'
 image_name_format = '{type}-{id}-{img}-{size}{ext}'
 
-yandex_disk_access_token = env('YANDEX_DISK_ACCESS_TOKEN')
+yandex_disk_access_token = config['yandex_disk_access_token']  # env('YANDEX_DISK_ACCESS_TOKEN')
 
-do_update = env('SYNC_ENV', 'production') == 'production'
-do_delete = env('SYNC_ENV', 'production') == 'production'
+# update_enabled = env('SYNC_ENV', 'production') == 'production'
+# delete_enabled = env('SYNC_ENV', 'production') == 'production'
+update_enabled = config['update_enabled']
+delete_enabled = config['delete_enabled']

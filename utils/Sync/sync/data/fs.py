@@ -13,13 +13,9 @@ class FSProvider(Provider):
         return open(self.get_abs(path), 'rb')
 
     def scan(self, path):
-        return lmap(
-            self.get_rel,
-            map(
-                lambda i: i.path,
-                os.scandir(self.get_abs(path))
-            )
-        )
+        paths = [i.path for i in os.scandir(self.get_abs(path))]
+
+        return [self.get_rel(path) for path in paths]
 
     def glob(self, pattr):
         return lmap(self.get_rel, glob(self.get_abs(pattr)))

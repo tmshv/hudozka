@@ -4,9 +4,9 @@ import requests
 
 import settings
 from sync import synced_image_id, untouched
-from sync.core.document import SyncDocument
+from sync.core.SyncDocument import SyncDocument
 from sync.data import scan_subdirs
-from sync.models.document import Document
+from sync.models.Document import Document
 from utils.fn import combine, lmap, key_mapper
 
 
@@ -47,7 +47,7 @@ def sync_documents(provider, collection, update=True, delete=True):
             sizes=settings.image_sizes,
             dir_static_previews=settings.dir_static_images,
             url_base_preview=settings.url_base_preview,
-            url_base_document=settings.url_base_document,
+            url_base_document=settings.document_url_template,
         ),
         static_path,
         update_documents=update,
