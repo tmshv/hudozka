@@ -13,7 +13,9 @@ import logging
 import settings
 from utils.image.resize import optimize, thumbnail
 
-logger = logging.getLogger(settings.name)
+logger = logging.getLogger(settings.name + '.Image')
+
+store = collection(settings.collection_images)
 
 
 def get_upload_url(url):
@@ -22,11 +24,24 @@ def get_upload_url(url):
 
 class Image(Model):
     @staticmethod
+    async def find_one(query):
+        document = store.find_one(query)
+        return document
+
+    @staticmethod
     async def new(provider, file, sizes, url_factory):
         img = Image(provider, file, url_factory)
-        await img.compile(sizes)
-        await img.upload()
-        await img.save()
+        changed = await img.is_changed()
+        if changed:
+            await img.compile(sizes)
+            await img.upload()
+            await img.save()
+        else:
+            doc = await Image.find_one({'file': file})
+
+            img.image = [i for i in doc['data'].values()]
+            img.id = doc['_id']
+
         return img
 
     def __init__(self, provider, file, url_factory):
@@ -37,6 +52,10 @@ class Image(Model):
 
     def init(self):
         self.hash = self.__get_hash()
+
+    async def is_changed(self):
+        i = await Image.find_one({'file': self.file})
+        return self._is_changed_hash(i)
 
     async def compile(self, sizes):
         img_in = self.provider.get_abs(self.file)
