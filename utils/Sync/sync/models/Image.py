@@ -35,7 +35,7 @@ class Image(Model):
         img = Image(provider, file, url_factory)
         await img.compile(sizes)
         await img.upload()
-        await img.sync()
+        await img.save()
         return img
 
     def __init__(self, provider, file, url_factory):
@@ -48,20 +48,22 @@ class Image(Model):
         self.hash = self.__get_hash()
 
     async def compile(self, sizes):
+        img_in = self.provider.get_abs(self.file)
         img_out = tempfile.mkdtemp()
-        self.image = create_image(self.file, sizes, self.url_factory, img_out)
+
+        self.image = create_image(img_in, sizes, self.url_factory, img_out)
 
     async def upload(self):
+        logger.info('Uploading Image {}'.format(self.hash))
+
         if self.image:
             for i in self.image:
                 url = get_upload_url(i['url'])
                 file = i['file']
 
-                logger.info('Uploading image {}'.format(file))
-
                 await request.upload(url, file)
 
-    async def sync(self):
+    async def save(self):
         c = sync_image(self.bake())
         self.id = c['_id']
 
@@ -82,6 +84,13 @@ class Image(Model):
             'hash': self.hash,
             'data': data,
         }
+
+    def get_size(self, size):
+        if self.image:
+            for i in self.image:
+                if size == i['size']:
+                    return i
+        return None
 
     def __filename(self):
         return os.path.basename(self.file)
