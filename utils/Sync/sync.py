@@ -4,6 +4,7 @@ from sync.album import sync_albums
 from sync.core import Sync
 from sync.core.SyncDocument import SyncDocument
 from sync.data import Provider
+from sync.core.SyncPage import SyncPage
 from sync.data.fs import FSProvider
 from sync.data.yandexdisk import YDProvider
 from sync.document import sync_documents
@@ -55,6 +56,11 @@ async def run(run_interval=0):
         sizes=settings.image_sizes,
     )
 
+    pages = SyncPage(
+        provider=io(settings.dir_pages),
+        collection=c(settings.collection_pages),
+    )
+
     while True:
         # main(io(settings.dir_documents), sync_documents, settings.collection_documents)
         # main(io(settings.dir_awards), sync_documents, settings.collection_awards)
@@ -62,10 +68,10 @@ async def run(run_interval=0):
         # main(io(settings.dir_articles), sync_posts, settings.collection_articles)
         # main(io(settings.dir_collective), sync_persons, settings.collection_collective)
         # main(io(settings.dir_gallery), sync_albums, settings.collection_albums)
-        # main(io(settings.dir_pages), sync_pages, settings.collection_pages)
 
         await asyncio.wait([
             main(documents),
+            main(pages),
         ])
 
         if run_interval == 0:
