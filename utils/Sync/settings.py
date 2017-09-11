@@ -1,12 +1,21 @@
 import os
 
 import yaml
+import argparse
 
 __author__ = 'Roman Timashev'
 
 name = 'HudozkaSync'
 
-config = yaml.load(open('config.yaml', 'r'))
+_parser = argparse.ArgumentParser(description='Hudozka Sync Daemon')
+_parser.add_argument('--config', dest='config', default='config.yaml', help='path to config.yaml')
+_args = _parser.parse_args()
+
+config = yaml.load(open(_args.config, 'r'))
+
+
+def value(key, default=None):
+    return config[key] if key in config else default
 
 
 def absolute(path, ensure=True):
@@ -26,9 +35,11 @@ def env(param, default=None):
     return default
 
 
-database_uri = config['database_uri']  # env('MONGO_URI')
+interval = value('interval', 0)
 
-skip_unchanged = config['skip_unchanged']
+database_uri = value('database_uri')  # env('MONGO_URI')
+
+skip_unchanged = value('skip_unchanged')
 
 person_uri = {
     'Н.В.Андреева': 'nv-andreeva',
@@ -39,14 +50,14 @@ person_uri = {
     'А.С.Тимашева': 'as-timasheva',
 }
 
-upload_enabled = config['upload_enabled']
+upload_enabled = value('upload_enabled')
 upload_url_image = 'https://static.shlisselburg.org/upload/art/images/{}'
 upload_auth = (
-    config['upload_auth']['login'],
-    config['upload_auth']['password'],
+    value('upload_auth')['login'],
+    value('upload_auth')['password'],
 )
 
-image_processing_enabled = config['image_processing']
+image_processing_enabled = value('image_processing')
 
 album_html_img_class = 'hudozka-product'
 
@@ -111,7 +122,7 @@ date_formats_reverse = [
     '%Y.%m.%d'
 ]
 
-origin = config['origin']
+origin = value('origin')
 
 collection_images = 'images'
 collection_documents = 'documents'
@@ -122,14 +133,9 @@ collection_collective = 'collective'
 collection_albums = 'albums'
 collection_pages = 'pages'
 
-provider_name = config['provider']['name']  # env('SYNC_PROVIDER', 'fs')
-provider_root = config['provider']['root']  # env('SYNC_PROVIDER', 'fs')
+provider_name = value('provider')['name']  # env('SYNC_PROVIDER', 'fs')
+provider_root = value('provider')['root']  # env('SYNC_PROVIDER', 'fs')
 
-# _providers_roots = {
-#     'fs': abs_fn(env('SYNC_LOCAL_PATH')),
-#     'yd': abs_fn('/'),
-# }
-# f = _providers_roots[provider_name]
 f = abs_fn(provider_root)
 
 dir_documents = f('Documents')
@@ -140,7 +146,7 @@ dir_collective = f('Collective')
 dir_gallery = f('Gallery')
 dir_pages = f('Pages')
 
-url_page_base_preview = 'https://static.shlisselburg.org/art/images/page-{page}-{id}-{size}{ext}'
+page_url_base = 'https://static.shlisselburg.org/art/images/page-{page}-{id}-{size}{ext}'
 
 document_url_template = 'https://static.shlisselburg.org/art/uploads/{file}'
 document_url_upload_template = 'https://static.shlisselburg.org/upload/art/uploads/{file}'
@@ -150,9 +156,7 @@ image_url_upload = 'https://static.shlisselburg.org/upload/art/images/'
 image_url_base = 'https://static.shlisselburg.org/art/images/'
 image_name_format = '{type}-{id}-{img}-{size}{ext}'
 
-yandex_disk_access_token = config['yandex_disk_access_token']  # env('YANDEX_DISK_ACCESS_TOKEN')
+yandex_disk_access_token = value('yandex_disk_access_token')  # env('YANDEX_DISK_ACCESS_TOKEN')
 
-# update_enabled = env('SYNC_ENV', 'production') == 'production'
-# delete_enabled = env('SYNC_ENV', 'production') == 'production'
-update_enabled = config['update_enabled']
-delete_enabled = config['delete_enabled']
+update_enabled = value('update_enabled')
+delete_enabled = value('delete_enabled')

@@ -83,8 +83,7 @@ def get_provider(provider_type, root):
 
 
 if __name__ == '__main__':
-    interval = 0
-    # interval = 5
+    interval = settings.interval
 
     loop = asyncio.get_event_loop()
     loop.run_until_complete(run(interval))

@@ -2,11 +2,15 @@
 database_uri: 'mongodb://localhost:27017/hudozka'
 
 env: 'production'
+origin: 'Yandex.Disk'
+yandex_disk_access_token: '<YANDEX_DISK_TOKEN>'
+interval: 0
 
 skip_unchanged: True
-image_processing: True
+
+image_processing_enabled: True
+
 upload_enabled: True
-origin: 'Yandex.Disk'
 upload_auth:
   login: '<LOGIN>'
   password: '<PASSWORD>'
@@ -14,8 +18,6 @@ upload_auth:
 provider:
   name: 'fs'
   root: '<FS_ROOT>'
-
-yandex_disk_access_token: '<YANDEX_DISK_TOKEN>'
 
 update_enabled: True
 delete_enabled: True
