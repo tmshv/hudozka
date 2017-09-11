@@ -1,3 +1,4 @@
+from sync.data import Provider
 from sync.models import Model
 from utils.fn import lmap
 
@@ -14,12 +15,13 @@ class Sync:
     def compile(document):
         return document.bake()
 
-    def __init__(self):
+    def __init__(self, provider: Provider, collection):
         super().__init__()
 
-        self.collection = None
+        self.provider = provider
+        self.collection = collection
 
-    async def run(self) -> ([Model], [Model]):
+    async def run(self):
         """
         # Get scope files
         # Validate these files. Raise an error

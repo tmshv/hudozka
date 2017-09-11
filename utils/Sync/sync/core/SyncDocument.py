@@ -21,9 +21,7 @@ logger = logging.getLogger(settings.name + '.Document')
 
 class SyncDocument(Sync):
     def __init__(self, provider: Provider, collection, sizes):
-        super().__init__()
-        self.collection = collection
-        self.provider = provider
+        super().__init__(provider, collection)
         self.sizes = sizes
         self.dir_static_previews = ''
 
@@ -32,7 +30,7 @@ class SyncDocument(Sync):
     async def clean(self):
         pass
 
-    async def run(self) -> ([Model], [Model]):
+    async def run(self):
         logger.info('Checking documents for update')
 
         documents = await Document.scan(self.provider)
