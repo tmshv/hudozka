@@ -63,7 +63,7 @@ class SyncPage(Sync):
 
 def get_image_url_fn(page_id: str):
     image_id = lambda filename: url_encode_text(
-        os.path.splitext(filename)[0]
+        os.path.splitext(os.path.basename(filename))[0]
     )
 
     def img_url_fn(file, size, ext):

@@ -30,7 +30,7 @@ class Image(Model):
 
     @staticmethod
     async def new(provider, file, sizes, url_factory):
-        img = Image(provider, file, url_factory)
+        img = Image(provider, file, data=None, url_factory=url_factory)
         changed = await img.is_changed()
         if changed:
             await img.compile(sizes)
@@ -38,14 +38,13 @@ class Image(Model):
             await img.save()
         else:
             doc = await Image.find_one({'file': file})
-
-            img.image = [i for i in doc['data'].values()]
-            img.id = doc['_id']
+            img = Image(provider, file, doc['data'], url_factory)
+            img.__set_id(doc['_id'])
 
         return img
 
-    def __init__(self, provider, file, url_factory):
-        store = collection(settings.collection_images)
+    def __init__(self, provider, file, data, url_factory):
+        self.data = data
         self.url_factory = url_factory
 
         super().__init__(provider, store, file)
@@ -61,13 +60,21 @@ class Image(Model):
         img_in = self.provider.get_abs(self.file)
         img_out = tempfile.mkdtemp()
 
-        self.image = create_image(img_in, sizes, self.url_factory, img_out)
+        images = create_image(img_in, sizes, self.url_factory, img_out)
+        data = {}
+        if images:
+            for i in images:
+                size_name = i['size']
+                data[size_name] = {
+                    **i,
+                }
+        self.data = data
 
     async def upload(self):
         logger.info('Uploading Image {}'.format(self.hash))
 
-        if self.image:
-            for i in self.image:
+        if self.data:
+            for i in self.data.values():
                 url = get_upload_url(i['url'])
                 file = i['file']
 
@@ -75,35 +82,25 @@ class Image(Model):
 
     async def save(self):
         c = sync_image(self.bake())
-        self.id = c['_id']
+        self.__set_id(c['_id'])
 
     def bake(self):
-        data = {}
-        if self.image:
-            for i in self.image:
-                size_name = i['size']
-                data[size_name] = {
-                    'url': i['url'],
-                    'size': size_name,
-                    'width': i['width'],
-                    'height': i['height'],
-                }
-
         return {
             'file': self.file,
             'hash': self.hash,
-            'data': data,
+            'data': self.data,
         }
 
     def get_size(self, size):
-        if self.image:
-            for i in self.image:
-                if size == i['size']:
-                    return i
+        if size in self.data:
+            return self.data[size]
         return None
 
     def __filename(self):
         return os.path.basename(self.file)
+
+    def __set_id(self, value):
+        self.id = value
 
     def __get_hash(self):
         return self.provider.hash(self.file)
