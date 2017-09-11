@@ -1,26 +1,17 @@
-import os
 import tempfile
 from tempfile import mkstemp
 from typing import Optional, List
 
-import requests
-
-import settings
 from db import collection
-from sync.data import scan_subdirs, request
+from sync.data import request
 from sync.models import Model
-from utils.fn import last_good, lmap
-from utils.hash import hash_str
 from utils.image.resize import image_magick_pdf_to_img
-from utils.text.transform import url_encode_text, url_encode_file
 import os
 
 import logging
 
 import settings
-from sync.data import upload
-from utils.hash import hash_file
-from utils.image.resize import optimize, thumbnail, orient
+from utils.image.resize import optimize, thumbnail
 
 logger = logging.getLogger(settings.name)
 

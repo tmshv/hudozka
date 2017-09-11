@@ -86,27 +86,3 @@ def list_images(provider, path):
         lambda ext: provider.type_filter(path, ext),
         image_types
     ))
-
-
-def upload(file_path, relative_path):
-    """
-    /path/to/file, /url/path -> https://static.shlisselburg.org/art/url/path
-    :param file_path:
-    :param relative_path:
-    :return:
-    """
-    files = {'file': open(file_path, 'rb')}
-    url = 'https://static.shlisselburg.org/upload/art{}'.format(relative_path)
-
-    if not settings.upload_enabled:
-        return url
-
-    r = requests.put(
-        url=url,
-        files=files,
-        auth=('uploader', '1207690962638465')
-    )
-    if r.status_code == 200:
-        return url
-    else:
-        return None

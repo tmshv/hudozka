@@ -6,7 +6,6 @@ from typing import Optional
 from PIL import Image
 
 import settings
-from sync.data import upload
 from utils.hash import hash_file
 # from utils.image import resize
 from utils.image.resize import optimize, thumbnail, orient

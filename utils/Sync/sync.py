@@ -1,22 +1,12 @@
 import settings
-from db import db, collection
-from sync.album import sync_albums
+from db import collection
 from sync.core import Sync
 from sync.core.SyncDocument import SyncDocument
-from sync.data import Provider
 from sync.core.SyncPage import SyncPage
 from sync.data.fs import FSProvider
 from sync.data.yandexdisk import YDProvider
-from sync.document import sync_documents
-from sync.page import sync_pages
-from sync.person import sync_persons
-from sync.post import sync_posts
-from sync.schedule import sync_schedules
-from utils.fn import lprint_json
-from utils.image import thumbnail
 
 import asyncio
-import datetime
 import logging
 
 # create logger with 'spam_application'
