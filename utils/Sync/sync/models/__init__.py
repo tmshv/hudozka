@@ -1,3 +1,6 @@
+import os
+
+
 def find(store, item_id: str):
     q = {'id': item_id}
     try:
@@ -40,5 +43,16 @@ class Model:
 
         return not (self.hash == item['hash'])
 
+    def _filename(self):
+        return os.path.basename(self.file)
+
     async def save(self):
-        pass
+        document = self.bake()
+
+        query = {'id': document['id']}
+        try:
+            self.store.update_one(query, {'$set': document}, upsert=True)
+            return self
+        except ValueError:
+            pass
+        return None

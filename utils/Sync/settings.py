@@ -88,14 +88,6 @@ event_image_sizes = [
     ('big', 1200, 800)
 ]
 
-teacher_image_url_base = 'https://static.shlisselburg.org/art/images/teacher-{id}-{size}{ext}'
-teacher_image_output = '/Users/tmshv/Desktop/Hudozka Static/images'
-teacher_image_sizes = [
-    ('big', 1200, 800),
-    ('medium', 640, 480),
-    ('preview', 50, 50),
-]
-
 album_image_sizes = [
     ('big', 1200, 800),
     ('medium', 640, 480),
@@ -155,6 +147,8 @@ document_url_preview_template = 'https://static.shlisselburg.org/art/images/{id}
 image_url_upload = 'https://static.shlisselburg.org/upload/art/images/'
 image_url_base = 'https://static.shlisselburg.org/art/images/'
 image_name_format = '{type}-{id}-{img}-{size}{ext}'
+
+person_image_url_template = 'https://static.shlisselburg.org/art/images/person-{id}-{size}{ext}'
 
 yandex_disk_access_token = value('yandex_disk_access_token')  # env('YANDEX_DISK_ACCESS_TOKEN')
 
