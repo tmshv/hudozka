@@ -1,0 +1,37 @@
+@import "../variables";
+
+.kazimir__image {
+  p {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  img {
+    border-radius: 3px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  }
+
+  figure {
+    margin: 0 0 $single-margin;
+  }
+
+  figcaption {
+    margin: $half-margin 0 0 20px;
+
+    font-size: 16px;
+    font-style: italic;
+    color: #999;
+
+    font-weight: 100;
+  }
+}
+
+.kazimir__image {
+  img {
+    transition: all .3s ease-in-out;
+
+    &:hover{
+      transform: scale(1.0125);
+    }
+  }
+}
