@@ -3,11 +3,13 @@ import requests
 from markdown import markdown
 
 from kazimir.video import VideoExtension
+from kazimir.figure import FigureExtension
 from kazimir.instagram import InstagramExtension
 
 
 def markdown_to_html(text):
     return markdown(text, extensions=[
+        FigureExtension(),
         VideoExtension(),
         InstagramExtension(),
     ])
