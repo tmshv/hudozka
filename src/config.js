@@ -1,8 +1,8 @@
 import fs from 'fs'
 import path from 'path'
 
-const privateFile = process.env['PRIVATE'] || 'private.json'
-const privateData = JSON.parse(fs.readFileSync(privateFile, 'utf-8'))
+export const configFile = process.env['PRIVATE'] || 'private.json'
+const privateData = JSON.parse(fs.readFileSync(configFile, 'utf-8'))
 
 const indexFile = process.env['INDEX'] || 'templates/main.html'
 const port = process.env['PORT'] || 1800
@@ -14,13 +14,6 @@ const config = {
 	db: {
 		uri: 'mongodb://localhost:27017/hudozka'
 	},
-
-	prerender: {
-		prerender: 'http://service.prerender.io/',
-		prerenderToken: '',
-		protocol: 'https',
-		host: 'art.shlisselburg.org'
-	}
 }
 
 export default Object.keys(privateData)
