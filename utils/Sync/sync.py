@@ -64,8 +64,6 @@ async def run(run_interval=0):
     )
 
     while True:
-        # main(io(settings.dir_documents), sync_documents, settings.collection_documents)
-        # main(io(settings.dir_awards), sync_documents, settings.collection_awards)
         # main(io(settings.dir_schedules), sync_schedules, settings.collection_schedules)
         # main(io(settings.dir_gallery), sync_albums, settings.collection_albums)
 
