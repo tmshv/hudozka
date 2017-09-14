@@ -27,6 +27,9 @@ class Model:
     def init(self):
         pass
 
+    async def build(self, **kwargs):
+        pass
+
     def bake(self):
         return None
 

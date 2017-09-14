@@ -5,6 +5,7 @@ from sync.core.SyncArticle import SyncArticle
 from sync.core.SyncDocument import SyncDocument
 from sync.core.SyncPage import SyncPage
 from sync.core.SyncPerson import SyncPerson
+from sync.core.SyncSchedule import SyncSchedule
 from sync.data.fs import FSProvider
 from sync.data.yandexdisk import YDProvider
 
@@ -63,8 +64,12 @@ async def run(run_interval=0):
         collection=c(settings.collection_articles),
     )
 
+    schedules = SyncSchedule(
+        provider=io(settings.dir_schedules),
+        collection=c(settings.collection_schedules),
+    )
+
     while True:
-        # main(io(settings.dir_schedules), sync_schedules, settings.collection_schedules)
         # main(io(settings.dir_gallery), sync_albums, settings.collection_albums)
 
         await asyncio.wait([
@@ -72,6 +77,7 @@ async def run(run_interval=0):
             main(pages),
             main(persons),
             main(articles),
+            main(schedules),
         ])
 
         if run_interval == 0:
