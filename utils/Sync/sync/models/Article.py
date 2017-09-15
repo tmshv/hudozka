@@ -77,12 +77,11 @@ class Article(Model):
         # self.__url_template: str = settings.document_url_template
         # self.__url_preview_template: str = settings.document_url_preview_template
 
-        self.params = params if params else {}
         self.origin = settings.origin
         self.version = '2'
         self.post = None
         self.images = None
-        super().__init__(provider, store, file)
+        super().__init__(provider, store, file, params=params)
 
     def init(self):
         self.__set_id()
@@ -106,6 +105,16 @@ class Article(Model):
         self.post = kazimir.html_from_tree(post)
         self.images = images
 
+        if 'preview' in self.params:
+            preview = self.get_param('preview')
+            preview = self._get_relpath(preview)
+            preview = await Image.new(self.provider, preview, sizes)
+            self.preview = preview
+        elif len(self.images):
+            self.preview = self.images[0]
+        else:
+            self.preview = 'https://art.shlisselburg.org/entrance.jpg'
+
     def bake(self):
         return {
             **self.params,
@@ -116,6 +125,7 @@ class Article(Model):
             'file': self.file,
             'origin': self.origin,
             'version': self.version,
+            'preview': self.preview if isinstance(self.preview, str) else self.preview.id,
         }
 
     def __set_id(self):
