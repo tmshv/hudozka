@@ -5,6 +5,7 @@ from typing import Optional, List
 from db import collection
 from sync.data import request
 from sync.models import Model
+from utils.hash import md5
 from utils.image.resize import image_magick_pdf_to_img
 import os
 
@@ -22,6 +23,11 @@ def get_upload_url(url):
     return os.path.join(settings.image_url_upload, os.path.basename(url))
 
 
+def default_url_factory(file, size, ext):
+    url = settings.image_url_base + '{}-{}{}'
+    return url.format(md5(file), size, ext)
+
+
 class Image(Model):
     @staticmethod
     async def find_one(query):
@@ -29,7 +35,9 @@ class Image(Model):
         return document
 
     @staticmethod
-    async def new(provider, file, sizes, url_factory):
+    async def new(provider, file, sizes, url_factory=None):
+        url_factory = url_factory if url_factory else default_url_factory
+
         img = Image(provider, file, data=None, url_factory=url_factory)
         changed = await img.is_changed()
         if changed:
