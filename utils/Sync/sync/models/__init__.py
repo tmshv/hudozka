@@ -11,7 +11,7 @@ def find(store, item_id: str):
 
 
 class Model:
-    def __init__(self, provider, store, file):
+    def __init__(self, provider, store, file, params=None):
         super().__init__()
 
         self.provider = provider
@@ -21,6 +21,7 @@ class Model:
         self.id = None
         self.url = None
         self.hash = None
+        self.params = params if params else {}
 
         self.init()
 
@@ -37,6 +38,13 @@ class Model:
         i = find(self.store, self.id)
         return self._is_changed_hash(i)
 
+    def get_param(self, name, default_value=None):
+        if not self.params:
+            return default_value
+        if not (name in self.params):
+            return default_value
+        return self.params[name]
+
     def _is_changed_hash(self, item):
         if not item:
             return True
@@ -48,6 +56,10 @@ class Model:
 
     def _filename(self):
         return os.path.basename(self.file)
+
+    def _get_relpath(self, path):
+        folder = self.get_param('folder', self.file)
+        return os.path.join(folder, path)
 
     async def save(self):
         document = self.bake()
