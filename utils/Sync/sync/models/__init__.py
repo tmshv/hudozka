@@ -38,6 +38,11 @@ class Model:
         i = find(self.store, self.id)
         return self._is_changed_hash(i)
 
+    def has_param(self, name):
+        if not self.params:
+            return False
+        return name in self.params
+
     def get_param(self, name, default_value=None):
         if not self.params:
             return default_value
