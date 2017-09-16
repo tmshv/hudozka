@@ -89,12 +89,12 @@ def create_date_and_title_from_folder_name(folder_name, date_formats=None):
     return date, title
 
 
-def create_post(md, image_path_fn):
+async def create_post(md, image_path_fn):
     html = lxml.html.fromstring(md)
 
     for img in html.cssselect('img'):
         src = img.get('src')
-        path = image_path_fn(src)
+        path = await image_path_fn(src)
 
         if path:
             img.set('src', path)

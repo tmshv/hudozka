@@ -1,6 +1,7 @@
 import settings
 from db import collection
 from sync.core import Sync
+from sync.core.SyncAlbum import SyncAlbum
 from sync.core.SyncArticle import SyncArticle
 from sync.core.SyncDocument import SyncDocument
 from sync.core.SyncPage import SyncPage
@@ -68,16 +69,19 @@ async def run(run_interval=0):
         provider=io(settings.dir_schedules),
         collection=c(settings.collection_schedules),
     )
+    albums = SyncAlbum(
+        provider=io(settings.dir_albums),
+        collection=c(settings.collection_albums),
+    )
 
     while True:
-        # main(io(settings.dir_gallery), sync_albums, settings.collection_albums)
-
         await asyncio.wait([
             main(documents),
             main(pages),
             main(persons),
             main(articles),
             main(schedules),
+            main(albums),
         ])
 
         if run_interval == 0:
