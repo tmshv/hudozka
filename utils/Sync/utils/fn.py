@@ -49,8 +49,8 @@ lprint_json = lambda i: lprint(lmap(to_json, i))
 first = lambda i: i[0] if len(i) > 0 else None
 
 
-def ext(ext):
-    return lambda i: os.path.splitext(i)[0] + ext
+def swap_ext(extension: str):
+    return lambda i: os.path.splitext(i)[0] + extension
 
 
 def map_item_key(item, key, map_fn):

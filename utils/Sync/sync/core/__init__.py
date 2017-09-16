@@ -1,5 +1,13 @@
+from sync.data import Provider
 from sync.models import Model
 from utils.fn import lmap
+
+
+def get_id(item):
+    try:
+        return item.id
+    except AttributeError:
+        return item['id']
 
 
 class Sync:
@@ -7,15 +15,29 @@ class Sync:
     def compile(document):
         return document.bake()
 
-    def __init__(self):
+    def __init__(self, provider: Provider, collection):
         super().__init__()
 
-        self.collection = None
+        self.provider = provider
+        self.collection = collection
 
-    def read(self, document):
-        if isinstance(document, list):
-            return lmap(self.read, document)
+    async def run(self):
+        """
+        # Get scope files
+        # Validate these files. Raise an error
+        # calc_hashes
+        # make diff with previous run
+        # compile objects
+        # upload
 
+        :return:
+        """
+        return None, None
+
+    async def upload(self):
+        pass
+
+    def read(self, document: dict):
         q = {'id': document['id']}
         try:
             return self.collection.find_one(q)
@@ -23,16 +45,10 @@ class Sync:
             pass
         return None
 
-    def update(self, document):
-        if isinstance(document, list):
-            return lmap(self.update, document)
-
-        if isinstance(document, Model):
-            return self.update(self.compile(document))
-
-        q = {'id': document['id']}
+    def update(self, document: dict):
+        query = {'id': document['id']}
         try:
-            self.collection.update_one(q, {'$set': document}, upsert=True)
+            self.collection.update_one(query, {'$set': document}, upsert=True)
             return self.read(document)
         except ValueError:
             pass

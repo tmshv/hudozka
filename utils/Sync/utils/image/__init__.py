@@ -1,11 +1,16 @@
 import os
 
+import logging
+from typing import Optional
+
 from PIL import Image
 
-from sync.data import upload
+import settings
 from utils.hash import hash_file
 # from utils.image import resize
 from utils.image.resize import optimize, thumbnail, orient
+
+logger = logging.getLogger(settings.name)
 
 
 def read_image(src):
@@ -17,19 +22,15 @@ def read_image(src):
         return None
 
 
-def create_image(file, sizes, url_fn, output_dir, skip_processing=False):
+def create_image(file: str, sizes: [()], url_fn, output_dir: str) -> Optional[dict]:
     """
 
     :param file: Image path to process
     :param sizes: list of sizes to generate image (<size_name>, <width>, <height>)
     :param url_fn: function (size_name, ext) for creating image url
     :param output_dir: path to local folder for thumbs storing
-    :param skip_processing: True/False to skip thumbs generation
     :return:
     """
-    # image = read_image(file)
-    # if not image:
-    #     return None
     if not os.path.exists(file):
         return None
 
@@ -38,18 +39,20 @@ def create_image(file, sizes, url_fn, output_dir, skip_processing=False):
     for size in sizes:
         size_name, width, height = size
 
-        image_url = url_fn(size_name, ext)
+        image_url = url_fn(file, size_name, ext)
         image_filename = os.path.basename(image_url)
         local_image_path = os.path.join(output_dir, image_filename)
 
-        if not skip_processing:
+        if settings.image_processing_enabled:
             image = process_image(file, local_image_path, size)
             if not image:
+                logger.warning('Failed to process image {}'.format(file))
                 continue
+
             width, height = image.size
-            upload_url = upload(local_image_path, '/images/{}'.format(image_filename))
-            if not upload_url:
-                print('Image {} not uploaded'.format(file))
+            # upload_url = upload(local_image_path, '/images/{}'.format(image_filename))
+            # if not upload_url:
+            #     print('Image {} not uploaded'.format(file))
 
         result[size_name] = {
             'url': image_url,
@@ -58,11 +61,7 @@ def create_image(file, sizes, url_fn, output_dir, skip_processing=False):
             'height': height
         }
 
-    return {
-        'file': os.path.basename(file),
-        'hash': hash_file(file),
-        'data': result
-    }
+    return result
 
 
 def process_image(input_file, output_file, size):

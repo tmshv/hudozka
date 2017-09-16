@@ -33,6 +33,6 @@ def flex_video(url):
     iframe.set('allowfullscreen', '')
 
     obj = etree.Element('div')
-    obj.set('class', "kazimir-video")
+    obj.set('class', "kazimir__video")
     obj.append(iframe)
     return obj

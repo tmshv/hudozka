@@ -26,3 +26,8 @@ def hash_str(data):
         data = to_json(data)
 
     return hash_data(str(data).encode())
+
+
+def md5(data: str) -> str:
+    i = hashlib.md5(data.encode('utf-8'))
+    return i.hexdigest()

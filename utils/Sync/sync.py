@@ -1,15 +1,93 @@
 import settings
-from db import db, collection
-from sync.album import sync_albums
+from db import collection
+from sync.core import Sync
+from sync.core.SyncAlbum import SyncAlbum
+from sync.core.SyncArticle import SyncArticle
+from sync.core.SyncDocument import SyncDocument
+from sync.core.SyncPage import SyncPage
+from sync.core.SyncPerson import SyncPerson
+from sync.core.SyncSchedule import SyncSchedule
 from sync.data.fs import FSProvider
 from sync.data.yandexdisk import YDProvider
-from sync.document import sync_documents
-from sync.page import sync_pages
-from sync.person import sync_persons
-from sync.post import sync_posts
-from sync.schedule import sync_schedules
-from utils.fn import lprint_json
-from utils.image import thumbnail
+
+import asyncio
+import logging
+
+# create logger with 'spam_application'
+logger = logging.getLogger(settings.name)
+logger.setLevel(logging.DEBUG)
+
+# create file handler which logs even debug messages
+fh = logging.FileHandler('hudozka.log')
+fh.setLevel(logging.DEBUG)
+
+# create console handler with a higher log level
+ch = logging.StreamHandler()
+# ch.setLevel(logging.ERROR)
+ch.setLevel(logging.DEBUG)
+
+# create formatter and add it to the handlers
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+fh.setFormatter(formatter)
+ch.setFormatter(formatter)
+
+# add the handlers to the logger
+logger.addHandler(fh)
+logger.addHandler(ch)
+
+
+async def main(sync: Sync):
+    await sync.run()
+
+
+async def run(run_interval=0):
+    io = lambda root: get_provider(settings.provider_name, root)
+    c = collection
+
+    documents = SyncDocument(
+        provider=io(settings.dir_documents),
+        collection=c(settings.collection_documents),
+        sizes=settings.image_sizes,
+    )
+
+    pages = SyncPage(
+        provider=io(settings.dir_pages),
+        collection=c(settings.collection_pages),
+    )
+
+    persons = SyncPerson(
+        provider=io(settings.dir_collective),
+        collection=c(settings.collection_collective),
+    )
+
+    articles = SyncArticle(
+        provider=io(settings.dir_articles),
+        collection=c(settings.collection_articles),
+    )
+
+    schedules = SyncSchedule(
+        provider=io(settings.dir_schedules),
+        collection=c(settings.collection_schedules),
+    )
+    albums = SyncAlbum(
+        provider=io(settings.dir_albums),
+        collection=c(settings.collection_albums),
+    )
+
+    while True:
+        await asyncio.wait([
+            main(documents),
+            main(pages),
+            main(persons),
+            main(articles),
+            main(schedules),
+            main(albums),
+        ])
+
+        if run_interval == 0:
+            break
+        else:
+            await asyncio.sleep(run_interval)
 
 
 def get_provider(provider_type, root):
@@ -20,27 +98,12 @@ def get_provider(provider_type, root):
     return None
 
 
-def main(provider, fn, collection_name):
-    if provider:
-        print('SYNC: %s' % (collection_name.upper()))
-        u, d = fn(provider, collection(collection_name), update=settings.do_update, delete=settings.do_update)
-
-        print('DELETE %s: %s' % (collection_name.upper(), 'NO' if not settings.do_delete else str(len(d))))
-        lprint_json(d)
-
-        print('UPDATE %s: %s' % (collection_name.upper(), 'NO' if not settings.do_update else str(len(u))))
-        lprint_json(u)
-
-        print('')
-
-
 if __name__ == '__main__':
-    io = lambda root: get_provider(settings.sync_provider_type, root)
+    interval = settings.interval
 
-    main(io(settings.dir_documents), sync_documents, settings.collection_documents)
-    main(io(settings.dir_awards), sync_documents, settings.collection_awards)
-    main(io(settings.dir_schedules), sync_schedules, settings.collection_schedules)
-    main(io(settings.dir_articles), sync_posts, settings.collection_articles)
-    main(io(settings.dir_collective), sync_persons, settings.collection_collective)
-    main(io(settings.dir_gallery), sync_albums, settings.collection_albums)
-    main(io(settings.dir_pages), sync_pages, settings.collection_pages)
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(run(interval))
+    loop.close()
+
+    # Да, 968×504 пискеля это меньше минимально рекомендованных Фейсбуком 1200×630.
+    # Зато при таком размере и ратио картинку нигде не кропят, и выглядит она отлично.
