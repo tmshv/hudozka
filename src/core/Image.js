@@ -1,4 +1,5 @@
 const Data = require('./Data')
+const ImageArtifactType = require('./ImageArtifactType')
 const {findOne} = require('../lib/store')
 const {mapOf} = require('../lib/common')
 
@@ -31,6 +32,26 @@ class Image {
 		}
 
 		return null
+	}
+
+	getPicture(size) {
+		const retinaSize = ImageArtifactType.retina(size)
+
+		const a = this.getArtifact(size)
+		const a2 = this.getArtifact(retinaSize)
+		const pic = {
+			src: a.url,
+			width: a.width,
+			height: a.height,
+			set: [
+				{
+					url: a2.url,
+					density: ImageArtifactType.RETINA_DENSITY,
+				}
+			]
+		}
+		console.log(pic)
+		return pic
 	}
 }
 

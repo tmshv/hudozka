@@ -1,11 +1,15 @@
-class ImageArtifact {
+class ImageArtifactType {
 	constructor() {
-		throw new Error('Cannot create instance of ImageArtifact')
+		throw new Error('Cannot create instance of ImageArtifactType')
 	}
 }
 
-ImageArtifact.MEDIUM = 'medium'
-ImageArtifact.BIG = 'big'
-ImageArtifact.ORIGIN = 'origin'
+ImageArtifactType.SMALL = 'small'
+ImageArtifactType.MEDIUM = 'medium'
+ImageArtifactType.BIG = 'big'
+ImageArtifactType.ORIGIN = 'origin'
 
-module.exports = ImageArtifact
+ImageArtifactType.RETINA_DENSITY = 2
+ImageArtifactType.retina = type => `${type}@${ImageArtifactType.RETINA_DENSITY}`
+
+module.exports = ImageArtifactType

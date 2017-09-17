@@ -6,10 +6,6 @@ const {splitBy} = require('../lib/array')
 const getPathWithNoTrailingSlash = require('../lib/url').getPathWithNoTrailingSlash
 const {get} = require('koa-route')
 
-const previewUrl = preview => preview
-	? preview.url
-	: null
-
 function getMeta() {
 	return {
 		title: 'Галерея',
@@ -17,11 +13,30 @@ function getMeta() {
 	}
 }
 
+// {data.set.map((s, i) => (
+// 	<source
+// 		key={i}
+// 		src={i}
+// 	/>
+// ))}
+// const m = 0.5
+const m = 1
+const AlbumImage = ({data, alt}) => (
+	<picture>
+		<img
+			alt={alt}
+			src={data.src}
+			width={data.width * m}
+			height={data.height * m}
+			srcSet={data.set.map(({url, density}) => `${url} ${density}x`)}
+		/>
+	</picture>
+)
+
 const GItem = ({album}) => (
 	<div className="gallery-item">
-		<a href={album.url}>
-			<h2>{album.title}</h2>
-			<img src={previewUrl(album.preview)} alt={album.title}/>
+		<a className="invisible" href={album.url}>
+			<AlbumImage data={album.preview} alt={album.title}/>
 		</a>
 	</div>
 )

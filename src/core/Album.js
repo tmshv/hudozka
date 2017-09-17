@@ -4,6 +4,7 @@ const ImageArtifactType = require('./ImageArtifactType')
 const {find, findOne} = require('../lib/store')
 
 const previewTypes = [
+	ImageArtifactType.SMALL,
 	ImageArtifactType.MEDIUM,
 	ImageArtifactType.BIG,
 	ImageArtifactType.ORIGIN,
@@ -31,14 +32,26 @@ const previewFromImage = (imgs = []) => imgs.length
 	: null
 
 const processAlbum = async album => {
+	let preview = {}
+    // {
+    // 	data: [
+    // 		{
+    // 			url: null,
+    // 			width: 0,
+    // 			height: 0,
+    // 		}
+    // 	]
+    // }
+
 	const previewImageId = album.preview ? album.preview : previewFromImage(album.images)
-	let preview
 	if (previewImageId) {
 		const image = await Image.findById(previewImageId)
-		preview = image.findArtifact(previewTypes)
-	} else {
-		preview = {
-			url: null,
+		if (image) {
+            // const imageArtifacts = image.findArtifact(previewTypes)
+            // if (imageArtifacts) {
+            // 	preview = imageArtifacts
+            // }
+			preview = image.getPicture(ImageArtifactType.SMALL)
 		}
 	}
 
