@@ -15,26 +15,28 @@ from sync.models.Page import Page
 from sync.models.Person import Person
 from sync.models.Schedule import Schedule
 
-logger = logging.getLogger(settings.name)
-logger.setLevel(logging.DEBUG)
 
-# create file handler which logs even debug messages
-fh = logging.FileHandler('hudozka.log')
-fh.setLevel(logging.DEBUG)
+def init_logger(name: str, file: str):
+    logger = logging.getLogger(name)
+    logger.setLevel(logging.DEBUG)
 
-# create console handler with a higher log level
-ch = logging.StreamHandler()
-# ch.setLevel(logging.ERROR)
-ch.setLevel(logging.DEBUG)
+    # create file handler which logs even debug messages
+    fh = logging.FileHandler(file)
+    fh.setLevel(logging.DEBUG)
 
-# create formatter and add it to the handlers
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-fh.setFormatter(formatter)
-ch.setFormatter(formatter)
+    # create console handler with a higher log level
+    ch = logging.StreamHandler()
+    # ch.setLevel(logging.ERROR)
+    ch.setLevel(logging.DEBUG)
 
-# add the handlers to the logger
-logger.addHandler(fh)
-logger.addHandler(ch)
+    # create formatter and add it to the handlers
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    fh.setFormatter(formatter)
+    ch.setFormatter(formatter)
+
+    # add the handlers to the logger
+    logger.addHandler(fh)
+    logger.addHandler(ch)
 
 
 async def main(sync: Sync):
@@ -99,6 +101,8 @@ def get_provider(provider_type, root):
 
 
 if __name__ == '__main__':
+    init_logger(settings.name, 'hudozka.log')
+
     interval = settings.interval
 
     loop = asyncio.get_event_loop()
