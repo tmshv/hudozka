@@ -6,9 +6,7 @@ from typing import Optional
 from PIL import Image
 
 import settings
-from utils.hash import hash_file
-# from utils.image import resize
-from utils.image.resize import optimize, thumbnail, orient
+from utils.image.resize import optimize, thumbnail
 
 logger = logging.getLogger(settings.name)
 
@@ -50,9 +48,6 @@ def create_image(file: str, sizes: [()], url_fn, output_dir: str) -> Optional[di
                 continue
 
             width, height = image.size
-            # upload_url = upload(local_image_path, '/images/{}'.format(image_filename))
-            # if not upload_url:
-            #     print('Image {} not uploaded'.format(file))
 
         result[size_name] = {
             'url': image_url,

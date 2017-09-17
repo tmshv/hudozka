@@ -4,7 +4,6 @@ from glob import glob
 from shutil import copyfile
 
 from sync.data import Provider
-from utils.fn import lmap
 from utils.hash import hash_file
 
 
@@ -18,7 +17,8 @@ class FSProvider(Provider):
         return [self.get_rel(path) for path in paths]
 
     def glob(self, pattr):
-        return lmap(self.get_rel, glob(self.get_abs(pattr)))
+        items = glob(self.get_abs(pattr))
+        return [self.get_rel(i) for i in items]
 
     def type_filter(self, path, ext):
         return list(filter(

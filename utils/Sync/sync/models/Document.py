@@ -1,16 +1,13 @@
 import os
 from tempfile import mkstemp
 
-import requests
-
 import settings
 from db import collection
 from sync.data import scan_subdirs, request
 from sync.models import Model
 from sync.models.Image import Image
-from utils.fn import last_good, lmap
+from utils.fn import last_good
 from utils.hash import hash_str
-from utils.image import create_image
 from utils.image.resize import image_magick_pdf_to_img
 from utils.text.transform import url_encode_text, url_encode_file
 

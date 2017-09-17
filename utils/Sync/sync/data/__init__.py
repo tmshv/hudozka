@@ -1,10 +1,7 @@
 import os
 from io import BytesIO
 
-import requests
-
-import settings
-from utils.fn import combine, lmap
+from utils.fn import combine
 
 
 class Provider:
@@ -61,16 +58,11 @@ def scan_subdirs(provider, ext, path='.'):
     :return: list of files relative to provider.root
     """
     items = provider.scan(path)
-    items = list(filter(
+    items = filter(
         lambda i: provider.is_dir(i),
         items
-    ))
-
-    items = lmap(
-        lambda folder: provider.type_filter(folder, ext),
-        items
     )
-
+    items = [provider.type_filter(folder, ext) for folder in items]
     items = combine(items)
     return items
 
@@ -82,7 +74,5 @@ def get_data(provider, path, transform):
 
 def list_images(provider, path):
     image_types = ['.jpg', '.JPG', '.png', '.PNG']
-    return combine(lmap(
-        lambda ext: provider.type_filter(path, ext),
-        image_types
-    ))
+    images = [provider.type_filter(path, ext) for ext in image_types]
+    return combine(images)

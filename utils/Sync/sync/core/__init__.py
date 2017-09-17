@@ -1,6 +1,4 @@
 from sync.data import Provider
-from sync.models import Model
-from utils.fn import lmap
 
 
 def get_id(item):
@@ -59,12 +57,6 @@ class Sync:
 
     def delete(self, q):
         return self.collection.find_one_and_delete(q)
-
-    def create_id(self, document):
-        return None
-
-    def create_hash(self, document):
-        return None
 
     def create_remove_query(self, query):
         return query

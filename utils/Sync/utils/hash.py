@@ -1,6 +1,9 @@
 import hashlib
+import json
 
-from utils.fn import map_cases, to_json
+import bson.json_util
+
+from utils.fn import map_cases
 
 
 def hash_file(file):
@@ -15,6 +18,8 @@ def hash_data(data):
 
 
 def hash_str(data):
+    to_json = lambda i: json.dumps(i, sort_keys=True, ensure_ascii=False, default=bson.json_util.default)
+
     data = map_cases(data, [
         (lambda i: isinstance(i, dict), to_json),
         (lambda i: isinstance(i, tuple), to_json),

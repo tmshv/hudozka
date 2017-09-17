@@ -1,16 +1,13 @@
 import os
 import re
 from datetime import datetime
-from glob import glob
 from lxml import etree
 
 import lxml.html
 from markdown import markdown
 
 import settings
-from sync.image import sync_image
 from sync.models import Model
-from utils.fn import lmap, combine
 
 
 def create_date(date_str, date_formats=None):
@@ -64,14 +61,6 @@ async def untouched(items: [Model]) -> [Model]:
     # filtered_documents = [i[0] for i in stored_documents if is_equals(*i)]
 
     # return filtered_documents
-
-
-def synced_images_ids(images):
-    return [i['_id'] for i in sync_image(images)]
-
-
-def synced_image_id(image):
-    return sync_image(image)['_id']
 
 
 def create_date_and_title_from_folder_name(folder_name, date_formats=None):

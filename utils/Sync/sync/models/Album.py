@@ -14,7 +14,7 @@ from sync.data import Provider, list_images
 from sync.models import Model
 from sync.models.Image import Image
 
-from utils.fn import swap_ext, first, map_cases, constant, combine, iterate_iter_over_fns
+from utils.fn import swap_ext, first, map_cases, constant, combine
 from utils.hash import hash_str
 from utils.io import read_yaml_md, parse_yaml_front_matter
 from utils.text.transform import url_encode_text

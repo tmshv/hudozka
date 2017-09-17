@@ -34,13 +34,13 @@ class Page(Model):
         documents = [i for i in provider.scan('.') if provider.is_dir(i)]
         documents = [provider.type_filter(i, '.md') for i in documents]
         documents = [i[0] for i in documents if len(i)]
-        documents = [Page.read_path(provider, i) for i in documents]
+        documents = [Page.read(provider, i) for i in documents]
         documents = [i for i in documents if i]
 
         return documents
 
     @staticmethod
-    def read_path(provider, path):
+    def read(provider, path):
         params = {
             'file': os.path.basename(path),
             'folder': os.path.dirname(path),
@@ -89,17 +89,6 @@ class Page(Model):
 
         return not (self.hash == i['hash'])
 
-    async def save(self):
-        document = self.bake()
-
-        query = {'id': document['id']}
-        try:
-            self.store.update_one(query, {'$set': document}, upsert=True)
-            return self
-        except ValueError:
-            pass
-        return None
-
     async def setup_images(self, sizes, url_factory):
         folder = self.params['folder']
         images = []
@@ -142,15 +131,16 @@ class Page(Model):
 
     def __set_id(self):
         if 'id' in self.params:
-            self.id = self.params['id']
+            self.id = self.get_param('id')
         else:
-            self.id = url_encode_text(self.params['url'])
+            self.id = url_encode_text(self.get_param('url'))
 
     def __set_url(self):
         self.url = self.params['url']
 
     def __set_hash(self):
-        images = [os.path.join(self.params['folder'], i) for i in self.params['images']]
+        f = self.get_param('folder')
+        images = [os.path.join(f, i) for i in self.get_param('images')]
         files = sorted([self.file] + images)
         hashes = [self.provider.hash(i) for i in files]
 

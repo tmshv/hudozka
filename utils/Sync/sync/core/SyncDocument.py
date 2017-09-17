@@ -6,11 +6,10 @@ import logging
 import settings
 from sync import untouched
 from sync.core import Sync
-from sync.data import scan_subdirs, Provider
+from sync.data import Provider
 from sync.models.Document import Document
 
-from sync.models import Model
-from utils.fn import last_good, lmap
+from utils.fn import last_good
 from utils.hash import hash_str
 from utils.image import create_image
 from utils.image.resize import image_magick_pdf_to_img

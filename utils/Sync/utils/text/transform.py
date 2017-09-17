@@ -2,7 +2,7 @@ import re
 
 from unidecode import unidecode
 
-from utils.fn import iterate_over_fns
+from utils.fn import compose
 
 remove_pattr = re.compile('[«»<>#,!&"\']')
 reduce_dash_patterns = [
@@ -71,17 +71,17 @@ def text_lower(i):
     return i.lower()
 
 
-url_encode_file = iterate_over_fns([
+url_encode_file = compose(
     translit,
     space_to_dash,
     short_dash,
     remove_underscores,
     remove_punctuation,
     reduce_dashes,
-    text_lower
-])
+    text_lower,
+)
 
-url_encode_text = iterate_over_fns([
+url_encode_text = compose(
     translit,
     space_to_dash,
     dot_to_dash,
@@ -90,5 +90,5 @@ url_encode_text = iterate_over_fns([
     remove_underscores,
     remove_punctuation,
     reduce_dashes,
-    text_lower
-])
+    text_lower,
+)
