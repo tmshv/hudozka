@@ -9,6 +9,8 @@ ImageArtifactType.MEDIUM = 'medium'
 ImageArtifactType.BIG = 'big'
 ImageArtifactType.ORIGIN = 'origin'
 
+ImageArtifactType.FACEBOOK = 'fb'
+
 ImageArtifactType.RETINA_DENSITY = 2
 ImageArtifactType.retina = type => `${type}@${ImageArtifactType.RETINA_DENSITY}`
 

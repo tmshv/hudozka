@@ -7,6 +7,8 @@ const Paginator = require('../components/Paginator')
 const {render} = require('../lib/render')
 const getPathWithNoTrailingSlash = require('../lib/url').getPathWithNoTrailingSlash
 const timestamp = require('../lib/date').timestamp
+const ImageArtifactType = require('../core/ImageArtifactType')
+const Image = require('../core/Image')
 const {sortBy} = require('../utils/sort')
 const accepts = require('./index').accepts
 
@@ -88,9 +90,25 @@ async function getArticleListComponent(path, page, pageSize) {
 }
 
 function getMeta(article) {
-	return {
+    const types = [
+        ImageArtifactType.FACEBOOK,
+        ImageArtifactType.MEDIUM,
+        ImageArtifactType.BIG,
+        ImageArtifactType.ORIGIN,
+    ]
+    const meta = {
 		title: article.title,
 	}
+
+    if (article.preview) {
+        try {
+            const artifact = article.preview.findArtifact(types)
+            meta.image = artifact.url
+        } catch (error) {
+            meta.image = 'https://art.shlisselburg.org/entrance.jpg'
+        }
+    }
+    return meta
 }
 
 function getArticles(pageSize) {
@@ -119,6 +137,11 @@ function getArticle() {
 		'text/html': async (ctx, id) => {
 			const path = getPathWithNoTrailingSlash(ctx.path)
 			const article = await findArticle(id)
+
+			const previewId = article.preview
+				? article.preview
+				: article.images[0]
+			article.preview = await Image.findById(previewId)
 
 			if (article) {
 				const Component = (
