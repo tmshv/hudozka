@@ -17,6 +17,7 @@ from utils.io import read_yaml_md
 from utils.text.transform import url_encode_text
 
 logger = logging.getLogger(settings.name + '.Page')
+store = collection(settings.collection_pages)
 
 
 def find(store, item_id: str):
@@ -29,6 +30,14 @@ def find(store, item_id: str):
 
 
 class Page(Model):
+    @staticmethod
+    async def find(query):
+        return store.find(query)
+
+    @staticmethod
+    async def delete(query):
+        return store.find_one_and_delete(query)
+
     @staticmethod
     async def scan(provider):
         documents = [i for i in provider.scan('.') if provider.is_dir(i)]
@@ -88,6 +97,9 @@ class Page(Model):
             return True
 
         return not (self.hash == i['hash'])
+
+    async def build(self, **kwargs):
+        await self.setup_images(settings.image_sizes, get_image_url_fn(self.id))
 
     async def setup_images(self, sizes, url_factory):
         folder = self.params['folder']
@@ -189,3 +201,19 @@ def get_manifest(provider, path):
         'title': title_from_html(body),
         'images': images_from_html(body)
     }
+
+
+def get_image_url_fn(page_id: str):
+    image_id = lambda filename: url_encode_text(
+        os.path.splitext(os.path.basename(filename))[0]
+    )
+
+    def img_url_fn(file, size, ext):
+        return settings.page_url_base.format(
+            page=page_id,
+            id=image_id(file),
+            size=size,
+            ext=ext
+        )
+
+    return img_url_fn

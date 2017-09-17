@@ -1,12 +1,7 @@
 import settings
 from db import collection
 from sync.core import Sync
-from sync.core.SyncAlbum import SyncAlbum
-from sync.core.SyncArticle import SyncArticle
 from sync.core.SyncDocument import SyncDocument
-from sync.core.SyncPage import SyncPage
-from sync.core.SyncPerson import SyncPerson
-from sync.core.SyncSchedule import SyncSchedule
 from sync.data.fs import FSProvider
 from sync.data.yandexdisk import YDProvider
 
@@ -14,6 +9,12 @@ import asyncio
 import logging
 
 # create logger with 'spam_application'
+from sync.models.Album import Album
+from sync.models.Article import Article
+from sync.models.Page import Page
+from sync.models.Person import Person
+from sync.models.Schedule import Schedule
+
 logger = logging.getLogger(settings.name)
 logger.setLevel(logging.DEBUG)
 
@@ -42,36 +43,35 @@ async def main(sync: Sync):
 
 async def run(run_interval=0):
     io = lambda root: get_provider(settings.provider_name, root)
-    c = collection
 
     documents = SyncDocument(
         provider=io(settings.dir_documents),
-        collection=c(settings.collection_documents),
         sizes=settings.image_sizes,
     )
 
-    pages = SyncPage(
+    pages = Sync(
         provider=io(settings.dir_pages),
-        collection=c(settings.collection_pages),
+        model=Page,
     )
 
-    persons = SyncPerson(
+    persons = Sync(
         provider=io(settings.dir_collective),
-        collection=c(settings.collection_collective),
+        model=Person,
     )
 
-    articles = SyncArticle(
+    articles = Sync(
         provider=io(settings.dir_articles),
-        collection=c(settings.collection_articles),
+        model=Article,
     )
 
-    schedules = SyncSchedule(
+    schedules = Sync(
         provider=io(settings.dir_schedules),
-        collection=c(settings.collection_schedules),
+        model=Schedule,
     )
-    albums = SyncAlbum(
+
+    albums = Sync(
         provider=io(settings.dir_albums),
-        collection=c(settings.collection_albums),
+        model=Album,
     )
 
     while True:

@@ -1,8 +1,6 @@
 import os
 from tempfile import mkstemp
 
-import logging
-
 import settings
 from sync import untouched
 from sync.core import Sync
@@ -15,65 +13,16 @@ from utils.image import create_image
 from utils.image.resize import image_magick_pdf_to_img
 from utils.text.transform import url_encode_text, url_encode_file
 
-logger = logging.getLogger(settings.name + '.Document')
-
 
 class SyncDocument(Sync):
-    def __init__(self, provider: Provider, collection, sizes):
-        super().__init__(provider, collection)
+    def __init__(self, provider: Provider, sizes):
+        super().__init__(provider, Document)
         self.sizes = sizes
-        self.dir_static_previews = ''
 
-        self.temp_dir = '/Users/tmshv/HudozkaSyncTemp'
-
-    async def clean(self):
-        pass
-
-    async def run(self):
-        logger.info('Checking documents for update')
-
-        documents = await Document.scan(self.provider)
-        documents_id = [doc.id for doc in documents]
-        # self.validate(documents)
-        logger.info('Found {} Document(s)'.format(len(documents)))
-
-        # SKIP UNTOUCHED DOCUMENTS
-        # documents = untouched(documents, self)
-        documents = await untouched(documents)
-        logger.info('Changed {} Document(s)'.format(len(documents)))
-
-        # UPDATING
-        if settings.update_enabled:
-            if len(documents) == 0:
-                logger.info('No Documents to update')
-
-            for document in documents:
-                logger.info('Updating Document {}'.format(document.id))
-
-                await document.upload()
-                await document.create_preview(self.sizes)
-                await document.save()
-
-                logger.info('Updated Document {}'.format(document.id))
-
-        # DELETING
-        if settings.delete_enabled:
-            documents_delete = list(self.query({'id': {'$nin': documents_id}}))
-
-            if len(documents_delete) == 0:
-                logger.info('No Documents to delete')
-
-            for document in documents_delete:
-                logger.info('Deleting {}'.format(document['id']))
-
-                q = {'_id': document['_id']}
-                self.delete(q)
-
-        await self.clean()
-
-
-async def get_assets(self, document) -> []:
-    return []
+    def _get_build_args(self):
+        return {
+            'sizes': self.sizes,
+        }
 
 
 def validate(self, documents):

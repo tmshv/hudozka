@@ -23,16 +23,15 @@ logger = logging.getLogger(settings.name + '.Album')
 store = collection(settings.collection_albums)
 
 
-def find(item_id: str):
-    q = {'id': item_id}
-    try:
-        return store.find_one(q)
-    except ValueError:
-        pass
-    return None
-
-
 class Album(Model):
+    @staticmethod
+    async def find(query):
+        return store.find(query)
+
+    @staticmethod
+    async def delete(query):
+        return store.find_one_and_delete(query)
+
     @staticmethod
     async def scan(provider):
         documents = [i for i in provider.scan('.') if provider.is_dir(i)]

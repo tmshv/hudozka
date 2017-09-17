@@ -28,6 +28,9 @@ class Model:
     def init(self):
         pass
 
+    async def upload(self, **kwargs):
+        pass
+
     async def build(self, **kwargs):
         pass
 

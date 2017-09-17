@@ -1,3 +1,7 @@
+import logging
+
+import settings
+from sync import untouched, Model
 from sync.data import Provider
 
 
@@ -9,15 +13,35 @@ def get_id(item):
 
 
 class Sync:
-    @staticmethod
-    def compile(document):
-        return document.bake()
-
-    def __init__(self, provider: Provider, collection):
+    def __init__(self, provider: Provider, model):
         super().__init__()
 
+        self.__default_build_args = {
+            'sizes': settings.image_sizes,
+        }
+        self.__items_to_delete_query = lambda items_id: {'id': {'$nin': items_id}}
+        self.__delete_query = lambda item: {'_id': item['_id']}
+
+        name = model.__name__
+        self.logger = logging.getLogger('%s.%s' % (settings.name, name))
+
         self.provider = provider
-        self.collection = collection
+        self.model = model
+
+    async def clean(self):
+        pass
+
+    async def update(self, item):
+        args = self._get_build_args()
+
+        await item.build(**args)
+        await item.upload()
+        await item.save()
+
+    def _get_build_args(self):
+        return {
+            **self.__default_build_args
+        }
 
     async def run(self):
         """
@@ -30,33 +54,38 @@ class Sync:
 
         :return:
         """
-        return None, None
+        self.logger.info('Checking for update')
+
+        items = await self.model.scan(self.provider)
+        items_id = [doc.id for doc in items]
+        self.logger.info('Found {} Item(s)'.format(len(items)))
+
+        # SKIP UNTOUCHED DOCUMENTS
+        items = await untouched(items)
+        self.logger.info('Changed {} Items(s)'.format(len(items)))
+
+        # UPDATING
+        if settings.update_enabled:
+            if len(items) == 0:
+                self.logger.info('No Items to update')
+
+            for item in items:
+                self.logger.info('Updating Item {}'.format(item.id))
+                await self.update(item)
+
+        # DELETING
+        if settings.delete_enabled:
+            items = await self.model.find(self.__items_to_delete_query(items_id))
+            items = list(items)
+
+            if len(items) == 0:
+                self.logger.info('No Items to delete')
+            else:
+                for item in items:
+                    self.logger.info('Deleting Item {}'.format(item['id']))
+                    await self.model.delete(self.__delete_query(item))
+
+        await self.clean()
 
     async def upload(self):
         pass
-
-    def read(self, document: dict):
-        q = {'id': document['id']}
-        try:
-            return self.collection.find_one(q)
-        except ValueError:
-            pass
-        return None
-
-    def update(self, document: dict):
-        query = {'id': document['id']}
-        try:
-            self.collection.update_one(query, {'$set': document}, upsert=True)
-            return self.read(document)
-        except ValueError:
-            pass
-        return None
-
-    def query(self, q):
-        return self.collection.find(q)
-
-    def delete(self, q):
-        return self.collection.find_one_and_delete(q)
-
-    def create_remove_query(self, query):
-        return query

@@ -11,17 +11,18 @@ from utils.hash import hash_str
 from utils.image.resize import image_magick_pdf_to_img
 from utils.text.transform import url_encode_text, url_encode_file
 
-
-def find(store, item_id: str):
-    q = {'id': item_id}
-    try:
-        return store.find_one(q)
-    except ValueError:
-        pass
-    return None
+store = collection(settings.collection_documents)
 
 
 class Document(Model):
+    @staticmethod
+    async def find(query):
+        return store.find(query)
+
+    @staticmethod
+    async def delete(query):
+        return store.find_one_and_delete(query)
+
     @staticmethod
     async def scan(provider):
         paths = scan_subdirs(provider, '.pdf')
@@ -43,8 +44,6 @@ class Document(Model):
         )
 
     def __init__(self, provider, file, category=None, title=None):
-        store = collection(settings.collection_documents)
-
         self.__hash_keys = ['id', 'url']
 
         self.__id_template: str = '{category}-{file}'
@@ -63,15 +62,9 @@ class Document(Model):
         self.__set_url()
         self.__set_hash()
 
-    async def is_changed(self):
-        i = find(self.store, self.id)
-        if not i:
-            return True
-
-        if 'hash' not in i:
-            return True
-
-        return not (self.hash == i['hash'])
+    async def build(self, **kwargs):
+        sizes = kwargs['sizes']
+        await self.create_preview(sizes)
 
     async def save(self):
         document = self.bake()

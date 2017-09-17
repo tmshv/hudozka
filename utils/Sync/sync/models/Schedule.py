@@ -1,5 +1,3 @@
-import logging
-
 from toml import loads as toml_str
 from yaml import load as yaml
 
@@ -10,7 +8,6 @@ from sync.models import Model
 
 from utils.fn import constant
 
-logger = logging.getLogger(settings.name + '.Person')
 store = collection(settings.collection_schedules)
 
 
@@ -24,6 +21,14 @@ def find(item_id: str):
 
 
 class Schedule(Model):
+    @staticmethod
+    async def find(query):
+        return store.find(query)
+
+    @staticmethod
+    async def delete(query):
+        return store.find_one_and_delete(query)
+
     @staticmethod
     async def scan(provider):
         documents = provider.type_filter('.', '.yaml')

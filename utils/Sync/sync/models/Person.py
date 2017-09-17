@@ -15,16 +15,15 @@ logger = logging.getLogger(settings.name + '.Person')
 store = collection(settings.collection_collective)
 
 
-def find(item_id: str):
-    q = {'id': item_id}
-    try:
-        return store.find_one(q)
-    except ValueError:
-        pass
-    return None
-
-
 class Person(Model):
+    @staticmethod
+    async def find(query):
+        return store.find(query)
+
+    @staticmethod
+    async def delete(query):
+        return store.find_one_and_delete(query)
+
     @staticmethod
     async def scan(provider):
         documents = provider.type_filter('', '.md')
@@ -59,9 +58,9 @@ class Person(Model):
 
     async def build(self, **kwargs):
         sizes = kwargs['sizes']
-        image_path = self.provider.get_abs(self.params['picture'])
+        image_path = self.provider.get_abs(self.get_param('picture'))
 
-        self.picture = await Image.new(self.provider, image_path, sizes, url_factory(self.id))
+        self.picture = await Image.new(self.provider, image_path, sizes)
 
     def bake(self):
         return {
