@@ -48,10 +48,9 @@ class Person(Model):
         self.__url_template: str = settings.document_url_template
         self.__url_preview_template: str = settings.document_url_preview_template
 
-        self.params = params if params else {}
         self.picture = None
 
-        super().__init__(provider, store, file)
+        super().__init__(provider, store, file, params)
 
     def init(self):
         pass

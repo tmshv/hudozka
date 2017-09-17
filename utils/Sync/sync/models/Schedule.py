@@ -43,8 +43,7 @@ class Schedule(Model):
         )
 
     def __init__(self, provider, file, params=None):
-        self.params = params if params else {}
-        super().__init__(provider, store, file)
+        super().__init__(provider, store, file, params=params)
 
     def init(self):
         pass
