@@ -119,6 +119,7 @@ date_formats_reverse = [
 
 origin = value('origin')
 
+collection_settings = 'settings'
 collection_images = 'images'
 collection_documents = 'documents'
 collection_awards = 'awards'
@@ -133,6 +134,7 @@ provider_root = value('provider')['root']  # env('SYNC_PROVIDER', 'fs')
 
 f = abs_fn(provider_root)
 
+dir_settings = f('Settings')
 dir_documents = f('Documents')
 dir_awards = f('Awards')
 dir_schedules = f('Schedules')

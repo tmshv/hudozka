@@ -12,6 +12,7 @@ from sync.models.Article import Article
 from sync.models.Page import Page
 from sync.models.Person import Person
 from sync.models.Schedule import Schedule
+from sync.models.Settings import Settings
 
 
 def init_logger(name: str, file: str):
@@ -74,6 +75,11 @@ async def run(run_interval=0):
         model=Album,
     )
 
+    _settings = Sync(
+        provider=io(settings.dir_settings),
+        model=Settings,
+    )
+
     while True:
         await asyncio.wait([
             main(documents),
@@ -82,6 +88,7 @@ async def run(run_interval=0):
             main(articles),
             main(schedules),
             main(albums),
+            main(_settings),
         ])
 
         if run_interval == 0:
