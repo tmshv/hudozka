@@ -1,5 +1,4 @@
 import settings
-from db import collection
 from sync.core import Sync
 from sync.core.SyncDocument import SyncDocument
 from sync.data.fs import FSProvider
@@ -8,7 +7,6 @@ from sync.data.yandexdisk import YDProvider
 import asyncio
 import logging
 
-# create logger with 'spam_application'
 from sync.models.Album import Album
 from sync.models.Article import Article
 from sync.models.Page import Page
@@ -109,5 +107,3 @@ if __name__ == '__main__':
     loop.run_until_complete(run(interval))
     loop.close()
 
-    # Да, 968×504 пискеля это меньше минимально рекомендованных Фейсбуком 1200×630.
-    # Зато при таком размере и ратио картинку нигде не кропят, и выглядит она отлично.
