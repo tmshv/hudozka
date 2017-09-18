@@ -12,7 +12,6 @@ import cookie from 'koa-cookie'
 import session from 'koa-session'
 import bodyParser from 'koa-bodyparser'
 
-import apiV1 from 'hudozka-api-v1'
 import {redirectionTable} from './config'
 import {queryObject} from './routes'
 import {redirect} from './routes/redirect'
@@ -67,7 +66,6 @@ export default function (store) {
 		}
 	}))
 	app.use(logger())
-	app.use(apis(store))
 	app.use(convert(session(sessionConfig, app)))
 	app.use(cookie())
 	app.use($(conditional()))
@@ -102,9 +100,4 @@ export default function (store) {
 	app.use(pages())
 
 	return Server(app.callback())
-}
-
-function apis(store) {
-	let checkAuth = authChecker(serviceKeys)
-	return mount('/api/v1', apiV1(checkAuth, store))
 }
