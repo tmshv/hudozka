@@ -52,7 +52,7 @@ class Document(Model):
 
         self.category = category
         self.title = title
-        self.type = None
+        self.type = 'document'  # 'award'
         self.preview = None
 
         super().__init__(provider, store, file)
@@ -93,7 +93,7 @@ class Document(Model):
             'id': self.id,
             'hash': self.hash,
             'url': self.url,
-            'type': document_type(self.type),
+            'type': self.type,
             'file': {
                 'name': filename,
                 'size': self.provider.size(file)
@@ -141,12 +141,6 @@ class Document(Model):
 
     def __str__(self):
         return '<Document hash={} file={} id={}>'.format(self.hash, self.file, self.id)
-
-
-def document_type(doctype):
-    if doctype == 'Награды':
-        return 'award'
-    return 'document'
 
 
 def pdf_to_jpg(provider, pdf):
