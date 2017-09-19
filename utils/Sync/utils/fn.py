@@ -43,11 +43,3 @@ def until(condition_fn, iter_fn, items, default_value=None):
         if condition_fn(result):
             return result
     return default_value
-
-
-def last_good(ls):
-    better = None
-    for i in ls:
-        if (i is not None) and i != '':
-            better = i
-    return better

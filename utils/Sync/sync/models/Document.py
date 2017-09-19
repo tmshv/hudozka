@@ -66,6 +66,10 @@ class Document(Model):
         sizes = kwargs['sizes']
         await self.create_preview(sizes)
 
+        pdf_title = get_pdf_title(self.provider, self.file)
+        if pdf_title:
+            self.title = pdf_title
+
     async def save(self):
         document = self.bake()
 
@@ -99,10 +103,7 @@ class Document(Model):
                 'size': self.provider.size(file)
             },
             'preview': self.preview,
-            'title': last_good([
-                self.title,
-                get_pdf_title(self.provider, self.file)
-            ]),
+            'title': self.title,
         }
 
     def __filename(self):
