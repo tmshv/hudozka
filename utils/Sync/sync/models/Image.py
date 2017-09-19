@@ -1,18 +1,14 @@
+import logging
+import os
 import tempfile
-from tempfile import mkstemp
 from typing import Optional, List
 
+import settings
 from db import collection
 from sync.data import request
 from sync.models import Model
 from utils.hash import md5
-from utils.image.resize import image_magick_pdf_to_img
-import os
-
-import logging
-
-import settings
-from utils.image.resize import optimize, thumbnail
+from utils.image import image_magick_resize
 
 logger = logging.getLogger(settings.name + '.Image')
 
@@ -41,7 +37,7 @@ class Image(Model):
         img = Image(provider, file, data=None, url_factory=url_factory)
         changed = await img.is_changed()
         if changed:
-            await img.compile(sizes)
+            await img.build(sizes=sizes)
             await img.upload()
             await img.save()
         else:
@@ -64,14 +60,16 @@ class Image(Model):
         i = await Image.find_one({'file': self.file})
         return self._is_changed_hash(i)
 
-    async def compile(self, sizes):
+    async def build(self, sizes):
         img_in = self.provider.get_abs(self.file)
         img_out = tempfile.mkdtemp()
 
-        images = create_image(img_in, sizes, self.url_factory, img_out)
+        images = await create_image(img_in, sizes, self.url_factory, img_out)
+        if not images:
+            raise Exception('Failed to create Image {}'.format(img_in))
         data = {}
-        if images:
-            for i in images:
+        for i in images:
+            if i:
                 size_name = i['size']
                 data[size_name] = {
                     **i,
@@ -131,42 +129,7 @@ def sync_image(record):
     return None
 
 
-def document_type(doctype):
-    if doctype == 'Награды':
-        return 'award'
-    return 'document'
-
-
-def pdf_to_jpg(provider, pdf):
-    _, temp_in = mkstemp(suffix='.pdf')
-    _, temp_out = mkstemp(suffix='.jpg')
-
-    abspdf = provider.copy(pdf, temp_in)
-    image_magick_pdf_to_img(abspdf, temp_out)
-
-    os.remove(temp_in)
-    return temp_out
-
-
-def get_pdf_title(provider, file):
-    from PyPDF2 import PdfFileReader
-    from PyPDF2.generic import TextStringObject
-    from PyPDF2.generic import IndirectObject
-
-    pdf = PdfFileReader(provider.read(file))
-    info = pdf.getDocumentInfo()
-
-    if info:
-        if type(info.title) == TextStringObject:
-            return str(info.title)
-
-        if type(info.title_raw) == IndirectObject:
-            o = pdf.getObject(info.title_raw)
-            return str(o)
-    return None
-
-
-def create_image(file: str, sizes: [()], url_fn, output_dir: str) -> Optional[List[dict]]:
+async def create_image(file: str, sizes: [()], url_fn, output_dir: str) -> Optional[List[dict]]:
     """
 
     :param file: Image path to process
@@ -180,19 +143,19 @@ def create_image(file: str, sizes: [()], url_fn, output_dir: str) -> Optional[Li
 
     _, ext = os.path.splitext(file)
 
-    def fn(size):
+    async def fn(size):
         size_name, width, height = size
 
         image_url = url_fn(file, size_name, ext)
         image_filename = os.path.basename(image_url)
         local_image_path = os.path.join(output_dir, image_filename)
 
-        if settings.image_processing_enabled:
-            image = process_image(file, local_image_path, size)
-            if not image:
-                logger.warning('Failed to process image {}'.format(file))
-                return None
-            width, height = image.size
+        # if settings.image_processing_enabled:
+        image = await process_image(file, local_image_path, size)
+        if not image:
+            logger.warning('Failed to process image {}'.format(file))
+            return None
+        width, height = image.size
 
         return {
             'file': local_image_path,
@@ -202,14 +165,18 @@ def create_image(file: str, sizes: [()], url_fn, output_dir: str) -> Optional[Li
             'height': height
         }
 
-    return [fn(s) for s in sizes]
+    images = []
+    for s in sizes:
+        img = await fn(s)
+        images.append(img)
+    return images
 
 
-def process_image(input_file, output_file, size):
+async def process_image(input_file, output_file, size):
     size_name, width, height = size
 
     if size_name == 'original':
-        return optimize(input_file, output_file, quality=90)
+        return await optimize(input_file, output_file, quality=90)
     else:
         image = read_image(input_file)
         if not image:
@@ -217,7 +184,7 @@ def process_image(input_file, output_file, size):
         image_width, image_height = image.size
         if image_height > image_width:
             width, height = height, width
-        return thumbnail(input_file, output_file, (width, height))
+        return await thumbnail(input_file, output_file, (width, height), quality=90)
 
 
 def read_image(src):
@@ -229,3 +196,19 @@ def read_image(src):
     except Exception as e:
         print(src, e)
         return None
+
+
+async def thumbnail(src, dest, size, quality):
+    try:
+        await image_magick_resize(src, dest, size, quality)
+        return read_image(dest)
+    except Exception as e:
+        print(e)
+        return None
+
+
+async def optimize(src, dest, quality):
+    image = read_image(src)
+    if image:
+        image.save(dest, quality=quality)
+    return image

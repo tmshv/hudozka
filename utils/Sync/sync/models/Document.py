@@ -6,9 +6,8 @@ from db import collection
 from sync.data import scan_subdirs, request
 from sync.models import Model
 from sync.models.Image import Image
-from utils.fn import last_good
 from utils.hash import hash_str
-from utils.image.resize import image_magick_pdf_to_img
+from utils.image import image_magick_pdf_to_img
 from utils.text.transform import url_encode_text, url_encode_file
 
 store = collection(settings.collection_documents)
@@ -66,7 +65,7 @@ class Document(Model):
         sizes = kwargs['sizes']
         await self.create_preview(sizes)
 
-        pdf_title = get_pdf_title(self.provider, self.file)
+        pdf_title = await get_pdf_title(self.provider, self.file)
         if pdf_title:
             self.title = pdf_title
 
@@ -132,7 +131,7 @@ class Document(Model):
             file = url_encode_text(self.__filename())
             return self.__url_preview_template.format(id=file, size=size, ext=ext)
 
-        temp_preview_path = pdf_to_jpg(self.provider, self.file)
+        temp_preview_path = await pdf_to_jpg(self.provider, self.file)
         preview = await Image.new(self.provider, temp_preview_path, sizes, url)
 
         if preview:
@@ -144,18 +143,18 @@ class Document(Model):
         return '<Document hash={} file={} id={}>'.format(self.hash, self.file, self.id)
 
 
-def pdf_to_jpg(provider, pdf):
+async def pdf_to_jpg(provider, pdf):
     _, temp_in = mkstemp(suffix='.pdf')
     _, temp_out = mkstemp(suffix='.jpg')
 
     abspdf = provider.copy(pdf, temp_in)
-    image_magick_pdf_to_img(abspdf, temp_out)
+    await image_magick_pdf_to_img(abspdf, temp_out)
 
     os.remove(temp_in)
     return temp_out
 
 
-def get_pdf_title(provider, file):
+async def get_pdf_title(provider, file):
     from PyPDF2 import PdfFileReader
     from PyPDF2.generic import TextStringObject
     from PyPDF2.generic import IndirectObject
