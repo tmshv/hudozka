@@ -1,7 +1,7 @@
 import logging
 
 import settings
-from sync import untouched, Model
+from sync import untouched
 from sync.data import Provider
 
 
@@ -66,24 +66,18 @@ class Sync:
 
         # UPDATING
         if settings.update_enabled:
-            if len(items) == 0:
-                self.logger.info('No Items to update')
-
             for item in items:
-                self.logger.info('Updating Item {}'.format(item.id))
                 await self.update(item)
+                self.logger.info('Updated Item {}'.format(item))
 
         # DELETING
         if settings.delete_enabled:
             items = await self.model.find(self.__items_to_delete_query(items_id))
             items = list(items)
 
-            if len(items) == 0:
-                self.logger.info('No Items to delete')
-            else:
-                for item in items:
-                    self.logger.info('Deleting Item {}'.format(item['id']))
-                    await self.model.delete(self.__delete_query(item))
+            for item in items:
+                self.logger.info('Deleting Item {}'.format(item['id']))
+                await self.model.delete(self.__delete_query(item))
 
         await self.clean()
 
