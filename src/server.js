@@ -7,20 +7,17 @@ import convert from 'koa-convert'
 import conditional from 'koa-conditional-get'
 import etag from 'koa-etag'
 import helmet from 'koa-helmet'
-import mount from 'koa-mount'
 import cookie from 'koa-cookie'
 import session from 'koa-session'
 import bodyParser from 'koa-bodyparser'
 
-import {redirectionTable} from './config'
 import {queryObject} from './routes'
-import {redirect} from './routes/redirect'
-import {services as serviceKeys, authChecker} from './core/service'
 import handlebars from 'handlebars'
 
-const config = require('./config')
+const {sessionConfig, view404} = require('./config')
 const error = require('./middlewares/error')
 const redirectFragment = require('./middlewares/redirectFragment')
+const redirect = require('./middlewares/redirect')
 const home = require('./routes/home')
 const article = require('./routes/articles')
 const albums = require('./routes/albums')
@@ -36,24 +33,7 @@ const dirPublic = path.join(__dirname, '../public')
 
 handlebars.registerHelper('raw-helper', options => options.fn())
 
-const collectiveOrder = [
-	'mg-timasheva',
-	'va-sarzhin',
-	'od-gogoleva',
-	'my-valkova',
-	'vv-voronova',
-	'nv-andreeva',
-]
-
-const sessionConfig = {
-	key: 'sid', /** (string) cookie key */
-	maxAge: 86400000, /** (number) maxAge in ms */
-	overwrite: false, /** (boolean) can overwrite or not */
-	httpOnly: false, /** (boolean) httpOnly or not */
-	signed: true, /** (boolean) signed or not  */
-}
-
-export default function (store) {
+export default function (config) {
 	const $ = convert
 
 	const app = new Koa()
@@ -71,7 +51,7 @@ export default function (store) {
 	app.use($(conditional()))
 	app.use($(etag()))
 	app.use(serve(dirPublic))
-	app.use($(redirect(redirectionTable)))
+	app.use(redirect(config.redirect))
 	app.use($(helmet()))
 	app.use(queryObject())
 
@@ -83,16 +63,16 @@ export default function (store) {
 		await next()
 	})
 
-	app.use(error.notFound(config.view404))
+	app.use(error.notFound(view404))
 	app.use(sitemap())
 	app.use(redirectFragment())
 
-	app.use(home.getHome(5))
+	app.use(home.getHome(config.articlesPerPage))
 	app.use(gallery.getGallery())
-	app.use(article.getArticles(5))
+	app.use(article.getArticles(config.articlesPerPage))
 	app.use(article.getArticle())
 	app.use(albums.getAlbum())
-	app.use(teachers.getCollective(collectiveOrder))
+	app.use(teachers.getCollective(config.collectiveOrder))
 	app.use(teachers.getTeacher())
 	app.use(documents.getDocuments())
 	app.use(document.getDocument())

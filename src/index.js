@@ -1,36 +1,31 @@
 import 'babel-polyfill'
 
-import config, {name, privateFile} from './config'
-import {connect, collection} from './core/db'
+import {dbUri, port, name, configFile} from './config'
+import {connect} from './core/db'
 import server from './server'
-
-import DataManager from 'hudozka-data'
 
 function main() {
 	async function loop() {
-		const dbUri = config.db.uri
 		await connect(dbUri)
 
+		const Config = require('./core/Config')
+		const config = await Config.findById('settings')
+
 		try {
-			let data = new DataManager({
-				timeline: collection('timeline'),
-				schedules: collection('schedules'),
-				documents: collection('documents'),
-			})
+			let app = server(config)
 
-			let app = server(data)
-
-			app.listen(config.port)
+			app.listen(port)
 		} catch (e) {
 			console.error(e.stack)
 			return
 		}
 
 		console.log(`Using node ${process.version}`)
-		console.log(`Config file: ${privateFile}`)
 		console.log(`App ${name} started`)
-		console.log(`Listening ${config.port}`)
-		console.log(`DB Address ${dbUri}`)
+		console.log(`Server: ${config.server}`)
+		console.log(`Config file: ${configFile}`)
+		console.log(`DB Address: ${dbUri}`)
+		console.log(`Listening ${port}`)
 	}
 
 	return loop()
