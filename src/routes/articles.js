@@ -90,29 +90,29 @@ async function getArticleListComponent(path, page, pageSize) {
 }
 
 function getMeta(article) {
-    const types = [
-        ImageArtifactType.FACEBOOK,
-        ImageArtifactType.MEDIUM,
-        ImageArtifactType.BIG,
-        ImageArtifactType.ORIGIN,
-    ]
-    const meta = {
+	const types = [
+		ImageArtifactType.FACEBOOK,
+		ImageArtifactType.MEDIUM,
+		ImageArtifactType.BIG,
+		ImageArtifactType.ORIGIN,
+	]
+	const meta = {
 		title: article.title,
 	}
 
-    if (article.preview) {
-        try {
-            const artifact = article.preview.findArtifact(types)
-            meta.image = artifact.url
-            meta.imageWidth = artifact.width
-            meta.imageHeight = artifact.height
-        } catch (error) {
-            meta.image = 'https://art.shlisselburg.org/entrance.jpg'
-            meta.imageWidth = 1200
-            meta.imageHeight = 630
-        }
-    }
-    return meta
+	if (article.preview) {
+		try {
+			const artifact = article.preview.findArtifact(types)
+			meta.image = artifact.url
+			meta.imageWidth = artifact.width
+			meta.imageHeight = artifact.height
+		} catch (error) {
+			meta.image = 'https://art.shlisselburg.org/entrance.jpg'
+			meta.imageWidth = 1200
+			meta.imageHeight = 630
+		}
+	}
+	return meta
 }
 
 function getArticles(pageSize) {
