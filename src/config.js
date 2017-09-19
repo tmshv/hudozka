@@ -23,18 +23,6 @@ export default Object.keys(privateData)
 	return config
 }, config)
 
-let redirectPath = path.join(__dirname, '../redirect.tsv')
-export const redirectionTable = fs.readFileSync(redirectPath, 'utf-8')
-    .split('\n')
-    .map(row => row.split(/\s+/))
-    .map(row => {
-	let [from, to] = row
-	return {
-		'url': from,
-		'redirect': to
-	}
-})
-
 export const name = 'Hudozka'
 export const host = 'art.shlisselburg.org'
 export const protocol = 'https://'
