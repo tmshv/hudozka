@@ -24,6 +24,7 @@ const m = 1
 const AlbumImage = ({data, alt}) => (
 	<picture>
 		<img
+			className="opa"
 			alt={alt}
 			src={data.src}
 			width={data.width * m}
