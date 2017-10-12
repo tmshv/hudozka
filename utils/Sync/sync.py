@@ -38,7 +38,7 @@ def init_logger(name: str, file: str):
     logger.addHandler(ch)
 
 
-async def main(sync: Sync):
+async def run_sync(sync: Sync):
     await sync.run()
 
 
@@ -82,13 +82,13 @@ async def run(run_interval=0):
 
     while True:
         await asyncio.wait([
-            main(sync_documents),
-            main(sync_pages),
-            main(sync_persons),
-            main(sync_articles),
-            main(sync_schedules),
-            main(sync_albums),
-            main(sync_settings),
+            run_sync(sync_documents),
+            run_sync(sync_pages),
+            run_sync(sync_persons),
+            run_sync(sync_articles),
+            run_sync(sync_schedules),
+            run_sync(sync_albums),
+            run_sync(sync_settings),
         ])
 
         if run_interval == 0:
