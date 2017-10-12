@@ -144,7 +144,7 @@ class Article(Model):
         )
 
     def __str__(self):
-        return '<Article hash={} file={} id={}>'.format(self.hash, self.file, self.id)
+        return '<Article file={} id={}>'.format(self.file, self.id)
 
 
 def md_from_folder(provider, i):
