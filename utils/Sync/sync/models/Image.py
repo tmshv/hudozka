@@ -1,6 +1,8 @@
 import logging
 import os
 import tempfile
+import asyncio
+
 from typing import Optional, List
 
 import settings
@@ -80,11 +82,14 @@ class Image(Model):
 
     async def upload(self):
         if self.data:
-            for i in self.data.values():
+            async def fn(i):
                 url = get_upload_url(i['url'])
                 file = i['file']
 
+                logger.info('Uploading to {}'.format(url))
                 await request.upload(url, file)
+
+            await asyncio.wait([fn(i) for i in self.data.values()])
 
     async def save(self):
         c = sync_image(self.bake())
@@ -142,6 +147,7 @@ async def create_image(file: str, sizes: [()], url_fn, output_dir: str) -> Optio
         return None
 
     _, ext = os.path.splitext(file)
+    images = []
 
     async def fn(size):
         size_name, width, height = size
@@ -157,18 +163,16 @@ async def create_image(file: str, sizes: [()], url_fn, output_dir: str) -> Optio
             return None
         width, height = image.size
 
-        return {
+        images.append({
             'file': local_image_path,
             'url': image_url,
             'size': size_name,
             'width': width,
             'height': height
-        }
+        })
 
-    images = []
-    for s in sizes:
-        img = await fn(s)
-        images.append(img)
+    await asyncio.wait([fn(s) for s in sizes])
+
     return images
 
 
@@ -178,7 +182,7 @@ async def process_image(input_file, output_file, size):
     if size_name == 'original':
         return await optimize(input_file, output_file, quality=90)
     else:
-        image = read_image(input_file)
+        image = await read_image(input_file)
         if not image:
             return None
         image_width, image_height = image.size
@@ -187,28 +191,23 @@ async def process_image(input_file, output_file, size):
         return await thumbnail(input_file, output_file, (width, height), quality=90)
 
 
-def read_image(src):
+async def read_image(src):
+    import aiofiles
     from PIL import Image
+    import io
 
-    try:
-        i = Image.open(src)
-        return i
-    except Exception as e:
-        print(src, e)
-        return None
+    async with aiofiles.open(src, mode='rb') as f:
+        image_data = await f.read()
+        image = Image.open(io.BytesIO(image_data))
+        return image
 
 
 async def thumbnail(src, dest, size, quality):
-    try:
-        await image_magick_resize(src, dest, size, quality)
-        return read_image(dest)
-    except Exception as e:
-        print(e)
-        return None
+    await image_magick_resize(src, dest, size, quality)
+    return await read_image(dest)
 
 
 async def optimize(src, dest, quality):
-    image = read_image(src)
-    if image:
-        image.save(dest, quality=quality)
+    image = await read_image(src)
+    image.save(dest, quality=quality)
     return image
