@@ -45,50 +45,50 @@ async def main(sync: Sync):
 async def run(run_interval=0):
     io = lambda root: get_provider(settings.provider_name, root)
 
-    documents = SyncDocument(
+    sync_documents = SyncDocument(
         provider=io(settings.dir_documents),
         sizes=settings.image_sizes,
     )
 
-    pages = Sync(
+    sync_pages = Sync(
         provider=io(settings.provider_root),
         model=Page,
     )
 
-    persons = Sync(
+    sync_persons = Sync(
         provider=io(settings.dir_collective),
         model=Person,
     )
 
-    articles = Sync(
+    sync_articles = Sync(
         provider=io(settings.dir_articles),
         model=Article,
     )
 
-    schedules = Sync(
+    sync_schedules = Sync(
         provider=io(settings.dir_schedules),
         model=Schedule,
     )
 
-    albums = Sync(
+    sync_albums = Sync(
         provider=io(settings.dir_albums),
         model=Album,
     )
 
-    _settings = Sync(
+    sync_settings = Sync(
         provider=io(settings.dir_settings),
         model=Settings,
     )
 
     while True:
         await asyncio.wait([
-            main(documents),
-            main(pages),
-            main(persons),
-            main(articles),
-            main(schedules),
-            main(albums),
-            main(_settings),
+            main(sync_documents),
+            main(sync_pages),
+            main(sync_persons),
+            main(sync_articles),
+            main(sync_schedules),
+            main(sync_albums),
+            main(sync_settings),
         ])
 
         if run_interval == 0:
