@@ -159,7 +159,7 @@ class Page(Model):
         self.hash = hash_str(''.join(hashes))
 
     def __str__(self):
-        return '<Page hash={} file={} id={}>'.format(self.hash, self.file, self.id)
+        return '<Page file={} id={}>'.format(self.file, self.id)
 
 
 def create_post(md, image_path_fn):
