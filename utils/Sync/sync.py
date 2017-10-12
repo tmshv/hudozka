@@ -51,7 +51,7 @@ async def run(run_interval=0):
     )
 
     pages = Sync(
-        provider=io(settings.dir_pages),
+        provider=io(settings.provider_root),
         model=Page,
     )
 

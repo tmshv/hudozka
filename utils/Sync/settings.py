@@ -141,7 +141,7 @@ dir_schedules = f('Schedules')
 dir_articles = f('Articles')
 dir_collective = f('Collective')
 dir_albums = f('Gallery')
-dir_pages = f('Pages')
+dir_pages = './Pages'
 
 page_url_base = 'https://static.shlisselburg.org/art/images/page-{page}-{id}-{size}{ext}'
 

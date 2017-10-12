@@ -40,9 +40,9 @@ class Page(Model):
 
     @staticmethod
     async def scan(provider):
-        documents = [i for i in provider.scan('.') if provider.is_dir(i)]
-        documents = [provider.type_filter(i, '.md') for i in documents]
-        documents = [i[0] for i in documents if len(i)]
+        scan_path = settings.dir_pages
+        documents = [i for i in provider.scan(scan_path) if provider.is_dir(i)]
+
         documents = [Page.read(provider, i) for i in documents]
         documents = [i for i in documents if i]
 
@@ -50,25 +50,38 @@ class Page(Model):
 
     @staticmethod
     def read(provider, path):
+        """
+        :param provider:
+        :param path: path to page manifest file. For example: /Pages/<Some_Page>/<Some_Page>.md
+        :return:
+        """
+        dir_name = os.path.basename(path)
+
+        manifest_file = lambda ext: os.path.join(path, dir_name + ext)
+        manifest_path = manifest_file('.md')
+
+        if not provider.exists(manifest_path):
+            return None
+
         params = {
-            'file': os.path.basename(path),
-            'folder': os.path.dirname(path),
-            'title': os.path.basename(path),
+            'file': os.path.basename(manifest_path),
+            'folder': os.path.dirname(manifest_path),
+            'title': os.path.basename(manifest_path),
         }
 
-        manifest = get_manifest(provider, path)
+        manifest = get_manifest(provider, manifest_path)
         params = {
             **params,
             **manifest,
         }
 
         if 'url' not in params:
-            logger.warning('URL not specified for Page {}'.format(path))
+            logger.warning('URL not specified for Page {}'.format(manifest_path))
             return None
 
         return Page(
             provider,
-            path,
+            manifest_path,
             params=params,
         )
 
