@@ -61,6 +61,8 @@ class Image(Model):
         return self._is_changed_hash(i)
 
     async def build(self, sizes):
+        logger.info('Building Image {}'.format(self.provider.get_abs(self.file)))
+
         img_in = self.provider.get_abs(self.file)
         img_out = tempfile.mkdtemp()
 
@@ -77,8 +79,6 @@ class Image(Model):
         self.data = data
 
     async def upload(self):
-        logger.info('Uploading Image {}'.format(self.hash))
-
         if self.data:
             for i in self.data.values():
                 url = get_upload_url(i['url'])
