@@ -20,8 +20,7 @@ async def upload(url, path):
     r = requests.put(
         url=url,
         files=files,
-        # auth=settings.upload_auth
-        auth=('uploader', '1207690962638465')
+        auth=settings.upload_auth
     )
     if r.status_code == 200:
         return url
