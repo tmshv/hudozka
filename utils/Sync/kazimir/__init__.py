@@ -35,7 +35,7 @@ def create_tree(text: str) -> str:
 
     kz = compile_tokens(tokens)
     tree = lxml.html.fromstring(kz)
-    return create_tree(tree)
+    return clean_tree(tree)
 
 
 def clean_tree(tree):
