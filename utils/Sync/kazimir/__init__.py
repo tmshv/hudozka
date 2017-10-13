@@ -1,54 +1,45 @@
 import lxml.html
-import requests
 from markdown import markdown
 
-from kazimir.video import VideoExtension
 from kazimir.figure import FigureExtension
 from kazimir.instagram import InstagramExtension
+from sync.data import request
 
 
 def markdown_to_html(text):
     return markdown(text, extensions=[
         FigureExtension(),
-        VideoExtension(),
         InstagramExtension(),
     ])
 
 
-def kazimir_to_html(text):
-    html = make(text)
-    return typo(html)
+def get_images_src(text: str) -> [str]:
+    html = markdown(text)
+    post_html = lxml.html.fromstring(html)
+
+    images = post_html.cssselect('img')
+    return [img.get('src') for img in images]
 
 
-def html_from_tree(tree):
-    html = lxml.html.tostring(tree, encoding='unicode')
-    html = typo(html)
-
-    return html
-
-
-def typo(html):
-    url = 'http://api.tmshv.com/typograph/v1'
-    res = requests.post(
-        url=url,
-        headers={
-            'Content-Type': 'text/plain; charset=utf-8',
-        },
-        data=html.encode('utf-8')
-    )
-    if res.status_code == 200:
-        return res.text
-    return html
-
-
-def make(text):
+def kazimir_to_html(text: str) -> str:
     tokens = text.split('\n')
     tokens = markup_tokens(tokens)
     tokens = join_tokens(tokens)
     tokens = merge_tokens(tokens)
 
     return compile_tokens(tokens)
-    # return tokens
+
+
+def html_from_tree(tree):
+    html = lxml.html.tostring(tree, encoding='unicode')
+
+    return html
+
+
+async def typo(text):
+    url = 'http://www.typograf.ru/webservice/'
+    params = dict(text=text)
+    return await request.post(url, params, {'chr': 'utf-8'})
 
 
 def join_tokens(tokens):
@@ -110,6 +101,8 @@ def compile_tokens(tokens: list):
             fn = compile_image_collection
         elif tag == 'image':
             fn = compile_image
+        elif tag == 'url':
+            fn = compile_url
         else:
             fn = compile_any
         compiled.append(fn(ts))
@@ -203,11 +196,25 @@ def compile_image_collection(token):
 
 def compile_image(token):
     img = markdown_to_html(token['data'])
-    return '''
-        <div class="kazimir__image">
-            {}
-        </div>
-    '''.format(img)
+    tpl = '''<div class="kazimir__image">{}</div>'''
+    return tpl.format(img)
+
+
+def compile_url(token):
+    return compile_youtube(token)
+
+
+def compile_youtube(token):
+    """
+    <div class="kazimir-video">
+     <iframe src="http://www.youtube.com/embed/9otNWTHOJi8" frameborder="0" allowfullscreen></iframe>
+   </div>
+    """
+
+    url = token['data']
+    tpl = '''<div class="kazimir-video"><iframe src="{url}" frameborder="0" allowfullscreen></iframe></div>'''
+
+    return tpl.format(url=url)
 
 
 def compile_any(token):
@@ -246,4 +253,3 @@ More text
             print(i)
     else:
         print(ts)
-

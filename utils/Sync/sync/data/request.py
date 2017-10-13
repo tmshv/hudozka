@@ -34,6 +34,12 @@ async def get(url):
         return await res.text()
 
 
+async def post(url, data, params={}):
+    async with aiohttp.ClientSession() as session:
+        async with session.post(url, data=data, params=params) as resp:
+            return await resp.text()
+
+
 async def put(url, data):
     async with aiohttp.ClientSession as session:
         res = session.put(url, data=data)

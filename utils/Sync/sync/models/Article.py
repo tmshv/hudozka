@@ -49,16 +49,10 @@ class Article(Model):
             'title': doc_title,
         }
 
-        # CREATE BASIC_MANIFEST BASED ON FOLDER NAME AND IMAGE CONTENT
-        images = list_images(provider, path)
-        images = [os.path.relpath(i, path) for i in images]
-        document['images'] = images
-        document['post'] = create_post_from_image_list(images)
-
         # TRY TO FILL UP BASIC_MANIFEST WITH MD_MANIFEST
         manifest_file = md_from_folder(provider, path)
         if manifest_file:
-            manifest = get_manifest(provider, manifest_file)
+            manifest = read_manifest(provider, manifest_file)
         else:
             manifest = {}
 
@@ -76,6 +70,7 @@ class Article(Model):
         # self.__url_template: str = settings.document_url_template
         # self.__url_preview_template: str = settings.document_url_preview_template
 
+        self.hash_salt = settings.hash_salt_articles
         self.origin = settings.origin
         self.version = '2'
         self.post = None
@@ -83,6 +78,13 @@ class Article(Model):
         super().__init__(provider, store, file, params=params)
 
     def init(self):
+        if self.has_param('content'):
+            images = kazimir.get_images_src(self.get_param('content'))
+        else:
+            images = list_images(self.provider, self.file)
+            images = [os.path.relpath(i, self.file) for i in images]
+        self.params['images'] = images
+
         self.__set_id()
         self.__set_hash()
 
@@ -96,12 +98,14 @@ class Article(Model):
 
     async def build(self, **kwargs):
         sizes = kwargs['sizes']
-        post, images = await create_post(self.provider, self.id, self.params, sizes)
-        self.post = post
-        self.images = images
 
-        post, images = await create_post(self.provider, self.id, self.params, sizes)
-        self.post = kazimir.html_from_tree(post)
+        if self.has_param('content'):
+            markdown_post = self.get_param('content')
+        else:
+            markdown_post = create_post_from_image_list(self.get_param('images'))
+
+        post, images = await create_post(self.provider, self.get_param('folder'), markdown_post, sizes)
+        self.post = post
         self.images = images
 
         if 'preview' in self.params:
@@ -140,7 +144,7 @@ class Article(Model):
         images = [self.provider.hash(i) for i in images]
 
         self.hash = hash_str(
-            combine([hash_str(self.params)] + images)
+            combine([self.hash_salt] + [hash_str(self.params)] + images)
         )
 
     def __str__(self):
@@ -151,7 +155,7 @@ def md_from_folder(provider, i):
     return first(provider.type_filter(i, '.md'))
 
 
-def get_manifest(provider, path):
+def read_manifest(provider, path):
     data = provider.read(path).read().decode('utf-8')
     manifest = parse_yaml_front_matter(data)
 
@@ -164,38 +168,30 @@ def get_manifest(provider, path):
     if 'id' in manifest:
         manifest['id'] = str(manifest['id'])
 
-    html = kazimir_to_html(manifest['content'])
     return {
         **manifest,
-        'post': html,
-        'images': images_from_html(html)  # Add images for hashing
     }
 
 
-async def create_post(provider, doc_id, document, sizes):
-    image_url_base = settings.image_url_base + 'post-{id}-{img}-{size}{ext}'
-
-    post_html = lxml.html.fromstring(document['post'])
+async def create_post(provider: Provider, folder: str, md: str, sizes):
+    post = kazimir.kazimir_to_html(md)
+    html = lxml.html.fromstring(post)
     images = []
-    for img in post_html.cssselect('img'):
+    for img in html.cssselect('img'):
         src = img.get('src')
-        relative_image_path = os.path.join(document['folder'], src)
+        relative_image_path = os.path.join(folder, src)
 
-        img_path = provider.get_local(relative_image_path)
-        if os.path.exists(img_path):
-            img_id = url_encode_text(os.path.splitext(src)[0])
-            url_fn = lambda file, size, ext: image_url_base.format(
-                id=doc_id,
-                img=img_id,
-                size=size,
-                ext=ext.lower()
-            )
-
-            image = await Image.new(provider, img_path, sizes, url_fn)
+        image_path = provider.get_local(relative_image_path)
+        if os.path.exists(image_path):
+            image = await Image.new(provider, image_path, sizes)
             if image:
                 url = image.get_size('big')['url']
                 images.append(image)
                 img.set('src', url)
             else:
-                logger.error('Fail to get Image', document['folder'], src)
-    return post_html, images
+                logger.error('Fail to get Image', folder, src)
+
+    post = kazimir.html_from_tree(html)
+    post = await kazimir.typo(post)
+
+    return post, images

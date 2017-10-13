@@ -129,6 +129,8 @@ collection_collective = 'collective'
 collection_albums = 'albums'
 collection_pages = 'pages'
 
+hash_salt_articles = '0'
+
 provider_name = value('provider')['name']  # env('SYNC_PROVIDER', 'fs')
 provider_root = value('provider')['root']  # env('SYNC_PROVIDER', 'fs')
 
