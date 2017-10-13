@@ -22,7 +22,7 @@ def get_images_src(text: str) -> [str]:
     return [img.get('src') for img in images]
 
 
-def kazimir_to_html(text: str) -> str:
+def create_tree(text: str) -> str:
     tokens = text.split('\n')
     tokens = markup_tokens(tokens)
     tokens = join_tokens(tokens)

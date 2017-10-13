@@ -7,7 +7,7 @@ import lxml.html
 import kazimir
 import settings
 from db import collection
-from kazimir import kazimir_to_html
+from kazimir import create_tree
 from sync import create_date_and_title_from_folder_name, images_from_html, create_post_from_image_list, create_date
 from sync.data import Provider, list_images
 from sync.models import Model
@@ -170,8 +170,7 @@ def read_manifest(provider, path):
 
 
 async def create_post(provider: Provider, folder: str, md: str, sizes):
-    post = kazimir.kazimir_to_html(md)
-    html = lxml.html.fromstring(post)
+    html = kazimir.create_tree(md)
     images = []
     for img in html.cssselect('img'):
         src = img.get('src')

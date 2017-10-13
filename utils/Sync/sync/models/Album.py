@@ -7,7 +7,6 @@ import lxml.html
 import kazimir
 import settings
 from db import collection
-from kazimir import kazimir_to_html
 from sync import create_date_and_title_from_folder_name, images_from_html, create_post_from_image_list, create_date, \
     create_post
 from sync.data import Provider, list_images
