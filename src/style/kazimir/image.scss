@@ -1,6 +1,8 @@
 @import "../variables";
 
 .kazimir__image {
+  --kazimir-caption-margin: 20px;
+
   p {
     margin-left: 0;
     margin-right: 0;
@@ -16,7 +18,7 @@
   }
 
   figcaption {
-    margin: $half-margin 0 0 20px;
+    margin: $half-margin 0 0 var(--kazimir-caption-margin);
 
     font-size: 16px;
     font-style: italic;
@@ -33,5 +35,11 @@
     &:hover{
       transform: scale(1.0125);
     }
+  }
+}
+
+@media screen and (max-width: $mobile-width) {
+  .kazimir__image {
+    --kazimir-caption-margin: 10px;
   }
 }
