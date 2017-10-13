@@ -50,6 +50,8 @@ person_uri = {
     'А.С.Тимашева': 'as-timasheva',
 }
 
+preview_image_default_url = 'https://art.shlisselburg.org/entrance.jpg'
+
 upload_enabled = value('upload_enabled')
 upload_url_image = 'https://static.shlisselburg.org/upload/art/images/{}'
 upload_auth = (

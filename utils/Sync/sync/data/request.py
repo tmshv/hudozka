@@ -14,8 +14,6 @@ async def upload(url, path):
     if not settings.upload_enabled:
         return url
 
-    # urlf = 'https://static.shlisselburg.org/upload/art{}'
-
     files = {'file': open(path, 'rb')}
     r = requests.put(
         url=url,

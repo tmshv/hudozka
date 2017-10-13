@@ -17,6 +17,7 @@ def create_date(date_str, date_formats=None):
     2016.10.10
     -> datetime
 
+    :param date_formats:
     :param date_str:
     :return:
     """

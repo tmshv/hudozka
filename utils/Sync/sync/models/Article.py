@@ -66,10 +66,6 @@ class Article(Model):
         )
 
     def __init__(self, provider, file, params=None):
-        # self.__id_template: str = '{category}-{file}'
-        # self.__url_template: str = settings.document_url_template
-        # self.__url_preview_template: str = settings.document_url_preview_template
-
         self.hash_salt = settings.hash_salt_articles
         self.origin = settings.origin
         self.version = '2'
@@ -116,7 +112,7 @@ class Article(Model):
         elif len(self.images):
             self.preview = self.images[0]
         else:
-            self.preview = 'https://art.shlisselburg.org/entrance.jpg'
+            self.preview = settings.preview_image_default_url
 
     def bake(self):
         return {
