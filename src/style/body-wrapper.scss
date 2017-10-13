@@ -13,9 +13,3 @@
 .body-wrapper__content {
   flex: 1;
 }
-
-@media (max-width: $mobile-width) {
-  .body-wrapper__content {
-    margin: $menu-thickness auto 0;
-  }
-}
