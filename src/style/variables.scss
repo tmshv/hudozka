@@ -71,3 +71,19 @@ $short-duration: 0.3s;
   $big-font-size: 1.3rem;
   $biggest-font-size: 2.0rem;
 }
+
+:root {
+  --text-color: #303030;
+
+  --font-size-h1: 2.0rem;
+  --font-size-h2: 1.3rem;
+  --font-size-h3: 1.1rem;
+}
+
+@media (max-width: $mobile-width) {
+  :root {
+    --font-size-h1: 1.5rem;
+    --font-size-h2: 1.25rem;
+    --font-size-h3: 1rem;
+  }
+}

@@ -11,15 +11,25 @@ html, body {
 
 body {
   min-width: 320px;
+
+  color: var(--text-color);
+}
+
+h1 {
+  font-size: var(--font-size-h1);
 }
 
 h2{
   text-align: center;
   margin-bottom: $single-margin;
+
+  font-size: var(--font-size-h2);
 }
 
 h3{
   margin-bottom:  $single-margin / 2;
+
+  font-size: var(--font-size-h3);
 }
 
 .actor {

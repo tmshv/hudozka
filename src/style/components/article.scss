@@ -1,6 +1,10 @@
 @import "../variables";
 
 .article {
+  --article-line-height: 1.75em;
+  --article-quote-padding: 1em;
+  --article-quote-font-size: 1.25em;
+
   hyphens: auto;
 
   margin-bottom: $post-margin;
@@ -9,13 +13,11 @@
     margin-bottom: 1.25em;
 
     h1 {
-      font-size: $biggest-font-size;
       text-align: center;
       margin-bottom: $small-margin;
     }
 
     h2 {
-      font-size: $big-font-size;
       text-align: center;
     }
 
@@ -45,18 +47,18 @@
       --margin: 20px;
       margin-left: var(--margin);
       margin-right: var(--margin);
-      margin-bottom: 1.75em;
-      line-height: 1.75em;
+      margin-bottom: var(--article-line-height);
+      line-height: var(--article-line-height);
     }
 
     blockquote {
       background-color: hsl(215, 10%, 96%);
-      padding: 1em 1em .5em;
+      padding: var(--article-quote-padding);
       margin: $single-margin 0;
       font-family: $title-font;
       font-style: italic;
       font-weight: normal;
-      font-size: 1.25em;
+      font-size: var(--article-quote-font-size);
 
       cite {
         margin-top: $single-margin;
@@ -73,9 +75,17 @@
 
 @media (max-width: $mobile-width) {
   .article {
+    --article-line-height: 1.5em;
+    --article-quote-padding: .5em;
+    --article-quote-font-size: 1em;
+
     &__body {
       img {
         max-height: 20em;
+      }
+
+      p {
+        --margin: 0;
       }
     }
   }
