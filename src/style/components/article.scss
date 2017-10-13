@@ -1,6 +1,8 @@
 @import "../variables";
 
 .article {
+  hyphens: auto;
+
   margin-bottom: $post-margin;
 
   &__head {
