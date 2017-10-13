@@ -1,4 +1,5 @@
 import lxml.html
+import re
 from markdown import markdown
 
 from kazimir.figure import FigureExtension
@@ -206,15 +207,22 @@ def compile_url(token):
 
 def compile_youtube(token):
     """
-    <div class="kazimir-video">
+    <div class="kazimir__video">
      <iframe src="http://www.youtube.com/embed/9otNWTHOJi8" frameborder="0" allowfullscreen></iframe>
    </div>
     """
 
-    url = token['data']
-    tpl = '''<div class="kazimir-video"><iframe src="{url}" frameborder="0" allowfullscreen></iframe></div>'''
+    youtube = r'([^(]|^)https?://www\.youtube\.com/watch\?\S*v=(?P<youtubeargs>[A-Za-z0-9_&=-]+)\S*'
+    youtube_pattr = re.compile(youtube)
+    match = youtube_pattr.match(token['data'])
+    if match:
+        video_id = match.group(2)
+        url = f'//www.youtube.com/embed/{video_id}'
+        tpl = '''<div class="kazimir__video"><iframe src="{url}" frameborder="0" allowfullscreen></iframe></div>'''
 
-    return tpl.format(url=url)
+        return tpl.format(url=url)
+    else:
+        return ''
 
 
 def compile_any(token):
