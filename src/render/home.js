@@ -12,7 +12,7 @@ function getMeta(article) {
 async function renderHome(path, pageSize) {
 
 	const Component = (
-		<div className="content content_thin">
+		<div className="content content_wide">
 			<div className="hudozka-title">
 				<p>МБУДО</p>
 				<h1>Шлиссельбургская детская художественная&nbsp;школа</h1>
