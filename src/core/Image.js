@@ -14,6 +14,14 @@ class Image {
 		return new Image({...data, artifacts})
 	}
 
+	static async findByFile(file) {
+		const data = await findOne(store(), {file})
+		if (!data) return null
+
+		const artifacts = data.data
+		return new Image({...data, artifacts})
+	}
+
 	constructor({hash, file, artifacts}) {
 		this.hash = hash
 		this.file = file
