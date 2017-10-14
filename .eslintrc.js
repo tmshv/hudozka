@@ -6,7 +6,8 @@ module.exports = {
 	"extends": "standard",
 	"plugins": [
 		"standard",
-		"promise"
+		"promise",
+		"react",
 	],
 	"globals": {
 		"angular": true,
@@ -17,6 +18,13 @@ module.exports = {
 		"space-before-function-paren": "off",
 		"comma-dangle": "off",
 		"no-tabs": "off",
-		"indent": ["error", "tab"]
+		"indent": ["error", "tab"],
+		"react/jsx-uses-react": "error",
+		"react/jsx-uses-vars": "error",
+	},
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true
+		}
 	}
 };
