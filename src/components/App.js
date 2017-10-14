@@ -1,12 +1,7 @@
 const React = require('react')
 const Menu = require('./Menu')
 const Footer = require('./Footer')
-
-const Comments = () => (
-	<div className="content content_thin">
-		<div id="disqus_thread"></div>
-	</div>
-)
+const Comments = require('./Comments')
 
 const App = ({children, menu, showAuthor, menuPadding}) => (
 	<div className="body-wrapper theme-default">
