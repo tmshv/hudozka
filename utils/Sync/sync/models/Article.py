@@ -70,6 +70,7 @@ class Article(Model):
         self.origin = settings.origin
         self.version = '2'
         self.post = None
+        self.preview = None
         self.images = None
         super().__init__(provider, store, file, params=params)
 
@@ -109,10 +110,6 @@ class Article(Model):
             preview = self._get_relpath(preview)
             preview = await Image.new(self.provider, preview, sizes)
             self.preview = preview
-        elif len(self.images):
-            self.preview = self.images[0]
-        else:
-            self.preview = settings.preview_image_default_url
 
     def bake(self):
         return {
@@ -124,7 +121,7 @@ class Article(Model):
             'file': self.file,
             'origin': self.origin,
             'version': self.version,
-            'preview': self.preview if isinstance(self.preview, str) else self.preview.ref,
+            'preview': self.preview.ref if self.preview else None,
         }
 
     def __set_id(self):
