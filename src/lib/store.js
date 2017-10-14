@@ -12,5 +12,12 @@ async function findOne(collection, query) {
 	return collection.findOne(query)
 }
 
+async function total(collection, query) {
+	return collection
+		.find(query)
+		.count()
+}
+
 exports.find = find
 exports.findOne = findOne
+exports.total = total
