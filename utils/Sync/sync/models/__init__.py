@@ -21,6 +21,7 @@ class Model:
         self.id = None
         self.url = None
         self.hash = None
+        self.ref = None  # Data base reference
         self.params = params if params else {}
 
         self.init()
