@@ -104,7 +104,7 @@ class Article(Model):
         self.post = post
         self.images = images
 
-        if 'preview' in self.params:
+        if self.has_param('preview'):
             preview = self.get_param('preview')
             preview = self._get_relpath(preview)
             preview = await Image.new(self.provider, preview, sizes)
