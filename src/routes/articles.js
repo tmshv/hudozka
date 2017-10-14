@@ -142,12 +142,12 @@ function getArticle() {
 			const path = getPathWithNoTrailingSlash(ctx.path)
 			const article = await findArticle(id)
 
-			const previewId = article.preview
-				? article.preview
-				: article.images[0]
-			article.preview = await Image.findById(previewId)
-
 			if (article) {
+				const previewId = article.preview
+					? article.preview
+					: article.images[0]
+				article.preview = await Image.findById(previewId)
+
 				const Component = (
 					<div className="content content_thin">
 						<Article
