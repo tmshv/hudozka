@@ -16,10 +16,10 @@ class Sync:
     def __init__(self, provider: Provider, model):
         super().__init__()
 
+        self.strict_origin = False
         self.__default_build_args = {
             'sizes': settings.image_sizes,
         }
-        self.__items_to_delete_query = lambda items_id: {'id': {'$nin': items_id}}
         self.__delete_query = lambda item: {'_id': item['_id']}
 
         name = model.__name__
@@ -43,6 +43,21 @@ class Sync:
             **self.__default_build_args
         }
 
+    def __items_to_delete_query(self, items):
+        query = {
+            'id': {'$nin': [doc.id for doc in items]},
+        }
+
+        if self.strict_origin:
+            items_origin = list(set([doc.origin for doc in items]))
+
+            query = {
+                **query,
+                'origin': {'$in': items_origin},
+            }
+
+        return query
+
     async def run(self):
         """
         # Get scope files
@@ -57,25 +72,24 @@ class Sync:
         self.logger.info('Checking for update')
 
         items = await self.model.scan(self.provider)
-        items_id = [doc.id for doc in items]
         self.logger.info('Found {} Item(s)'.format(len(items)))
 
         # SKIP UNTOUCHED DOCUMENTS
-        items = await untouched(items)
-        self.logger.info('Changed {} Items(s)'.format(len(items)))
+        changed_items = await untouched(items)
+        self.logger.info('Changed {} Items(s)'.format(len(changed_items)))
 
         # UPDATING
         if settings.update_enabled:
-            for item in items:
+            for item in changed_items:
                 await self.update(item)
                 self.logger.info('Updated Item {}'.format(item))
 
         # DELETING
         if settings.delete_enabled:
-            items = await self.model.find(self.__items_to_delete_query(items_id))
-            items = list(items)
+            obsolete_items = await self.model.find(self.__items_to_delete_query(items))
+            obsolete_items = list(obsolete_items)
 
-            for item in items:
+            for item in obsolete_items:
                 self.logger.info('Deleting Item {}'.format(item['id']))
                 await self.model.delete(self.__delete_query(item))
 
