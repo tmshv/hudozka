@@ -3,7 +3,7 @@ const Menu = require('./Menu')
 const Footer = require('./Footer')
 
 const Comments = () => (
-	<div className="content content_semi-wide">
+	<div className="content content_thin">
 		<div id="disqus_thread"></div>
 	</div>
 )
