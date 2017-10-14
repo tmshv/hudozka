@@ -73,6 +73,6 @@ def get_data(provider, path, transform):
 
 
 def list_images(provider, path):
-    image_types = ['.jpg', '.JPG', '.png', '.PNG']
+    image_types = ['.jpg', '.JPG', '.jpeg', '.JPEG', '.png', '.PNG']
     images = [provider.type_filter(path, ext) for ext in image_types]
     return combine(images)
