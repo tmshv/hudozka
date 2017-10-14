@@ -6,6 +6,10 @@ class Config {
 		return Data.getStore(Config)
 	}
 
+	static async findConfig() {
+		return Config.findById('settings')
+	}
+
 	static async findById(id) {
 		const data = await findOne(Config.store, {id})
 		if (!data) return null

@@ -9,7 +9,7 @@ function main() {
 		await connect(dbUri)
 
 		const Config = require('./core/Config')
-		const config = await Config.findById('settings')
+		const config = await Config.findConfig()
 
 		try {
 			let app = server(config)
