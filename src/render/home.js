@@ -1,5 +1,5 @@
 const React = require('react')
-const getArticleListComponent = require('../routes/articles').getArticleListComponent
+const {createArticleCardList} = require('../render/articles')
 const {render} = require('../lib/render')
 
 function getMeta(article) {
@@ -8,8 +8,8 @@ function getMeta(article) {
 	}
 }
 
-	const articles = await getArticleListComponent(path, 1, pageSize)
 async function renderHome(path, pageSize) {
+	const articles = await createArticleCardList(path, 1, pageSize)
 
 	const Component = (
 		<div className="content content_wide">

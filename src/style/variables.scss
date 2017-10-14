@@ -78,6 +78,19 @@ $short-duration: 0.3s;
   --font-size-h1: 2.0rem;
   --font-size-h2: 1.3rem;
   --font-size-h3: 1.1rem;
+
+  //COLOR
+  --dark-color: $dark-color;
+  --darker-color: $darker-color;
+  --light-color: $light-color;
+  --lighter-color: $lighter-color;
+
+  //MARGINS
+  --small-margin: $small-margin;
+  --half-margin: $half-margin;
+  --single-margin: $single-margin;
+  --double-margin: $double-margin;
+  --post-margin: $post-margin;
 }
 
 @media (max-width: $mobile-width) {
