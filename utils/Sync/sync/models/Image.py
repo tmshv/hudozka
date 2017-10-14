@@ -7,10 +7,11 @@ from typing import Optional, List
 
 import settings
 from db import collection
-from sync.data import request
+from sync.data import request, list_images
 from sync.models import Model
 from utils.hash import md5
 from utils.image import image_magick_resize
+from utils.text.transform import url_encode_text
 
 logger = logging.getLogger(settings.name + '.Image')
 
@@ -33,6 +34,14 @@ class Image(Model):
         return document
 
     @staticmethod
+    async def find(query):
+        return store.find(query)
+
+    @staticmethod
+    async def delete(query):
+        return store.find_one_and_delete(query)
+
+    @staticmethod
     async def new(provider, file, sizes, url_factory=None):
         url_factory = url_factory if url_factory else default_url_factory
 
@@ -49,14 +58,35 @@ class Image(Model):
 
         return img
 
+    @staticmethod
+    async def scan(provider):
+        scan_path = settings.dir_images
+        documents = list_images(provider, scan_path)
+
+        return [Image.read_path(provider, i) for i in documents]
+
+    @staticmethod
+    def read_path(provider, path):
+        return Image(
+            provider,
+            path,
+            data=None,
+            url_factory=default_url_factory
+        )
+
     def __init__(self, provider, file, data, url_factory):
+        self.origin = None
+
         self.data = data
         self.url_factory = url_factory
 
         super().__init__(provider, store, file)
 
     def init(self):
+        self.id = self.__get_id()
         self.hash = self.__get_hash()
+
+        self.origin = f"{settings.origin}:{os.path.dirname(self.file)}"
 
     async def is_changed(self):
         i = await Image.find_one({'file': self.file})
@@ -97,7 +127,9 @@ class Image(Model):
 
     def bake(self):
         return {
+            'id': self.id,
             'file': self.file,
+            'origin': self.origin,
             'hash': self.hash,
             'data': self.data,
         }
@@ -110,8 +142,9 @@ class Image(Model):
     def __filename(self):
         return os.path.basename(self.file)
 
-    def __set_id(self, value):
-        self.id = value
+    def __get_id(self):
+        filename = os.path.basename(self.file)
+        return url_encode_text(filename)
 
     def __get_hash(self):
         return self.provider.hash(self.file)

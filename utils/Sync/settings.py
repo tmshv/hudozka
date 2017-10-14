@@ -146,6 +146,7 @@ dir_articles = f('Articles')
 dir_collective = f('Collective')
 dir_albums = f('Gallery')
 dir_pages = './Pages'
+dir_images = './Images'
 
 page_url_base = 'https://static.shlisselburg.org/art/images/page-{page}-{id}-{size}{ext}'
 

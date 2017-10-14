@@ -7,6 +7,7 @@ from sync.data.yandexdisk import YDProvider
 import asyncio
 import logging
 
+from sync.models.Image import Image
 from sync.models.Album import Album
 from sync.models.Article import Article
 from sync.models.Page import Page
@@ -80,6 +81,12 @@ async def run(run_interval=0):
         model=Settings,
     )
 
+    sync_images = Sync(
+        provider=io(settings.provider_root),
+        model=Image,
+    )
+    sync_images.strict_origin = True
+
     while True:
         await asyncio.wait([
             run_sync(sync_documents),
@@ -89,6 +96,7 @@ async def run(run_interval=0):
             run_sync(sync_schedules),
             run_sync(sync_albums),
             run_sync(sync_settings),
+            run_sync(sync_images),
         ])
 
         if run_interval == 0:
