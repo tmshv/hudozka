@@ -1,4 +1,5 @@
 const Data = require('./Data')
+const Article = require('./Article')
 const Album = require('./Album')
 const Teacher = require('./Teacher')
 const Document = require('./Document')
@@ -29,6 +30,7 @@ export function id(i) {
 }
 
 function init(db) {
+	Data.setStore(Article, db.collection('articles'))
 	Data.setStore(Album, db.collection('albums'))
 	Data.setStore(Image, db.collection('images'))
 	Data.setStore(Teacher, db.collection('collective'))
