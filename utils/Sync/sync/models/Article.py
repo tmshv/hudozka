@@ -117,7 +117,7 @@ class Article(Model):
     def bake(self):
         return {
             **self.params,
-            'images': [i.id for i in self.images],
+            'images': [i.ref for i in self.images],
             'post': self.post,
             'id': self.id,
             'hash': self.hash,
