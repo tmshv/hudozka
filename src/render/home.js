@@ -9,7 +9,7 @@ function getMeta(article) {
 }
 
 async function renderHome(path, pageSize) {
-	const articles = await createArticleCardList(path, 1, pageSize)
+	const articles = await createArticleCardList(1, pageSize)
 
 	const Component = (
 		<div className="content content_wide">
