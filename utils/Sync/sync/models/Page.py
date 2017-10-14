@@ -126,7 +126,7 @@ class Page(Model):
         self.images = images
 
     def bake(self):
-        images = [image.id for image in self.images]
+        images = [image.ref for image in self.images]
 
         data = create_post(self.params['data'], lambda src: self.__image_url_by_src(src))
 

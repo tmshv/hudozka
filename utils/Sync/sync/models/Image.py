@@ -45,7 +45,7 @@ class Image(Model):
         else:
             doc = await Image.find_one({'file': file})
             img = Image(provider, file, doc['data'], url_factory)
-            img.__set_id(doc['_id'])
+            img.ref = doc['_id']
 
         return img
 
@@ -93,7 +93,7 @@ class Image(Model):
 
     async def save(self):
         c = sync_image(self.bake())
-        self.__set_id(c['_id'])
+        self.ref = c['_id']
 
     def bake(self):
         return {

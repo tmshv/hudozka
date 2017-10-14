@@ -68,7 +68,7 @@ class Person(Model):
             'id': self.id,
             'hash': self.hash,
             'file': self.file,
-            'picture': self.picture.id,
+            'picture': self.picture.ref,
         }
 
     def __set_id(self):

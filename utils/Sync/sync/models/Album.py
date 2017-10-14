@@ -170,11 +170,11 @@ class Album(Model):
         # )
 
     def bake(self):
-        preview = None if not self.preview else self.preview.id
+        preview = None if not self.preview else self.preview.ref
 
         return {
             **self.params,
-            'images': [i.id for i in self.images],
+            'images': [i.ref for i in self.images],
             'preview': preview,
             'post': self.post,
             'id': self.id,

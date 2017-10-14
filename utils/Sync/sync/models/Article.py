@@ -124,7 +124,7 @@ class Article(Model):
             'file': self.file,
             'origin': self.origin,
             'version': self.version,
-            'preview': self.preview if isinstance(self.preview, str) else self.preview.id,
+            'preview': self.preview if isinstance(self.preview, str) else self.preview.ref,
         }
 
     def __set_id(self):
