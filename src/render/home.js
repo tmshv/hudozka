@@ -8,8 +8,8 @@ function getMeta(article) {
 	}
 }
 
-async function renderHome(path, page, pageSize) {
 	const articles = await getArticleListComponent(path, 1, pageSize)
+async function renderHome(path, pageSize) {
 
 	const Component = (
 		<div className="content content_thin">
