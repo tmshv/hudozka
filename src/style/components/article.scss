@@ -71,6 +71,13 @@
         margin-right: $single-margin;
       }
     }
+
+    hr {
+      margin-bottom: var(--double-margin);
+      border: none;
+      height: 1px;
+      background: var(--dark-color);
+    }
   }
 }
 
