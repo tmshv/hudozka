@@ -74,10 +74,12 @@ $short-duration: 0.3s;
 
 :root {
   --text-color: #303030;
+  --text-color-second: #ccc;
 
   --font-size-h1: 2.0rem;
   --font-size-h2: 1.3rem;
   --font-size-h3: 1.1rem;
+  --font-size-second: 0.9rem;
 
   //COLOR
   --dark-color: $dark-color;

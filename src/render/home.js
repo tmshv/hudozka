@@ -1,4 +1,5 @@
 const React = require('react')
+const HudozkaTitle = require('../components/HudozkaTitle')
 const {createArticleCardList} = require('../render/articles')
 const {render} = require('../lib/render')
 
@@ -13,10 +14,7 @@ async function renderHome(path, pageSize) {
 
 	const Component = (
 		<div className="content content_wide">
-			<div className="hudozka-title">
-				<p>МБУДО</p>
-				<h1>Шлиссельбургская детская художественная&nbsp;школа</h1>
-			</div>
+			<HudozkaTitle/>
 
 			{articles}
 		</div>

@@ -1,0 +1,24 @@
+@import "../variables";
+
+.HudozkaTitle {
+  --padding: var(--double-margin) 0;
+
+  padding: var(--padding);
+  text-align: center;
+
+  p {
+    color: var(--text-color-second);
+    margin-bottom: var(--single-margin);
+    font-size: var(--font-size-second);
+  }
+
+  h1 {
+    margin-top: var(--single-margin);
+  }
+}
+
+@media (max-width: $mobile-width) {
+  .HudozkaTitle {
+    --padding: 0 0 var(--double-margin);
+  }
+}
