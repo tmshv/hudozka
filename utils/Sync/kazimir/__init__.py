@@ -19,12 +19,14 @@ def markdown_to_html(text):
     ])
 
 
-def get_images_src(text: str) -> [str]:
+def extract_files(text: str) -> [str]:
     html = markdown(text)
     post_html = lxml.html.fromstring(html)
 
     images = post_html.cssselect('img')
-    return [img.get('src') for img in images]
+    images = [img.get('src') for img in images]
+
+    return images, []
 
 
 def create_tree(text: str) -> str:

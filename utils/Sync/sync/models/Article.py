@@ -70,15 +70,18 @@ class Article(Model):
         self.post = None
         self.preview = None
         self.images = None
+        self.documents = None
         super().__init__(provider, store, file, params=params)
 
     def init(self):
         if self.has_param('content'):
-            images = kazimir.get_images_src(self.get_param('content'))
+            images, documents = kazimir.extract_files(self.get_param('content'))
         else:
             images = list_images(self.provider, self.file)
             images = [os.path.relpath(i, self.file) for i in images]
+            documents = []
         self.params['images'] = images
+        self.params['documents'] = documents
 
         self.__set_id()
         self.__set_hash()
@@ -99,9 +102,10 @@ class Article(Model):
         else:
             markdown_post = create_post_from_image_list(self.get_param('images'))
 
-        post, images = await create_post(self.provider, self.get_param('folder'), markdown_post, sizes)
+        post, images, documents = await create_post(self.provider, self.get_param('folder'), markdown_post, sizes)
         self.post = post
         self.images = images
+        self.documents = documents
 
         if self.has_param('preview'):
             preview = self.get_param('preview')
@@ -112,7 +116,8 @@ class Article(Model):
     def bake(self):
         return {
             **self.params,
-            'images': [i.ref for i in self.images],
+            'images': [x.ref for x in self.images],
+            'documents': [x.ref for x in self.documents],
             'post': self.post,
             'id': self.id,
             'hash': self.hash,
@@ -129,15 +134,18 @@ class Article(Model):
             self.id = url_encode_text(self.params['title'])
 
     def __set_hash(self):
-        f = self.params['folder']
-        images = sorted(self.params['images'])
+        files = []
+        files += sorted(self.get_param('images'))
+        files += sorted(self.get_param('documents'))
         if self.has_param('preview'):
-            images.append(self.get_param('preview'))
-        images = [os.path.join(f, i) for i in images]
-        images = [self.provider.hash(i) for i in images]
+            files.append(self.get_param('preview'))
+
+        folder = self.get_param('folder')
+        files = [os.path.join(folder, x) for x in files]
+        files = [self.provider.hash(x) for x in files]
 
         self.hash = hash_str(
-            combine([self.hash_salt] + [hash_str(self.params)] + images)
+            combine([self.hash_salt] + [hash_str(self.params)] + files)
         )
 
     def __str__(self):

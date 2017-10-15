@@ -101,7 +101,7 @@ async def create_post(provider: Provider, folder: str, md: str, sizes):
     post = kazimir.html_from_tree(html)
     post = await kazimir.typo(post)
 
-    return post, images
+    return post, images, []
 
 
 def images_from_html(md):
