@@ -2,21 +2,18 @@ import logging
 
 import os
 
-import lxml.html
-
 import kazimir
 import settings
 from db import collection
-from kazimir import create_tree
-from sync import create_date_and_title_from_folder_name, images_from_html, create_post_from_image_list, create_date, \
+from sync import create_date_and_title_from_folder_name, create_post_from_image_list, create_date, \
     create_post
-from sync.data import Provider, list_images
+from sync.data import list_images
 from sync.models import Model
 from sync.models.Image import Image
 
-from utils.fn import swap_ext, first, map_cases, constant, combine
+from utils.fn import first, combine
 from utils.hash import hash_str
-from utils.io import read_yaml_md, parse_yaml_front_matter
+from utils.io import parse_yaml_front_matter
 from utils.text.transform import url_encode_text
 
 logger = logging.getLogger(settings.name + '.Article')
