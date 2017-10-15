@@ -3,8 +3,10 @@ const Share = require('./Share')
 const getHtml = require('../lib/component').getHtml
 
 const Page = ({children, shareable}) => (
-	<div className="cloud-page__body">
-		{getHtml(children)}
+	<div className="Article Article--cloud">
+		<div className="Article-Body">
+			{getHtml(children)}
+		</div>
 
 		{!shareable ? null : (
 			<Share/>

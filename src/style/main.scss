@@ -1,5 +1,3 @@
-@import "variables";
-
 * {
   margin: 0;
   padding: 0;
@@ -16,20 +14,25 @@ body {
 }
 
 h1 {
+  text-align: center;
   font-size: var(--font-size-h1);
+
+  hyphens: none;
 }
 
 h2{
-  text-align: center;
-  margin-bottom: $single-margin;
-
+  margin: var(--single-margin) 0;
   font-size: var(--font-size-h2);
+
+  hyphens: none;
 }
 
 h3{
-  margin-bottom:  $single-margin / 2;
+  margin: var(--single-margin) 0;
 
   font-size: var(--font-size-h3);
+
+  hyphens: none;
 }
 
 .actor {

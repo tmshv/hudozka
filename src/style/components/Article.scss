@@ -4,6 +4,7 @@
   --article-line-height: 1.75em;
   --article-quote-padding: 1em;
   --article-quote-font-size: 1.25em;
+  --article-head-margin-bottom: var(--small-margin);
 
   hyphens: auto;
 
@@ -13,12 +14,7 @@
     margin-bottom: 1.25em;
 
     h1 {
-      text-align: center;
-      margin-bottom: $small-margin;
-    }
-
-    h2 {
-      text-align: center;
+      margin-bottom: var(--article-head-margin-bottom);
     }
 
     .date {
@@ -38,6 +34,10 @@
     ul, ol{
       margin-left: $half-margin;
       margin-bottom: $single-margin;
+
+      li {
+        margin-bottom: var(--half-margin);
+      }
     }
 
     ul{
@@ -83,6 +83,13 @@
       background: var(--dark-color);
     }
   }
+
+  &--cloud {
+    h1 {
+      --article-head-margin-bottom: var(--single-margin);
+      margin-bottom: var(--article-head-margin-bottom);
+    }
+  }
 }
 
 @media (max-width: $mobile-width) {
@@ -96,6 +103,10 @@
 
       img {
         max-height: 20em;
+      }
+
+      ul, ol {
+        margin-left: var(--single-margin);
       }
     }
   }

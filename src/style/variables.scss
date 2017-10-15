@@ -46,7 +46,6 @@ $white-shadow: 0 .1em 0.3em rgba(0, 0, 0, 0.2);
 $title-font: "PT Serif", Georgia, serif;
 $text-font: "PT Sans", Arial, sans-serif;
 
-$default-font-size: 14pt;
 $smaller-font-size: 0.9rem;
 $normal-font-size: 1.0rem;
 $bigger-font-size: 1.2rem;
@@ -64,7 +63,6 @@ $short-duration: 0.3s;
 
 @media (max-width: $mobile-width) {
   //FONTS
-  $default-font-size: 14pt;
   $smaller-font-size: 0.9rem;
   $normal-font-size: 1.0rem;
   $bigger-font-size: 1.1rem;
@@ -76,10 +74,13 @@ $short-duration: 0.3s;
   --text-color: #303030;
   --text-color-second: #ccc;
 
-  --font-size-h1: 2.0rem;
-  --font-size-h2: 1.3rem;
-  --font-size-h3: 1.1rem;
+  //FONTS
+  --font-size-default: 14pt;
   --font-size-second: 0.9rem;
+
+  --font-size-h1: 3.0rem;
+  --font-size-h2: 2.0rem;
+  --font-size-h3: 1.5rem;
 
   //COLOR
   --dark-color: $dark-color;
@@ -100,8 +101,8 @@ $short-duration: 0.3s;
 
 @media (max-width: $mobile-width) {
   :root {
-    --font-size-h1: 1.5rem;
-    --font-size-h2: 1.25rem;
-    --font-size-h3: 1rem;
+    --font-size-h1: 1.75rem;
+    --font-size-h2: 1.50rem;
+    --font-size-h3: 1.25rem;
   }
 }
