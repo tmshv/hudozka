@@ -86,8 +86,6 @@ class Page(Model):
         )
 
     def __init__(self, provider, file, params=None):
-        store = collection(settings.collection_pages)
-
         self.__hash_keys = ['id', 'url']
 
         self.__id_template: str = '{category}-{file}'
