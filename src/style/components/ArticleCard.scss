@@ -10,6 +10,12 @@
 
   border: 1px solid #ccc;
   border-radius: 3px;
+
+  & > a {
+    display: block;
+    position: relative;
+    height: 100%;
+  }
 }
 
 .ArticleCard-image {

@@ -16,9 +16,15 @@ const Image = ({data, alt}) => (
 	</picture>
 )
 
+const Link = ({href, children}) => (
+	<a className="invisible" href={href}>
+		{children}
+	</a>
+)
+
 const ArticleCard = ({article}) => (
 	<article className="ArticleCard">
-		<a className="invisible" href={article.url}>
+		<Link href={article.url}>
 			<div className="ArticleCard-image">
 				{!article.preview ? null : (
 					<Image data={article.preview} alt={article.title}/>
@@ -32,7 +38,7 @@ const ArticleCard = ({article}) => (
 					<Date>{article.date}</Date>
 				)}
 			</div>
-		</a>
+		</Link>
 	</article>
 )
 
