@@ -71,13 +71,7 @@ const Group = ({day, dayIndex}) => (
 
 const Cell = ({course, teacher, time}) => (
 	<div className="schedule-table__course">
-
-		{
-			console.log(time)
-		}
-
 		<Lesson {...course}/>
-
 		<Teacher {...teacher}/>
 
 		{time

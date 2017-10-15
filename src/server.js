@@ -16,7 +16,6 @@ import handlebars from 'handlebars'
 
 const {sessionConfig, view404} = require('./config')
 const error = require('./middlewares/error')
-const redirectFragment = require('./middlewares/redirectFragment')
 const redirect = require('./middlewares/redirect')
 const home = require('./routes/home')
 const article = require('./routes/articles')
@@ -65,7 +64,6 @@ export default function (config) {
 
 	app.use(error.notFound(view404))
 	app.use(sitemap())
-	app.use(redirectFragment())
 
 	app.use(home.getHome(config.articlesPerPage))
 	app.use(gallery.getGallery())

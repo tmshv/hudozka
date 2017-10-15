@@ -47,7 +47,7 @@ class Image {
 
 		const a = this.getArtifact(size)
 		const a2 = this.getArtifact(retinaSize)
-		const pic = {
+		return {
 			src: a.url,
 			width: a.width,
 			height: a.height,
@@ -58,8 +58,6 @@ class Image {
 				}
 			]
 		}
-		console.log(pic)
-		return pic
 	}
 }
 
