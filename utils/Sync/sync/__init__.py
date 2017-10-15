@@ -5,8 +5,11 @@ from datetime import datetime
 import lxml.html
 from markdown import markdown
 
+import kazimir
 import settings
+from sync.data import Provider
 from sync.models import Model
+from sync.models.Image import Image
 
 
 def create_date(date_str, date_formats=None):
@@ -76,6 +79,29 @@ def create_date_and_title_from_folder_name(folder_name, date_formats=None):
         return None, title
 
     return date, title
+
+
+async def create_post(provider: Provider, folder: str, md: str, sizes):
+    html = kazimir.create_tree(md)
+    images = []
+    for img in html.cssselect('img'):
+        src = img.get('src')
+        relative_image_path = os.path.join(folder, src)
+
+        image_path = provider.get_local(relative_image_path)
+        if os.path.exists(image_path):
+            image = await Image.new(provider, image_path, sizes)
+            if image:
+                url = image.get_size('big')['url']
+                images.append(image)
+                img.set('src', url)
+            else:
+                raise Exception('Fail to get Image', folder, src)
+
+    post = kazimir.html_from_tree(html)
+    post = await kazimir.typo(post)
+
+    return post, images
 
 
 def images_from_html(md):
