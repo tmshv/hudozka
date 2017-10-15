@@ -112,15 +112,15 @@ class Page(Model):
         return not (self.hash == i['hash'])
 
     async def build(self, **kwargs):
-        await self.setup_images(settings.image_sizes, get_image_url_fn(self.id))
+        await self.setup_images(settings.image_sizes)
 
-    async def setup_images(self, sizes, url_factory):
+    async def setup_images(self, sizes):
         folder = self.params['folder']
         images = []
         for i in self.params['images']:
             img_file = os.path.join(folder, i)
 
-            img = await Image.new(self.provider, img_file, sizes, url_factory)
+            img = await Image.new(self.provider, img_file, sizes)
             if img:
                 images.append(img)
         self.images = images
@@ -214,19 +214,3 @@ def get_manifest(provider, path):
         'title': title_from_html(body),
         'images': images_from_html(body)
     }
-
-
-def get_image_url_fn(page_id: str):
-    image_id = lambda filename: url_encode_text(
-        os.path.splitext(os.path.basename(filename))[0]
-    )
-
-    def img_url_fn(file, size, ext):
-        return settings.page_url_base.format(
-            page=page_id,
-            id=image_id(file),
-            size=size,
-            ext=ext
-        )
-
-    return img_url_fn
