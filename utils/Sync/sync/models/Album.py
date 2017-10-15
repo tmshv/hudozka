@@ -1,14 +1,14 @@
 import logging
 
 import os
+from lxml import etree
 
 import lxml.html
 
 import kazimir
 import settings
 from db import collection
-from sync import create_date_and_title_from_folder_name, images_from_html, create_post_from_image_list, create_date, \
-    create_post
+from sync import create_date_and_title_from_folder_name, images_from_html, create_post_from_image_list, create_date
 from sync.data import Provider, list_images
 from sync.models import Model
 from sync.models.Image import Image
@@ -247,3 +247,17 @@ def id_from_file(i):
     return url_encode_text(
         os.path.splitext(i)[0]
     )
+
+
+async def create_post(md, image_path_fn):
+    html = lxml.html.fromstring(md)
+
+    for img in html.cssselect('img'):
+        src = img.get('src')
+        path = await image_path_fn(src)
+
+        if path:
+            img.set('src', path)
+            img.set('class', settings.album_html_img_class)
+            img.set('data-file', src)
+    return etree.tounicode(html)

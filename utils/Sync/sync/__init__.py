@@ -1,7 +1,6 @@
 import os
 import re
 from datetime import datetime
-from lxml import etree
 
 import lxml.html
 from markdown import markdown
@@ -77,20 +76,6 @@ def create_date_and_title_from_folder_name(folder_name, date_formats=None):
         return None, title
 
     return date, title
-
-
-async def create_post(md, image_path_fn):
-    html = lxml.html.fromstring(md)
-
-    for img in html.cssselect('img'):
-        src = img.get('src')
-        path = await image_path_fn(src)
-
-        if path:
-            img.set('src', path)
-            img.set('class', settings.album_html_img_class)
-            img.set('data-file', src)
-    return etree.tounicode(html)
 
 
 def images_from_html(md):
