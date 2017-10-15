@@ -18,15 +18,15 @@ const Share = () => (
 )
 
 const Article = ({children, data, url, title, date, shareable}) => (
-	<article className="article">
-		<header className="article__head">
+	<article className="Article">
+		<header className="Article-Head">
 			<Head url={url}>{title}</Head>
 			{!date ? null : (
 				<p className="date">{dateFormat(date)}</p>
 			)}
 		</header>
 
-		<div className="article__body">
+		<div className="Article-Body">
 			{children || getHtml(data)}
 		</div>
 
