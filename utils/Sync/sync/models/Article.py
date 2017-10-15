@@ -133,6 +133,8 @@ class Article(Model):
     def __set_hash(self):
         f = self.params['folder']
         images = sorted(self.params['images'])
+        if self.has_param('preview'):
+            images.append(self.get_param('preview'))
         images = [os.path.join(f, i) for i in images]
         images = [self.provider.hash(i) for i in images]
 
