@@ -93,6 +93,9 @@ $short-duration: 0.3s;
   --single-margin: $single-margin;
   --double-margin: $double-margin;
   --post-margin: $post-margin;
+
+  //OTHER
+  --block-border-radius: 3px;
 }
 
 @media (max-width: $mobile-width) {
