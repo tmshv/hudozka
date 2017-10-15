@@ -120,7 +120,7 @@ async function renderArticle(id) {
 		</div>
 	)
 
-	return render(article.url, Component, getMeta(article), {commentsEnabled: true})
+	return render(article.url, Component, getMeta(article), {commentsEnabled: true, menuPadding: true})
 }
 
 exports.createArticleCardList = createArticleCardList

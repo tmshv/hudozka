@@ -16,7 +16,7 @@ const config = require('../config')
 const defaultOptions = {
 	commentsEnabled: false,
 	showAuthor: false,
-	menuPadding: true,
+	menuPadding: false,
 }
 
 const defaultMeta = {

@@ -80,7 +80,7 @@ function getGallery() {
 			)
 
 			ctx.type = 'text/html'
-			ctx.body = await render(path, Component, getMeta())
+			ctx.body = await render(path, Component, getMeta(), {menuPadding: true})
 		} else {
 			ctx.status = 404
 		}

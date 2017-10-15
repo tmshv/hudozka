@@ -19,14 +19,8 @@
     width: $content-thin;
   }
 
-  &.content--padding-top--double{
-    padding-top: $double-margin;
-    padding-bottom: $single-margin;
-  }
-
   &.content--padding-top--menu{
     padding-top: $menu-thickness;
-    padding-bottom: $single-margin;
   }
 }
 

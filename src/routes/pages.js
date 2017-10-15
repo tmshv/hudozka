@@ -36,6 +36,7 @@ module.exports = function () {
 				path,
 				getComponent(page),
 				getPageMeta(page),
+				{menuPadding: true},
 			)
 		} else {
 			ctx.status = 404

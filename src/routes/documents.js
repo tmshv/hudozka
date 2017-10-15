@@ -71,7 +71,7 @@ function getDocuments() {
 			)
 
 			ctx.type = 'text/html'
-			ctx.body = await render(path, Component, getDocumentsMeta())
+			ctx.body = await render(path, Component, getDocumentsMeta(), {menuPadding: true})
 		} else {
 			ctx.status = 404
 		}
