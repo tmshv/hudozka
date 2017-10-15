@@ -17,6 +17,7 @@ const defaultOptions = {
 	commentsEnabled: false,
 	showAuthor: false,
 	menuPadding: false,
+	templateFile: config.viewMain,
 }
 
 const defaultMeta = {
@@ -85,7 +86,7 @@ async function render(path, data, meta, options = {}) {
 	const menu = buildMenu(path, menuModel)
 	const content = renderApp({...renderOptions, menu, component})
 
-	const source = await readFile(config.viewMain, 'utf-8')
+	const source = await readFile(renderOptions.templateFile, 'utf-8')
 	const template = handlebars.compile(source)
 
 	const metaData = {
