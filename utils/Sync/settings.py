@@ -130,7 +130,7 @@ collection_albums = 'albums'
 collection_pages = 'pages'
 
 hash_salt_articles = '3'
-hash_salt_pages = '0'
+hash_salt_pages = '1'
 
 provider_name = value('provider')['name']  # env('SYNC_PROVIDER', 'fs')
 provider_root = value('provider')['root']  # env('SYNC_PROVIDER', 'fs')
