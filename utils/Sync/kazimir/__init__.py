@@ -94,9 +94,11 @@ def html_from_tree(tree):
 
 
 async def typo(text):
-    url = 'http://www.typograf.ru/webservice/'
-    params = dict(text=text)
-    return await request.post(url, params, {'chr': 'utf-8'})
+    from kazimir import artlebedev
+    return await artlebedev.typograf(text)
+    # url = 'http://www.typograf.ru/webservice/'
+    # params = dict(text=text)
+    # return await request.post(url, params, {'chr': 'utf-8'})
 
 
 def join_tokens(tokens):
