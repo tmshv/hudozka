@@ -5,15 +5,16 @@ import logging
 from lxml import etree
 import lxml.html
 
+import kazimir
 import settings
 from db import collection
 from sync.data import request
 from sync.models import Model
 
-from sync import create_date, images_from_html, title_from_html
+from sync import create_date, images_from_html, title_from_html, create_post
 from sync.models.Image import Image
 from utils.hash import hash_str
-from utils.io import read_yaml_md
+from utils.io import read_yaml_md, parse_yaml_front_matter
 from utils.text.transform import url_encode_text
 
 logger = logging.getLogger(settings.name + '.Page')
@@ -86,7 +87,10 @@ class Page(Model):
         )
 
     def __init__(self, provider, file, params=None):
+        self.__hash_salt = settings.hash_salt_pages
         self.__hash_keys = ['id', 'url']
+        self.images = []
+        self.title = None
 
         self.__id_template: str = '{category}-{file}'
         self.__url_template: str = settings.document_url_template
@@ -95,6 +99,10 @@ class Page(Model):
         super().__init__(provider, store, file, params=params)
 
     def init(self):
+        images, documents = kazimir.extract_files(self.get_param('content'))
+        self.params['images'] = images
+        self.params['documents'] = documents
+
         self.__set_id()
         self.__set_url()
         self.__set_hash()
@@ -110,23 +118,22 @@ class Page(Model):
         return not (self.hash == i['hash'])
 
     async def build(self, **kwargs):
-        await self.setup_images(settings.image_sizes)
+        sizes = kwargs['sizes']
 
-    async def setup_images(self, sizes):
-        folder = self.params['folder']
-        images = []
-        for i in self.params['images']:
-            img_file = os.path.join(folder, i)
+        # 'title': title_from_html(body),
+        # 'images': images_from_html(body)
 
-            img = await Image.new(self.provider, img_file, sizes)
-            if img:
-                images.append(img)
+        print('build', self.file)
+
+        markdown_post = self.get_param('content')
+        post, images, documents = await create_post(self.provider, self.get_param('folder'), markdown_post, sizes)
+        self.title = title_from_html(post)
+        self.data = post
         self.images = images
+        self.documents = documents
 
     def bake(self):
         images = [image.ref for image in self.images]
-
-        data = create_post(self.params['data'], lambda src: self.__image_url_by_src(src))
 
         return {
             **self.params,
@@ -134,20 +141,10 @@ class Page(Model):
             'hash': self.hash,
             'url': self.url,
             'file': self.file,
-            'data': data,
+            'data': self.data,
             'images': images,
+            'title': self.title,
         }
-
-    def __image_url_by_src(self, src):
-        for img in self.images:
-            if img.file.endswith(src):
-                s = img.get_size('big')
-                if s:
-                    return s['url']
-                else:
-                    return None
-
-        return None
 
     def __filename(self):
         return os.path.basename(self.file)
@@ -162,36 +159,26 @@ class Page(Model):
         self.url = self.params['url']
 
     def __set_hash(self):
-        f = self.get_param('folder')
-        images = [os.path.join(f, i) for i in self.get_param('images')]
-        files = sorted([self.file] + images)
-        hashes = [self.provider.hash(i) for i in files]
+        files = []
+        files += self.get_param('images')
+        files += self.get_param('documents')
+        if self.has_param('contentFile'):
+            files += [self.get_param('contentFile')]
 
-        self.hash = hash_str(''.join(hashes))
+        folder = self.get_param('folder')
+        files = [os.path.join(folder, x) for x in files]
+        files = sorted([self.file] + files)
+
+        hashes = [self.provider.hash(x) for x in files]
+        self.hash = hash_str(self.__hash_salt + ''.join(hashes))
 
     def __str__(self):
         return '<Page file={} id={}>'.format(self.file, self.id)
 
 
-def create_post(md, image_path_fn):
-    html = lxml.html.fromstring(md)
-
-    for img in html.cssselect('img'):
-        src = img.get('src')
-        path = image_path_fn(src)
-
-        if path:
-            img.set('src', path)
-            img.set('class', settings.album_html_img_class)
-            img.set('data-file', src)
-    return etree.tounicode(html)
-
-
 def get_manifest(provider, path):
-    dirname = os.path.dirname(path)
     data = provider.read(path).read().decode('utf-8')
-    manifest, body = read_yaml_md(data)
-    manifest = manifest if manifest else {}
+    manifest = parse_yaml_front_matter(data)
 
     if 'date' in manifest:
         manifest['date'] = create_date(manifest['date'], settings.date_formats)
@@ -202,13 +189,8 @@ def get_manifest(provider, path):
     if 'id' in manifest:
         manifest['id'] = str(manifest['id'])
 
-    if 'content' in manifest:
-        body = provider.read(os.path.join(dirname, manifest['content'])).read().decode('utf-8')
-        del manifest['content']
+    if 'contentFile' in manifest:
+        dirname = os.path.dirname(path)
+        manifest['contentHtml'] = provider.read(os.path.join(dirname, manifest['contentFile'])).read().decode('utf-8')
 
-    return {
-        **manifest,
-        'data': body,
-        'title': title_from_html(body),
-        'images': images_from_html(body)
-    }
+    return manifest
