@@ -27,10 +27,12 @@ async def typograf(text, options={}):
         'Content-Type': 'text/xml',
         'SOAPAction': 'http://typograf.artlebedev.ru/webservices/ProcessText',
     })
-
-    response_tree = etree.fromstring(resp.encode())
+    resp_text = resp.encode()
 
     try:
+        # create xml tree from response
+        response_tree = etree.fromstring(resp_text)
+
         # look for ProcessTextResult
         typograf_response = response_tree.getchildren()[0].getchildren()[0].getchildren()[0].text
     except Exception as response_tree:
