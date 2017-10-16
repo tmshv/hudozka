@@ -120,11 +120,6 @@ class Page(Model):
     async def build(self, **kwargs):
         sizes = kwargs['sizes']
 
-        # 'title': title_from_html(body),
-        # 'images': images_from_html(body)
-
-        print('build', self.file)
-
         markdown_post = self.get_param('content')
         post, images, documents = await create_post(self.provider, self.get_param('folder'), markdown_post, sizes)
         self.title = title_from_html(post)
