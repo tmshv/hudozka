@@ -61,7 +61,11 @@ def fix_links_quotes(tree):
         a.getparent().text = a.getparent().text + quote[0]
 
         # Move last quote out of A to the suffix
-        a.tail = quote[1] + a.tail
+        if a.tail:
+            a.tail = quote[1] + a.tail
+        else:
+            a.tail = quote[1]
+
     return tree
 
 
