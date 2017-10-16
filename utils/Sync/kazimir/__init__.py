@@ -317,9 +317,5 @@ Fye!
 More text
     '''
 
-    ts = make(sample_text)
-    if isinstance(ts, list):
-        for i in ts:
-            print(i)
-    else:
-        print(ts)
+    sample_tree = create_tree(sample_text)
+    print(html_from_tree(sample_tree))
