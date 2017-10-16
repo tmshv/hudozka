@@ -45,6 +45,8 @@ def clean_tree(tree):
 
 
 def fix_links_quotes(tree):
+    safe = lambda x: x if x else ''
+
     for link in tree.iterlinks():
         a = link[0]
         if a.tag != 'a':
@@ -58,13 +60,10 @@ def fix_links_quotes(tree):
         a.text = a.text[1:-1]
 
         # Move first quote out of A to the prefix
-        a.getparent().text = a.getparent().text + quote[0]
+        a.getparent().text = safe(a.getparent().text) + quote[0]
 
         # Move last quote out of A to the suffix
-        if a.tail:
-            a.tail = quote[1] + a.tail
-        else:
-            a.tail = quote[1]
+        a.tail = quote[1] + safe(a.tail)
 
     return tree
 
