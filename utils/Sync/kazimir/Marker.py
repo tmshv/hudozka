@@ -4,7 +4,7 @@ from markdown import markdown
 from kazimir.InstagramToken import InstagramToken
 from kazimir.YoutubeToken import YoutubeToken
 from kazimir.Token import SplitToken, ImageToken, UrlToken, FileToken, TextToken, DocumentToken, TokenFactory, \
-    DocumentTokenFactory
+    BuildTokenFactory
 
 
 class Marker:
@@ -182,7 +182,7 @@ More text
         m.add_token_factory(TokenFactory(InstagramToken))
         m.add_token_factory(TokenFactory(UrlToken))
         m.add_token_factory(TokenFactory(ImageToken))
-        m.add_token_factory(DocumentTokenFactory(build=build_document))
+        m.add_token_factory(BuildTokenFactory(build=build_document))
         m.add_token_factory(TokenFactory(FileToken))
         m.add_token_factory(TokenFactory(TextToken))
         m.add_tree_middleware(fix_links_quotes)

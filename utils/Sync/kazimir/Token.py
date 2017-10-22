@@ -16,9 +16,9 @@ class TokenFactory:
         return self.token(data=data)
 
 
-class DocumentTokenFactory(TokenFactory):
-    def __init__(self, build) -> None:
-        super().__init__(DocumentToken)
+class BuildTokenFactory(TokenFactory):
+    def __init__(self, token, build) -> None:
+        super().__init__(token)
         self.build = build
 
     def create(self, data):
