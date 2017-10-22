@@ -182,7 +182,7 @@ class Album(Model):
         )
 
     def __str__(self):
-        return '<Album hash={} id={} file={}>'.format(self.hash, self.id, self.file)
+        return '<Album id={} file={}>'.format(self.id, self.file)
 
 
 def get_manifest(provider, filepath):
