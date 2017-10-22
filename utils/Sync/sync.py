@@ -50,6 +50,7 @@ async def run(run_interval=0):
         provider=io(settings.provider_root),
         sizes=settings.image_sizes,
     )
+    sync_documents.strict_origin = True
 
     sync_pages = Sync(
         provider=io(settings.provider_root),

@@ -1,5 +1,7 @@
 import os
 
+import settings
+
 
 def find(store, item_id: str):
     q = {'id': item_id}
@@ -18,6 +20,7 @@ class Model:
         self.store = store
         self.file = file
 
+        self.origin = None
         self.id = None
         self.url = None
         self.hash = None
@@ -53,6 +56,9 @@ class Model:
         if not (name in self.params):
             return default_value
         return self.params[name]
+
+    def _set_origin(self):
+        self.origin = f'{settings.origin}:{os.path.dirname(self.file)}'
 
     def _is_changed_hash(self, item):
         if not item:

@@ -82,6 +82,7 @@ class Document(Model):
         self.__set_id()
         self.__set_url()
         self.__set_hash()
+        self._set_origin()
 
         filename = os.path.basename(self.file)
         self.file_name = filename
@@ -129,6 +130,7 @@ class Document(Model):
             'url': self.url,
             'type': self.type,
             'title': self.title,
+            'origin': self.origin,
             'preview': self.preview.ref,
             'fileInfo': {
                 'name': self.file_name,
