@@ -146,7 +146,7 @@ class ImageToken(Token):
         img = self.parse_data()
         img = await self.build(img)
         alt = img['alt']
-        caption = img['caption']
+        caption = markdown_to_html(img['caption'])
         src = img['src']
 
         tpl = f'''
