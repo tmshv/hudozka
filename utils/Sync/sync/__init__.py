@@ -7,9 +7,16 @@ from markdown import markdown
 
 import kazimir
 import settings
+from kazimir.YoutubeToken import YoutubeToken
+from kazimir.InstagramToken import InstagramToken
+from kazimir.Marker import Marker
+from kazimir.Token import TokenFactory, SplitToken, UrlToken, ImageToken, BuildTokenFactory, TextToken, DocumentToken
 from sync.data import Provider
 from sync.models import Model
+from sync.models.Document import Document
 from sync.models.Image import Image
+from utils.text.file import get_size
+from utils.text.file import get_ext
 
 
 def create_date(date_str, date_formats=None):
@@ -82,10 +89,34 @@ def create_date_and_title_from_folder_name(folder_name, date_formats=None):
 
 
 async def create_post(provider: Provider, folder: str, md: str, sizes):
-    html = kazimir.create_tree(md)
+    from kazimir.fix_links_quotes import fix_links_quotes
+
     images = []
-    for img in html.cssselect('img'):
-        src = img.get('src')
+    documents = []
+
+    async def build_document(data):
+        filepath = os.path.join(folder, data['file'])
+        document = await Document.new(provider, filepath, settings.image_sizes)
+
+        if not document:
+            raise Exception(f'Failed to build Document {filepath}')
+
+        text = data['caption'] if data['caption'] else data['file']
+        url = f'/document/{document.id}'
+
+        image_url = document.preview.get_size('small')['url']
+
+        return {
+            'url': url,
+            'image_url': image_url,
+            'file_url': document.url,
+            'title': document.title,
+            'file_size': get_size(document.file_size, 1),
+            'file_format': get_ext(data['file']),
+        }
+
+    async def build_image(data):
+        src = data['file']
         relative_image_path = os.path.join(folder, src)
 
         image_path = provider.get_local(relative_image_path)
@@ -94,14 +125,30 @@ async def create_post(provider: Provider, folder: str, md: str, sizes):
             if image:
                 url = image.get_size('big')['url']
                 images.append(image)
-                img.set('src', url)
-            else:
-                raise Exception('Fail to get Image', folder, src)
+
+                return {
+                    'src': url,
+                    'alt': data['caption'],
+                    'caption': data['caption'],
+                }
+        raise Exception('Fail to get Image', relative_image_path)
+
+    m = Marker()
+    m.add_token_factory(TokenFactory(SplitToken))
+    m.add_token_factory(TokenFactory(YoutubeToken))
+    m.add_token_factory(TokenFactory(InstagramToken))
+    m.add_token_factory(TokenFactory(UrlToken))
+    m.add_token_factory(BuildTokenFactory(ImageToken, build=build_image))
+    m.add_token_factory(BuildTokenFactory(DocumentToken, build=build_document))
+    # m.add_token_factory(TokenFactory(FileToken))
+    m.add_token_factory(TokenFactory(TextToken))
+    m.add_tree_middleware(fix_links_quotes)
+    html = await m.create_tree(md)
 
     post = kazimir.html_from_tree(html)
     post = await kazimir.typo(post)
 
-    return post, images, []
+    return post, images, documents
 
 
 def images_from_html(md):

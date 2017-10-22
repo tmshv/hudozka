@@ -47,7 +47,7 @@ async def run(run_interval=0):
     io = lambda root: get_provider(settings.provider_name, root)
 
     sync_documents = SyncDocument(
-        provider=io(settings.dir_documents),
+        provider=io(settings.provider_root),
         sizes=settings.image_sizes,
     )
 

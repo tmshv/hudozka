@@ -132,6 +132,7 @@ collection_pages = 'pages'
 hash_salt_articles = '3'
 hash_salt_pages = '1'
 hash_salt_albums = '0'
+hash_salt_documents = '0'
 
 provider_name = value('provider')['name']  # env('SYNC_PROVIDER', 'fs')
 provider_root = value('provider')['root']  # env('SYNC_PROVIDER', 'fs')
@@ -139,7 +140,7 @@ provider_root = value('provider')['root']  # env('SYNC_PROVIDER', 'fs')
 f = abs_fn(provider_root)
 
 dir_settings = f('Settings')
-dir_documents = f('Documents')
+dir_documents = './Documents'
 dir_awards = f('Awards')
 dir_schedules = f('Schedules')
 dir_articles = f('Articles')
