@@ -22,7 +22,10 @@ class Document {
 		this.id = data.id
 		this.hash = data.hash
 		this.file = data.file
-		this.fileInfo = new DocumentFile(data.fileInfo)
+		// In the future: use fileInfo only
+		this.fileInfo = data.fileInfo
+			? new DocumentFile(data.fileInfo)
+			: new DocumentFile(data.file)
 		this.type = data.type
 		this.title = data.title
 		this.category = data.category
