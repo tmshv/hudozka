@@ -2,7 +2,7 @@
 
 .Article {
   --article-line-height: 1.75em;
-  --article-quote-padding: 1em;
+  --article-quote-padding: var(--half-margin);
   --article-quote-font-size: 1.25em;
   --article-head-margin-bottom: var(--small-margin);
 
@@ -23,15 +23,10 @@
     }
   }
 
-  &-Body{
+  &-Body {
     --text-margin: 10px;
 
-    img {
-      max-width: 100%;
-      max-height: 35em;
-    }
-
-    ul, ol{
+    ul, ol {
       margin-left: $half-margin;
       margin-bottom: $single-margin;
 
@@ -40,7 +35,7 @@
       }
     }
 
-    ul{
+    ul {
       list-style: disc;
     }
 
@@ -73,6 +68,10 @@
         font-family: $text-font;
         text-align: right;
         margin-right: $single-margin;
+      }
+
+      p {
+        margin-bottom: 0;
       }
     }
 
