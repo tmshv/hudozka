@@ -31,18 +31,23 @@ function getMeta(teacher) {
 }
 
 async function bakeDocument(document) {
-	//const preview = await document.preview.unpack()
 	const preview = document.preview
 	if (!preview) return null
 
 	const image = preview.findArtifact(sizes)
 	if (!image) return null
 
+	const category = (document.category || '')
+		.replace('Documents/', '')
+		.replace('Pages/', '')
+		.replace('Albums/', '')
+		.replace('Articles	/', '')
+
 	return {
-		category: document.category,
+		category,
 		title: document.title,
-		fileName: document.file.name,
-		fileSize: document.file.size,
+		fileName: document.fileInfo.name,
+		fileSize: document.fileInfo.size,
 		fileUrl: document.url,
 		imageUrl: image.url,
 		url: document.viewUrl,
@@ -50,16 +55,14 @@ async function bakeDocument(document) {
 }
 
 function getDocuments() {
-	return get('/documents', async (ctx) => {
+	return get('/documents', async ctx => {
 		const path = getPathWithNoTrailingSlash(ctx.path)
 		let documents = await Document.find({})
 
 		if (documents) {
-			//documents = teachersSorted(documents)
 			documents = await Promise.all(documents.map(bakeDocument))
 			documents = documents.filter(Boolean)
 
-			//const collections = splitBy(d => d.category)(documents)
 			const collections = getSorted(documents)
 
 			const Component = (
@@ -152,4 +155,5 @@ function getSorted(documents) {
 		}], [])
 }
 
+exports.bakeDocument = bakeDocument
 exports.getDocuments = getDocuments

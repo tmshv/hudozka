@@ -9,6 +9,7 @@ const getPathWithNoTrailingSlash = require('../lib/url').getPathWithNoTrailingSl
 const {get} = require('koa-route')
 const {splitBy} = require('../lib/array')
 const {unique} = require('../utils/common')
+const {bakeDocument} = require('./documents')
 
 const sizes = [
 	ImageArtifactType.MEDIUM,
@@ -20,25 +21,6 @@ function getMeta(document) {
 	return {
 		title: document.title,
 		description: document.title,
-	}
-}
-
-async function bakeDocument(document) {
-	//const preview = await document.preview.unpack()
-	const preview = document.preview
-	if (!preview) return null
-
-	const image = preview.findArtifact(sizes)
-	if (!image) return null
-
-	return {
-		category: document.category,
-		title: document.title,
-		fileName: document.file.name,
-		fileSize: document.file.size,
-		fileUrl: document.url,
-		imageUrl: image.url,
-		url: document.viewUrl,
 	}
 }
 
@@ -60,7 +42,7 @@ function getDocument() {
 			)
 
 			ctx.type = 'text/html'
-			ctx.body = await render(path, Component, getMeta(document))
+			ctx.body = await render(path, Component, getMeta(document), {menuPadding: true})
 		} else {
 			ctx.status = 404
 		}

@@ -21,7 +21,8 @@ class Document {
 	constructor(data) {
 		this.id = data.id
 		this.hash = data.hash
-		this.file = new DocumentFile(data.file)
+		this.file = data.file
+		this.fileInfo = new DocumentFile(data.fileInfo)
 		this.type = data.type
 		this.title = data.title
 		this.category = data.category
