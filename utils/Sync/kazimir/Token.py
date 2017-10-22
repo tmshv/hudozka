@@ -116,7 +116,7 @@ class DocumentToken(Token):
                 </a>
 
                 <div class="document-row__file">
-                    <a href="{document['file_url']}">{document['title']}</a>
+                    <a href="{document['url']}">{document['title']}</a>
                 </div>
 
                 <div class="document-row__file-info">
@@ -137,19 +137,22 @@ class ImageToken(Token):
     def __init__(self, data) -> None:
         super().__init__(name='image', data=data)
         self.joinable = True
+        self.build = None
 
     def merge(self, token: Token):
         return ImageCollectionToken([self.data, token.data])
 
     async def compile(self):
         img = self.parse_data()
+        img = await self.build(img)
+        alt = img['alt']
         caption = img['caption']
-        file = img['file']
+        src = img['src']
 
         tpl = f'''
             <div class="kazimir__image">
                 <figure>
-                    <img alt="{caption}" src="{file}">
+                    <img alt="{alt}" src="{src}">
                     <figcaption>{caption}</figcaption>
                 </figure>
             </div>
