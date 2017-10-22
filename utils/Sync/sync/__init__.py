@@ -30,9 +30,9 @@ def create_date(date_str, date_formats=None):
             '%Y.%m.%d'
         ]
 
-    for format in date_formats:
+    for date_format in date_formats:
         try:
-            return datetime.strptime(date_str, format)
+            return datetime.strptime(date_str, date_format)
         except:
             continue
     return None
