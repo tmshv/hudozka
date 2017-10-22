@@ -8,7 +8,8 @@ import lxml.html
 import kazimir
 import settings
 from db import collection
-from sync import create_date_and_title_from_folder_name, images_from_html, create_post_from_image_list, create_date
+from sync import create_date_and_title_from_folder_name, images_from_html, create_post_from_image_list, create_date, \
+    create_post
 from sync.data import Provider, list_images
 from sync.models import Model
 from sync.models.Image import Image
@@ -44,16 +45,11 @@ class Album(Model):
             os.path.basename(path)
         )
 
-        images = list_images(provider, path)
-        images = [os.path.relpath(i, path) for i in images]
-
         # CREATE BASIC_MANIFEST BASED ON FOLDER NAME AND IMAGE CONTENT
         document = {
             'folder': path,
             'date': date,
             'title': title,
-            'post': create_post_from_image_list(images),
-            'images': images
         }
 
         # TRY TO FILL UP BASIC_MANIFEST WITH MD_MANIFEST
@@ -73,19 +69,27 @@ class Album(Model):
         )
 
     def __init__(self, provider, file, params=None):
-        # self.__id_template: str = '{category}-{file}'
-        # self.__url_template: str = settings.document_url_template
-        # self.__url_preview_template: str = settings.document_url_preview_template
+        self.__hash_salt = settings.hash_salt_albums
 
-        self.sizes = settings.image_sizes
         self.version = '1'
 
         self.origin = settings.origin
         self.post = None
-        self.images = None
+        self.images = []
+        self.documents = []
+        self.preview = None
         super().__init__(provider, store, file, params=params)
 
     def init(self):
+        if self.has_param('content'):
+            images, documents = kazimir.extract_files(self.get_param('content'))
+        else:
+            images = list_images(self.provider, self.file)
+            images = [os.path.relpath(i, self.file) for i in images]
+            documents = []
+        self.params['images'] = images
+        self.params['documents'] = documents
+
         self.__set_id()
         self.__set_hash()
 
@@ -98,55 +102,24 @@ class Album(Model):
             return None
 
     async def build(self, **kwargs):
-        params = self.params
-        image_id = id_from_file
-        images = []
+        sizes = kwargs['sizes']
+        folder = self.get_param('folder')
 
-        create_album_id = lambda date, title: '{date}-{title}'.format(
-            date=date.strftime('%Y'),
-            title=url_encode_text(title)
-        )
+        if self.has_param('content'):
+            markdown_post = self.get_param('content')
+        else:
+            markdown_post = create_post_from_image_list(self.get_param('images'))
 
-        # params['id'] = params['id'] if 'id' in params else create_album_id(params['date'], params['title'])
-
-        # if 'album' in params:
-        #     params['album'] = self.create_products(params, image_path)
-
-        async def process_post_image(src):
-            url = url_creator(
-                self.id,
-                id_from_file(src)
-            )
-
-            image_path = os.path.join(params['folder'], src)
-            image = await Image.new(self.provider, image_path, self.sizes, url)
-            if image:
-                images.append(image)
-                return image.get_size('big')['url']
-            return None
-
-        post_html = await create_post(params['post'], process_post_image)
+        post, images, documents = await create_post(self.provider, folder, markdown_post, sizes)
+        self.post = post
+        self.images = images
+        self.documents = documents
 
         if self.has_param('preview'):
             preview = self.get_param('preview')
             preview = self._get_relpath(preview)
-            preview = await Image.new(self.provider, preview, sizes=self.sizes)
-        else:
-            # preview = 'https://art.shlisselburg.org/entrance.jpg'
-            preview = None
-
-        self.post = post_html
-        self.images = images
-        self.preview = preview
-
-        # sizes = kwargs['sizes']
-        # post, images = await create_post(self.provider, self.id, self.params, sizes)
-        # self.post = post
-        # self.images = images
-        #
-        # post, images = await create_post(self.provider, self.id, self.params, sizes)
-        # self.post = kazimir.html_from_tree(post)
-        # self.images = images
+            preview = await Image.new(self.provider, preview, sizes=sizes)
+            self.preview = preview
 
     def create_products(self, doc, image_file_fn):
         pass
@@ -174,7 +147,8 @@ class Album(Model):
 
         return {
             **self.params,
-            'images': [i.ref for i in self.images],
+            'images': [x.ref for x in self.images],
+            'documents': [x.ref for x in self.documents],
             'preview': preview,
             'post': self.post,
             'id': self.id,
@@ -204,7 +178,7 @@ class Album(Model):
 
         self.hash = hash_str(files)
         self.hash = hash_str(
-            combine([hash_str(self.params)] + files)
+            combine([self.__hash_salt] + [hash_str(self.params)] + files)
         )
 
     def __str__(self):
@@ -213,51 +187,12 @@ class Album(Model):
 
 def get_manifest(provider, filepath):
     data = provider.read(filepath).read().decode('utf-8')
-    y, m = read_yaml_md(data)
+    manifest = parse_yaml_front_matter(data)
 
-    data = {**y} if y else {}
-    _ = lambda key, d=None: data[key] if key in data else d
+    if 'date' in manifest:
+        manifest['date'] = create_date(str(manifest['date']), settings.date_formats_direct)
 
-    date = create_date(str(_('date')), settings.date_formats_direct)
-    if date:
-        data['date'] = date
+    if 'id' in manifest:
+        manifest['id'] = str(manifest['id'])
 
-    album_id = _('id')
-    if album_id:
-        data['id'] = str(album_id)
-
-    post = {'post': m} if m else {}
-    return {**data, **post}
-
-
-def create_url(a, i, s, e):
-    return 'https://static.shlisselburg.org/art/images/product-{album}-{id}-{size}{ext}'.format(
-        album=a,
-        id=i,
-        size=s,
-        ext=e
-    )
-
-
-def url_creator(aid, pid):
-    return lambda file, size, ext: create_url(aid, pid, size, ext.lower())
-
-
-def id_from_file(i):
-    return url_encode_text(
-        os.path.splitext(i)[0]
-    )
-
-
-async def create_post(md, image_path_fn):
-    html = lxml.html.fromstring(md)
-
-    for img in html.cssselect('img'):
-        src = img.get('src')
-        path = await image_path_fn(src)
-
-        if path:
-            img.set('src', path)
-            img.set('class', settings.album_html_img_class)
-            img.set('data-file', src)
-    return etree.tounicode(html)
+    return manifest
