@@ -1,6 +1,8 @@
 import asyncio
 import lxml.html
 from markdown import markdown
+
+from kazimir.CSVToken import CSVToken
 from kazimir.InstagramToken import InstagramToken
 from kazimir.YoutubeToken import YoutubeToken
 from kazimir.Token import SplitToken, ImageToken, UrlToken, FileToken, TextToken, DocumentToken, TokenFactory, \
@@ -156,6 +158,8 @@ Fye!
 ["Ya"](http://ya.ru)
 
 More text
+
+file.csv
     '''
 
 
@@ -172,6 +176,14 @@ More text
         }
         return document
 
+    async def read_csv(data):
+        return '\n'.join([
+            'N,Name',
+            f'0,{data}',
+            '1,Pop',
+            '2,Top',
+        ])
+
 
     async def run():
         from kazimir.fix_links_quotes import fix_links_quotes
@@ -183,6 +195,7 @@ More text
         m.add_token_factory(TokenFactory(UrlToken))
         m.add_token_factory(TokenFactory(ImageToken))
         m.add_token_factory(BuildTokenFactory(build=build_document))
+        m.add_token_factory(BuildTokenFactory(CSVToken, build=read_csv))
         m.add_token_factory(TokenFactory(FileToken))
         m.add_token_factory(TokenFactory(TextToken))
         m.add_tree_middleware(fix_links_quotes)
