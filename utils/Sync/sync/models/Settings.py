@@ -22,7 +22,8 @@ class Settings(Model):
 
     @staticmethod
     async def scan(provider):
-        documents = provider.type_filter('.', '.yaml')
+        scan_dir = settings.dir_settings
+        documents = provider.type_filter(scan_dir, '.yaml')
 
         documents = [Settings.read(provider, i) for i in documents]
         return documents

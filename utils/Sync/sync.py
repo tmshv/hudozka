@@ -78,7 +78,7 @@ async def run(run_interval=0):
     )
 
     sync_settings = Sync(
-        provider=io(settings.dir_settings),
+        provider=io(settings.provider_root),
         model=Settings,
     )
 
