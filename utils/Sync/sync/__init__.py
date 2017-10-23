@@ -125,7 +125,7 @@ async def create_post(provider: Provider, folder: str, md: str, sizes):
 
         image_path = provider.get_local(relative_image_path)
         if os.path.exists(image_path):
-            image = await Image.new(provider, image_path, sizes)
+            image = await Image.new(provider, relative_image_path, sizes)
             if image:
                 url = image.get_size('big')['url']
                 images.append(image)
