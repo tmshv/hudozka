@@ -51,6 +51,7 @@ class Document(Model):
         document = Document.read_path(provider, file)
         changed = await document.is_changed()
         if changed:
+            document.hide()
             await document.build(sizes=sizes)
             await document.upload()
             await document.save()
@@ -76,6 +77,7 @@ class Document(Model):
         self.preview = None
 
         self.type = 'document'  # 'award'
+        self.hidden = False
 
         super().__init__(provider, store, file, params=params)
 
@@ -91,6 +93,9 @@ class Document(Model):
 
         if self.has_param('title'):
             self.title = self.get_param('title')
+
+        if self.has_param('hidden'):
+            self.hidden = self.get_param('hidden')
 
     async def build(self, **kwargs):
         sizes = kwargs['sizes']
@@ -132,6 +137,7 @@ class Document(Model):
             'type': self.type,
             'title': self.title,
             'origin': self.origin,
+            'hidden': self.hidden,
             'preview': self.preview.ref,
             'fileInfo': {
                 'name': self.file_name,
@@ -174,6 +180,10 @@ class Document(Model):
 
         if preview:
             self.preview = preview
+
+    def hide(self):
+        self.hidden = True
+        return self
 
     def __str__(self):
         return f'<Document file={self.file} id={self.id}>'
