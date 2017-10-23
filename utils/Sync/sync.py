@@ -63,7 +63,7 @@ async def run(run_interval=0):
     )
 
     sync_articles = Sync(
-        provider=io(settings.dir_articles),
+        provider=io(settings.provider_root),
         model=Article,
     )
 

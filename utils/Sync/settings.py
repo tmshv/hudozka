@@ -129,8 +129,8 @@ collection_collective = 'collective'
 collection_albums = 'albums'
 collection_pages = 'pages'
 
-hash_salt_articles = '3'
 hash_salt_pages = '1'
+hash_salt_articles = '4'
 hash_salt_albums = '0'
 hash_salt_documents = '0'
 
@@ -143,7 +143,7 @@ dir_settings = f('Settings')
 dir_documents = './Documents'
 dir_awards = f('Awards')
 dir_schedules = f('Schedules')
-dir_articles = f('Articles')
+dir_articles = './Articles'
 dir_collective = f('Collective')
 dir_albums = f('Gallery')
 dir_pages = './Pages'

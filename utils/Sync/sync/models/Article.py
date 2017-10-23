@@ -31,7 +31,8 @@ class Article(Model):
 
     @staticmethod
     async def scan(provider):
-        documents = [i for i in provider.scan('.') if provider.is_dir(i)]
+        scan_dir = settings.dir_articles
+        documents = [i for i in provider.scan(scan_dir) if provider.is_dir(i)]
         documents = [Article.read(provider, i) for i in documents]
         return documents
 
@@ -65,7 +66,6 @@ class Article(Model):
 
     def __init__(self, provider, file, params=None):
         self.hash_salt = settings.hash_salt_articles
-        self.origin = settings.origin
         self.version = '2'
         self.post = None
         self.preview = None
@@ -85,6 +85,7 @@ class Article(Model):
 
         self.__set_id()
         self.__set_hash()
+        self.origin = settings.origin
 
     def validate(self):
         document = self.params
@@ -110,8 +111,7 @@ class Article(Model):
         if self.has_param('preview'):
             preview = self.get_param('preview')
             preview = self._get_relpath(preview)
-            preview = await Image.new(self.provider, preview, sizes)
-            self.preview = preview
+            self.preview = await Image.new(self.provider, preview, sizes)
 
     def bake(self):
         return {
@@ -149,7 +149,7 @@ class Article(Model):
         )
 
     def __str__(self):
-        return '<Article file={} id={}>'.format(self.file, self.id)
+        return f'<Article file={self.file} id={self.id}>'
 
 
 def md_from_folder(provider, i):
