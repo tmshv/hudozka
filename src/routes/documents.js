@@ -57,7 +57,7 @@ async function bakeDocument(document) {
 function getDocuments() {
 	return get('/documents', async ctx => {
 		const path = getPathWithNoTrailingSlash(ctx.path)
-		let documents = await Document.find({})
+		let documents = await Document.find({hidden: false})
 
 		if (documents) {
 			documents = await Promise.all(documents.map(bakeDocument))
