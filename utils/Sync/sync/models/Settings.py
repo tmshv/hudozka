@@ -61,4 +61,4 @@ class Settings(Model):
         self.hash = self.provider.hash(self.file)
 
     def __str__(self):
-        return '<Settings hash={} file={} id={}>'.format(self.hash, self.file, self.id)
+        return f'<Settings file={self.file} id={self.id}>'
