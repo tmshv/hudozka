@@ -58,7 +58,7 @@ async def run(run_interval=0):
     )
 
     sync_persons = Sync(
-        provider=io(settings.dir_collective),
+        provider=io(settings.provider_root),
         model=Person,
     )
 

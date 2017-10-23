@@ -1,14 +1,17 @@
 import logging
 
+import os
+
 import settings
 from db import collection
+from sync import create_post
 from sync.data import Provider
 from sync.models import Model
 from sync.models.Image import Image
 
 from utils.fn import swap_ext
 from utils.hash import hash_str
-from utils.io import read_yaml_md
+from utils.io import read_yaml_md, parse_yaml_front_matter
 from utils.text.transform import url_encode_text
 
 logger = logging.getLogger(settings.name + '.Person')
@@ -26,7 +29,8 @@ class Person(Model):
 
     @staticmethod
     async def scan(provider):
-        documents = provider.type_filter('', '.md')
+        scan_dir = settings.dir_persons
+        documents = provider.type_filter(scan_dir, '.md')
         documents = [Person.read(provider, i) for i in documents]
         return documents
 
@@ -48,6 +52,9 @@ class Person(Model):
         self.__url_preview_template: str = settings.document_url_preview_template
 
         self.picture = None
+        self.post = None
+        self.images = None
+        self.documents = None
 
         super().__init__(provider, store, file, params)
 
@@ -58,13 +65,22 @@ class Person(Model):
 
     async def build(self, **kwargs):
         sizes = kwargs['sizes']
-        image_path = self.provider.get_abs(self.get_param('picture'))
+        image_path = self._get_relpath(self.get_param('picture'))
 
         self.picture = await Image.new(self.provider, image_path, sizes)
+
+        markdown_post = self.get_param('content')
+        post, images, documents = await create_post(self.provider, self.get_param('folder'), markdown_post, sizes)
+        self.post = post
+        self.images = images
+        self.documents = documents
 
     def bake(self):
         return {
             **self.params,
+            'post': self.post,
+            'images': [x.ref for x in self.images],
+            'documents': [x.ref for x in self.documents],
             'id': self.id,
             'hash': self.hash,
             'file': self.file,
@@ -78,30 +94,24 @@ class Person(Model):
             self.id = url_encode_text(self.params['name'])
 
     def __set_hash(self):
+        files = [self.file]
+        files.append(self._get_relpath(self.get_param('picture')))
+
+        hashes = [self.provider.hash(x) for x in files]
         self.hash = hash_str(
-            self.provider.hash(self.file) + self.provider.hash(self.params['picture'])
+            ''.join(hashes)
         )
 
     def __str__(self):
-        return '<Person hash={} file={} id={}>'.format(self.hash, self.file, self.id)
+        return f'<Person file={self.file} id={self.id}>'
 
 
 def get_manifest(provider: Provider, path: str) -> dict:
     data = provider.read(path).read().decode('utf-8')
 
-    manifest, body = read_yaml_md(data)
-    manifest = {
+    manifest = parse_yaml_front_matter(data)
+    return {
         **manifest,
-        'file': path,
-        'biography': body,
-        'picture': manifest['picture'] if 'picture' in manifest else swap_ext('.jpg')(path),
+        'picture': manifest['picture'] if 'picture' in manifest else os.path.basename(swap_ext('.jpg')(path)),
+        'folder': os.path.dirname(path),
     }
-
-    return manifest
-
-
-def url_factory(id):
-    def url(file, size, ext):
-        return settings.person_image_url_template.format(id=id, size=size, ext=ext)
-
-    return url
