@@ -81,22 +81,6 @@ image_sizes = [
     ('fb@2', 2400, 1260),
 ]
 
-awards_image_sizes = [
-    ('medium', 640, 480),
-    ('small', 300, 200),
-    ('preview', 50, 50),
-]
-
-event_image_sizes = [
-    ('big', 1200, 800)
-]
-
-album_image_sizes = [
-    ('big', 1200, 800),
-    ('medium', 640, 480),
-    ('small', 250, 175)
-]
-
 date_formats = [
     '%Y',
     '%m.%Y',
@@ -122,7 +106,6 @@ origin = value('origin')
 collection_settings = 'settings'
 collection_images = 'images'
 collection_documents = 'documents'
-collection_awards = 'awards'
 collection_schedules = 'schedules'
 collection_articles = 'articles'
 collection_collective = 'collective'
@@ -141,7 +124,6 @@ f = abs_fn(provider_root)
 
 dir_settings = './Settings'
 dir_documents = './Documents'
-dir_awards = f('Awards')
 dir_schedules = f('Schedules')
 dir_articles = './Articles'
 dir_collective = f('Collective')
@@ -149,15 +131,12 @@ dir_albums = f('Gallery')
 dir_pages = './Pages'
 dir_images = './Images'
 
-page_url_base = 'https://static.shlisselburg.org/art/images/page-{page}-{id}-{size}{ext}'
-
 document_url_template = 'https://static.shlisselburg.org/art/uploads/{file}'
 document_url_upload_template = 'https://static.shlisselburg.org/upload/art/uploads/{file}'
 document_url_preview_template = 'https://static.shlisselburg.org/art/images/{id}-{size}{ext}'
 
 image_url_upload = 'https://static.shlisselburg.org/upload/art/images/'
 image_url_base = 'https://static.shlisselburg.org/art/images/'
-image_name_format = '{type}-{id}-{img}-{size}{ext}'
 
 person_image_url_template = 'https://static.shlisselburg.org/art/images/person-{id}-{size}{ext}'
 
