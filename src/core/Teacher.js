@@ -20,7 +20,7 @@ class Teacher {
 
 	constructor(data) {
 		this.id = data.id
-		this.biography = data.biography
+		this.post = data.post
 		this.file = data.file
 		this.edu = data.edu
 		this.picture = data.picture

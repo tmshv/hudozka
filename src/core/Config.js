@@ -24,6 +24,7 @@ class Config {
 		this.articlesPerPage = data.articlesPerPage || 5
 		this.collectiveOrder = data.collectiveOrder || []
 		this.articleCardDefaultPreview = data.articleCardDefaultPreview
+		this.collectiveImage = data.collectiveImage
 
 		this.redirect = new Map(Object
 			.entries(data.redirect)

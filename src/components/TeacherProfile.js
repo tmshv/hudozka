@@ -15,17 +15,6 @@ const TeacherProfile = ({picture, name, url, profile, biography, shareable}) => 
 		</div>
 
 		<div className="teacher-profile__info">
-			<Head url={url}>
-				<span>{name[0]} {name[1]}</span> <strong>{name[2]}</strong>
-			</Head>
-
-			<div>
-				<p className="teacher-profile__position"><i><strong>{profile.position}</strong></i></p>
-				<p>{profile.status}</p>
-				<p>Образование: {profile.edu}</p>
-				<p>Диплом: <i>{profile.diploma}</i></p>
-			</div>
-
 			<div className="teacher-profile__biography">
 				{getHtml(biography)}
 			</div>

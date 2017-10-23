@@ -7,7 +7,8 @@ class ImageArtifactType {
 ImageArtifactType.SMALL = 'small'
 ImageArtifactType.MEDIUM = 'medium'
 ImageArtifactType.BIG = 'big'
-ImageArtifactType.ORIGIN = 'origin'
+ImageArtifactType.ORIGIN = 'original'
+ImageArtifactType.ORIGINAL = 'original'
 
 ImageArtifactType.FACEBOOK = 'fb'
 
