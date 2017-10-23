@@ -7,6 +7,7 @@ from markdown import markdown
 
 import kazimir
 import settings
+from kazimir.CSVToken import CSVToken
 from kazimir.YoutubeToken import YoutubeToken
 from kazimir.InstagramToken import InstagramToken
 from kazimir.Marker import Marker
@@ -94,6 +95,9 @@ async def create_post(provider: Provider, folder: str, md: str, sizes):
     images = []
     documents = []
 
+    def rel(file: str) -> str:
+        return os.path.join(folder, file)
+
     async def build_document(data):
         filepath = os.path.join(folder, data['file'])
         document = await Document.new(provider, filepath, settings.image_sizes)
@@ -133,6 +137,12 @@ async def create_post(provider: Provider, folder: str, md: str, sizes):
                 }
         raise Exception('Fail to get Image', relative_image_path)
 
+    async def read_file(data):
+        filepath = data
+        filepath = rel(filepath)
+
+        return provider.read(filepath).read().decode('utf-8')
+
     m = Marker()
     m.add_token_factory(TokenFactory(SplitToken))
     m.add_token_factory(TokenFactory(YoutubeToken))
@@ -140,6 +150,7 @@ async def create_post(provider: Provider, folder: str, md: str, sizes):
     m.add_token_factory(TokenFactory(UrlToken))
     m.add_token_factory(BuildTokenFactory(ImageToken, build=build_image))
     m.add_token_factory(BuildTokenFactory(DocumentToken, build=build_document))
+    m.add_token_factory(BuildTokenFactory(CSVToken, build=read_file))
     # m.add_token_factory(TokenFactory(FileToken))
     m.add_token_factory(TokenFactory(TextToken))
     m.add_tree_middleware(fix_links_quotes)
