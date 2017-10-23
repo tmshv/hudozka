@@ -1,19 +1,9 @@
 const React = require('react')
 const dateFormat = require('../lib/date').dateFormat
+const Image = require('./Image')
 
 const Date = ({children}) => (
 	<p className="date">{dateFormat(children)}</p>
-)
-
-const Image = ({data, alt}) => (
-	<picture>
-		<img
-			className="opa"
-			alt={alt}
-			src={data.src}
-			srcSet={data.set.map(({url, density}) => `${url} ${density}x`)}
-		/>
-	</picture>
 )
 
 const Link = ({href, children}) => (
