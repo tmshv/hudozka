@@ -73,8 +73,9 @@ class Document(Model):
         self.title = None
         self.file_name = None
         self.file_size = None
-        self.type = 'document'  # 'award'
         self.preview = None
+
+        self.type = 'document'  # 'award'
 
         super().__init__(provider, store, file, params=params)
 
