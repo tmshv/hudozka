@@ -80,7 +80,6 @@ async function renderCollective(path, order) {
 	const teachersSorted = prioritySort.bind(null, [...order], t => t.id)
 	teachers = teachersSorted(teachers)
 
-	console.log(collectiveImage)
 	const image = collectiveImage.getPicture(ImageArtifactType.LARGE)
 
 	const PersonCardList = ({children}) => (
