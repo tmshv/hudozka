@@ -65,6 +65,9 @@ image_ext = '.jpg'
 image_sizes = [
     ('original', None, None),
 
+    ('large', 2500, 1000),
+    ('large@2', 5000, 2000),
+
     ('big', 1500, 667),
     ('big@2', 3000, 1334),
 
