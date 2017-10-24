@@ -12,45 +12,48 @@ const Config = require('../core/Config')
 const {sortBy} = require('../utils/sort')
 const {prioritySort} = require('../lib/sort')
 
+const metaImageTypesPriority = [
+	ImageArtifactType.FACEBOOK,
+	ImageArtifactType.MEDIUM,
+	ImageArtifactType.BIG,
+	ImageArtifactType.ORIGIN,
+]
+
 function getMeta(teacher) {
-	return {
-		title: teacher.name,
-		description: teacher.name,
+	const meta = {
+		title: teacher.title,
 	}
+
+	if (teacher.preview) {
+		try {
+			const artifact = teacher.preview.findArtifact(metaImageTypesPriority)
+			meta.image = artifact.url
+			meta.imageWidth = artifact.width
+			meta.imageHeight = artifact.height
+		} catch (error) {
+			meta.image = 'https://art.shlisselburg.org/entrance.jpg'
+			meta.imageWidth = 1200
+			meta.imageHeight = 630
+		}
+	}
+	return meta
 }
 
-function getCollectiveMeta() {
-	return {
+function getCollectiveMeta(picture) {
+	const meta = {
 		title: 'Преподаватели',
 		description: 'Преподаватели Шлиссельбургской ДХШ',
 	}
-}
 
-// function getMeta(article) {
-// 	const types = [
-// 		ImageArtifactType.FACEBOOK,
-// 		ImageArtifactType.MEDIUM,
-// 		ImageArtifactType.BIG,
-// 		ImageArtifactType.ORIGIN,
-// 	]
-// 	const meta = {
-// 		title: article.title,
-// 	}
-//
-// 	if (article.preview) {
-// 		try {
-// 			const artifact = article.preview.findArtifact(types)
-// 			meta.image = artifact.url
-// 			meta.imageWidth = artifact.width
-// 			meta.imageHeight = artifact.height
-// 		} catch (error) {
-// 			meta.image = 'https://art.shlisselburg.org/entrance.jpg'
-// 			meta.imageWidth = 1200
-// 			meta.imageHeight = 630
-// 		}
-// 	}
-// 	return meta
-// }
+	if (picture) {
+		const artifact = picture.findArtifact(metaImageTypesPriority)
+		meta.image = artifact.url
+		meta.imageWidth = artifact.width
+		meta.imageHeight = artifact.height
+	}
+
+	return meta
+}
 
 async function renderPerson(id) {
 	const teacher = await Teacher.findById(id)
@@ -106,7 +109,7 @@ async function renderCollective(path, order) {
 		</div>
 	)
 
-	return render(path, Component, getCollectiveMeta(), {menuPadding: true})
+	return render(path, Component, getCollectiveMeta(collectiveImage), {menuPadding: true})
 }
 
 exports.renderPerson = renderPerson

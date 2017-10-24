@@ -24,6 +24,7 @@ class Teacher {
 		this.file = data.file
 		this.edu = data.edu
 		this.picture = data.picture
+		this.preview = data.preview
 		this.diploma = data.diploma
 		this.position = data.position
 		this.name = data.name
@@ -61,11 +62,14 @@ class Teacher {
 
 const processProfile = async profile => {
 	const imageId = profile.picture
+	const previewId = profile.preview
 	const picture = await Image.findById(imageId)
+	const preview = await Image.findById(previewId)
 
 	return new Teacher({
 		...profile,
 		picture,
+		preview,
 	})
 }
 
