@@ -24,6 +24,8 @@ const defaultMeta = {
 	title: 'Шлиссельбургская Детская Художественная Школа',
 	description: 'Сайт Шлиссельбургской художественной школы',
 	image: 'https://art.shlisselburg.org/entrance.jpg',
+	imageWidth: 1200,
+	imageHeight: 630,
 }
 
 function isActive(path, menuItem) {

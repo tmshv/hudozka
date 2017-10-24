@@ -31,9 +31,6 @@ function getMeta(teacher) {
 			meta.imageWidth = artifact.width
 			meta.imageHeight = artifact.height
 		} catch (error) {
-			meta.image = 'https://art.shlisselburg.org/entrance.jpg'
-			meta.imageWidth = 1200
-			meta.imageHeight = 630
 		}
 	}
 	return meta
