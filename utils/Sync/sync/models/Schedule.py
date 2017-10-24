@@ -31,8 +31,9 @@ class Schedule(Model):
 
     @staticmethod
     async def scan(provider):
-        documents = provider.type_filter('.', '.yaml')
-        documents += provider.type_filter('.', '.toml')
+        scan_dir = settings.dir_schedules
+        documents = provider.type_filter(scan_dir, '.yaml')
+        documents += provider.type_filter(scan_dir, '.toml')
 
         documents = [Schedule.read(provider, i) for i in documents]
         return documents

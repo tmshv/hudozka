@@ -124,7 +124,7 @@ f = abs_fn(provider_root)
 
 dir_settings = './Settings'
 dir_documents = './Documents'
-dir_schedules = f('Schedules')
+dir_schedules = './Schedules'
 dir_articles = './Articles'
 dir_persons = './Collective'
 dir_albums = f('Gallery')
