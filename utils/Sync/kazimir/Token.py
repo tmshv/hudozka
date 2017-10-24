@@ -140,7 +140,9 @@ class ImageToken(Token):
         self.build = None
 
     def merge(self, token: Token):
-        return ImageCollectionToken([self.data, token.data])
+        merged_token = ImageCollectionToken([self.data, token.data])
+        merged_token.build = self.build
+        return merged_token
 
     async def compile(self):
         img = self.parse_data()
@@ -167,17 +169,26 @@ class ImageCollectionToken(ImageToken):
     def __init__(self, data) -> None:
         super().__init__(data)
         self.name = 'image_collection'
+        self.build = None
 
     def merge(self, token: Token):
         if isinstance(token.data, list):
             data = token.data
         else:
             data = [token.data]
-        return ImageCollectionToken([*self.data, *data])
+        merged_token = ImageCollectionToken([*self.data, *data])
+        merged_token.build = self.build
+        return merged_token
 
     async def compile(self):
         data = self.parse_data()
-        images = [f'<img src="{x}">' for x in data]
+        images = []
+        for x in data:
+            img = await self.build(x)
+            images.append(img)
+
+        images = [x['src'] for x in images]
+        images = [f'<img src="{x}">' for x in images]
         images = '\n'.join(images)
 
         return f'''
@@ -192,8 +203,7 @@ class ImageCollectionToken(ImageToken):
         '''
 
     def parse_data(self):
-        images = [parse_file(x) for x in self.data]
-        return [x['file'] for x in images]
+        return [parse_file(x) for x in self.data]
 
 
 class UrlToken(Token):
