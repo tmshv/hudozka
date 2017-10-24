@@ -48,7 +48,7 @@ class Image {
 		const a = this.getArtifact(size)
 		const a2 = this.getArtifact(retinaSize)
 		const srcset = !a2
-			? null
+			? []
 			: [{
 				url: a2.url,
 				density: ImageArtifactType.RETINA_DENSITY,

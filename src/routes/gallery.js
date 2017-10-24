@@ -29,7 +29,7 @@ const AlbumImage = ({data, alt}) => (
 			src={data.src}
 			width={data.width * m}
 			height={data.height * m}
-			srcSet={data.set.map(({url, density}) => `${url} ${density}x`)}
+			srcSet={(data.set || []).map(({url, density}) => `${url} ${density}x`)}
 		/>
 	</picture>
 )

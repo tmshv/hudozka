@@ -2,7 +2,7 @@ const React = require('react')
 const Picture = require('../components/Image')
 const CollectiveImage = require('../components/CollectiveImage')
 const Page = require('../components/Page')
-const TeacherCard = require('../components/TeacherCard')
+const PersonCard = require('../components/PersonCard')
 const {render} = require('../lib/render')
 const timestamp = require('../lib/date').timestamp
 const ImageArtifactType = require('../core/ImageArtifactType')
@@ -71,24 +71,31 @@ async function renderCollective(path, order) {
 	const config = await Config.findConfig()
 	if (!config) return null
 
-	const preview = await Image.findByFile(config.collectiveImage)
-	if (!preview) return null
+	const collectiveImage = await Image.findByFile(config.collectiveImage)
+	if (!collectiveImage) return null
 
-	let teachers = await Teacher.find({})
+	let teachers = await Teacher.find({hidden: false})
 	if (!teachers) return null
 
 	const teachersSorted = prioritySort.bind(null, [...order], t => t.id)
 	teachers = teachersSorted(teachers)
 
-	const image = preview.getPicture(ImageArtifactType.ORIGINAL)
+	console.log(collectiveImage)
+	const image = collectiveImage.getPicture(ImageArtifactType.LARGE)
+
+	const PersonCardList = ({children}) => (
+		<div className="PersonCardList">
+			{children}
+		</div>
+	)
 
 	const Component = (
-		<div className="page-collective content content_full">
+		<div className="content content_semi-wide">
 			<CollectiveImage data={image}/>
 
-			<div className="content content_semi-wide">
+			<PersonCardList>
 				{teachers.map((teacher, index) => (
-					<TeacherCard
+					<PersonCard
 						key={index}
 						profile={teacher}
 						picture={profilePicture(teacher)}
@@ -96,11 +103,11 @@ async function renderCollective(path, order) {
 						name={teacher.splitName()}
 					/>
 				))}
-			</div>
+			</PersonCardList>
 		</div>
 	)
 
-	return render(path, Component, getCollectiveMeta())
+	return render(path, Component, getCollectiveMeta(), {menuPadding: true})
 }
 
 exports.renderPerson = renderPerson

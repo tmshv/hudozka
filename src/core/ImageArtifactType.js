@@ -7,6 +7,7 @@ class ImageArtifactType {
 ImageArtifactType.SMALL = 'small'
 ImageArtifactType.MEDIUM = 'medium'
 ImageArtifactType.BIG = 'big'
+ImageArtifactType.LARGE = 'large'
 ImageArtifactType.ORIGIN = 'original'
 ImageArtifactType.ORIGINAL = 'original'
 

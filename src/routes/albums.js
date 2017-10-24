@@ -30,7 +30,7 @@ function getAlbum() {
 			)
 
 			ctx.type = 'text/html'
-			ctx.body = await render(path, Component, getMeta(album), {commentsEnabled: true})
+			ctx.body = await render(path, Component, getMeta(album), {commentsEnabled: true, menuPadding: true})
 		} else {
 			ctx.status = 404
 		}
