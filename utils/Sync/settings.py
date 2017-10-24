@@ -127,7 +127,7 @@ dir_documents = './Documents'
 dir_schedules = './Schedules'
 dir_articles = './Articles'
 dir_persons = './Collective'
-dir_albums = f('Gallery')
+dir_albums = './Gallery'
 dir_pages = './Pages'
 dir_images = './Images'
 

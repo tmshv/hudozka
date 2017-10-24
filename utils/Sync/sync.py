@@ -73,7 +73,7 @@ async def run(run_interval=0):
     )
 
     sync_albums = Sync(
-        provider=io(settings.dir_albums),
+        provider=io(settings.provider_root),
         model=Album,
     )
 

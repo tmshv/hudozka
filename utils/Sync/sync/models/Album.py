@@ -34,7 +34,8 @@ class Album(Model):
 
     @staticmethod
     async def scan(provider):
-        documents = [i for i in provider.scan('.') if provider.is_dir(i)]
+        scan_dir = settings.dir_albums
+        documents = [i for i in provider.scan(scan_dir) if provider.is_dir(i)]
         documents = [Album.read(provider, i) for i in documents]
         return documents
 
