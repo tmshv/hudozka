@@ -9,7 +9,7 @@ import settings
 from db import collection
 from sync.data import request, list_images
 from sync.models import Model
-from utils.hash import md5
+from utils.hash import md5, hash_str
 from utils.image import image_magick_resize
 from utils.text.transform import url_encode_text
 
@@ -75,6 +75,8 @@ class Image(Model):
         )
 
     def __init__(self, provider, file, data, url_factory):
+        self.__hash_salt = settings.hash_salt_images
+
         self.origin = None
 
         self.data = data
@@ -147,7 +149,8 @@ class Image(Model):
         return url_encode_text(filename)
 
     def __get_hash(self):
-        return self.provider.hash(self.file)
+        file_hash = self.provider.hash(self.file)
+        return hash_str(self.__hash_salt + file_hash)
 
     def __str__(self):
         return '<Image hash={} file={}>'.format(self.hash, self.file)
