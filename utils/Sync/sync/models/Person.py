@@ -45,6 +45,7 @@ class Person(Model):
         )
 
     def __init__(self, provider, file, params=None):
+        self.__hash_salt = settings.hash_salt_person
         self.__hash_keys = ['id', 'url']
 
         self.__id_template: str = '{category}-{file}'
@@ -52,6 +53,7 @@ class Person(Model):
         self.__url_preview_template: str = settings.document_url_preview_template
 
         self.picture = None
+        self.preview = None
         self.post = None
         self.images = None
         self.documents = None
@@ -75,6 +77,11 @@ class Person(Model):
         self.images = images
         self.documents = documents
 
+        if self.has_param('preview'):
+            preview = self.get_param('preview')
+            preview = self._get_relpath(preview)
+            self.preview = await Image.new(self.provider, preview, sizes)
+
     def bake(self):
         return {
             **self.params,
@@ -85,6 +92,7 @@ class Person(Model):
             'hash': self.hash,
             'file': self.file,
             'picture': self.picture.ref,
+            'preview': self.preview.ref if self.preview else None,
         }
 
     def __set_id(self):
@@ -97,9 +105,12 @@ class Person(Model):
         files = [self.file]
         files.append(self._get_relpath(self.get_param('picture')))
 
+        if self.has_param('preview'):
+            files.append(self._get_relpath(self.get_param('preview')))
+
         hashes = [self.provider.hash(x) for x in files]
         self.hash = hash_str(
-            ''.join(hashes)
+            self.__hash_salt + ''.join(hashes)
         )
 
     def __str__(self):
@@ -114,4 +125,5 @@ def get_manifest(provider: Provider, path: str) -> dict:
         **manifest,
         'picture': manifest['picture'] if 'picture' in manifest else os.path.basename(swap_ext('.jpg')(path)),
         'folder': os.path.dirname(path),
+        'hidden': manifest['hidden'] if 'hidden' in manifest else False,
     }
