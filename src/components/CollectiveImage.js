@@ -1,9 +1,8 @@
 const React = require('react')
+const Image = require('./Image')
 
 module.exports = ({data}) => (
-	<img
-		className="CollectiveImage"
-		width="100%"
-		src={data.src}
-	/>
+	<div className="CollectiveImage">
+		<Image data={data}/>
+	</div>
 )
