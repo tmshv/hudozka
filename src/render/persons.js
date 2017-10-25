@@ -21,7 +21,7 @@ const metaImageTypesPriority = [
 
 function getMeta(teacher) {
 	const meta = {
-		title: teacher.title,
+		title: teacher.name,
 	}
 
 	if (teacher.preview) {
@@ -38,7 +38,7 @@ function getMeta(teacher) {
 
 function getCollectiveMeta(picture) {
 	const meta = {
-		title: 'Преподаватели',
+		title: 'Преподаватели Шлиссельбургской ДХШ',
 		description: 'Преподаватели Шлиссельбургской ДХШ',
 	}
 
