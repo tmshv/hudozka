@@ -61,26 +61,31 @@ async def run(run_interval=0):
         provider=io(settings.provider_root),
         model=Person,
     )
+    sync_persons.validate_urls = False
 
     sync_articles = Sync(
         provider=io(settings.provider_root),
         model=Article,
     )
+    sync_articles.validate_urls = False
 
     sync_schedules = Sync(
         provider=io(settings.provider_root),
         model=Schedule,
     )
+    sync_schedules.validate_urls = False
 
     sync_albums = Sync(
         provider=io(settings.provider_root),
         model=Album,
     )
+    sync_albums.validate_urls = False
 
     sync_settings = Sync(
         provider=io(settings.provider_root),
         model=Settings,
     )
+    sync_settings.validate_urls = False
 
     sync_images = Sync(
         provider=io(settings.provider_root),

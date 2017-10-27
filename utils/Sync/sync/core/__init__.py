@@ -16,6 +16,7 @@ class Sync:
     def __init__(self, provider: Provider, model):
         super().__init__()
 
+        self.validate_urls = True
         self.strict_origin = False
         self.__default_build_args = {
             'sizes': settings.image_sizes,
@@ -74,6 +75,9 @@ class Sync:
         items = await self.model.scan(self.provider)
         self.logger.info('Found {} Item(s)'.format(len(items)))
 
+        if self.validate_urls:
+            self.check_urls_uniqueness(items)
+
         # SKIP UNTOUCHED DOCUMENTS
         changed_items = await untouched(items)
         self.logger.info('Changed {} Items(s)'.format(len(changed_items)))
@@ -94,6 +98,14 @@ class Sync:
                 await self.model.delete(self.__delete_query(item))
 
         await self.clean()
+
+    def check_urls_uniqueness(self, items):
+        urls = [x.url for x in items]
+        unique_urls = set(urls)
+
+        if len(urls) != len(unique_urls):
+            self.logger.error('URLs is not unique')
+            raise Exception('URLs is not unique')
 
     async def upload(self):
         pass
