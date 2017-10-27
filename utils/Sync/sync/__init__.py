@@ -8,10 +8,11 @@ from markdown import markdown
 import kazimir
 import settings
 from kazimir.CSVToken import CSVToken
+from kazimir.DocumentToken import DocumentToken
 from kazimir.YoutubeToken import YoutubeToken
 from kazimir.InstagramToken import InstagramToken
 from kazimir.Marker import Marker
-from kazimir.Token import TokenFactory, SplitToken, UrlToken, ImageToken, BuildTokenFactory, TextToken, DocumentToken
+from kazimir.Token import TokenFactory, SplitToken, UrlToken, ImageToken, BuildTokenFactory, TextToken
 from sync.data import Provider
 from sync.models import Model
 from sync.models.Document import Document
