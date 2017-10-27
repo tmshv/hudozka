@@ -92,43 +92,6 @@ class FileToken(Token):
         return f'<a href="{url}">{text}</a>'
 
 
-class DocumentToken(Token):
-    @staticmethod
-    def test(data: str):
-        return is_document(data)
-
-    def __init__(self, data) -> None:
-        super().__init__(name='file', data=data)
-        self.joinable = False
-        self.build = None
-
-    async def compile(self):
-        data = parse_file(self.data)
-        document = await self.build(data)
-
-        return f'''
-        <div>
-            <div class="document-row">
-                <a href="{document['url']}" class="invisible">
-                    <div class="document-row__image">
-                        <img src="{document['image_url']}" alt="{document['title']}">
-                    </div>
-                </a>
-
-                <div class="document-row__file">
-                    <a href="{document['url']}">{document['title']}</a>
-                </div>
-
-                <div class="document-row__file-info">
-                    <a href="{document['file_url']}" target="_blank">
-                        {document['file_format']} ({document['file_size']})
-                    </a>
-                </div>
-            </div>
-        </div>
-        '''.strip()
-
-
 class ImageToken(Token):
     @staticmethod
     def test(data: str):
@@ -221,8 +184,11 @@ def markdown_to_html(text):
 
 
 def is_url(sample: str):
-    url = urlparse(sample)
+    link = parse_link(sample)
+    if not link:
+        return False
 
+    url = link['url']
     return url.scheme and url.netloc
 
 
@@ -261,4 +227,22 @@ def parse_file(sample: str):
     return {
         'file': file,
         'caption': caption,
+    }
+
+
+def parse_link(sample: str):
+    """
+    ![Alt](href) -> {href, alt}
+
+    :param sample:
+    :return:
+    """
+    p = re.match(r'!\[(.*)\]\((.*)\)', sample)
+    if not p:
+        return None
+
+    url = p.group(2)
+    return {
+        'url': urlparse(url),
+        'alt': p.group(1),
     }
