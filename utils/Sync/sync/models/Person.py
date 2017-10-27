@@ -124,6 +124,7 @@ def get_manifest(provider: Provider, path: str) -> dict:
     return {
         **manifest,
         'picture': manifest['picture'] if 'picture' in manifest else os.path.basename(swap_ext('.jpg')(path)),
+        'preview': manifest['preview'] if 'preview' in manifest else os.path.basename(swap_ext('.jpg')(path)),
         'folder': os.path.dirname(path),
         'hidden': manifest['hidden'] if 'hidden' in manifest else False,
     }
