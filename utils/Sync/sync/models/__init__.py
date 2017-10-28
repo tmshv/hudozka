@@ -76,6 +76,9 @@ class Model:
         folder = self.get_param('folder', self.file)
         return os.path.join(folder, path)
 
+    def _get_abs(self, path):
+        return self.provider.get_abs(path)
+
     async def save(self):
         document = self.bake()
 

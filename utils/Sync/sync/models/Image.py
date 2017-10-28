@@ -95,9 +95,9 @@ class Image(Model):
         return self._is_changed_hash(i)
 
     async def build(self, sizes):
-        logger.info('Building Image {}'.format(self.provider.get_abs(self.file)))
+        logger.info(f'Building Image {self._get_abs(self.file)}')
 
-        img_in = self.provider.get_abs(self.file)
+        img_in = self._get_image_file()
         img_out = tempfile.mkdtemp()
 
         images = await create_image(img_in, sizes, self.url_factory, img_out)
@@ -140,6 +140,9 @@ class Image(Model):
         if size in self.data:
             return self.data[size]
         return None
+
+    def _get_image_file(self):
+        return self._get_abs(self.file)
 
     def __filename(self):
         return os.path.basename(self.file)

@@ -5,7 +5,7 @@ import settings
 from db import collection
 from sync.data import scan_subdirs, request
 from sync.models import Model
-from sync.models.Image import Image
+from sync.models.DocumentPreviewImage import DocumentPreviewImage
 from utils.hash import hash_str, md5
 from utils.image import image_magick_pdf_to_img
 
@@ -167,19 +167,7 @@ class Document(Model):
         )
 
     async def create_preview(self, sizes):
-        if False and self.has_param('preview'):
-            preview = self.get_param('preview')
-            preview = await Image.find_one({'_id': preview})
-        else:
-            def url(_, size, ext):
-                return self.__url_preview_template.format(id=self.id, size=size, ext=ext)
-
-            temp_preview_path = await pdf_to_jpg(self.provider, self.file)
-            preview = await Image.new(self.provider, temp_preview_path, sizes, url)
-            os.remove(temp_preview_path)
-
-        if preview:
-            self.preview = preview
+        self.preview = await DocumentPreviewImage.new(self.provider, self.file, sizes)
 
     def hide(self):
         self.hidden = True
@@ -187,17 +175,6 @@ class Document(Model):
 
     def __str__(self):
         return f'<Document file={self.file} id={self.id}>'
-
-
-async def pdf_to_jpg(provider, pdf):
-    _, temp_in = mkstemp(suffix='.pdf')
-    _, temp_out = mkstemp(suffix='.jpg')
-
-    abspdf = provider.copy(pdf, temp_in)
-    await image_magick_pdf_to_img(abspdf, temp_out)
-
-    os.remove(temp_in)
-    return temp_out
 
 
 async def get_pdf_title(provider, file):
