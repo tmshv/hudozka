@@ -86,7 +86,7 @@
     }
 
     &.content--padding-top--menu {
-      padding-top: $menu-thickness + $double-margin;
+      padding-top: var(--double-margin);
     }
   }
 
