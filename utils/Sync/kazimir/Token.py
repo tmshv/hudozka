@@ -184,11 +184,7 @@ def markdown_to_html(text):
 
 
 def is_url(sample: str):
-    link = parse_link(sample)
-    if not link:
-        return False
-
-    url = link['url']
+    url = urlparse(sample)
     return url.scheme and url.netloc
 
 
