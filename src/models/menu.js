@@ -60,6 +60,11 @@ export default [
 		]
 	},
 	{
+		text: '«Мы соседи»',
+		url: '/neighbors',
+		color: 'yellow',
+	},
+	{
 		text: 'Документы',
 		url: '/documents',
 		color: 'gray',
