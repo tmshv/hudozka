@@ -92,6 +92,7 @@ async def run(run_interval=0):
         model=Image,
     )
     sync_images.strict_origin = True
+    sync_images.validate_urls = False
 
     while True:
         await asyncio.wait([
