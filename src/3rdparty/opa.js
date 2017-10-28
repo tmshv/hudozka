@@ -875,6 +875,7 @@ var runAppear = function () {
             while (1) {
                 switch (_context3.prev = _context3.next) {
                     case 0:
+                        item.classList.remove('opa--start');
                         item.classList.add('opa--visible');
                         return _context3.abrupt('return', timeout(500, item).then(function (item) {
                             item.dataset.opaAppeared = true;
@@ -883,7 +884,7 @@ var runAppear = function () {
                             return item;
                         }));
 
-                    case 2:
+                    case 3:
                     case 'end':
                         return _context3.stop();
                 }
@@ -1000,6 +1001,11 @@ var Opa = function () {
     }
 
     (0, _createClass3.default)(Opa, [{
+        key: 'initElement',
+        value: function initElement() {
+            this.item.classList.add('opa--start');
+        }
+    }, {
         key: 'appearAfter',
         value: function appearAfter(item) {
             this.after = item;
@@ -1105,8 +1111,6 @@ var Opa = function () {
 
 document.addEventListener('DOMContentLoaded', function () {
     var groups = splitGroups([].concat((0, _toConsumableArray3.default)(document.querySelectorAll('.opa'))));
-
-    console.log(groups);
 
     groups.map(initOpaGroup);
 });
