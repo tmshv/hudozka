@@ -62,7 +62,7 @@ export default [
 	{
 		text: 'Документы',
 		url: '/documents',
-		color: 'yellow',
+		color: 'gray',
 		items: [
 			{url: '/document/*', text: ''},
 		]
