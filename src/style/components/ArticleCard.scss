@@ -1,10 +1,14 @@
+@import "../variables";
+
 .ArticleCard {
+  --article-card-width: 30%;
+  --article-card-margin: var(--single-margin) var(--half-margin);
+
   display: flex;
   flex-direction: column;
 
-  margin: var(--single-margin) var(--half-margin);
-
-  width: 30%;
+  margin: var(--article-card-margin);
+  width: var(--article-card-width);
   min-width: 15em;
   max-width: 30em;
 
@@ -67,6 +71,15 @@
     img{
       transform: scale(1.05);
     }
+  }
+}
+
+// Mobile
+
+@media (max-width: $mobile-width) {
+  .ArticleCard {
+    --article-card-width: 100%;
+    --article-card-margin: var(--single-margin) 0;
   }
 }
 
