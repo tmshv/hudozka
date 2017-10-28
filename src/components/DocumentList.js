@@ -9,9 +9,7 @@ const DocumentList = ({documents, name}) => (
 
 		<div className="documents-container__body">
 			{documents.map((d, i) => (
-				<div>
-					<Document key={i} {...d}/>
-				</div>
+				<Document key={i} {...d}/>
 			))}
 		</div>
 	</div>
