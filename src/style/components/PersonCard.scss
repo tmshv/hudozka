@@ -1,10 +1,14 @@
+@import "../variables";
+
 .PersonCard {
+  --person-card-width: 30%;
+
   display: flex;
   flex-direction: column;
 
   margin: var(--single-margin) 0;
 
-  width: 30%;
+  width: var(--person-card-width);
   min-width: 15em;
   max-width: 30em;
 
@@ -69,3 +73,11 @@
   }
 }
 
+
+// Mobile
+
+@media (max-width: $mobile-width) {
+  .PersonCard {
+    --person-card-width: 100%;
+  }
+}
