@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: row;
   padding: 0;
-  margin-bottom: $single-margin;
+  margin-bottom: var(--single-margin);
 }
 
 .document-row__image{
@@ -32,7 +32,7 @@
 }
 
 .document-row__file {
-  margin-left: $single-margin;
+  margin-left: var(--single-margin);
   flex-grow: 10;
 }
 
@@ -44,7 +44,11 @@
 }
 
 @media (max-width: $mobile-width) {
-  .document-row {
-    margin: 0 $single-margin/2 $single-margin;
+  .document-row__file {
+    margin-left: var(--half-margin);
+  }
+
+  .document-row__file-info {
+    display: none;
   }
 }
