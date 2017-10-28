@@ -1,43 +1,14 @@
-const React = require('react')
-const Page = require('../components/Page')
-
+const {renderPage} = require('../render/page')
 const {get} = require('koa-route')
-const {c} = require('../core/db')
-
 const getPathWithNoTrailingSlash = require('../lib/url').getPathWithNoTrailingSlash
-const {render} = require('../lib/render')
-
-async function getPage(path) {
-	return await c('pages').findOne({url: path})
-}
-
-function getPageMeta(page) {
-	return {
-		title: page.title,
-		description: page.title,
-	}
-}
-
-function getComponent(page) {
-	return (
-		<div className="content content_thin">
-			<Page shareable={true}>{page.data}</Page>
-		</div>
-	)
-}
 
 module.exports = function () {
 	return get('*', async ctx => {
 		const path = getPathWithNoTrailingSlash(ctx.path)
-		const page = await getPage(path)
-		if (page) {
+		const body = await renderPage(path)
+		if (body) {
 			ctx.type = 'text/html'
-			ctx.body = await render(
-				path,
-				getComponent(page),
-				getPageMeta(page),
-				{menuPadding: true},
-			)
+			ctx.body = body
 		} else {
 			ctx.status = 404
 		}
