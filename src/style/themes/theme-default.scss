@@ -22,6 +22,10 @@
     &.invisible {
       border-bottom: none;
     }
+
+    &:visited {
+      color: #a4059c;
+    }
   }
 
   .accessibility-control {

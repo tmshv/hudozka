@@ -60,7 +60,7 @@
     }
 
     &.content--padding-top--menu{
-      padding-top: $double-margin;
+      padding-top: var(--single-margin);
     }
   }
 }
