@@ -74,19 +74,19 @@ gulp.task('compile', () => {
 	return gulp.src([
 		'./src/public/app.js'
 	])
-		//.pipe(named())
-		//.pipe(webpack({
+		.pipe(named())
+		.pipe(webpack({
 		//	devtool: doSourceMaps ? 'inline-source-map' : null,
 		//	watch: doWatch,
-		//	output: {
-		//		filename: '[name].js'
-		//	},
-		//	module: {
-		//		loaders: [
-		//			{test: /\.js$/, loader: 'babel'},
+			output: {
+				filename: '[name].js'
+			},
+			module: {
+				loaders: [
+					{test: /\.js$/, loader: 'babel'},
 		//			{test: /\.html$/, loader: 'raw!html-minify'}
-		//		]
-		//	},
+				]
+			},
 		//	'html-minify-loader': {
 		//		empty: true,
 		//		cdata: true,
@@ -95,7 +95,7 @@ gulp.task('compile', () => {
 		//			lowerCaseAttributeNames: false
 		//		}
 		//	}
-		//}))
+		}))
 		.pipe(gulp.dest('./public'))
 })
 
