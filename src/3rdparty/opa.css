@@ -14,11 +14,3 @@
     opacity: 1;
     transform: scale(1) rotateX(0);
 }
-
-figure {
-    width: 100px;
-}
-
-figure img{
-    width: 100%;
-}
