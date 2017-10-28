@@ -90,7 +90,10 @@ class Page(Model):
         self.__hash_salt = settings.hash_salt_pages
         self.__hash_keys = ['id', 'url']
         self.images = []
+        self.documents = []
         self.title = None
+        self.data = None
+        self.preview = None
 
         self.__id_template: str = '{category}-{file}'
         self.__url_template: str = settings.document_url_template
@@ -127,8 +130,14 @@ class Page(Model):
         self.images = images
         self.documents = documents
 
+        if self.has_param('preview'):
+            preview = self.get_param('preview')
+            preview = self._get_relpath(preview)
+            self.preview = await Image.new(self.provider, preview, sizes)
+
     def bake(self):
-        images = [image.ref for image in self.images]
+        images = [x.ref for x in self.images]
+        documents = [x.ref for x in self.documents]
 
         return {
             **self.params,
@@ -138,7 +147,9 @@ class Page(Model):
             'file': self.file,
             'data': self.data,
             'images': images,
+            'documents': documents,
             'title': self.title,
+            'preview': self.preview.ref if self.preview else None,
         }
 
     def __filename(self):
