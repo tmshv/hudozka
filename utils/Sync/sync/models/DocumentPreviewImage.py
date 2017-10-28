@@ -2,7 +2,6 @@ import os
 from tempfile import mkstemp
 
 from sync.models.Image import Image, default_url_factory
-from utils.hash import md5
 from utils.image import image_magick_pdf_to_img
 
 
@@ -49,9 +48,6 @@ class DocumentPreviewImage(Image):
 
     def _get_image_file(self):
         return self.temp_image_path
-
-    def __get_id(self):
-        return md5(self.file)
 
     def __get_hash(self):
         return self.provider.hash(self.file)

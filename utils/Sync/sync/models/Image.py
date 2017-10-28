@@ -148,8 +148,7 @@ class Image(Model):
         return os.path.basename(self.file)
 
     def __get_id(self):
-        filename = os.path.basename(self.file)
-        return url_encode_text(filename)
+        return md5(self.file)
 
     def __get_hash(self):
         file_hash = self.provider.hash(self.file)
