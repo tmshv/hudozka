@@ -42,6 +42,10 @@ function openMenu(element) {
 	element.classList.remove('HMenu--closed')
 	element.classList.add('HMenu--open')
 
+	setTimeout(() => {
+		document.querySelector('main').style.display = 'none'
+	}, 100)
+
 	return element
 }
 
@@ -49,6 +53,8 @@ function closeMenu(element) {
 	body.classList.remove('no-scroll')
 	element.classList.remove('HMenu--open')
 	element.classList.add('HMenu--closed')
+
+	document.querySelector('main').style.display = 'block'
 
 	return element
 }
