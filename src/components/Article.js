@@ -2,12 +2,30 @@ const React = require('react')
 const getHtml = require('../lib/component').getHtml
 const dateFormat = require('../lib/date').dateFormat
 
-const Head = ({date, children}) => (
+const Tag = ({children}) => (
+	<li className="ArticleTags-Item">
+		{children}
+	</li>
+)
+
+const TagList = ({tags}) => (
+	<ul className="ArticleTags">
+		{tags.map((x, i) => (
+			<Tag key={i}># {x.name}</Tag>
+		))}
+	</ul>
+)
+
+const Head = ({date, tags, children}) => (
 	<header className="Article-Head">
 		<h1>{children}</h1>
 
 		{!date ? null : (
 			<p className="date">{dateFormat(date)}</p>
+		)}
+
+		{!tags.length ? null : (
+			<TagList tags={tags}/>
 		)}
 	</header>
 )
@@ -21,14 +39,17 @@ const Share = () => (
 	</div>
 )
 
-const Article = ({children, data, url, title, date, shareable}) => (
+const Article = ({children, article, shareable}) => (
 	<article className="Article">
-		<Head date={date}>
-			{title}
+		<Head
+			date={article.date}
+			tags={article.tags}
+		>
+			{article.title}
 		</Head>
 
 		<div className="Article-Body">
-			{children || getHtml(data)}
+			{children || getHtml(article.post)}
 		</div>
 
 		{!shareable ? null : (

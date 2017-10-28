@@ -112,9 +112,7 @@ async function renderArticle(id) {
 	const Component = (
 		<div className="content content_thin">
 			<ArticleComponent
-				title={article.title}
-				date={article.date}
-				data={article.post}
+				article={article}
 				shareable={true}
 			/>
 		</div>

@@ -5,6 +5,10 @@ const {find, findOne, total} = require('../lib/store')
 
 const store = () => Data.getStore(Article)
 
+function make(C) {
+	return x => new C(x)
+}
+
 class Article {
 	static async find(query, options = {}) {
 		const items = await find(store(), query, options)
@@ -41,7 +45,7 @@ class Article {
 		this.date = data.date
 		this.title = data.title
 		this.until = data.until
-		this.tags = data.tags
+		this.tags = (data.tags || []).map(make(Tag))
 		this.content = data.content
 		this.hash = data.hash
 		this.type = data.type
@@ -72,6 +76,12 @@ class Article {
 			preview: this.preview,
 			url: this.url,
 		}
+	}
+}
+
+class Tag {
+	constructor(tag) {
+		this.name = tag;
 	}
 }
 
