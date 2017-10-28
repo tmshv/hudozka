@@ -6,6 +6,7 @@ const {render} = require('../lib/render')
 const timestamp = require('../lib/date').timestamp
 const ImageArtifactType = require('../core/ImageArtifactType')
 const {sortBy} = require('../utils/sort')
+const getHtml = require('../lib/component').getHtml
 
 const sortArticleByDate = sortBy(
 	x => timestamp(new Date(x.date))
@@ -112,9 +113,13 @@ async function renderArticle(id) {
 	const Component = (
 		<div className="content content_thin">
 			<ArticleComponent
-				article={article}
+				title={article.title}
+				date={article.date}
+				tags={article.tags}
 				shareable={true}
-			/>
+			>
+				{getHtml(article.post)}
+			</ArticleComponent>
 		</div>
 	)
 
