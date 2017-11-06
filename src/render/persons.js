@@ -72,7 +72,6 @@ async function renderCollective(path, order) {
 	if (!config) return null
 
 	const collectiveImage = await Image.findByFile(config.collectiveImage)
-	if (!collectiveImage) return null
 
 	let teachers = await Teacher.find({hidden: false})
 	if (!teachers) return null
@@ -80,7 +79,9 @@ async function renderCollective(path, order) {
 	const teachersSorted = prioritySort.bind(null, [...order], t => t.id)
 	teachers = teachersSorted(teachers)
 
-	const image = collectiveImage.getPicture(ImageArtifactType.LARGE)
+	const image = collectiveImage
+		? collectiveImage.getPicture(ImageArtifactType.LARGE)
+		: null
 
 	const PersonCardList = ({children}) => (
 		<div className="PersonCardList">
@@ -90,7 +91,9 @@ async function renderCollective(path, order) {
 
 	const Component = (
 		<div className="content content_semi-wide">
-			<CollectiveImage data={image}/>
+			{!image ? null : (
+				<CollectiveImage data={image}/>
+			)}
 
 			<PersonCardList>
 				{teachers.map((teacher, index) => (
