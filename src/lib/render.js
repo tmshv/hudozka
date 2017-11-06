@@ -11,13 +11,13 @@ const isEqualPate = require('../lib/url').isEqualPath
 const {compose, any} = require('../lib/common')
 
 const menuModel = require('../models/menu').default
-const config = require('../config')
+const {viewMain} = require('../config')
 
 const defaultOptions = {
 	commentsEnabled: false,
 	showAuthor: false,
 	menuPadding: false,
-	templateFile: config.viewMain,
+	templateFile: viewMain,
 }
 
 const defaultMeta = {
