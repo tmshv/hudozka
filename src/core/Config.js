@@ -7,7 +7,8 @@ class Config {
 	}
 
 	static async findConfig() {
-		return Config.findById('settings')
+		const config = await Config.findById('settings')
+		return config || new Config({})
 	}
 
 	static async findById(id) {
@@ -26,8 +27,9 @@ class Config {
 		this.articleCardDefaultPreview = data.articleCardDefaultPreview
 		this.collectiveImage = data.collectiveImage
 
+		const redirect = data.redirect || {}
 		this.redirect = new Map(Object
-			.entries(data.redirect)
+			.entries(redirect)
 		)
 	}
 }
