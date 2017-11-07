@@ -24,7 +24,7 @@ def get_upload_url(url):
 
 def default_url_factory(file, size, ext):
     url = settings.image_url_base + '{}-{}{}'
-    return url.format(md5(file), size, ext)
+    return url.format(md5(file), size, ext.lower())
 
 
 class Image(Model):
