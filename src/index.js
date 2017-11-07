@@ -6,7 +6,13 @@ import server from './server'
 
 function main() {
 	async function loop() {
-		await connect(dbUri)
+		try {
+			await connect(dbUri)
+		} catch (e) {
+			console.error(e.message)
+
+			process.exit(1)
+		}
 
 		const Config = require('./core/Config')
 		const config = await Config.findConfig()
