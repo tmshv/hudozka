@@ -1,6 +1,6 @@
 import 'babel-polyfill'
 
-import {dbUri, port, name, configFile} from './config'
+import {dbUri, port, name} from './config'
 import {connect} from './core/db'
 import server from './server'
 
@@ -23,7 +23,6 @@ function main() {
 		console.log(`Using node ${process.version}`)
 		console.log(`App ${name} started`)
 		console.log(`Server: ${config.server}`)
-		console.log(`Config file: ${configFile}`)
 		console.log(`DB Address: ${dbUri}`)
 		console.log(`Listening ${port}`)
 	}
