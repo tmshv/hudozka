@@ -1,0 +1,97 @@
+@import "../variables";
+
+.PersonCard {
+  --person-card-width: 30%;
+  --person-card-height: 24em;
+
+  display: flex;
+  flex-direction: column;
+
+  margin: var(--single-margin) 0;
+
+  width: var(--person-card-width);
+  min-width: 10em;
+  max-width: 30em;
+
+  //border: 1px solid #ccc;
+  //border-radius: 3px;
+
+  & > a {
+    display: block;
+    position: relative;
+  //  height: 100%;
+  }
+}
+
+.PersonCard-Picture {
+  border-radius: 3px;
+
+  width: 100%;
+  height: var(--person-card-height);
+
+  img {
+    width: 100%;
+    height: var(--person-card-height);
+
+    object-fit: cover;
+  }
+}
+
+.PersonCard-Title, .PersonCard-Body  {
+  position: absolute;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  color: white;
+  text-align: center;
+  text-shadow: 0 0 3px #000;
+  border-radius: 3px;
+}
+
+.PersonCard-Title {
+  top: 0;
+}
+
+.PersonCard-Body {
+  bottom: 0;
+}
+
+
+//Animation
+
+.PersonCard-Picture {
+  overflow: hidden;
+
+  img {
+    transition: transform 150ms ease-out;
+  }
+}
+
+.PersonCard {
+  &:hover {
+    img {
+      transform: scale(1.05);
+    }
+  }
+}
+
+
+// Tablet
+
+@media screen and (min-width: $tablet-min-width) and (max-width: $tablet-max-width) {
+  .PersonCard {
+    --person-card-height: 20em;
+  }
+
+  @media screen and (orientation: portrait) {
+  }
+}
+
+
+// Mobile
+
+@media (max-width: $mobile-width) {
+  .PersonCard {
+    --person-card-width: 100%;
+  }
+}

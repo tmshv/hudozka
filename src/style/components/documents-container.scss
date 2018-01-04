@@ -1,10 +1,17 @@
 @import "../variables";
 
 .documents-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: baseline;
+  margin-bottom: $post-margin;
+
+  &__head {
+    margin-bottom: $double-margin;
+  }
+
+  &__body {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
 }
 
 @media (max-width: $mobile-width) {

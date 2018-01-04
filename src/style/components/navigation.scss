@@ -1,24 +1,19 @@
 @import "../variables";
 
 .navigation {
-  -webkit-overflow-scrolling: touch;
-
   width: 100%;
-  z-index: 100;
-  overflow-x: scroll;
-  position: fixed;
-  top: 0;
-  white-space: nowrap;
+  background-color: white;
 
-  background-color: rgba(255, 255, 255, 0.95);
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  &__body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
 
 .navigation__right {
   color: $dark-color;
+  font-size: $normal-font-size;
   margin-right: 1em;
 
   z-index: 1000;

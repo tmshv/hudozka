@@ -15,13 +15,15 @@ $current-day-column-border-thickness: 3px;
 .schedule-table {
   margin-bottom: $double-margin;
 
+  max-width: 70em;
+  overflow-x: auto;
+
   a{
     color: $dark-color;
   }
 
   .lesson {
-    font-size: 1.1em;
-    font-weight: bold;
+    margin-bottom: $half-margin;
   }
 
   .teacher {
@@ -29,30 +31,8 @@ $current-day-column-border-thickness: 3px;
   }
 
   .current {
-    border-left: $current-day-column-border-thickness solid $current-week-day-color;
-    border-right: $current-day-column-border-thickness solid $current-week-day-color;
-  }
-
-  &__head{
-    display: flex;
-
-    .date {
-      margin: .5em 0 0;
-      font-size: 1.5em;
-    }
-
-    .group {
-      color: #666;
-    }
-
-    & > div{
-      min-width: $cell-width;
-      text-align: center;
-    }
-
-    & > .group{
-      min-width: $group-cell-width;
-    }
+    border-left: $current-day-column-border-thickness solid;
+    border-right: $current-day-column-border-thickness solid;
   }
 
   &__body {
@@ -63,10 +43,6 @@ $current-day-column-border-thickness: 3px;
   &__body-row{
     display: flex;
     justify-content: space-between;
-
-    &:nth-child(even) {
-      background-color: $schedule-row-color;
-    }
   }
 
   &__body-group{
@@ -81,8 +57,26 @@ $current-day-column-border-thickness: 3px;
     }
   }
 
+  &__head-record {
+    min-width: $cell-width;
+    max-width: $cell-width;
+    padding: $row-padding;
+
+    text-align: center;
+
+    & > .group {
+      min-width: $group-cell-width;
+    }
+
+    .date {
+      margin: .5em 0 0;
+      font-size: 1.5em;
+    }
+  }
+
   &__record{
     min-width: $cell-width;
+    max-width: $cell-width;
     padding: $row-padding;
 
     text-align: center;

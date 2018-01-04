@@ -1,90 +1,68 @@
-import fs from 'mz/fs';
-import route from 'koa-route';
-import compose from 'koa-compose';
+import {readFile} from 'async-file'
+import handlebars from 'handlebars'
 
-import {map, assign} from '../utils/common';
-import config from '../config';
-
-import sitemap from './sitemap';
-import schedule from './schedule';
-import news from './news';
-import gallery from './gallery';
-import error404 from './404';
-import documents from './documents';
-import teachers from './teachers';
-import events from './events';
-import articles from './articles';
-
-let main = () => route.get('/', index());
-
-export function routes(){
-    return compose([
-        main(),
-        sitemap(),
-        schedule(),
-        news(),
-        gallery(),
-        documents(),
-        teachers(),
-        events(),
-        articles(),
-        error404()
-    ]);
-}
+import {map, assign} from '../utils/common'
+import {index as indexFile} from '../config'
 
 export function queryObject() {
-    let toTrue = map(true, i => i === 'true');
-    let toFalse = map(false, i => i === 'false');
-    const processors = [toTrue, toFalse];
+	let toTrue = map(true, i => i === 'true')
+	let toFalse = map(false, i => i === 'false')
+	const processors = [toTrue, toFalse]
 
-    return async (ctx, next) => {
-        let query = ctx.query;
-        ctx.query = Object.keys(query)
-            .reduce((query, key) => assign(
-                query,
-                key,
-                processors
-                    .reduce((value, fn) => fn(value), query[key])
-            ), query);
+	return async(ctx, next) => {
+		let query = ctx.query
+		ctx.query = Object
+			.keys(query)
+			.reduce((query, key) => assign(
+				query,
+				key,
+				processors
+					.reduce((value, fn) => fn(value), query[key])
+			), query)
 
-        await next();
-    }
+		await next()
+	}
 }
 
 export function accepts(routes) {
-    return async function (ctx) {
-        let request = ctx.request;
-        let types = Object.keys(routes)
-            .filter(type => request.accepts(type));
+	return async function (ctx) {
+		let request = ctx.request
+		let types = Object.keys(routes)
+			.filter(type => request.accepts(type))
 
-        if (types.length) {
-            let fn = routes[types[0]];
+		if (types.length) {
+			let fn = routes[types[0]]
 
-            await fn.apply(ctx, arguments);
-        } else {
-            ctx.status = 406;
-        }
-    };
+			await fn.apply(ctx, arguments)
+		} else {
+			ctx.status = 406
+		}
+	}
 }
 
 export function index(fn) {
-    let filename = config['defaultIndex'];
+	return async function (ctx) {
+		let test = true
+		if (fn) test = await fn.apply(ctx, arguments)
+		if (!test) ctx.status = 404
 
-    return async function (ctx){
-        let test = true;
-        if (fn) test = await fn.apply(ctx, arguments);
+		const data = await getInitialData()
+		const source = await readFile(indexFile, 'utf-8')
+		const template = handlebars.compile(source)
 
-        if (!test) ctx.status = 404;
-
-        ctx.type = 'text/html';
-        ctx.body = fs.createReadStream(filename);
-    }
+		ctx.type = 'text/html'
+		ctx.body = template({data: JSON.stringify(data)})
+	}
 }
 
-export function json(fn){
-    return accepts({
-        'text/html': index(),
-        'text/plain': index(),
-        'application/json': fn
-    });
+export function json(fn) {
+	return accepts({
+		'text/html': index(),
+		'text/plain': index(),
+		'application/json': fn
+	})
+}
+
+async function getInitialData() {
+	return {pages: []}
 }

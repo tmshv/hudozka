@@ -1,7 +1,7 @@
 @import "variables";
 
 .content {
-  margin: 0 auto;
+  margin: 0 auto 1em;
 
   &.content_full{
     width: $content-full;
@@ -19,19 +19,32 @@
     width: $content-thin;
   }
 
-  &.content--padding-top--double{
-    padding-top: $double-margin;
-    padding-bottom: $single-margin;
-  }
-
   &.content--padding-top--menu{
-    padding-top: $menu-thickness + $double-margin;
-    padding-bottom: $single-margin;
+    padding-top: $menu-thickness;
   }
 }
 
+
+// Animation on load
+
+@keyframes smallSlideInFromTop {
+  0% {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.content {
+  animation: smallSlideInFromTop 350ms ease-out;
+}
+
+
 @media screen and (max-width: $mobile-width) {
-  $content-mobile: 90%;
+  $content-mobile: 95%;
 
   .content {
      &.content_wide{
@@ -47,7 +60,7 @@
     }
 
     &.content--padding-top--menu{
-      padding-top: $double-margin;
+      padding-top: var(--single-margin);
     }
   }
 }
@@ -73,7 +86,7 @@
     }
 
     &.content--padding-top--menu {
-      padding-top: $menu-thickness + $double-margin;
+      padding-top: var(--double-margin);
     }
   }
 

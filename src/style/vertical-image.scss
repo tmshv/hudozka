@@ -1,0 +1,28 @@
+@import "variables";
+
+.vertical-image {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+
+  & > img {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+  }
+
+  &__back {
+    position: absolute;
+    filter: blur(15px) grayscale(0) opacity(.75);
+
+    top: -50%;
+
+    & > img {
+      width: 105%;
+      display: block;
+      margin: 0 auto;
+    }
+  }
+}

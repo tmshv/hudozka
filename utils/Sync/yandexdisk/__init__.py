@@ -6,7 +6,7 @@ class YDClient:
     Implementation of https://tech.yandex.ru/disk/poligon/
     """
 
-    base_url = 'https://cloud-api.yandex.net:443/v1/disk'
+    base_url = 'https://cloud-api.yandex.net/v1/disk'
 
     def __init__(self, access_token):
         self.access_token = access_token

@@ -3,9 +3,6 @@ import unittest
 import settings
 from sync.data import scan_subdirs
 from sync.data.fs import FSProvider
-from sync.document import create_document
-from sync.models.document import Document
-from utils.fn import lmap
 
 
 class MyTestCase(unittest.TestCase):

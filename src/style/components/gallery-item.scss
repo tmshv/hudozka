@@ -8,27 +8,11 @@ $percentage: 25%;
   box-sizing: padding-box;
   padding: 0;
 
-  width: 13em;
-  height: 15em;
   margin: 0 $single-margin $double-margin;
-  overflow: hidden;
 
-  h3 {
-    text-align: center;
-  }
-
-  a {
-    color: $dark-color;
+  a.invisible {
     border-bottom: none;
-
-    &:hover {
-      border-bottom: none;
-      color: $blue-color;
-    }
-  }
-
-  img {
-    width: 100%;
+    text-decoration: none;
   }
 }
 

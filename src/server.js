@@ -1,66 +1,81 @@
-import path from 'path';
-import {Server} from 'http';
-import Koa from 'koa';
-import serve from 'koa-static';
-import logger from 'koa-logger';
-import convert from 'koa-convert';
-import conditional from 'koa-conditional-get';
-import etag from 'koa-etag';
-// import prerender from 'koa-prerender';
-import helmet from 'koa-helmet';
-import mount from 'koa-mount';
-import bodyParser from 'koa-bodyparser';
+import path from 'path'
+import {Server} from 'http'
+import Koa from 'koa'
+import serve from 'koa-static'
+import logger from 'koa-logger'
+import convert from 'koa-convert'
+import conditional from 'koa-conditional-get'
+import etag from 'koa-etag'
+import helmet from 'koa-helmet'
+import cookie from 'koa-cookie'
+import session from 'koa-session'
+import bodyParser from 'koa-bodyparser'
 
-import api_v1 from 'hudozka-api-v1';
-import config from './config';
-import {redirectionTable} from './config';
-import {routes, queryObject} from './routes';
-import {redirect} from './routes/redirect';
-import {services as serviceKeys, authChecker} from './core/service';
+import {queryObject} from './routes'
+import handlebars from 'handlebars'
 
-const dirPublic = path.join(__dirname, '../public');
-const dirTemplates = path.join(__dirname, 'templates');
+const {sessionConfig, view404} = require('./config')
+const error = require('./middlewares/error')
+const redirect = require('./middlewares/redirect')
+const home = require('./routes/home')
+const article = require('./routes/articles')
+const albums = require('./routes/albums')
+const gallery = require('./routes/gallery')
+const teachers = require('./routes/teachers')
+const documents = require('./routes/documents')
+const document = require('./routes/document')
+const schedule = require('./routes/schedule')
+const pages = require('./routes/pages')
+const sitemap = require('./routes/sitemap')
 
-export default function(store){
-    const $ = convert;
-    
-    const app = new Koa();
-    app.proxy = true;
+const dirPublic = path.join(__dirname, '../public')
 
-    app.use(bodyParser({
-        extendTypes: {
-            json: 'application/ejson'
-        }
-    }));
-    app.use(logger());
-    app.use(apis(store));
-    app.use($(conditional()));
-    app.use($(etag()));
-	// app.use(prerenderRmFragment());
-	// app.use($(prerender(config.prerender)));
-    app.use(serve(dirPublic));
-    app.use(serve(dirTemplates));
-    app.use($(redirect(redirectionTable)));
-    app.use($(helmet()));
-    app.use(queryObject());
-    app.use(routes());
+handlebars.registerHelper('raw-helper', options => options.fn())
 
-    return Server(app.callback());
-}
+export default function (config) {
+	const $ = convert
 
-function apis(store){
-    let checkAuth = authChecker(serviceKeys);
-    return mount('/api/v1', api_v1(checkAuth, store));
-}
+	const app = new Koa()
+	app.keys = ['1234']
+	app.proxy = true
 
-function prerenderRmFragment(){
-    return async (ctx, next) => {
-        await next();
+	app.use(bodyParser({
+		extendTypes: {
+			json: 'application/ejson'
+		}
+	}))
+	app.use(logger())
+	app.use(convert(session(sessionConfig, app)))
+	app.use(cookie())
+	app.use($(conditional()))
+	app.use($(etag()))
+	app.use(serve(dirPublic))
+	app.use(redirect(config.redirect))
+	app.use($(helmet()))
+	app.use(queryObject())
 
-        try {
-            let xp = ctx.response.header['x-prerender'] == 'true';
-            if (xp) ctx.body = ctx.body.replace('<meta name="fragment" content="!">', '');
-        } catch (e) {
-        }
-    }
+	app.use(async (ctx, next) => {
+		if (ctx.session.isNew) {
+			ctx.session.startDate = new Date()
+		}
+
+		await next()
+	})
+
+	app.use(error.notFound(view404))
+	app.use(sitemap())
+
+	app.use(home.getHome(config.articlesPerPage))
+	app.use(gallery.getGallery())
+	app.use(article.getArticles(config.articlesPerPage))
+	app.use(article.getArticle())
+	app.use(albums.getAlbum())
+	app.use(teachers.getCollective(config.collectiveOrder))
+	app.use(teachers.getTeacher())
+	app.use(documents.getDocuments())
+	app.use(document.getDocument())
+	app.use(schedule.getSchedule())
+	app.use(pages())
+
+	return Server(app.callback())
 }

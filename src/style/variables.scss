@@ -6,7 +6,7 @@ $tablet-min-width: 31.25em;
 $tablet-max-width: 64em;
 
 $content-full: 100%;
-$content-wide: 80%;
+$content-wide: 90%;
 $content-semi-wide: 70%;
 $content-thin: 60%;
 
@@ -16,7 +16,7 @@ $embed-video-ratio: 56.25%;
 $small-margin: .2em;
 $half-margin: .5em;
 $single-margin: 1.0em;
-$double-margin: 3.0em;
+$double-margin: 2.0em;
 $post-margin: 5.0em;
 
 //COLOR
@@ -30,7 +30,9 @@ $orange-color: rgb(240, 160, 65);
 $green-color: rgb(92, 190, 64);
 $yellow-color: rgb(255, 238, 0);
 $pink-color: rgb(246, 85, 160);
+$magenta-color: rgb(214, 39, 246);
 $red-color: rgb(246, 27, 20);
+$gray-color: rgb(153, 154, 160);
 
 $link-color: $blue-color;
 $inactive-link-color: $light-color;
@@ -44,10 +46,11 @@ $white-shadow: 0 .1em 0.3em rgba(0, 0, 0, 0.2);
 $title-font: "PT Serif", Georgia, serif;
 $text-font: "PT Sans", Arial, sans-serif;
 
-$normal-font-size: 1em;
-$bigger-font-size: 1.2em;
-$big-font-size: 1.75em;
-$smaller-font-size: .8em;
+$smaller-font-size: 0.9rem;
+$normal-font-size: 1.0rem;
+$bigger-font-size: 1.2rem;
+$big-font-size: 1.5rem;
+$biggest-font-size: 2.25rem;
 
 //MENU
 $menu-thickness: 2.5em;
@@ -56,3 +59,50 @@ $menu-inactive-item-color: hsl(0, 0%, 50%);
 
 //ANIMATION
 $short-duration: 0.3s;
+
+
+@media (max-width: $mobile-width) {
+  //FONTS
+  $smaller-font-size: 0.9rem;
+  $normal-font-size: 1.0rem;
+  $bigger-font-size: 1.1rem;
+  $big-font-size: 1.3rem;
+  $biggest-font-size: 2.0rem;
+}
+
+:root {
+  --text-color: #303030;
+  --text-color-second: #ccc;
+
+  //FONTS
+  --font-size-default: 14pt;
+  --font-size-second: 0.9rem;
+
+  --font-size-h1: 3.0rem;
+  --font-size-h2: 2.0rem;
+  --font-size-h3: 1.5rem;
+
+  //COLOR
+  --dark-color: $dark-color;
+  --darker-color: $darker-color;
+  --light-color: $light-color;
+  --lighter-color: $lighter-color;
+
+  //MARGINS
+  --small-margin: $small-margin;
+  --half-margin: $half-margin;
+  --single-margin: $single-margin;
+  --double-margin: $double-margin;
+  --post-margin: $post-margin;
+
+  //OTHER
+  --block-border-radius: 3px;
+}
+
+@media (max-width: $mobile-width) {
+  :root {
+    --font-size-h1: 1.75rem;
+    --font-size-h2: 1.50rem;
+    --font-size-h3: 1.25rem;
+  }
+}

@@ -1,55 +1,90 @@
-import compose from 'koa-compose';
-import route from 'koa-route';
-import {c} from '../core/db';
-import {json} from './';
+const React = require('react')
+const Article = require('../components/Article')
+const Album = require('../core/Album')
+const {render} = require('../lib/render')
+const {splitBy} = require('../lib/array')
+const getPathWithNoTrailingSlash = require('../lib/url').getPathWithNoTrailingSlash
+const {get} = require('koa-route')
 
-export default function () {
-    return compose([
-        gallery(),
-        album()
-    ]);
-};
-
-function gallery() {
-    return route.get('/gallery', json(
-        async(ctx) => {
-            let query = {};
-            let albums = await c('albums')
-                .find(query)
-                .toArray();
-
-            ctx.body = await Promise.all(albums
-                .sort((a, b) => {
-                    const da = a.date.getTime();
-                    const db = b.date.getTime();
-                    return db - da;
-                })
-                .map(processAlbum)
-            );
-        }
-    ));
+function getMeta() {
+	return {
+		title: 'Галерея',
+		description: 'Галерея работ учащихся Шлиссельбургской Детской Художественной Школы'
+	}
 }
 
-function album() {
-    return route.get('/album/:id', json(
-        async(ctx, id) => {
-            let record = await c('albums').findOne({
-                id: id
-            });
-            record = await processAlbum(record);
-            ctx.body = record;
-        }
-    ));
+// {data.set.map((s, i) => (
+// 	<source
+// 		key={i}
+// 		src={i}
+// 	/>
+// ))}
+// const m = 0.5
+const m = 1
+const AlbumImage = ({data, alt}) => (
+	<picture>
+		<img
+			className="opa"
+			alt={alt}
+			src={data.src}
+			width={data.width * m}
+			height={data.height * m}
+			srcSet={(data.set || []).map(({url, density}) => `${url} ${density}x`)}
+		/>
+	</picture>
+)
+
+const GItem = ({album}) => (
+	<div className="gallery-item">
+		<a className="invisible" href={album.url}>
+			<AlbumImage data={album.preview} alt={album.title}/>
+		</a>
+	</div>
+)
+
+const ACollection = ({title, albums}) => (
+	<div className="album-collection">
+		<div className="album-collection__title">{title}</div>
+		<div className="album-collection__body">{
+			albums.map((album, index) => (
+				<GItem key={index} album={album}/>
+			))
+		}</div>
+	</div>
+)
+
+function getGallery() {
+	return get('/gallery', async ctx => {
+		const path = getPathWithNoTrailingSlash(ctx.path)
+		const query = {}
+		const albums = await Album.find(query, {sort: {date: -1}})
+
+		if (albums.length) {
+			const meta = getMeta()
+			const albumsByYear = splitBy(a => a.date.getFullYear())(albums)
+
+			const Component = (
+				<div className="content content_wide">
+					<Article title={meta.title}>
+						{
+							[...albumsByYear.entries()].map(([year, albums], index) => (
+								<ACollection
+									key={index}
+									title={year}
+									albums={albums}
+								/>
+							))
+						}
+					</Article>
+				</div>
+			)
+
+			ctx.type = 'text/html'
+			ctx.body = await render(path, Component, getMeta(), {menuPadding: true})
+		} else {
+			ctx.status = 404
+		}
+	})
 }
 
-const processAlbum = async album => {
-    album.url = `/album/${album.id}`;
-
-    const previewImageId = album.images.length ? album.images[0] : null;
-    if (previewImageId) {
-        const image = await c('images').findOne({_id: previewImageId});
-        album.preview = image.data.medium;
-    }
-
-    return album;
-};
+exports.getGallery = getGallery

@@ -1,0 +1,76 @@
+@import "../variables";
+
+.theme-default {
+  h1, h2{
+    font-family: $title-font;
+  }
+
+  a {
+    color: $dark-color;
+
+    text-decoration: none;
+    border-bottom: 1px solid lighten($dark-color, 60%);
+
+    &:hover {
+      border-bottom: 2px solid $dark-color;
+    }
+
+    &:active {
+      border-width: 2px;
+    }
+
+    &.invisible {
+      border-bottom: none;
+    }
+
+    &:visited {
+      color: #a4059c;
+    }
+  }
+
+  .accessibility-control {
+    display: none;
+  }
+
+  .schedule-table {
+    a{
+      color: $dark-color;
+    }
+
+    .lesson {
+      font-size: 1.1em;
+    }
+
+    .current {
+      border-color: $current-week-day-color;
+    }
+
+    &__head{
+      .group {
+        color: #666;
+      }
+    }
+
+    &__body-row{
+      &:nth-child(even) {
+        background-color: $schedule-row-color;
+      }
+    }
+  }
+
+  footer {
+    color: $light-color;
+    background-color: $darker-color;
+
+    font-size: $smaller-font-size;
+
+    a {
+      color: $light-color;
+      border-bottom-color: darken($light-color, 50%);
+
+      &:hover {
+        border-bottom-color: $light-color;
+      }
+    }
+  }
+}

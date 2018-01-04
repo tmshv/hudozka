@@ -28,3 +28,19 @@ export function getPeriod(i){
 
     return i.map(Number);
 }
+
+/**
+ *
+ * f("2012-2015") -> "2012-2015"
+ * f(["2012", "2015"]) -> "2012-2015"
+ * f([2012, 2015]) -> "2012-2015"
+ *
+ * @param i
+ * @returns {*}
+ */
+function getPeriodString(i) {
+	return getPeriod(i)
+		.join('-')
+}
+
+exports.getPeriodString = getPeriodString

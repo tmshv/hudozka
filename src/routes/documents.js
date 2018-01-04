@@ -1,73 +1,159 @@
-import compose from 'koa-compose';
-import route from 'koa-route';
-import {index, json, accepts} from './';
-import {c} from '../core/db';
+const React = require('react')
+const Article = require('../components/Article')
+const DocumentList = require('../components/DocumentList')
+const Document = require('../core/Document')
+const ImageArtifactType = require('../core/ImageArtifactType')
+const {render} = require('../lib/render')
+const {prioritySort} = require('../lib/sort')
+const getPathWithNoTrailingSlash = require('../lib/url').getPathWithNoTrailingSlash
+const {get} = require('koa-route')
+const {splitBy} = require('../lib/array')
+const {unique} = require('../utils/common')
 
-async function exists(ctx, id) {
-    let i = await c('documents').findOne({id: id});
-    return i ? true : false;
+const sizes = [
+	ImageArtifactType.MEDIUM,
+	ImageArtifactType.BIG,
+	ImageArtifactType.ORIGIN,
+]
+
+function getDocumentsMeta() {
+	return {
+		title: 'Документы',
+		description: 'Документы Шлиссельбургской ДХШ',
+	}
 }
 
-export default function () {
-    return compose([
-        documents(),
-        document(),
-        type()
-    ]);
-};
-
-function documents() {
-    return route.get('/documents', json(
-        async(ctx) => {
-            let query = {};
-            ctx.body = await c('documents')
-                .find(query)
-                .toArray();
-        }
-    ));
+function getMeta(teacher) {
+	return {
+		title: teacher.name,
+		description: teacher.name,
+	}
 }
 
-function document() {
-    return route.get('/documents/:id', accepts({
-        'text/html': index(exists),
-        'text/plain': index(exists),
-        'application/json': async(ctx, id) => {
-            let i = await c('documents').findOne({id: id});
-            if (!i) ctx.status = 404;
-            else {
-                i = await populateDocPreview(i);
-                ctx.body = i;
-            }
-        }
-    }));
+async function bakeDocument(document) {
+	const preview = document.preview
+	if (!preview) return null
+
+	const image = preview.findArtifact(sizes)
+	if (!image) return null
+
+	const category = (document.category || '')
+		.replace('Documents/', '')
+		.replace('Pages/', '')
+		.replace('Albums/', '')
+		.replace('Articles	/', '')
+
+	return {
+		category,
+		title: document.title,
+		fileName: document.fileInfo.name,
+		fileSize: document.fileInfo.size,
+		fileUrl: document.url,
+		imageUrl: image.url,
+		url: document.viewUrl,
+	}
 }
 
-function type() {
-    return route.get('/documents/type/:type', async(ctx, type) => {
-        let types = {
-            'document': ['documents', {type: 'document'}, populateDocPreview],
-            'award': ['documents', {type: 'award'}, populateDocPreview]
-        };
+function getDocuments() {
+	return get('/documents', async ctx => {
+		const path = getPathWithNoTrailingSlash(ctx.path)
+		let documents = await Document.find({hidden: false})
 
-        if (type in types) {
-            let [collection, query, mapFn] = types[type];
+		if (documents) {
+			documents = await Promise.all(documents.map(bakeDocument))
+			documents = documents.filter(Boolean)
 
-            let docs = await c(collection)
-                .find(query)
-                .toArray();
+			const collections = getSorted(documents)
 
-            if (mapFn) docs = await Promise.all(
-                docs.map(mapFn)
-            );
+			const Component = (
+				<div className="content content_thin">
+					{collections.map(({name, items}, index) => (
+						<DocumentList key={index} name={name} documents={items}/>
+					))}
+				</div>
+			)
 
-            ctx.body = docs;
-        } else {
-            ctx.status = 404;
-        }
-    });
+			ctx.type = 'text/html'
+			ctx.body = await render(path, Component, getDocumentsMeta(), {menuPadding: true})
+		} else {
+			ctx.status = 404
+		}
+	})
 }
 
-async function populateDocPreview(doc) {
-    doc.preview = await c('images').findOne({_id: doc.preview});
-    return doc;
+function getSorted(documents) {
+	const compose = (...fns) => value => fns
+		.map(fn => fn)
+		.reverse()
+		.reduce((acc, fn) => fn(acc), value)
+
+	const pass = fn => value => {
+		fn(value)
+		return value
+	}
+
+	const subtract = (a, b) => a - b
+
+	const uniqueCategories = unique(i => i.category)
+
+	const priority = {
+		'Основные документы': [
+			'https://static.shlisselburg.org/art/uploads/ustav-2015.pdf',
+			'https://static.shlisselburg.org/art/uploads/obrazovatelnaia-litsenziia-2015.pdf',
+			'https://static.shlisselburg.org/art/uploads/svidetelstvo-na-pomeshchenie.pdf',
+			'https://static.shlisselburg.org/art/uploads/egriul.pdf',
+			'https://static.shlisselburg.org/art/uploads/inn.pdf',
+			'https://static.shlisselburg.org/art/uploads/reshenie-o-sozdanii-shkoly.pdf',
+			'https://static.shlisselburg.org/art/uploads/kopiia-resheniia-o-naznachenii-rukovoditelia.pdf',
+			'https://static.shlisselburg.org/art/uploads/postanovlenie-o-sozdanii-munitsipalnogo-obrazovatelnogo-uchrezhdeniia-kultury-detskaia-khudozhestvennaia-shkola.pdf',
+		],
+		'Учебные программы': [
+			'https://static.shlisselburg.org/art/uploads/uchebnaia-programma-zhivopis.pdf',
+		]
+	}
+
+	const CATEGORY_PRIORITY = [
+		'Основные документы',
+		'Планы ФХД',
+		'Самообследование деятельности',
+		'Инструкции',
+		'Образование',
+		'Учебные программы',
+		'Платные образовательные услуги',
+		'Дополнительные общеразвивающие программы',
+		'Документы для поступления',
+	]
+
+	const sortBy = fn => (a, b) => [a, b]
+		.map(fn)
+		.reduce(subtract)
+
+	const getPriorityFn = (m, list) => value => list.includes(value)
+		? list.indexOf(value)
+		: m
+
+	const safeSelect = (d, store, key) => key in store
+		? store[key]
+		: d
+
+	const categoryPriority = getPriorityFn(10000, CATEGORY_PRIORITY)
+
+	const documentPriority = ({category, fileUrl}) => compose(
+		getPriorityFn.bind(null, 10000),
+		safeSelect.bind(null, [], priority)
+	)(category)(fileUrl)
+
+	const documentsOf = category => documents.filter(i => i.category === category)
+	const sorted = documents => documents.sort(sortBy(documentPriority))
+	const collectDocumentsByCategory = compose(sorted, documentsOf)
+
+	return uniqueCategories(documents)
+		.sort(sortBy(categoryPriority))
+		.reduce((acc, name) => [...acc, {
+			name,
+			items: collectDocumentsByCategory(name)
+		}], [])
 }
+
+exports.bakeDocument = bakeDocument
+exports.getDocuments = getDocuments

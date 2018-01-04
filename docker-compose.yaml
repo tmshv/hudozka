@@ -1,0 +1,12 @@
+version: '3'
+services:
+  app:
+    restart: always
+    build:
+      context: ./
+      dockerfile: Hudozka.Dockerfile
+    ports:
+      - "1880:3000"
+    environment:
+      - DB_URI=${HUDOZKA_DB_URI}
+

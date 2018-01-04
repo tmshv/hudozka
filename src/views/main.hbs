@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <base href="/">
+
+    <!-- COMMON TAGS -->
+    <title>{{title}}</title>
+    <meta charset="utf-8">
+    <link rel="alternate" type="application/rss+xml" title="Шлиссельбургская Детская Художественная Школа" href="/feed" />
+
+    <!-- Search Engine -->
+    <meta name="description" content="{{meta.description}}">
+    <meta name="image" content="{{meta.image}}">
+
+    <!-- Schema.org for Google -->
+    <meta itemprop="name" content="{{meta.title}}">
+    <meta itemprop="description" content="{{meta.description}}">
+    <meta itemprop="image" content="{{meta.image}}">
+
+    <!-- Open Graph general (Facebook, Pinterest & Google+) -->
+    <meta property="og:title" content="{{meta.title}}">
+    <meta property="og:description" content="{{meta.description}}">
+    <meta property="og:image" content="{{meta.image}}">
+    <meta property="og:image:width" content="{{meta.imageWidth}}">
+    <meta property="og:image:height" content="{{meta.imageHeight}}">
+    <meta property="og:url" content="{{meta.url}}">
+    <meta property="og:site_name" content="Шлиссельбургская Детская Художественная Школа">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{meta.title}}">
+    <meta name="twitter:description" content="{{meta.description}}">
+    <meta name="twitter:image:src" content="{{meta.image}}">
+    <meta name="twitter:url" content="{{meta.url}}">
+    <meta name="twitter:domain" content="art.shlisselburg.org">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@tmshv">
+
+    <meta name="google-site-verification" content="8BxOTw-Q02DS2KAdcGcnIMwiPZ58DVB18XpOfRibCcg">
+    <meta name="google-site-verification" content="A-TEemUw4hHpULUDCd6xhxfHnyRbgKtss90JGKXnSpw"/>
+    <meta name='yandex-verification' content='643c7dac144b9dac'/>
+    <meta name="msvalidate.01" content="E878301FE3E3F12D233A6B1156889601"/>
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0"/>
+    <meta name="referrer" content="unsafe-url">
+
+    <link rel="icon" type="image/png" href="//static.shlisselburg.org/art/graphics/favicon-32.png"/>
+    <link rel="apple-touch-icon" sizes="57x57" href="//static.shlisselburg.org/art/graphics/favicon-57.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="//static.shlisselburg.org/art/graphics/favicon-72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="//static.shlisselburg.org/art/graphics/favicon-114.png"/>
+    <link rel="apple-touch-icon" sizes="144x144" href="//static.shlisselburg.org/art/graphics/favicon-144.png"/>
+
+    <!-- Opa -->
+    <script src="/opa.js"></script>
+    <link rel="stylesheet" href="/opa.css">
+
+    <!-- Likely -->
+    <script src="/likely.js"></script>
+    <link rel="stylesheet" href="/likely.css">
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- fotorama.css & fotorama.js. -->
+    <link  href="//cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans|PT+Serif" rel="stylesheet" as="font">
+    <link rel="stylesheet" href="/style.css">
+
+    <!--Instagram Embed-->
+    <script async defer src="//platform.instagram.com/en_US/embeds.js"></script>
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function (d, w, c) {
+            (w[c] = w[c] || []).push(function() {
+                try {
+                    w.yaCounter24027460 = new Ya.Metrika({
+                        id:24027460,
+                        clickmap:true,
+                        trackLinks:true,
+                        accurateTrackBounce:true,
+                        webvisor:true
+                    });
+                } catch(e) { }
+            });
+
+            var n = d.getElementsByTagName("script")[0],
+                    s = d.createElement("script"),
+                    f = function () { n.parentNode.insertBefore(s, n); };
+            s.type = "text/javascript";
+            s.async = true;
+            s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+            if (w.opera == "[object Opera]") {
+                d.addEventListener("DOMContentLoaded", f, false);
+            } else { f(); }
+        })(document, window, "yandex_metrika_callbacks");
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/24027460" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+
+    <script>
+        if (window.location.host.indexOf('localhost') === -1) {
+            (function (window, document, script, src, ga, element, m) {
+                window['GoogleAnalyticsObject'] = ga;
+                if (!window[ga]) {
+                    window[ga] = function () {
+                        (window[ga].q = window[ga].q || []).push(arguments)
+                    }
+                }
+                window[ga].l = 1 * new Date();
+                element = document.createElement(script);
+                m = document.getElementsByTagName(script)[0];
+                element.async = 1;
+                element.src = src;
+                m.parentNode.insertBefore(element, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-60209057-1', 'auto');
+            ga('send', 'pageview');
+        }
+    </script>
+</head>
+
+<body>
+
+{{{content}}}
+
+<script src="app.js"></script>
+
+<script>
+    function initDisqus() {
+        const script = document.createElement('script')
+        script.src = '//hudozka.disqus.com/embed.js';
+        script.setAttribute('data-timestamp', Date.now());
+        (document.head || document.body).appendChild(script);
+    }
+    const doInitDisqus = {{options.commentsEnabled}}
+    if (doInitDisqus) initDisqus()
+</script>
+</body>
+
+</html>

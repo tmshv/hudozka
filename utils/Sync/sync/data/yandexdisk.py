@@ -8,7 +8,6 @@ from tempfile import mkstemp
 import requests
 
 from sync.data import Provider
-from utils.fn import lmap
 from yandexdisk import YDClient
 
 
@@ -34,7 +33,7 @@ class YDProvider(Provider):
             lambda fp: re.sub('disk:', '', fp),
             files
         )
-        return lmap(self.get_rel, files)
+        return [self.get_rel(i) for i in files]
 
     def glob(self, pattr):
         return []

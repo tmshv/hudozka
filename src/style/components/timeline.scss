@@ -10,7 +10,9 @@
   display: flex;
   justify-content: center;
 
-  button.more{
+  button.more {
+    cursor: hand;
+
     position: relative;
     top: -2px;
 
@@ -18,15 +20,16 @@
     height: 40px;
     border: 2px solid $dark-color;
     padding: 0 10px;
-    background: none;
+    color: $dark-color;
+    background: $lighter-color;
 
-    font-size: 14pt;
+    font-size: $normal-font-size;
 
-    &:hover{
+    &:hover {
       background: gainsboro;
     }
 
-    &:active{
+    &:active {
       top: 0;
     }
   }

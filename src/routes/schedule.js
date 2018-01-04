@@ -1,40 +1,65 @@
-import compose from 'koa-compose';
-import route from 'koa-route';
-import {json} from './';
+const React = require('react')
+const Share = require('../components/Share')
+const Schedule = require('../components/Schedule')
+const ScheduleList = require('../components/ScheduleList')
+const {render} = require('../lib/render')
+const getPeriodString = require('../models/schedule').getPeriodString
+const getPathWithNoTrailingSlash = require('../lib/url').getPathWithNoTrailingSlash
+const {get} = require('koa-route')
 
-import {getSchedule, getSchedules} from '../core/schedule';
+const {findSchedule, findDefaultScheduleParams, findAllScheduleParams} = require('../core/schedule')
+const text = require('../core/schedule').text
 
-export default function () {
-    return compose([
-        list(),
-        schedule()
-    ]);
-};
-
-function list() {
-    return route.get('/schedule/list', json(
-        async(ctx) => {
-            ctx.type = 'application/json';
-            const data = await getSchedules();
-
-            if (!data) ctx.status = 404;
-            else ctx.body = data;
-        }
-    ));
+function getMeta(schedule) {
+	const t = text(schedule)
+	return {
+		title: t,
+		description: t,
+	}
 }
 
-function schedule() {
-    return route.get('/schedule/:period?/:semester?', json(
-        async(ctx, period, semester) => {
-            ctx.type = 'application/json';
+function getSchedule() {
+	return get('/schedule/:period?/:semester?', async (ctx, period, semester) => {
+		const useRoute = Boolean(period) && Boolean(semester)
+		if (useRoute) {
+			const path = getPathWithNoTrailingSlash(ctx.path)
 
-            let data = await getSchedule(period, semester);
-            if (!data) {
-                ctx.status = 404;
-                return;
-            }
+			const data = await findSchedule(period, semester)
+			if (data) {
 
-            ctx.body = data;
-        }
-    ))
+				//let schedules = await findAllScheduleParams()
+				//schedules = schedules.map(({semester, period}) => ({
+				//	period,
+				//	semester,
+				//	url: `/schedule/${getPeriodString(period)}/${semester}`,
+				//}))
+
+				const Component = (
+					<div className="content content_wide">
+						{/*<ScheduleList schedules={schedules}/>*/}
+
+						<Schedule {...data}/>
+
+						<Share/>
+					</div>
+				)
+
+				ctx.type = 'text/html'
+				ctx.body = await render(path, Component, getMeta(data))
+			} else {
+				ctx.status = 404
+			}
+		} else {
+			const route = await findDefaultScheduleParams()
+
+			if (route) {
+				const {period, semester} = route
+				ctx.redirect(`/schedule/${period}/${semester}`)
+			} else {
+				ctx.status = 404
+			}
+		}
+	})
 }
+
+exports.getSchedule = getSchedule

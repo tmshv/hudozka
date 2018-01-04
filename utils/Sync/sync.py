@@ -1,14 +1,115 @@
 import settings
-from db import db, collection
-from sync.album import sync_albums
+from sync.core import Sync
+from sync.core.SyncDocument import SyncDocument
 from sync.data.fs import FSProvider
 from sync.data.yandexdisk import YDProvider
-from sync.document import sync_documents
-from sync.person import sync_persons
-from sync.post import sync_posts
-from sync.schedule import sync_schedules
-from utils.fn import lprint_json
-from utils.image import thumbnail
+
+import asyncio
+import logging
+
+from sync.models.Image import Image
+from sync.models.Album import Album
+from sync.models.Article import Article
+from sync.models.Page import Page
+from sync.models.Person import Person
+from sync.models.Schedule import Schedule
+from sync.models.Settings import Settings
+
+
+def init_logger(name: str, file: str):
+    logger = logging.getLogger(name)
+    logger.setLevel(logging.DEBUG)
+
+    # create file handler which logs even debug messages
+    fh = logging.FileHandler(file)
+    fh.setLevel(logging.DEBUG)
+
+    # create console handler with a higher log level
+    ch = logging.StreamHandler()
+    # ch.setLevel(logging.ERROR)
+    ch.setLevel(logging.DEBUG)
+
+    # create formatter and add it to the handlers
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    fh.setFormatter(formatter)
+    ch.setFormatter(formatter)
+
+    # add the handlers to the logger
+    logger.addHandler(fh)
+    logger.addHandler(ch)
+
+
+async def run_sync(sync: Sync):
+    await sync.run()
+
+
+async def run(run_interval=0):
+    io = lambda root: get_provider(settings.provider_name, root)
+
+    sync_documents = SyncDocument(
+        provider=io(settings.provider_root),
+        sizes=settings.image_sizes,
+    )
+    sync_documents.strict_origin = True
+
+    sync_pages = Sync(
+        provider=io(settings.provider_root),
+        model=Page,
+    )
+
+    sync_persons = Sync(
+        provider=io(settings.provider_root),
+        model=Person,
+    )
+    sync_persons.validate_urls = False
+
+    sync_articles = Sync(
+        provider=io(settings.provider_root),
+        model=Article,
+    )
+    sync_articles.validate_urls = False
+
+    sync_schedules = Sync(
+        provider=io(settings.provider_root),
+        model=Schedule,
+    )
+    sync_schedules.validate_urls = False
+
+    sync_albums = Sync(
+        provider=io(settings.provider_root),
+        model=Album,
+    )
+    sync_albums.validate_urls = False
+
+    sync_settings = Sync(
+        provider=io(settings.provider_root),
+        model=Settings,
+    )
+    sync_settings.validate_urls = False
+
+    sync_images = Sync(
+        provider=io(settings.provider_root),
+        model=Image,
+    )
+    sync_images.strict_origin = True
+    sync_images.validate_urls = False
+
+    while True:
+        await asyncio.wait([
+            run_sync(sync_documents),
+            run_sync(sync_pages),
+            run_sync(sync_persons),
+            run_sync(sync_articles),
+            run_sync(sync_schedules),
+            run_sync(sync_albums),
+            run_sync(sync_settings),
+            run_sync(sync_images),
+        ])
+
+        if run_interval == 0:
+            break
+        else:
+            await asyncio.sleep(run_interval)
 
 
 def get_provider(provider_type, root):
@@ -19,26 +120,11 @@ def get_provider(provider_type, root):
     return None
 
 
-def main(provider, fn, collection_name):
-    if provider:
-        print('SYNC: %s' % (collection_name.upper()))
-        u, d = fn(provider, collection(collection_name), update=settings.do_update, delete=settings.do_update)
-
-        print('DELETE %s: %s' % (collection_name.upper(), 'NO' if not settings.do_delete else str(len(d))))
-        lprint_json(d)
-
-        print('UPDATE %s: %s' % (collection_name.upper(), 'NO' if not settings.do_update else str(len(u))))
-        lprint_json(u)
-
-        print('')
-
-
 if __name__ == '__main__':
-    io = lambda root: get_provider(settings.sync_provider_type, root)
+    init_logger(settings.name, 'hudozka.log')
 
-    main(io(settings.dir_documents), sync_documents, settings.collection_documents)
-    main(io(settings.dir_schedules), sync_schedules, settings.collection_schedules)
-    main(io(settings.dir_events), sync_posts, settings.collection_events)
-    main(io(settings.dir_news), sync_posts, settings.collection_news)
-    main(io(settings.dir_collective), sync_persons, settings.collection_collective)
-    main(io(settings.dir_gallery), sync_albums, settings.collection_albums)
+    interval = settings.interval
+
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(run(interval))
+    loop.close()

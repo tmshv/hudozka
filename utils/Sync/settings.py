@@ -1,6 +1,21 @@
 import os
 
+import yaml
+import argparse
+
 __author__ = 'Roman Timashev'
+
+name = 'HudozkaSync'
+
+_parser = argparse.ArgumentParser(description='Hudozka Sync Daemon')
+_parser.add_argument('--config', dest='config', default='config.yaml', help='path to config.yaml')
+_args = _parser.parse_args()
+
+config = yaml.load(open(_args.config, 'r'))
+
+
+def value(key, default=None):
+    return config[key] if key in config else default
 
 
 def absolute(path, ensure=True):
@@ -20,7 +35,11 @@ def env(param, default=None):
     return default
 
 
-database_uri = env('MONGO_URI')
+interval = value('interval', 0)
+
+database_uri = value('database_uri')  # env('MONGO_URI')
+
+skip_unchanged = value('skip_unchanged')
 
 person_uri = {
     'Н.В.Андреева': 'nv-andreeva',
@@ -31,42 +50,38 @@ person_uri = {
     'А.С.Тимашева': 'as-timasheva',
 }
 
-image_processing = True
+upload_enabled = value('upload_enabled')
+upload_url_image = 'https://static.shlisselburg.org/upload/art/images/{}'
+upload_auth = (
+    value('upload_auth')['login'],
+    value('upload_auth')['password'],
+)
+
+image_processing_enabled = value('image_processing')
 
 album_html_img_class = 'hudozka-product'
 
 image_ext = '.jpg'
 image_sizes = [
     ('original', None, None),
+
+    ('large', 2500, 1000),
+    ('large@2', 5000, 2000),
+
     ('big', 1500, 667),
+    ('big@2', 3000, 1334),
+
     ('medium', 400, 300),
+    ('medium@2', 800, 600),
+
     ('small', 250, 175),
-    ('little', 100, 100),
-    ('preview', 50, 50),
-]
+    ('small@2', 500, 350),
 
-awards_image_sizes = [
-    ('medium', 640, 480),
-    ('small', 300, 200),
-    ('preview', 50, 50),
-]
+    ('og', 968, 504),
+    ('og@2', 1936, 1008),
 
-event_image_sizes = [
-    ('big', 1200, 800)
-]
-
-teacher_image_url_base = 'https://static.shburg.org/art/images/teacher-{id}-{size}{ext}'
-teacher_image_output = '/Users/tmshv/Desktop/Hudozka Static/images'
-teacher_image_sizes = [
-    ('big', 1200, 800),
-    ('medium', 640, 480),
-    ('preview', 50, 50),
-]
-
-album_image_sizes = [
-    ('big', 1200, 800),
-    ('medium', 640, 480),
-    ('small', 250, 175)
+    ('fb', 1200, 630),
+    ('fb@2', 2400, 1260),
 ]
 
 date_formats = [
@@ -89,41 +104,48 @@ date_formats_reverse = [
     '%Y.%m.%d'
 ]
 
-origin = 'Yandex.Disk'
+origin = value('origin')
 
+collection_settings = 'settings'
+collection_images = 'images'
 collection_documents = 'documents'
 collection_schedules = 'schedules'
-collection_events = 'events'
-collection_news = 'timeline'
+collection_articles = 'articles'
 collection_collective = 'collective'
 collection_albums = 'albums'
+collection_pages = 'pages'
 
-sync_provider_type = env('SYNC_PROVIDER', 'fs')
+hash_salt_articles = '5'
+hash_salt_pages = '2'
+hash_salt_albums = '0'
+hash_salt_documents = '1'
+hash_salt_images = '1'
+hash_salt_person = '2'
 
-_providers_roots = {
-    'fs': abs_fn(env('SYNC_LOCAL_PATH')),
-    'yd': abs_fn('/'),
-}
-f = _providers_roots[sync_provider_type]
+provider_name = value('provider')['name']  # env('SYNC_PROVIDER', 'fs')
+provider_root = value('provider')['root']  # env('SYNC_PROVIDER', 'fs')
 
-dir_documents = f('Hudozka/Site/Documents')
-dir_schedules = f('Hudozka/Site/Schedules')
-dir_events = f('Hudozka/Site/Events')
-dir_news = f('Hudozka/Site/News')
-dir_collective = f('Hudozka/Site/Collective')
-dir_gallery = f('Hudozka/Site/Gallery')
+f = abs_fn(provider_root)
 
-dir_static = env('SYNC_STATIC', '~/Hudozka Static')
-dir_static_uploads = absolute(dir_static + '/uploads')
-dir_static_images = absolute(dir_static + '/images')
+dir_settings = './Settings'
+dir_documents = './Documents'
+dir_schedules = './Schedules'
+dir_articles = './Articles'
+dir_persons = './Collective'
+dir_albums = './Gallery'
+dir_pages = './Pages'
+dir_images = './Images'
 
-url_base_preview = 'https://static.shburg.org/art/images/{id}-{size}{ext}'
-url_base_document = 'https://static.shburg.org/art/uploads/{file}'
+document_url_template = 'https://static.shlisselburg.org/art/uploads/{file}'
+document_url_upload_template = 'https://static.shlisselburg.org/upload/art/uploads/{file}'
+document_url_preview_template = 'https://static.shlisselburg.org/art/images/{id}-{size}{ext}'
 
-image_base_url = 'https://static.shburg.org/art/images/'
-image_name_format = '{type}-{id}-{img}-{size}{ext}'
+image_url_upload = 'https://static.shlisselburg.org/upload/art/images/'
+image_url_base = 'https://static.shlisselburg.org/art/images/'
 
-yandex_disk_access_token = env('YANDEX_DISK_ACCESS_TOKEN')
+person_image_url_template = 'https://static.shlisselburg.org/art/images/person-{id}-{size}{ext}'
 
-do_update = env('SYNC_ENV', 'production') == 'production'
-do_delete = env('SYNC_ENV', 'production') == 'production'
+yandex_disk_access_token = value('yandex_disk_access_token')  # env('YANDEX_DISK_ACCESS_TOKEN')
+
+update_enabled = value('update_enabled')
+delete_enabled = value('delete_enabled')

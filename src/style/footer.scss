@@ -1,26 +1,8 @@
 @import "variables";
 
-$uri: '/graphics/rawline.png';
-
 footer {
-  //width: 100%;
-  color: $light-color;
   padding: 0 $half-margin $half-margin;
   position: relative;
-  background-color: $darker-color;
-
-  &:before {
-    $s: 3px;
-
-    content: '';
-    position: absolute;
-    top: -$s;
-    left: 0;
-    width: 100%;
-    height: $s;
-    z-index: 100;
-    background-image: url($uri);
-  }
 
   .footer-info {
     display: flex;
@@ -32,12 +14,14 @@ footer {
   }
 
   .contacts {
+    margin: $double-margin 0 $half-margin;
+
     & > div {
-      padding: 0 1em;
+      padding: 0 $single-margin;
     }
 
     p {
-      margin: 0.5em 1em;
+      margin: $half-margin $single-margin;
     }
   }
 
@@ -50,6 +34,15 @@ footer {
     span {
       padding: 1.5em 1em 0.25em;
       box-sizing: padding-box;
+    }
+  }
+
+  &.footer--centered {
+    .copyright {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: center;
     }
   }
 }

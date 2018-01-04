@@ -1,0 +1,34 @@
+@import "../variables";
+
+.accessibility-control {
+  width: 100%;
+
+  padding: $single-margin;
+
+  span {
+    margin-right: $single-margin;
+  }
+
+  span.active {
+    font-weight: bold;
+  }
+
+  &__block {
+    margin-bottom: $half-margin;
+  }
+
+  ul li {
+    display: inline;
+    margin-right: $single-margin;
+  }
+
+  ul {
+    display: inline;
+  }
+}
+
+.accessibility .accessibility-control {
+  a {
+    border-bottom-style: dashed;
+  }
+}
