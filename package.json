@@ -5,7 +5,7 @@
   "description": "",
   "main": "src/bin/www.js",
   "scripts": {
-    "start": "babel-node src/index.js",
+    "start": "node src/index.js",
     "out": "babel src/ -d out/",
     "gulp": "gulp",
     "test": "mocha --compilers js:babel-register",
