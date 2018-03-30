@@ -6,7 +6,7 @@ from markdown.util import etree
 
 from kazimir.Token import UrlToken, is_url
 
-pattr = re.compile(r'https?://www\.instagram\.com/p/(?P<media>[\w\d]+)/?(.*)$')
+pattr = re.compile(r'https?://(www\.)?instagram\.com/p/(?P<media>[\w\d]+)/?(.*)$')
 
 
 class InstagramToken(UrlToken):
