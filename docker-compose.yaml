@@ -20,7 +20,7 @@ services:
       - mongo
     build:
       context: ./
-      dockerfile: Hudozka.Dockerfile
+      dockerfile: Dockerfile
     links:
       - mongo
     ports:
