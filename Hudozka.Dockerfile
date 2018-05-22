@@ -1,5 +1,5 @@
 # Build
-FROM node:8 as build
+FROM node:10 as build
 WORKDIR /app
 
 COPY package.json package-lock.json gulpfile.babel.js .babelrc ./
