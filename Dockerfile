@@ -7,7 +7,7 @@ RUN npm i
 COPY webpack.config.js gulpfile.js .babelrc ./
 COPY robots.txt ./
 COPY src ./src
-RUN npm run gulp deploy
+RUN npm run gulp
 RUN npm run build-app
 RUN npm run out
 
