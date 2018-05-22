@@ -1,5 +1,3 @@
-import 'babel-polyfill'
-
 import {dbUri, port, name} from './config'
 import {connect} from './core/db'
 import server from './server'
