@@ -2,28 +2,9 @@ const gulp = require('gulp')
 const postcss = require('gulp-postcss')
 const sass = require('gulp-sass')
 const imageMin = require('gulp-imagemin')
-const uglify = require('gulp-uglify')
 const concat = require('gulp-concat')
-const webpack = require('webpack-stream')
-const named = require('vinyl-named')
 const autoprefixer = require('autoprefixer')
 const cssnano = require('cssnano')
-
-let env = process.env['NODE_ENV'] || 'production'
-let isProduction = env === 'production'
-
-gulp.task('compile 3rdparty', () => {
-	const files = [
-		'./node_modules/spin.js/spin.js',
-
-		'./node_modules/babel-polyfill/dist/polyfill.min.js'
-	]
-
-	return gulp.src(files)
-        .pipe(concat('libs.js'))
-        .pipe(uglify())
-		.pipe(gulp.dest('./public'))
-})
 
 gulp.task('style', () => {
 	const processors = [
@@ -67,49 +48,12 @@ gulp.task('copy views', () => {
 		.pipe(gulp.dest('./out/views'))
 })
 
-gulp.task('compile', () => {
-	const doWatch = !isProduction
-	const doSourceMaps = !isProduction
-
-	return gulp.src([
-		'./src/public/app.js'
-	])
-		.pipe(named())
-		.pipe(webpack({
-		//	devtool: doSourceMaps ? 'inline-source-map' : null,
-		//	watch: doWatch,
-			output: {
-				filename: '[name].js'
-			},
-			module: {
-				loaders: [
-					{test: /\.js$/, loader: 'babel'},
-		//			{test: /\.html$/, loader: 'raw!html-minify'}
-				]
-			},
-		//	'html-minify-loader': {
-		//		empty: true,
-		//		cdata: true,
-		//		comments: false,
-		//		dom: {
-		//			lowerCaseAttributeNames: false
-		//		}
-		//	}
-		}))
-		.pipe(gulp.dest('./public'))
-})
-
 gulp.task('imagemin', () => {
 	return gulp.src('./src/assets/graphics/**/*')
         .pipe(imageMin())
 		.pipe(gulp.dest('./public/graphics'))
 })
 
-gulp.task('production', () => {
-	isProduction = true
-})
-
 gulp.task('default', gulp.series('style'))
-gulp.task('copy', gulp.series('copy views', 'copy fonts', 'copy graphics', 'copy 3rdparty', 'copy robots.txt'))
-gulp.task('deploy', gulp.series('default', 'copy', 'compile 3rdparty', 'imagemin'))
-gulp.task('compile production', gulp.series('production', 'compile'))
+gulp.task('copy', gulp.series('copy views', 'copy fonts', 'copy graphics', 'copy robots.txt'))
+gulp.task('deploy', gulp.series('default', 'copy', 'imagemin'))

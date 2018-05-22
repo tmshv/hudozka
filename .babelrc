@@ -1,4 +1,17 @@
 {
-    "presets": ["es2015", "stage-0"],
-    "plugins": ["transform-react-jsx"]
+    "presets": [
+        [
+            "env",
+            {
+                "targets": {
+                    "node": "8.5.0"
+                }
+            }
+        ]
+    ],
+    "plugins": [
+        "transform-react-jsx",
+        "transform-object-rest-spread",
+        "transform-class-properties"
+    ]
 }

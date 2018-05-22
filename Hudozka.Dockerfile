@@ -2,11 +2,13 @@
 FROM node:10 as build
 WORKDIR /app
 
-COPY package.json package-lock.json gulpfile.js .babelrc ./
+COPY package.json package-lock.json ./
 RUN npm i
-
+COPY webpack.config.js gulpfile.js .babelrc ./
+COPY robots.txt ./
 COPY src ./src
 RUN npm run gulp deploy
+RUN npm run build-app
 RUN npm run out
 
 
@@ -14,7 +16,7 @@ RUN npm run out
 FROM node:8-alpine
 WORKDIR /app
 
-COPY package.json package-lock.json gulpfile.babel.js .babelrc ./
+COPY package.json package-lock.json ./
 RUN npm i --production
 
 COPY --from=build /app/out ./src
