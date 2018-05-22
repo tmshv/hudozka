@@ -22,14 +22,19 @@ const Footer = ({children, address, telephone, email, showAuthor}) => (
                 yearEnd={currentYear()}
             />
 			{!showAuthor ? null : (
-				<span>Разработка и поддержка сайта —
-					<a href="http://tmshv.ru?utm_source=artshburg&utm_medium=developer&utm_campaign=tmshv_ru">
-						www.tmshv.ru
-					</a>
-				</span>
+                <Author/>
 			)}
 		</div>
 	</footer>
+)
+
+const Author = () => (
+    <span>
+		Разработка и поддержка сайта —
+		<a href="http://tmshv.ru?utm_source=artshburg&utm_medium=developer&utm_campaign=tmshv_ru">
+			www.tmshv.ru
+		</a>
+	</span>
 )
 
 const Copyright = ({yearStart, yearEnd}) => (
