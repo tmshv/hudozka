@@ -1,13 +1,13 @@
-import gulp from 'gulp'
-import postcss from 'gulp-postcss'
-import sass from 'gulp-sass'
-import imageMin from 'gulp-imagemin'
-import uglify from 'gulp-uglify'
-import concat from 'gulp-concat'
-import webpack from 'webpack-stream'
-import named from 'vinyl-named'
-import autoprefixer from 'autoprefixer'
-import cssnano from 'cssnano'
+const gulp = require('gulp')
+const postcss = require('gulp-postcss')
+const sass = require('gulp-sass')
+const imageMin = require('gulp-imagemin')
+const uglify = require('gulp-uglify')
+const concat = require('gulp-concat')
+const webpack = require('webpack-stream')
+const named = require('vinyl-named')
+const autoprefixer = require('autoprefixer')
+const cssnano = require('cssnano')
 
 let env = process.env['NODE_ENV'] || 'production'
 let isProduction = env === 'production'
@@ -109,7 +109,7 @@ gulp.task('production', () => {
 	isProduction = true
 })
 
-gulp.task('default', ['style', 'compile'])
-gulp.task('copy', ['copy views', 'copy fonts', 'copy graphics', 'copy 3rdparty', 'copy robots.txt'])
-gulp.task('deploy', ['default', 'copy', 'compile 3rdparty', 'imagemin'])
-gulp.task('compile production', ['production', 'compile'])
+gulp.task('default', gulp.series('style'))
+gulp.task('copy', gulp.series('copy views', 'copy fonts', 'copy graphics', 'copy 3rdparty', 'copy robots.txt'))
+gulp.task('deploy', gulp.series('default', 'copy', 'compile 3rdparty', 'imagemin'))
+gulp.task('compile production', gulp.series('production', 'compile'))

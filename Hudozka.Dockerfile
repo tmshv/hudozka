@@ -2,7 +2,7 @@
 FROM node:10 as build
 WORKDIR /app
 
-COPY package.json package-lock.json gulpfile.babel.js .babelrc ./
+COPY package.json package-lock.json gulpfile.js .babelrc ./
 RUN npm i
 
 COPY src ./src
