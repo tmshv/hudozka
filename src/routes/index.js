@@ -25,9 +25,9 @@ export function queryObject() {
 
 export function accepts(routes) {
 	return async function (ctx) {
-		let request = ctx.request
-		let types = Object.keys(routes)
-			.filter(type => request.accepts(type))
+		const types = Object
+			.keys(routes)
+			.filter(type => ctx.request.accepts(type))
 
 		if (types.length) {
 			let fn = routes[types[0]]
