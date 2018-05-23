@@ -1,29 +1,26 @@
-@import "../variables";
-
-$current-week-day-color: $blue-color;
-
-$cell-width: 9em;
-$cell-tablet-width: 7.5em;
-
-$group-cell-width: 4em;
-$group-cell-tablet-width: 3em;
-
-$current-week-day-color: $blue-color;
-$row-padding: $single-margin 0;
-$current-day-column-border-thickness: 3px;
-
 .schedule-table {
-  margin-bottom: $double-margin;
+  --current-week-day-color: var(--blue-color);
+
+  --cell-width: 9em;
+  --cell-tablet-width: 7.5em;
+
+  --group-cell-width: 4em;
+  --group-cell-tablet-width: 3em;
+
+  --row-padding: var(--single-margin) 0;
+  --current-day-column-border-thickness: 3px;
+
+  margin-bottom: var(--double-margin);
 
   max-width: 70em;
   overflow-x: auto;
 
   a{
-    color: $dark-color;
+    color: var(--dark-color);
   }
 
   .lesson {
-    margin-bottom: $half-margin;
+    margin-bottom: var(--half-margin);
   }
 
   .teacher {
@@ -31,8 +28,8 @@ $current-day-column-border-thickness: 3px;
   }
 
   .current {
-    border-left: $current-day-column-border-thickness solid;
-    border-right: $current-day-column-border-thickness solid;
+    border-left: var(--current-day-column-border-thickness) solid;
+    border-right: var(--current-day-column-border-thickness) solid;
   }
 
   &__body {
@@ -46,8 +43,8 @@ $current-day-column-border-thickness: 3px;
   }
 
   &__body-group{
-    min-width: $group-cell-width;
-    padding: $row-padding;
+    min-width: var(--group-cell-width);
+    padding: var(--row-padding);
 
     text-align: center;
 
@@ -58,14 +55,14 @@ $current-day-column-border-thickness: 3px;
   }
 
   &__head-record {
-    min-width: $cell-width;
-    max-width: $cell-width;
-    padding: $row-padding;
+    min-width: var(--cell-width);
+    max-width: var(--cell-width);
+    padding: var(--row-padding);
 
     text-align: center;
 
     & > .group {
-      min-width: $group-cell-width;
+      min-width: var(--group-cell-width);
     }
 
     .date {
@@ -75,19 +72,19 @@ $current-day-column-border-thickness: 3px;
   }
 
   &__record{
-    min-width: $cell-width;
-    max-width: $cell-width;
-    padding: $row-padding;
+    min-width: var(--cell-width);
+    max-width: var(--cell-width);
+    padding: var(--row-padding);
 
     text-align: center;
   }
 
   &__course{
-    margin-bottom: $half-margin;
+    margin-bottom: var(--half-margin);
   }
 }
 
-@media screen and (min-width: $tablet-min-width) and (max-width: $tablet-max-width) {
+@media screen and (min-width: var(--tablet-min-width)) and (max-width: var(--tablet-max-width)) {
   .schedule-table {
     min-width: 900px;
 
@@ -103,16 +100,16 @@ $current-day-column-border-thickness: 3px;
 
     &__head{
       & > div{
-        min-width: $cell-tablet-width;
+        min-width: var(--cell-tablet-width);
       }
 
       & > .group{
-        min-width: $group-cell-tablet-width;
+        min-width: var(--group-cell-tablet-width);
       }
     }
 
     &__body-group{
-      min-width: $group-cell-tablet-width;
+      min-width: var(--group-cell-tablet-width);
 
       p.name {
         font-size: 1em;
@@ -120,7 +117,7 @@ $current-day-column-border-thickness: 3px;
     }
 
     &__record{
-      min-width: $cell-tablet-width;
+      min-width: var(--cell-tablet-width);
     }
   }
 }

@@ -1,17 +1,15 @@
-@import "../variables";
-
-$font-size: 0.75em;
-$item-active-color: $link-color;
-$item-inactive-color: $inactive-link-color;
-$separator: '⟶';
-$mobile-separator: '>';
-
 breadcrumbs{
+  --font-size: 0.75em;
+  --item-active-color: var(--link-color);
+  --item-inactive-color: var(--inactive-link-color);
+  --separator: '⟶';
+  --mobile-separator: '>';
+
   padding: .35em 0 0;
-  color: $item-inactive-color;
+  color: var(--item-inactive-color);
 
   a {
-    color: $item-active-color;
+    color: var(--item-active-color);
   }
 
   ul{
@@ -21,22 +19,22 @@ breadcrumbs{
       display: inline-block;
 
       &:not(:first-child):before{
-        content: $separator;
+        content: var(--separator);
         margin-left: .4em;
       }
     }
   }
 }
 
-@media screen and (max-width: $mobile-width) {
+@media screen and (max-width: var(--mobile-width)) {
   breadcrumbs{
     margin: 0;
-    font-size: $font-size;
+    font-size: var(--font-size);
 
     ul{
       li {
         &:not(:first-child):before{
-          content: $mobile-separator;
+          content: var(--mobile-separator);
           margin-left: .2em;
         }
       }

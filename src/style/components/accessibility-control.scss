@@ -1,12 +1,10 @@
-@import "../variables";
-
 .accessibility-control {
   width: 100%;
 
-  padding: $single-margin;
+  padding: var(--single-margin);
 
   span {
-    margin-right: $single-margin;
+    margin-right: var(--single-margin);
   }
 
   span.active {
@@ -14,12 +12,12 @@
   }
 
   &__block {
-    margin-bottom: $half-margin;
+    margin-bottom: var(--half-margin);
   }
 
   ul li {
     display: inline;
-    margin-right: $single-margin;
+    margin-right: var(--single-margin);
   }
 
   ul {
