@@ -5,7 +5,7 @@ pipeline:
       - docker build -t tmshv/hudozka:latest -t tmshv/hudozka:build-${DRONE_BUILD_NUMBER} .
       - docker save -o hudozka-docker_container${DRONE_BUILD_NUMBER}.tar tmshv/hudozka:build-${DRONE_BUILD_NUMBER}
     when:
-      branches: [master]
+        branch: master
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
