@@ -16,3 +16,5 @@ pipeline:
     target: ~/Hudozka
     source: hudozka-docker_container${DRONE_BUILD_NUMBER}.tar
     secrets: [scp_key]
+    when:
+      branch: master
