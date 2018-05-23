@@ -54,5 +54,5 @@ gulp.task('imagemin', () => {
 		.pipe(gulp.dest('./public/graphics'))
 })
 
-gulp.task('copy', gulp.series('copy views', 'copy fonts', 'copy graphics', 'copy robots.txt'))
+gulp.task('copy', gulp.series('copy views', 'copy fonts', 'copy graphics', 'copy robots.txt', 'copy 3rdparty'))
 gulp.task('default', gulp.series('style', 'copy', 'imagemin'))
