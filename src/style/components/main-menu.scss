@@ -1,7 +1,5 @@
-@import "../variables";
-
 .main-menu {
-  font-size: $normal-font-size;
+  font-size: var(--normal-font-size);
 
   list-style: none;
 
@@ -35,45 +33,45 @@
   }
 
   a {
-    color: $dark-color;
-    border-color: lighten($dark-color, 60%);
+    color: var(--dark-color);
+    border-color: var(--dark-color);
 
     &:hover {
-      border-color: lighten($dark-color, 30%);
+      border-color: var(--dark-color);
     }
   }
 
   .selected {
     font-weight: bold;
-    border-top: $menu-colored-mark-thickness solid $light-color;
+    border-top: var(--menu-colored-mark-thickness) solid var(--light-color);
 
     &.blue {
-      border-top: $menu-colored-mark-thickness solid $blue-color;
+      border-top: var(--menu-colored-mark-thickness) solid var(--blue-color);
     }
 
     &.orange {
-      border-top: $menu-colored-mark-thickness solid $orange-color;
+      border-top: var(--menu-colored-mark-thickness) solid var(--orange-color);
     }
 
     &.green {
-      border-top: $menu-colored-mark-thickness solid $green-color;
+      border-top: var(--menu-colored-mark-thickness) solid var(--green-color);
     }
 
     &.yellow {
-      border-top: $menu-colored-mark-thickness solid $yellow-color;
+      border-top: var(--menu-colored-mark-thickness) solid var(--yellow-color);
     }
 
     &.pink {
-      border-top: $menu-colored-mark-thickness solid $pink-color;
+      border-top: var(--menu-colored-mark-thickness) solid var(--pink-color);
     }
 
     &.red {
-      border-top: $menu-colored-mark-thickness solid $red-color;
+      border-top: var(--menu-colored-mark-thickness) solid var(--red-color);
     }
   }
 }
 
-@media (max-width: $mobile-width) {
+@media (max-width: var(--mobile-width)) {
   .main-menu{
     font-size: 1em;
   }

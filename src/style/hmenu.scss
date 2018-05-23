@@ -1,14 +1,12 @@
-@import "variables";
-
-$hmenu-margin: 6px;
-$hmenu-icon-width: 32px;
-$hmenu-icon-height: 32px;
-
 .no-scroll {
   overflow: hidden;
 }
 
 .HMenu {
+  --hmenu-margin: 6px;
+  --hmenu-icon-width: 32px;
+  --hmenu-icon-height: 32px;
+
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -39,7 +37,7 @@ $hmenu-icon-height: 32px;
 
 .HMenu--folded.HMenu--open {
   li {
-    margin: 0 0 $single-margin;
+    margin: 0 0 var(--single-margin);
   }
 }
 
@@ -63,9 +61,9 @@ $hmenu-icon-height: 32px;
 .HMenu__toggle {
   position: absolute;
   left: 0;
-  height: $hmenu-icon-height;
+  height: var(--hmenu-icon-height);
 
-  margin: $hmenu-margin;
+  margin: var(--hmenu-margin);
 
   display: flex;
 
@@ -73,8 +71,8 @@ $hmenu-icon-height: 32px;
     text-decoration: none;
     border: none;
 
-    width: $hmenu-icon-width;
-    height: $hmenu-icon-height;
+    width: var(--hmenu-icon-width);
+    height: var(--hmenu-icon-height);
     background-size: 100%;
   }
 
@@ -157,7 +155,7 @@ $hmenu-icon-height: 32px;
   margin-bottom: 2em;
 }
 
-@media (max-width: $mobile-width) {
+@media (max-width: var(--mobile-width)) {
   .HMenu--folded .HMenu__item {
     max-width: 10em;
   }

@@ -1,18 +1,16 @@
-@import "../variables";
-
 .theme-default {
   h1, h2{
-    font-family: $title-font;
+    font-family: var(--title-font);
   }
 
   a {
-    color: $dark-color;
+    color: var(--dark-color);
 
     text-decoration: none;
-    border-bottom: 1px solid lighten($dark-color, 60%);
+    border-bottom: 1px solid var(--link-color);
 
     &:hover {
-      border-bottom: 2px solid $dark-color;
+      border-bottom: 2px solid var(--dark-color);
     }
 
     &:active {
@@ -34,7 +32,7 @@
 
   .schedule-table {
     a{
-      color: $dark-color;
+      color: var(--dark-color);
     }
 
     .lesson {
@@ -42,7 +40,7 @@
     }
 
     .current {
-      border-color: $current-week-day-color;
+      border-color: var(--current-week-day-color);
     }
 
     &__head{
@@ -53,23 +51,23 @@
 
     &__body-row{
       &:nth-child(even) {
-        background-color: $schedule-row-color;
+        background-color: var(--schedule-row-color);
       }
     }
   }
 
   footer {
-    color: $light-color;
-    background-color: $darker-color;
+    color: var(--light-color);
+    background-color: var(--darker-color);
 
-    font-size: $smaller-font-size;
+    font-size: var(--smaller-font-size);
 
     a {
-      color: $light-color;
-      border-bottom-color: darken($light-color, 50%);
+      color: var(--light-color);
+      border-bottom-color: var(--light-color);
 
       &:hover {
-        border-bottom-color: $light-color;
+        border-bottom-color: var(--light-color);
       }
     }
   }

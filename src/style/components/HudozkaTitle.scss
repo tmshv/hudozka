@@ -1,5 +1,3 @@
-@import "../variables";
-
 .HudozkaTitle {
   --padding: var(--double-margin) 0;
 
@@ -17,7 +15,7 @@
   }
 }
 
-@media (max-width: $mobile-width) {
+@media (max-width: var(--mobile-width)) {
   .HudozkaTitle {
     --padding: 0 0 var(--double-margin);
   }

@@ -1,12 +1,10 @@
-@import "../variables";
-
 .page-schedule {
   &.ng-leave {
     transform-origin: 0% 0%;
-    animation: rotateFall $short-duration both ease-in;
+    animation: rotateFall var(--short-duration) both ease-in;
   }
 
   &.ng-enter {
-    animation: scaleUp $short-duration both ease-in;
+    animation: scaleUp var(--short-duration) both ease-in;
   }
 }

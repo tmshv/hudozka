@@ -1,11 +1,9 @@
-@import "../variables";
-
 .document {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 0;
-  margin-bottom: $double-margin;
+  margin-bottom: var(--double-margin);
 }
 
 .document__image{
@@ -13,7 +11,7 @@
   //width: 20em;
   //height: 20em;
 
-  margin-bottom: $single-margin;
+  margin-bottom: var(--single-margin);
 
   //display: flex;
   //justify-content: center;
@@ -23,7 +21,7 @@
   img {
     max-width: 100%;
     max-height: 100%;
-    box-shadow: $white-shadow;
+    box-shadow: var(--white-shadow);
   }
 }
 
@@ -39,11 +37,11 @@
 }
 
 .document__file-info {
-  font-size: $smaller-font-size;
+  font-size: var(--smaller-font-size);
 }
 
-@media (max-width: $mobile-width) {
+@media (max-width: var(--mobile-width)) {
   .document {
-    margin: 0 $single-margin/2 $single-margin;
+    margin: 0 var(--single-margin) var(--single-margin);
   }
 }

@@ -1,13 +1,11 @@
-@import "../variables";
-
 .album {
-  margin-bottom: $double-margin;
+  margin-bottom: var(--double-margin);
 
   &__head {
     margin-bottom: 1.25em;
 
     h3 {
-      font-size: $biggest-font-size;
+      font-size: var(--biggest-font-size);
       text-align: center;
     }
 
@@ -17,7 +15,7 @@
     }
 
     a {
-      color: $dark-color;
+      color: var(--dark-color);
       border-bottom: none;
     }
   }
@@ -28,7 +26,7 @@
       max-height: 40em;
 
       display: block;
-      margin:  1.25em auto $small-margin;
+      margin: 1.25em auto var(--small-margin);
     }
 
     p{
@@ -37,7 +35,7 @@
   }
 }
 
-@media (max-width: $mobile-width) {
+@media (max-width: var(--mobile-width)) {
   .album {
     &__body {
       img {
