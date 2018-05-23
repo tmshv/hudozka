@@ -10,15 +10,14 @@ export function queryObject() {
 	const processors = [toTrue, toFalse]
 
 	return async(ctx, next) => {
-		let query = ctx.query
 		ctx.query = Object
-			.keys(query)
+			.keys(ctx.query)
 			.reduce((query, key) => assign(
 				query,
 				key,
 				processors
 					.reduce((value, fn) => fn(value), query[key])
-			), query)
+			), ctx.query)
 
 		await next()
 	}
