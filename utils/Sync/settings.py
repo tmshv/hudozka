@@ -141,9 +141,7 @@ document_url_upload_template = 'https://static.shlisselburg.org/upload/art/uploa
 document_url_preview_template = 'https://static.shlisselburg.org/art/images/{id}-{size}{ext}'
 
 image_url_upload = 'https://static.shlisselburg.org/upload/art/images/'
-image_url_base = 'https://static.shlisselburg.org/art/images/'
-
-person_image_url_template = 'https://static.shlisselburg.org/art/images/person-{id}-{size}{ext}'
+image_url_base = 'https://art.shlisselburg.org/data/images/'
 
 yandex_disk_access_token = value('yandex_disk_access_token')  # env('YANDEX_DISK_ACCESS_TOKEN')
 
