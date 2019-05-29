@@ -1,5 +1,5 @@
 import path from 'path'
-import {Server} from 'http'
+import { createServer } from 'http'
 import Koa from 'koa'
 import serve from 'koa-static'
 import logger from 'koa-logger'
@@ -79,5 +79,5 @@ export default function (config) {
 	app.use(schedule.getSchedule())
 	app.use(pages())
 
-	return Server(app.callback())
+	return createServer(app.callback())
 }
