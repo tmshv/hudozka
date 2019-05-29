@@ -35,7 +35,7 @@
     "handlebars": "^4.1.2",
     "immutable": "^3.8.2",
     "instagram-node": "^0.5.1",
-    "koa": "^2.5.1",
+    "koa": "^2.7.0",
     "koa-bodyparser": "^3.0.0",
     "koa-compose": "^3.1.0",
     "koa-conditional-get": "^1.0.2",
