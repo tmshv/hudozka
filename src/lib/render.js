@@ -11,7 +11,7 @@ const isEqualPate = require('../lib/url').isEqualPath
 const {compose, any} = require('../lib/common')
 
 const menuModel = require('../models/menu').default
-const {viewMain} = require('../config')
+const {viewMain, viewEdit} = require('../config')
 
 const defaultOptions = {
 	commentsEnabled: false,
@@ -105,4 +105,17 @@ async function render(path, data, meta, options = {}) {
 	})
 }
 
+async function renderEdit() {
+	const renderOptions = {
+		...defaultOptions,
+		templateFile: viewEdit,
+	}
+
+	const source = await readFile(renderOptions.templateFile, 'utf-8')
+	const template = handlebars.compile(source)
+
+	return template({})
+}
+
 exports.render = render
+exports.renderEdit = renderEdit

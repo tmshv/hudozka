@@ -6,6 +6,7 @@ const targetDir = path.resolve(__dirname, 'public')
 module.exports = {
 	entry: {
 		app: './src/public/app.js',
+		edit: './src/edit.entry.js',
 	},
 	output: {
 		path: targetDir,
@@ -56,11 +57,23 @@ module.exports = {
 						},
 					},
 				]
+			},
+
+			{
+				test: /\.css/,
+				use: [
+					'style-loader',
+					'css-loader',
+				]
 			}
 		],
 	},
 
 	plugins: [
 
+		// new HtmlWebpackPlugin({
+		// 	filename: 'edit.html',
+		// 	template: './src/views/edit.html',
+		// })
 	]
 }

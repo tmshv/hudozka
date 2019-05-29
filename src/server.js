@@ -27,6 +27,7 @@ const document = require('./routes/document')
 const schedule = require('./routes/schedule')
 const pages = require('./routes/pages')
 const sitemap = require('./routes/sitemap')
+const edit = require('./routes/edit')
 
 const dirPublic = path.join(__dirname, '../public')
 
@@ -65,6 +66,7 @@ export default function (config) {
 	app.use(error.notFound(view404))
 	app.use(sitemap())
 
+	// app.use(edit.getEdit())
 	app.use(home.getHome(config.articlesPerPage))
 	app.use(gallery.getGallery())
 	app.use(article.getArticles(config.articlesPerPage))
