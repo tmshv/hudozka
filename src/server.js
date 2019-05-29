@@ -33,6 +33,12 @@ const dirPublic = path.join(__dirname, '../public')
 
 handlebars.registerHelper('raw-helper', options => options.fn())
 
+function notFound() {
+    return async ctx => {
+        ctx.status = 404
+    }
+}
+
 export default function (config) {
 	const $ = convert
 
@@ -77,7 +83,7 @@ export default function (config) {
 	server.use(documents.getDocuments())
 	server.use(document.getDocument())
 	server.use(schedule.getSchedule())
-	server.use(pages())
+    server.use(pages(notFound()))
 
     return createServer(server.callback())
 }
