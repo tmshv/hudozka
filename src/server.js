@@ -36,26 +36,26 @@ handlebars.registerHelper('raw-helper', options => options.fn())
 export default function (config) {
 	const $ = convert
 
-	const app = new Koa()
-	app.keys = ['1234']
-	app.proxy = true
+	const server = new Koa()
+	server.keys = ['1234']
+	server.proxy = true
 
-	app.use(bodyParser({
+	server.use(bodyParser({
 		extendTypes: {
 			json: 'application/ejson'
 		}
 	}))
-	app.use(logger())
-	app.use(convert(session(sessionConfig, app)))
-	app.use(cookie())
-	app.use($(conditional()))
-	app.use($(etag()))
-	app.use(serve(dirPublic))
-	app.use(redirect(config.redirect))
-	app.use($(helmet()))
-	app.use(queryObject())
+	server.use(logger())
+	server.use(convert(session(sessionConfig, server)))
+	server.use(cookie())
+	server.use($(conditional()))
+	server.use($(etag()))
+	server.use(serve(dirPublic))
+	server.use(redirect(config.redirect))
+	server.use($(helmet()))
+	server.use(queryObject())
 
-	app.use(async (ctx, next) => {
+	server.use(async (ctx, next) => {
 		if (ctx.session.isNew) {
 			ctx.session.startDate = new Date()
 		}
@@ -63,21 +63,21 @@ export default function (config) {
 		await next()
 	})
 
-	app.use(error.notFound(view404))
-	app.use(sitemap())
+	server.use(error.notFound(view404))
+	server.use(sitemap())
 
-	// app.use(edit.getEdit())
-	app.use(home.getHome(config.articlesPerPage))
-	app.use(gallery.getGallery())
-	app.use(article.getArticles(config.articlesPerPage))
-	app.use(article.getArticle())
-	app.use(albums.getAlbum())
-	app.use(teachers.getCollective(config.collectiveOrder))
-	app.use(teachers.getTeacher())
-	app.use(documents.getDocuments())
-	app.use(document.getDocument())
-	app.use(schedule.getSchedule())
-	app.use(pages())
+	// server.use(edit.getEdit())
+	server.use(home.getHome(config.articlesPerPage))
+	server.use(gallery.getGallery())
+	server.use(article.getArticles(config.articlesPerPage))
+	server.use(article.getArticle())
+	server.use(albums.getAlbum())
+	server.use(teachers.getCollective(config.collectiveOrder))
+	server.use(teachers.getTeacher())
+	server.use(documents.getDocuments())
+	server.use(document.getDocument())
+	server.use(schedule.getSchedule())
+	server.use(pages())
 
-	return createServer(app.callback())
+    return createServer(server.callback())
 }
