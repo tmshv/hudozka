@@ -50,13 +50,6 @@ person_uri = {
     'А.С.Тимашева': 'as-timasheva',
 }
 
-upload_enabled = value('upload_enabled')
-upload_url_image = 'https://static.shlisselburg.org/upload/art/images/{}'
-upload_auth = (
-    value('upload_auth')['login'],
-    value('upload_auth')['password'],
-)
-
 image_processing_enabled = value('image_processing')
 
 album_html_img_class = 'hudozka-product'
@@ -115,12 +108,12 @@ collection_collective = 'collective'
 collection_albums = 'albums'
 collection_pages = 'pages'
 
-hash_salt_articles = '5'
-hash_salt_pages = '3'
-hash_salt_albums = '0'
-hash_salt_documents = '1'
-hash_salt_images = '2'
-hash_salt_person = '3'
+hash_salt_articles = '6'
+hash_salt_pages = '4'
+hash_salt_albums = '1'
+hash_salt_documents = '3'
+hash_salt_images = '4'
+hash_salt_person = '4'
 
 provider_name = value('provider')['name']  # env('SYNC_PROVIDER', 'fs')
 provider_root = value('provider')['root']  # env('SYNC_PROVIDER', 'fs')
@@ -137,13 +130,18 @@ dir_pages = './Pages'
 dir_images = './Images'
 
 document_url_template = 'https://static.shlisselburg.org/art/uploads/{file}'
-document_url_upload_template = 'https://static.shlisselburg.org/upload/art/uploads/{file}'
-document_url_preview_template = 'https://static.shlisselburg.org/art/images/{id}-{size}{ext}'
+document_url_preview_template = 'https://art.shlisselburg.org/static/images/{id}-{size}{ext}'
 
-image_url_upload = 'https://static.shlisselburg.org/upload/art/images/'
-image_url_base = 'https://art.shlisselburg.org/data/images/'
+image_url_base = 'https://art.shlisselburg.org/static/images/'
 
 yandex_disk_access_token = value('yandex_disk_access_token')  # env('YANDEX_DISK_ACCESS_TOKEN')
 
 update_enabled = value('update_enabled')
 delete_enabled = value('delete_enabled')
+
+auth_s3 = {
+    'region_name': 'ams3',
+    'endpoint_url': 'https://dir.ams3.digitaloceanspaces.com',
+    'aws_access_key_id': '',
+    'aws_secret_access_key': '',
+}
