@@ -1,0 +1,11 @@
+.AppWrapperContent {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+
+    position: relative;
+
+    /* Needed for when the area gets squished too far and there is content
+     that can't be displayed */
+    overflow: auto;
+}

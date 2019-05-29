@@ -18,10 +18,6 @@ logger = logging.getLogger(settings.name + '.Image')
 store = collection(settings.collection_images)
 
 
-def get_upload_url(url):
-    return os.path.join(settings.image_url_upload, os.path.basename(url))
-
-
 def default_url_factory(file, size, ext):
     url = settings.image_url_base + '{}-{}{}'
     return url.format(md5(file), size, ext.lower())
@@ -115,11 +111,10 @@ class Image(Model):
     async def upload(self):
         if self.data:
             async def fn(i):
-                url = get_upload_url(i['url'])
                 file = i['file']
+                filename = os.path.basename(file)
 
-                logger.info('Uploading to {}'.format(url))
-                await request.upload(url, file)
+                await request.s3_put('images/'+filename, file)
 
             await asyncio.wait([fn(i) for i in self.data.values()])
 

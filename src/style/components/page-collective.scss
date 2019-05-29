@@ -1,12 +1,10 @@
-@import "../variables";
-
 .page-collective {
   &.ng-leave {
-    animation: slideOutLeft $short-duration both ease-in;
+    animation: slideOutLeft var(--short-duration) both ease-in;
   }
 
   &.ng-enter {
-    animation: slideInRight $short-duration both ease-in;
+    animation: slideInRight var(--short-duration) both ease-in;
   }
 }
 
@@ -16,7 +14,7 @@
   }
 }
 
-@media (max-width: $mobile-width) {
+@media (max-width: var(--mobile-width)) {
   .page-collective {
     &__collective-image {
       display: none;

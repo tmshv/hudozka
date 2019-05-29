@@ -1,7 +1,7 @@
 @import "variables";
 
 footer {
-  padding: 0 $half-margin $half-margin;
+  padding: 0 var(--half-margin) var(--half-margin);
   position: relative;
 
   .footer-info {
@@ -9,19 +9,19 @@ footer {
     flex-wrap: wrap;
     justify-content: space-between;
 
-    padding: $double-margin $single-margin 0;
-    margin-bottom: $double-margin;
+    padding: var(--double-margin) var(--single-margin) 0;
+    margin-bottom: var(--double-margin);
   }
 
   .contacts {
-    margin: $double-margin 0 $half-margin;
+    margin: var(--double-margin) 0 var(--half-margin);
 
     & > div {
-      padding: 0 $single-margin;
+      padding: 0 var(--single-margin);
     }
 
     p {
-      margin: $half-margin $single-margin;
+      margin: var(--half-margin) var(--single-margin);
     }
   }
 

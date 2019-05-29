@@ -1,9 +1,7 @@
-@import "../variables";
-
 .timeline{
   display: flex;
   flex-direction: column;
-  margin: $double-margin auto;
+  margin: var(--double-margin) auto;
 }
 
 .timeline__footer{
@@ -18,12 +16,12 @@
 
     width: 100px;
     height: 40px;
-    border: 2px solid $dark-color;
+    border: 2px solid var(--dark-color);
     padding: 0 10px;
-    color: $dark-color;
-    background: $lighter-color;
+    color: var(--dark-color);
+    background: var(--lighter-color);
 
-    font-size: $normal-font-size;
+    font-size: var(--normal-font-size);
 
     &:hover {
       background: gainsboro;

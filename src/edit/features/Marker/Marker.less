@@ -1,0 +1,52 @@
+.Marker {
+  //--active-color: #73acf6;
+  --active-color: #f0f0f0;
+  --cell-padding: 8px;
+  --font-size: 16px;
+
+  font-size: var(--font-size);
+  font-family: sans-serif;
+  //line-height: var(--font-size);
+
+  textarea {
+    width: 100%;
+    font-size: var(--font-size);
+    font-family: sans-serif;
+    padding: 0;
+
+    box-sizing: border-box;
+
+    height: var(--font-size);
+    //height: calc(2px + var(--font-size));
+    border: none;
+    background-color: var(--active-color);
+
+    outline: none;
+    display: block;
+  }
+}
+
+.MarkerCellTabIndex {
+  outline: none;
+}
+
+.MarkerCell {
+  //padding: var(--cell-padding);
+  padding-bottom: 8px;
+
+  position: relative;
+
+  &--active {
+    background-color: var(--active-color);
+    //background-color: #f6903b;
+  }
+
+  &--edit {
+    div {
+      outline: none;
+    }
+
+    //background-color: #00b7ec;
+    background-color: var(--active-color);
+  }
+}

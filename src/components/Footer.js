@@ -1,6 +1,7 @@
 const React = require('react')
 
 const mailto = email => `mailto:${email}`
+const currentYear = () => (new Date()).getFullYear()
 
 const Footer = ({children, address, telephone, email, showAuthor}) => (
 	<footer>
@@ -16,16 +17,28 @@ const Footer = ({children, address, telephone, email, showAuthor}) => (
 		</div>
 
 		<div className="copyright">
-			<span>©&nbsp;2012—2017 Шлиссельбургская детская художественная школа</span>
+            <Copyright
+                yearStart={2012}
+                yearEnd={currentYear()}
+            />
 			{!showAuthor ? null : (
-				<span>Разработка и поддержка сайта —
-					<a href="http://tmshv.ru?utm_source=artshburg&utm_medium=developer&utm_campaign=tmshv_ru">
-						www.tmshv.ru
-					</a>
-				</span>
+                <Author/>
 			)}
 		</div>
 	</footer>
+)
+
+const Author = () => (
+    <span>
+		Разработка и поддержка сайта —
+		<a href="http://tmshv.ru?utm_source=artshburg&utm_medium=developer&utm_campaign=tmshv_ru">
+			www.tmshv.ru
+		</a>
+	</span>
+)
+
+const Copyright = ({yearStart, yearEnd}) => (
+    <span>©&nbsp;{yearStart}—{yearEnd} Шлиссельбургская детская художественная школа</span>
 )
 
 module.exports = Footer

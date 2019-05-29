@@ -1,12 +1,10 @@
-@import "../variables";
-
 .footer-links {
   &__header {
-    margin-bottom: $single-margin;
+    margin-bottom: var(--single-margin);
   }
 
   &__link {
-    margin-bottom: $half-margin;
+    margin-bottom: var(--half-margin);
   }
 
   ul {

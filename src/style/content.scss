@@ -1,26 +1,24 @@
-@import "variables";
-
 .content {
   margin: 0 auto 1em;
 
   &.content_full{
-    width: $content-full;
+    width: var(--content-full);
   }
 
   &.content_wide{
-    width: $content-wide;
+    width: var(--content-wide);
   }
 
   &.content_semi-wide{
-    width: $content-semi-wide;
+    width: var(--content-semi-wide);
   }
 
   &.content_thin{
-    width: $content-thin;
+    width: var(--content-thin);
   }
 
   &.content--padding-top--menu{
-    padding-top: $menu-thickness;
+    padding-top: var(--menu-thickness);
   }
 }
 
@@ -42,21 +40,20 @@
   animation: smallSlideInFromTop 350ms ease-out;
 }
 
-
-@media screen and (max-width: $mobile-width) {
-  $content-mobile: 95%;
+@media screen and (max-width: var(--mobile-width)) {
+  --content-mobile: 95%;
 
   .content {
      &.content_wide{
-      width: $content-mobile;
+       width: var(--content-mobile);
     }
 
     &.content_semi-wide{
-      width: $content-mobile;
+      width: var(--content-mobile);
     }
 
     &.content_thin{
-      width: $content-mobile;
+      width: var(--content-mobile);
     }
 
     &.content--padding-top--menu{
@@ -65,7 +62,7 @@
   }
 }
 
-@media screen and (min-width: $tablet-min-width) and (max-width: $tablet-max-width) {
+@media screen and (min-width: var(--tablet-min-width)) and (max-width: var(--tablet-max-width)) {
   $thin-value: 70%;
   $wide-value: 95%;
   $semi-wide-value: 80%;

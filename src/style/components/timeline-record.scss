@@ -1,9 +1,7 @@
-@import "../variables";
-
 .timeline__record {
-  margin: 0 0 $post-margin;
+  margin: 0 0 var(--post-margin);
 
   .date {
-    color: $light-color;
+    color: var(--light-color);
   }
 }

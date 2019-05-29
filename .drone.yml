@@ -1,0 +1,18 @@
+pipeline:
+  build:
+    image: docker
+    commands:
+      - docker build -t tmshv/hudozka:latest -t tmshv/hudozka:build-${DRONE_BUILD_NUMBER} .
+      - docker save -o hudozka-docker_container${DRONE_BUILD_NUMBER}.tar tmshv/hudozka:build-${DRONE_BUILD_NUMBER}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  scp:
+    image: appleboy/drone-scp
+    host: art.shlisselburg.org
+    username: master
+    target: ~/Hudozka
+    source: hudozka-docker_container${DRONE_BUILD_NUMBER}.tar
+    secrets: [scp_key]
+    when:
+      branch: master

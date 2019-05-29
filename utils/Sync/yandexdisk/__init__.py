@@ -16,6 +16,30 @@ class YDClient:
             Authorization='OAuth %s' % self.access_token,
         )
 
+    async def get_flat(self, limit=20):
+        """
+        https://cloud-api.yandex.net/v1/disk/resources/files?
+        [  limit=<количество файлов в списке>]
+        [& media_type=<тип запрашиваемых файлов>]
+        [& offset=<смещение относительно начала списка>]
+        [& fields=<нужные ключи ответа>]
+        [& preview_size=<размер превью>]
+        [& preview_crop=<признак обрезки превью>]
+        :return:
+        """
+
+        url = '{0}/resources/files'.format(self.base_url)
+        payload = dict(
+            limit=limit,
+            offset=0,
+        )
+        r = requests.get(url, headers=self.base_headers, params=payload)
+        self.check_code(r)
+
+        json_dict = r.json()
+        # return Directory(**json_dict)
+        return json_dict
+
     def get_disk_metadata(self):
         """
         :return: disk metadata
@@ -30,6 +54,26 @@ class YDClient:
             used_space=disk['used_space'],
             system_folders=disk['system_folders']
         )
+
+    def last_uploaded(self):
+        """
+        https://cloud-api.yandex.net/v1/disk/resources/last-uploaded?
+        [  limit=<количество файлов в списке>]
+        [& media_type=<тип запрашиваемых файлов>]
+        [& fields=<нужные ключи ответа>]
+        [& preview_size=<размер превью>]
+        [& preview_crop=<признак обрезки превью>]
+        """
+        url = '{0}/resources/last-uploaded'.format(self.base_url)
+        payload = dict(
+            limit=100,
+        )
+        r = requests.get(url, headers=self.base_headers, params=payload)
+        self.check_code(r)
+
+        json_dict = r.json()
+        # return Directory(**json_dict)
+        return json_dict
 
     def get_content(self, path):
         """
