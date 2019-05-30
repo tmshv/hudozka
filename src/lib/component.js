@@ -2,6 +2,7 @@ import React from 'react'
 import {renderToStaticMarkup} from 'react-dom/server'
 
 const App = require('../components/App')
+const Html = require('../components/Html')
 
 function renderApp({component, ...options}) {
 	const app = (
@@ -14,7 +15,9 @@ function renderApp({component, ...options}) {
 
 function getHtml(html) {
 	return (
-		<div dangerouslySetInnerHTML={{__html: html}}/>
+        <Html
+            html={html}
+        />
 	)
 }
 
