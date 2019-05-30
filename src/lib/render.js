@@ -1,16 +1,11 @@
 const {readFile} = require('async-file')
 const handlebars = require('handlebars')
 
-const url = require('url')
 const renderApp = require('../lib/component').renderApp
 const getHtml = require('../lib/component').getHtml
-const getPathWithNoTrailingSlash = require('../lib/url').getPathWithNoTrailingSlash
-const urlToPattern = require('../lib/url').urlToPattern
-const isMatchPathPattern = require('../lib/url').isMatchPathPattern
-const isEqualPate = require('../lib/url').isEqualPath
-const {compose, any} = require('../lib/common')
 
 const menuModel = require('../models/menu').default
+const buildMenu = require('../menu').buildMenu
 const {viewMain, viewEdit} = require('../config')
 
 const defaultOptions = {
@@ -26,50 +21,6 @@ const defaultMeta = {
 	image: 'https://art.shlisselburg.org/entrance.jpg',
 	imageWidth: 1200,
 	imageHeight: 630,
-}
-
-function isActive(path, menuItem) {
-	return isEqualPate(path, menuItem.url, true)
-}
-
-function isHighlighted(path, menuItem) {
-	return any(flatMenuItem(menuItem)
-		.map(i => isMatchPathPattern(
-			compose(urlToPattern, getPathWithNoTrailingSlash)(i.url),
-			path,
-			true
-		))
-	)
-}
-
-function flatMenuItem(item) {
-	const rootUrl = item.url
-	const flatUrls = items => {
-		return items.map(item => ({
-			...item,
-			url: url.resolve(rootUrl, item.url)
-		}))
-	}
-
-	return !item.items
-		? [item]
-		: item.items.reduce((acc, i) => [...acc, ...compose(flatUrls, flatMenuItem)(i)], [item])
-}
-
-/**
- * Takes plain menu model and sample path and defines is an item of menu should be active
- *
- * @param path
- * @param menu
- * @return {{items}}
- */
-function buildMenu(path, menu) {
-	const items = menu.map(item => ({
-		...item,
-		active: isActive(path, item),
-		highlighted: isHighlighted(path, item),
-	}))
-	return {items}
 }
 
 const getTitle = meta => 'title' in meta
