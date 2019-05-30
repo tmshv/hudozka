@@ -5,7 +5,7 @@ const renderApp = require('../lib/component').renderApp
 const getHtml = require('../lib/component').getHtml
 
 const menuModel = require('../models/menu').default
-const buildMenu = require('../menu').buildMenu
+const buildMenu = require('./menu').buildMenu
 const {viewMain, viewEdit} = require('../config')
 
 const defaultOptions = {
