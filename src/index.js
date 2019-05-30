@@ -15,7 +15,7 @@ import server from './server'
     const config = await Config.findConfig()
 
     try {
-        let app = server(config)
+        let app = await server(config)
 
         app.listen(port)
     } catch (e) {

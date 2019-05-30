@@ -10,6 +10,7 @@ import helmet from 'koa-helmet'
 import cookie from 'koa-cookie'
 import session from 'koa-session'
 import bodyParser from 'koa-bodyparser'
+import next from 'next'
 
 import {queryObject} from './routes'
 import handlebars from 'handlebars'
@@ -27,20 +28,26 @@ const document = require('./routes/document')
 const schedule = require('./routes/schedule')
 const pages = require('./routes/pages')
 const sitemap = require('./routes/sitemap')
-const edit = require('./routes/edit')
 
 const dirPublic = path.join(__dirname, '../public')
 
 handlebars.registerHelper('raw-helper', options => options.fn())
 
-function notFound() {
+const dev = process.env.NODE_ENV !== 'production'
+const app = next({ dev })
+const handle = app.getRequestHandler()
+
+function nextHandler() {
     return async ctx => {
-        ctx.status = 404
+        await handle(ctx.req, ctx.res)
+        ctx.respond = false
     }
 }
 
-export default function (config) {
-	const $ = convert
+export default async function (config) {
+    const $ = convert
+    
+    await app.prepare()
 
 	const server = new Koa()
 	server.keys = ['1234']
@@ -83,7 +90,12 @@ export default function (config) {
 	server.use(documents.getDocuments())
 	server.use(document.getDocument())
 	server.use(schedule.getSchedule())
-    server.use(pages(notFound()))
+    server.use(pages(nextHandler()))
+
+    server.use(async (ctx, next) => {
+        ctx.res.statusCode = 200
+        await next()
+    })
 
     return createServer(server.callback())
 }
