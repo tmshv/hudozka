@@ -23,6 +23,7 @@
   "dependencies": {
     "@mikeljames/draft-js-drag-n-drop-upload-plugin": "^2.0.1",
     "async-file": "^2.0.2",
+    "axios": "^0.18.0",
     "classnames": "^2.2.5",
     "co": "^4.4.0",
     "draft-js": "^0.10.5",
@@ -74,6 +75,8 @@
     "@babel/polyfill": "^7.0.0-beta.47",
     "@babel/preset-env": "^7.4.5",
     "@babel/register": "^7.0.0-beta.47",
+    "@zeit/next-css": "^1.0.1",
+    "@zeit/next-sass": "^1.0.1",
     "autoprefixer": "^6.3.6",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-react-jsx": "^6.23.0",
@@ -96,8 +99,9 @@
     "gulp-uglify": "~1.5.0",
     "istanbul": "~0.4.2",
     "mocha": "^6.1.4",
+    "node-sass": "^4.12.0",
     "should": "^8.2.2",
-    "webpack": "^4.32.2",
-    "vinyl-named": "~1.1.0"
+    "vinyl-named": "~1.1.0",
+    "webpack": "^4.32.2"
   }
 }
