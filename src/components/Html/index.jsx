@@ -5,5 +5,3 @@ export default function Html(props) {
         <div dangerouslySetInnerHTML={{ __html: props.html }} />
     )
 }
-
-
