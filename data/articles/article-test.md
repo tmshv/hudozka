@@ -5,9 +5,8 @@ tags:
 slug: article-test
 
 ---
-This is **Hudozka** 
+This is **Hudozka**
 
-  
 ![](/uploads/2019/HudozkaMain2014.jpg)
 
 1. 1
