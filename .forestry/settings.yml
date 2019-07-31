@@ -8,7 +8,7 @@ sections:
   path: data/articles
   label: Articles
   create: documents
-  match: "**/*.md"
+  match: "**/*"
 - type: document
   path: data/settings.json
   label: Settings
