@@ -1,4 +1,13 @@
 ---
 label: Article
 hide_body: false
-fields: []
+fields:
+- name: slug
+  type: text
+  config:
+    required: false
+  label: slug
+- name: tags
+  type: tag_list
+  default: []
+  label: tags
