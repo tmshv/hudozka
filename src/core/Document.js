@@ -43,8 +43,7 @@ class DocumentFile {
 	}
 }
 
-const
-	processDocument = async data => {
+const processDocument = async data => {
 		const imageId = data.preview
 		const preview = await Image.findById(imageId)
 
@@ -54,5 +53,4 @@ const
 		})
 	}
 
-module
-	.exports = Document
+module.exports = Document
