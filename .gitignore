@@ -11,6 +11,8 @@ private*.json
 /public
 /build
 /out
+dist
+.next
 **/env
 **/venv
 **/__pycache__
