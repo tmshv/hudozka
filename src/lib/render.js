@@ -1,8 +1,10 @@
-const {readFile} = require('async-file')
+import React from 'react'
+import Html from '../components/Html'
+
+const { readFile } = require('async-file')
 const handlebars = require('handlebars')
 
 const renderApp = require('../lib/component').renderApp
-const getHtml = require('../lib/component').getHtml
 
 const menuModel = require('../models/menu').default
 const buildMenu = require('./menu').buildMenu
@@ -32,9 +34,11 @@ const isHtml = data => typeof data === 'string'
 async function render(path, data, meta, options = {}) {
 	const renderOptions = {...defaultOptions, ...options}
 
-	const component = isHtml(data)
-		? getHtml(data)
-		: data
+    const component = !isHtml(data) ? data : (
+        <Html
+            html={data}
+        />
+    )
 
 	const menu = buildMenu(path, menuModel)
 	const content = renderApp({...renderOptions, menu, component})

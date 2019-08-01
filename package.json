@@ -5,11 +5,11 @@
   "description": "",
   "main": "src/bin/www.js",
   "scripts": {
-    "start": "node src/index.js",
-    "start-next": "NODE_ENV=production node src/index.js",
-    "dev": "babel-node src/index.js",
-    "build-next": "next build",
-    "out": "babel src/ -d out/",
+    "start": "NODE_ENV=production node src/index.js",
+    "dev": "node src/server.js",
+    "next": "next",
+    "build": "next build",
+    "export": "npm run build && next export -o dist",
     "gulp": "gulp",
     "test": "mocha --compilers js:babel-register",
     "coverage": "istanbul cover mocha -- --compilers js:babel-register"

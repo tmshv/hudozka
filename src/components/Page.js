@@ -1,17 +1,19 @@
-const React = require('react')
-const Share = require('./Share')
-const getHtml = require('../lib/component').getHtml
+import React from 'react'
+import Share from './Share'
+import Html from './Html'
 
-const Page = ({children, shareable}) => (
-	<div className="Article Article--cloud">
-		<div className="Article-Body">
-			{getHtml(children)}
-		</div>
+export default function Page({ children, shareable }) {
+    return (
+        <div className={'Article Article--cloud'}>
+            <div className={'Article-Body'}>                
+                <Html
+                    html={children}
+                />
+            </div>
 
-		{!shareable ? null : (
-			<Share/>
-		)}
-	</div>
-)
-
-module.exports = Page
+            {!shareable ? null : (
+                <Share />
+            )}
+        </div>
+    )
+}

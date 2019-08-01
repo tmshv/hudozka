@@ -3,6 +3,8 @@ const Menu = require('./Menu')
 const Footer = require('./Footer')
 const Comments = require('./Comments')
 
+import '../style/style.scss'
+
 const App = ({children, menu, showAuthor, menuPadding}) => (
 	<div className="body-wrapper theme-default">
 		<header>
