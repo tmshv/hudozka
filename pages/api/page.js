@@ -1,10 +1,9 @@
-import { dbUri } from '../../src/config'
 import { connect } from '../../src/core/db'
 import Page from '../../src/core/Page'
 import { getPathWithNoTrailingSlash } from '../../src/lib/url'
 
 export default async (req, res) => {
-    await connect(dbUri)
+    await connect()
 
     const page = getPathWithNoTrailingSlash(req.query.page)
     const resource = await Page.findByUrl(page)

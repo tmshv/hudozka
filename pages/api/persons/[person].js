@@ -1,10 +1,9 @@
-import { dbUri } from '../../../src/config'
 import { connect } from '../../../src/core/db'
 import Teacher from '../../../src/core/Teacher'
 import { encodePerson } from '../../../src/api/persons'
 
 export default async (req, res) => {
-    await connect(dbUri)
+    await connect()
 
     const id = req.query.person
     const person = await Teacher.findById(id)

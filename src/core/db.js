@@ -6,13 +6,15 @@ const Teacher = require('./Teacher')
 const Document = require('./Document')
 const Image = require('./Image')
 const Settings = require('./Config')
+const getConfig = require('next/config').default
 
 const { MongoClient, ObjectId } = require('mongodb')
 
 var db
 
-async function connect(uri) {
-    const connection = await MongoClient.connect(uri)
+async function connect() {
+    const mongoUri = getConfig().serverRuntimeConfig.dbUri
+    const connection = await MongoClient.connect(mongoUri)
     db = init(connection)
     return db
 }

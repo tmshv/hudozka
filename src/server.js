@@ -11,7 +11,7 @@ const port = parseInt(process.env.PORT, 10) || 3000
 
 app.prepare().then(async () => {
     try {
-        await connect(process.env.DB_URI)
+        await connect()
     } catch (e) {
         console.error(e.message)
 

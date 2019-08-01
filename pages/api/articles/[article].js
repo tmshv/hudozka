@@ -1,9 +1,8 @@
-import { dbUri } from '../../../src/config'
 import { connect } from '../../../src/core/db'
 import Article from '../../../src/core/Article'
 
 export default async (req, res) => {
-    await connect(dbUri)
+    await connect()
 
     const {
         query: { article: id }

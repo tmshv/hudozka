@@ -1,9 +1,8 @@
-import { dbUri } from '../../../src/config'
 import { connect } from '../../../src/core/db'
 import Album from '../../../src/core/Album'
 
 export default async (req, res) => {
-    await connect(dbUri)
+    await connect()
 
     const id = req.query.album
     const album = await Album.findById(id)

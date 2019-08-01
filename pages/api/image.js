@@ -1,10 +1,9 @@
-import { dbUri } from '../../src/config'
 import { connect } from '../../src/core/db'
 import Image from '../../src/core/Image'
 import ImageArtifactType from '../../src/core/ImageArtifactType'
 
 export default async (req, res) => {
-    await connect(dbUri)
+    await connect()
 
     const file = req.query.file
     const image = await Image.findByFile(file)

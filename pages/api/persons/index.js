@@ -1,11 +1,10 @@
-import { dbUri } from '../../../src/config'
 import { connect } from '../../../src/core/db'
 import Teacher from '../../../src/core/Teacher'
 import { prioritySort } from '../../../src/lib/sort'
 import { encodePerson } from '../../../src/api/persons'
 
 export default async (req, res) => {
-    await connect(dbUri)
+    await connect()
 
     const order = [
         'mg-timasheva',

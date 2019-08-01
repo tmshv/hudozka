@@ -1,9 +1,8 @@
-import { dbUri } from '../../../src/config'
 import { connect } from '../../../src/core/db'
 import { findArticles } from '../../../src/api/articles'
 
 export default async (req, res) => {
-    await connect(dbUri)
+    await connect()
 
     const { query } = req
     const page = parseInt(query.page)

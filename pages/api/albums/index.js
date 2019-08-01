@@ -1,9 +1,8 @@
-import { dbUri } from '../../../src/config'
 import { connect } from '../../../src/core/db'
 import Album from '../../../src/core/Album'
 
 export default async (req, res) => {
-    await connect(dbUri)
+    await connect()
 
     const data = await Album.find({}, { sort: { date: -1 } })
     if (data) {
