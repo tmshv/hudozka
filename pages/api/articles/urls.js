@@ -14,7 +14,7 @@ export default async (req, res) => {
     } else {
         res.status(404)
         res.json({
-            error: `Article ${id} not found`
+            error: `Not found`
         })
     }
 }
