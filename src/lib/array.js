@@ -1,26 +1,26 @@
-function splitBy(key) {
-	return items => {
-		return items.reduce((acc, item) => {
-			const name = key(item)
-			const items = acc.get(name) || []
+export function splitBy(fn) {
+    return items => {
+        return items.reduce((acc, item) => {
+            const key = fn(item)
+			const items = acc.get(key) || []
 
-			return acc.set(key(item), [...items, item])
+			return acc.set(key, [...items, item])
 		}, new Map())
 	}
 }
 
-function head(list) {
+export function head(list) {
 	return Array.isArray(list) && list.length
 		? list[0]
 		: null
 }
 
-function last(list) {
+export function last(list) {
 	return Array.isArray(list) && list.length
 		? list[list.length - 1]
 		: null
 }
 
-exports.splitBy = splitBy
-exports.head = head
-exports.last = last
+// exports.splitBy = splitBy
+// exports.head = head
+// exports.last = last
