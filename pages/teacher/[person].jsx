@@ -3,8 +3,10 @@ import axios from 'axios'
 import Head from 'next/head'
 import App from '../../src/components/App'
 import Page from '../../src/components/Page'
+import { Meta } from '../../src/components/Meta'
 import menuModel from '../../src/models/menu'
 import { buildMenu } from '../../src/lib/menu'
+import { meta } from '../../src/lib/meta'
 
 const Index = (props) => (
     <App
@@ -14,6 +16,7 @@ const Index = (props) => (
     >
         <Head>
             <title>{props.title}</title>
+            <Meta meta={props.meta} />
         </Head>
         <div className="content content_thin">
             <Page shareable={true}>
@@ -30,11 +33,15 @@ Index.getInitialProps = async (ctx) => {
     const res = await axios.get(apiUrl)
     const person = res.data
     const name = person.name || []
+    const title = name.join(' ')
 
     return {
         pageUrl,
         person,
-        title: name.join(' ')
+        title,
+        meta: meta({
+            title,
+        })
     }
 }
 
