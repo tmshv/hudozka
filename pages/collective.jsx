@@ -2,10 +2,12 @@ import React from 'react'
 import axios from 'axios'
 import Head from 'next/head'
 import App from '../src/components/App'
+import { Meta } from '../src/components/Meta'
 import CollectiveImage from '../src/components/CollectiveImage'
 import PersonCard from '../src/components/PersonCard'
 import menuModel from '../src/models/menu'
 import { buildMenu } from '../src/lib/menu'
+import { meta } from '../src/lib/meta'
 
 const PersonCardList = ({ children }) => (
     <div className="PersonCardList">
@@ -21,6 +23,7 @@ const Page = (props) => (
     >
         <Head>
             <title>{props.title}</title>
+            <Meta meta={props.meta} />
         </Head>
 
         <div className="content content_semi-wide">
@@ -48,7 +51,7 @@ Page.getInitialProps = async (ctx) => {
     const apiUrl = `http://localhost:3000/api/persons`
     const res = await axios.get(apiUrl)
     const persons = res.data.items
-
+    const title = 'Преподаватели Шлиссельбургской ДХШ'
     const imageFile = 'Images/HudozkaCollective2017.jpg'
     const imageUrl = `http://localhost:3000/api/image?file=${imageFile}`
     const resImage = await axios.get(imageUrl)
@@ -57,7 +60,12 @@ Page.getInitialProps = async (ctx) => {
         persons,
         image: resImage.data.artifacts.large,
         pageUrl,
-        title: 'Коллектив',
+        title,
+        meta: meta({
+            title,
+            url: pageUrl,
+            description: 'Преподаватели Шлиссельбургской ДХШ',
+        })
     }
 }
 
