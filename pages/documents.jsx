@@ -8,23 +8,7 @@ import { buildMenu } from '../src/lib/menu'
 import { meta } from '../src/lib/meta'
 
 import DocumentList from '../src/components/DocumentList'
-import ImageArtifactType from '../src/core/ImageArtifactType'
-import { prioritySort } from '../src/lib/sort'
-import { splitBy } from '../src/lib/array'
 import { unique } from '../src/utils/common'
-
-function getDocumentsMeta() {
-    return {
-        description: 'Документы Шлиссельбургской ДХШ',
-    }
-}
-
-function getMeta(teacher) {
-    return {
-        title: teacher.name,
-        description: teacher.name,
-    }
-}
 
 function getSorted(documents) {
     const compose = (...fns) => value => fns
