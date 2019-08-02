@@ -55,7 +55,7 @@ Page.getInitialProps = async (ctx) => {
 
     return {
         persons,
-        image: resImage.data,
+        image: resImage.data.artifacts.large,
         pageUrl,
         title: 'Коллектив',
     }
