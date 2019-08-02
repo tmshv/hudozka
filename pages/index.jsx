@@ -2,9 +2,11 @@ import React from 'react'
 import axios from 'axios'
 import Head from 'next/head'
 import App from '../src/components/App'
+import { Meta } from '../src/components/Meta'
 import ArticleCardList from '../src/components/ArticleCardList'
 import HudozkaTitle from '../src/components/HudozkaTitle'
 import menuModel from '../src/models/menu'
+import { meta } from '../src/lib/meta'
 import { buildMenu } from '../src/lib/menu'
 
 const Page = (props) => (
@@ -15,6 +17,7 @@ const Page = (props) => (
     >
         <Head>
             <title>{props.title}</title>
+            <Meta meta={props.meta} />
         </Head>
 
         <div className="content content_wide">
@@ -38,13 +41,18 @@ Page.getInitialProps = async (ctx) => {
     const articles = res.data.items
     const nextPage = res.data.nextPage
     const prevPage = res.data.prevPage
+    const title= 'Шлиссельбургская ДХШ'
 
     return {
         articles,
         nextPage,
         prevPage,
         pageUrl,
-        title: 'Шлиссельбургская ДХШ',
+        title,
+        meta: meta({
+            title,
+            url: pageUrl,
+        })
     }
 }
 
