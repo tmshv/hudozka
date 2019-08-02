@@ -2,7 +2,6 @@ import React from 'react'
 
 function script(account) {
     return `
-        <!-- Yandex.Metrika counter -->
         (function (d, w, c) {
             (w[c] = w[c] || []).push(function() {
                 try {
@@ -27,7 +26,6 @@ function script(account) {
                 d.addEventListener("DOMContentLoaded", f, false);
             } else { f(); }
         })(document, window, "yandex_metrika_callbacks");
-        <!-- /Yandex.Metrika counter -->
     `
 }
 
