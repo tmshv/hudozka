@@ -6,6 +6,8 @@ import Article from '../../src/components/Article'
 import Html from '../../src/components/Html'
 import menuModel from '../../src/models/menu'
 import { buildMenu } from '../../src/lib/menu'
+import { Meta } from '../../src/components/Meta'
+import { meta } from '../../src/lib/meta'
 
 const Page = (props) => (
     <App
@@ -15,6 +17,7 @@ const Page = (props) => (
     >
         <Head>
             <title>{props.article.title}</title>
+            <Meta meta={props.meta} />
         </Head>
         <div className={'content content_thin'}>
             <Article
@@ -37,10 +40,17 @@ Page.getInitialProps = async (ctx) => {
     const apiUrl = `http://localhost:3000/api/articles/${id}`
     const res = await axios.get(apiUrl)
     const article = res.data
+    const image = article.preview.artifacts.fb
 
     return {
         article,
         pageUrl,
+        meta: meta({
+            title: article.title,
+            image: image.src,
+            imageWidth: image.width,
+            imageHeight: image.height,
+        }),
     }
 }
 
