@@ -1,6 +1,6 @@
 import { connect } from '../../src/core/db'
 import Image from '../../src/core/Image'
-import ImageArtifactType from '../../src/core/ImageArtifactType'
+import { encodeImage } from '../../src/api/image'
 
 export default async (req, res) => {
     await connect()
@@ -9,8 +9,7 @@ export default async (req, res) => {
     const image = await Image.findByFile(file)
     
     if (image) {
-        const data = image.getPicture(ImageArtifactType.LARGE)
-        res.json(data)
+        res.json(encodeImage(image))
     } else {
         res.status(404)
         res.json({
