@@ -2,6 +2,7 @@ import Article from '../core/Article'
 import ImageArtifactType from '../core/ImageArtifactType'
 import { sortBy } from '../utils/sort'
 import { timestamp } from '../lib/date'
+import { encodeImage } from './image'
 
 export const sortArticleByDate = sortBy(
     x => timestamp(new Date(x.date))
@@ -59,5 +60,12 @@ export async function findArticles(page, pageSize) {
         prevPage,
         nextPage,
         totalPages,
+    }
+}
+
+export function encodeArticle(article) {
+    return {
+        ...article,
+        preview: encodeImage(article.preview),
     }
 }
