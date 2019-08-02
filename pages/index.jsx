@@ -30,7 +30,7 @@ const Page = (props) => (
 )
 
 Page.getInitialProps = async (ctx) => {
-    const pageUrl = ctx.req.url
+    const pageUrl = '/'
     const page = 1
     const pageSize = ctx.query.pageSize
     const apiUrl = `http://localhost:3000/api/articles?page=${page}&pageSize=${pageSize}`
