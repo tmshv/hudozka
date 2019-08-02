@@ -1,20 +1,11 @@
 import React from 'react'
 import axios from 'axios'
+import Head from 'next/head'
 import App from '../src/components/App'
 import ArticleCardList from '../src/components/ArticleCardList'
 import HudozkaTitle from '../src/components/HudozkaTitle'
 import menuModel from '../src/models/menu'
 import { buildMenu } from '../src/lib/menu'
-
-function getMeta(article) {
-    return {
-        title: article.title,
-    }
-}
-
-// async function renderHome(path, pageSize) {
-//     return render(path, Component, getMeta({ title: 'Шлиссельбургская ДХШ' }), { showAuthor: true })
-// }
 
 const Page = (props) => (
     <App
@@ -22,6 +13,10 @@ const Page = (props) => (
         showAuthor={true}
         menuPadding={true}
     >
+        <Head>
+            <title>{props.title}</title>
+        </Head>
+
         <div className="content content_wide">
             <HudozkaTitle />
 
@@ -49,6 +44,7 @@ Page.getInitialProps = async (ctx) => {
         nextPage,
         prevPage,
         pageUrl,
+        title: 'Шлиссельбургская ДХШ',
     }
 }
 
