@@ -35,8 +35,24 @@ export default class MyDocument extends Document {
                         href="/feed"
                     /> */}
 
-                    <script src='/static/likely.js'></script>
+                    {/* Fotorama + jQuery*/}
+                    <link href="//cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet" />
+                    <script src="//cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js" />
+                    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" />
+
+                    {/* Opa */}
+                    <script src="/static/opa.js" />
+                    <link rel="stylesheet" href="/static/opa.css" />
+
+                    {/* Likely */}
+                    <script src='/static/likely.js' />
                     <link href='/static/likely.css' rel='stylesheet' />
+
+                    {/* Fonts */}
+                    <link href="https://fonts.googleapis.com/css?family=PT+Sans|PT+Serif" rel="stylesheet" as="font" />
+
+                    {/* Instagram Embed */}
+                    <script async defer src="//platform.instagram.com/en_US/embeds.js" />
                 </Head>
 
                 <body className="custom_class">
