@@ -6,6 +6,8 @@ import Document from '../../src/components/Document'
 import Share from '../../src/components/Share'
 import menuModel from '../../src/models/menu'
 import { buildMenu } from '../../src/lib/menu'
+import { meta } from '../../src/lib/meta'
+import { Meta } from '../../src/components/Meta'
 
 const Page = (props) => (
     <App
@@ -15,6 +17,7 @@ const Page = (props) => (
     >
         <Head>
             <title>{props.file.title}</title>
+            <Meta meta={props.meta} />
         </Head>
         <div className="content content_wide">
             <Document {...props.file} />
@@ -33,6 +36,9 @@ Page.getInitialProps = async (ctx) => {
     return {
         file,
         pageUrl,
+        meta: meta({
+            title: file.meta,
+        })
     }
 }
 
