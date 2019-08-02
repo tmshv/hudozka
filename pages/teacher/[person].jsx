@@ -34,6 +34,7 @@ Index.getInitialProps = async (ctx) => {
     const person = res.data
     const name = person.name || []
     const title = name.join(' ')
+    const image = person.preview.artifacts.fb
 
     return {
         pageUrl,
@@ -41,6 +42,9 @@ Index.getInitialProps = async (ctx) => {
         title,
         meta: meta({
             title,
+            image: image.src,
+            imageWidth: image.width,
+            imageHeight: image.height,
         })
     }
 }
