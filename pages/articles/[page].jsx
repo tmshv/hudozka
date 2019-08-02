@@ -34,7 +34,7 @@ const Page = (props) => (
 Page.getInitialProps = async (ctx) => {
     const pageUrl = '/'
     const page = parseInt(ctx.query.page)
-    const pageSize = 10
+    const pageSize = parseInt(ctx.query.pageSize)
     const apiUrl = `http://localhost:3000/api/articles?page=${page}&pageSize=${pageSize}`
     const res = await axios.get(apiUrl)
     const articles = res.data.items
