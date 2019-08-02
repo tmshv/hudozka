@@ -27,8 +27,9 @@ module.exports = withCss(withSass({
             return null
         }
 
-        const lastArticlesPage = 8
-        
+        const articlesPageSize = 15
+        const articlesLastPage = 8
+
         return {
             // ...defaultPathMap,
             '/': { page: '/' },
@@ -40,8 +41,8 @@ module.exports = withCss(withSass({
             ...createPath(
                 '/articles/[page]',
                 x => x.replace('/articles/', ''),
-                page => ({ page, pageSize: 15 }),
-                range(1, lastArticlesPage + 1).map(x => `/articles/${x}`),
+                page => ({ page, pageSize: articlesPageSize }),
+                range(1, articlesLastPage + 1).map(x => `/articles/${x}`),
             ),
             ...createPath(
                 '/next',
