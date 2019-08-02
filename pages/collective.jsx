@@ -9,12 +9,6 @@ import menuModel from '../src/models/menu'
 import { buildMenu } from '../src/lib/menu'
 import { meta } from '../src/lib/meta'
 
-const PersonCardList = ({ children }) => (
-    <div className="PersonCardList">
-        {children}
-    </div>
-)
-
 const Page = (props) => (
     <App
         menu={buildMenu(props.pageUrl, menuModel)}
@@ -31,7 +25,7 @@ const Page = (props) => (
                 <CollectiveImage data={props.image} />
             )}
 
-            <PersonCardList>
+            <div className="PersonCardList">
                 {props.persons.map((person, index) => (
                     <PersonCard
                         key={index}
@@ -41,7 +35,7 @@ const Page = (props) => (
                         name={person.name}
                     />
                 ))}
-            </PersonCardList>
+            </div>
         </div>
     </App>
 )
