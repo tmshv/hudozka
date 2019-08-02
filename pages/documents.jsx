@@ -2,8 +2,10 @@ import React from 'react'
 import axios from 'axios'
 import Head from 'next/head'
 import App from '../src/components/App'
+import { Meta } from '../src/components/Meta'
 import menuModel from '../src/models/menu'
 import { buildMenu } from '../src/lib/menu'
+import { meta } from '../src/lib/meta'
 
 import DocumentList from '../src/components/DocumentList'
 import ImageArtifactType from '../src/core/ImageArtifactType'
@@ -106,6 +108,7 @@ const Page = (props) => (
     >
         <Head>
             <title>{props.title}</title>
+            <Meta meta={props.meta} />
         </Head>
 
         <div className="content content_thin">
@@ -127,13 +130,17 @@ Page.getInitialProps = async (ctx) => {
     const apiUrl = `http://localhost:3000/api/files`
     const res = await axios.get(apiUrl)
     const files = res.data.items
-
+    const title = 'Документы'
     const collections = getSorted(files)
 
     return {
         collections,
         pageUrl,
-        title: 'Документы',
+        title,
+        meta: meta({
+            title,
+            description: 'Документы Шлиссельбургской ДХШ',
+        })
     }
 }
 
