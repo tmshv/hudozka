@@ -58,6 +58,8 @@ export default class MyDocument extends Document {
                 <body className="custom_class">
                     <Main />
                     <NextScript />
+
+                    <script src="/static/app.js" />
                 </body>
             </Html>
         );
