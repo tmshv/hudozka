@@ -1,7 +1,7 @@
 import React from 'react'
 
 export const Meta = ({ meta }) => (
-    <>
+    <React.Fragment>
         {/* Search Engine */}
         <meta name="description" content={meta.description} />
         <meta name="image" content={meta.image} />
@@ -31,5 +31,5 @@ export const Meta = ({ meta }) => (
         <meta name="twitter:url" content={meta.url} />
         <meta name="twitter:site" content={meta.twitterSite} />
         <meta name="twitter:creator" content={meta.twitterCreator} />
-    </>
+    </React.Fragment>
 )
