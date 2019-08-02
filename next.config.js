@@ -32,7 +32,7 @@ module.exports = withCss(withSass({
 
         return {
             // ...defaultPathMap,
-            '/': { page: '/' },
+            '/': { page: '/', query: { pageSize: articlesPageSize } },
             '/documents': { page: '/documents' },
             '/gallery': { page: '/gallery' },
             '/collective': { page: '/collective' },
