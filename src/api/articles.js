@@ -28,7 +28,7 @@ export async function findArticles(page, pageSize) {
         : []
 
     const total = await Article.total()
-    const totalPages = total / pageSize
+    const totalPages = Math.ceil(total / pageSize)
 
     const id = i => i._id
     const pinnedIds = pinnedArticles.map(id)
@@ -58,5 +58,6 @@ export async function findArticles(page, pageSize) {
         items,
         prevPage,
         nextPage,
+        totalPages,
     }
 }
