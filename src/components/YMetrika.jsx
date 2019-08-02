@@ -1,6 +1,6 @@
 import React from 'react'
 
-function metrika(account) {
+function script(account) {
     return `
         <!-- Yandex.Metrika counter -->
         (function (d, w, c) {
@@ -32,5 +32,5 @@ function metrika(account) {
 }
 
 export const YMetrika = (props) => (
-    <script dangerouslySetInnerHTML={{ __html: metrika(props.account) }} />
+    <script dangerouslySetInnerHTML={{ __html: script(props.account) }} />
 )
