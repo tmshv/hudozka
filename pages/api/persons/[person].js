@@ -6,11 +6,10 @@ export default async (req, res) => {
     await connect()
 
     const id = req.query.person
-    const person = await Teacher.findById(id)
-    const data = encodePerson(person)
+    const data = await Teacher.findById(id)
 
     if (data) {
-        res.json(data)
+        res.json(encodePerson(data))
     } else {
         res.status(404)
         res.json({
