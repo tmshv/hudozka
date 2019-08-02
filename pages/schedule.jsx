@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import Head from 'next/head'
 import App from '../src/components/App'
 import Schedule from '../src/components/Schedule'
 import Share from '../src/components/Share'
@@ -12,6 +13,10 @@ const Page = (props) => (
         showAuthor={true}
         menuPadding={true}
     >
+        <Head>
+            <title>{props.title}</title>
+        </Head>
+
         <div className="content content_wide">
             {/*<ScheduleList schedules={schedules}/>*/}
 
@@ -33,6 +38,7 @@ Page.getInitialProps = async (ctx) => {
     return {
         schedule,
         pageUrl,
+        title: 'Расписание',
     }
 }
 
