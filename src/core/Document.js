@@ -1,56 +1,56 @@
 const Data = require('./Data')
 const Image = require('./Image')
-const {find, findOne} = require('../lib/store')
+const { find, findOne } = require('../lib/store')
 
 const store = () => Data.getStore(Document)
 
 class Document {
-	static async find(query, options = {}) {
-		const items = await find(store(), query, options)
+    static async find(query, options = {}) {
+        const items = await find(store(), query, options)
 
-		return Promise.all(items.map(processDocument))
-	}
+        return Promise.all(items.map(processDocument))
+    }
 
-	static async findById(id) {
-		const data = await findOne(store(), {id})
-		if (!data) return null
+    static async findById(id) {
+        const data = await findOne(store(), { id })
+        if (!data) return null
 
-		return processDocument(data)
-	}
+        return processDocument(data)
+    }
 
-	constructor(data) {
-		this.id = data.id
-		this.hash = data.hash
-		this.file = data.file
-		// In the future: use fileInfo only
-		this.fileInfo = data.fileInfo
-			? new DocumentFile(data.fileInfo)
-			: new DocumentFile(data.file)
-		this.type = data.type
-		this.title = data.title
-		this.category = data.category
-		this.url = data.url
+    constructor(data) {
+        this.id = data.id
+        this.hash = data.hash
+        this.file = data.file
+        // In the future: use fileInfo only
+        this.fileInfo = data.fileInfo
+            ? new DocumentFile(data.fileInfo)
+            : new DocumentFile(data.file)
+        this.type = data.type
+        this.title = data.title
+        this.category = data.category
+        this.url = data.url
 
-		this.preview = data.preview
-		this.viewUrl = `/document/${this.id}`
-	}
+        this.preview = data.preview
+        this.viewUrl = `/document/${this.id}`
+    }
 }
 
 class DocumentFile {
-	constructor(data) {
-		this.name = data.name
-		this.size = data.size
-	}
+    constructor(data) {
+        this.name = data.name
+        this.size = data.size
+    }
 }
 
 const processDocument = async data => {
-		const imageId = data.preview
-		const preview = await Image.findById(imageId)
+    const imageId = data.preview
+    const preview = await Image.findById(imageId)
 
-		return new Document({
-			...data,
-			preview,
-		})
-	}
+    return new Document({
+        ...data,
+        preview,
+    })
+}
 
 module.exports = Document
