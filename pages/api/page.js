@@ -1,6 +1,7 @@
 import { connect } from '../../src/core/db'
 import Page from '../../src/core/Page'
 import { getPathWithNoTrailingSlash } from '../../src/lib/url'
+import { encodePage } from '../../src/api/page'
 
 export default async (req, res) => {
     await connect()
@@ -9,13 +10,7 @@ export default async (req, res) => {
     const resource = await Page.findByUrl(page)
     
     if (resource) {
-        res.json({
-            id: resource.id,
-            title: resource.title,
-            url: resource.url,
-            data: resource.data,
-            preview: resource.preview,
-        })
+        res.json(encodePage(resource))
     } else {
         res.status(404)
         res.json({
