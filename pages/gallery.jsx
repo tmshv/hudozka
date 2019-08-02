@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import Head from 'next/head'
 import App from '../src/components/App'
 // import Album from '../src/components/Album'
 import Article from '../src/components/Article'
@@ -11,7 +12,6 @@ const albumsByYear = splitBy(album => new Date(album.date).getFullYear())
 
 function getMeta() {
     return {
-        title: 'Галерея',
         description: 'Галерея работ учащихся Шлиссельбургской Детской Художественной Школы'
     }
 }
@@ -56,6 +56,10 @@ const Page = (props) => (
         showAuthor={true}
         menuPadding={true}
     >
+        <Head>
+            <title>{props.title}</title>
+        </Head>
+
         <div className="content content_semi-wide">
             <Article
                 // title={meta.title}
@@ -84,6 +88,7 @@ Page.getInitialProps = async (ctx) => {
     return {
         collections: [...albumCollections.entries()],
         pageUrl,
+        title: 'Галерея',
     }
 }
 
