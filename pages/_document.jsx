@@ -37,9 +37,9 @@ export default class MyDocument extends Document {
                     /> */}
 
                     {/* Fotorama + jQuery*/}
+                    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" />
                     <link href="//cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet" />
                     <script src="//cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js" />
-                    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" />
 
                     {/* Opa */}
                     <script src="/static/opa.js" />
