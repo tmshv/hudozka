@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import Head from 'next/head'
 import App from '../src/components/App'
 import Page from '../src/components/Page'
 import menuModel from '../src/models/menu'
@@ -11,7 +12,10 @@ const Index = (props) => (
         showAuthor={true}
         menuPadding={true}
     >   
-        {/* <pre>{JSON.stringify(props, null, 4)}</pre> */}
+        <Head>
+            <title>{props.title}</title>
+        </Head>
+
         <div className={'content content_thin'}>
             <Page
                 shareable={true}
@@ -32,6 +36,7 @@ Index.getInitialProps = async (ctx) => {
     return {
         content: page.data,
         pageUrl,
+        title: page.title,
     }
 }
 
