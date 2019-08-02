@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import Head from 'next/head'
 import App from '../../src/components/App'
 import Article from '../../src/components/Article'
 import Html from '../../src/components/Html'
@@ -12,6 +13,9 @@ const Page = (props) => (
         showAuthor={true}
         menuPadding={true}
     >
+        <Head>
+            <title>{props.album.title}</title>
+        </Head>
         <div className="content content_thin">
             <Article
                 title={props.album.title}
