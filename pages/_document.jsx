@@ -1,5 +1,6 @@
 import React from 'react'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
+import { YMetrika } from '../src/components/YMetrika'
 
 export default class MyDocument extends Document {
     // static async getInitialProps(ctx) {
@@ -53,6 +54,8 @@ export default class MyDocument extends Document {
 
                     {/* Instagram Embed */}
                     <script async defer src="//platform.instagram.com/en_US/embeds.js" />
+
+                    <YMetrika account={24027460}/>
                 </Head>
 
                 <body className="custom_class">
