@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import Head from 'next/head'
 import App from '../../src/components/App'
 import Document from '../../src/components/Document'
 import Share from '../../src/components/Share'
@@ -12,6 +13,9 @@ const Page = (props) => (
         showAuthor={true}
         menuPadding={true}
     >
+        <Head>
+            <title>{props.file.title}</title>
+        </Head>
         <div className="content content_wide">
             <Document {...props.file} />
             <Share />
