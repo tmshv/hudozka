@@ -4,9 +4,11 @@ import Head from 'next/head'
 import App from '../src/components/App'
 // import Album from '../src/components/Album'
 import Article from '../src/components/Article'
+import { Meta } from '../src/components/Meta'
 import menuModel from '../src/models/menu'
 import { buildMenu } from '../src/lib/menu'
 import { splitBy } from '../src/lib/array'
+import { meta } from '../src/lib/meta'
 
 const albumsByYear = splitBy(album => new Date(album.date).getFullYear())
 
@@ -58,6 +60,7 @@ const Page = (props) => (
     >
         <Head>
             <title>{props.title}</title>
+            <Meta meta={props.meta} />
         </Head>
 
         <div className="content content_semi-wide">
@@ -84,11 +87,16 @@ Page.getInitialProps = async (ctx) => {
     const res = await axios.get(apiUrl)
     const items = res.data.items
     const albumCollections = albumsByYear(items)
+    const title = 'Галерея'
 
     return {
         collections: [...albumCollections.entries()],
         pageUrl,
-        title: 'Галерея',
+        title,
+        meta: meta({
+            title,
+            description: 'Галерея работ учащихся Шлиссельбургской Детской Художественной Школы'
+        })
     }
 }
 
