@@ -1,16 +1,11 @@
 import React from 'react'
 import axios from 'axios'
+import Head from 'next/head'
 import App from '../src/components/App'
 import CollectiveImage from '../src/components/CollectiveImage'
 import PersonCard from '../src/components/PersonCard'
 import menuModel from '../src/models/menu'
 import { buildMenu } from '../src/lib/menu'
-
-function getMeta(article) {
-    return {
-        title: article.title,
-    }
-}
 
 const PersonCardList = ({ children }) => (
     <div className="PersonCardList">
@@ -24,6 +19,10 @@ const Page = (props) => (
         showAuthor={true}
         menuPadding={true}
     >
+        <Head>
+            <title>{props.title}</title>
+        </Head>
+
         <div className="content content_semi-wide">
             {!props.image ? null : (
                 <CollectiveImage data={props.image} />
@@ -58,6 +57,7 @@ Page.getInitialProps = async (ctx) => {
         persons,
         image: resImage.data,
         pageUrl,
+        title: 'Коллектив',
     }
 }
 
