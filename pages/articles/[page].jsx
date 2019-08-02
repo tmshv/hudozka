@@ -5,6 +5,8 @@ import App from '../../src/components/App'
 import ArticleCardList from '../../src/components/ArticleCardList'
 import menuModel from '../../src/models/menu'
 import { buildMenu } from '../../src/lib/menu'
+import { meta } from '../../src/lib/meta'
+import { Meta } from '../../src/components/Meta'
 
 const Page = (props) => (
     <App
@@ -14,6 +16,7 @@ const Page = (props) => (
     >
         <Head>
             <title>{props.title}</title>
+            <Meta meta={props.meta} />
         </Head>
         <div className="content content_wide">
             <ArticleCardList
@@ -42,6 +45,9 @@ Page.getInitialProps = async (ctx) => {
         prevPage,
         pageUrl,
         title,
+        meta: meta({
+            title,
+        })
     }
 }
 
