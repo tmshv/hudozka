@@ -20,7 +20,7 @@ const Index = (props) => (
 )
 
 Index.getInitialProps = async (ctx) => {
-    const pageUrl = ctx.req.url
+    const pageUrl = '/collective'
     const id = ctx.query.person
     const apiUrl = `http://localhost:3000/api/persons/${id}`
     const res = await axios.get(apiUrl)

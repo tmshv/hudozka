@@ -28,7 +28,7 @@ const Page = (props) => (
 )
 
 Page.getInitialProps = async (ctx) => {
-    const pageUrl = ctx.req.url
+    const pageUrl = '/'
     const id = ctx.query.article
     const apiUrl = `http://localhost:3000/api/articles/${id}`
     const res = await axios.get(apiUrl)

@@ -27,7 +27,7 @@ const Page = (props) => (
 )
 
 Page.getInitialProps = async (ctx) => {
-    const pageUrl = ctx.req.url
+    const pageUrl = '/gallery'
     const id = ctx.query.album
     const apiUrl = `http://localhost:3000/api/albums/${id}`
     const res = await axios.get(apiUrl)

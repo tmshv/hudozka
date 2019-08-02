@@ -119,7 +119,7 @@ const Page = (props) => (
 )
 
 Page.getInitialProps = async (ctx) => {
-    const pageUrl = ctx.req.url
+    const pageUrl = '/documents'
     const apiUrl = `http://localhost:3000/api/files`
     const res = await axios.get(apiUrl)
     const files = res.data.items
