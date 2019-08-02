@@ -55,7 +55,7 @@ export default class MyDocument extends Document {
                     {/* Instagram Embed */}
                     <script async defer src="//platform.instagram.com/en_US/embeds.js" />
 
-                    <YMetrika account={24027460}/>
+                    <YMetrika account={24027460} />
                 </Head>
 
                 <body className="custom_class">
