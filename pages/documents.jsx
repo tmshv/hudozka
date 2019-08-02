@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import Head from 'next/head'
 import App from '../src/components/App'
 import menuModel from '../src/models/menu'
 import { buildMenu } from '../src/lib/menu'
@@ -12,7 +13,6 @@ import { unique } from '../src/utils/common'
 
 function getDocumentsMeta() {
     return {
-        title: 'Документы',
         description: 'Документы Шлиссельбургской ДХШ',
     }
 }
@@ -104,6 +104,10 @@ const Page = (props) => (
         showAuthor={true}
         menuPadding={true}
     >
+        <Head>
+            <title>{props.title}</title>
+        </Head>
+
         <div className="content content_thin">
             {/* <pre>{JSON.stringify(props, null, 4)}</pre> */}
             
@@ -129,6 +133,7 @@ Page.getInitialProps = async (ctx) => {
     return {
         collections,
         pageUrl,
+        title: 'Документы',
     }
 }
 
