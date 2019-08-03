@@ -21,7 +21,6 @@ module.exports = withCss(withSass({
         // mySecret: 'secret',
         // secondSecret: process.env.SECOND_SECRET // Pass through env variables
     },
-    exportTrailingSlash: true,
     exportPathMap: async (defaultPathMap, { dev }) => {
         if (dev) {
             return null
