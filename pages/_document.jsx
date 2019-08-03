@@ -15,7 +15,7 @@ export default class MyDocument extends Document {
                 <Head>
                     <style>{`body { margin: 0 } /* custom! */`}</style>
 
-                    <meta charset="utf-8" />
+                    <meta charSet="utf-8" />
                     <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
                     <meta name="referrer" content="unsafe-url" />
 
