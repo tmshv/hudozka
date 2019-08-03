@@ -40,7 +40,7 @@ function flatMenuItem(item) {
  * @param menu
  * @return {{items}}
  */
-function buildMenu(path, menu) {
+export function buildMenu(path, menu) {
     const items = menu.map(item => ({
         ...item,
         active: isActive(path, item),
@@ -48,5 +48,3 @@ function buildMenu(path, menu) {
     }))
     return { items }
 }
-
-exports.buildMenu = buildMenu
