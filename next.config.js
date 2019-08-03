@@ -1,6 +1,7 @@
 const withCss = require('@zeit/next-css')
 const withSass = require('@zeit/next-sass')
 const { range } = require('lodash')
+const fs = require('fs').promises
 
 function createPath(page, map, query, items) {
     return items.reduce((acc, path) => {
@@ -22,6 +23,8 @@ module.exports = withCss(withSass({
         // secondSecret: process.env.SECOND_SECRET // Pass through env variables
     },
     exportPathMap: async (defaultPathMap, { dev }) => {
+        await fs.copyFile('./public/robots.txt', './dist/robots.txt')
+        
         if (dev) {
             return null
         }

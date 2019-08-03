@@ -8,7 +8,6 @@ private*.json
 /node_modules
 /bower_components
 /modules/hudozka-api-v1/lib
-/public
 /build
 /out
 dist

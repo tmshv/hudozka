@@ -9,7 +9,8 @@
     "dev": "node src/server.js",
     "next": "next",
     "build": "next build",
-    "export": "npm run build && next export -o dist",
+    "export": "npm run build && next export -o dist && npm run sitemap",
+    "sitemap": "node scripts/sitemap.js",
     "gulp": "gulp",
     "test": "mocha --compilers js:babel-register",
     "coverage": "istanbul cover mocha -- --compilers js:babel-register"
