@@ -7,9 +7,9 @@ export const Meta = ({ meta }) => (
         <meta name="image" content={meta.image} />
 
         {/* Schema.org for Google */}
-        <meta itemprop="name" content={meta.title} />
-        <meta itemprop="description" content={meta.description} />
-        <meta itemprop="image" content={meta.image} />
+        <meta itemProp="name" content={meta.title} />
+        <meta itemProp="description" content={meta.description} />
+        <meta itemProp="image" content={meta.image} />
 
         {/* Open Graph general (Facebook, Pinterest & Google+) */}
         <meta property="og:title" content={meta.title} />
