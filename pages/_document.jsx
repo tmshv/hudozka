@@ -30,12 +30,12 @@ export default class MyDocument extends Document {
                     <link rel="apple-touch-icon" sizes="114x114" href="/static/graphics/favicon-114.png" />
                     <link rel="apple-touch-icon" sizes="144x144" href="/static/graphics/favicon-144.png" />
 
-                    {/* <link
+                    <link
                         rel="alternate"
                         type="application/rss+xml"
                         title="Шлиссельбургская Детская Художественная Школа"
-                        href="/feed"
-                    /> */}
+                        href="/feed.xml"
+                    />
 
                     {/* Fotorama + jQuery*/}
                     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" />

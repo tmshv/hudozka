@@ -9,8 +9,9 @@
     "dev": "node src/server.js",
     "next": "next",
     "build": "next build",
-    "export": "npm run build && next export -o dist && npm run sitemap",
+    "export": "npm run build && next export -o dist && npm run sitemap && npm run feed",
     "sitemap": "node scripts/sitemap.js",
+    "feed": "node scripts/feed.js",
     "test": "mocha --compilers js:babel-register",
     "coverage": "istanbul cover mocha -- --compilers js:babel-register"
   },
@@ -82,6 +83,7 @@
     "eslint-plugin-promise": "^3.3.1",
     "eslint-plugin-react": "^7.4.0",
     "eslint-plugin-standard": "^2.0.1",
+    "feed": "^4.0.0",
     "gulp": "^4.0.0",
     "gulp-concat": "^2.4.1",
     "gulp-if": "^2.0.0",
