@@ -41,7 +41,7 @@ Page.getInitialProps = async (ctx) => {
     const articles = res.data.items
     const nextPage = res.data.nextPage
     const prevPage = res.data.prevPage
-    const title= 'Шлиссельбургская ДХШ'
+    const title = 'Шлиссельбургская ДХШ'
 
     return {
         articles,
