@@ -31,13 +31,11 @@ const ArticleCard = ({ article }) => (
             .ArticleCard > a {
                     display: block;
                     position: relative;
-                //  height: 100%;
             }
 
             .ArticleCard-image {
                 overflow: hidden;
-                border-radius: 2px 2px 0 0;
-
+                position: relative;
                 width: 100%;
                 height: var(--article-card-image-height);
             }
@@ -47,7 +45,11 @@ const ArticleCard = ({ article }) => (
                 height: 100%;
                 object-fit: cover;
 
-                transition: transform 150ms ease-out;
+                transition: all 150ms ease-out;
+
+                position: absolute;
+                top: 0;
+                left: 0;
             }
 
             .ArticleCard-body {
@@ -68,7 +70,11 @@ const ArticleCard = ({ article }) => (
             }
 
             .ArticleCard:hover img {
-                transform: scale(1.05);
+                width: 105%;
+                height: 105%;
+
+                top: -2.5%;
+                left: -2.5%;
             }
 
             // Tablet
