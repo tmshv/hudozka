@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import Head from 'next/head'
-import App from '../src/components/App'
+import { App } from '../src/components/App'
 import { Meta } from '../src/components/Meta'
 import { CollectiveImage } from '../src/components/CollectiveImage'
 import PersonCard from '../src/components/PersonCard'

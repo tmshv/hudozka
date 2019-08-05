@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import Head from 'next/head'
-import App from '../src/components/App'
+import { App } from '../src/components/App'
 // import Album from '../src/components/Album'
 import Article from '../src/components/Article'
 import { Meta } from '../src/components/Meta'

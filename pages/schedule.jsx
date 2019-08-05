@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import Head from 'next/head'
-import App from '../src/components/App'
+import { App } from '../src/components/App'
 import Schedule from '../src/components/Schedule'
 import Share from '../src/components/Share'
 import menuModel from '../src/models/menu'

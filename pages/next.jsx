@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import Head from 'next/head'
-import App from '../src/components/App'
+import { App } from '../src/components/App'
 import Page from '../src/components/Page'
 import menuModel from '../src/models/menu'
 import { buildMenu } from '../src/lib/menu'
