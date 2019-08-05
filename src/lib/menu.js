@@ -1,12 +1,12 @@
-const url = require('url')
-const getPathWithNoTrailingSlash = require('../lib/url').getPathWithNoTrailingSlash
-const urlToPattern = require('../lib/url').urlToPattern
-const isMatchPathPattern = require('../lib/url').isMatchPathPattern
-const isEqualPate = require('../lib/url').isEqualPath
-const { compose, any } = require('../lib/common')
+import url from 'url'
+import { getPathWithNoTrailingSlash } from '../lib/url'
+import { urlToPattern } from '../lib/url'
+import { isMatchPathPattern } from '../lib/url'
+import { isEqualPath } from '../lib/url'
+import { compose, any } from '../lib/common'
 
 function isActive(path, menuItem) {
-    return isEqualPate(path, menuItem.url, true)
+    return isEqualPath(path, menuItem.url, true)
 }
 
 function isHighlighted(path, menuItem) {
