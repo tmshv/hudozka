@@ -42,7 +42,6 @@ module.exports = ({ picture, name, url, profile }) => (
 
                 object-fit: cover;
                 transition: all 150ms ease-out;
-                //transform: scale(1.05);
             }
 
             .PersonCard-Title, .PersonCard-Body  {
@@ -64,7 +63,6 @@ module.exports = ({ picture, name, url, profile }) => (
             }
 
             .PersonCard:hover img {
-                //transform: scale(1.05);
                 width: 105%;
                 height: 105%;
                 top: -2.5%;
