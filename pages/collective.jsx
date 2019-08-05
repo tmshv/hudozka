@@ -3,7 +3,7 @@ import axios from 'axios'
 import Head from 'next/head'
 import App from '../src/components/App'
 import { Meta } from '../src/components/Meta'
-import CollectiveImage from '../src/components/CollectiveImage'
+import { CollectiveImage } from '../src/components/CollectiveImage'
 import PersonCard from '../src/components/PersonCard'
 import menuModel from '../src/models/menu'
 import { buildMenu } from '../src/lib/menu'
@@ -22,7 +22,12 @@ const Page = (props) => (
 
         <div className="content content_semi-wide">
             {!props.image ? null : (
-                <CollectiveImage data={props.image} />
+                <CollectiveImage
+                    data={props.image}
+                    style={{
+                        marginBottom: 'var(--double-margin)',
+                    }}
+                />
             )}
 
             <div className="PersonCardList">
