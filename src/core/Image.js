@@ -1,7 +1,7 @@
 const Data = require('./Data')
 const ImageArtifactType = require('./ImageArtifactType')
 const {findOne} = require('../lib/store')
-const {mapOf} = require('../lib/common')
+const { mapOf } = require('../server/lib')
 
 const store = () => Data.getStore(Image)
 
