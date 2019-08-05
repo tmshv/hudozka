@@ -43,7 +43,6 @@ function init(db) {
     return db
 }
 
-exports.getDb = () => db
 exports.connect = connect
 exports.collection = collection
 exports.c = collection
