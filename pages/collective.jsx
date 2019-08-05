@@ -5,6 +5,7 @@ import App from '../src/components/App'
 import { Meta } from '../src/components/Meta'
 import { CollectiveImage } from '../src/components/CollectiveImage'
 import PersonCard from '../src/components/PersonCard'
+import {CardList} from '../src/components/CardList'
 import menuModel from '../src/models/menu'
 import { buildMenu } from '../src/lib/menu'
 import { meta } from '../src/lib/meta'
@@ -30,8 +31,9 @@ const Page = (props) => (
                 />
             )}
 
-            <div className="PersonCardList">
-                {props.persons.map((person, index) => (
+            <CardList
+                items={props.persons}
+                renderItem={(person, index) => (
                     <PersonCard
                         key={index}
                         profile={person}
@@ -39,8 +41,8 @@ const Page = (props) => (
                         url={person.url}
                         name={person.name}
                     />
-                ))}
-            </div>
+                )}
+            />
         </div>
     </App>
 )
