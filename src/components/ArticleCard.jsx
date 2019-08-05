@@ -6,7 +6,7 @@ const Date = ({ children }) => (
     <p className="date">{dateFormat(children)}</p>
 )
 
-const ArticleCard = ({ article }) => (
+export const ArticleCard = ({ article }) => (
     <article className="ArticleCard">
         <style jsx>{`
             .ArticleCard {
@@ -120,5 +120,3 @@ const ArticleCard = ({ article }) => (
         </a>
     </article>
 )
-
-module.exports = ArticleCard
