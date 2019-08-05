@@ -59,7 +59,7 @@ class Sync:
 
         return query
 
-    async def run(self):
+    async def run(self, skip_changed=False, update=True, remove=True):
         """
         # Get scope files
         # Validate these files. Raise an error
@@ -79,17 +79,19 @@ class Sync:
             self.check_urls_uniqueness(items)
 
         # SKIP UNTOUCHED DOCUMENTS
-        changed_items = await untouched(items)
+        changed_items = items
+        if not skip_changed:
+            changed_items = await untouched(items)
         self.logger.info('Changed {} Items(s)'.format(len(changed_items)))
 
         # UPDATING
-        if settings.update_enabled:
+        if update:
             for item in changed_items:
                 await self.update(item)
                 self.logger.info('Updated Item {}'.format(item))
 
         # DELETING
-        if settings.delete_enabled:
+        if remove:
             obsolete_items = await self.model.find(self.__items_to_delete_query(items))
             obsolete_items = list(obsolete_items)
 
