@@ -13,6 +13,9 @@ const { MongoClient, ObjectId } = require('mongodb')
 var db
 
 async function connect() {
+    if (db) {
+        return db
+    }
     const mongoUri = getConfig().serverRuntimeConfig.dbUri
     const connection = await MongoClient.connect(mongoUri)
     db = init(connection)
