@@ -6,6 +6,7 @@ import Article from '../../src/components/Article'
 import Html from '../../src/components/Html'
 import menuModel from '../../src/models/menu'
 import { buildMenu } from '../../src/lib/menu'
+import { createApiUrl } from '../../src/next-lib'
 
 const Page = (props) => (
     <App
@@ -33,8 +34,7 @@ const Page = (props) => (
 Page.getInitialProps = async (ctx) => {
     const pageUrl = '/gallery'
     const id = ctx.query.album
-    const apiUrl = `http://localhost:3000/api/albums/${id}`
-    const res = await axios.get(apiUrl)
+    const res = await axios.get(createApiUrl(ctx.req, `/api/albums/${id}`))
     const album = res.data
 
     return {

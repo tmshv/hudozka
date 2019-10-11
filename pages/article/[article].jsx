@@ -8,6 +8,7 @@ import menuModel from '../../src/models/menu'
 import { buildMenu } from '../../src/lib/menu'
 import { Meta } from '../../src/components/Meta'
 import { meta } from '../../src/lib/meta'
+import { createApiUrl } from '../../src/next-lib'
 
 const Page = (props) => (
     <App
@@ -37,8 +38,7 @@ const Page = (props) => (
 Page.getInitialProps = async (ctx) => {
     const pageUrl = '/'
     const id = ctx.query.article
-    const apiUrl = `http://localhost:3000/api/articles/${id}`
-    const res = await axios.get(apiUrl)
+    const res = await axios.get(createApiUrl(ctx.req, `/api/articles/${id}`))
     const article = res.data
     const image = article.preview.artifacts.fb
 

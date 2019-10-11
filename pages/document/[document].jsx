@@ -8,6 +8,7 @@ import menuModel from '../../src/models/menu'
 import { buildMenu } from '../../src/lib/menu'
 import { meta } from '../../src/lib/meta'
 import { Meta } from '../../src/components/Meta'
+import { createApiUrl } from '../../src/next-lib'
 
 const Page = (props) => (
     <App
@@ -29,8 +30,7 @@ const Page = (props) => (
 Page.getInitialProps = async (ctx) => {
     const pageUrl = '/documents'
     const id = ctx.query.document
-    const apiUrl = `http://localhost:3000/api/files/${id}`
-    const res = await axios.get(apiUrl)
+    const res = await axios.get(createApiUrl(ctx.req, `/api/files/${id}`))
     const file = res.data
 
     return {

@@ -6,6 +6,7 @@ import Schedule from '../src/components/Schedule'
 import Share from '../src/components/Share'
 import menuModel from '../src/models/menu'
 import { buildMenu } from '../src/lib/menu'
+import { createApiUrl } from '../src/next-lib'
 
 const Page = (props) => (
     <App
@@ -31,8 +32,7 @@ Page.getInitialProps = async (ctx) => {
     const pageUrl = ctx.req.url
     const period = '2016-2017'
     const semester = 'spring'
-    const apiUrl = `http://localhost:3000/api/schedule?period=${period}&semester=${semester}`
-    const res = await axios.get(apiUrl)
+    const res = await axios.get(createApiUrl(ctx.req, `/api/schedule?period=${period}&semester=${semester}`))
     const schedule = res.data
 
     return {

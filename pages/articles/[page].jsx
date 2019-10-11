@@ -7,6 +7,7 @@ import menuModel from '../../src/models/menu'
 import { buildMenu } from '../../src/lib/menu'
 import { meta } from '../../src/lib/meta'
 import { Meta } from '../../src/components/Meta'
+import { createApiUrl } from '../../src/next-lib'
 
 const Page = (props) => (
     <App
@@ -32,8 +33,7 @@ Page.getInitialProps = async (ctx) => {
     const pageUrl = '/'
     const page = parseInt(ctx.query.page)
     const pageSize = parseInt(ctx.query.pageSize) || 15
-    const apiUrl = `http://localhost:3000/api/articles?page=${page}&pageSize=${pageSize}`
-    const res = await axios.get(apiUrl)
+    const res = await axios.get(createApiUrl(ctx.req, `/api/articles?page=${page}&pageSize=${pageSize}`))
     const articles = res.data.items
     const nextPage = res.data.nextPage
     const prevPage = res.data.prevPage

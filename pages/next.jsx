@@ -7,6 +7,7 @@ import menuModel from '../src/models/menu'
 import { buildMenu } from '../src/lib/menu'
 import { Meta } from '../src/components/Meta'
 import { meta } from '../src/lib/meta'
+import { createApiUrl } from '../src/next-lib'
 
 const Index = (props) => (
     <App
@@ -32,8 +33,7 @@ const Index = (props) => (
 Index.getInitialProps = async (ctx) => {
     const pageUrl = ctx.req.url
     // // const pageUrl = '/neighbors/2018'
-    const apiUrl = `http://localhost:3000/api/page?page=${pageUrl}`
-    const res = await axios.get(apiUrl)
+    const res = await axios.get(createApiUrl(ctx.req, `/api/page?page=${pageUrl}`))
     const page = res.data
     const image = page.preview.artifacts.fb
 

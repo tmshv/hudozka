@@ -9,6 +9,7 @@ import { CardList } from '../src/components/CardList'
 import menuModel from '../src/models/menu'
 import { buildMenu } from '../src/lib/menu'
 import { meta } from '../src/lib/meta'
+import { createApiUrl } from '../src/next-lib'
 
 const Page = (props) => (
     <App
@@ -49,13 +50,12 @@ const Page = (props) => (
 
 Page.getInitialProps = async (ctx) => {
     const pageUrl = ctx.req.url
-    const apiUrl = `http://localhost:3000/api/persons`
-    const res = await axios.get(apiUrl)
+
+    const res = await axios.get(createApiUrl(ctx.req, '/api/persons'))
     const persons = res.data.items
     const title = 'Преподаватели Шлиссельбургской ДХШ'
     const imageFile = 'Images/HudozkaCollective2017.jpg'
-    const imageUrl = `http://localhost:3000/api/image?file=${imageFile}`
-    const resImage = await axios.get(imageUrl)
+    const resImage = await axios.get(createApiUrl(ctx.req, `/api/image?file=${imageFile}`))
 
     return {
         persons,

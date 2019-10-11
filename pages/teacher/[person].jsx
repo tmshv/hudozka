@@ -7,6 +7,7 @@ import { Meta } from '../../src/components/Meta'
 import menuModel from '../../src/models/menu'
 import { buildMenu } from '../../src/lib/menu'
 import { meta } from '../../src/lib/meta'
+import { createApiUrl } from '../../src/next-lib'
 
 const Index = (props) => (
     <App
@@ -29,8 +30,7 @@ const Index = (props) => (
 Index.getInitialProps = async (ctx) => {
     const pageUrl = '/collective'
     const id = ctx.query.person
-    const apiUrl = `http://localhost:3000/api/persons/${id}`
-    const res = await axios.get(apiUrl)
+    const res = await axios.get(createApiUrl(ctx.req, `/api/persons/${id}`))
     const person = res.data
     const name = person.name || []
     const title = name.join(' ')
