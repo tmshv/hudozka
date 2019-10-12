@@ -1,5 +1,4 @@
 import React from 'react'
-import axios from 'axios'
 import Head from 'next/head'
 import { App } from '../src/components/App'
 import Page from '../src/components/Page'
@@ -7,14 +6,14 @@ import menuModel from '../src/models/menu'
 import { buildMenu } from '../src/lib/menu'
 import { Meta } from '../src/components/Meta'
 import { meta } from '../src/lib/meta'
-import { createApiUrl } from '../src/next-lib'
+import { createApiUrl, requestGet } from '../src/next-lib'
 
 const Index = (props) => (
     <App
         menu={buildMenu(props.pageUrl, menuModel)}
         showAuthor={true}
         menuPadding={true}
-    >   
+    >
         <Head>
             <title>{props.title}</title>
             <Meta meta={props.meta} />
@@ -33,9 +32,8 @@ const Index = (props) => (
 Index.getInitialProps = async (ctx) => {
     const pageUrl = ctx.req.url
     // // const pageUrl = '/neighbors/2018'
-    const res = await axios.get(createApiUrl(ctx.req, `/api/page?page=${pageUrl}`))
-    const page = res.data
-    const image = page.preview.artifacts.fb
+    const page = await requestGet(createApiUrl(ctx.req, `/api/page?page=${pageUrl}`), {})
+    const image = page.preview ? page.preview.artifacts.fb : {}
 
     return {
         content: page.data,

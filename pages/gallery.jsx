@@ -1,5 +1,4 @@
 import React from 'react'
-import axios from 'axios'
 import Head from 'next/head'
 import { App } from '../src/components/App'
 // import Album from '../src/components/Album'
@@ -9,7 +8,7 @@ import menuModel from '../src/models/menu'
 import { buildMenu } from '../src/lib/menu'
 import { splitBy } from '../src/lib/array'
 import { meta } from '../src/lib/meta'
-import { createApiUrl } from '../src/next-lib'
+import { createApiUrl, requestGet } from '../src/next-lib'
 
 const albumsByYear = splitBy(album => new Date(album.date).getFullYear())
 
@@ -84,8 +83,8 @@ const Page = (props) => (
 
 Page.getInitialProps = async (ctx) => {
     const pageUrl = ctx.req.url
-    const res = await axios.get(createApiUrl(ctx.req, `/api/albums`))
-    const items = res.data.items
+    const res = await requestGet(createApiUrl(ctx.req, `/api/albums`), {})
+    const items = res.items || []
     const albumCollections = albumsByYear(items)
     const title = 'Галерея'
 

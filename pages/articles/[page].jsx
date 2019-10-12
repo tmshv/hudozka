@@ -1,5 +1,4 @@
 import React from 'react'
-import axios from 'axios'
 import Head from 'next/head'
 import { App } from '../../src/components/App'
 import { ArticleCardList } from '../../src/components/ArticleCardList'
@@ -7,7 +6,7 @@ import menuModel from '../../src/models/menu'
 import { buildMenu } from '../../src/lib/menu'
 import { meta } from '../../src/lib/meta'
 import { Meta } from '../../src/components/Meta'
-import { createApiUrl } from '../../src/next-lib'
+import { createApiUrl, requestGet } from '../../src/next-lib'
 
 const Page = (props) => (
     <App
@@ -33,10 +32,10 @@ Page.getInitialProps = async (ctx) => {
     const pageUrl = '/'
     const page = parseInt(ctx.query.page)
     const pageSize = parseInt(ctx.query.pageSize) || 15
-    const res = await axios.get(createApiUrl(ctx.req, `/api/articles?page=${page}&pageSize=${pageSize}`))
-    const articles = res.data.items
-    const nextPage = res.data.nextPage
-    const prevPage = res.data.prevPage
+    const res = await requestGet(createApiUrl(ctx.req, `/api/articles?page=${page}&pageSize=${pageSize}`), {})
+    const articles = res.items
+    const nextPage = res.nextPage
+    const prevPage = res.prevPage
     const title = 'События'
 
     return {

@@ -1,5 +1,4 @@
 import React from 'react'
-import axios from 'axios'
 import Head from 'next/head'
 import { App } from '../../src/components/App'
 import Article from '../../src/components/Article'
@@ -8,7 +7,7 @@ import menuModel from '../../src/models/menu'
 import { buildMenu } from '../../src/lib/menu'
 import { Meta } from '../../src/components/Meta'
 import { meta } from '../../src/lib/meta'
-import { createApiUrl } from '../../src/next-lib'
+import { createApiUrl, requestGet } from '../../src/next-lib'
 
 const Page = (props) => (
     <App
@@ -38,8 +37,7 @@ const Page = (props) => (
 Page.getInitialProps = async (ctx) => {
     const pageUrl = '/'
     const id = ctx.query.article
-    const res = await axios.get(createApiUrl(ctx.req, `/api/articles/${id}`))
-    const article = res.data
+    const article = await requestGet(createApiUrl(ctx.req, `/api/articles/${id}`), {})
     const image = article.preview.artifacts.fb
 
     return {

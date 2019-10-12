@@ -1,12 +1,11 @@
 import React from 'react'
-import axios from 'axios'
 import Head from 'next/head'
 import { App } from '../../src/components/App'
 import Article from '../../src/components/Article'
 import Html from '../../src/components/Html'
 import menuModel from '../../src/models/menu'
 import { buildMenu } from '../../src/lib/menu'
-import { createApiUrl } from '../../src/next-lib'
+import { createApiUrl, requestGet } from '../../src/next-lib'
 
 const Page = (props) => (
     <App
@@ -34,8 +33,7 @@ const Page = (props) => (
 Page.getInitialProps = async (ctx) => {
     const pageUrl = '/gallery'
     const id = ctx.query.album
-    const res = await axios.get(createApiUrl(ctx.req, `/api/albums/${id}`))
-    const album = res.data
+    const album = await requestGet(createApiUrl(ctx.req, `/api/albums/${id}`), {})
 
     return {
         album,

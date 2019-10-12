@@ -1,5 +1,4 @@
 import React from 'react'
-import axios from 'axios'
 import Head from 'next/head'
 import { App } from '../src/components/App'
 import { Meta } from '../src/components/Meta'
@@ -9,7 +8,7 @@ import { meta } from '../src/lib/meta'
 
 import DocumentList from '../src/components/DocumentList'
 import { unique } from '../src/utils/common'
-import { createApiUrl } from '../src/next-lib'
+import { createApiUrl, requestGet } from '../src/next-lib'
 
 function getSorted(documents) {
     const compose = (...fns) => value => fns
@@ -112,8 +111,8 @@ const Page = (props) => (
 
 Page.getInitialProps = async (ctx) => {
     const pageUrl = '/documents'
-    const res = await axios.get(createApiUrl(ctx.req, '/api/files'))
-    const files = res.data.items
+    const res = await requestGet(createApiUrl(ctx.req, '/api/files'), {})
+    const files = res.items || []
     const title = 'Документы'
     const collections = getSorted(files)
 
