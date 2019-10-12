@@ -1,8 +1,9 @@
 import { connect } from '../../../src/core/db'
 import Teacher from '../../../src/core/Teacher'
 import { encodePerson } from '../../../src/api/persons'
+import { withMiddleware } from '../../../src/middlewares/withMiddleware'
 
-export default async (req, res) => {
+export default withMiddleware(async (req, res) => {
     await connect()
 
     const id = req.query.person
@@ -16,4 +17,4 @@ export default async (req, res) => {
             error: `Article ${id} not found`
         })
     }
-}
+})

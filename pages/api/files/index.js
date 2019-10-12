@@ -1,8 +1,9 @@
 import { connect } from '../../../src/core/db'
 import Document from '../../../src/core/Document'
 import { encodeFile } from '../../../src/api/files'
+import { withMiddleware } from '../../../src/middlewares/withMiddleware'
 
-export default async (req, res) => {
+export default withMiddleware(async (req, res) => {
     await connect()
 
     const documents = await Document.find({hidden: false})
@@ -20,4 +21,4 @@ export default async (req, res) => {
             error: `Documents not found`
         })
     }
-}
+})

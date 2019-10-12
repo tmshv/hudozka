@@ -1,7 +1,8 @@
 import { connect } from '../../../src/core/db'
 import { findArticles } from '../../../src/api/articles'
+import { withMiddleware } from '../../../src/middlewares/withMiddleware'
 
-export default async (req, res) => {
+export default withMiddleware(async (req, res) => {
     await connect()
 
     const { query } = req
@@ -18,4 +19,4 @@ export default async (req, res) => {
             error: `Article ${id} not found`
         })
     }
-}
+})

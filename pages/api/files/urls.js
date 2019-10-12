@@ -1,7 +1,8 @@
 import { connect } from '../../../src/core/db'
 import Document from '../../../src/core/Document'
+import { withMiddleware } from '../../../src/middlewares/withMiddleware'
 
-export default async (req, res) => {
+export default withMiddleware(async (req, res) => {
     await connect()
 
     const data = await Document.find({})
@@ -17,4 +18,4 @@ export default async (req, res) => {
             error: `Not found`
         })
     }
-}
+})

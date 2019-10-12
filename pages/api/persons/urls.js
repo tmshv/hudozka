@@ -1,7 +1,8 @@
 import { connect } from '../../../src/core/db'
 import Teacher from '../../../src/core/Teacher'
+import { withMiddleware } from '../../../src/middlewares/withMiddleware'
 
-export default async (req, res) => {
+export default withMiddleware(async (req, res) => {
     await connect()
 
     const data = await Teacher.find({})
@@ -17,4 +18,4 @@ export default async (req, res) => {
             error: `Not found`
         })
     }
-}
+})

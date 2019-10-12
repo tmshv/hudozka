@@ -1,7 +1,8 @@
 import { connect } from '../../src/core/db'
 import { findSchedule } from '../../src/core/schedule'
+import { withMiddleware } from '../../src/middlewares/withMiddleware'
 
-export default async (req, res) => {
+export default withMiddleware(async (req, res) => {
     await connect()
 
     const period = req.query.period
@@ -16,4 +17,4 @@ export default async (req, res) => {
             error: `Schedule ${period}:${semester} not found`
         })
     }
-}
+})

@@ -1,7 +1,8 @@
 import { connect } from '../../../src/core/db'
 import Album from '../../../src/core/Album'
+import { withMiddleware } from '../../../src/middlewares/withMiddleware'
 
-export default async (req, res) => {
+export default withMiddleware(async (req, res) => {
     await connect()
 
     const id = req.query.album
@@ -15,4 +16,4 @@ export default async (req, res) => {
             error: `Album ${id} not found`
         })
     }
-}
+})

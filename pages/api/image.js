@@ -1,8 +1,9 @@
 import { connect } from '../../src/core/db'
 import Image from '../../src/core/Image'
 import { encodeImage } from '../../src/api/image'
+import { withMiddleware } from '../../src/middlewares/withMiddleware'
 
-export default async (req, res) => {
+export default withMiddleware(async (req, res) => {
     await connect()
 
     const file = req.query.file
@@ -16,4 +17,4 @@ export default async (req, res) => {
             error: `Image ${file} not found`
         })
     }
-}
+})

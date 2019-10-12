@@ -1,7 +1,8 @@
 import { connect } from '../../../src/core/db'
 import Album from '../../../src/core/Album'
+import { withMiddleware } from '../../../src/middlewares/withMiddleware'
 
-export default async (req, res) => {
+export default withMiddleware(async (req, res) => {
     await connect()
 
     const data = await Album.find({}, { sort: { date: -1 } })
@@ -15,4 +16,4 @@ export default async (req, res) => {
             error: `Article not found`
         })
     }
-}
+})
