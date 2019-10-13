@@ -33,7 +33,7 @@ Page.getInitialProps = async (ctx) => {
     const page = parseInt(ctx.query.page)
     const pageSize = parseInt(ctx.query.pageSize) || 15
     const res = await requestGet(createApiUrl(ctx.req, `/api/articles?page=${page}&pageSize=${pageSize}`), {})
-    const articles = res.items
+    const articles = res.items || []
     const nextPage = res.nextPage
     const prevPage = res.prevPage
     const title = 'События'
