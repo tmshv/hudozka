@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 export async function requestGet(url, defaultResponse) {
     try {
         const res = await axios.get(url)
@@ -15,14 +17,14 @@ export function createApiUrl(req, path) {
 }
 
 function absoluteUrl(req, defaultLocalhost) {
-    var protocol = 'https:';
-    var host = req
+    let protocol = 'https:'
+    let host = req
         ? (req.headers['x-forwarded-host'] || req.headers['host'])
-        : window.location.host;
+        : window.location.host
     host = host || defaultLocalhost
     if (host.indexOf('localhost') > -1) {
-        if (defaultLocalhost) host = defaultLocalhost;
-        protocol = 'http:';
+        if (defaultLocalhost) host = defaultLocalhost
+        protocol = 'http:'
     }
 
     return {
