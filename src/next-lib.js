@@ -31,5 +31,5 @@ function absoluteUrl(req, defaultLocalhost) {
         protocol: protocol,
         host: host,
         origin: protocol + '//' + host
-    };
+    }
 }
