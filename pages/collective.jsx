@@ -1,5 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
+import { get } from 'lodash'
 import { App } from '../src/components/App'
 import { Meta } from '../src/components/Meta'
 import { CollectiveImage } from '../src/components/CollectiveImage'
@@ -55,7 +56,7 @@ Page.getInitialProps = async (ctx) => {
     const title = 'Преподаватели Шлиссельбургской ДХШ'
     const imageFile = 'Images/HudozkaCollective2017.jpg'
     const resImage = await requestGet(createApiUrl(ctx.req, `/api/image?file=${imageFile}`), null)
-    const image = resImage ? resImage.data.artifacts.large : null
+    const image = get(resImage, 'data.artifacts.large', null)
 
     return {
         persons,
