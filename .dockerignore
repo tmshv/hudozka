@@ -1,0 +1,10 @@
+.git
+.next
+.idea
+.env
+node_modules
+# dist
+
+services
+modules
+utils
