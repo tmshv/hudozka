@@ -1,7 +1,6 @@
 import path from 'path'
 
 export const port = process.env['PORT'] || 3000
-export const dbUri = process.env['DB_URI'] || 'mongodb://mongo/hudozka'
 
 export const name = 'Hudozka'
 export const host = 'art.shlisselburg.org'
@@ -12,7 +11,6 @@ export const index = path.join(__dirname, 'templates/main.html')
 export const sitemapCacheTime = 600000// 600 sec - cache purge period
 
 export const viewMain = path.join(__dirname, 'views/main.hbs')
-export const viewEdit = path.join(__dirname, 'views/edit.hbs')
 export const view404 = path.join(__dirname, 'views/404.hbs')
 
 export const sessionConfig = {

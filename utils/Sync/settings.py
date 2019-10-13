@@ -136,12 +136,9 @@ image_url_base = 'https://art.shlisselburg.org/static/images/'
 
 yandex_disk_access_token = value('yandex_disk_access_token')  # env('YANDEX_DISK_ACCESS_TOKEN')
 
-update_enabled = value('update_enabled')
-delete_enabled = value('delete_enabled')
-
 auth_s3 = {
     'region_name': 'ams3',
     'endpoint_url': 'https://dir.ams3.digitaloceanspaces.com',
-    'aws_access_key_id': '',
-    'aws_secret_access_key': '',
+    'aws_access_key_id': value('s3')['client_id'],
+    'aws_secret_access_key': value('s3')['client_secret'],
 }

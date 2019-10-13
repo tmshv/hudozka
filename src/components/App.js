@@ -1,9 +1,11 @@
-const React = require('react')
-const Menu = require('./Menu')
-const Footer = require('./Footer')
-const Comments = require('./Comments')
+import React from 'react'
+import Menu from './Menu'
+import Footer from './Footer'
+import Comments from './Comments'
 
-const App = ({children, menu, showAuthor, menuPadding}) => (
+import '../style/style.scss'
+
+export const App = ({children, menu, showAuthor, menuPadding}) => (
 	<div className="body-wrapper theme-default">
 		<header>
 			<div className="navigation">
@@ -28,5 +30,3 @@ const App = ({children, menu, showAuthor, menuPadding}) => (
 		/>
 	</div>
 )
-
-module.exports = App
