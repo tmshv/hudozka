@@ -6,7 +6,7 @@ import menuModel from '../../src/models/menu'
 import { buildMenu } from '../../src/lib/menu'
 import { meta } from '../../src/lib/meta'
 import { Meta } from '../../src/components/Meta'
-import { createApiUrl, requestGet } from '../../src/next-lib'
+import { createApiUrl, requestGet, wrapInitialProps } from '../../src/next-lib'
 
 const Page = (props) => (
     <App
@@ -28,7 +28,7 @@ const Page = (props) => (
     </App>
 )
 
-Page.getInitialProps = async (ctx) => {
+Page.getInitialProps = wrapInitialProps(async (ctx) => {
     const pageUrl = '/'
     const page = parseInt(ctx.query.page)
     const pageSize = parseInt(ctx.query.pageSize) || 15
@@ -48,6 +48,6 @@ Page.getInitialProps = async (ctx) => {
             title,
         })
     }
-}
+})
 
 export default Page

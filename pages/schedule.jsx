@@ -5,7 +5,7 @@ import Schedule from '../src/components/Schedule'
 import Share from '../src/components/Share'
 import menuModel from '../src/models/menu'
 import { buildMenu } from '../src/lib/menu'
-import { createApiUrl, requestGet } from '../src/next-lib'
+import { createApiUrl, requestGet, wrapInitialProps } from '../src/next-lib'
 
 const Page = (props) => (
     <App
@@ -27,7 +27,7 @@ const Page = (props) => (
     </App>
 )
 
-Page.getInitialProps = async (ctx) => {
+Page.getInitialProps = wrapInitialProps(async (ctx) => {
     const pageUrl = ctx.req.url
     const period = '2016-2017'
     const semester = 'spring'
@@ -38,6 +38,6 @@ Page.getInitialProps = async (ctx) => {
         pageUrl,
         title: 'Расписание',
     }
-}
+})
 
 export default Page

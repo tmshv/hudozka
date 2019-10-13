@@ -8,7 +8,7 @@ import { meta } from '../src/lib/meta'
 
 import DocumentList from '../src/components/DocumentList'
 import { unique } from '../src/utils/common'
-import { createApiUrl, requestGet } from '../src/next-lib'
+import { createApiUrl, requestGet, wrapInitialProps } from '../src/next-lib'
 
 function getSorted(documents) {
     const compose = (...fns) => value => fns
@@ -109,7 +109,7 @@ const Page = (props) => (
     </App>
 )
 
-Page.getInitialProps = async (ctx) => {
+Page.getInitialProps = wrapInitialProps(async (ctx) => {
     const pageUrl = '/documents'
     const res = await requestGet(createApiUrl(ctx.req, '/api/files'), {})
     const files = res.items || []
@@ -125,6 +125,6 @@ Page.getInitialProps = async (ctx) => {
             description: 'Документы Шлиссельбургской ДХШ',
         })
     }
-}
+})
 
 export default Page

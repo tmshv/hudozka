@@ -7,7 +7,7 @@ import { HudozkaTitle } from '../src/components/HudozkaTitle'
 import menuModel from '../src/models/menu'
 import { meta } from '../src/lib/meta'
 import { buildMenu } from '../src/lib/menu'
-import { createApiUrl, requestGet } from '../src/next-lib'
+import { createApiUrl, requestGet, wrapInitialProps } from '../src/next-lib'
 
 const Page = (props) => (
     <App
@@ -32,7 +32,7 @@ const Page = (props) => (
     </App>
 )
 
-Page.getInitialProps = async (ctx) => {
+Page.getInitialProps = wrapInitialProps(async (ctx) => {
     const pageUrl = '/'
     const page = 1
     const pageSize = ctx.query.pageSize || 15
@@ -53,6 +53,6 @@ Page.getInitialProps = async (ctx) => {
             url: pageUrl,
         })
     }
-}
+})
 
 export default Page

@@ -5,7 +5,7 @@ import Article from '../../src/components/Article'
 import Html from '../../src/components/Html'
 import menuModel from '../../src/models/menu'
 import { buildMenu } from '../../src/lib/menu'
-import { createApiUrl, requestGet } from '../../src/next-lib'
+import { createApiUrl, requestGet, wrapInitialProps } from '../../src/next-lib'
 
 const Page = (props) => (
     <App
@@ -30,7 +30,7 @@ const Page = (props) => (
     </App>
 )
 
-Page.getInitialProps = async (ctx) => {
+Page.getInitialProps = wrapInitialProps(async (ctx) => {
     const pageUrl = '/gallery'
     const id = ctx.query.album
     const album = await requestGet(createApiUrl(ctx.req, `/api/albums/${id}`), {})
@@ -39,6 +39,6 @@ Page.getInitialProps = async (ctx) => {
         album,
         pageUrl,
     }
-}
+})
 
 export default Page

@@ -8,7 +8,7 @@ import menuModel from '../src/models/menu'
 import { buildMenu } from '../src/lib/menu'
 import { splitBy } from '../src/lib/array'
 import { meta } from '../src/lib/meta'
-import { createApiUrl, requestGet } from '../src/next-lib'
+import { createApiUrl, requestGet, wrapInitialProps } from '../src/next-lib'
 
 const albumsByYear = splitBy(album => new Date(album.date).getFullYear())
 
@@ -81,7 +81,7 @@ const Page = (props) => (
     </App>
 )
 
-Page.getInitialProps = async (ctx) => {
+Page.getInitialProps = wrapInitialProps(async (ctx) => {
     const pageUrl = ctx.req.url
     const res = await requestGet(createApiUrl(ctx.req, `/api/albums`), {})
     const items = res.items || []
@@ -97,6 +97,6 @@ Page.getInitialProps = async (ctx) => {
             description: 'Галерея работ учащихся Шлиссельбургской Детской Художественной Школы'
         })
     }
-}
+})
 
 export default Page

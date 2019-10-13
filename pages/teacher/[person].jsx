@@ -7,7 +7,7 @@ import { Meta } from '../../src/components/Meta'
 import menuModel from '../../src/models/menu'
 import { buildMenu } from '../../src/lib/menu'
 import { meta } from '../../src/lib/meta'
-import { createApiUrl, requestGet } from '../../src/next-lib'
+import { createApiUrl, requestGet, wrapInitialProps } from '../../src/next-lib'
 
 const Index = (props) => (
     <App
@@ -27,7 +27,7 @@ const Index = (props) => (
     </App>
 )
 
-Index.getInitialProps = async (ctx) => {
+Index.getInitialProps = wrapInitialProps(async (ctx) => {
     const pageUrl = '/collective'
     const id = ctx.query.person
     const person = await requestGet(createApiUrl(ctx.req, `/api/persons/${id}`), {})
@@ -46,6 +46,6 @@ Index.getInitialProps = async (ctx) => {
             imageHeight: image.height,
         })
     }
-}
+})
 
 export default Index

@@ -8,7 +8,7 @@ import menuModel from '../../src/models/menu'
 import { buildMenu } from '../../src/lib/menu'
 import { Meta } from '../../src/components/Meta'
 import { meta } from '../../src/lib/meta'
-import { createApiUrl, requestGet } from '../../src/next-lib'
+import { createApiUrl, requestGet, wrapInitialProps } from '../../src/next-lib'
 
 const Page = (props) => (
     <App
@@ -35,7 +35,7 @@ const Page = (props) => (
     </App>
 )
 
-Page.getInitialProps = async (ctx) => {
+Page.getInitialProps = wrapInitialProps(async (ctx) => {
     const pageUrl = '/'
     const id = ctx.query.article
     const article = await requestGet(createApiUrl(ctx.req, `/api/articles/${id}`), {})
@@ -51,6 +51,6 @@ Page.getInitialProps = async (ctx) => {
             imageHeight: image.height,
         }),
     }
-}
+})
 
 export default Page
