@@ -1,5 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
+import { get } from 'lodash'
 import { App } from '../../src/components/App'
 import Article from '../../src/components/Article'
 import Html from '../../src/components/Html'
@@ -38,7 +39,7 @@ Page.getInitialProps = async (ctx) => {
     const pageUrl = '/'
     const id = ctx.query.article
     const article = await requestGet(createApiUrl(ctx.req, `/api/articles/${id}`), {})
-    const image = article.preview.artifacts.fb
+    const image = get(article, 'preview.artifacts.fb', {})
 
     return {
         article,
