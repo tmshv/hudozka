@@ -96,8 +96,6 @@ const Page = (props) => (
         </Head>
 
         <div className="content content_thin">
-            {/* <pre>{JSON.stringify(props, null, 4)}</pre> */}
-            
             {props.collections.map(({ name, items }, index) => (
                 <DocumentList
                     key={index}
