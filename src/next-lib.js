@@ -42,10 +42,11 @@ function absoluteUrl(req, defaultLocalhost) {
         if (defaultLocalhost) host = defaultLocalhost
         protocol = 'http:'
     }
+    const origin = protocol + '//' + host
 
     return {
-        protocol: protocol,
-        host: host,
-        origin: protocol + '//' + host
+        protocol,
+        host,
+        origin,
     }
 }
