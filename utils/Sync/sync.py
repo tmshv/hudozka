@@ -39,8 +39,8 @@ def init_logger(name: str, file: str):
     logger.addHandler(ch)
 
 
-async def run_sync(sync: Sync):
-    await sync.run()
+async def run_sync(sync: Sync, **kwargs):
+    await sync.run(**kwargs)
 
 
 async def run(run_interval=0):
@@ -96,14 +96,14 @@ async def run(run_interval=0):
 
     while True:
         await asyncio.wait([
-            run_sync(sync_documents),
-            run_sync(sync_pages),
-            run_sync(sync_persons),
-            run_sync(sync_articles),
-            run_sync(sync_schedules),
-            run_sync(sync_albums),
-            run_sync(sync_settings),
-            run_sync(sync_images),
+            run_sync(sync_documents, skip_changed=False, update=True, remove=True),
+            run_sync(sync_pages, skip_changed=False, update=True, remove=True),
+            run_sync(sync_persons, skip_changed=False, update=True, remove=True),
+            run_sync(sync_articles, skip_changed=False, update=True, remove=True),
+            run_sync(sync_schedules, skip_changed=False, update=True, remove=True),
+            run_sync(sync_albums, skip_changed=False, update=True, remove=True),
+            run_sync(sync_settings, skip_changed=False, update=True, remove=True),
+            run_sync(sync_images, skip_changed=False, update=True, remove=True),
         ])
 
         if run_interval == 0:

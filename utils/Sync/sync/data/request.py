@@ -1,44 +1,40 @@
 import aiohttp
-import requests
-
+from boto3 import session
+from mimetypes import MimeTypes
+import logging
 import settings
 
+logger = logging.getLogger(settings.name + '.S3')
 
-async def upload(url, path):
+
+async def s3_put(obj, path):
     """
-    :param url:
-    :param path:
+    :param obj: uploads/file.pdf
+    :param path: to/to/local/file.pdf
     :return:
     """
+    logger.info('Put {}'.format(obj))
 
-    if not settings.upload_enabled:
-        return url
+    s = session.Session()
+    client = s.client('s3', **settings.auth_s3)
 
-    files = {'file': open(path, 'rb')}
-    r = requests.put(
-        url=url,
-        files=files,
-        auth=settings.upload_auth
-    )
-    if r.status_code == 200:
-        return url
-    else:
-        return None
+    mime = MimeTypes()
+    mime_type, enc = mime.guess_type(path)
+
+    # Upload a file to your Space
+    client.upload_file(path, 'hudozka', obj, ExtraArgs={
+        'ACL': 'public-read',
+        'ContentType': mime_type,
+    })
 
 
 async def get(url):
-    async with aiohttp.ClientSession as session:
-        res = session.get(url)
+    async with aiohttp.ClientSession as aio_session:
+        res = aio_session.get(url)
         return await res.text()
 
 
 async def post(url, data, params={}, headers={}):
-    async with aiohttp.ClientSession() as session:
-        async with session.post(url, data=data, params=params, headers=headers) as resp:
+    async with aiohttp.ClientSession() as aio_session:
+        async with aio_session.post(url, data=data, params=params, headers=headers) as resp:
             return await resp.text()
-
-
-async def put(url, data):
-    async with aiohttp.ClientSession as session:
-        res = session.put(url, data=data)
-        return await res.text()

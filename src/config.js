@@ -1,7 +1,6 @@
 import path from 'path'
 
 export const port = process.env['PORT'] || 3000
-export const dbUri = process.env['DB_URI'] || 'mongodb://mongo/hudozka'
 
 export const name = 'Hudozka'
 export const host = 'art.shlisselburg.org'

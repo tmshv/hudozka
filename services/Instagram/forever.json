@@ -1,8 +1,0 @@
-{
-  "uid": "hudozka-instagram",
-  "append": true,
-  "watch": false,
-  "script": "index.js",
-  "sourceDir": "/home/hoster/www/art.shburg.org/services/instagram/out",
-  "wordingDir": "/home/hoster/www/art.shburg.org/services/instagram"
-}
