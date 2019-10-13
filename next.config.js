@@ -16,6 +16,7 @@ function createPath(page, map, query, items) {
 }
 
 module.exports = withCss(withSass({
+    exportTrailingSlash: true,
     serverRuntimeConfig: {
         dbUri: '',
         // Will only be available on the server side
