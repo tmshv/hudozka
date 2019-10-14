@@ -18,9 +18,8 @@ app.prepare().then(async () => {
         process.exit(1)
     }
 
-    // const pages = await Page.find({})
-    // const pagesUrls = pages.map(x => x.url)
-    const pagesUrls = []
+    const pages = await Page.find({})
+    const pagesUrls = pages.map(x => x.url)
 
     const server = new Koa()
     server.use(async (ctx, next) => {
