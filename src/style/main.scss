@@ -1,44 +1,45 @@
 * {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
-html, body {
-  height: 100%;
+html,
+body {
+    height: 100%;
 }
 
 body {
-  min-width: 320px;
+    min-width: 320px;
 
-  color: var(--text-color);
+    color: var(--text-color);
 }
 
 h1 {
-  text-align: center;
-  font-size: var(--font-size-h1);
+    text-align: center;
+    font-size: var(--font-size-h1);
 
-  hyphens: none;
+    hyphens: none;
 }
 
-h2{
-  margin: var(--single-margin) 0;
-  font-size: var(--font-size-h2);
+h2 {
+    margin: var(--single-margin) 0;
+    font-size: var(--font-size-h2);
 
-  hyphens: none;
+    hyphens: none;
 }
 
-h3{
-  margin: var(--single-margin) 0;
+h3 {
+    margin: var(--single-margin) 0;
 
-  font-size: var(--font-size-h3);
+    font-size: var(--font-size-h3);
 
-  hyphens: none;
+    hyphens: none;
 }
 
 .actor {
-  border-bottom: 1px dashed black;
+    border-bottom: 1px dashed black;
 
-  &:hover {
-    border-bottom: 2px solid black;
-  }
+    &:hover {
+        border-bottom: 2px solid black;
+    }
 }
