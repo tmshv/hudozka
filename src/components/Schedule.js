@@ -1,4 +1,4 @@
-const React = require('react')
+import React from 'react'
 
 const {getDates} = require('../utils/date')
 const {shortName} = require('../models/collective')
@@ -120,4 +120,4 @@ const TimeRange = ({range}) => (
 	<p className="time">{(range || []).join(' — ')}</p>
 )
 
-module.exports = Schedule
+export default Schedule
