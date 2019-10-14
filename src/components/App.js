@@ -1,5 +1,5 @@
 import React from 'react'
-import Menu from './Menu'
+import { Menu } from './Menu'
 import Footer from './Footer'
 import Comments from './Comments'
 

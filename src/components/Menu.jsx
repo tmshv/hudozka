@@ -1,4 +1,4 @@
-const React = require('react')
+import React from 'react'
 const getPathWithNoTrailingSlas = require('../lib/url').getPathWithNoTrailingSlash
 
 const hasSubmenu = item => !!item.items
@@ -24,7 +24,7 @@ const MenuToggle = () => (
 	</div>
 )
 
-const Menu = ({items}) => {
+export const Menu = ({items}) => {
 	const content = items.map((item, index) => (
 		<li key={index}
 			className={`HMenu__item ${hmenuCurClassName(item.highlighted)} ${item.color} ${selectedClassName(item.highlighted)}`}
@@ -54,5 +54,3 @@ const Submenu = ({items}) => (
 		))}
 	</menu>
 )
-
-module.exports = Menu
