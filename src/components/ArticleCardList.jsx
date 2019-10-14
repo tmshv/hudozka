@@ -3,12 +3,20 @@ import Paginator from './Paginator'
 import { ArticleCard } from './ArticleCard'
 
 export const ArticleCardList = ({ articles, nextPage, prevPage }) => (
-    <div className="ArticleCardList">
+    <div>
+        <style jsx>{`
+            .body {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+        `}</style>
+
         {!prevPage ? null : (
             <Paginator url={`/articles/${prevPage}`} type="top" />
         )}
 
-        <div className="ArticleCardList-body">
+        <div className={'body'}>
             {articles.map((article, i) => (
                 <ArticleCard
                     key={i}
