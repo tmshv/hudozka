@@ -124,7 +124,7 @@ async function processArticle(article) {
     if (previewId) {
         preview = await Image.findById(previewId)
     } else {
-        // preview = await resolveDefaultPreview()
+        preview = await resolveDefaultPreview()
     }
 
     return new Article({

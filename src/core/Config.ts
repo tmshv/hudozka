@@ -1,18 +1,16 @@
 import Data from './Data'
 import { findOne } from '../lib/store'
 
-export default class Config {
-    static get store() {
-        return Data.getStore('Settings')
-    }
+const store = () => Data.getStore('Settings')
 
+export default class Config {
     static async findConfig() {
         const config = await Config.findById('settings')
         return config || new Config({} as any)
     }
 
-    static async findById(id) {
-        const data = await findOne(Config.store, { id })
+    static async findById(id: string) {
+        const data = await findOne(store(), { id })
         if (!data) return null
 
         return new Config(data)
