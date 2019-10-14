@@ -1,13 +1,17 @@
 import React from 'react'
 import cx from 'classnames'
-import { dateFormat } from '../lib/date'
+import { dateFormat } from '../../lib/date'
 
 const Date = ({ children }) => (
     <p className="date">{dateFormat(children)}</p>
 )
 
-export const ArticleCard = ({ article }) => (
-    <article className="ArticleCard">
+export interface IArticleCardProps {
+    article: any
+}
+
+export const ArticleCard: React.FC<IArticleCardProps> = ({ article }) => (
+    <section className="ArticleCard">
         <style jsx>{`
             .ArticleCard {
                 --article-card-width: 30%;
@@ -91,7 +95,7 @@ export const ArticleCard = ({ article }) => (
 
             // Mobile
 
-            @media (max-width: var(--mobile-width)) {
+            @media (max-width: 31.25em) {
                 .ArticleCard {
                     --article-card-width: 100%;
                     --article-card-margin: var(--single-margin) 0;
@@ -121,5 +125,5 @@ export const ArticleCard = ({ article }) => (
                 )}
             </div>
         </a>
-    </article>
+    </section>
 )
