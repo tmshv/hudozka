@@ -112,7 +112,7 @@ hash_salt_articles = '6'
 hash_salt_pages = '4'
 hash_salt_albums = '1'
 hash_salt_documents = '4'
-hash_salt_images = '4'
+hash_salt_images = '5'
 hash_salt_person = '4'
 
 provider_name = value('provider')['name']  # env('SYNC_PROVIDER', 'fs')
