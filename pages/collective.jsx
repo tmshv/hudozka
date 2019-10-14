@@ -56,7 +56,7 @@ Page.getInitialProps = wrapInitialProps(async (ctx) => {
     const title = 'Преподаватели Шлиссельбургской ДХШ'
     const imageFile = 'Images/HudozkaCollective2017.jpg'
     const resImage = await requestGet(createApiUrl(ctx.req, `/api/image?file=${imageFile}`), null)
-    const image = get(resImage, 'data.artifacts.large', null)
+    const image = get(resImage, 'artifacts.large', null)
 
     return {
         persons,
