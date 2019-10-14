@@ -13,7 +13,7 @@ def get_id(item):
 
 
 class Sync:
-    def __init__(self, provider: Provider, model):
+    def __init__(self, provider: Provider, model, filter_item_fn=None):
         super().__init__()
 
         self.validate_urls = True
@@ -28,6 +28,7 @@ class Sync:
 
         self.provider = provider
         self.model = model
+        self.filter_item_fn = filter_item_fn if filter_item_fn else lambda x: True
 
     async def clean(self):
         pass
@@ -74,6 +75,13 @@ class Sync:
 
         items = await self.model.scan(self.provider)
         self.logger.info('Found {} Item(s)'.format(len(items)))
+
+        # Optionally trim list of models by custom filter
+        items = [
+            x
+            for x in items
+            if self.filter_item_fn(x)
+        ]
 
         if self.validate_urls:
             self.check_urls_uniqueness(items)
