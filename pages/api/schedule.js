@@ -1,5 +1,5 @@
 import { connect } from '../../src/core/db'
-import { findSchedule } from '../../src/core/schedule'
+import { findSchedule } from '../../src/server/schedule'
 import { withMiddleware } from '../../src/middlewares/withMiddleware'
 
 export default withMiddleware(async (req, res) => {

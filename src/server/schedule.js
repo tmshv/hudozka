@@ -1,6 +1,6 @@
 import {c} from '../core/db'
 import {createMap} from '../utils/common'
-import {getCollective} from './collective'
+import {getCollective} from '../core/collective'
 
 import {scheduleDate, getPeriod as schedulePeriod, getPeriodString} from '../models/schedule'
 import {getCourse} from '../models/course'
