@@ -2,7 +2,7 @@ import Article from '../core/Article'
 import ImageArtifactType from '../core/ImageArtifactType'
 import { sortBy } from '../utils/sort'
 import { timestamp } from '../lib/date'
-import { encodeImage } from './image'
+import { encodeImage } from '../api/image'
 
 export const sortArticleByDate = sortBy(
     x => timestamp(new Date(x.date))
