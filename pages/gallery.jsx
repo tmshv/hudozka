@@ -18,19 +18,31 @@ function getMeta() {
     }
 }
 
+function resize(maxWidth, width, height) {
+    const ratio = maxWidth / width
+
+    return [
+        width * ratio,
+        height * ratio,
+    ]
+}
+
 const m = 1
-const AlbumImage = ({ data, alt }) => (
-    <picture>
-        <img
-            className="opa"
-            alt={alt}
-            src={data.src}
-            width={data.width * m}
-            height={data.height * m}
-            srcSet={(data.set || []).map(({ url, density }) => `${url} ${density}x`)}
-        />
-    </picture>
-)
+const AlbumImage = ({ data, alt }) => {
+    const [width, height] = resize(200, data.width, data.height)
+    return (
+        <picture>
+            <img
+                className="opa"
+                alt={alt}
+                src={data.src}
+                width={width * m}
+                height={height * m}
+                srcSet={(data.set || []).map(({ url, density }) => `${url} ${density}x`)}
+            />
+        </picture>
+    )
+}
 
 const GItem = ({ album }) => (
     <div className="gallery-item">
