@@ -121,14 +121,10 @@ class Document(Model):
         return None
 
     async def upload(self):
-        print('uploading to s3', self.file)
-
         filepath = self.provider.get_local(self.file)
         name = os.path.basename(self.url)
 
-        o = 'uploads/{}'.format(name)
-        await request.s3_put(o, filepath)
-        # await request.upload(url, filepath)
+        await request.s3_put(f'uploads/{name}', filepath)
 
     def bake(self):
         return {
