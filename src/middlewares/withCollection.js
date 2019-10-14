@@ -1,14 +1,13 @@
 // import { MongoClient } from 'mongodb';
 // const { connect, collection } = require('../../src/core/db')
-// import {collection, connect} from '../core/db'
-const core = require('../core/db')
+import {collection, connect} from '../core/db'
 
 // const client = new MongoClient(process.env.MONGODB_URI, { useNewUrlParser: true });
 
 export const withCollection = handler => async (req, res) => {
-    await core.connect()
+    await connect()
 
-    req.collection = core.collection
+    req.collection = collection
 
     // if (!client.isConnected()) {
     //     return client.connect().then(() => {

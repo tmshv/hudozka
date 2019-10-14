@@ -1,4 +1,4 @@
-const Data = require('./Data')
+import Data from './Data'
 const Page = require('./Page')
 const Article = require('./Article')
 const Album = require('./Album')
@@ -12,7 +12,7 @@ const { MongoClient, ObjectId } = require('mongodb')
 
 var db
 
-async function connect() {
+export async function connect() {
     if (db) {
         return db
     }
@@ -22,11 +22,11 @@ async function connect() {
     return db
 }
 
-function collection(name) {
+export function collection(name) {
     return db.collection(name)
 }
 
-function id(i) {
+export function id(i) {
     if (typeof i === 'string') return ObjectId(i)
     else if (i instanceof ObjectId) return i
     else if (i instanceof Object) return '_id' in i ? ObjectId(i._id) : null
@@ -45,8 +45,3 @@ function init(db) {
 
     return db
 }
-
-exports.connect = connect
-exports.collection = collection
-exports.c = collection
-exports.id = id

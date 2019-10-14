@@ -1,8 +1,8 @@
-const Koa = require('koa')
-const next = require('next')
-const { get } = require('koa-route')
-const { connect } = require('./core/db')
-const Page = require('./core/Page')
+import Koa from 'koa'
+import next from 'next'
+import { get } from 'koa-route'
+import { connect } from './core/db'
+import Page from './core/Page'
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
@@ -18,8 +18,9 @@ app.prepare().then(async () => {
         process.exit(1)
     }
 
-    const pages = await Page.find({})
-    const pagesUrls = pages.map(x => x.url)
+    // const pages = await Page.find({})
+    // const pagesUrls = pages.map(x => x.url)
+    const pagesUrls = []
 
     const server = new Koa()
     server.use(async (ctx, next) => {
@@ -29,7 +30,7 @@ app.prepare().then(async () => {
 
     server.use(get('*', async ctx => {
         const url = ctx.req.url
-        
+
         if (pagesUrls.includes(url)) {
             await app.render(ctx.req, ctx.res, '/next', ctx.query)
         } else {

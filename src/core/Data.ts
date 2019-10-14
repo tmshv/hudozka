@@ -2,7 +2,7 @@ const db = require('./db')
 
 const store = new Map()
 
-class Data {
+export default class Data {
     static setStore(Class, collection) {
         store.set(Class, collection)
     }
@@ -15,5 +15,3 @@ class Data {
         return db.collection(name)
     }
 }
-
-module.exports = Data

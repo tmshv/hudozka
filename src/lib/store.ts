@@ -1,4 +1,4 @@
-async function find(collection, query, {sort, skip, limit}) {
+export async function find(collection, query, {sort, skip, limit}) {
 	const cursor = collection.find(query)
 
 	if (sort) cursor.sort(sort)
@@ -8,16 +8,12 @@ async function find(collection, query, {sort, skip, limit}) {
 	return cursor.toArray()
 }
 
-async function findOne(collection, query) {
+export async function findOne(collection, query) {
 	return collection.findOne(query)
 }
 
-async function total(collection, query) {
+export async function total(collection, query) {
 	return collection
 		.find(query)
 		.count()
 }
-
-exports.find = find
-exports.findOne = findOne
-exports.total = total

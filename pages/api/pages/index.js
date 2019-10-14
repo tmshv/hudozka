@@ -1,10 +1,7 @@
-import { connect } from '../../../src/core/db'
 import Page from '../../../src/core/Page'
 import { withMiddleware } from '../../../src/middlewares/withMiddleware'
 
 export default withMiddleware(async (req, res) => {
-    await connect()
-
     const items = await Page.find({})
 
     if (items) {
