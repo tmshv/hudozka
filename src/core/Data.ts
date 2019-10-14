@@ -8,7 +8,7 @@ export default class Data {
         store.set(key, collection)
     }
 
-    static getStore(key: string): Collection {
+    static getStore<T>(key: string): Collection<T> {
         return store.get(key)
     }
 
