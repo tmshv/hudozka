@@ -1,7 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 import { App } from '../src/components/App'
-import Schedule from '../src/components/Schedule'
+import { Schedule } from '../src/components/Schedule'
 import Share from '../src/components/Share'
 import menuModel from '../src/models/menu'
 import { buildMenu } from '../src/lib/menu'

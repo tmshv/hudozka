@@ -30,7 +30,7 @@ const days = [
 	'Суббота',
 ]
 
-const Schedule = ({groups}) => (
+export const Schedule = ({groups}) => (
 	<div className="schedule-table">
 		<div className="schedule-table__body">
 			<div className="schedule-table__body-row">
@@ -119,5 +119,3 @@ const Teacher = ({name, url}) => (
 const TimeRange = ({range}) => (
 	<p className="time">{(range || []).join(' — ')}</p>
 )
-
-export default Schedule
