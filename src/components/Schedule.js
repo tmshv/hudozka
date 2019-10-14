@@ -37,7 +37,12 @@ export const Schedule = ({ groups }) => (
                 <div className="schedule-table__body-group">Гр.</div>
 
                 {days.map((day, index) => (
-                    <HeadDay i={index}>{day}</HeadDay>
+                    <HeadDay
+                        key={index}
+                        i={index}
+                    >
+                        {day}
+                    </HeadDay>
                 ))}
             </div>
 
