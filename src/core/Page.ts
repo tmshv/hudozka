@@ -3,7 +3,7 @@ import { find as storeFind, findOne, total } from '../lib/store'
 const Image = require('./Image')
 const Config = require('./Config')
 
-const store = () => Data.getStore(Page)
+const store = () => Data.getStore('Page')
 
 export default class Page {
     static async find(query, options = {}): Promise<Page[]> {

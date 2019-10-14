@@ -1,17 +1,18 @@
-const db = require('./db')
+import { Collection } from 'mongodb'
+import * as db from './db'
 
-const store = new Map()
+const store = new Map<string, Collection>()
 
 export default class Data {
-    static setStore(Class, collection) {
-        store.set(Class, collection)
+    static setStore(key: string, collection: Collection) {
+        store.set(key, collection)
     }
 
-    static getStore(Class) {
-        return store.get(Class)
+    static getStore(key: string): Collection {
+        return store.get(key)
     }
 
-    static getCollection(name) {
+    static getCollection(name: string): Collection {
         return db.collection(name)
     }
 }
