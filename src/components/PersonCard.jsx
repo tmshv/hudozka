@@ -1,7 +1,7 @@
 import React from 'react'
 import { Image } from './Image'
 
-module.exports = ({ picture, name, url, profile }) => (
+export const PersonCard = ({ picture, name, url, profile }) => (
     <div className="PersonCard">
         <style jsx>{`
             .PersonCard {
