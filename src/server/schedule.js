@@ -1,6 +1,7 @@
-import {c} from '../core/db'
+// import {collection} from '../core/db'
+// const {collection} = require('../core/db')
 import {createMap} from '../utils/common'
-import {getCollective} from '../core/collective'
+import {getCollective} from './collective'
 
 import {scheduleDate, getPeriod as schedulePeriod, getPeriodString} from '../models/schedule'
 import {getCourse} from '../models/course'
@@ -10,8 +11,8 @@ const sortBy = require('../lib/sort').sortBy
 
 const SCHEDULES = 'schedules'
 
-async function findSchedule(period, semester) {
-	const schedule = await c(SCHEDULES).findOne({
+export async function findSchedule(collection, period, semester) {
+	const schedule = await collection(SCHEDULES).findOne({
 		$or: [
 			{period: period},
 			{period: schedulePeriod(period)}
@@ -23,7 +24,7 @@ async function findSchedule(period, semester) {
 }
 
 async function findAllScheduleParams() {
-	const schedules = await c(SCHEDULES)
+	const schedules = await collection(SCHEDULES)
 		.find({}, {
 			period: 1,
 			semester: 1,
@@ -142,7 +143,7 @@ async function migrate20to30(schedule) {
 	})
 }
 
-exports.findSchedule = findSchedule
-exports.findAllScheduleParams = findAllScheduleParams
-exports.findDefaultScheduleParams = findDefaultScheduleParams
-exports.text = text
+// exports.findSchedule = findSchedule
+// exports.findAllScheduleParams = findAllScheduleParams
+// exports.findDefaultScheduleParams = findDefaultScheduleParams
+// exports.text = text

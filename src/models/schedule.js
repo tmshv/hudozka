@@ -38,9 +38,7 @@ export function getPeriod(i){
  * @param i
  * @returns {*}
  */
-function getPeriodString(i) {
+export function getPeriodString(i) {
 	return getPeriod(i)
 		.join('-')
 }
-
-exports.getPeriodString = getPeriodString
