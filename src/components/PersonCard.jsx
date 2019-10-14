@@ -1,4 +1,5 @@
 import React from 'react'
+import cx from 'classnames'
 import { Image } from './Image'
 
 export const PersonCard = ({ picture, name, url, profile }) => (
@@ -93,10 +94,14 @@ export const PersonCard = ({ picture, name, url, profile }) => (
 
         <a className="invisible" href={url}>
             <div className="PersonCard-Picture">
-                <Image
-                    data={picture}
-                    opa={false}
-                />
+                <picture>
+                    <img
+                        className={cx({ opa: false })}
+                        alt={''}
+                        src={picture.src}
+                        srcSet={picture.set.map(({ url, density }) => `${url} ${density}x`)}
+                    />
+                </picture >
             </div>
 
             <div className="PersonCard-Title">
