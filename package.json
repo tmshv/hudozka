@@ -57,6 +57,7 @@
         "@babel/preset-env": "^7.4.5",
         "@babel/preset-typescript": "^7.6.0",
         "@babel/register": "^7.0.0-beta.47",
+        "@types/classnames": "^2.2.9",
         "@types/koa": "^2.0.50",
         "@types/koa-route": "^3.2.4",
         "@types/mongodb": "^3.3.6",
