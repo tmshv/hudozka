@@ -1,12 +1,12 @@
-const Data = require('./Data')
-const Image = require('./Image')
-const { find, findOne } = require('../lib/store')
+import Data from './Data'
+import Image from './Image'
+import { find, findOne } from '../lib/store'
 
-const store = () => Data.getStore(Teacher)
+const store = () => Data.getStore('Teacher')
 
-class Teacher {
+export default class Teacher {
     static async find(query, options = {}) {
-        const items = await find(store(), query, options)
+        const items = await find(store(), query, options as any)
 
         return Promise.all(items.map(processProfile))
     }
@@ -17,6 +17,19 @@ class Teacher {
 
         return processProfile(data)
     }
+
+    public id: any
+    public post: any
+    public file: any
+    public edu: any
+    public picture: any
+    public preview: any
+    public diploma: any
+    public position: any
+    public name: any
+    public status: any
+    public hash: any
+    public url: any
 
     constructor(data) {
         this.id = data.id
@@ -72,5 +85,3 @@ const processProfile = async profile => {
         preview,
     })
 }
-
-module.exports = Teacher
