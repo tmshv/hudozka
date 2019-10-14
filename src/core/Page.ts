@@ -1,7 +1,7 @@
 import Data from './Data'
 import { find as storeFind, findOne, total } from '../lib/store'
-const Image = require('./Image')
-const Config = require('./Config')
+import Image from './Image'
+import Config from './Config'
 
 const store = () => Data.getStore('Page')
 
