@@ -182,6 +182,11 @@ async def create_image(file: str, sizes: [()], url_fn, output_dir: str) -> Optio
     _, ext = os.path.splitext(file)
     images = []
 
+    if not settings.image_processing_enabled:
+        logger.warning(
+            f'Image processing disabled {file}. Size of image will be set to original'
+        )
+
     async def fn(size):
         size_name, width, height = size
 
@@ -189,8 +194,10 @@ async def create_image(file: str, sizes: [()], url_fn, output_dir: str) -> Optio
         image_filename = os.path.basename(image_url)
         local_image_path = os.path.join(output_dir, image_filename)
 
-        # if settings.image_processing_enabled:
-        image = await process_image(file, local_image_path, size)
+        if settings.image_processing_enabled:
+            image = await process_image(file, local_image_path, size)
+        else:
+            image = await read_image(file)
         if not image:
             logger.warning('Failed to process image {}'.format(file))
             return None
