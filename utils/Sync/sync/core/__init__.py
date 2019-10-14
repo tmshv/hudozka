@@ -90,7 +90,7 @@ class Sync:
         changed_items = items
         if not skip_changed:
             changed_items = await untouched(items)
-        self.logger.info('Changed {} Items(s)'.format(len(changed_items)))
+        self.logger.info(f'Ready to process {len(changed_items)} item(s)')
 
         # UPDATING
         if update:
