@@ -3,7 +3,7 @@ import Image from './Image'
 import Config from './Config'
 import { find, findOne, total } from '../lib/store'
 
-const store = () => Data.getStore('Article')
+const store = () => Data.getStore<Article>('Article')
 
 function make(C) {
     return x => new C(x)
