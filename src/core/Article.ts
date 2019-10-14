@@ -1,10 +1,9 @@
 import Data from './Data'
 import Image from './Image'
 import Config from './Config'
-import { findOne, total } from '../lib/store'
-import * as libStore from '../lib/store'
+import { find, findOne, total } from '../lib/store'
 
-const store = () => Data.getStore(Article)
+const store = () => Data.getStore('Article')
 
 function make(C) {
     return x => new C(x)
@@ -12,10 +11,9 @@ function make(C) {
 
 export default class Article {
     static async find(query, options = {}): Promise<Article[]> {
-        return []
-        // const items = await libStore.find(store(), query, options as any)
+        const items = await find(store(), query, options as any)
 
-        // return Promise.all(items.map(processArticle))
+        return Promise.all(items.map(processArticle))
     }
 
     static async findById(id) {
@@ -126,7 +124,7 @@ async function processArticle(article) {
     if (previewId) {
         preview = await Image.findById(previewId)
     } else {
-        preview = await resolveDefaultPreview()
+        // preview = await resolveDefaultPreview()
     }
 
     return new Article({

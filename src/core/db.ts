@@ -1,11 +1,11 @@
 import Data from './Data'
-const Page = require('./Page')
-const Article = require('./Article')
+import Page from './Page'
+import Article from './Article'
 const Album = require('./Album')
 const Teacher = require('./Teacher')
 const Document = require('./Document')
 const Image = require('./Image')
-const Settings = require('./Config')
+import Settings from './Config'
 const getConfig = require('next/config').default
 
 const { MongoClient, ObjectId } = require('mongodb')
@@ -34,11 +34,12 @@ export function id(i) {
 }
 
 function init(db) {
-    // Data.setStore('Page', db.collection('pages'))
-    Data.setStore(Page, db.collection('pages'))
-    Data.setStore(Article, db.collection('articles'))
+    console.log('INIT DB')
+
+    Data.setStore('Page', db.collection('pages'))
+    Data.setStore('Article', db.collection('articles'))
     Data.setStore(Album, db.collection('albums'))
-    Data.setStore(Image, db.collection('images'))
+    Data.setStore('Image', db.collection('images'))
     Data.setStore(Teacher, db.collection('collective'))
     Data.setStore(Document, db.collection('documents'))
     Data.setStore(Settings, db.collection('settings'))

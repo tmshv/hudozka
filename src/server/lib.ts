@@ -5,7 +5,7 @@
  * @param Class
  * @param object
  */
-exports.mapOf = function mapOf(Class, object) {
+export function mapOf(Class, object) {
     return Object
         .entries(object)
         .reduce((map, i) => (

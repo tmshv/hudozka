@@ -20,7 +20,7 @@ export async function findArticlesNin(nin, skip, limit, sort) {
     })
 }
 
-export async function findArticles(page, pageSize) {
+export async function findArticles(page: number, pageSize: number) {
     const limit = pageSize
     const skip = (page - 1) * pageSize
 
