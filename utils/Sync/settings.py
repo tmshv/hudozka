@@ -130,9 +130,9 @@ dir_pages = './Pages'
 dir_images = './Images'
 
 document_url_template = 'https://static.shlisselburg.org/art/uploads/{file}'
-document_url_preview_template = 'https://art.shlisselburg.org/static/images/{id}-{size}{ext}'
+document_url_preview_template = 'https://static.shlisselburg.org/art/images/{id}-{size}{ext}'
 
-image_url_base = 'https://art.shlisselburg.org/static/images/'
+image_url_base = 'https://static.shlisselburg.org/art/images/'
 
 yandex_disk_access_token = value('yandex_disk_access_token')  # env('YANDEX_DISK_ACCESS_TOKEN')
 

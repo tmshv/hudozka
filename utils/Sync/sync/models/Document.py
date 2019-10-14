@@ -68,7 +68,7 @@ class Document(Model):
         self.__hash_keys = ['id', 'url']
 
         self.__id_template: str = '{category}-{file}'
-        self.__url_template: str = 'https://art.shlisselburg.org/static/uploads/{file}'
+        self.__url_template: str = 'https://static.shlisselburg.org/art/uploads/{file}'
         self.__url_preview_template: str = settings.document_url_preview_template
 
         self.title = None
