@@ -1,3 +1,3 @@
-export const withMiddleware = handler => async (req, res) => {
-   return handler(req, res);
-};
+import { withCollection } from './withCollection'
+
+export const withMiddleware = handler => withCollection(handler)
