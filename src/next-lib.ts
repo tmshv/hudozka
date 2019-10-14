@@ -1,8 +1,12 @@
 import axios from 'axios'
 
-export async function requestGet(url, defaultResponse) {
+export interface IResponseItems<T> {
+    items: T[]
+}
+
+export async function requestGet<T>(url: string, defaultResponse: T): Promise<T> {
     try {
-        const res = await axios.get(url)
+        const res = await axios.get<T>(url)
 
         return res.data
     } catch (e) {
@@ -19,7 +23,7 @@ export async function requestGet(url, defaultResponse) {
 export function wrapInitialProps(fn) {
     return async ctx => {
         if (process.env.NODE_ENV === 'production' && process.browser) {
-            return __NEXT_DATA__.props.pageProps;
+            return window['__NEXT_DATA__'].props.pageProps;
         }
 
         return fn(ctx)

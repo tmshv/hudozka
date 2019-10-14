@@ -40,7 +40,7 @@ export function indexEquals(withNumber) {
  * @param map
  */
 export function select(byCondition, map = i => i) {
-    return (result, item) => byCondition(item) ? map(item): map(result)
+    return (result, item) => byCondition(item) ? map(item) : map(result)
 }
 
 /**
@@ -49,19 +49,21 @@ export function select(byCondition, map = i => i) {
  * @param selector
  * @returns {*}
  */
-export function choise(scope, selector){
+export function choise(scope, selector) {
     return scope.reduce(selector, null);
 }
 
-export function unique(fn) {
-    return list => [...new Set(list.map(fn))];
+export function unique<T, U>(fn: (value: T) => U): (list: T[]) => U[] {
+    return list => Array.from(
+        new Set(list.map(fn))
+    )
 }
 
 export function branch(fn) {
     let keys = unique(fn);
 
     return list => keys(list)
-        .reduce((dict, key) => {
+        .reduce((dict: any, key: any) => {
             dict[key] = list.filter(
                 i => fn(i) === key
             );
@@ -71,7 +73,7 @@ export function branch(fn) {
 
 }
 
-export function assign(dict, key, value){
+export function assign(dict, key, value) {
     dict[key] = value;
     return dict;
 }
@@ -88,7 +90,7 @@ export function map(v, fn) {
  * @param selector
  * @returns {*}
  */
-export function createMap(selector, list){
+export function createMap(selector, list) {
     return list.reduce((map, i) => map.set(selector(i), i), new Map());
 }
 
@@ -99,6 +101,6 @@ export function createMap(selector, list){
  * @param {function} fn
  * @returns {function(*=): null}
  */
-export function nullSafe(fn){
+export function nullSafe(fn) {
     return i => i ? fn(i) : null;
 }

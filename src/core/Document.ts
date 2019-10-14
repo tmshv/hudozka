@@ -1,12 +1,12 @@
-const Data = require('./Data')
-const Image = require('./Image')
-const { find, findOne } = require('../lib/store')
+import Data from './Data'
+import Image from './Image'
+import { find, findOne } from '../lib/store'
 
-const store = () => Data.getStore(Document)
+const store = () => Data.getStore('Document')
 
-class Document {
+export default class Document {
     static async find(query, options = {}) {
-        const items = await find(store(), query, options)
+        const items = await find(store(), query, options as any)
 
         return Promise.all(items.map(processDocument))
     }
@@ -17,6 +17,17 @@ class Document {
 
         return processDocument(data)
     }
+
+    public id: any
+    public hash: any
+    public file: any
+    public fileInfo: any
+    public type: any
+    public title: any
+    public category: any
+    public url: any
+    public preview: any
+    public viewUrl: any
 
     constructor(data) {
         this.id = data.id
@@ -37,6 +48,9 @@ class Document {
 }
 
 class DocumentFile {
+    public name: any
+    public size: any
+
     constructor(data) {
         this.name = data.name
         this.size = data.size
@@ -52,5 +66,3 @@ const processDocument = async data => {
         preview,
     })
 }
-
-module.exports = Document

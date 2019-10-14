@@ -5,12 +5,19 @@ import { Meta } from '../src/components/Meta'
 import menuModel from '../src/models/menu'
 import { buildMenu } from '../src/lib/menu'
 import { meta } from '../src/lib/meta'
+import { IDocument } from '../src/types'
 
-import DocumentList from '../src/components/DocumentList'
+import { DocumentList } from '../src/components/DocumentList'
 import { unique } from '../src/utils/common'
-import { createApiUrl, requestGet, wrapInitialProps } from '../src/next-lib'
+import { createApiUrl, requestGet, wrapInitialProps, IResponseItems } from '../src/next-lib'
+import { NextPage } from 'next'
 
-function getSorted(documents) {
+interface IDocumentCategory {
+    name: string
+    items: IDocument[]
+}
+
+function getSorted(documents: IDocument[]): IDocumentCategory[] {
     const compose = (...fns) => value => fns
         .map(fn => fn)
         .reverse()
@@ -23,7 +30,7 @@ function getSorted(documents) {
 
     const subtract = (a, b) => a - b
 
-    const uniqueCategories = unique(i => i.category)
+    const uniqueCategories = unique<IDocument, string>(i => i.category)
 
     const priority = {
         'Основные документы': [
@@ -53,13 +60,16 @@ function getSorted(documents) {
         'Документы для поступления',
     ]
 
-    const sortBy = fn => (a, b) => [a, b]
-        .map(fn)
-        .reduce(subtract)
+    function sortBy<T>(fn: (value: T) => number): (a: T, b: T) => number {
+        return (a, b) => [a, b].map(fn).reduce(subtract)
+    }
 
-    const getPriorityFn = (m, list) => value => list.includes(value)
-        ? list.indexOf(value)
-        : m
+    function getPriorityFn<T>(m: number, list: T[]): (value: T) => number {
+        return (value: T) => {
+            const has = list.includes(value)
+            return has ? list.indexOf(value) : m
+        }
+    }
 
     const safeSelect = (d, store, key) => key in store
         ? store[key]
@@ -84,7 +94,14 @@ function getSorted(documents) {
         }], [])
 }
 
-const Page = (props) => (
+interface IProps {
+    collections: IDocumentCategory[]
+    pageUrl: string
+    title: string
+    meta: any
+}
+
+const Page: NextPage<IProps> = props => (
     <App
         menu={buildMenu(props.pageUrl, menuModel)}
         showAuthor={true}
@@ -96,11 +113,11 @@ const Page = (props) => (
         </Head>
 
         <div className="content content_thin">
-            {props.collections.map(({ name, items }, index) => (
+            {props.collections.map((collection, index) => (
                 <DocumentList
                     key={index}
-                    name={name}
-                    documents={items}
+                    name={collection.name}
+                    documents={collection.items}
                 />
             ))}
         </div>
@@ -109,8 +126,8 @@ const Page = (props) => (
 
 Page.getInitialProps = wrapInitialProps(async (ctx) => {
     const pageUrl = '/documents'
-    const res = await requestGet(createApiUrl(ctx.req, '/api/files'), {})
-    const files = res.items || []
+    const res = await requestGet<IResponseItems<IDocument>>(createApiUrl(ctx.req, '/api/files'), { items: [] })
+    const files = res.items
     const title = 'Документы'
     const collections = getSorted(files)
 
