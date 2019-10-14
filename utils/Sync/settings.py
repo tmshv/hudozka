@@ -111,7 +111,7 @@ collection_pages = 'pages'
 hash_salt_articles = '6'
 hash_salt_pages = '4'
 hash_salt_albums = '1'
-hash_salt_documents = '3'
+hash_salt_documents = '4'
 hash_salt_images = '4'
 hash_salt_person = '4'
 
