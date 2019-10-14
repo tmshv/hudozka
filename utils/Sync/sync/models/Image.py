@@ -114,7 +114,7 @@ class Image(Model):
                 file = i['file']
                 filename = os.path.basename(file)
 
-                await request.s3_put('images/'+filename, file)
+                await request.s3_put(f'images/{filename}', file)
 
             await asyncio.wait([fn(i) for i in self.data.values()])
 
