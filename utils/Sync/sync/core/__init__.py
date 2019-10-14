@@ -43,12 +43,15 @@ class Sync:
     async def clean(self):
         pass
 
-    async def update(self, item):
+    async def build(self, item):
         args = self._get_build_args()
-
         await item.build(**args)
+        return item
+
+    async def update(self, item):
         await item.upload()
         await item.save()
+        return item
 
     def _get_build_args(self):
         return {
@@ -100,6 +103,11 @@ class Sync:
         if self.skip_unchanged:
             items = await untouched(items)
         self.logger.info(f'Ready to process {len(items)} item(s)')
+
+        # BUILDING
+        for item in items:
+            self.logger.info(f'Build Item {item}')
+            await self.build(item)
 
         # UPDATING
         if self.update_enabled:
