@@ -155,9 +155,9 @@ async def create_post(provider: Provider, folder: str, md: str, sizes):
     # m.add_token_factory(TokenFactory(FileToken))
     m.add_token_factory(TokenFactory(TextToken))
     m.add_tree_middleware(fix_links_quotes)
-    html = await m.create_tree(md)
+    tree = await m.create_tree(md)
 
-    post = kazimir.html_from_tree(html)
+    post = kazimir.html_from_tree(tree)
     post = await kazimir.typo(post)
 
     return post, images, documents
