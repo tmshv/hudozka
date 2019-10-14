@@ -87,14 +87,13 @@ class Sync:
             self.check_urls_uniqueness(items)
 
         # SKIP UNTOUCHED DOCUMENTS
-        changed_items = items
         if not skip_changed:
-            changed_items = await untouched(items)
-        self.logger.info(f'Ready to process {len(changed_items)} item(s)')
+            items = await untouched(items)
+        self.logger.info(f'Ready to process {len(items)} item(s)')
 
         # UPDATING
         if update:
-            for item in changed_items:
+            for item in items:
                 await self.update(item)
                 self.logger.info('Updated Item {}'.format(item))
 
