@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image } from './Image'
+import cx from 'classnames'
 import { dateFormat } from '../lib/date'
 
 const Date = ({ children }) => (
@@ -102,11 +102,14 @@ export const ArticleCard = ({ article }) => (
         <a className="invisible" href={article.url}>
             <div className="ArticleCard-image">
                 {!article.preview ? null : (
-                    <Image
-                        data={article.preview}
-                        alt={article.title}
-                        opa={false}
-                    />
+                    <picture>
+                        <img
+                            className={cx({ opa: false })}
+                            alt={article.title}
+                            src={article.preview.src}
+                            srcSet={article.preview.set.map(({ url, density }) => `${url} ${density}x`)}
+                        />
+                    </picture >
                 )}
             </div>
 
