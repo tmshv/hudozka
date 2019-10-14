@@ -14,7 +14,7 @@ export default class Image {
         return new Image({ ...data, artifacts })
     }
 
-    static async findByFile(file) {
+    static async findByFile(file: string) {
         const data = await findOne(store(), { file })
         if (!data) return null
 
