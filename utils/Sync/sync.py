@@ -56,54 +56,61 @@ async def run(run_interval=0):
         provider=io(settings.provider_root),
         model=Page,
     )
+    sync_pages.set_options(True, True, True)
 
     sync_persons = Sync(
         provider=io(settings.provider_root),
         model=Person,
     )
+    sync_persons.set_options(True, True, True)
     sync_persons.validate_urls = False
 
     sync_articles = Sync(
         provider=io(settings.provider_root),
         model=Article,
     )
+    sync_articles.set_options(True, True, True)
     sync_articles.validate_urls = False
 
     sync_schedules = Sync(
         provider=io(settings.provider_root),
         model=Schedule,
     )
+    sync_schedules.set_options(True, True, True)
     sync_schedules.validate_urls = False
 
     sync_albums = Sync(
         provider=io(settings.provider_root),
         model=Album,
     )
+    sync_albums.set_options(True, True, True)
     sync_albums.validate_urls = False
 
     sync_settings = Sync(
         provider=io(settings.provider_root),
         model=Settings,
     )
+    sync_settings.set_options(True, True, True)
     sync_settings.validate_urls = False
 
     sync_images = Sync(
         provider=io(settings.provider_root),
         model=Image,
     )
+    sync_images.set_options(True, True, True)
     sync_images.strict_origin = True
     sync_images.validate_urls = False
 
     while True:
         await asyncio.wait([
-            run_sync(sync_documents, skip_changed=False, update=True, remove=True),
-            run_sync(sync_pages, skip_changed=False, update=True, remove=True),
-            run_sync(sync_persons, skip_changed=False, update=True, remove=True),
-            run_sync(sync_articles, skip_changed=False, update=True, remove=True),
-            run_sync(sync_schedules, skip_changed=False, update=True, remove=True),
-            run_sync(sync_albums, skip_changed=False, update=True, remove=True),
-            run_sync(sync_settings, skip_changed=False, update=True, remove=True),
-            run_sync(sync_images, skip_changed=False, update=True, remove=True),
+            run_sync(sync_documents),
+            run_sync(sync_pages),
+            run_sync(sync_persons),
+            run_sync(sync_articles),
+            run_sync(sync_schedules),
+            run_sync(sync_albums),
+            run_sync(sync_settings),
+            run_sync(sync_images),
         ])
 
         if run_interval == 0:
