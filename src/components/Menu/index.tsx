@@ -42,6 +42,22 @@ export const Menu: React.FC<IMenuProps> = props => {
     return (
         <menu className="main-menu HMenu">
             <style jsx>{`
+                .main-menu {
+                    font-size: var(--normal-font-size);
+                }
+
+                .main-menu li {
+                    display: inline-block;
+                    padding: 0.3em 0.2em 0;
+                    margin: 0 0.5em;
+
+                    position: relative;
+                }
+
+                .main-menu li:first-child {
+                    margin-left: 1em;
+                }
+
                 .selected {
                     font-weight: bold;
                     border-top: var(--menu-colored-mark-thickness) solid var(--light-color);
@@ -71,6 +87,7 @@ export const Menu: React.FC<IMenuProps> = props => {
                     border-top-color: var(--red-color);
                 }
             `}</style>
+
             {!isMobile ? null : (
                 <MenuToggle
                     open={open}
