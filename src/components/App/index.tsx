@@ -1,16 +1,22 @@
-import React from 'react'
-import { Menu } from '../Menu'
-import Footer from '../Footer'
+import * as React from 'react'
+import dynamic from 'next/dynamic'
+import { Footer } from '../Footer'
 import Comments from '../Comments'
 
-import '../style/style.scss'
+const Header = dynamic(() => import('./Header'), {
+    ssr: false,
+})
+
+import '../../style/style.scss'
 
 export const App = ({ children, menu, showAuthor, menuPadding }) => (
     <div className="body-wrapper theme-default">
         <header>
             <div className="navigation">
                 <div className="navigation__body">
-                    <Menu items={menu.items} />
+                    <Header
+                        menuItems={menu.items}
+                    />
                 </div>
             </div>
         </header>
@@ -23,7 +29,8 @@ export const App = ({ children, menu, showAuthor, menuPadding }) => (
             <Comments />
         </main>
 
-        <Footer showAuthor={showAuthor}
+        <Footer
+            showAuthor={showAuthor}
             address=" г. Шлиссельбург ул. 18 января д. 3"
             telephone="+7 (81362) 76-312"
             email="hudozka@gmail.com"
