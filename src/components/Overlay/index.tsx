@@ -15,12 +15,14 @@ export const Overlay: React.FC<IOverlayProps> = props => {
 
     React.useEffect(() => {
         document.body.classList.toggle('noscroll', props.show)
-
     }, [props.show])
 
     return (
         <Transition
             show={props.show}
+            extraStyle={{
+                zIndex: 1000000,
+            }}
         >
             <div
                 onClick={onClick}
@@ -32,7 +34,6 @@ export const Overlay: React.FC<IOverlayProps> = props => {
                         height: 100%;
                         top: 0;
                         left: 0;
-                        z-index: 1000000;
 
                         background-color: rgb(255, 255, 255);
                     }

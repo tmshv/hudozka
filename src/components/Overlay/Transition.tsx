@@ -1,6 +1,7 @@
 import * as React from 'react'
 
 export interface ITransitionProps {
+    extraStyle?: React.CSSProperties
     show: boolean
 }
 
@@ -32,6 +33,7 @@ export const Transition: React.FC<ITransitionProps> = props => {
     return mounted && (
         <div
             style={{
+                ...props.extraStyle,
                 opacity,
                 transition: 'all 250ms',
             }}
