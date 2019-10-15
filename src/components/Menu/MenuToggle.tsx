@@ -19,10 +19,13 @@ export const MenuToggle: React.FC<IMenuToggleProps> = props => {
         >
             <style jsx>{`
                 div {
+                    --hmenu-margin: 6px;
+                    --hmenu-icon-width: 32px;
+                    --hmenu-icon-height: 32px;
+
                     position: absolute;
                     height: var(--hmenu-icon-height);
                     margin: var(--hmenu-margin);
-                    display: flex;
                 }
 
                 div.right {
@@ -36,6 +39,7 @@ export const MenuToggle: React.FC<IMenuToggleProps> = props => {
                 }
 
                 a {
+                    display: block;
                     text-decoration: none;
                     border: none;
 
