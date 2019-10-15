@@ -27,6 +27,8 @@ export const Menu: React.FC<IMenuProps> = props => {
                 menu {
                     display: flex;
                     align-items: flex-start;
+                    margin-left: 1em;
+                    margin-right: 1em;
 
                     font-size: var(--normal-font-size);
                     list-style: none;
@@ -38,10 +40,6 @@ export const Menu: React.FC<IMenuProps> = props => {
 
                     position: relative;
                     border-top: var(--menu-colored-mark-thickness) solid rgba(0, 0, 0, 0);
-                }
-
-                li:first-child {
-                    margin-left: 1em;
                 }
 
                 li:last-child {
