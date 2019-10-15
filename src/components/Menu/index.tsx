@@ -4,6 +4,7 @@ import { getPathWithNoTrailingSlash } from '../../lib/url'
 import { MenuToggle } from './MenuToggle'
 import { useScreenType } from '../../hooks/useScreenType'
 import { MenuItem } from './MenuItem'
+import { Overlay } from './Overlay'
 
 const itemUrl = (url: string) => getPathWithNoTrailingSlash(url)
 
@@ -96,6 +97,28 @@ export const Menu: React.FC<IMenuProps> = props => {
                     />
                 </li>
             ))}
+
+            {!open ? null : (
+                <Overlay
+                    opacity={1}
+                    onClickOverlay={onClick}
+                >
+                    {props.items.map((item, index) => (
+                        <li key={index}
+                            className={cx(
+                                item.color, {
+                                selected: item.highlighted,
+                            })}
+                        >
+                            <MenuItem
+                                url={itemUrl(item.url)}
+                                text={item.text}
+                                active={item.active}
+                            />
+                        </li>
+                    ))}
+                </Overlay>
+            )}
         </menu>
     )
 }
