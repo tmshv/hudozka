@@ -3,23 +3,6 @@
 
     list-style: none;
 
-    .main-menu__submenu {
-        background-color: rgba(255, 255, 255, 0.95);
-
-        display: block;
-        position: absolute;
-        top: 100%;
-        left: -1em;
-
-        padding: 0 0.5em 0.5em;
-
-        & > li {
-            display: block;
-            padding: 0.3em 0.2em 0.5em;
-            margin: 0 0.5em;
-        }
-    }
-
     & > li {
         display: inline-block;
         padding: 0.3em 0.2em 0;
