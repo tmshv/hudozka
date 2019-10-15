@@ -37,6 +37,9 @@ export const Navigation: React.FC<INavigationProps> = props => {
                     open={open}
                     position={'right'}
                     onClick={onClick}
+                    style={{
+                        zIndex: 1000001,
+                    }}
                 />
             ) : (
                     <Menu
