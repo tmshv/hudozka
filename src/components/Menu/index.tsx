@@ -4,7 +4,7 @@ import { getPathWithNoTrailingSlash } from '../../lib/url'
 import { MenuToggle } from './MenuToggle'
 import { useScreenType } from '../../hooks/useScreenType'
 import { MenuItem } from './MenuItem'
-import { Overlay } from './Overlay'
+import { Overlay } from '../Overlay'
 
 const itemUrl = (url: string) => getPathWithNoTrailingSlash(url)
 
