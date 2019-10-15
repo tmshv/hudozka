@@ -1,13 +1,16 @@
 import * as React from 'react'
+import cx from 'classnames'
 import { getPathWithNoTrailingSlash } from '../../lib/url'
+import { MenuToggle } from './MenuToggle'
+import { useScreenType } from '../../hooks/useScreenType'
 
-const itemUrl = url => getPathWithNoTrailingSlash(url)
+const itemUrl = (url: string) => getPathWithNoTrailingSlash(url)
 
-const selectedClassName = flag => flag
+const selectedClassName = (flag: boolean) => flag
     ? 'selected'
     : ''
 
-const hmenuCurClassName = flag => flag
+const hmenuCurClassName = (flag: boolean) => flag
     ? 'HMenu__item--cur'
     : ''
 
@@ -18,22 +21,46 @@ const MenuItem = ({ active, text, url }) => active
         <a href={itemUrl(url)}>{text}</a>
     )
 
-const MenuToggle = () => (
-    <div className="HMenu__toggle">
-        <a href="#"></a>
-    </div>
-)
+export interface IMenuProps {
+    items: any[]
+}
 
-export const Menu = ({ items }) => (
-    <menu className="main-menu HMenu" data-toggle-width="1024">
-        <MenuToggle />
+export const Menu: React.FC<IMenuProps> = props => {
+    const isMobile = useScreenType(['phone', 'tablet'])
+    const [open, setOpen] = React.useState(false)
+    const onClick = React.useCallback(
+        () => {
+            setOpen(!open)
+        },
+        [open]
+    )
 
-        {items.map((item, index) => (
-            <li key={index}
-                className={`HMenu__item ${hmenuCurClassName(item.highlighted)} ${item.color} ${selectedClassName(item.highlighted)}`}
-            >
-                <MenuItem {...item} />
-            </li>
-        ))}
-    </menu>
-)
+    React.useEffect(() => {
+        console.log(isMobile)
+    }, [isMobile])
+
+    return (
+        <menu className="main-menu HMenu" data-toggle-width="1024">
+            {!isMobile ? null : (
+                <MenuToggle
+                    open={open}
+                    position={'right'}
+                    onClick={onClick}
+                />
+            )}
+
+            {props.items.map((item, index) => (
+                <li key={index}
+                    className={cx(
+                        'HMenu__item',
+                        hmenuCurClassName(item.highlighted),
+                        selectedClassName(item.highlighted),
+                        item.color,
+                    )}
+                >
+                    <MenuItem {...item} />
+                </li>
+            ))}
+        </menu>
+    )
+}

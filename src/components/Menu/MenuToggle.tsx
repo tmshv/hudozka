@@ -2,24 +2,37 @@ import * as React from 'react'
 import cx from 'classnames'
 
 export interface IMenuToggleProps {
+    style?: React.CSSProperties
     open: boolean
+    position: 'left' | 'right'
+    onClick: () => void
 }
 
 export const MenuToggle: React.FC<IMenuToggleProps> = props => {
     return (
-        <div className={cx({
-            open: props.open,
-            close: !props.open,
-        })}>
+        <div
+            className={cx(props.position, {
+                open: props.open,
+                close: !props.open,
+            })}
+            style={props.style}
+        >
             <style jsx>{`
                 div {
-                    //position: absolute;
-                    //left: 0;
+                    position: absolute;
                     height: var(--hmenu-icon-height);
-
                     margin: var(--hmenu-margin);
-
                     display: flex;
+                }
+
+                div.right {
+                    top: 0;
+                    right: 0;
+                }
+
+                div.left {
+                    top: 0;
+                    left: 0;
                 }
 
                 a {
@@ -53,7 +66,10 @@ export const MenuToggle: React.FC<IMenuToggleProps> = props => {
                 }
             `}</style>
 
-            <a href="#"></a>
+            <a
+                href="#"
+                onClick={props.onClick}
+            ></a>
         </div>
     )
 }
