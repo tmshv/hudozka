@@ -76,15 +76,13 @@ export const Menu: React.FC<IMenuProps> = props => {
                 }
             `}</style>
 
-            {!isMobile ? null : (
+            {isMobile ? (
                 <MenuToggle
                     open={open}
                     position={'right'}
                     onClick={onClick}
                 />
-            )}
-
-            {props.items.map((item, index) => (
+            ) : props.items.map((item, index) => (
                 <li key={index}
                     className={cx(
                         item.color, {
