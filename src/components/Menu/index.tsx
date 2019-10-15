@@ -1,7 +1,7 @@
 import * as React from 'react'
 import cx from 'classnames'
 import { getPathWithNoTrailingSlash } from '../../lib/url'
-import { MenuToggle } from './MenuToggle'
+import { MenuToggle } from '../MenuToggle'
 import { useScreenType } from '../../hooks/useScreenType'
 import { MenuItem } from './MenuItem'
 import { Overlay } from '../Overlay'
