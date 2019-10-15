@@ -103,20 +103,25 @@ export const Menu: React.FC<IMenuProps> = props => {
                     opacity={1}
                     onClickOverlay={onClick}
                 >
-                    {props.items.map((item, index) => (
-                        <li key={index}
-                            className={cx(
-                                item.color, {
-                                selected: item.highlighted,
-                            })}
-                        >
-                            <MenuItem
-                                url={itemUrl(item.url)}
-                                text={item.text}
-                                active={item.active}
-                            />
-                        </li>
-                    ))}
+                    <div style={{
+                        width: '50%',
+                        margin: '50px auto',
+                    }}>
+                        {props.items.map((item, index) => (
+                            <li key={index}
+                                className={cx(
+                                    item.color, {
+                                    selected: item.highlighted,
+                                })}
+                            >
+                                <MenuItem
+                                    url={itemUrl(item.url)}
+                                    text={item.text}
+                                    active={item.active}
+                                />
+                            </li>
+                        ))}
+                    </div>
                 </Overlay>
             )}
         </menu>
