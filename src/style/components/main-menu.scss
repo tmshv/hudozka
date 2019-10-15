@@ -24,34 +24,7 @@
         }
     }
 
-    .selected {
-        font-weight: bold;
-        border-top: var(--menu-colored-mark-thickness) solid var(--light-color);
-
-        &.blue {
-            border-top: var(--menu-colored-mark-thickness) solid var(--blue-color);
-        }
-
-        &.orange {
-            border-top: var(--menu-colored-mark-thickness) solid var(--orange-color);
-        }
-
-        &.green {
-            border-top: var(--menu-colored-mark-thickness) solid var(--green-color);
-        }
-
-        &.yellow {
-            border-top: var(--menu-colored-mark-thickness) solid var(--yellow-color);
-        }
-
-        &.pink {
-            border-top: var(--menu-colored-mark-thickness) solid var(--pink-color);
-        }
-
-        &.red {
-            border-top: var(--menu-colored-mark-thickness) solid var(--red-color);
-        }
-    }
+    
 }
 
 @media (max-width: var(--mobile-width)) {

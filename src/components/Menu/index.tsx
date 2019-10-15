@@ -40,7 +40,37 @@ export const Menu: React.FC<IMenuProps> = props => {
     }, [isMobile])
 
     return (
-        <menu className="main-menu HMenu" data-toggle-width="1024">
+        <menu className="main-menu HMenu">
+            <style jsx>{`
+                .selected {
+                    font-weight: bold;
+                    border-top: var(--menu-colored-mark-thickness) solid var(--light-color);
+                }
+
+                .selected.blue {
+                    border-top-color: var(--blue-color);
+                }
+
+                .selected.orange {
+                    border-top-color: var(--orange-color);
+                }
+
+                .selected.green {
+                    border-top-color: var(--green-color);
+                }
+
+                .selected.yellow {
+                    border-top-color: var(--yellow-color);
+                }
+
+                .selected.pink {
+                    border-top-color: var(--pink-color);
+                }
+
+                .selected.red {
+                    border-top-color: var(--red-color);
+                }
+            `}</style>
             {!isMobile ? null : (
                 <MenuToggle
                     open={open}
