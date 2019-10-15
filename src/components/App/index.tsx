@@ -1,7 +1,7 @@
 import React from 'react'
-import { Menu } from './Menu'
-import Footer from './Footer'
-import Comments from './Comments'
+import { Menu } from '../Menu'
+import Footer from '../Footer'
+import Comments from '../Comments'
 
 import '../style/style.scss'
 
