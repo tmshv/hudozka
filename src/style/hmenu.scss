@@ -58,53 +58,7 @@
 
 
 
-.HMenu__toggle {
-  position: absolute;
-  left: 0;
-  height: var(--hmenu-icon-height);
 
-  margin: var(--hmenu-margin);
-
-  display: flex;
-
-  a {
-    text-decoration: none;
-    border: none;
-
-    width: var(--hmenu-icon-width);
-    height: var(--hmenu-icon-height);
-    background-size: 100%;
-  }
-
-  a:hover {
-    text-decoration: none;
-    border: none;
-  }
-}
-
-.HMenu--folded.HMenu--closed {
-  .HMenu__toggle {
-    a {
-      background-image: url(/graphics/hmenu-b.png);
-    }
-
-    a:hover {
-      background-image: url(/graphics/hmenu-hover-b.png);
-    }
-  }
-}
-
-.HMenu--folded.HMenu--open {
-  .HMenu__toggle {
-    a {
-      background-image: url(/graphics/hmenu-close-b.png);
-    }
-
-    a:hover {
-      background-image: url(/graphics/hmenu-close-hover-b.png);
-    }
-  }
-}
 
 
 
