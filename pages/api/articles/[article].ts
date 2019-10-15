@@ -1,10 +1,9 @@
-import { connect } from '../../../src/core/db'
+import { NextApiRequest, NextApiResponse } from 'next'
 import Article from '../../../src/core/Article'
-import { encodeArticle } from '../../../src/api/articles'
+import { encodeArticle } from '../../../src/server/articles'
+import { withMiddleware } from '../../../src/middlewares/withMiddleware'
 
-export default async (req, res) => {
-    await connect()
-
+export default withMiddleware(async (req: NextApiRequest, res: NextApiResponse) => {
     const {
         query: { article: id }
     } = req;
@@ -19,4 +18,4 @@ export default async (req, res) => {
             error: `Article ${id} not found`
         })
     }
-}
+})
