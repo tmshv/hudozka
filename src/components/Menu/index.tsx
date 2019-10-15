@@ -48,7 +48,6 @@ export const Menu: React.FC<IMenuProps> = props => {
 
                 li.selected {
                     font-weight: bold;
-                    //border-top: var(--menu-colored-mark-thickness) solid var(--light-color);
                 }
 
                 li.selected.blue {
