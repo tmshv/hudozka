@@ -1,6 +1,7 @@
 import * as React from 'react'
 
 export interface ITransitionProps {
+    duration: number
     extraStyle?: React.CSSProperties
     show: boolean
 }
@@ -13,6 +14,9 @@ export const Transition: React.FC<ITransitionProps> = props => {
             setMounted(false)
         }
     }, [opacity])
+    const transition = React.useMemo(
+        () => `all ${props.duration}ms`,
+    [props.duration])
 
     React.useEffect(() => {
         if (!props.show) {
@@ -35,7 +39,7 @@ export const Transition: React.FC<ITransitionProps> = props => {
             style={{
                 ...props.extraStyle,
                 opacity,
-                transition: 'all 250ms',
+                transition,
             }}
             onTransitionEnd={onTransitionEnd}
         >

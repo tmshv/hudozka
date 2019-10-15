@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Transition } from './Transition'
+import { useReducedMotion } from '../../hooks/useReducedMotion'
 
 export interface IOverlayProps {
     show: boolean
@@ -7,6 +8,9 @@ export interface IOverlayProps {
 }
 
 export const Overlay: React.FC<IOverlayProps> = props => {
+    const motionDisabled = useReducedMotion()
+    const duration = motionDisabled ? 0 : 250
+
     const onClick = React.useCallback((event: React.MouseEvent<HTMLDivElement>) => {
         if (event.target === event.currentTarget) {
             props.onClickOverlay()
@@ -19,6 +23,7 @@ export const Overlay: React.FC<IOverlayProps> = props => {
 
     return (
         <Transition
+            duration={duration}
             show={props.show}
             extraStyle={{
                 zIndex: 1000000,
