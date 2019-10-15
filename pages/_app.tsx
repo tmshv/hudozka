@@ -22,6 +22,10 @@ class MyApp extends App {
                         }
                     }
 
+                    .noscroll { 
+                        overflow: hidden;
+                    }
+
                     #__next {
                         height: 100%;
                     }
