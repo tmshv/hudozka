@@ -20,7 +20,7 @@ export const HudozkaTitle = () => (
                 margin-top: var(--single-margin);
             }
 
-            @media (max-width: var(--mobile-width)) {
+            @media (max-width: 31.25em) {
                 div {
                     --padding: 0 0 var(--double-margin);
                 }
