@@ -3,23 +3,9 @@ import cx from 'classnames'
 import { getPathWithNoTrailingSlash } from '../../lib/url'
 import { MenuToggle } from './MenuToggle'
 import { useScreenType } from '../../hooks/useScreenType'
+import { MenuItem } from './MenuItem'
 
 const itemUrl = (url: string) => getPathWithNoTrailingSlash(url)
-
-const selectedClassName = (flag: boolean) => flag
-    ? 'selected'
-    : ''
-
-const hmenuCurClassName = (flag: boolean) => flag
-    ? 'HMenu__item--cur'
-    : ''
-
-const MenuItem = ({ active, text, url }) => active
-    ? (
-        <span>{text}</span>
-    ) : (
-        <a href={itemUrl(url)}>{text}</a>
-    )
 
 export interface IMenuProps {
     items: any[]
@@ -40,50 +26,58 @@ export const Menu: React.FC<IMenuProps> = props => {
     }, [isMobile])
 
     return (
-        <menu className="main-menu HMenu">
+        <menu>
             <style jsx>{`
-                .main-menu {
+                menu {
+                    display: flex;
+                    align-items: flex-start;
+
                     font-size: var(--normal-font-size);
+                    list-style: none;
                 }
 
-                .main-menu li {
-                    display: inline-block;
+                li {
                     padding: 0.3em 0.2em 0;
-                    margin: 0 0.5em;
+                    margin-right: 1.0em;
 
                     position: relative;
+                    border-top: var(--menu-colored-mark-thickness) solid rgba(0, 0, 0, 0);
                 }
 
-                .main-menu li:first-child {
+                li:first-child {
                     margin-left: 1em;
                 }
 
-                .selected {
-                    font-weight: bold;
-                    border-top: var(--menu-colored-mark-thickness) solid var(--light-color);
+                li:last-child {
+                    margin-right: 0;
                 }
 
-                .selected.blue {
+                li.selected {
+                    font-weight: bold;
+                    //border-top: var(--menu-colored-mark-thickness) solid var(--light-color);
+                }
+
+                li.selected.blue {
                     border-top-color: var(--blue-color);
                 }
 
-                .selected.orange {
+                li.selected.orange {
                     border-top-color: var(--orange-color);
                 }
 
-                .selected.green {
+                li.selected.green {
                     border-top-color: var(--green-color);
                 }
 
-                .selected.yellow {
+                li.selected.yellow {
                     border-top-color: var(--yellow-color);
                 }
 
-                .selected.pink {
+                li.selected.pink {
                     border-top-color: var(--pink-color);
                 }
 
-                .selected.red {
+                li.selected.red {
                     border-top-color: var(--red-color);
                 }
             `}</style>
@@ -99,13 +93,16 @@ export const Menu: React.FC<IMenuProps> = props => {
             {props.items.map((item, index) => (
                 <li key={index}
                     className={cx(
-                        'HMenu__item',
-                        hmenuCurClassName(item.highlighted),
-                        selectedClassName(item.highlighted),
-                        item.color,
+                        item.color, {
+                        selected: item.highlighted,
+                    }
                     )}
                 >
-                    <MenuItem {...item} />
+                    <MenuItem
+                        url={itemUrl(item.url)}
+                        text={item.text}
+                        active={item.active}
+                    />
                 </li>
             ))}
         </menu>
