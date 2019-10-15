@@ -1,5 +1,5 @@
-import React from 'react'
-import {getPathWithNoTrailingSlash} from '../lib/url'
+import * as React from 'react'
+import { getPathWithNoTrailingSlash } from '../../lib/url'
 
 const itemUrl = url => getPathWithNoTrailingSlash(url)
 
