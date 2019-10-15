@@ -1,46 +1,52 @@
 import * as React from 'react'
 import cx from 'classnames'
 import { getPathWithNoTrailingSlash } from '../../lib/url'
-import { MenuToggle } from '../MenuToggle'
-import { useScreenType } from '../../hooks/useScreenType'
 import { MenuItem } from './MenuItem'
-import { Overlay } from '../Overlay'
 
 const itemUrl = (url: string) => getPathWithNoTrailingSlash(url)
 
 export interface IMenuProps {
+    layout: 'desktop' | 'mobile'
     items: any[]
 }
 
 export const Menu: React.FC<IMenuProps> = props => {
-    const isMobile = useScreenType(['phone', 'tablet'])
-    const [open, setOpen] = React.useState(false)
-    const onClick = React.useCallback(
-        () => {
-            setOpen(!open)
-        },
-        [open]
-    )
-
     return (
-        <menu>
+        <div className={cx(props.layout)}>
             <style jsx>{`
-                menu {
+                div {
                     display: flex;
                     align-items: flex-start;
+
+                    list-style: none;
+                }
+
+                div.desktop {
+                    flex-direction: row;
+                }
+ 
+                div.mobile {
+                    flex-direction: column;
+                }
+                
+                li{
+                    position: relative;
+                    border-top: var(--menu-colored-mark-thickness) solid rgba(0, 0, 0, 0);
+                }
+
+                li.desktop {
+                    padding: 0.3em 0.2em 0;
                     margin-left: 1em;
                     margin-right: 1em;
 
                     font-size: var(--normal-font-size);
-                    list-style: none;
                 }
 
-                li {
-                    padding: 0.3em 0.2em 0;
-                    margin-right: 1.0em;
+                li.mobile {
+                    padding: 0.3em 0.5em;
+                    margin-bottom: var(--half-margin);
 
-                    position: relative;
-                    border-top: var(--menu-colored-mark-thickness) solid rgba(0, 0, 0, 0);
+                    font-size: 1.25em;
                 }
 
                 li:last-child {
@@ -51,44 +57,62 @@ export const Menu: React.FC<IMenuProps> = props => {
                     font-weight: bold;
                 }
 
-                li.selected.blue {
+                li.desktop.selected.blue {
                     border-top-color: var(--blue-color);
                 }
 
-                li.selected.orange {
+                li.desktop.selected.orange {
                     border-top-color: var(--orange-color);
                 }
 
-                li.selected.green {
+                li.desktop.selected.green {
                     border-top-color: var(--green-color);
                 }
 
-                li.selected.yellow {
+                li.desktop.selected.yellow {
                     border-top-color: var(--yellow-color);
                 }
 
-                li.selected.pink {
+                li.desktop.selected.pink {
                     border-top-color: var(--pink-color);
                 }
 
-                li.selected.red {
+                li.desktop.selected.red {
                     border-top-color: var(--red-color);
+                }
+
+                li.mobile.selected.blue {
+                    background-color: var(--blue-color);
+                }
+
+                li.mobile.selected.orange {
+                    background-color: var(--orange-color);
+                }
+
+                li.mobile.selected.green {
+                    background-color: var(--green-color);
+                }
+
+                li.mobile.selected.yellow {
+                    background-color: var(--yellow-color);
+                }
+
+                li.mobile.selected.pink {
+                    background-color: var(--pink-color);
+                }
+
+                li.mobile.selected.red {
+                    background-color: var(--red-color);
                 }
             `}</style>
 
-            {isMobile ? (
-                <MenuToggle
-                    open={open}
-                    position={'right'}
-                    onClick={onClick}
-                />
-            ) : props.items.map((item, index) => (
+            {props.items.map((item, index) => (
                 <li key={index}
                     className={cx(
+                        props.layout,
                         item.color, {
                         selected: item.highlighted,
-                    }
-                    )}
+                    })}
                 >
                     <MenuItem
                         url={itemUrl(item.url)}
@@ -97,31 +121,6 @@ export const Menu: React.FC<IMenuProps> = props => {
                     />
                 </li>
             ))}
-
-            <Overlay
-                show={open}
-                onClickOverlay={onClick}
-            >
-                <div style={{
-                    width: '50%',
-                    margin: '50px auto',
-                }}>
-                    {props.items.map((item, index) => (
-                        <li key={index}
-                            className={cx(
-                                item.color, {
-                                selected: item.highlighted,
-                            })}
-                        >
-                            <MenuItem
-                                url={itemUrl(item.url)}
-                                text={item.text}
-                                active={item.active}
-                            />
-                        </li>
-                    ))}
-                </div>
-            </Overlay>
-        </menu>
+        </div>
     )
 }

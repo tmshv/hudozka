@@ -1,8 +1,8 @@
 import * as React from 'react'
-import { Menu } from '../Menu'
+import { Navigation } from '../Navigation'
 
 const Header: React.FC<any> = props => (
-    <Menu items={props.menuItems} />
+    <Navigation items={props.menuItems} />
 )
 
 export default Header
