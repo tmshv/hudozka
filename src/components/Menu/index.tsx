@@ -21,10 +21,6 @@ export const Menu: React.FC<IMenuProps> = props => {
         [open]
     )
 
-    React.useEffect(() => {
-        console.log(isMobile)
-    }, [isMobile])
-
     return (
         <menu>
             <style jsx>{`
