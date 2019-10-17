@@ -85,7 +85,7 @@ export const PersonCard = ({ picture, name, url, profile }) => (
 
             // Mobile
 
-            @media (max-width: var(--mobile-width)) {
+            @media (max-width: 31.25em) {
                 .PersonCard {
                     --person-card-width: 100%;
                 }
