@@ -13,7 +13,7 @@ def get_id(item):
 
 
 class Sync:
-    def __init__(self, provider: Provider, model, filter_item_fn=None):
+    def __init__(self, provider: Provider, model):
         super().__init__()
 
         self.validate_urls = True
@@ -28,7 +28,7 @@ class Sync:
 
         self.provider = provider
         self.model = model
-        self.filter_item_fn = filter_item_fn if filter_item_fn else lambda x: True
+        self.filter_item_fn = lambda x: True
 
         self.skip_unchanged = True
         self.update_enabled = True
@@ -38,6 +38,10 @@ class Sync:
         self.skip_unchanged = su
         self.update_enabled = u
         self.delete_enabled = d
+        return self
+
+    def set_item_filter(self, fn):
+        self.filter_item_fn = fn
         return self
 
     async def clean(self):
