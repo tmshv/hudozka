@@ -1,7 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 import { App } from '../src/components/App'
-import Page from '../src/components/Page'
+import { Page } from '../src/components/Page'
 import menuModel from '../src/models/menu'
 import { buildMenu } from '../src/lib/menu'
 import { Meta } from '../src/components/Meta'
@@ -21,7 +21,7 @@ const Index = (props) => (
 
         <div className={'content content_thin'}>
             <Page
-                shareable={true}
+                showSocialShare={true}
             >
                 {props.content}
             </Page>
