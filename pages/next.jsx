@@ -9,7 +9,7 @@ import { Meta } from '../src/components/Meta'
 import { meta } from '../src/lib/meta'
 import { createApiUrl, requestGet, wrapInitialProps } from '../src/next-lib'
 
-const Index = (props) => (
+const Index = props => (
     <App
         menu={buildMenu(props.pageUrl, menuModel)}
         showAuthor={true}
@@ -31,7 +31,6 @@ const Index = (props) => (
 
 Index.getInitialProps = wrapInitialProps(async (ctx) => {
     const pageUrl = ctx.req.url
-    // // const pageUrl = '/neighbors/2018'
     const page = await requestGet(createApiUrl(ctx.req, `/api/page?page=${pageUrl}`), {})
     const image = page.preview ? page.preview.artifacts.fb : {}
 
