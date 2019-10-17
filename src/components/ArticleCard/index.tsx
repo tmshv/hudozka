@@ -6,11 +6,18 @@ const Date = ({ children }) => (
     <p className="date">{dateFormat(children)}</p>
 )
 
-export interface IArticleCardProps {
-    article: any
+interface IImage {
+    alt: string
+    src: string
+    srcSet: Array<{ url: string, density: number }>
 }
 
-export const ArticleCard: React.FC<IArticleCardProps> = ({ article }) => (
+export interface IArticleCardProps {
+    article: any
+    preview?: IImage
+}
+
+export const ArticleCard: React.FC<IArticleCardProps> = ({ article, ...props }) => (
     <section className="ArticleCard">
         <style jsx>{`
             .ArticleCard {
@@ -105,13 +112,13 @@ export const ArticleCard: React.FC<IArticleCardProps> = ({ article }) => (
 
         <a className="invisible" href={article.url}>
             <div className="ArticleCard-image">
-                {!article.preview ? null : (
+                {!props.preview ? null : (
                     <picture>
                         <img
                             className={cx({ opa: false })}
-                            alt={article.title}
-                            src={article.preview.src}
-                            srcSet={article.preview.set.map(({ url, density }) => `${url} ${density}x`)}
+                            alt={props.preview.alt}
+                            src={props.preview.src}
+                            srcSet={props.preview.srcSet.map(({ url, density }) => `${url} ${density}x`).join(' ')}
                         />
                     </picture >
                 )}

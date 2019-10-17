@@ -17,12 +17,21 @@ export const ArticleCardList = ({ articles, nextPage, prevPage }) => (
         )}
 
         <div className={'body'}>
-            {articles.map((article, i) => (
-                <ArticleCard
-                    key={i}
-                    article={article}
-                />
-            ))}
+            {articles.map((article, i) => {
+                const preview = {
+                    alt: article.title,
+                    src: article.preview.src,
+                    srcSet: article.preview.set,
+                }
+
+                return (
+                    <ArticleCard
+                        key={i}
+                        article={article}
+                        preview={preview}
+                    />
+                )
+            })}
         </div>
 
         {!nextPage ? null : (
