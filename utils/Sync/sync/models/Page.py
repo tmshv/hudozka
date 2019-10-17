@@ -42,12 +42,14 @@ class Page(Model):
     @staticmethod
     async def scan(provider):
         scan_path = settings.dir_pages
-        documents = [i for i in provider.scan(scan_path) if provider.is_dir(i)]
+        items = [
+            Page.read(provider, path)
+            for path in provider.scan(scan_path)
+            if provider.is_dir(path)
+        ]
+        items = [i for i in items if i]
 
-        documents = [Page.read(provider, i) for i in documents]
-        documents = [i for i in documents if i]
-
-        return documents
+        return items
 
     @staticmethod
     def read(provider, path):
