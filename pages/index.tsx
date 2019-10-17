@@ -8,8 +8,18 @@ import menuModel from '../src/models/menu'
 import { meta } from '../src/lib/meta'
 import { buildMenu } from '../src/lib/menu'
 import { createApiUrl, requestGet, wrapInitialProps } from '../src/next-lib'
+import { NextPage } from 'next'
 
-const Page = (props) => (
+interface IProps {
+    pageUrl: string
+    title: string
+    meta: any
+    prevPage: number
+    nextPage: number
+    articles: any[]
+}
+
+const Page: NextPage<IProps> = props => (
     <App
         menu={buildMenu(props.pageUrl, menuModel)}
         showAuthor={true}
