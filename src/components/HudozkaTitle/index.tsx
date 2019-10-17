@@ -1,6 +1,6 @@
-import React from 'react'
+import * as React from 'react'
 
-export const HudozkaTitle = () => (
+export const HudozkaTitle: React.FC = React.memo(() => (
     <div>
         <style jsx>{`
             div {
@@ -30,4 +30,4 @@ export const HudozkaTitle = () => (
         <p>МБУДО</p>
         <h1>Шлиссельбургская <br /> детская художественная школа</h1>
     </div>
-)
+))
