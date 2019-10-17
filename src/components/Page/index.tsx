@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Share from '../Share'
+import { Share } from '../Share'
 import Html from '../Html'
 
 export interface IPageProps {

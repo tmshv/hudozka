@@ -1,6 +1,6 @@
-const React = require('react')
+import * as React from 'react'
 
-const Share = () => (
+export const Share: React.FC = () => (
 	<div className="likely">
 		<div className="vkontakte">Поделиться</div>
 		<div className="facebook">Поделиться</div>
@@ -8,5 +8,3 @@ const Share = () => (
 		<div className="twitter">Твитнуть</div>
 	</div>
 )
-
-module.exports = Share
