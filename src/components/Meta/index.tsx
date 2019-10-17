@@ -1,7 +1,12 @@
-import React from 'react'
+import * as React from 'react'
+import { IMeta } from '../../types'
 
-export const Meta = ({ meta }) => (
-    <React.Fragment>
+export interface IMetaProps {
+    meta: IMeta
+}
+
+export const Meta: React.FC<IMetaProps> = ({ meta }) => (
+    <>
         {/* Search Engine */}
         <meta name="description" content={meta.description} />
         <meta name="image" content={meta.image} />
@@ -15,8 +20,8 @@ export const Meta = ({ meta }) => (
         <meta property="og:title" content={meta.title} />
         <meta property="og:description" content={meta.description} />
         <meta property="og:image" content={meta.image} />
-        <meta property="og:image:width" content={meta.imageWidth} />
-        <meta property="og:image:height" content={meta.imageHeight} />
+        <meta property="og:image:width" content={meta.imageWidth.toString()} />
+        <meta property="og:image:height" content={meta.imageHeight.toString()} />
         <meta property="og:url" content={meta.url} />
         <meta property="og:site_name" content={meta.siteName} />
         <meta property="og:locale" content={meta.locale} />
@@ -31,5 +36,5 @@ export const Meta = ({ meta }) => (
         <meta name="twitter:url" content={meta.url} />
         <meta name="twitter:site" content={meta.twitterSite} />
         <meta name="twitter:creator" content={meta.twitterCreator} />
-    </React.Fragment>
+    </>
 )
