@@ -36,8 +36,8 @@ export const ArticleCard: React.FC<IArticleCardProps> = ({ article, ...props }) 
             }
 
             .ArticleCard > a {
-                    display: block;
-                    position: relative;
+                display: block;
+                position: relative;
             }
 
             .ArticleCard-image {
@@ -80,19 +80,13 @@ export const ArticleCard: React.FC<IArticleCardProps> = ({ article, ...props }) 
             }
 
             // Tablet
-
             @media screen and (min-width: var(--tablet-min-width)) and (max-width: var(--tablet-max-width)) {
                 .ArticleCard {
                     --article-card-image-height: 12em;
                 }
-
-                @media screen and (orientation: portrait) {
-                }
             }
 
-
             // Mobile
-
             @media (max-width: 31.25em) {
                 .ArticleCard {
                     --article-card-width: 100%;
