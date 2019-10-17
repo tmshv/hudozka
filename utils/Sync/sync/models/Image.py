@@ -156,10 +156,10 @@ class Image(Model):
 def sync_image(record):
     from db import db
 
-    q = {'hash': record['hash']}
+    q = {'file': record['file']}
     try:
         db().images.update_one(q, {'$set': record}, upsert=True)
-        i = db().images.find_one({'hash': record['hash']})
+        i = db().images.find_one({'file': record['file']})
         return i
     except ValueError:
         pass
