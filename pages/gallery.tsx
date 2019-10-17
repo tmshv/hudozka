@@ -1,14 +1,14 @@
 import React from 'react'
 import Head from 'next/head'
 import { App } from '../src/components/App'
-// import Album from '../src/components/Album'
-import Article from '../src/components/Article'
 import { Meta } from '../src/components/Meta'
 import menuModel from '../src/models/menu'
 import { buildMenu } from '../src/lib/menu'
 import { splitBy } from '../src/lib/array'
 import { meta } from '../src/lib/meta'
 import { createApiUrl, requestGet, wrapInitialProps } from '../src/next-lib'
+import { NextPage } from 'next'
+import { PageHeader } from '../src/components/PageHeader'
 
 const albumsByYear = splitBy(album => new Date(album.date).getFullYear())
 
@@ -63,8 +63,14 @@ const ACollection = ({ title, albums }) => (
     </div>
 )
 
+interface IProps {
+    meta: any
+    pageUrl: string
+    title: string
+    collections: any[]
+}
 
-const Page = (props) => (
+const Page: NextPage<IProps> = props => (
     <App
         menu={buildMenu(props.pageUrl, menuModel)}
         showAuthor={true}
@@ -76,25 +82,23 @@ const Page = (props) => (
             <Meta meta={props.meta} />
         </Head>
 
-        <Article
-            // title={meta.title}
-            title={'Галерея'}
-        >
-            {props.collections.map(([year, albums], index) => (
-                <ACollection
-                    key={index}
-                    title={year}
-                    albums={albums}
-                />
-            ))
-            }
-        </Article>
+        <PageHeader
+            title={props.title}
+        />
+
+        {props.collections.map(([year, albums], index) => (
+            <ACollection
+                key={index}
+                title={year}
+                albums={albums}
+            />
+        ))}
     </App>
 )
 
 Page.getInitialProps = wrapInitialProps(async (ctx) => {
     const pageUrl = ctx.req.url
-    const res = await requestGet(createApiUrl(ctx.req, `/api/albums`), {})
+    const res = await requestGet<any>(createApiUrl(ctx.req, `/api/albums`), {})
     const items = res.items || []
     const albumCollections = albumsByYear(items)
     const title = 'Галерея'

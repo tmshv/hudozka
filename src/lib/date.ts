@@ -7,7 +7,7 @@ moment.locale('ru')
  *
  * @param date
  */
-export const dateFormat = (date: string) => moment(date).format('L')
+export const dateFormat = (date: string | Date) => moment(date).format('L')
 
 /**
  *
