@@ -8,6 +8,7 @@ export const ArticleCardList = ({ articles, nextPage, prevPage }) => (
             .body {
                 display: flex;
                 flex-direction: row;
+                justify-content: center;
                 flex-wrap: wrap;
             }
         `}</style>

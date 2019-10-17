@@ -26,8 +26,8 @@ export const ArticleCard: React.FC<IArticleCardProps> = ({ article, ...props }) 
 
                 margin: var(--article-card-margin);
                 width: var(--article-card-width);
-                min-width: 10em;
-                max-width: 30em;
+                min-width: 15em;
+                max-width: 20em;
 
                 border-radius: 10px;
 
