@@ -1,10 +1,6 @@
-import React from 'react'
+import * as React from 'react'
 import cx from 'classnames'
-import { dateFormat } from '../../lib/date'
-
-const Date = ({ children }) => (
-    <p className="date">{dateFormat(children)}</p>
-)
+import { Date } from './Date'
 
 interface IImage {
     alt: string
@@ -75,11 +71,6 @@ export const ArticleCard: React.FC<IArticleCardProps> = ({ article, ...props }) 
                 padding: .75em 1em;
             }
 
-            .ArticleCard .date {
-                color: #ccc;
-                font-size: small;
-            }
-
             .ArticleCard:hover img {
                 width: 105%;
                 height: 105%;
@@ -128,7 +119,9 @@ export const ArticleCard: React.FC<IArticleCardProps> = ({ article, ...props }) 
                 {article.title}
 
                 {!article.date ? null : (
-                    <Date>{article.date}</Date>
+                    <Date>
+                        {article.date}
+                    </Date>
                 )}
             </div>
         </a>
