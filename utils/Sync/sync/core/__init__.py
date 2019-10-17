@@ -92,6 +92,14 @@ class Sync:
 
         items = await self.model.scan(self.provider)
         self.logger.info('Found {} Item(s)'.format(len(items)))
+        all_items = items
+
+        if self.validate_urls:
+            self.check_urls_uniqueness(all_items)
+
+        # SKIP UNTOUCHED DOCUMENTS
+        if self.skip_unchanged:
+            items = await untouched(all_items)
 
         # Optionally trim list of models by custom filter
         items = [
@@ -100,12 +108,6 @@ class Sync:
             if self.filter_item_fn(x)
         ]
 
-        if self.validate_urls:
-            self.check_urls_uniqueness(items)
-
-        # SKIP UNTOUCHED DOCUMENTS
-        if self.skip_unchanged:
-            items = await untouched(items)
         self.logger.info(f'Ready to process {len(items)} item(s)')
 
         # BUILDING
@@ -121,7 +123,7 @@ class Sync:
 
         # DELETING
         if self.delete_enabled:
-            obsolete_items = await self.model.find(self.__items_to_delete_query(items))
+            obsolete_items = await self.model.find(self.__items_to_delete_query(all_items))
             obsolete_items = list(obsolete_items)
 
             for item in obsolete_items:
