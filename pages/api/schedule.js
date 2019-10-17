@@ -1,13 +1,11 @@
-import { connect } from '../../src/core/db'
-import { findSchedule } from '../../src/core/schedule'
+import { findSchedule } from '../../src/server/schedule'
 import { withMiddleware } from '../../src/middlewares/withMiddleware'
 
 export default withMiddleware(async (req, res) => {
-    await connect()
 
     const period = req.query.period
     const semester = req.query.semester
-    const data = await findSchedule(period, semester)
+    const data = await findSchedule(req.collection, period, semester)
 
     if (data) {
         res.json(data)

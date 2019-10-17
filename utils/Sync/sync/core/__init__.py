@@ -30,15 +30,28 @@ class Sync:
         self.model = model
         self.filter_item_fn = filter_item_fn if filter_item_fn else lambda x: True
 
+        self.skip_unchanged = True
+        self.update_enabled = True
+        self.delete_enabled = True
+
+    def set_options(self, su: bool, u: bool, d: bool):
+        self.skip_unchanged = su
+        self.update_enabled = u
+        self.delete_enabled = d
+        return self
+
     async def clean(self):
         pass
 
-    async def update(self, item):
+    async def build(self, item):
         args = self._get_build_args()
-
         await item.build(**args)
+        return item
+
+    async def update(self, item):
         await item.upload()
         await item.save()
+        return item
 
     def _get_build_args(self):
         return {
@@ -60,7 +73,7 @@ class Sync:
 
         return query
 
-    async def run(self, skip_changed=False, update=True, remove=True):
+    async def run(self):
         """
         # Get scope files
         # Validate these files. Raise an error
@@ -87,19 +100,23 @@ class Sync:
             self.check_urls_uniqueness(items)
 
         # SKIP UNTOUCHED DOCUMENTS
-        changed_items = items
-        if not skip_changed:
-            changed_items = await untouched(items)
-        self.logger.info(f'Ready to process {len(changed_items)} item(s)')
+        if self.skip_unchanged:
+            items = await untouched(items)
+        self.logger.info(f'Ready to process {len(items)} item(s)')
+
+        # BUILDING
+        for item in items:
+            self.logger.info(f'Build Item {item}')
+            await self.build(item)
 
         # UPDATING
-        if update:
-            for item in changed_items:
+        if self.update_enabled:
+            for item in items:
                 await self.update(item)
                 self.logger.info('Updated Item {}'.format(item))
 
         # DELETING
-        if remove:
+        if self.delete_enabled:
             obsolete_items = await self.model.find(self.__items_to_delete_query(items))
             obsolete_items = list(obsolete_items)
 

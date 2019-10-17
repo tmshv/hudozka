@@ -1,7 +1,8 @@
 import React from 'react'
+import cx from 'classnames'
 import { Image } from './Image'
 
-module.exports = ({ picture, name, url, profile }) => (
+export const PersonCard = ({ picture, name, url, profile }) => (
     <div className="PersonCard">
         <style jsx>{`
             .PersonCard {
@@ -84,7 +85,7 @@ module.exports = ({ picture, name, url, profile }) => (
 
             // Mobile
 
-            @media (max-width: var(--mobile-width)) {
+            @media (max-width: 31.25em) {
                 .PersonCard {
                     --person-card-width: 100%;
                 }
@@ -93,10 +94,14 @@ module.exports = ({ picture, name, url, profile }) => (
 
         <a className="invisible" href={url}>
             <div className="PersonCard-Picture">
-                <Image
-                    data={picture}
-                    opa={false}
-                />
+                <picture>
+                    <img
+                        className={cx({ opa: false })}
+                        alt={''}
+                        src={picture.src}
+                        srcSet={picture.set.map(({ url, density }) => `${url} ${density}x`)}
+                    />
+                </picture >
             </div>
 
             <div className="PersonCard-Title">

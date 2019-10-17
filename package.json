@@ -6,7 +6,8 @@
     "main": "src/bin/www.js",
     "scripts": {
         "start": "NODE_ENV=production node src/server.js",
-        "dev": "node src/server.js",
+        "dev": "ts-node --project server.tsconfig.json src/server.ts",
+        "next-dev": "next dev",
         "build": "next build && next export -o dist && npm run sitemap && npm run feed && npm run robots-txt",
         "robots-txt": "node scripts/robots-txt.js",
         "sitemap": "node scripts/sitemap.js",
@@ -44,7 +45,8 @@
         "redux-thunk": "^2.2.0",
         "request-promise": "^2.0.1",
         "sitemap": "^1.5.0",
-        "thunkify": "^2.1.2"
+        "thunkify": "^2.1.2",
+        "use-media": "^1.4.0"
     },
     "devDependencies": {
         "@babel/cli": "^7.4.4",
@@ -54,7 +56,14 @@
         "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
         "@babel/polyfill": "^7.0.0-beta.47",
         "@babel/preset-env": "^7.4.5",
+        "@babel/preset-typescript": "^7.6.0",
         "@babel/register": "^7.0.0-beta.47",
+        "@types/classnames": "^2.2.9",
+        "@types/koa": "^2.0.50",
+        "@types/koa-route": "^3.2.4",
+        "@types/mongodb": "^3.3.6",
+        "@types/node": "^12.7.12",
+        "@types/react": "^16.9.5",
         "@zeit/next-css": "^1.0.1",
         "@zeit/next-sass": "^1.0.1",
         "autoprefixer": "^6.3.6",
@@ -73,6 +82,8 @@
         "mocha": "^6.1.4",
         "node-sass": "^4.12.0",
         "should": "^8.2.2",
+        "ts-node": "^8.4.1",
+        "typescript": "^3.6.4",
         "webpack": "^4.32.2"
     }
 }

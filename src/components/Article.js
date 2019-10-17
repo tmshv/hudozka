@@ -1,5 +1,6 @@
 import React from 'react'
 import { dateFormat } from '../lib/date'
+import { Share } from './Share'
 
 const Tag = ({ children }) => (
     <li className="ArticleTags-Item">
@@ -27,15 +28,6 @@ const Head = ({ date, tags = [], children }) => (
             <TagList tags={tags} />
         )}
     </header>
-)
-
-const Share = () => (
-    <div className="likely">
-        <div className="vkontakte">Поделиться</div>
-        <div className="facebook">Поделиться</div>
-        <div className="telegram">Отправить</div>
-        <div className="twitter">Твитнуть</div>
-    </div>
 )
 
 const Article = ({ children, date, tags, title, shareable }) => (

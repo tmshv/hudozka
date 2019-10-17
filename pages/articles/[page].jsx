@@ -13,18 +13,17 @@ const Page = (props) => (
         menu={buildMenu(props.pageUrl, menuModel)}
         showAuthor={true}
         menuPadding={true}
+        layout={'wide'}
     >
         <Head>
             <title>{props.title}</title>
             <Meta meta={props.meta} />
         </Head>
-        <div className="content content_wide">
-            <ArticleCardList
-                articles={props.articles}
-                prevPage={props.prevPage}
-                nextPage={props.nextPage}
-            />
-        </div>
+        <ArticleCardList
+            articles={props.articles}
+            prevPage={props.prevPage}
+            nextPage={props.nextPage}
+        />
     </App>
 )
 

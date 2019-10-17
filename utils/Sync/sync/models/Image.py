@@ -199,7 +199,7 @@ async def create_image(file: str, sizes: [()], url_fn, output_dir: str) -> Optio
         else:
             image = await read_image(file)
         if not image:
-            logger.warning('Failed to process image {}'.format(file))
+            logger.warning(f'Failed to process image {file}')
             return None
         width, height = image.size
 

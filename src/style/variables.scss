@@ -1,94 +1,77 @@
 :root {
-  //SHADOW
-  --white-shadow: 0 .1em 0.3em rgba(0, 0, 0, 0.2);
+    //SHADOW
+    --white-shadow: 0 0.1em 0.3em rgba(0, 0, 0, 0.2);
 
-  //FONTS
-  --title-font: "PT Serif", Georgia, serif;
-  --text-font: "PT Sans", Arial, sans-serif;
-
-  --smaller-font-size: 0.9rem;
-  --normal-font-size: 1.0rem;
-  --bigger-font-size: 1.2rem;
-  --big-font-size: 1.5rem;
-  --biggest-font-size: 2.25rem;
-
-  //MENU
-  --menu-thickness: 2.5em;
-  --menu-colored-mark-thickness: 4px;
-  --menu-inactive-item-color: hsl(0, 0%, 50%);
-
-  //ANIMATION
-  $short-duration: 0.3s;
-
-  //SIZE
-  --mobile-width: 31.25em;
-  --desktop-width: 59.99999em;
-
-  --tablet-min-width: 31.25em;
-  --tablet-max-width: 64em;
-
-  --content-full: 100%;
-  --content-wide: 90%;
-  --content-semi-wide: 70%;
-  --content-thin: 60%;
-
-  --embed-video-ratio: 56.25%;
-
-  --text-color: #303030;
-  --text-color-second: #ccc;
-
-  //FONTS
-  --font-size-default: 14pt;
-  --font-size-second: 0.9rem;
-
-  --font-size-h1: 3.0rem;
-  --font-size-h2: 2.0rem;
-  --font-size-h3: 1.5rem;
-
-  //COLOR
-  --dark-color: hsl(0, 0%, 20%);
-  --darker-color: hsl(0, 0%, 10%);
-  --light-color: hsl(0, 0%, 80%);
-  --lighter-color: hsl(0, 0%, 100%);
-  --link-color: hsl(0, 0%, 80%);
-
-  --blue-color: rgb(63, 156, 234);
-  --orange-color: rgb(240, 160, 65);
-  --green-color: rgb(92, 190, 64);
-  --yellow-color: rgb(255, 238, 0);
-  --pink-color: rgb(246, 85, 160);
-  --magenta-color: rgb(214, 39, 246);
-  --red-color: rgb(246, 27, 20);
-  --gray-color: rgb(153, 154, 160);
-
-  --inactive-link-color: var(--light-color);
-
-  --schedule-row-color: hsl(210, 55%, 90%);
-
-
-
-  //MARGINS
-  --small-margin: .2em;
-  --half-margin: .5em;
-  --single-margin: 1.0em;
-  --double-margin: 2.0em;
-  --post-margin: 5.0em;
-
-  //OTHER
-  --block-border-radius: 3px;
-}
-
-@media (max-width: var(--mobile-width)) {
-  :root {
     //FONTS
-    --smaller-font-size: 0.9rem;
-    --normal-font-size: 1.0rem;
-    --bigger-font-size: 1.1rem;
-    --big-font-size: 1.3rem;
-    --biggest-font-size: 2.0rem;
+    --title-font: 'PT Serif', Georgia, serif;
+    --text-font: 'PT Sans', Arial, sans-serif;
 
-    --font-size-h1: 1.75rem;
-    --font-size-h2: 1.50rem;
-    --font-size-h3: 1.25rem;
-  }
+    --smaller-font-size: 0.9rem;
+    --normal-font-size: 1rem;
+    --bigger-font-size: 1.2rem;
+    --big-font-size: 1.5rem;
+    --biggest-font-size: 2.25rem;
+
+    //MENU
+    --menu-thickness: 2.5em;
+    --menu-colored-mark-thickness: 4px;
+    --menu-inactive-item-color: hsl(0, 0%, 50%);
+
+    //ANIMATION
+    $short-duration: 0.3s;
+
+    //SIZE
+    --mobile-width: 31.25em;
+    --desktop-width: 59.99999em;
+
+    --tablet-min-width: 31.25em;
+    --tablet-max-width: 64em;
+
+    --content-full: 100%;
+    --content-wide: 90%;
+    --content-semi-wide: 70%;
+    --content-thin: 60%;
+
+    --embed-video-ratio: 56.25%;
+
+    --text-color: #303030;
+    --text-color-second: #ccc;
+
+    //FONTS
+    --font-size-default: 14pt;
+    --font-size-second: 0.9rem;
+
+    --font-size-h1: 3rem;
+    --font-size-h2: 2rem;
+    --font-size-h3: 1.5rem;
+
+    //COLOR
+    --dark-color: hsl(0, 0%, 20%);
+    --darker-color: hsl(0, 0%, 10%);
+    --light-color: hsl(0, 0%, 80%);
+    --lighter-color: hsl(0, 0%, 100%);
+    --link-color: hsl(0, 0%, 80%);
+
+    --blue-color: rgb(63, 156, 234);
+    --orange-color: rgb(240, 160, 65);
+    --green-color: rgb(92, 190, 64);
+    --yellow-color: rgb(255, 238, 0);
+    --pink-color: rgb(246, 85, 160);
+    --magenta-color: rgb(214, 39, 246);
+    --red-color: rgb(246, 27, 20);
+    --gray-color: rgb(153, 154, 160);
+
+    --inactive-link-color: var(--light-color);
+
+    --schedule-row-color: hsl(210, 55%, 90%);
+
+    //MARGINS
+    --small-margin: 0.2em;
+    --half-margin: 0.5em;
+    --single-margin: 1em;
+    --double-margin: 2em;
+    --post-margin: 5em;
+
+    //OTHER
+    --block-border-radius: 3px;
 }

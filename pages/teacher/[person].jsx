@@ -1,8 +1,7 @@
 import React from 'react'
-import axios from 'axios'
 import Head from 'next/head'
 import { App } from '../../src/components/App'
-import Page from '../../src/components/Page'
+import { Page } from '../../src/components/Page'
 import { Meta } from '../../src/components/Meta'
 import menuModel from '../../src/models/menu'
 import { buildMenu } from '../../src/lib/menu'
@@ -14,16 +13,15 @@ const Index = (props) => (
         menu={buildMenu(props.pageUrl, menuModel)}
         showAuthor={true}
         menuPadding={true}
+        layout={'wide'}
     >
         <Head>
             <title>{props.title}</title>
             <Meta meta={props.meta} />
         </Head>
-        <div className="content content_thin">
-            <Page shareable={true}>
-                {props.person.post}
-            </Page>
-        </div>
+        <Page shareable={true}>
+            {props.person.post}
+        </Page>
     </App>
 )
 
