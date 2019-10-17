@@ -43,28 +43,6 @@
     animation: none;
 }
 
-@media screen and (max-width: var(--mobile-width)) {
-    --content-mobile: 95%;
-
-    .content {
-        &.content_wide {
-            width: var(--content-mobile);
-        }
-
-        &.content_semi-wide {
-            width: var(--content-mobile);
-        }
-
-        &.content_thin {
-            width: var(--content-mobile);
-        }
-
-        &.content--padding-top--menu {
-            padding-top: var(--single-margin);
-        }
-    }
-}
-
 @media screen and (min-width: var(--tablet-min-width)) and (max-width: var(--tablet-max-width)) {
     $thin-value: 70%;
     $wide-value: 95%;
