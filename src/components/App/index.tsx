@@ -1,7 +1,10 @@
 import * as React from 'react'
 import dynamic from 'next/dynamic'
+import cx from 'classnames'
+
 import { Footer } from '../Footer'
 import Comments from '../Comments'
+import { useReducedMotion } from '../../hooks/useReducedMotion'
 
 const Header = dynamic(() => import('./Header'), {
     ssr: false,
@@ -9,31 +12,46 @@ const Header = dynamic(() => import('./Header'), {
 
 import '../../style/style.scss'
 
-export const App = ({ children, menu, showAuthor, menuPadding }) => (
-    <div className="body-wrapper theme-default">
-        <header>
-            <div className="navigation">
-                <div className="navigation__body">
-                    <Header
-                        menuItems={menu.items}
-                    />
+export interface IAppProps {
+    menu: any
+    showAuthor: boolean
+    menuPadding: boolean
+    layout?: 'full' | 'wide' | 'thin'
+}
+
+export const App: React.FC<IAppProps> = props => {
+    const layout = props.layout ? props.layout : 'full'
+    const motionDisabled = useReducedMotion()
+    
+    return (
+        <div className="body-wrapper theme-default">
+            <header>
+                <div className="navigation">
+                    <div className="navigation__body">
+                        <Header
+                            menuItems={props.menu.items}
+                        />
+                    </div>
                 </div>
-            </div>
-        </header>
+            </header>
 
-        <main className="body-wrapper__content">
-            <section className={`content content_full ${menuPadding ? 'content--padding-top--menu' : ''}`}>
-                {children}
-            </section>
+            <main className="body-wrapper__content">
+                <section className={cx('content', `content_${layout}`, {
+                    'content--padding-top--menu': props.menuPadding,
+                    'reduced-motion': motionDisabled,
+                })}>
+                    {props.children}
+                </section>
 
-            <Comments />
-        </main>
+                <Comments />
+            </main>
 
-        <Footer
-            showAuthor={showAuthor}
-            address=" г. Шлиссельбург ул. 18 января д. 3"
-            telephone="+7 (81362) 76-312"
-            email="hudozka@gmail.com"
-        />
-    </div>
-)
+            <Footer
+                showAuthor={props.showAuthor}
+                address=" г. Шлиссельбург ул. 18 января д. 3"
+                telephone="+7 (81362) 76-312"
+                email="hudozka@gmail.com"
+            />
+        </div>
+    )
+}

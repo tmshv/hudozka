@@ -1,5 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
+
 import { App } from '../src/components/App'
 import { Page } from '../src/components/Page'
 import menuModel from '../src/models/menu'
@@ -13,19 +14,18 @@ const Index = (props) => (
         menu={buildMenu(props.pageUrl, menuModel)}
         showAuthor={true}
         menuPadding={true}
+        layout={'thin'}
     >
         <Head>
             <title>{props.title}</title>
             <Meta meta={props.meta} />
         </Head>
 
-        <div className={'content content_thin'}>
-            <Page
-                showSocialShare={true}
-            >
-                {props.content}
-            </Page>
-        </div>
+        <Page
+            showSocialShare={true}
+        >
+            {props.content}
+        </Page>
     </App>
 )
 

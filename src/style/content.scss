@@ -40,6 +40,10 @@
   animation: smallSlideInFromTop 350ms ease-out;
 }
 
+.content.reduced-motion {
+  animation: none;
+}
+
 @media screen and (max-width: var(--mobile-width)) {
   --content-mobile: 95%;
 
