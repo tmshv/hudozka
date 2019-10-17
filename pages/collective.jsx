@@ -16,35 +16,34 @@ const Page = (props) => (
         menu={buildMenu(props.pageUrl, menuModel)}
         showAuthor={true}
         menuPadding={true}
+        layout={'wide'}
     >
         <Head>
             <title>{props.title}</title>
             <Meta meta={props.meta} />
         </Head>
 
-        <div className="content content_semi-wide">
-            {!props.image ? null : (
-                <CollectiveImage
-                    data={props.image}
-                    style={{
-                        marginBottom: 'var(--double-margin)',
-                    }}
+        {!props.image ? null : (
+            <CollectiveImage
+                data={props.image}
+                style={{
+                    marginBottom: 'var(--double-margin)',
+                }}
+            />
+        )}
+
+        <CardList
+            items={props.persons}
+            renderItem={(person, index) => (
+                <PersonCard
+                    key={index}
+                    profile={person}
+                    picture={person.picture}
+                    url={person.url}
+                    name={person.name}
                 />
             )}
-
-            <CardList
-                items={props.persons}
-                renderItem={(person, index) => (
-                    <PersonCard
-                        key={index}
-                        profile={person}
-                        picture={person.picture}
-                        url={person.url}
-                        name={person.name}
-                    />
-                )}
-            />
-        </div>
+        />
     </App>
 )
 

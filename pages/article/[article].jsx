@@ -15,23 +15,22 @@ const Page = (props) => (
         menu={buildMenu(props.pageUrl, menuModel)}
         showAuthor={true}
         menuPadding={true}
+        layout={'thin'}
     >
         <Head>
             <title>{props.article.title}</title>
             <Meta meta={props.meta} />
         </Head>
-        <div className={'content content_thin'}>
-            <Article
-                title={props.article.title}
-                date={props.article.date}
-                tags={props.article.tags}
-                shareable={true}
-            >
-                <Html
-                    html={props.article.post}
-                />
-            </Article>
-        </div>
+        <Article
+            title={props.article.title}
+            date={props.article.date}
+            tags={props.article.tags}
+            shareable={true}
+        >
+            <Html
+                html={props.article.post}
+            />
+        </Article>
     </App>
 )
 

@@ -106,21 +106,20 @@ const Page: NextPage<IProps> = props => (
         menu={buildMenu(props.pageUrl, menuModel)}
         showAuthor={true}
         menuPadding={true}
+        layout={'thin'}
     >
         <Head>
             <title>{props.title}</title>
             <Meta meta={props.meta} />
         </Head>
 
-        <div className="content content_thin">
-            {props.collections.map((collection, index) => (
-                <DocumentList
-                    key={index}
-                    name={collection.name}
-                    documents={collection.items}
-                />
-            ))}
-        </div>
+        {props.collections.map((collection, index) => (
+            <DocumentList
+                key={index}
+                name={collection.name}
+                documents={collection.items}
+            />
+        ))}
     </App>
 )
 

@@ -14,16 +14,15 @@ const Index = (props) => (
         menu={buildMenu(props.pageUrl, menuModel)}
         showAuthor={true}
         menuPadding={true}
+        layout={'wide'}
     >
         <Head>
             <title>{props.title}</title>
             <Meta meta={props.meta} />
         </Head>
-        <div className="content content_thin">
-            <Page shareable={true}>
-                {props.person.post}
-            </Page>
-        </div>
+        <Page shareable={true}>
+            {props.person.post}
+        </Page>
     </App>
 )
 

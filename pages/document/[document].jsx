@@ -14,15 +14,14 @@ const Page = (props) => (
         menu={buildMenu(props.pageUrl, menuModel)}
         showAuthor={true}
         menuPadding={true}
+        layout={'wide'}
     >
         <Head>
             <title>{props.file.title}</title>
             <Meta meta={props.meta} />
         </Head>
-        <div className="content content_wide">
-            <Document {...props.file} />
-            <Share />
-        </div>
+        <Document {...props.file} />
+        <Share />
     </App>
 )
 

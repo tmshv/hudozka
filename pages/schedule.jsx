@@ -12,18 +12,17 @@ const Page = (props) => (
         menu={buildMenu(props.pageUrl, menuModel)}
         showAuthor={true}
         menuPadding={true}
+        layout={'wide'}
     >
         <Head>
             <title>{props.title}</title>
         </Head>
 
-        <div className="content content_wide">
-            {/*<ScheduleList schedules={schedules}/>*/}
+        {/*<ScheduleList schedules={schedules}/>*/}
 
-            <Schedule {...props.schedule} />
+        <Schedule {...props.schedule} />
 
-            <Share />
-        </div>
+        <Share />
     </App>
 )
 

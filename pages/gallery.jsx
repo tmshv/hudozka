@@ -69,27 +69,26 @@ const Page = (props) => (
         menu={buildMenu(props.pageUrl, menuModel)}
         showAuthor={true}
         menuPadding={true}
+        layout={'wide'}
     >
         <Head>
             <title>{props.title}</title>
             <Meta meta={props.meta} />
         </Head>
 
-        <div className="content content_semi-wide">
-            <Article
-                // title={meta.title}
-                title={'Галерея'}
-            >
-                {props.collections.map(([year, albums], index) => (
-                    <ACollection
-                        key={index}
-                        title={year}
-                        albums={albums}
-                    />
-                ))
-                }
-            </Article>
-        </div>
+        <Article
+            // title={meta.title}
+            title={'Галерея'}
+        >
+            {props.collections.map(([year, albums], index) => (
+                <ACollection
+                    key={index}
+                    title={year}
+                    albums={albums}
+                />
+            ))
+            }
+        </Article>
     </App>
 )
 

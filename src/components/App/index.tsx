@@ -16,11 +16,10 @@ export interface IAppProps {
     menu: any
     showAuthor: boolean
     menuPadding: boolean
-    layout?: 'full' | 'wide' | 'thin'
+    layout: 'full' | 'wide' | 'thin'
 }
 
 export const App: React.FC<IAppProps> = props => {
-    const layout = props.layout ? props.layout : 'full'
     const motionDisabled = useReducedMotion()
     
     return (
@@ -36,7 +35,7 @@ export const App: React.FC<IAppProps> = props => {
             </header>
 
             <main className="body-wrapper__content">
-                <section className={cx('content', `content_${layout}`, {
+                <section className={cx('content', `content_${props.layout}`, {
                     'content--padding-top--menu': props.menuPadding,
                     'reduced-motion': motionDisabled,
                 })}>

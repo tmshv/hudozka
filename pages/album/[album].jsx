@@ -12,21 +12,20 @@ const Page = (props) => (
         menu={buildMenu(props.pageUrl, menuModel)}
         showAuthor={true}
         menuPadding={true}
+        layout={'thin'}
     >
         <Head>
             <title>{props.album.title}</title>
         </Head>
-        <div className="content content_thin">
-            <Article
-                title={props.album.title}
-                date={props.album.date}
-                shareable={true}
-            >
-                <Html
-                    html={props.album.post}
-                />
-            </Article>
-        </div>
+        <Article
+            title={props.album.title}
+            date={props.album.date}
+            shareable={true}
+        >
+            <Html
+                html={props.album.post}
+            />
+        </Article>
     </App>
 )
 
