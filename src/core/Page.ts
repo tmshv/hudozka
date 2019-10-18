@@ -42,6 +42,7 @@ export default class Page {
     public images: any
     public documents: any
     public preview: any
+    public tokens: any[]
 
     constructor(data) {
         this.id = data.id
@@ -54,6 +55,7 @@ export default class Page {
         this.images = data.images
         this.documents = data.documents
         this.preview = data.preview
+        this.tokens = data.tokens
     }
 
     plain() {
