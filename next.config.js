@@ -298,6 +298,8 @@ module.exports = withCss(withSass({
                     '/article/2019-win500',
                     '/article/2019-korushka',
                     '/article/2019-pleinair',
+                    '/article/2019-kotiki',
+                    '/article/2019-serafima',
                 ],
             ),
             ...createPath(
