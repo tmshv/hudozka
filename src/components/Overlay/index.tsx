@@ -39,6 +39,7 @@ export const Overlay: React.FC<IOverlayProps> = props => {
                         height: 100%;
                         top: 0;
                         left: 0;
+                        overflow-y: auto;
 
                         background-color: rgb(255, 255, 255);
                     }
