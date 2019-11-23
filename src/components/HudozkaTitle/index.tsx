@@ -12,7 +12,6 @@ export const HudozkaTitle: React.FC = React.memo(() => (
 
             p {
                 color: var(--text-color-second);
-                margin-top: var(--single-margin);
                 font-size: var(--font-size-second);
             }
 
