@@ -300,6 +300,7 @@ module.exports = withCss(withSass({
                     '/article/2019-pleinair',
                     '/article/2019-kotiki',
                     '/article/2019-serafima',
+                    '/article/2019-competition-authors-style',
                     '/article/2019-survey',
                     '/article/2019-navigator',
                     '/article/2019-unikum',
