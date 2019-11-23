@@ -113,6 +113,8 @@ const Page: NextPage<IProps> = props => (
             <Meta meta={props.meta} />
         </Head>
 
+        <h1>{props.title}</h1>
+
         {props.collections.map((collection, index) => (
             <DocumentList
                 key={index}
