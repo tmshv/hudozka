@@ -16,7 +16,7 @@ class MyApp extends App {
                             --big-font-size: 1.3rem;
                             --biggest-font-size: 2rem;
 
-                            --font-size-h1: 1.75rem;
+                            --font-size-h1: 1.5rem;
                             --font-size-h2: 1.5rem;
                             --font-size-h3: 1.25rem;
 
