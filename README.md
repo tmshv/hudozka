@@ -2,6 +2,8 @@
 
 Site of Art school of Shlisselburg
 
+Font: [«Shadow»](http://mishapanfilov.ru/font_shadow.html)
+
 ## Usage
 
 ### Build
