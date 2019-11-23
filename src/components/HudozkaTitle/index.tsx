@@ -10,13 +10,8 @@ export const HudozkaTitle: React.FC = React.memo(() => (
                 text-align: center;
             }
 
-            p {
-                color: var(--text-color-second);
-                font-size: var(--font-size-second);
-            }
-
-            h1 {
-                margin-top: var(--single-margin);
+            h1 span {
+                font-size: var(--font-size-h2);
             }
 
             @media (max-width: 31.25em) {
@@ -26,7 +21,16 @@ export const HudozkaTitle: React.FC = React.memo(() => (
             }
         `}</style>
 
-        <p>МБУДО</p>
-        <h1>Шлиссельбургская <br /> детская художественная школа</h1>
+        <h1>
+            <span style={{
+                display: 'block',
+                marginBottom: 24,
+            }}>МБУДО</span>
+
+            Шлиссельбургская <br />
+            <span>
+                детская художественная школа
+            </span>
+        </h1>
     </div>
 ))
