@@ -8,8 +8,7 @@
         "start": "NODE_ENV=production node src/server.js",
         "dev": "ts-node --project server.tsconfig.json src/server.ts",
         "next-dev": "next dev",
-        "build": "next build && next export -o dist && npm run sitemap && npm run feed && npm run robots-txt",
-        "robots-txt": "node scripts/robots-txt.js",
+        "build": "next build && next export -o dist && npm run sitemap && npm run feed",
         "sitemap": "node scripts/sitemap.js",
         "feed": "node scripts/feed.js",
         "test": "mocha --compilers js:babel-register"
