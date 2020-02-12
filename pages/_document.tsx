@@ -1,20 +1,12 @@
-import React from 'react'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
-import { YMetrika } from '../src/components/YMetrika'
-import { GAnalytics } from '../src/components/GAnalytics'
+import { YMetrika } from 'src/components/YMetrika'
+import { GAnalytics } from 'src/components/GAnalytics'
 
 export default class MyDocument extends Document {
-    // static async getInitialProps(ctx) {
-    //     const initialProps = await Document.getInitialProps(ctx);
-    //     return { ...initialProps };
-    // }
-
     render() {
         return (
             <Html>
                 <Head>
-                    <style>{`body { margin: 0 } /* custom! */`}</style>
-
                     <meta charSet="utf-8" />
                     <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
                     <meta name="referrer" content="unsafe-url" />
@@ -62,11 +54,11 @@ export default class MyDocument extends Document {
                     <GAnalytics account={'UA-60209057-1'} />
                 </Head>
 
-                <body className="custom_class">
+                <body>
                     <Main />
                     <NextScript />
                 </body>
             </Html>
-        );
+        )
     }
 }
