@@ -3,7 +3,6 @@
 @import "components/document";
 @import "components/document-row";
 @import "components/documents-container";
-@import "components/main-menu";
 @import "components/navigation";
 @import "components/breadcrumbs";
 @import "components/timeline";
@@ -15,21 +14,17 @@
 @import "components/Paginator";
 @import "components/album";
 @import "components/parallax";
-@import "components/accessibility-control";
 
 @import "components/page-schedule";
 @import "components/page-collective";
 
-@import "components/ArticleCardList";
 @import "components/ArticleTags";
 
 @import "main";
 @import "body-wrapper";
-@import "page";
 @import "content";
 @import "page-animation";
 @import "main-image";
-@import "components/HudozkaTitle";
 //@import "vertical-image";
 
 @import "schedule-selector";
@@ -42,17 +37,8 @@
 // THEMES
 
 @import "themes/theme-default";
-//@import "themes/theme-accessibility-black-white";
-//@import "themes/theme-accessibility-white-black";
-//@import "themes/theme-accessibility-font-big";
-//@import "themes/theme-accessibility-font-biggest";
-//@import "themes/theme-accessibility-font-sans";
-//@import "themes/theme-accessibility-font-serif";
-//@import "themes/theme-accessibility-no-image";
-//@import "themes/theme-accessibility-kerning-big";
 
 @import "marker/MarkerTable";
 
 @import "kazimir/video";
 @import "kazimir/image";
-@import "hmenu";

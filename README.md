@@ -2,6 +2,8 @@
 
 Site of Art school of Shlisselburg
 
+Font: [«Shadow»](http://mishapanfilov.ru/font_shadow.html)
+
 ## Usage
 
 ### Build
@@ -35,12 +37,6 @@ USER=<mongo_user>
 PWD=<mongo_password>
 mongodump -d ${DB} --gzip --archive | mongorestore -h ${HOST} -u ${USER} -p ${PWD} -d ${DB} --gzip --archive
 ```
-
-## Based on:
-- [NodeJS](http://nodejs.org) 10.0
-- [koa.js](http://koajs.com) 2.0
-- [React](https://react.org) 16.3
-- [MongoDB](http://mongodb.org) 3.6
 
 ## Contributors
 - Roman Timashev ([roman@tmshv.ru](mailto:roman@tmshv.ru))

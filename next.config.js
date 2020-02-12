@@ -298,6 +298,12 @@ module.exports = withCss(withSass({
                     '/article/2019-win500',
                     '/article/2019-korushka',
                     '/article/2019-pleinair',
+                    '/article/2019-kotiki',
+                    '/article/2019-serafima',
+                    '/article/2019-competition-authors-style',
+                    '/article/2019-survey',
+                    '/article/2019-navigator',
+                    '/article/2019-unikum',
                 ],
             ),
             ...createPath(
@@ -621,6 +627,7 @@ module.exports = withCss(withSass({
                     '/document/7c4f6647a6e5e4b5175eb5ecae971320',
                     '/document/38b8b5be9a2ed9def3a4c80f98a80482',
                     '/document/e33c22584756e7bb9ee0cd84f7899f4b',
+                    '/document/176559736c92b222ae27d0f54229dbcc',
                 ]
             ),
         }

@@ -28,16 +28,34 @@ class Sync:
 
         self.provider = provider
         self.model = model
+        self.filter_item_fn = lambda x: True
+
+        self.skip_unchanged = True
+        self.update_enabled = True
+        self.delete_enabled = True
+
+    def set_options(self, su: bool, u: bool, d: bool):
+        self.skip_unchanged = su
+        self.update_enabled = u
+        self.delete_enabled = d
+        return self
+
+    def set_item_filter(self, fn):
+        self.filter_item_fn = fn
+        return self
 
     async def clean(self):
         pass
 
-    async def update(self, item):
+    async def build(self, item):
         args = self._get_build_args()
-
         await item.build(**args)
+        return item
+
+    async def update(self, item):
         await item.upload()
         await item.save()
+        return item
 
     def _get_build_args(self):
         return {
@@ -59,7 +77,7 @@ class Sync:
 
         return query
 
-    async def run(self, skip_changed=False, update=True, remove=True):
+    async def run(self):
         """
         # Get scope files
         # Validate these files. Raise an error
@@ -74,25 +92,38 @@ class Sync:
 
         items = await self.model.scan(self.provider)
         self.logger.info('Found {} Item(s)'.format(len(items)))
+        all_items = items
 
         if self.validate_urls:
-            self.check_urls_uniqueness(items)
+            self.check_urls_uniqueness(all_items)
 
         # SKIP UNTOUCHED DOCUMENTS
-        changed_items = items
-        if not skip_changed:
-            changed_items = await untouched(items)
-        self.logger.info('Changed {} Items(s)'.format(len(changed_items)))
+        if self.skip_unchanged:
+            items = await untouched(all_items)
+
+        # Optionally trim list of models by custom filter
+        items = [
+            x
+            for x in items
+            if self.filter_item_fn(x)
+        ]
+
+        self.logger.info(f'Ready to process {len(items)} item(s)')
+
+        # BUILDING
+        for item in items:
+            self.logger.info(f'Build Item {item}')
+            await self.build(item)
 
         # UPDATING
-        if update:
-            for item in changed_items:
+        if self.update_enabled:
+            for item in items:
                 await self.update(item)
                 self.logger.info('Updated Item {}'.format(item))
 
         # DELETING
-        if remove:
-            obsolete_items = await self.model.find(self.__items_to_delete_query(items))
+        if self.delete_enabled:
+            obsolete_items = await self.model.find(self.__items_to_delete_query(all_items))
             obsolete_items = list(obsolete_items)
 
             for item in obsolete_items:

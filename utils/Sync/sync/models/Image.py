@@ -114,7 +114,7 @@ class Image(Model):
                 file = i['file']
                 filename = os.path.basename(file)
 
-                await request.s3_put('images/'+filename, file)
+                await request.s3_put(f'images/{filename}', file)
 
             await asyncio.wait([fn(i) for i in self.data.values()])
 
@@ -156,10 +156,10 @@ class Image(Model):
 def sync_image(record):
     from db import db
 
-    q = {'hash': record['hash']}
+    q = {'file': record['file']}
     try:
         db().images.update_one(q, {'$set': record}, upsert=True)
-        i = db().images.find_one({'hash': record['hash']})
+        i = db().images.find_one({'file': record['file']})
         return i
     except ValueError:
         pass
@@ -182,6 +182,11 @@ async def create_image(file: str, sizes: [()], url_fn, output_dir: str) -> Optio
     _, ext = os.path.splitext(file)
     images = []
 
+    if not settings.image_processing_enabled:
+        logger.warning(
+            f'Image processing disabled {file}. Size of image will be set to original'
+        )
+
     async def fn(size):
         size_name, width, height = size
 
@@ -189,10 +194,12 @@ async def create_image(file: str, sizes: [()], url_fn, output_dir: str) -> Optio
         image_filename = os.path.basename(image_url)
         local_image_path = os.path.join(output_dir, image_filename)
 
-        # if settings.image_processing_enabled:
-        image = await process_image(file, local_image_path, size)
+        if settings.image_processing_enabled:
+            image = await process_image(file, local_image_path, size)
+        else:
+            image = await read_image(file)
         if not image:
-            logger.warning('Failed to process image {}'.format(file))
+            logger.warning(f'Failed to process image {file}')
             return None
         width, height = image.size
 

@@ -1,5 +1,5 @@
 const React = require('react')
-const text = require('../core/schedule').text
+const text = require('../server/schedule').text
 
 const ScheduleList = ({schedules}) => (
 	<div className="schedule-selector">

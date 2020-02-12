@@ -7,5 +7,6 @@ export function encodePage(page) {
         url: page.url,
         data: page.data,
         preview: encodeImage(page.preview),
+        tokens: page.tokens,
     }
 }
