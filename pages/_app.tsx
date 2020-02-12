@@ -1,12 +1,11 @@
-import React from 'react'
-import App, { Container } from 'next/app'
+import App from 'next/app'
 
-class MyApp extends App {
+export default class MyApp extends App {
     render() {
         const { Component, pageProps } = this.props
 
         return (
-            <Container>
+            <>
                 <style global jsx>{`
                     @media (max-width: 31.25em) {
                         :root {
@@ -35,9 +34,7 @@ class MyApp extends App {
                 `}</style>
 
                 <Component {...pageProps} />
-            </Container>
+            </>
         )
     }
 }
-
-export default MyApp
