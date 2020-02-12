@@ -32,15 +32,6 @@
         "use-media": "^1.4.0"
     },
     "devDependencies": {
-        "@babel/cli": "^7.7.4",
-        "@babel/core": "^7.7.4",
-        "@babel/node": "^7.7.4",
-        "@babel/plugin-proposal-class-properties": "^7.7.4",
-        "@babel/plugin-proposal-object-rest-spread": "^7.7.4",
-        "@babel/polyfill": "^7.7.0",
-        "@babel/preset-env": "^7.7.4",
-        "@babel/preset-typescript": "^7.7.4",
-        "@babel/register": "^7.7.4",
         "@types/classnames": "^2.2.9",
         "@types/koa": "^2.0.52",
         "@types/koa-route": "^3.2.4",
@@ -49,13 +40,6 @@
         "@types/react": "^16.9.12",
         "@zeit/next-css": "^1.0.1",
         "@zeit/next-sass": "^1.0.1",
-        "autoprefixer": "^6.3.6",
-        "babel-plugin-transform-class-properties": "^6.24.1",
-        "babel-plugin-transform-react-jsx": "^6.23.0",
-        "babel-plugin-transform-regenerator": "^6.26.0",
-        "babel-preset-env": "^1.7.0",
-        "babel-register": "^6.26.0",
-        "cssnano": "^4.1.10",
         "eslint": "^4.18.2",
         "eslint-config-standard": "^6.2.1",
         "eslint-plugin-promise": "^3.8.0",
@@ -66,7 +50,6 @@
         "node-sass": "^4.13.0",
         "should": "^8.2.2",
         "ts-node": "^8.5.2",
-        "typescript": "^3.7.2",
-        "webpack": "^4.41.2"
+        "typescript": "^3.7.2"
     }
 }
