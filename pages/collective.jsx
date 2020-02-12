@@ -4,7 +4,7 @@ import { get } from 'lodash'
 import { App } from '../src/components/App'
 import { Meta } from '../src/components/Meta'
 import { CollectiveImage } from '../src/components/CollectiveImage'
-import PersonCard from '../src/components/PersonCard'
+import { PersonCard } from '../src/components/PersonCard'
 import { CardList } from '../src/components/CardList'
 import menuModel from '../src/models/menu'
 import { buildMenu } from '../src/lib/menu'
@@ -16,35 +16,34 @@ const Page = (props) => (
         menu={buildMenu(props.pageUrl, menuModel)}
         showAuthor={true}
         menuPadding={true}
+        layout={'wide'}
     >
         <Head>
             <title>{props.title}</title>
             <Meta meta={props.meta} />
         </Head>
 
-        <div className="content content_semi-wide">
-            {!props.image ? null : (
-                <CollectiveImage
-                    data={props.image}
-                    style={{
-                        marginBottom: 'var(--double-margin)',
-                    }}
+        {!props.image ? null : (
+            <CollectiveImage
+                data={props.image}
+                style={{
+                    marginBottom: 'var(--double-margin)',
+                }}
+            />
+        )}
+
+        <CardList
+            items={props.persons}
+            renderItem={(person, index) => (
+                <PersonCard
+                    key={index}
+                    profile={person}
+                    picture={person.picture}
+                    url={person.url}
+                    name={person.name}
                 />
             )}
-
-            <CardList
-                items={props.persons}
-                renderItem={(person, index) => (
-                    <PersonCard
-                        key={index}
-                        profile={person}
-                        picture={person.picture}
-                        url={person.url}
-                        name={person.name}
-                    />
-                )}
-            />
-        </div>
+        />
     </App>
 )
 
@@ -56,7 +55,7 @@ Page.getInitialProps = wrapInitialProps(async (ctx) => {
     const title = 'Преподаватели Шлиссельбургской ДХШ'
     const imageFile = 'Images/HudozkaCollective2017.jpg'
     const resImage = await requestGet(createApiUrl(ctx.req, `/api/image?file=${imageFile}`), null)
-    const image = get(resImage, 'data.artifacts.large', null)
+    const image = get(resImage, 'artifacts.large', null)
 
     return {
         persons,

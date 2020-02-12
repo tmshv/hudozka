@@ -1,8 +1,8 @@
 import React from 'react'
 import Head from 'next/head'
 import { App } from '../src/components/App'
-import Schedule from '../src/components/Schedule'
-import Share from '../src/components/Share'
+import { Schedule } from '../src/components/Schedule'
+import { Share } from '../src/components/Share'
 import menuModel from '../src/models/menu'
 import { buildMenu } from '../src/lib/menu'
 import { createApiUrl, requestGet, wrapInitialProps } from '../src/next-lib'
@@ -12,18 +12,17 @@ const Page = (props) => (
         menu={buildMenu(props.pageUrl, menuModel)}
         showAuthor={true}
         menuPadding={true}
+        layout={'wide'}
     >
         <Head>
             <title>{props.title}</title>
         </Head>
 
-        <div className="content content_wide">
-            {/*<ScheduleList schedules={schedules}/>*/}
+        {/*<ScheduleList schedules={schedules}/>*/}
 
-            <Schedule {...props.schedule} />
+        <Schedule {...props.schedule} />
 
-            <Share />
-        </div>
+        <Share />
     </App>
 )
 

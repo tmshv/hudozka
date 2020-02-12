@@ -2,7 +2,7 @@ import React from 'react'
 import Head from 'next/head'
 import { App } from '../../src/components/App'
 import Document from '../../src/components/Document'
-import Share from '../../src/components/Share'
+import { Share } from '../../src/components/Share'
 import menuModel from '../../src/models/menu'
 import { buildMenu } from '../../src/lib/menu'
 import { meta } from '../../src/lib/meta'
@@ -14,15 +14,14 @@ const Page = (props) => (
         menu={buildMenu(props.pageUrl, menuModel)}
         showAuthor={true}
         menuPadding={true}
+        layout={'wide'}
     >
         <Head>
             <title>{props.file.title}</title>
             <Meta meta={props.meta} />
         </Head>
-        <div className="content content_wide">
-            <Document {...props.file} />
-            <Share />
-        </div>
+        <Document {...props.file} />
+        <Share />
     </App>
 )
 

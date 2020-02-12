@@ -37,6 +37,8 @@ export default class MyDocument extends Document {
                         href="/feed.xml"
                     />
 
+                    <link href='/static/shadow-font/style.css' rel='stylesheet' />
+
                     {/* Fotorama + jQuery*/}
                     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" />
                     <link href="//cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet" />
@@ -63,8 +65,6 @@ export default class MyDocument extends Document {
                 <body className="custom_class">
                     <Main />
                     <NextScript />
-
-                    <script src="/static/app.js" />
                 </body>
             </Html>
         );
