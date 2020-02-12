@@ -50,6 +50,6 @@
         "node-sass": "^4.13.0",
         "should": "^8.2.2",
         "ts-node": "^8.5.2",
-        "typescript": "^3.7.2"
+        "typescript": "^3.7.5"
     }
 }
