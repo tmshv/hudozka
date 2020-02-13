@@ -9,8 +9,8 @@ import menuModel from 'src/models/menu'
 import { buildMenu } from 'src/lib/menu'
 import { meta } from 'src/lib/meta'
 import { IMeta } from 'src/types'
-import { createApiUrl, requestGet, wrapInitialProps, IResponseItems } from 'src/next-lib'
-import { NextPage } from 'next'
+import { createApiUrl, requestGet, IResponseItems } from 'src/next-lib'
+import { NextPage, NextPageContext } from 'next'
 
 interface IPerson {
 
@@ -60,7 +60,7 @@ const Page: NextPage<Props> = props => (
     </App>
 )
 
-Page.getInitialProps = wrapInitialProps(async (ctx) => {
+export const unstable_getServerProps = async (ctx: NextPageContext) => {
     const pageUrl = ctx.req.url
 
     const res = await requestGet<IResponseItems<IPerson>>(createApiUrl(ctx.req, '/api/persons'), { items: [] })
@@ -71,16 +71,18 @@ Page.getInitialProps = wrapInitialProps(async (ctx) => {
     const image = get(resImage, 'artifacts.large', null)
 
     return {
-        persons,
-        image,
-        pageUrl,
-        title,
-        meta: meta({
+        props: {
+            persons,
+            image,
+            pageUrl,
             title,
-            url: pageUrl,
-            description: 'Преподаватели Шлиссельбургской ДХШ',
-        })
+            meta: meta({
+                title,
+                url: pageUrl,
+                description: 'Преподаватели Шлиссельбургской ДХШ',
+            })
+        }
     }
-})
+}
 
 export default Page
