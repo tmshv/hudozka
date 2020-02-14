@@ -1,5 +1,5 @@
 import Teacher from '../core/Teacher'
-import { encodePerson } from '../api/persons'
+import { encodePerson } from '../factory/persons'
 import { Request, Response } from 'express'
 import { prioritySort } from '../lib/sort'
 

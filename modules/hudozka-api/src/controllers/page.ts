@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import Page from '../core/Page'
 import { getPathWithNoTrailingSlash } from '../lib/url'
-import { encodePage } from '../api/page'
+import { encodePage } from '../factory/page'
 
 export async function getItem(req: Request, res: Response) {
     const id = req.params.slug

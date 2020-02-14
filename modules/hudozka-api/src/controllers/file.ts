@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import Document from '../core/Document'
-import { encodeFile } from '../api/files'
+import { encodeFile } from '../factory/files'
 
 export async function getItem(req: Request, res: Response) {
     const id = req.params.slug

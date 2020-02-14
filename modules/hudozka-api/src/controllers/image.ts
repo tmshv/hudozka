@@ -1,5 +1,5 @@
 import Image from '../core/Image'
-import { encodeImage } from '../api/image'
+import { encodeImage } from '../factory/image'
 import { Request, Response } from 'express'
 
 export async function getItem(req: Request, res: Response) {
