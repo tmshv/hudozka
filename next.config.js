@@ -22,6 +22,9 @@ module.exports = withCss(withSass({
         // mySecret: 'secret',
         // secondSecret: process.env.SECOND_SECRET // Pass through env variables
     },
+    env: {
+        ARTICLES_PAGE_SIZE: 15,
+    },
     webpack(config) {
         config.resolve.modules.push(__dirname)
         return config;
