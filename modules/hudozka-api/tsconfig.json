@@ -3,8 +3,6 @@
         "outDir": "./build",
         "target": "esnext",
         "lib": [
-            "dom",
-            "dom.iterable",
             "esnext"
         ],
         "allowJs": true,
@@ -12,6 +10,7 @@
         "strict": false,
         "forceConsistentCasingInFileNames": true,
         "esModuleInterop": true,
+        "module": "commonjs",
         "moduleResolution": "node",
         "resolveJsonModule": true
     },
