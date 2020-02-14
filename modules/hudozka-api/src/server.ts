@@ -1,4 +1,4 @@
-import dotenv from 'dotenv'
+import { config } from 'dotenv'
 import express from 'express'
 import { connect } from './db'
 import * as person from './controllers/person'
@@ -8,8 +8,6 @@ import * as schedule from './controllers/schedule'
 import * as file from './controllers/file'
 import * as page from './controllers/page'
 import * as image from './controllers/image'
-
-dotenv.config()
 
 async function main() {
     const port = parseInt(process.env.PORT, 10) || 3000
@@ -55,4 +53,5 @@ async function main() {
     })
 }
 
+config()
 main()
