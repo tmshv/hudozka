@@ -5,7 +5,9 @@
     "description": "",
     "main": "src/server.ts",
     "scripts": {
-        "start": "ts-node src/server.ts",
+        "start": "node build/server.js",
+        "dev": "ts-node src/server.ts",
+        "build": "tsc src/server.ts",
         "sitemap": "node scripts/sitemap.js",
         "feed": "node scripts/feed.js"
     },
