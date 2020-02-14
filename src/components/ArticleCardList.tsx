@@ -1,8 +1,13 @@
-import React from 'react'
 import Paginator from './Paginator'
 import { ArticleCard } from './ArticleCard'
 
-export const ArticleCardList = ({ articles, nextPage, prevPage }) => (
+export interface IArticleCardListProps {
+    articles: any[]
+    nextPage: number | null
+    prevPage: number | null
+}
+
+export const ArticleCardList:React.FC<IArticleCardListProps> = ({ articles, nextPage, prevPage }) => (
     <div>
         <style jsx>{`
             .body {
