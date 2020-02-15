@@ -1,13 +1,12 @@
-import React from 'react'
 import Head from 'next/head'
-
-import { App } from '../src/components/App'
-import { Page } from '../src/components/Page'
-import menuModel from '../src/models/menu'
-import { buildMenu } from '../src/lib/menu'
-import { Meta } from '../src/components/Meta'
-import { meta } from '../src/lib/meta'
-import { createApiUrl, requestGet, wrapInitialProps } from '../src/next-lib'
+import { App } from 'src/components/App'
+import { tail } from 'lodash'
+import { Page } from 'src/components/Page'
+import menuModel from 'src/models/menu'
+import { buildMenu } from 'src/lib/menu'
+import { Meta } from 'src/components/Meta'
+import { meta } from 'src/lib/meta'
+import { createApiUrl, requestGet, wrapInitialProps, IResponseItems } from 'src/next-lib'
 
 function array<T>(value: T | T[]) {
     return Array.isArray(value)
@@ -24,7 +23,7 @@ const Index = props => (
     >
         <Head>
             <title>{props.title}</title>
-            <Meta meta={props.meta} />
+            {/* <Meta meta={props.meta} /> */}
         </Head>
 
         <Page
@@ -35,8 +34,13 @@ const Index = props => (
     </App>
 )
 
-Index.getInitialProps = wrapInitialProps(async (ctx) => {
-    const slug = '/' + array(ctx.query.slug).join('/')
+export const unstable_getStaticProps = async (ctx: any) => {
+    let slug = null
+    if (ctx.query) {
+        slug = '/' + array(ctx.query.slug).join('/')
+    } else {
+        slug = '/' + array(ctx.params.slug).join('/')
+    }
     const page = await requestGet(createApiUrl(`/api/page?page=${slug}`), null)
     if (!page) {
         throw new Error(`Not found: ${slug}`)
@@ -44,16 +48,39 @@ Index.getInitialProps = wrapInitialProps(async (ctx) => {
     const image = page.preview ? page.preview.artifacts.fb : {}
 
     return {
-        content: page.data,
-        pageUrl: slug,
-        title: page.title,
-        meta: meta({
+        props: {
+            content: page.data,
+            pageUrl: slug,
             title: page.title,
-            image: image.src,
-            imageWidth: image.width,
-            imageHeight: image.height,
-        }),
+            meta: meta({
+                title: page.title,
+                image: image.src,
+                imageWidth: image.width,
+                imageHeight: image.height,
+            }),
+        }
     }
-})
+}
 
+export const unstable_getStaticPaths = async () => {
+    console.log('call all unstable_getStaticPaths')
+
+    const urls = await requestGet<IResponseItems<string>>(createApiUrl(`/api/pages/urls`), null)
+    if (!urls) {
+        return null
+    }
+
+    return {
+        paths: urls.items
+            .map(path => {
+                const slug = tail(path.split('/'))
+
+                return {
+                    params: {
+                        slug,
+                    },
+                }
+            }),
+    }
+}
 export default Index
