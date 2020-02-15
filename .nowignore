@@ -1,4 +1,5 @@
+.forestry
 utils
-scripts
-test
-src
+modules
+data
+uploads
