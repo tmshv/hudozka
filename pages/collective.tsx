@@ -21,50 +21,58 @@ type Props = {
     title: string
     image: string
     meta: IMeta
-    persons: IPerson[]
+    data: IPerson[]
 }
 
-const Page: NextPage<Props> = props => (
-    <App
-        menu={buildMenu(props.pageUrl, menuModel)}
-        showAuthor={true}
-        menuPadding={true}
-        layout={'wide'}
-    >
-        <Head>
-            <title>{props.title}</title>
-            <Meta meta={props.meta} />
-        </Head>
+const Page: NextPage<Props> = props => {
+    if (!props.data) {
+        console.log('kek error')
+        return
+    }
 
-        {!props.image ? null : (
-            <CollectiveImage
-                data={props.image}
-                style={{
-                    marginBottom: 'var(--double-margin)',
-                }}
-            />
-        )}
+    return (
+        <App
+            menu={buildMenu(props.pageUrl, menuModel)}
+            showAuthor={true}
+            menuPadding={true}
+            layout={'wide'}
+        >
+            <Head>
+                <title>{props.title}</title>
+                <Meta meta={props.meta} />
+            </Head>
 
-        <CardList
-            items={props.persons}
-            renderItem={(person, index) => (
-                <PersonCard
-                    key={index}
-                    profile={person}
-                    picture={person.picture}
-                    url={person.url}
-                    name={person.name}
+            {!props.image ? null : (
+                <CollectiveImage
+                    data={props.image}
+                    style={{
+                        marginBottom: 'var(--double-margin)',
+                    }}
                 />
             )}
-        />
-    </App>
-)
 
-export const unstable_getServerProps = async (ctx: NextPageContext) => {
-    const pageUrl = ctx.req.url
+            <CardList
+                items={props.data}
+                renderItem={(person, index) => (
+                    <PersonCard
+                        key={index}
+                        profile={person}
+                        picture={person.picture}
+                        url={person.url}
+                        name={person.name}
+                    />
+                )}
+            />
+        </App>
+    )
+}
+
+export const unstable_getStaticProps = async (ctx: NextPageContext) => {
+    // const pageUrl = ctx.req.url
+    const pageUrl = '/collective'
 
     const res = await requestGet<IResponseItems<IPerson>>(createApiUrl('/api/persons'), { items: [] })
-    const persons = res.items || []
+    const data = res.items || []
     const title = 'Преподаватели Шлиссельбургской ДХШ'
     const imageFile = 'Images/HudozkaCollective2017.jpg'
     const resImage = await requestGet(createApiUrl(`/api/image?file=${imageFile}`), null)
@@ -72,7 +80,7 @@ export const unstable_getServerProps = async (ctx: NextPageContext) => {
 
     return {
         props: {
-            persons,
+            data,
             image,
             pageUrl,
             title,

@@ -96,22 +96,28 @@ const Page: NextPage<IProps> = props => (
     </App>
 )
 
-Page.getInitialProps = wrapInitialProps(async (ctx) => {
-    const pageUrl = ctx.req.url
-    const res = await requestGet<any>(createApiUrl(`/api/albums`), {})
+export const unstable_getStaticProps = async (ctx: any) => {
+    // const pageUrl = ctx.req.url
+    const pageUrl = '/gallery'
+    const res = await requestGet<any>(createApiUrl(`/api/albums`), null)
+    if (!res) {
+        return null
+    }
     const items = res.items || []
     const albumCollections = albumsByYear(items)
     const title = 'Галерея'
 
     return {
-        collections: [...albumCollections.entries()],
-        pageUrl,
-        title,
-        meta: meta({
+        props: {
+            collections: [...albumCollections.entries()],
+            pageUrl,
             title,
-            description: 'Галерея работ учащихся Шлиссельбургской Детской Художественной Школы'
-        })
+            meta: meta({
+                title,
+                description: 'Галерея работ учащихся Шлиссельбургской Детской Художественной Школы'
+            })
+        }
     }
-})
+}
 
 export default Page

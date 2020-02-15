@@ -1,15 +1,13 @@
-import React from 'react'
 import Head from 'next/head'
-import { App } from '../src/components/App'
-import { Meta } from '../src/components/Meta'
-import menuModel from '../src/models/menu'
-import { buildMenu } from '../src/lib/menu'
-import { meta } from '../src/lib/meta'
-import { IDocument } from '../src/types'
-
-import { DocumentList } from '../src/components/DocumentList'
-import { unique } from '../src/utils/common'
-import { createApiUrl, requestGet, wrapInitialProps, IResponseItems } from '../src/next-lib'
+import { App } from 'src/components/App'
+import { Meta } from 'src/components/Meta'
+import menuModel from 'src/models/menu'
+import { buildMenu } from 'src/lib/menu'
+import { meta } from 'src/lib/meta'
+import { IDocument } from 'src/types'
+import { DocumentList } from 'src/components/DocumentList'
+import { unique } from 'src/utils/common'
+import { createApiUrl, requestGet, wrapInitialProps, IResponseItems } from 'src/next-lib'
 import { NextPage } from 'next'
 
 interface IDocumentCategory {
@@ -125,7 +123,7 @@ const Page: NextPage<IProps> = props => (
     </App>
 )
 
-Page.getInitialProps = wrapInitialProps(async (ctx) => {
+export const unstable_getStaticProps = async (ctx) => {
     const pageUrl = '/documents'
     const res = await requestGet<IResponseItems<IDocument>>(createApiUrl('/api/files'), { items: [] })
     const files = res.items
@@ -133,14 +131,16 @@ Page.getInitialProps = wrapInitialProps(async (ctx) => {
     const collections = getSorted(files)
 
     return {
-        collections,
-        pageUrl,
-        title,
-        meta: meta({
+        props: {
+            collections,
+            pageUrl,
             title,
-            description: 'Документы Шлиссельбургской ДХШ',
-        })
+            meta: meta({
+                title,
+                description: 'Документы Шлиссельбургской ДХШ',
+            })
+        }
     }
-})
+}
 
 export default Page
