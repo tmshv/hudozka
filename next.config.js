@@ -17,7 +17,7 @@ function createPath(page, map, query, items) {
 module.exports = withCss(withSass({
     exportTrailingSlash: true,
     env: {
-        ARTICLES_PAGE_SIZE: 15,
+        APP_ARTICLES_PAGE_SIZE: 15,
     },
     webpack(config) {
         config.resolve.modules.push(__dirname)
@@ -33,7 +33,7 @@ module.exports = withCss(withSass({
 
         return {
             // ...defaultPathMap,
-            '/': { page: '/', query: { pageSize: articlesPageSize } },
+            '/': { page: '/' },
             '/documents': { page: '/documents' },
             '/gallery': { page: '/gallery' },
             '/collective': { page: '/collective' },
