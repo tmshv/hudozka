@@ -1,16 +1,11 @@
-import {range} from './common';
+import { range } from 'lodash'
 
-/**
- *
- * @param start
- * @returns {*}
- */
-export function getDates(start) {
+export function getDates(start: Date) {
     const oneDay = (1000 * 60 * 60 * 24);
     const startTime = start.getTime();
     const startDay = start.getDay();
 
-    return range(0, 6, 1)
+    return range(0, 6)
         .reduce((dates, weekDay) => {
             let delta = 1 + weekDay - startDay;
             let time = startTime + (oneDay * delta);
