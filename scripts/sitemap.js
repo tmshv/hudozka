@@ -5,7 +5,7 @@ const homeUrl = 'https://art.shlisselburg.org'
 const sitemapCacheTime = 600000
 
 const api = axios.create({
-    baseURL: 'http://localhost:3000',
+    baseURL: 'https://api.tmshv.com/hudozka',
 })
 
 async function getMenuUrls(frequency = 'daily') {
