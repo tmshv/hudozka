@@ -16,12 +16,6 @@ function createPath(page, map, query, items) {
 
 module.exports = withCss(withSass({
     exportTrailingSlash: true,
-    serverRuntimeConfig: {
-        dbUri: '',
-        // Will only be available on the server side
-        // mySecret: 'secret',
-        // secondSecret: process.env.SECOND_SECRET // Pass through env variables
-    },
     env: {
         ARTICLES_PAGE_SIZE: 15,
     },
