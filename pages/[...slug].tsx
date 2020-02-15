@@ -83,4 +83,5 @@ export const unstable_getStaticPaths = async () => {
             }),
     }
 }
+
 export default Index
