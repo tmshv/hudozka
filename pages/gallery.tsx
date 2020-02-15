@@ -7,7 +7,7 @@ import { splitBy } from 'src/lib/array'
 import { meta } from 'src/lib/meta'
 import { createApiUrl, requestGet } from 'src/next-lib'
 import { NextPage } from 'next'
-import { PageHeader } from '../src/components/PageHeader'
+import { PageHeader } from 'src/components/PageHeader'
 
 const albumsByYear = splitBy(album => new Date(album.date).getFullYear())
 
