@@ -7,7 +7,7 @@ import { meta } from 'src/lib/meta'
 import { IDocument } from 'src/types'
 import { DocumentList } from 'src/components/DocumentList'
 import { unique } from 'src/utils/common'
-import { createApiUrl, requestGet, wrapInitialProps, IResponseItems } from 'src/next-lib'
+import { createApiUrl, requestGet, IResponseItems } from 'src/next-lib'
 import { NextPage } from 'next'
 
 interface IDocumentCategory {
