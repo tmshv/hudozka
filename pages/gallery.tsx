@@ -1,14 +1,13 @@
-import React from 'react'
 import Head from 'next/head'
-import { App } from '../src/components/App'
-import { Meta } from '../src/components/Meta'
-import menuModel from '../src/models/menu'
-import { buildMenu } from '../src/lib/menu'
-import { splitBy } from '../src/lib/array'
-import { meta } from '../src/lib/meta'
-import { createApiUrl, requestGet, wrapInitialProps } from '../src/next-lib'
+import { App } from 'src/components/App'
+import { Meta } from 'src/components/Meta'
+import menuModel from 'src/models/menu'
+import { buildMenu } from 'src/lib/menu'
+import { splitBy } from 'src/lib/array'
+import { meta } from 'src/lib/meta'
+import { createApiUrl, requestGet } from 'src/next-lib'
 import { NextPage } from 'next'
-import { PageHeader } from '../src/components/PageHeader'
+import { PageHeader } from 'src/components/PageHeader'
 
 const albumsByYear = splitBy(album => new Date(album.date).getFullYear())
 
@@ -96,22 +95,28 @@ const Page: NextPage<IProps> = props => (
     </App>
 )
 
-Page.getInitialProps = wrapInitialProps(async (ctx) => {
-    const pageUrl = ctx.req.url
-    const res = await requestGet<any>(createApiUrl(ctx.req, `/api/albums`), {})
+export const unstable_getStaticProps = async (ctx: any) => {
+    // const pageUrl = ctx.req.url
+    const pageUrl = '/gallery'
+    const res = await requestGet<any>(createApiUrl(`/api/albums`), null)
+    if (!res) {
+        return null
+    }
     const items = res.items || []
     const albumCollections = albumsByYear(items)
     const title = 'Галерея'
 
     return {
-        collections: [...albumCollections.entries()],
-        pageUrl,
-        title,
-        meta: meta({
+        props: {
+            collections: [...albumCollections.entries()],
+            pageUrl,
             title,
-            description: 'Галерея работ учащихся Шлиссельбургской Детской Художественной Школы'
-        })
+            meta: meta({
+                title,
+                description: 'Галерея работ учащихся Шлиссельбургской Детской Художественной Школы'
+            })
+        }
     }
-})
+}
 
 export default Page

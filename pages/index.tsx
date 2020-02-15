@@ -1,13 +1,12 @@
-import React from 'react'
 import Head from 'next/head'
-import { App } from '../src/components/App'
-import { Meta } from '../src/components/Meta'
-import { ArticleCardList } from '../src/components/ArticleCardList'
-import { HudozkaTitle } from '../src/components/HudozkaTitle'
-import menuModel from '../src/models/menu'
-import { meta } from '../src/lib/meta'
-import { buildMenu } from '../src/lib/menu'
-import { createApiUrl, requestGet, wrapInitialProps } from '../src/next-lib'
+import { App } from 'src/components/App'
+import { Meta } from 'src/components/Meta'
+import { ArticleCardList } from 'src/components/ArticleCardList'
+import { HudozkaTitle } from 'src/components/HudozkaTitle'
+import menuModel from 'src/models/menu'
+import { meta } from 'src/lib/meta'
+import { buildMenu } from 'src/lib/menu'
+import { createApiUrl, requestGet } from 'src/next-lib'
 import { NextPage } from 'next'
 
 interface IProps {
@@ -41,27 +40,29 @@ const Page: NextPage<IProps> = props => (
     </App>
 )
 
-Page.getInitialProps = wrapInitialProps(async (ctx) => {
+export const unstable_getStaticProps = async () => {
     const pageUrl = '/'
     const page = 1
-    const pageSize = ctx.query.pageSize || 15
-    const res = await requestGet(createApiUrl(ctx.req, `/api/articles?page=${page}&pageSize=${pageSize}`), {}) as any
+    const pageSize = process.env.APP_ARTICLES_PAGE_SIZE
+    const res = await requestGet(createApiUrl(`/api/articles?page=${page}&pageSize=${pageSize}`), {}) as any
     const articles = res.items || []
     const nextPage = res.nextPage
     const prevPage = res.prevPage
     const title = 'Шлиссельбургская ДХШ'
 
     return {
-        articles,
-        nextPage,
-        prevPage,
-        pageUrl,
-        title,
-        meta: meta({
+        props: {
+            articles,
+            nextPage,
+            prevPage,
+            pageUrl,
             title,
-            url: pageUrl,
-        })
+            meta: meta({
+                title,
+                url: pageUrl,
+            })
+        }
     }
-})
+}
 
 export default Page

@@ -17,10 +17,6 @@ export const Overlay: React.FC<IOverlayProps> = props => {
         }
     }, [props.onClickOverlay])
 
-    React.useEffect(() => {
-        document.body.classList.toggle('noscroll', props.show)
-    }, [props.show])
-
     return (
         <Transition
             duration={duration}

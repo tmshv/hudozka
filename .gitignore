@@ -19,3 +19,4 @@ dist
 /coverage
 **/.vscode
 *.log
+.now

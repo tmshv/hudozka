@@ -1,21 +1,4 @@
 /**
- * Generates list of numbers
- * @param  {Number} start starting value
- * @param  {Number} num   amount of numbers in list
- * @param  {Number} step  difference value
- * @return {Array}        list of numbers
- */
-export function range(start, num, step) {
-    var list = [];
-    var val = start;
-    for (var i = 0; i < num; i++) {
-        list.push(val);
-        val += step;
-    }
-    return list;
-}
-
-/**
  * Return a closure that compares a Number argument with specified Number
  * @param withNumber Number to compare with
  * @returns {Function} (i) => {}
