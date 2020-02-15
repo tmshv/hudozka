@@ -64,8 +64,7 @@ export const unstable_getStaticProps = async (ctx: any) => {
         throw new Error('sry')
     }
 
-    // const person: any = await requestGet(createApiUrl(ctx.req, `/api/persons/${id}`), {})
-    const person: any = await requestGet(`http://localhost:3000/api/persons/${id}`, {})
+    const person = await requestGet<any>(createApiUrl(`/api/persons/${id}`), null)
     const name = person.name || []
     const title = name.join(' ')
     const image = person.preview ? person.preview.artifacts.fb : {}
@@ -92,7 +91,7 @@ export const unstable_getStaticProps = async (ctx: any) => {
 export const unstable_getStaticPaths = async () => {
     console.log('call unstable_getStaticPaths')
 
-    const urls = await requestGet<IResponseItems<string>>(`http://localhost:3000/api/persons/urls`, null)
+    const urls = await requestGet<IResponseItems<string>>(createApiUrl(`/api/persons/urls`), null)
     // const urls = {items: ['/teacher/va-sarzhin']}
 
     return {

@@ -32,7 +32,7 @@ const Page = (props) => (
 Page.getInitialProps = wrapInitialProps(async (ctx) => {
     const pageUrl = '/gallery'
     const id = ctx.query.album
-    const album = await requestGet(createApiUrl(ctx.req, `/api/albums/${id}`), {})
+    const album = await requestGet(createApiUrl(`/api/albums/${id}`), {})
 
     return {
         album,

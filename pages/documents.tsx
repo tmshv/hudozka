@@ -127,7 +127,7 @@ const Page: NextPage<IProps> = props => (
 
 Page.getInitialProps = wrapInitialProps(async (ctx) => {
     const pageUrl = '/documents'
-    const res = await requestGet<IResponseItems<IDocument>>(createApiUrl(ctx.req, '/api/files'), { items: [] })
+    const res = await requestGet<IResponseItems<IDocument>>(createApiUrl('/api/files'), { items: [] })
     const files = res.items
     const title = 'Документы'
     const collections = getSorted(files)

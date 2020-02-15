@@ -37,7 +37,7 @@ const Page = (props) => (
 Page.getInitialProps = wrapInitialProps(async (ctx) => {
     const pageUrl = '/'
     const id = ctx.query.article
-    const article = await requestGet(createApiUrl(ctx.req, `/api/articles/${id}`), {})
+    const article = await requestGet(createApiUrl(`/api/articles/${id}`), {})
     const image = get(article, 'preview.artifacts.fb', {})
 
     return {

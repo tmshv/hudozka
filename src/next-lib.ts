@@ -31,10 +31,8 @@ export function wrapInitialProps(fn: (ctx: NextPageContext) => void) {
     }
 }
 
-export function createApiUrl(req, path) {
-    const { origin } = absoluteUrl(req, 'localhost:3000')
-
-    return `${origin}${path}`
+export function createApiUrl(path: string) {
+    return `https://api.tmshv.com/hudozka${path}`
 }
 
 function absoluteUrl(req, defaultLocalhost) {

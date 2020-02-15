@@ -98,7 +98,7 @@ const Page: NextPage<IProps> = props => (
 
 Page.getInitialProps = wrapInitialProps(async (ctx) => {
     const pageUrl = ctx.req.url
-    const res = await requestGet<any>(createApiUrl(ctx.req, `/api/albums`), {})
+    const res = await requestGet<any>(createApiUrl(`/api/albums`), {})
     const items = res.items || []
     const albumCollections = albumsByYear(items)
     const title = 'Галерея'

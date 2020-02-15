@@ -30,7 +30,7 @@ Page.getInitialProps = wrapInitialProps(async (ctx) => {
     const pageUrl = ctx.req.url
     const period = '2016-2017'
     const semester = 'spring'
-    const schedule = await requestGet(createApiUrl(ctx.req, `/api/schedule?period=${period}&semester=${semester}`), {})
+    const schedule = await requestGet(createApiUrl(`/api/schedule?period=${period}&semester=${semester}`), {})
 
     return {
         schedule,

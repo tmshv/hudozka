@@ -28,7 +28,7 @@ const Page = (props) => (
 Page.getInitialProps = wrapInitialProps(async (ctx) => {
     const pageUrl = '/documents'
     const id = ctx.query.document
-    const file = await requestGet(createApiUrl(ctx.req, `/api/files/${id}`), {})
+    const file = await requestGet(createApiUrl(`/api/files/${id}`), {})
 
     return {
         file,

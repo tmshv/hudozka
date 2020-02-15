@@ -63,11 +63,11 @@ const Page: NextPage<Props> = props => (
 export const unstable_getServerProps = async (ctx: NextPageContext) => {
     const pageUrl = ctx.req.url
 
-    const res = await requestGet<IResponseItems<IPerson>>(createApiUrl(ctx.req, '/api/persons'), { items: [] })
+    const res = await requestGet<IResponseItems<IPerson>>(createApiUrl('/api/persons'), { items: [] })
     const persons = res.items || []
     const title = 'Преподаватели Шлиссельбургской ДХШ'
     const imageFile = 'Images/HudozkaCollective2017.jpg'
-    const resImage = await requestGet(createApiUrl(ctx.req, `/api/image?file=${imageFile}`), null)
+    const resImage = await requestGet(createApiUrl(`/api/image?file=${imageFile}`), null)
     const image = get(resImage, 'artifacts.large', null)
 
     return {
