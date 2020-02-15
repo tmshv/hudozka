@@ -1,4 +1,3 @@
-import React from 'react'
 import Head from 'next/head'
 import { App } from 'src/components/App'
 import { Meta } from 'src/components/Meta'
