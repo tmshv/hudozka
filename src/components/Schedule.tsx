@@ -1,7 +1,5 @@
-import React from 'react'
-
-const { getDates } = require('../utils/date')
-const { shortName } = require('../models/collective')
+import { getDates } from 'src/utils/date'
+import { shortName } from 'src/models/collective'
 
 const now = new Date()
 const dates = getDates(now)
