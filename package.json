@@ -4,8 +4,7 @@
     "version": "6.0.0",
     "description": "",
     "scripts": {
-        "start": "ts-node --project server.tsconfig.json src/server.ts",
-        "next-dev": "next dev",
+        "start": "next dev",
         "build": "next build && next export -o dist && npm run sitemap && npm run feed",
         "sitemap": "node scripts/sitemap.js",
         "feed": "node scripts/feed.js",
@@ -20,11 +19,8 @@
     "dependencies": {
         "axios": "^0.19.0",
         "classnames": "^2.2.6",
-        "koa": "^2.11.0",
-        "koa-route": "^3.1.0",
         "lodash": "^4.17.15",
         "moment": "^2.24.0",
-        "mongodb": "^2.1.14",
         "next": "^9.2.2-canary.18",
         "react": "^16.12.0",
         "react-dom": "^16.12.0",
@@ -33,10 +29,7 @@
     },
     "devDependencies": {
         "@types/classnames": "^2.2.9",
-        "@types/koa": "^2.0.52",
-        "@types/koa-route": "^3.2.4",
         "@types/lodash": "^4.14.149",
-        "@types/mongodb": "^3.3.11",
         "@types/node": "^12.12.12",
         "@types/react": "^16.9.12",
         "@zeit/next-css": "^1.0.1",
@@ -50,7 +43,6 @@
         "mocha": "^6.2.2",
         "node-sass": "^4.13.0",
         "should": "^8.2.2",
-        "ts-node": "^8.5.2",
         "typescript": "^3.7.5"
     }
 }

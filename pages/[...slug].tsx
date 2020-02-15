@@ -9,6 +9,12 @@ import { Meta } from '../src/components/Meta'
 import { meta } from '../src/lib/meta'
 import { createApiUrl, requestGet, wrapInitialProps } from '../src/next-lib'
 
+function array<T>(value: T | T[]) {
+    return Array.isArray(value)
+        ? value
+        : [value]
+}
+
 const Index = props => (
     <App
         menu={buildMenu(props.pageUrl, menuModel)}
@@ -30,13 +36,16 @@ const Index = props => (
 )
 
 Index.getInitialProps = wrapInitialProps(async (ctx) => {
-    const pageUrl = ctx.req.url
-    const page = await requestGet(createApiUrl(`/api/page?page=${pageUrl}`), {})
+    const slug = '/' + array(ctx.query.slug).join('/')
+    const page = await requestGet(createApiUrl(`/api/page?page=${slug}`), null)
+    if (!page) {
+        throw new Error(`Not found: ${slug}`)
+    }
     const image = page.preview ? page.preview.artifacts.fb : {}
 
     return {
         content: page.data,
-        pageUrl,
+        pageUrl: slug,
         title: page.title,
         meta: meta({
             title: page.title,
