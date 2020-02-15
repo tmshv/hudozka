@@ -34,22 +34,3 @@ export function wrapInitialProps(fn: (ctx: NextPageContext) => void) {
 export function createApiUrl(path: string) {
     return `https://api.tmshv.com/hudozka${path}`
 }
-
-function absoluteUrl(req, defaultLocalhost) {
-    let protocol = 'https:'
-    let host = req
-        ? (req.headers['x-forwarded-host'] || req.headers['host'])
-        : window.location.host
-    host = host || defaultLocalhost
-    if (host.indexOf('localhost') > -1) {
-        if (defaultLocalhost) host = defaultLocalhost
-        protocol = 'http:'
-    }
-    const origin = protocol + '//' + host
-
-    return {
-        protocol,
-        host,
-        origin,
-    }
-}
