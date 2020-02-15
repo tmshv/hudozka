@@ -4,7 +4,7 @@ import { getPathWithNoTrailingSlash } from '../lib/url'
 import { encodePage } from '../factory/page'
 
 export async function getItem(req: Request, res: Response) {
-    const id = req.params.slug
+    const id = req.query.page
     const page = getPathWithNoTrailingSlash(id)
     const resource = await Page.findByUrl(page)
     
