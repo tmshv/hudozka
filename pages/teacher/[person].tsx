@@ -8,7 +8,7 @@ import { meta } from 'src/lib/meta'
 import { createApiUrl, requestGet, IResponseItems } from 'src/next-lib'
 import { NextPage, NextPageContext } from 'next'
 import { IMeta } from 'src/types'
-import Html from 'src/components/Html'
+import { Html } from 'src/components/Html'
 
 interface IProps {
     pageUrl: string

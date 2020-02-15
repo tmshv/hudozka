@@ -1,9 +1,10 @@
 import * as React from 'react'
 import { Share } from '../Share'
-import Html from '../Html'
+import { Html } from '../Html'
 
 export interface IPageProps {
     showSocialShare: boolean
+    children: string
 }
 
 export const Page: React.FC<IPageProps> = props => (
