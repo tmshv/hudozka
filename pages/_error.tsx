@@ -1,7 +1,7 @@
-import React from 'react'
-import '../src/style/style.scss'
+import 'src/style/style.scss'
+import { NextPage } from 'next'
 
-const Page = props => (
+const Page: NextPage = () => (
     <div className="body-wrapper">
         <main className="body-wrapper__content">
             <section className="error-404">
