@@ -1,16 +1,15 @@
-import * as React from 'react'
+import 'src/style/style.scss'
+
 import dynamic from 'next/dynamic'
 import cx from 'classnames'
-
 import { Footer } from '../Footer'
 import Comments from '../Comments'
-import { useReducedMotion } from '../../hooks/useReducedMotion'
+import { useReducedMotion } from 'src/hooks/useReducedMotion'
+import { Wrapper } from '../Wrapper'
 
 const Header = dynamic(() => import('./Header'), {
     ssr: false,
 })
-
-import '../../style/style.scss'
 
 export interface IAppProps {
     menu: any
@@ -21,36 +20,37 @@ export interface IAppProps {
 
 export const App: React.FC<IAppProps> = props => {
     const motionDisabled = useReducedMotion()
-    
+
     return (
-        <div className="body-wrapper theme-default">
-            <header>
-                <div className="navigation">
-                    <div className="navigation__body">
-                        <Header
-                            menuItems={props.menu.items}
-                        />
+        <Wrapper
+            header={(
+                <header>
+                    <div className="navigation">
+                        <div className="navigation__body">
+                            <Header
+                                menuItems={props.menu.items}
+                            />
+                        </div>
                     </div>
-                </div>
-            </header>
+                </header>
+            )}
+            footer={(
+                <Footer
+                    showAuthor={props.showAuthor}
+                    address=" г. Шлиссельбург ул. 18 января д. 3"
+                    telephone="+7 (81362) 76-312"
+                    email="hudozka@gmail.com"
+                />
+            )}
+        >
+            <section className={cx('content', `content_${props.layout}`, {
+                'content--padding-top--menu': props.menuPadding,
+                'reduced-motion': motionDisabled,
+            })}>
+                {props.children}
+            </section>
 
-            <main className="body-wrapper__content">
-                <section className={cx('content', `content_${props.layout}`, {
-                    'content--padding-top--menu': props.menuPadding,
-                    'reduced-motion': motionDisabled,
-                })}>
-                    {props.children}
-                </section>
-
-                <Comments />
-            </main>
-
-            <Footer
-                showAuthor={props.showAuthor}
-                address=" г. Шлиссельбург ул. 18 января д. 3"
-                telephone="+7 (81362) 76-312"
-                email="hudozka@gmail.com"
-            />
-        </div>
+            <Comments />
+        </Wrapper>
     )
 }
