@@ -9,13 +9,11 @@ const Page: NextPage = () => (
     <Wrapper
         header={null}
         footer={(
-            <footer>
-                <Block direction={'horizontal'}>
-                    <Spacer />
-                    <Copyright />
-                    <Spacer />
-                </Block>
-            </footer>
+            <Block as={'footer'} direction={'horizontal'}>
+                <Spacer />
+                <Copyright />
+                <Spacer />
+            </Block>
         )}
     >
         <NotFound />

@@ -6,7 +6,7 @@ import { Wrapper } from '../Wrapper'
 import { Header } from './Header'
 import { ConfigContext } from 'src/context/ConfigContext'
 import config from 'src/config'
-import { AppFooter } from './AppFooter'
+import { Footer } from '../Footer'
 
 const Navigation = dynamic(() => import('../Navigation').then(mod => mod.Navigation), {
     ssr: false,
@@ -33,7 +33,7 @@ export const App: React.FC<IAppProps> = props => {
                     </Header>
                 )}
                 footer={(
-                    <AppFooter
+                    <Footer
                         showAuthor={props.showAuthor}
                     />
                 )}

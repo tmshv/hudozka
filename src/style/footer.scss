@@ -1,17 +1,3 @@
 footer {
-  padding: 0 var(--half-margin) var(--half-margin);
-  position: relative;
-
-  .contacts {
-    margin: var(--double-margin) 0 var(--half-margin);
-
-    & > div {
-      padding: 0 var(--single-margin);
-    }
-
-    p {
-      margin: var(--half-margin) var(--single-margin);
-    }
-  }
-
+    padding: var(--single-margin);
 }

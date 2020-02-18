@@ -1,11 +1,16 @@
+import cx from 'classnames'
+import { createElement } from 'react'
+
 export type BlockProps = {
+    as?: keyof HTMLElementTagNameMap
     style?: React.CSSProperties
     direction: 'horizontal' | 'vertical'
 }
 
-export const Block: React.FC<BlockProps> = props => {
-    return (
-        <div style={props.style}>
+export const Block: React.FC<BlockProps> = ({ as = 'div', style, direction, ...props }) => {
+    const newProps = { className: cx(direction), style }
+    const children = (
+        <>
             <style jsx>{`
                 div {
                     display: flex;
@@ -13,9 +18,19 @@ export const Block: React.FC<BlockProps> = props => {
                     align-items: baseline;
                     justify-content: flex-start;
                 }
+
+                .horizontal {
+                    flex-direction: row;
+                }
+
+                .vertical {
+                    flex-direction: column;
+                }
             `}</style>
 
             {props.children}
-        </div>
+        </>
     )
+
+    return createElement(as, newProps, children)
 }
