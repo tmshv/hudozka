@@ -154,6 +154,10 @@ a.invisible {
     color: var(--color-text-opposite);
 }
 
+.opposite a:hover {
+    border-bottom-color: var(--color-text-opposite);
+}
+
 .actor {
     border-bottom: 1px dashed black;
 }
