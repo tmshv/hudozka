@@ -1,5 +1,3 @@
-import 'src/style/style.scss'
-
 import { NextPage } from 'next'
 import { Wrapper } from 'src/components/Wrapper'
 import { NotFound } from 'src/components/NotFound'
