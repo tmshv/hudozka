@@ -66,6 +66,13 @@
     --color-back-main: white;
     --color-back-opposite: var(--darker-color);
 
+    /* SIZE */
+    --size-sx: 0.2em;
+    --size-s: 0.5em;
+    --size-m: 1em;
+    --size-l: 2em;
+    --size-xl: 5em;
+
     /* MARGINS */
     --small-margin: 0.2em;
     --half-margin: 0.5em;
