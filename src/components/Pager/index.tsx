@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 const text = ['↑', '↓']
 const linkText = ['Предыдущая страница', 'Следующая страница']
 
@@ -29,6 +31,8 @@ export const Pager: React.FC<PagerProps> = ({ url, position }) => (
             {text[i(position)]}
         </span>
 
-        <a href={url}>{linkText[i(position)]}</a>
+        <Link href={url}>
+            <a>{linkText[i(position)]}</a>
+        </Link>
     </div>
 )
