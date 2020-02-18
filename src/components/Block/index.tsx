@@ -1,5 +1,3 @@
-import { createElement } from 'react'
-
 export type BlockProps = {
     style?: React.CSSProperties
     direction: 'horizontal' | 'vertical'
@@ -21,9 +19,3 @@ export const Block: React.FC<BlockProps> = props => {
         </div>
     )
 }
-
-export const Spacer: React.FC<{ as?: string }> = ({ as = 'div' }) => createElement(as, {
-    style: {
-        flex: 1,
-    }
-}) 

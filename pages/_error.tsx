@@ -2,7 +2,8 @@ import { NextPage } from 'next'
 import { Wrapper } from 'src/components/Wrapper'
 import { NotFound } from 'src/components/NotFound'
 import { Copyright } from 'src/components/Copyright'
-import { Block, Spacer } from 'src/components/Block'
+import { Block } from 'src/components/Block'
+import { Spacer } from 'src/components/Spacer'
 
 const Page: NextPage = () => (
     <Wrapper

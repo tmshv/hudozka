@@ -1,6 +1,7 @@
 import { Copyright } from '../Copyright'
 import { Author } from './Author'
-import { Block, Spacer } from '../Block'
+import { Block } from '../Block'
+import { Spacer } from '../Spacer'
 
 const mailto = email => `mailto:${email}`
 
@@ -31,7 +32,7 @@ export const Footer: React.FC<IFooterProps> = props => (
 
             {!props.showAuthor ? null : (
                 <>
-                    <Spacer />
+                    <Spacer as={'span'} />
                     <Author />
                 </>
             )}
