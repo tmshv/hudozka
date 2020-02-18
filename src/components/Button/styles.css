@@ -12,7 +12,7 @@
     border-radius: 100px;
 
     background-color: var(--color-back);
-    box-shadow: 0 0 0 1px rgba(27, 51, 88, 0.15);
+    box-shadow: 0 0 0 1px var(--color-shadow);
 
     transition: box-shadow 150ms;
 
@@ -21,5 +21,5 @@
 }
 
 .button:hover {
-    box-shadow: 0 4px 20px rgba(27, 51, 88, 0.15)
+    box-shadow: var(--shadow-active);
 }

@@ -1,14 +1,15 @@
 import { ArticleCard } from './ArticleCard'
 import { Pager } from './Pager'
 import { CardGrid } from './CardGrid'
+import { IArticle } from 'src/types'
 
 export interface IArticleCardListProps {
-    articles: any[]
+    articles: IArticle[]
     nextPage: number | null
     prevPage: number | null
 }
 
-export const ArticleCardList: React.FC<IArticleCardListProps> = ({ articles, nextPage, prevPage }) => (
+export const ArticleCardList: React.FC<IArticleCardListProps> = ({ articles, nextPage, prevPage, ...props }) => (
     <>
         <CardGrid
             style={{
@@ -22,11 +23,16 @@ export const ArticleCardList: React.FC<IArticleCardListProps> = ({ articles, nex
                     srcSet: article.preview.set,
                 }
 
+                const gridColumn = article.featured ? 'span 2' : 'auto'
+
                 return (
                     <ArticleCard
                         key={i}
                         article={article}
-                        preview={preview}
+                        preview={preview as any}
+                        style={{
+                            gridColumn
+                        }}
                     />
                 )
             })}

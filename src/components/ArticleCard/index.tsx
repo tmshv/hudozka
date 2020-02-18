@@ -6,12 +6,13 @@ import { IImage } from 'src/types'
 import Link from 'next/link'
 
 export interface IArticleCardProps {
+    style?: React.CSSProperties
     article: any
     preview?: IImage
 }
 
 export const ArticleCard: React.FC<IArticleCardProps> = ({ article, ...props }) => (
-    <section className="ArticleCard">
+    <div className="ArticleCard" style={props.style}>
         <Link href={article.url}>
             <a className="invisible">
                 <div className="ArticleCard-image">
@@ -38,5 +39,5 @@ export const ArticleCard: React.FC<IArticleCardProps> = ({ article, ...props }) 
                 </div>
             </a>
         </Link>
-    </section>
+    </div>
 )

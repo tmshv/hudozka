@@ -1,7 +1,10 @@
 .card-grid {
+    --min-cell-size: 240px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: var(--size-xl) var(--size-l); 
+    /* grid-template-columns: 1fr 1fr 1fr; */
+    grid-template-columns: repeat(auto-fill, minmax(var(--min-cell-size), 1fr));
+    grid-auto-rows: 1fr;
+    grid-gap: var(--size-xl) var(--size-l);
 }
 
 /* .card-grid > *:first-child {
@@ -10,4 +13,9 @@
 } */
 
 @media screen and (max-width: 31.25em) {
+    .card-grid {
+        grid-template-columns: 1fr;
+        /* grid-template-columns: auto; */
+        grid-gap: var(--size-l) 0;
+    }
 }
