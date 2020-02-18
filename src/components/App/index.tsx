@@ -1,5 +1,3 @@
-import 'src/style/style.scss'
-
 import dynamic from 'next/dynamic'
 import cx from 'classnames'
 import { Footer } from '../Footer'
