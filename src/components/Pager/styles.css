@@ -1,9 +1,0 @@
-.pager {
-    text-align: center;
-    margin-top: var(--size-m);
-    margin-bottom: var(--size-m);
-}
-
-.pager .icon {
-    margin: 0 var(--size-s);
-}

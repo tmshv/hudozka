@@ -18,10 +18,6 @@ export const ArticleCardList:React.FC<IArticleCardListProps> = ({ articles, next
             }
         `}</style>
 
-        {!prevPage ? null : (
-            <Pager url={`/articles/${prevPage}`} position={'top'} />
-        )}
-
         <div className={'body'}>
             {articles.map((article, i) => {
                 const preview = {
@@ -40,8 +36,9 @@ export const ArticleCardList:React.FC<IArticleCardListProps> = ({ articles, next
             })}
         </div>
 
-        {!nextPage ? null : (
-            <Pager url={`/articles/${nextPage}`} position={'bottom'} />
-        )}
+        <Pager
+            nextHref={nextPage ? `/articles/${nextPage}` : null}
+            prevHref={prevPage ? `/articles/${prevPage}` : null}
+        />
     </div>
 )

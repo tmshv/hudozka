@@ -1,28 +1,20 @@
-import './styles.css'
-
-import Link from 'next/link'
-
-const text = ['↑', '↓']
-const linkText = ['Предыдущая страница', 'Следующая страница']
-
-type Position = 'top' | 'bottom'
-const i = (type: Position) => type === 'top'
-    ? 0
-    : 1
+import { Block } from '../Block'
+import { Button } from '../Button'
+import { Spacer } from '../Spacer'
 
 export type PagerProps = {
-    url: string
-    position: Position
+    nextHref: string | null
+    prevHref: string | null
 }
 
-export const Pager: React.FC<PagerProps> = ({ url, position }) => (
-    <div className={'pager'}>
-        <span className={'pager icon'}>
-            {text[i(position)]}
-        </span>
-
-        <Link href={url}>
-            <a>{linkText[i(position)]}</a>
-        </Link>
-    </div>
+export const Pager: React.FC<PagerProps> = props => (
+    <Block direction={'horizontal'}>
+        {!props.prevHref ? null : (
+            <Button href={props.prevHref}>Предыдущая страница</Button>
+        )}
+        <Spacer />
+        {!props.nextHref ? null : (
+            <Button href={props.nextHref}>Следущая страница</Button>
+        )}
+    </Block>
 )

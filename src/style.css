@@ -73,6 +73,10 @@
     --size-l: 2em;
     --size-xl: 5em;
 
+    /* EFFECTS */
+    --radius: 10px;
+    --shadow: 0 0 0 1px rgba(27, 51, 88, 0.15);
+
     /* MARGINS */
     --small-margin: 0.2em;
     --half-margin: 0.5em;
