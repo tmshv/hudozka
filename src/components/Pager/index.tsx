@@ -1,3 +1,5 @@
+import './styles.css'
+
 import Link from 'next/link'
 
 const text = ['↑', '↓']
@@ -14,20 +16,8 @@ export type PagerProps = {
 }
 
 export const Pager: React.FC<PagerProps> = ({ url, position }) => (
-    <div>
-        <style jsx>{`
-            div {
-                text-align: center;
-                margin-top: var(--size-m);
-                margin-bottom: var(--size-m);
-            }
-
-            span {
-                margin: 0 var(--size-s);
-            }
-        `}</style>
-
-        <span>
+    <div className={'pager'}>
+        <span className={'pager icon'}>
             {text[i(position)]}
         </span>
 
