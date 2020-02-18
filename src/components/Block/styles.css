@@ -1,0 +1,14 @@
+.block {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: flex-start;
+}
+
+.block.horizontal {
+    flex-direction: row;
+}
+
+.block.vertical {
+    flex-direction: column;
+}

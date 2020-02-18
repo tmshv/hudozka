@@ -1,3 +1,5 @@
+import './styles.css'
+
 import cx from 'classnames'
 import { createElement } from 'react'
 
@@ -8,29 +10,7 @@ export type BlockProps = {
 }
 
 export const Block: React.FC<BlockProps> = ({ as = 'div', style, direction, ...props }) => {
-    const newProps = { className: cx(direction), style }
-    const children = (
-        <>
-            <style jsx>{`
-                div {
-                    display: flex;
-                    flex-wrap: wrap;
-                    align-items: baseline;
-                    justify-content: flex-start;
-                }
+    const newProps = { className: cx('block', direction), style }
 
-                .horizontal {
-                    flex-direction: row;
-                }
-
-                .vertical {
-                    flex-direction: column;
-                }
-            `}</style>
-
-            {props.children}
-        </>
-    )
-
-    return createElement(as, newProps, children)
+    return createElement(as, newProps, props.children)
 }
