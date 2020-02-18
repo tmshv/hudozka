@@ -1,5 +1,5 @@
-import Paginator from './Paginator'
 import { ArticleCard } from './ArticleCard'
+import { Pager } from './Pager'
 
 export interface IArticleCardListProps {
     articles: any[]
@@ -19,7 +19,7 @@ export const ArticleCardList:React.FC<IArticleCardListProps> = ({ articles, next
         `}</style>
 
         {!prevPage ? null : (
-            <Paginator url={`/articles/${prevPage}`} type="top" />
+            <Pager url={`/articles/${prevPage}`} position={'top'} />
         )}
 
         <div className={'body'}>
@@ -41,7 +41,7 @@ export const ArticleCardList:React.FC<IArticleCardListProps> = ({ articles, next
         </div>
 
         {!nextPage ? null : (
-            <Paginator url={`/articles/${nextPage}`} type="bottom" />
+            <Pager url={`/articles/${nextPage}`} position={'bottom'} />
         )}
     </div>
 )
