@@ -2,6 +2,7 @@ import 'src/style/style.scss'
 
 import { NextPage } from 'next'
 import { Wrapper } from 'src/components/Wrapper'
+import { NotFound } from 'src/components/NotFound'
 
 const Page: NextPage = () => (
     <Wrapper
@@ -14,14 +15,7 @@ const Page: NextPage = () => (
             </footer>
         )}
     >
-        <section className="error-404">
-            <div>
-                <h1>Страница не найдена.</h1>
-                <img src="/static/graphics/skull.jpg" />
-            </div>
-
-            <div><a href="/">На главную</a></div>
-        </section>
+        <NotFound />
     </Wrapper>
 )
 
