@@ -21,11 +21,16 @@ export const Wrapper: React.FC<WrapperProps> = props => (
             .content {
                 flex: 1;
             }
+
+            main {
+                display: flex;
+                justify-content: center;
+            }
         `}</style>
 
         {props.header}
 
-        <main className={'content'}>
+        <main> 
             {props.children}
         </main>
 

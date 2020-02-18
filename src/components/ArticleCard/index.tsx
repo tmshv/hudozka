@@ -1,12 +1,8 @@
-import * as React from 'react'
+import './styles.css'
+
 import cx from 'classnames'
 import { Date } from './Date'
-
-interface IImage {
-    alt: string
-    src: string
-    srcSet: Array<{ url: string, density: number }>
-}
+import { IImage } from 'src/types'
 
 export interface IArticleCardProps {
     article: any
@@ -15,86 +11,6 @@ export interface IArticleCardProps {
 
 export const ArticleCard: React.FC<IArticleCardProps> = ({ article, ...props }) => (
     <section className="ArticleCard">
-        <style jsx>{`
-            .ArticleCard {
-                --article-card-width: 30%;
-                --article-card-image-height: 15em;
-                --article-card-margin: var(--double-margin) var(--single-margin);
-
-                display: flex;
-                flex-direction: column;
-
-                margin: var(--article-card-margin);
-                width: var(--article-card-width);
-                min-width: 15em;
-                max-width: 20em;
-
-                border-radius: 10px;
-
-                box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-                overflow: hidden;
-            }
-
-            .ArticleCard > a {
-                display: block;
-                position: relative;
-            }
-
-            .ArticleCard-image {
-                overflow: hidden;
-                position: relative;
-                width: 100%;
-                height: var(--article-card-image-height);
-            }
-
-            .ArticleCard-image img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-
-                transition: all 150ms ease-out;
-
-                position: absolute;
-                top: 0;
-                left: 0;
-            }
-
-            .ArticleCard-body {
-                z-index: 1000;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                align-items: flex-start;
-
-                height: 5em;
-
-                padding: .75em 1em;
-            }
-
-            .ArticleCard:hover img {
-                width: 105%;
-                height: 105%;
-
-                top: -2.5%;
-                left: -2.5%;
-            }
-
-            // Tablet
-            @media screen and (min-width: var(--tablet-min-width)) and (max-width: var(--tablet-max-width)) {
-                .ArticleCard {
-                    --article-card-image-height: 12em;
-                }
-            }
-
-            // Mobile
-            @media (max-width: 31.25em) {
-                .ArticleCard {
-                    --article-card-width: 100%;
-                    --article-card-margin: var(--single-margin) 0;
-                }
-            }
-        `}</style>
-
         <a className="invisible" href={article.url}>
             <div className="ArticleCard-image">
                 {!props.preview ? null : (

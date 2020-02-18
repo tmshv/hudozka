@@ -38,14 +38,14 @@ export const App: React.FC<IAppProps> = props => {
                     />
                 )}
             >
-                <section className={cx('content', `content_${props.layout}`, {
+                <div className={cx('content', `content_${props.layout}`, {
                     'content--padding-top--menu': props.menuPadding,
                     'reduced-motion': motionDisabled,
                 })}>
                     {props.children}
-                </section>
+                </div>
 
-                <Comments />
+                {/* <Comments /> */}
             </Wrapper>
         </ConfigContext.Provider>
     )

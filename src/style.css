@@ -23,10 +23,12 @@
     --tablet-min-width: 31.25em;
     --tablet-max-width: 64em;
 
+    /* CONTENT */
     --content-full: 100%;
     --content-wide: 90%;
     --content-semi-wide: 70%;
     --content-thin: 60%;
+    --content-width: var(--content-full);
 
     --embed-video-ratio: 56.25%;
 
@@ -71,7 +73,7 @@
     --size-s: 0.5em;
     --size-m: 1em;
     --size-l: 2em;
-    --size-xl: 5em;
+    --size-xl: 3em;
 
     /* EFFECTS */
     --radius: 10px;

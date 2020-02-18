@@ -1,5 +1,6 @@
 import { ArticleCard } from './ArticleCard'
 import { Pager } from './Pager'
+import { CardGrid } from './CardGrid'
 
 export interface IArticleCardListProps {
     articles: any[]
@@ -7,18 +8,13 @@ export interface IArticleCardListProps {
     prevPage: number | null
 }
 
-export const ArticleCardList:React.FC<IArticleCardListProps> = ({ articles, nextPage, prevPage }) => (
-    <div>
-        <style jsx>{`
-            .body {
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-                flex-wrap: wrap;
-            }
-        `}</style>
-
-        <div className={'body'}>
+export const ArticleCardList: React.FC<IArticleCardListProps> = ({ articles, nextPage, prevPage }) => (
+    <>
+        <CardGrid
+            style={{
+                marginBottom: 'var(--size-m)',
+            }}
+        >
             {articles.map((article, i) => {
                 const preview = {
                     alt: article.title,
@@ -34,11 +30,11 @@ export const ArticleCardList:React.FC<IArticleCardListProps> = ({ articles, next
                     />
                 )
             })}
-        </div>
+        </CardGrid>
 
         <Pager
             nextHref={nextPage ? `/articles/${nextPage}` : null}
             prevHref={prevPage ? `/articles/${prevPage}` : null}
         />
-    </div>
+    </>
 )
