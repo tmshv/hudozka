@@ -1,5 +1,6 @@
 import { Copyright } from '../Copyright'
 import { Author } from './Author'
+import { Block, Spacer } from '../Block'
 
 const mailto = email => `mailto:${email}`
 
@@ -23,12 +24,18 @@ export const Footer: React.FC<IFooterProps> = props => (
             </div>
         </div>
 
-        <div className="copyright">
+        <Block direction={'horizontal'} style={{
+            padding: '1.5em 1em 0.25em',
+        }}>
             <Copyright />
+
             {!props.showAuthor ? null : (
-                <Author />
+                <>
+                    <Spacer />
+                    <Author />
+                </>
             )}
-        </div>
-    </footer>
+        </Block>
+    </footer >
 )
 

@@ -14,24 +14,4 @@ footer {
     }
   }
 
-  .copyright {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    justify-content: space-between;
-
-    span {
-      padding: 1.5em 1em 0.25em;
-      box-sizing: padding-box;
-    }
-  }
-
-  &.footer--centered {
-    .copyright {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      justify-content: center;
-    }
-  }
 }
