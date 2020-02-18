@@ -71,8 +71,8 @@ export const unstable_getStaticProps = async (ctx: NextPageContext) => {
     // const pageUrl = ctx.req.url
     const pageUrl = '/collective'
 
-    const res = await requestGet<IResponseItems<IPerson>>(createApiUrl('/api/persons'), { items: [] })
-    const data = res.items || []
+    const res = await requestGet<IResponseItems<IPerson>>(createApiUrl('/api/persons'), null)
+    const data = res?.items || []
     const title = 'Преподаватели Шлиссельбургской ДХШ'
     const imageFile = 'Images/HudozkaCollective2017.jpg'
     const resImage = await requestGet(createApiUrl(`/api/image?file=${imageFile}`), null)
