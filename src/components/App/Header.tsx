@@ -1,8 +1,22 @@
-import * as React from 'react'
-import { Navigation } from '../Navigation'
+export const Header: React.FC = props => (
+    <header>
+        <style jsx>{`
+            .navigation {
+                width: 100%;
+                background-color: white;
+            }
 
-const Header: React.FC<any> = props => (
-    <Navigation items={props.menuItems} />
+            .navigation__body {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+        `}</style>
+
+        <div className="navigation">
+            <div className="navigation__body">
+                {props.children}
+            </div>
+        </div>
+    </header>
 )
-
-export default Header
