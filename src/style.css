@@ -76,8 +76,8 @@
     --size-xl: 3em;
 
     /* EFFECTS */
-    --radius: 10px;
-    --shadow: 0 0 0 1px rgba(27, 51, 88, 0.15);
+    --radius: 15px;
+    --shadow: 0 0 15px rgba(27, 51, 88, 0.15);
 
     /* MARGINS */
     --small-margin: 0.2em;
