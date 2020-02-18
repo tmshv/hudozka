@@ -1,10 +1,13 @@
 import dynamic from 'next/dynamic'
 import cx from 'classnames'
-import { Footer } from '../Footer'
 import Comments from '../Comments'
 import { useReducedMotion } from 'src/hooks/useReducedMotion'
 import { Wrapper } from '../Wrapper'
 import { Header } from './Header'
+import { ConfigContext } from 'src/context/ConfigContext'
+import config from 'src/config'
+import { Footer } from '../Footer'
+
 const Navigation = dynamic(() => import('../Navigation').then(mod => mod.Navigation), {
     ssr: false,
 })
@@ -20,31 +23,30 @@ export const App: React.FC<IAppProps> = props => {
     const motionDisabled = useReducedMotion()
 
     return (
-        <Wrapper
-            header={(
-                <Header>
-                    <Navigation
-                        items={props.menu.items}
+        <ConfigContext.Provider value={config}>
+            <Wrapper
+                header={(
+                    <Header>
+                        <Navigation
+                            items={props.menu.items}
+                        />
+                    </Header>
+                )}
+                footer={(
+                    <Footer
+                        showAuthor={props.showAuthor}
                     />
-                </Header>
-            )}
-            footer={(
-                <Footer
-                    showAuthor={props.showAuthor}
-                    address=" г. Шлиссельбург ул. 18 января д. 3"
-                    telephone="+7 (81362) 76-312"
-                    email="hudozka@gmail.com"
-                />
-            )}
-        >
-            <section className={cx('content', `content_${props.layout}`, {
-                'content--padding-top--menu': props.menuPadding,
-                'reduced-motion': motionDisabled,
-            })}>
-                {props.children}
-            </section>
+                )}
+            >
+                <section className={cx('content', `content_${props.layout}`, {
+                    'content--padding-top--menu': props.menuPadding,
+                    'reduced-motion': motionDisabled,
+                })}>
+                    {props.children}
+                </section>
 
-            <Comments />
-        </Wrapper>
+                <Comments />
+            </Wrapper>
+        </ConfigContext.Provider>
     )
 }

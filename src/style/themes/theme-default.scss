@@ -1,74 +1,25 @@
-.theme-default {
-  h1, h2{
-    font-family: var(--title-font);
-  }
-
-  a {
-    color: var(--dark-color);
-
-    text-decoration: none;
-    border-bottom: 1px solid var(--link-color);
-
-    &:hover {
-      border-bottom: 2px solid var(--dark-color);
-    }
-
-    &:active {
-      border-width: 2px;
-    }
-
-    &.invisible {
-      border-bottom: none;
-    }
-
-    &:visited {
-      color: #a4059c;
-    }
-  }
-
-  .accessibility-control {
-    display: none;
-  }
-
-  .schedule-table {
-    a{
-      color: var(--dark-color);
+.schedule-table {
+    a {
+        color: var(--dark-color);
     }
 
     .lesson {
-      font-size: 1.1em;
+        font-size: 1.1em;
     }
 
     .current {
-      border-color: var(--current-week-day-color);
+        border-color: var(--current-week-day-color);
     }
 
-    &__head{
-      .group {
-        color: #666;
-      }
+    &__head {
+        .group {
+            color: #666;
+        }
     }
 
-    &__body-row{
-      &:nth-child(even) {
-        background-color: var(--schedule-row-color);
-      }
+    &__body-row {
+        &:nth-child(even) {
+            background-color: var(--schedule-row-color);
+        }
     }
-  }
-
-  footer {
-    color: var(--light-color);
-    background-color: var(--darker-color);
-
-    font-size: var(--smaller-font-size);
-
-    a {
-      color: var(--light-color);
-      border-bottom-color: var(--light-color);
-
-      &:hover {
-        border-bottom-color: var(--light-color);
-      }
-    }
-  }
 }

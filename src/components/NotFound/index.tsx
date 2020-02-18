@@ -2,7 +2,8 @@ export const NotFound: React.FC = () => (
     <section> 
         <style jsx>{`
             section {
-                margin: 1em 0;
+                margin-top: var(--size-l);
+                margin-bottom: var(--size-l);
 
                 text-align: center;
                 height: 100%;
@@ -17,8 +18,8 @@ export const NotFound: React.FC = () => (
             }
 
             img {
-                margin: 20px;
-                width: 40%;
+                margin-top: var(--size-m);
+                margin-bottom: var(--size-m);
                 max-width: 400px;
             }
         `}</style>
