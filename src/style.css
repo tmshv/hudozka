@@ -23,10 +23,12 @@
     --tablet-min-width: 31.25em;
     --tablet-max-width: 64em;
 
+    /* CONTENT */
     --content-full: 100%;
     --content-wide: 90%;
     --content-semi-wide: 70%;
     --content-thin: 60%;
+    --content-width: var(--content-full);
 
     --embed-video-ratio: 56.25%;
 
@@ -53,6 +55,7 @@
     --magenta-color: rgb(214, 39, 246);
     --red-color: rgb(246, 27, 20);
     --gray-color: rgb(153, 154, 160);
+    --color-shadow: rgba(27, 51, 88, 0.15);
 
     --inactive-link-color: var(--light-color);
 
@@ -71,7 +74,12 @@
     --size-s: 0.5em;
     --size-m: 1em;
     --size-l: 2em;
-    --size-xl: 5em;
+    --size-xl: 3em;
+
+    /* EFFECTS */
+    --radius: 15px;
+    --shadow: 0 0 8px var(--color-shadow);
+    --shadow-active: 0 4px 16px var(--color-shadow);
 
     /* MARGINS */
     --small-margin: 0.2em;
@@ -149,9 +157,9 @@ a:active {
     border-width: 2px;
 }
 
-a:visited {
+/* a:visited {
     color: #a4059c;
-}
+} */
 
 a.invisible {
     border-bottom: none;

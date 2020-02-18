@@ -23,3 +23,18 @@ export interface IMeta {
     twitterSite: string
     twitterCreator: string
 }
+
+export interface IImage {
+    alt: string
+    src: string
+    srcSet: Array<{ url: string, density: number }>
+    set: any // TODO
+}
+
+export interface IArticle {
+    id: string
+    featured: boolean
+    url: string
+    title: string
+    preview: IImage
+}
