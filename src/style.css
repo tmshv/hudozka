@@ -149,9 +149,9 @@ a:active {
     border-width: 2px;
 }
 
-a:visited {
+/* a:visited {
     color: #a4059c;
-}
+} */
 
 a.invisible {
     border-bottom: none;
