@@ -2,15 +2,6 @@ footer {
   padding: 0 var(--half-margin) var(--half-margin);
   position: relative;
 
-  .footer-info {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-
-    padding: var(--double-margin) var(--single-margin) 0;
-    margin-bottom: var(--double-margin);
-  }
-
   .contacts {
     margin: var(--double-margin) 0 var(--half-margin);
 
