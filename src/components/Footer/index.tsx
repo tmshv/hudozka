@@ -1,7 +1,6 @@
-import * as React from 'react'
+import { Copyright } from '../Copyright'
 
 const mailto = email => `mailto:${email}`
-const currentYear = () => (new Date()).getFullYear()
 
 export interface IFooterProps {
     address: string
@@ -24,10 +23,7 @@ export const Footer: React.FC<IFooterProps> = props => (
         </div>
 
         <div className="copyright">
-            <Copyright
-                yearStart={2012}
-                yearEnd={currentYear()}
-            />
+            <Copyright />
             {!props.showAuthor ? null : (
                 <Author />
             )}
@@ -42,8 +38,4 @@ const Author = () => (
             www.tmshv.ru
 		</a>
     </span>
-)
-
-const Copyright = ({ yearStart, yearEnd }) => (
-    <span>©&nbsp;{yearStart}—{yearEnd} Шлиссельбургская детская художественная школа</span>
 )

@@ -1,6 +1,7 @@
 import { NextPage } from 'next'
 import { Wrapper } from 'src/components/Wrapper'
 import { NotFound } from 'src/components/NotFound'
+import { Copyright } from 'src/components/Copyright'
 
 const Page: NextPage = () => (
     <Wrapper
@@ -8,7 +9,7 @@ const Page: NextPage = () => (
         footer={(
             <footer className="footer--centered">
                 <div className="copyright">
-                    <span>©&nbsp;2012—2019 Шлиссельбургская детская художественная школа</span>
+                    <Copyright />
                 </div>
             </footer>
         )}
