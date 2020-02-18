@@ -4,8 +4,8 @@ import { Footer } from '../Footer'
 import Comments from '../Comments'
 import { useReducedMotion } from 'src/hooks/useReducedMotion'
 import { Wrapper } from '../Wrapper'
-
-const Header = dynamic(() => import('./Header'), {
+import { Header } from './Header'
+const Navigation = dynamic(() => import('../Navigation').then(mod => mod.Navigation), {
     ssr: false,
 })
 
@@ -22,15 +22,11 @@ export const App: React.FC<IAppProps> = props => {
     return (
         <Wrapper
             header={(
-                <header>
-                    <div className="navigation">
-                        <div className="navigation__body">
-                            <Header
-                                menuItems={props.menu.items}
-                            />
-                        </div>
-                    </div>
-                </header>
+                <Header>
+                    <Navigation
+                        items={props.menu.items}
+                    />
+                </Header>
             )}
             footer={(
                 <Footer

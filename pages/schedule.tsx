@@ -24,8 +24,6 @@ const Page: NextPage<Props> = props => (
             <title>{props.title}</title>
         </Head>
 
-        {/*<ScheduleList schedules={schedules}/>*/}
-
         <Schedule {...props.data} />
 
         <Share />
