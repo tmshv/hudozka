@@ -20,7 +20,7 @@ export const Contacts: React.FC = props => {
             <h4>Контактная информация</h4>
 
             {contacts.map((x, i) => (
-                <p><a href={x.value}>{x.title}</a></p>
+                <p key={i}><a href={x.value}>{x.title}</a></p>
             ))}
         </>
     )
