@@ -15,7 +15,7 @@ export const CollectiveImage = (props) => (
             }}
             imgStyle={{
                 width: '100%',
-                borderRadius: '10px',
+                borderRadius: 'var(--radius)',
             }}
         />
     </div>

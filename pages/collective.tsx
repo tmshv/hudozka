@@ -48,7 +48,7 @@ const Page: NextPage<Props> = props => {
                 <CollectiveImage
                     data={props.image}
                     style={{
-                        marginBottom: 'var(--double-margin)',
+                        marginBottom: 'var(--size-l)',
                     }}
                 />
             )}
