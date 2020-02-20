@@ -200,5 +200,7 @@ a.invisible {
 
         --content-thin: 90%;
         --content-wide: 90%;
+
+        --kazimir-image-increase: 0px;
     }
 }
