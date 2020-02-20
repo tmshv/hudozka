@@ -1,5 +1,5 @@
 .Article {
-    --article-line-height: 1.75em;
+    --article-line-height: 1.5em;
     --article-quote-padding: var(--half-margin);
     --article-quote-font-size: 1.25em;
     --article-head-margin-bottom: var(--small-margin);
@@ -45,7 +45,6 @@
             line-height: var(--article-line-height);
         }
 
-        p,
         h2,
         h3 {
             margin-left: var(--text-margin);

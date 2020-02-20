@@ -2,8 +2,8 @@
     --white-shadow: 0 0.1em 0.3em rgba(0, 0, 0, 0.2);
 
     /* FONTS */
-    --title-font: Shadow, 'PT Serif', Georgia, serif;
-    --text-font: 'PT Sans', Arial, sans-serif;
+    --title-font: Shadow, Georgia, serif;
+    --text-font: 'PT Sans', Helvetica, sans-serif;
 
     --smaller-font-size: 0.9rem;
     --normal-font-size: 1rem;
@@ -34,7 +34,7 @@
 
     /* FONTS */
     --font-size-default: 14pt;
-    --font-size-second: 0.9rem;
+    --font-size-second: 12pt;
 
     --font-size-h1: 5rem;
     --font-size-h2: 2.5rem;
@@ -63,7 +63,7 @@
 
     /* TEXT COLOR */
     --color-text: #303030;
-    --color-text-second: #ccc;
+    --color-text-second: #9090a0;
     --color-text-opposite: var(--light-color);
 
     --color-back-main: white;
@@ -90,6 +90,11 @@
 
     /* OTHER */
     --block-border-radius: 3px;
+
+    /* KAZIMIR */
+    --kazimir-caption-margin: 0px;
+    --kazimir-radius: 5px;
+    --kazimir-image-increase: 50px;
 }
 
 * {
@@ -195,5 +200,7 @@ a.invisible {
 
         --content-thin: 90%;
         --content-wide: 90%;
+
+        --kazimir-image-increase: 0px;
     }
 }

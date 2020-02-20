@@ -1,4 +1,6 @@
 import 'src/style.css'
+import 'src/style/kazimir/image.css'
+import 'src/style/kazimir/video.css'
 import 'src/style/style.scss'
 
 import App from 'next/app'
