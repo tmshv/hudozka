@@ -1,5 +1,4 @@
 .personCard {
-    --person-card-width: 30%;
     --person-card-height: 24em;
 
     display: flex;
@@ -69,13 +68,5 @@
     }
 
     @media screen and (orientation: portrait) {
-    }
-}
-
-/* Mobile */
-
-@media (max-width: 31.25em) {
-    .personCard {
-        --person-card-width: 100%;
     }
 }
