@@ -4,7 +4,7 @@
     position: relative;
     padding-bottom: var(--embed-video-ratio);
 
-    margin-bottom: var(--single-margin);
+    margin-bottom: var(--size-m);
 }
 
 .kazimir__video iframe {
