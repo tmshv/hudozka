@@ -1,24 +1,25 @@
 .kazimir__image {
-  --kazimir-caption-margin: 20px;
+    --kazimir-caption-margin: 20px;
+}
 
-  p {
+.kazimir__image p {
     margin-left: 0;
     margin-right: 0;
-  }
+}
 
-  img {
+.kazimir__image img {
     border-radius: 3px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
 
     max-width: 100%;
     max-height: 35em;
-  }
+}
 
-  figure {
+.kazimir__image figure {
     margin: 0 0 var(--single-margin);
-  }
+}
 
-  figcaption {
+.kazimir__image figcaption {
     margin-left: var(--kazimir-caption-margin);
 
     font-size: 16px;
@@ -26,11 +27,10 @@
     color: #999;
 
     font-weight: 100;
-  }
 }
 
 @media screen and (max-width: var(--mobile-width)) {
-  .kazimir__image {
-    --kazimir-caption-margin: 10px;
-  }
+    .kazimir__image {
+        --kazimir-caption-margin: 10px;
+    }
 }
