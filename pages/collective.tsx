@@ -4,16 +4,18 @@ import { App } from 'src/components/App'
 import { Meta } from 'src/components/Meta'
 import { CollectiveImage } from 'src/components/CollectiveImage'
 import { PersonCard } from 'src/components/PersonCard'
-import { CardList } from 'src/components/CardList'
 import menuModel from 'src/models/menu'
 import { buildMenu } from 'src/lib/menu'
 import { meta } from 'src/lib/meta'
-import { IMeta } from 'src/types'
+import { IMeta, IImage } from 'src/types'
 import { createApiUrl, requestGet, IResponseItems } from 'src/next-lib'
 import { NextPage, NextPageContext } from 'next'
+import { CardGrid } from 'src/components/CardGrid'
 
 interface IPerson {
-
+    url: string
+    name: string
+    picture: IImage
 }
 
 type Props = {
@@ -51,18 +53,19 @@ const Page: NextPage<Props> = props => {
                 />
             )}
 
-            <CardList
-                items={props.data}
-                renderItem={(person, index) => (
+            <CardGrid style={{
+                marginBottom: 'var(--size-xl)',
+            }}>
+                {props.data.map((item, index) => (
                     <PersonCard
                         key={index}
-                        profile={person}
-                        picture={person.picture}
-                        url={person.url}
-                        name={person.name}
+                        profile={item}
+                        picture={item.picture}
+                        url={item.url}
+                        name={item.name}
                     />
-                )}
-            />
+                ))}
+            </CardGrid>
         </App>
     )
 }

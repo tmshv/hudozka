@@ -1,6 +1,5 @@
-import React from 'react'
 import cx from 'classnames'
-import { Image } from './Image'
+import { Image } from '../Image'
 
 export const PersonCard = ({ picture, name, url, profile }) => (
     <div className="PersonCard">
@@ -12,9 +11,6 @@ export const PersonCard = ({ picture, name, url, profile }) => (
                 display: flex;
                 flex-direction: column;
 
-                margin-bottom: var(--double-margin);
-
-                width: var(--person-card-width);
                 min-width: 10em;
                 max-width: 30em;
             }
