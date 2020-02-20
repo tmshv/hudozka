@@ -1,12 +1,12 @@
 .kazimir__image {
     position: relative;
     width: calc(100% + var(--kazimir-image-increase));
-    margin-left: calc(-1 * var(--kazimir-image-increase) / 2);
+    margin-left: calc(-0.5 * var(--kazimir-image-increase));
+    margin-bottom: var(--size-m);
 }
 
 .kazimir__image p {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
+    margin-left: calc(0.5 * var(--kazimir-image-increase));
 }
 
 .kazimir__image img {
