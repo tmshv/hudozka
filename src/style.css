@@ -90,6 +90,11 @@
 
     /* OTHER */
     --block-border-radius: 3px;
+
+    /* KAZIMIR */
+    --kazimir-caption-margin: 0px;
+    --kazimir-radius: 5px;
+    --kazimir-image-increase: 50px;
 }
 
 * {
