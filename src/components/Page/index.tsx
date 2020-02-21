@@ -8,7 +8,7 @@ export interface IPageProps {
 }
 
 export const Page: React.FC<IPageProps> = props => (
-    <div className={'Article Article--cloud'}>
+    <div className={'Article'}>
         <div className={'Article-Body'}>
             <Html
                 html={props.children}

@@ -2,20 +2,17 @@
     --article-line-height: 1.5em;
     --article-quote-padding: var(--half-margin);
     --article-quote-font-size: 1.25em;
-    --article-head-margin-bottom: var(--small-margin);
 
     hyphens: auto;
-
     margin-bottom: var(--post-margin);
 
     &-Head {
         margin-bottom: 1.25em;
+    }
 
-        h1 {
-            margin-bottom: var(--article-head-margin-bottom);
-        }
-
-   }
+    h1 {
+        margin-bottom: var(--size-s);
+    }
 
     &-Body {
         --text-margin: 10px;
@@ -76,13 +73,6 @@
             border: none;
             height: 1px;
             background: var(--dark-color);
-        }
-    }
-
-    &--cloud {
-        h1 {
-            --article-head-margin-bottom: var(--single-margin);
-            margin-bottom: var(--article-head-margin-bottom);
         }
     }
 }
