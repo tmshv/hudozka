@@ -18,7 +18,9 @@ const Index = props => (
     <App
         menu={buildMenu(props.pageUrl, menuModel)}
         showAuthor={true}
-        layout={'wide'}
+        contentStyle={{
+            marginTop: 'var(--size-l)'
+        }}
     >
         <Head>
             <title>{props.title}</title>
