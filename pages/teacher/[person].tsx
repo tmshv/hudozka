@@ -28,8 +28,7 @@ const Index: NextPage<IProps> = props => {
         <App
             menu={buildMenu(props.pageUrl, menuModel)}
             showAuthor={true}
-            menuPadding={true}
-            layout={'thin'}
+            layout={'wide'}
         >
             <Head>
                 <title>{props.title}</title>

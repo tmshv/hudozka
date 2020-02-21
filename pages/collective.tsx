@@ -36,7 +36,6 @@ const Page: NextPage<Props> = props => {
         <App
             menu={buildMenu(props.pageUrl, menuModel)}
             showAuthor={true}
-            menuPadding={true}
             layout={'wide'}
         >
             <Head>
