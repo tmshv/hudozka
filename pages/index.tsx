@@ -53,10 +53,6 @@ export const unstable_getStaticProps = async () => {
     const pageSize = process.env.APP_ARTICLES_PAGE_SIZE
     const res = await requestGet<IResponseItems<IArticle>>(createApiUrl(`/api/articles?page=${page}&pageSize=${pageSize}`), null)
     const articles = (res.items || [])
-        .map(x => ({
-            ...x,
-            featured: x.id === '2019-kotiki'
-        }))
     const nextPage = res.nextPage
     const prevPage = res.prevPage
     const title = 'Шлиссельбургская ДХШ'
