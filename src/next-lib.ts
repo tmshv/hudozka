@@ -3,6 +3,8 @@ import { NextPageContext } from 'next'
 
 export interface IResponseItems<T> {
     items: T[]
+    nextPage: number
+    prevPage: number
 }
 
 export async function requestGet<T>(url: string, defaultResponse: T): Promise<T> {

@@ -15,11 +15,11 @@ const Navigation = dynamic(() => import('../Navigation').then(mod => mod.Navigat
 export interface IAppProps {
     menu: any
     showAuthor: boolean
-    menuPadding: boolean
-    layout: 'full' | 'wide' | 'thin'
+    wide?: boolean
+    contentStyle?: React.CSSProperties
 }
 
-export const App: React.FC<IAppProps> = props => {
+export const App: React.FC<IAppProps> = ({ wide = false, ...props }) => {
     const motionDisabled = useReducedMotion()
 
     return (
@@ -38,10 +38,13 @@ export const App: React.FC<IAppProps> = props => {
                     />
                 )}
             >
-                <div className={cx('content', `content_${props.layout}`, {
-                    'content--padding-top--menu': props.menuPadding,
-                    'reduced-motion': motionDisabled,
-                })}>
+                <div
+                    className={cx('content', {
+                        'reduced-motion': motionDisabled,
+                        'content_wide': wide,
+                    })}
+                    style={props.contentStyle}
+                >
                     {props.children}
                 </div>
 

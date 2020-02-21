@@ -12,9 +12,7 @@
     --biggest-font-size: 2.25rem;
 
     /* MENU */
-    --menu-thickness: 2.5em;
     --menu-colored-mark-thickness: 4px;
-    --menu-inactive-item-color: hsl(0, 0%, 50%);
 
     /* SIZE */
     --mobile-width: 31.25em;
@@ -24,11 +22,8 @@
     --tablet-max-width: 64em;
 
     /* CONTENT */
-    --content-full: 100%;
-    --content-wide: 90%;
-    --content-semi-wide: 70%;
-    --content-thin: 60%;
-    --content-width: var(--content-full);
+    --content-wide: 100%;
+    --content-width: 60%;
 
     --embed-video-ratio: 56.25%;
 
@@ -198,7 +193,6 @@ a.invisible {
         --font-size-h2: 1.5rem;
         --font-size-h3: 1.25rem;
 
-        --content-thin: 90%;
         --content-wide: 90%;
 
         --kazimir-image-increase: 0px;

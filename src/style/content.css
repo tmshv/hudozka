@@ -1,0 +1,28 @@
+.content {
+    width: var(--content-width);
+}
+
+.content_wide {
+    --content-width: var(--content-wide);
+}
+
+/* Animation on load */
+
+@keyframes smallSlideInFromTop {
+    0% {
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.content {
+    animation: smallSlideInFromTop 350ms ease-out;
+}
+
+.content.reduced-motion {
+    animation: none;
+}

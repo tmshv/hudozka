@@ -103,8 +103,9 @@ const Page: NextPage<IProps> = props => (
     <App
         menu={buildMenu(props.pageUrl, menuModel)}
         showAuthor={true}
-        menuPadding={true}
-        layout={'thin'}
+        contentStyle={{
+            marginTop: 'var(--size-l)'
+        }}
     >
         <Head>
             <title>{props.title}</title>
@@ -125,7 +126,7 @@ const Page: NextPage<IProps> = props => (
 
 export const unstable_getStaticProps = async (ctx) => {
     const pageUrl = '/documents'
-    const res = await requestGet<IResponseItems<IDocument>>(createApiUrl('/api/files'), { items: [] })
+    const res = await requestGet<IResponseItems<IDocument>>(createApiUrl('/api/files'), null)
     const files = res.items
     const title = 'Документы'
     const collections = getSorted(files)
