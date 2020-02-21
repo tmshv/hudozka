@@ -24,15 +24,8 @@ export const ArticleGrid: React.FC<ArticleGridProps> = ({ articles, nextPage, pr
                 const layout: CardLayout = article.featured ? 'featured' : 'simple'
                 const srcSet = article.preview.set.map(({ url, density }) => `${url} ${density}x`).join(' ')
 
-                const content = article.featured
+                const content = !article.featured
                     ? (
-                        <h2 style={{
-                            margin: 0,
-                            fontSize: '18pt'
-                        }}>
-                            {article.title}
-                        </h2>
-                    ) : (
                         <Block
                             direction={'vertical'}
                         >
@@ -42,6 +35,8 @@ export const ArticleGrid: React.FC<ArticleGridProps> = ({ articles, nextPage, pr
                                 marginTop: 'var(--size-m)',
                             }}>{article.date}</Date>
                         </Block>
+                    ) : (
+                        article.title
                     )
 
                 return (
