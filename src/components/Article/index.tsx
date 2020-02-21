@@ -26,7 +26,7 @@ const Head: React.FC<HeadProps> = ({ date, tags = [], children }) => (
         <h1>{children}</h1>
 
         {!date ? null : (
-            <p className={'date'}>{dateFormat(date)}</p>
+            <p className={'date'}>Опубликовано: {dateFormat(date)}</p>
         )}
 
         {!tags.length ? null : (
