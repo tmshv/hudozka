@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { App } from 'src/components/App'
-import Article from 'src/components/Article'
+import { Article } from 'src/components/Article'
 import { Html } from 'src/components/Html'
 import menuModel from 'src/models/menu'
 import { buildMenu } from 'src/lib/menu'
