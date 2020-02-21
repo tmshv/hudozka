@@ -15,8 +15,6 @@
     }
 
     &-Body {
-        --text-margin: 10px;
-
         ul,
         ol {
             margin-left: var(--half-margin);
@@ -34,12 +32,6 @@
         p {
             margin-bottom: var(--article-line-height);
             line-height: var(--article-line-height);
-        }
-
-        h2,
-        h3 {
-            margin-left: var(--text-margin);
-            margin-right: var(--text-margin);
         }
 
         blockquote {
