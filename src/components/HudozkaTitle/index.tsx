@@ -1,12 +1,13 @@
-import * as React from 'react'
+import { memo } from 'react'
 
-export const HudozkaTitle: React.FC = React.memo(() => (
-    <div>
+export type HudozkaTitleProps = {
+    style?: React.CSSProperties
+}
+
+export const HudozkaTitle: React.FC<HudozkaTitleProps> = memo(props => (
+    <div style={props.style}>
         <style jsx>{`
             div {
-                --padding: var(--double-margin) 0;
-
-                padding: var(--padding);
                 text-align: center;
             }
 

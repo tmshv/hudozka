@@ -12,9 +12,7 @@
     --biggest-font-size: 2.25rem;
 
     /* MENU */
-    --menu-thickness: 2.5em;
     --menu-colored-mark-thickness: 4px;
-    --menu-inactive-item-color: hsl(0, 0%, 50%);
 
     /* SIZE */
     --mobile-width: 31.25em;
@@ -24,8 +22,8 @@
     --tablet-max-width: 64em;
 
     /* CONTENT */
-    --content-wide: 60%;
-    --content-width: 100%;
+    --content-wide: 100%;
+    --content-width: 60%;
 
     --embed-video-ratio: 56.25%;
 
