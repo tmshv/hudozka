@@ -65,14 +65,14 @@
     --color-back-opposite: var(--darker-color);
 
     /* SIZE */
-    --size-sx: 0.2em;
+    --size-xs: 0.25em;
     --size-s: 0.5em;
     --size-m: 1em;
     --size-l: 2em;
     --size-xl: 3em;
 
     /* EFFECTS */
-    --radius: 15px;
+    --radius: 16px;
     --shadow: 0 0 8px var(--color-shadow);
     --shadow-active: 0 4px 16px var(--color-shadow);
 

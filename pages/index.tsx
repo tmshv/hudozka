@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { App } from 'src/components/App'
 import { Meta } from 'src/components/Meta'
-import { ArticleCardList } from 'src/components/ArticleCardList'
+import { ArticleGrid } from 'src/components/ArticleGrid'
 import { HudozkaTitle } from 'src/components/HudozkaTitle'
 import menuModel from 'src/models/menu'
 import { meta } from 'src/lib/meta'
@@ -39,7 +39,7 @@ const Page: NextPage<IProps> = props => (
             }}
         />
 
-        <ArticleCardList
+        <ArticleGrid
             articles={props.articles}
             prevPage={props.prevPage}
             nextPage={props.nextPage}
@@ -53,6 +53,10 @@ export const unstable_getStaticProps = async () => {
     const pageSize = process.env.APP_ARTICLES_PAGE_SIZE
     const res = await requestGet<IResponseItems<IArticle>>(createApiUrl(`/api/articles?page=${page}&pageSize=${pageSize}`), null)
     const articles = (res.items || [])
+        .map(x => ({
+            ...x,
+            featured: ['2019-kotiki', 'veloparking'].includes(x.id)
+        }))
     const nextPage = res.nextPage
     const prevPage = res.prevPage
     const title = 'Шлиссельбургская ДХШ'
