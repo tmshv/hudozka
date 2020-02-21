@@ -1,6 +1,5 @@
-import React from 'react'
-import { dateFormat } from '../lib/date'
-import { Share } from './Share'
+import { dateFormat } from 'src/lib/date'
+import { Share } from '../Share'
 
 const Tag = ({ children }) => (
     <li className="ArticleTags-Item">
@@ -18,10 +17,16 @@ const TagList = ({ tags }) => (
 
 const Head = ({ date, tags = [], children }) => (
     <header className="Article-Head">
+        <style jsx>{`
+            .date {
+                color: var(--color-text-second);
+            }
+        `}</style>
+
         <h1>{children}</h1>
 
         {!date ? null : (
-            <p className="date">{dateFormat(date)}</p>
+            <p className={'date'}>{dateFormat(date)}</p>
         )}
 
         {!(tags.length) ? null : (
@@ -30,7 +35,7 @@ const Head = ({ date, tags = [], children }) => (
     </header>
 )
 
-const Article = ({ children, date, tags, title, shareable }) => (
+export const Article = ({ children, date, tags, title, shareable }) => (
     <article className="Article">
         <Head
             date={date}
@@ -48,5 +53,3 @@ const Article = ({ children, date, tags, title, shareable }) => (
         )}
     </article>
 )
-
-export default Article
