@@ -1,14 +1,17 @@
-import * as React from 'react'
-import { dateFormat } from '../../lib/date'
+import { dateFormat } from 'src/lib/date'
 
-export const Date: React.FC<{ children: string }> = ({ children }) => (
-    <p>
+export type DateProps = {
+    style?: React.CSSProperties
+    children: string | Date
+}
+export const Date: React.FC<DateProps> = props => (
+    <p style={props.style}>
         <style jsx>{`
             p {
-                color: #ccc;
-                font-size: small;
+                color: var(--color-text-second);
+                font-size: var(--font-size-second);
             }
         `}</style>
-        {dateFormat(children)}
+        {dateFormat(props.children)}
     </p>
 )
