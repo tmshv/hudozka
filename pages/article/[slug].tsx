@@ -27,9 +27,6 @@ const Page: NextPage<Props> = props => {
         <App
             menu={buildMenu(props.pageUrl, menuModel)}
             showAuthor={true}
-            contentStyle={{
-                marginTop: 'var(--size-l)'
-            }}
         >
             <Head>
                 <title>{props.data.title}</title>

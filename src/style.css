@@ -22,8 +22,10 @@
     --tablet-max-width: 64em;
 
     /* CONTENT */
-    --content-wide: 100%;
     --content-width: 60%;
+    --content-margin: 0;
+    --content-wide-width: 100%;
+    --content-wide-margin: var(--size-l) var(--size-xl);
 
     --embed-video-ratio: 56.25%;
 
@@ -193,7 +195,9 @@ a.invisible {
         --font-size-h2: 1.5rem;
         --font-size-h3: 1.25rem;
 
-        --content-wide: 90%;
+        --content-width: 100%;
+        --content-margin: var(--size-l);
+        --content-wide-margin: var(--size-l) var(--size-l);
 
         --kazimir-image-increase: 0px;
     }

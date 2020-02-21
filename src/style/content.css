@@ -1,9 +1,11 @@
 .content {
     width: var(--content-width);
+    margin: var(--content-margin);
 }
 
 .content_wide {
-    --content-width: var(--content-wide);
+    --content-width: var(--content-wide-width);
+    --content-margin: var(--content-wide-margin);
 }
 
 /* Animation on load */
