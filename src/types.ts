@@ -39,7 +39,9 @@ export interface ITag {
 
 export interface IArticle {
     id: string
+    date: string
     tags: ITag[]
+    post:string
     featured: boolean
     url: string
     title: string
