@@ -1,0 +1,17 @@
+/* ELEMENTS */
+
+.tags {
+    display: flex;
+    flex-direction: row;
+    /* justify-content: center; */
+
+    list-style: none;
+}
+
+.tagsItem {
+    margin-right: var(--size-s);
+}
+
+.tagsItem:last-child {
+    margin-right: 0;
+}

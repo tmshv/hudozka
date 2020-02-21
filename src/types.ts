@@ -31,8 +31,15 @@ export interface IImage {
     set: any // TODO
 }
 
+export interface ITag {
+    name: string
+    slug: string
+    href: string
+}
+
 export interface IArticle {
     id: string
+    tags: ITag[]
     featured: boolean
     url: string
     title: string
