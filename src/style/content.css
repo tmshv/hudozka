@@ -6,7 +6,7 @@
     --content-width: var(--content-wide);
 }
 
-// Animation on load
+/* Animation on load */
 
 @keyframes smallSlideInFromTop {
     0% {
