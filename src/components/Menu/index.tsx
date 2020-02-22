@@ -1,30 +1,22 @@
 import './styles.css'
 
 import cx from 'classnames'
-import { ActiveLink } from './ActiveLink'
+import { MenuItem } from './MenuItem'
 
-export interface IMenuProps {
+export type MenuProps = {
     layout: 'desktop' | 'mobile'
     items: any[]
 }
 
-export const Menu: React.FC<IMenuProps> = props => (
-    <div className={cx('menu', props.layout)}>
+export const Menu: React.FC<MenuProps> = props => (
+    <menu className={cx('menu', props.layout)}>
         {props.items.map((item, index) => (
-            <li key={index}
-                className={cx('menuItem', props.layout, {
-                    selected: item.highlighted
-                })}
+            <MenuItem key={index}
+                href={item.url}
+                layout={props.layout}
             >
-                <ActiveLink
-                    href={!item.active ? item.url : null}
-                    activeStyle={{
-                        fontWeight: 'bold',
-                    }}
-                >
-                    {item.text}
-                </ActiveLink>
-            </li>
+                {item.text}
+            </MenuItem>
         ))}
-    </div>
+    </menu>
 )
