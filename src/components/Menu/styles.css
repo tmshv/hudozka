@@ -5,15 +5,6 @@
     list-style: none;
 }
 
-div.desktop {
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-
-div.mobile {
-    flex-direction: column;
-}
-
 .menuItem {
     position: relative;
     border-top: var(--menu-colored-mark-thickness) solid rgba(0, 0, 0, 0);
