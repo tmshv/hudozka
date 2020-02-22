@@ -59,9 +59,9 @@
     --schedule-row-color: hsl(210, 55%, 90%);
 
     /* TEXT COLOR */
-    --color-text: #303030;
+    --color-text: #202020;
     --color-text-second: #9090a0;
-    --color-text-opposite: var(--light-color);
+    --color-text-opposite: #f0f0f0;
 
     --color-back-main: white;
     --color-back-opposite: var(--darker-color);
