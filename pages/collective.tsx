@@ -3,8 +3,6 @@ import { get } from 'lodash'
 import { App } from 'src/components/App'
 import { Meta } from 'src/components/Meta'
 import { CollectiveImage } from 'src/components/CollectiveImage'
-import menuModel from 'src/models/menu'
-import { buildMenu } from 'src/lib/menu'
 import { meta } from 'src/lib/meta'
 import { IMeta, IImage } from 'src/types'
 import { createApiUrl, requestGet, IResponseItems } from 'src/next-lib'
@@ -20,7 +18,6 @@ interface IPerson {
 }
 
 type Props = {
-    pageUrl: string
     title: string
     image: string
     meta: IMeta
@@ -35,7 +32,6 @@ const Page: NextPage<Props> = props => {
 
     return (
         <App
-            menu={buildMenu(props.pageUrl, menuModel)}
             showAuthor={true}
             wide={true}
         >
@@ -83,7 +79,6 @@ const Page: NextPage<Props> = props => {
 
 export const unstable_getStaticProps = async (ctx: NextPageContext) => {
     // const pageUrl = ctx.req.url
-    const pageUrl = '/collective'
 
     const res = await requestGet<IResponseItems<IPerson>>(createApiUrl('/api/persons'), null)
     const data = res?.items || []
@@ -96,11 +91,9 @@ export const unstable_getStaticProps = async (ctx: NextPageContext) => {
         props: {
             data,
             image,
-            pageUrl,
             title,
             meta: meta({
                 title,
-                url: pageUrl,
                 description: 'Преподаватели Шлиссельбургской ДХШ',
             })
         }

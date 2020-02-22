@@ -1,3 +1,10 @@
+export interface IMenu {
+    name: string
+    href: string
+    active: boolean
+    items?: IMenu[]
+}
+
 export interface IDocument {
     category: string
     fileName: string

@@ -3,8 +3,6 @@ import { get } from 'lodash'
 import { App } from 'src/components/App'
 import { Article } from 'src/components/Article'
 import { Html } from 'src/components/Html'
-import menuModel from 'src/models/menu'
-import { buildMenu } from 'src/lib/menu'
 import { Meta } from 'src/components/Meta'
 import { meta } from 'src/lib/meta'
 import { createApiUrl, requestGet, IResponseItems } from 'src/next-lib'
@@ -12,7 +10,6 @@ import { NextPage } from 'next'
 import { IArticle } from 'src/types'
 
 type Props = {
-    pageUrl: string
     meta: any
     data: IArticle
 }
@@ -25,7 +22,6 @@ const Page: NextPage<Props> = props => {
 
     return (
         <App
-            menu={buildMenu(props.pageUrl, menuModel)}
             showAuthor={true}
         >
             <Head>
@@ -59,7 +55,6 @@ export const unstable_getStaticProps = async (ctx: any) => {
     return {
         props: {
             data,
-            pageUrl,
             meta: meta({
                 title: data.title,
                 image: image.src,

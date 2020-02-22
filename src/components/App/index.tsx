@@ -13,7 +13,6 @@ const Navigation = dynamic(() => import('../Navigation').then(mod => mod.Navigat
 })
 
 export interface IAppProps {
-    menu: any
     showAuthor: boolean
     wide?: boolean
     contentStyle?: React.CSSProperties
@@ -27,9 +26,7 @@ export const App: React.FC<IAppProps> = ({ wide = false, ...props }) => {
             <Wrapper
                 header={(
                     <Header>
-                        <Navigation
-                            items={props.menu.items}
-                        />
+                        <Navigation />
                     </Header>
                 )}
                 footer={(

@@ -20,21 +20,6 @@ function isMatchPathPattern(pattern, path, ignoreTrailingSlash = false) {
 	return pattern.test(test)
 }
 
-/**
- *
- * /article/* -> ^\/article\/[/\w\d-_]+\/?$
- *
- * @param url
- * @return {RegExp}
- */
-function urlToPattern(url) {
-	const u = url.replace('/*', '[/\\w\\d-_]+')
-	const pattern = `^${u}/?$`
-
-	return new RegExp(pattern)
-}
-
 exports.getPathWithNoTrailingSlash = getPathWithNoTrailingSlash
 exports.isMatchPathPattern = isMatchPathPattern
-exports.urlToPattern = urlToPattern
 exports.isEqualPath = isEqualPath

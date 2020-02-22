@@ -2,8 +2,6 @@ import Head from 'next/head'
 import { App } from 'src/components/App'
 import { tail } from 'lodash'
 import { Page } from 'src/components/Page'
-import menuModel from 'src/models/menu'
-import { buildMenu } from 'src/lib/menu'
 import { Meta } from 'src/components/Meta'
 import { meta } from 'src/lib/meta'
 import { createApiUrl, requestGet, wrapInitialProps, IResponseItems } from 'src/next-lib'
@@ -16,7 +14,6 @@ function array<T>(value: T | T[]) {
 
 const Index = props => (
     <App
-        menu={buildMenu(props.pageUrl, menuModel)}
         showAuthor={true}
         contentStyle={{
             marginTop: 'var(--size-l)'
@@ -51,7 +48,6 @@ export const unstable_getStaticProps = async (ctx: any) => {
     return {
         props: {
             content: page.data,
-            pageUrl: slug,
             title: page.title,
             meta: meta({
                 title: page.title,

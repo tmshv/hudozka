@@ -3,8 +3,6 @@ import Head from 'next/head'
 import { App } from 'src/components/App'
 import Document from 'src/components/Document'
 import { Share } from 'src/components/Share'
-import menuModel from 'src/models/menu'
-import { buildMenu } from 'src/lib/menu'
 import { meta } from 'src/lib/meta'
 import { Meta } from 'src/components/Meta'
 import { createApiUrl, requestGet, IResponseItems } from 'src/next-lib'
@@ -12,7 +10,6 @@ import { NextPage } from 'next'
 import { IMeta } from 'src/types'
 
 type Props = {
-    pageUrl: string
     data: any //(file)
     meta: IMeta
 }
@@ -26,7 +23,6 @@ const Page: NextPage<Props> = props => {
 
     return (
         <App
-            menu={buildMenu(props.pageUrl, menuModel)}
             showAuthor={true}
         >
             <Head>
@@ -40,14 +36,12 @@ const Page: NextPage<Props> = props => {
 }
 
 export const unstable_getStaticProps = async (ctx: any) => {
-    const pageUrl = '/documents'
     const id = ctx.params.slug
     const data = await requestGet(createApiUrl(`/api/files/${id}`), {})
 
     return {
         props: {
             data,
-            pageUrl,
             meta: meta({
                 // title: file.meta,
             })

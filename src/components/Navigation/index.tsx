@@ -1,25 +1,27 @@
-import * as React from 'react'
 import { MenuToggle } from '../MenuToggle'
-import { useScreenType } from '../../hooks/useScreenType'
+import { useScreenType } from 'src/hooks/useScreenType'
 import { Menu } from '../Menu'
 import { Overlay } from '../Overlay'
+import { useState, useCallback, useContext } from 'react'
+import { ConfigContext } from 'src/context/ConfigContext'
 
 export interface INavigationProps {
-    items: any[]
+    style?: React.CSSProperties
 }
 
 export const Navigation: React.FC<INavigationProps> = props => {
     const isMobile = useScreenType(['phone', 'tablet'])
-    const [open, setOpen] = React.useState(false)
-    const onClick = React.useCallback(
+    const [open, setOpen] = useState(false)
+    const onClick = useCallback(
         () => {
             setOpen(!open)
         },
         [open]
     )
+    const { menu } = useContext(ConfigContext)
 
     return (
-        <nav>
+        <nav style={props.style}>
             <style jsx>{`
                 nav {
                     display: flex;
@@ -44,7 +46,7 @@ export const Navigation: React.FC<INavigationProps> = props => {
             ) : (
                     <Menu
                         layout={'desktop'}
-                        items={props.items}
+                        items={menu}
                     />
                 )}
 
@@ -58,7 +60,7 @@ export const Navigation: React.FC<INavigationProps> = props => {
                 }}>
                     <Menu
                         layout={'mobile'}
-                        items={props.items}
+                        items={menu}
                     />
                 </div>
             </Overlay>
