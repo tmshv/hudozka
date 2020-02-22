@@ -1,0 +1,7 @@
+.breadcrumbs {
+    display: flex;
+    list-style: none;
+
+    position: relative;
+    right: var(--size-s);
+}

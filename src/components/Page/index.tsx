@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { Share } from '../Share'
 import { Html } from '../Html'
 

@@ -67,8 +67,8 @@
     --color-back-opposite: var(--darker-color);
 
     /* SIZE */
-    --size-xs: 0.25em;
-    --size-s: 0.5em;
+    --size-xs: 0.35em;
+    --size-s: 0.75em;
     --size-m: 1em;
     --size-l: 2em;
     --size-xl: 3em;

@@ -5,6 +5,8 @@ import { Page } from 'src/components/Page'
 import { Meta } from 'src/components/Meta'
 import { meta } from 'src/lib/meta'
 import { createApiUrl, requestGet, wrapInitialProps, IResponseItems } from 'src/next-lib'
+import { NextPage } from 'next'
+import { IBreadcumbsPart, IMeta } from 'src/types'
 
 function array<T>(value: T | T[]) {
     return Array.isArray(value)
@@ -12,12 +14,20 @@ function array<T>(value: T | T[]) {
         : [value]
 }
 
-const Index = props => (
+type Props = {
+    title: string
+    content: string
+    breadcrumbs: IBreadcumbsPart[]
+    meta: IMeta
+}
+
+const Index: NextPage<Props> = props => (
     <App
         showAuthor={true}
         contentStyle={{
             marginTop: 'var(--size-l)'
         }}
+        breadcrumbs={props.breadcrumbs}
     >
         <Head>
             <title>{props.title}</title>

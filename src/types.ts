@@ -1,8 +1,11 @@
 export interface IMenu {
     name: string
     href: string
-    active: boolean
-    items?: IMenu[]
+}
+
+export interface IBreadcumbsPart {
+    name: string
+    href: string
 }
 
 export interface IDocument {
