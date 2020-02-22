@@ -1,0 +1,85 @@
+.card {
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: box-shadow 150ms;
+}
+
+.card:hover {
+    box-shadow: var(--shadow-active);
+}
+
+.card:hover img {
+    width: 104%;
+    height: 104%;
+
+    top: -2%;
+    left: -2%;
+}
+
+.card > a {
+    display: block;
+    height: 100%;
+    position: relative;
+}
+
+.card-image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    transition: all 150ms ease-out;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.card-body {
+    background-color: var(--color-back-main);
+    padding: var(--size-m);
+}
+
+/* SIMPLE */
+
+.card.simple .card-body {
+    position: relative;
+    padding-top: 0; 
+}
+
+.card.simple .card-body:before {
+    position: absolute;
+    content: '';
+    background-color: var(--color-back-main);
+
+    border-radius: var(--radius) var(--radius) 0 0;
+    width: 100%;
+    height: var(--radius);
+    top: calc(var(--radius) * -1);
+    left: 0;
+}
+
+.card.simple > a {
+    display: flex;
+    flex-direction: column;
+}
+
+/* FEATURED */
+
+.card.featured .card-body {
+    position: absolute;
+
+    --offset: var(--size-m);
+    --r: var(--size-s);
+    left: var(--offset);
+    right: var(--offset);
+    bottom: var(--offset);
+
+    border-radius: var(--radius) var(--radius) var(--r) var(--r);
+}

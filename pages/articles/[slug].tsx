@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { range } from 'lodash'
 import { App } from 'src/components/App'
-import { ArticleCardList } from 'src/components/ArticleCardList'
+import { ArticleGrid } from 'src/components/ArticleGrid'
 import menuModel from 'src/models/menu'
 import { buildMenu } from 'src/lib/menu'
 import { meta } from 'src/lib/meta'
@@ -31,15 +31,12 @@ const Page: NextPage<Props> = props => {
             menu={buildMenu(props.pageUrl, menuModel)}
             showAuthor={true}
             wide={true}
-            contentStyle={{
-                margin: 'var(--size-l) var(--size-xl)'
-            }}
         >
             <Head>
                 <title>{props.title}</title>
                 <Meta meta={props.meta} />
             </Head>
-            <ArticleCardList
+            <ArticleGrid
                 articles={props.data}
                 prevPage={props.prevPage}
                 nextPage={props.nextPage}

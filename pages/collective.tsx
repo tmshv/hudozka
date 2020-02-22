@@ -3,7 +3,6 @@ import { get } from 'lodash'
 import { App } from 'src/components/App'
 import { Meta } from 'src/components/Meta'
 import { CollectiveImage } from 'src/components/CollectiveImage'
-import { PersonCard } from 'src/components/PersonCard'
 import menuModel from 'src/models/menu'
 import { buildMenu } from 'src/lib/menu'
 import { meta } from 'src/lib/meta'
@@ -11,10 +10,12 @@ import { IMeta, IImage } from 'src/types'
 import { createApiUrl, requestGet, IResponseItems } from 'src/next-lib'
 import { NextPage, NextPageContext } from 'next'
 import { CardGrid } from 'src/components/CardGrid'
+import { Card } from 'src/components/Card'
 
 interface IPerson {
     url: string
     name: string
+    position: string
     picture: IImage
 }
 
@@ -37,9 +38,6 @@ const Page: NextPage<Props> = props => {
             menu={buildMenu(props.pageUrl, menuModel)}
             showAuthor={true}
             wide={true}
-            contentStyle={{
-                margin: 'var(--size-l) var(--size-xl)'
-            }}
         >
             <Head>
                 <title>{props.title}</title>
@@ -59,13 +57,24 @@ const Page: NextPage<Props> = props => {
                 marginBottom: 'var(--size-xl)',
             }}>
                 {props.data.map((item, index) => (
-                    <PersonCard
+                    <Card
                         key={index}
-                        profile={item}
-                        picture={item.picture}
-                        url={item.url}
-                        name={item.name}
-                    />
+                        layout={'featured'}
+                        img={{
+                            src: item.picture.src,
+                            alt: item.name,
+                            srcSet: '',//item.name.sr,
+                        }}
+                        href={item.url}
+                    >
+                        <h2 style={{
+                            margin: '0 0 var(--size-s)',
+                            fontSize: '14pt',
+                        }}>
+                            {item.name[0]} {item.name[1]} {item.name[2]}
+                        </h2>
+                        {item.position}
+                    </Card>
                 ))}
             </CardGrid>
         </App>
