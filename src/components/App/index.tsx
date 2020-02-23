@@ -28,7 +28,7 @@ export const App: React.FC<IAppProps> = props => {
     const router = useRouter()
     const wide = props.wide ?? false
     const blockStyle = {
-        alignItems: 'center'
+        justifyContent: 'center'
     }
 
     return (
@@ -55,7 +55,7 @@ export const App: React.FC<IAppProps> = props => {
                     />
                 )}
             >
-                <Block direction={'vertical'} style={blockStyle}>
+                <Block direction={'horizontal'} style={blockStyle}>
                     <Content wide={wide} style={props.contentStyle}>
                         {props.children}
                     </Content>
