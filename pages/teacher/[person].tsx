@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { App } from 'src/components/App'
 import { Article } from 'src/components/Article'
 import { Meta } from 'src/components/Meta'
-import { meta } from 'src/lib/meta'
+import { MetaBuilder } from 'src/lib/meta'
 import { createApiUrl, requestGet, IResponseItems } from 'src/next-lib'
 import { NextPage } from 'next'
 import { IMeta } from 'src/types'
@@ -66,16 +66,23 @@ export const unstable_getStaticProps = async (ctx: any) => {
         throw new Error(`post kek ${id}`)
     }
 
+    const meta = (new MetaBuilder())
+        .setData({
+            title,
+            image: image.src,
+            imageWidth: image.width,
+            imageHeight: image.height,
+        })
+        .setImage(person.preview)
+        .setTitle(title)
+        .setDescription(person.position)
+        .build()
+
     return {
         props: {
             person,
             title,
-            meta: meta({
-                title,
-                image: image.src,
-                imageWidth: image.width,
-                imageHeight: image.height,
-            })
+            meta,
         }
     }
 }
