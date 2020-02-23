@@ -6,11 +6,22 @@ import { Breadcrumb } from '../types'
 
 async function getBreadcrumbs(path: string): Promise<Breadcrumb> {
     const bc = getPathWaterfall(path)
+    const parts = await Promise.all(bc.map(async href => {
+        const resource = await Page.findByUrl(href)
 
-    return bc.map(href => ({
-        name: href,
-        href,
+        if (!resource) {
+            return null
+        }
+
+        const name = resource.title
+
+        return {
+            name,
+            href,
+        }
     }))
+
+    return parts.filter(Boolean)
 }
 
 export async function getItem(req: Request, res: Response) {
