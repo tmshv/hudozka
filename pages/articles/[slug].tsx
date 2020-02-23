@@ -2,8 +2,6 @@ import Head from 'next/head'
 import { range } from 'lodash'
 import { App } from 'src/components/App'
 import { ArticleGrid } from 'src/components/ArticleGrid'
-import menuModel from 'src/models/menu'
-import { buildMenu } from 'src/lib/menu'
 import { meta } from 'src/lib/meta'
 import { Meta } from 'src/components/Meta'
 import { createApiUrl, requestGet, IResponseItems } from 'src/next-lib'
@@ -12,7 +10,6 @@ import { NextPage } from 'next'
 const pageSize = Number(process.env.APP_ARTICLES_PAGE_SIZE)
 
 type Props = {
-    pageUrl: string
     meta: any
     title: string
     data: any //(list of article)
@@ -28,7 +25,6 @@ const Page: NextPage<Props> = props => {
 
     return (
         <App
-            menu={buildMenu(props.pageUrl, menuModel)}
             showAuthor={true}
             wide={true}
         >
@@ -46,7 +42,6 @@ const Page: NextPage<Props> = props => {
 }
 
 export const unstable_getStaticProps = async (ctx: any) => {
-    const pageUrl = '/'
     // const page = parseInt(ctx.query.page)
     const page = parseInt(ctx.params.slug)
     const res = await requestGet<IResponseItems<any[]>>(
@@ -67,7 +62,6 @@ export const unstable_getStaticProps = async (ctx: any) => {
             data,
             nextPage,
             prevPage,
-            pageUrl,
             title,
             meta: meta({
                 title,

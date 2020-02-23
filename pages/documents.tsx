@@ -1,8 +1,6 @@
 import Head from 'next/head'
 import { App } from 'src/components/App'
 import { Meta } from 'src/components/Meta'
-import menuModel from 'src/models/menu'
-import { buildMenu } from 'src/lib/menu'
 import { meta } from 'src/lib/meta'
 import { IDocument } from 'src/types'
 import { DocumentList } from 'src/components/DocumentList'
@@ -94,14 +92,12 @@ function getSorted(documents: IDocument[]): IDocumentCategory[] {
 
 interface IProps {
     collections: IDocumentCategory[]
-    pageUrl: string
     title: string
     meta: any
 }
 
 const Page: NextPage<IProps> = props => (
     <App
-        menu={buildMenu(props.pageUrl, menuModel)}
         showAuthor={true}
     >
         <Head>
@@ -122,7 +118,6 @@ const Page: NextPage<IProps> = props => (
 )
 
 export const unstable_getStaticProps = async (ctx) => {
-    const pageUrl = '/documents'
     const res = await requestGet<IResponseItems<IDocument>>(createApiUrl('/api/files'), null)
     const files = res.items
     const title = 'Документы'
@@ -131,7 +126,6 @@ export const unstable_getStaticProps = async (ctx) => {
     return {
         props: {
             collections,
-            pageUrl,
             title,
             meta: meta({
                 title,

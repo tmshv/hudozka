@@ -3,10 +3,12 @@ import cx from 'classnames'
 export type WrapperProps = {
     header: React.ReactNode
     footer: React.ReactNode
+    style?: React.CSSProperties
+    mainStyle?: React.CSSProperties
 }
 
 export const Wrapper: React.FC<WrapperProps> = props => (
-    <div className={cx('wrapper', 'theme-default')}>
+    <div className={cx('wrapper', 'theme-default')} style={props.style}>
         <style jsx>{`
             .wrapper {
                 display: flex;
@@ -17,20 +19,11 @@ export const Wrapper: React.FC<WrapperProps> = props => (
                 font-family: var(--text-font);
                 font-size: var(--font-size-default);
             }
-
-            .content {
-                flex: 1;
-            }
-
-            main {
-                display: flex;
-                justify-content: center;
-            }
         `}</style>
 
         {props.header}
 
-        <main> 
+        <main style={props.mainStyle}>
             {props.children}
         </main>
 

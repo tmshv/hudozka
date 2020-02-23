@@ -1,0 +1,19 @@
+.breadcrumbs {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    list-style: none;
+
+    position: relative;
+    right: var(--size-s);
+}
+
+.breadcrumbs li {
+    margin-bottom: var(--size-xs);
+}
+
+.breadcrumbCurrent {
+    color: var(--color-text-second);
+    font-size: var(--font-size-second);
+    text-overflow: ellipsis;
+}

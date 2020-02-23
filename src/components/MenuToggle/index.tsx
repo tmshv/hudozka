@@ -1,79 +1,27 @@
-import * as React from 'react'
+import './styles.css'
+
 import cx from 'classnames'
+import { Button } from '../Button'
 
 export interface IMenuToggleProps {
     style?: React.CSSProperties
     open: boolean
-    position: 'left' | 'right'
     onClick: () => void
 }
 
 export const MenuToggle: React.FC<IMenuToggleProps> = props => {
     return (
-        <div
-            className={cx(props.position, {
-                open: props.open,
-                close: !props.open,
-            })}
+        <Button
+            onClick={props.onClick}
             style={props.style}
+            theme={'icon'}
         >
-            <style jsx>{`
-                div {
-                    --hmenu-margin: 6px;
-                    --hmenu-icon-width: 32px;
-                    --hmenu-icon-height: 32px;
-
-                    position: absolute;
-                    height: var(--hmenu-icon-height);
-                    margin: var(--hmenu-margin);
-                }
-
-                div.right {
-                    top: 0;
-                    right: 0;
-                }
-
-                div.left {
-                    top: 0;
-                    left: 0;
-                }
-
-                a {
-                    display: block;
-                    text-decoration: none;
-                    border: none;
-
-                    width: var(--hmenu-icon-width);
-                    height: var(--hmenu-icon-height);
-                    background-size: 100%;
-                }
-
-                a:hover {
-                    text-decoration: none;
-                    border: none;
-                }
-
-                div.open a {
-                    background-image: url(/static/graphics/hmenu-close-b.png);
-                }
-
-                div.open a:hover {
-                    background-image: url(/static/graphics/hmenu-close-hover-b.png);
-                }
-
-                div.close a {
-                    background-image: url(/static/graphics/hmenu-b.png);
-                }
-
-                div.close a:hover {
-                    background-image: url(/static/graphics/hmenu-hover-b.png);
-                }
-            `}</style>
-
-            <a
-                href="#"
-                onClick={props.onClick}
-            ></a>
-        </div>
+            <div
+                className={cx('toggle', {
+                    open: props.open,
+                    close: !props.open,
+                })}
+            />
+        </Button>
     )
 }

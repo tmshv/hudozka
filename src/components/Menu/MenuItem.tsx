@@ -1,33 +1,34 @@
-import * as React from 'react'
+import cx from 'classnames'
+import { useRouter } from 'next/router'
+import { ActiveLink } from './ActiveLink'
+import { isPartOfPath } from 'src/lib/url'
 
-export interface IMenuItemProps {
-    active: boolean
-    text: string
-    url: string
+export type MenuItemProps = {
+    href: string
+    layout: 'desktop' | 'mobile'
 }
 
-export const MenuItem: React.FC<IMenuItemProps> = ({ active, text, url }) => (
-   <>
-        <style jsx>{`
-            a {
-                color: var(--dark-color);
-            }
+export const MenuItem: React.FC<MenuItemProps> = props => {
+    const ignore = ['/']
+    const router = useRouter()
+    const current = router.asPath === props.href
+    const selected = current || (!ignore.includes(props.href) && isPartOfPath(props.href, router.asPath))
+    const href = current ? null : props.href
 
-            a:visited {
-                color: var(--dark-color);
-            }
-
-            a:hover {
-                border-color: var(--dark-color);
-            }
-        `}</style>
-
-        {active
-            ? (
-                <span>{text}</span>
-            ) : (
-                <a href={url}>{text}</a>
-            )
-        }
-    </>
-)
+    return (
+        <li
+            className={cx('menuItem', props.layout, {
+                selected,
+            })}
+        >
+            <ActiveLink
+                href={href}
+                activeStyle={{
+                    fontWeight: 'bold'
+                }}
+            >
+                {props.children}
+            </ActiveLink>
+        </li>
+    )
+}

@@ -2,8 +2,6 @@ import Head from 'next/head'
 import { App } from 'src/components/App'
 import { Article } from 'src/components/Article'
 import { Meta } from 'src/components/Meta'
-import menuModel from 'src/models/menu'
-import { buildMenu } from 'src/lib/menu'
 import { meta } from 'src/lib/meta'
 import { createApiUrl, requestGet, IResponseItems } from 'src/next-lib'
 import { NextPage } from 'next'
@@ -11,7 +9,6 @@ import { IMeta } from 'src/types'
 import { Html } from 'src/components/Html'
 
 interface IProps {
-    pageUrl: string
     title: string
     meta: IMeta
     person: any
@@ -26,7 +23,6 @@ const Index: NextPage<IProps> = props => {
 
     return (
         <App
-            menu={buildMenu(props.pageUrl, menuModel)}
             showAuthor={true}
         >
             <Head>
@@ -53,7 +49,6 @@ const Index: NextPage<IProps> = props => {
 export const unstable_getStaticProps = async (ctx: any) => {
     console.log('call unstable_getStaticProps', ctx)
 
-    const pageUrl = '/collective'
     // const id = ctx.query.person
     // const id = ctx.params.person ?? 'va-sarzhin'
     const id = ctx.params.person //?? 'mg-timasheva'
@@ -73,7 +68,6 @@ export const unstable_getStaticProps = async (ctx: any) => {
 
     return {
         props: {
-            pageUrl,
             person,
             title,
             meta: meta({

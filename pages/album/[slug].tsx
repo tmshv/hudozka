@@ -2,13 +2,10 @@ import Head from 'next/head'
 import { App } from 'src/components/App'
 import { Article } from 'src/components/Article'
 import { Html } from 'src/components/Html'
-import menuModel from 'src/models/menu'
-import { buildMenu } from 'src/lib/menu'
 import { createApiUrl, requestGet, IResponseItems } from 'src/next-lib'
 import { NextPage } from 'next'
 
 type Props = {
-    pageUrl: string
     data: any //(album)
 }
 
@@ -21,7 +18,6 @@ const Page: NextPage<Props> = props => {
 
     return (
         <App
-            menu={buildMenu(props.pageUrl, menuModel)}
             showAuthor={true}
         >
             <Head>
@@ -43,7 +39,6 @@ const Page: NextPage<Props> = props => {
 }
 
 export const unstable_getStaticProps = async (ctx: any) => {
-    const pageUrl = '/gallery'
     // const id = ctx.query.slug
     const id = ctx.params.slug
     const data = await requestGet(createApiUrl(`/api/albums/${id}`), null)
@@ -55,7 +50,6 @@ export const unstable_getStaticProps = async (ctx: any) => {
     return {
         props: {
             data,
-            pageUrl,
         }
     }
 }

@@ -1,3 +1,23 @@
+export interface IMenu {
+    name: string
+    href: string
+}
+
+export interface IBreadcumbsPart {
+    name: string
+    href: string
+}
+
+export interface IPage {
+    id: string
+    title: string
+    url: string
+    data: string
+    preview: any //IImage
+    tokens: any[]
+    breadcrumb?: IBreadcumbsPart[]
+}
+
 export interface IDocument {
     category: string
     fileName: string
