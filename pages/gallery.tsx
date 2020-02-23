@@ -1,8 +1,6 @@
 import Head from 'next/head'
 import { App } from 'src/components/App'
 import { Meta } from 'src/components/Meta'
-import menuModel from 'src/models/menu'
-import { buildMenu } from 'src/lib/menu'
 import { splitBy } from 'src/lib/array'
 import { meta } from 'src/lib/meta'
 import { createApiUrl, requestGet } from 'src/next-lib'
@@ -64,14 +62,12 @@ const ACollection = ({ title, albums }) => (
 
 interface IProps {
     meta: any
-    pageUrl: string
     title: string
     collections: any[]
 }
 
 const Page: NextPage<IProps> = props => (
     <App
-        menu={buildMenu(props.pageUrl, menuModel)}
         showAuthor={true}
         wide={true}
     >
@@ -96,7 +92,6 @@ const Page: NextPage<IProps> = props => (
 
 export const unstable_getStaticProps = async (ctx: any) => {
     // const pageUrl = ctx.req.url
-    const pageUrl = '/gallery'
     const res = await requestGet<any>(createApiUrl(`/api/albums`), null)
     if (!res) {
         return null
@@ -108,7 +103,6 @@ export const unstable_getStaticProps = async (ctx: any) => {
     return {
         props: {
             collections: [...albumCollections.entries()],
-            pageUrl,
             title,
             meta: meta({
                 title,

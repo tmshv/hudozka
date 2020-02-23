@@ -12,7 +12,7 @@
     --biggest-font-size: 2.25rem;
 
     /* MENU */
-    --menu-colored-mark-thickness: 4px;
+    --menu-mark-thickness: 4px;
 
     /* SIZE */
     --mobile-width: 31.25em;
@@ -59,16 +59,16 @@
     --schedule-row-color: hsl(210, 55%, 90%);
 
     /* TEXT COLOR */
-    --color-text: #303030;
+    --color-text: #202020;
     --color-text-second: #9090a0;
-    --color-text-opposite: var(--light-color);
+    --color-text-opposite: #f0f0f0;
 
     --color-back-main: white;
     --color-back-opposite: var(--darker-color);
 
     /* SIZE */
-    --size-xs: 0.25em;
-    --size-s: 0.5em;
+    --size-xs: 0.35em;
+    --size-s: 0.75em;
     --size-m: 1em;
     --size-l: 2em;
     --size-xl: 3em;
@@ -175,12 +175,8 @@ a.invisible {
     border-bottom-color: var(--color-text-opposite);
 }
 
-.actor {
-    border-bottom: 1px dashed black;
-}
-
-.actor:hover {
-    border-bottom: 2px solid black;
+.noscroll {
+    overflow: hidden;
 }
 
 @media (max-width: 31.25em) {
@@ -196,8 +192,8 @@ a.invisible {
         --font-size-h3: 1.25rem;
 
         --content-width: 100%;
-        --content-margin: var(--size-l);
-        --content-wide-margin: var(--size-l) var(--size-l);
+        --content-margin: var(--size-m);
+        --content-wide-margin: var(--size-m) var(--size-m);
 
         --kazimir-image-increase: 0px;
     }
