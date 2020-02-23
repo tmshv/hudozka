@@ -1,15 +1,16 @@
 import { Request, Response } from 'express'
 import Page from '../core/Page'
-import { getPathWithNoTrailingSlash } from '../lib/url'
+import { dropTrailingSlash, getPathWaterfall } from '../lib/url'
 import { encodePage } from '../factory/page'
+import * as breadcrumb from './breadcrumb'
 
 export async function getItem(req: Request, res: Response) {
-    const id = req.query.page
-    const page = getPathWithNoTrailingSlash(id)
+    const page = dropTrailingSlash(req.query.page)
+    const breadcrumbs = await breadcrumb.getItems(page)
     const resource = await Page.findByUrl(page)
-    
+
     if (resource) {
-        res.json(encodePage(resource))
+        res.json(encodePage(resource, breadcrumbs))
     } else {
         res.status(404)
         res.json({
