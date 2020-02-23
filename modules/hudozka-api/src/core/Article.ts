@@ -2,6 +2,7 @@ import Data from './Data'
 import Image from './Image'
 import Config from './Config'
 import { find, findOne, total } from '../lib/store'
+import { Tag } from './Tag'
 
 const store = () => Data.getStore<Article>('Article')
 
@@ -44,7 +45,7 @@ export default class Article {
     public date: any
     public title: any
     public until: any
-    public tags: any
+    public tags: Tag[]
     public content: any
     public hash: any
     public type: any
@@ -93,14 +94,6 @@ export default class Article {
             preview: this.preview,
             url: this.url,
         }
-    }
-}
-
-class Tag {
-    public name: string
-
-    constructor(tag) {
-        this.name = tag;
     }
 }
 

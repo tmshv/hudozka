@@ -8,6 +8,7 @@ import * as schedule from './controllers/schedule'
 import * as file from './controllers/file'
 import * as page from './controllers/page'
 import * as image from './controllers/image'
+import * as tag from './controllers/tag'
 
 async function main() {
     const port = parseInt(process.env.PORT, 10) || 3000
@@ -47,6 +48,8 @@ async function main() {
     app.get('/images/:slug', image.getItem)
 
     app.get('/schedule', schedule.getItem)
+    app.get('/tags', tag.getAll)
+    app.get('/tags/:slug', tag.findItems)
 
     app.listen(port, () => {
         console.log(`> Ready on http://localhost:${port}`)
