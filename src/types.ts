@@ -67,3 +67,42 @@ export interface IArticle {
     title: string
     preview: IImage
 }
+
+export type Person = {
+    id: string
+    position: string
+    name: [string, string, string]
+    post: string
+    diploma: string
+    edu: string
+    file: string
+    hash: string
+    shortName: string
+    status: string
+    url: string
+    picture: ImageArtifact
+    preview: ImageDefinition
+}
+
+export type ImageArtifact = {
+    width: number
+    height: number
+    src: string
+    set: Array<{
+        density: number
+        url: string
+    }>
+}
+
+export type ImageDefinition = {
+    file: string
+    hash: string
+    artifacts: {
+        original: ImageArtifact
+        large?: ImageArtifact
+        big?: ImageArtifact
+        medium?: ImageArtifact
+        small?: ImageArtifact
+        fb?: ImageArtifact
+    }
+}
