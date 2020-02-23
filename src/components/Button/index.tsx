@@ -27,4 +27,3 @@ export const Button: React.FC<ButtonProps> = ({ size='default', theme = 'default
         </button>
     )
 }
-
