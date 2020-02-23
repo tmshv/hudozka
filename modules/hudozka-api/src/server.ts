@@ -10,7 +10,7 @@ import * as page from './controllers/page'
 import * as image from './controllers/image'
 
 async function main() {
-    const port = parseInt(process.env.PORT, 10) || 3000
+    const port = process.env.PORT || '3000'
     const mongoUri = process.env.MONGO_URI
 
     try {
