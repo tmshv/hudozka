@@ -196,8 +196,8 @@ a.invisible {
         --font-size-h3: 1.25rem;
 
         --content-width: 100%;
-        --content-margin: var(--size-l);
-        --content-wide-margin: var(--size-l) var(--size-l);
+        --content-margin: var(--size-m);
+        --content-wide-margin: var(--size-m) var(--size-m);
 
         --kazimir-image-increase: 0px;
     }
