@@ -2,31 +2,11 @@ import { Request, Response } from 'express'
 import Page from '../core/Page'
 import { dropTrailingSlash, getPathWaterfall } from '../lib/url'
 import { encodePage } from '../factory/page'
-import { Breadcrumb } from '../types'
-
-async function getBreadcrumbs(path: string): Promise<Breadcrumb> {
-    const bc = getPathWaterfall(path)
-    const parts = await Promise.all(bc.map(async href => {
-        const resource = await Page.findByUrl(href)
-
-        if (!resource) {
-            return null
-        }
-
-        const name = resource.title
-
-        return {
-            name,
-            href,
-        }
-    }))
-
-    return parts.filter(Boolean)
-}
+import * as breadcrumb from './breadcrumb'
 
 export async function getItem(req: Request, res: Response) {
     const page = dropTrailingSlash(req.query.page)
-    const breadcrumbs = await getBreadcrumbs(page)
+    const breadcrumbs = await breadcrumb.getItems(page)
     const resource = await Page.findByUrl(page)
 
     if (resource) {
