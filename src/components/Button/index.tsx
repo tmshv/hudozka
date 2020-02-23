@@ -8,13 +8,18 @@ export type ButtonProps = {
     href?: string
     theme?: 'default' | 'ghost'
     size?: 'default' | 'small'
+    disabled?: boolean
 }
 
-export const Button: React.FC<ButtonProps> = ({ size='default', theme = 'default', ...props }) => {
+export const Button: React.FC<ButtonProps> = ({ size = 'default', theme = 'default', disabled = false, ...props }) => {
+    const className = cx('button', theme, size, {
+        disabled
+    })
+
     if (props.href) {
         return (
             <Link href={props.href}>
-                <a className={cx('button', theme, size)} style={props.style}>
+                <a className={className} style={props.style}>
                     {props.children}
                 </a>
             </Link>
@@ -22,7 +27,7 @@ export const Button: React.FC<ButtonProps> = ({ size='default', theme = 'default
     }
 
     return (
-        <button className={'button'} style={props.style}>
+        <button className={className} style={props.style}>
             {props.children}
         </button>
     )

@@ -5,3 +5,9 @@
     position: relative;
     right: var(--size-s);
 }
+
+.breadcrumbCurrent {
+    color: var(--color-text-second);
+    font-size: var(--font-size-second);
+    text-overflow: ellipsis;
+}

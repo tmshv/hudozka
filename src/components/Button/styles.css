@@ -24,6 +24,13 @@
     box-shadow: var(--shadow-active);
 }
 
+/* MODIFICATORS */
+
+.button.disabled {
+    pointer-events: none;
+    color: var(--color-text-second);
+}
+
 /* THEME */
 
 .button.ghost {

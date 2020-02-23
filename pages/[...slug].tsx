@@ -6,7 +6,7 @@ import { Meta } from 'src/components/Meta'
 import { meta } from 'src/lib/meta'
 import { createApiUrl, requestGet, wrapInitialProps, IResponseItems } from 'src/next-lib'
 import { NextPage } from 'next'
-import { IBreadcumbsPart, IMeta } from 'src/types'
+import { IBreadcumbsPart, IMeta, IPage } from 'src/types'
 
 function array<T>(value: T | T[]) {
     return Array.isArray(value)
@@ -15,9 +15,10 @@ function array<T>(value: T | T[]) {
 }
 
 type Props = {
+    page: any
     title: string
     content: string
-    breadcrumbs: IBreadcumbsPart[]
+    breadcrumb: IBreadcumbsPart[]
     meta: IMeta
 }
 
@@ -27,7 +28,7 @@ const Index: NextPage<Props> = props => (
         contentStyle={{
             marginTop: 'var(--size-l)'
         }}
-        breadcrumbs={props.breadcrumbs}
+        breadcrumbs={props.breadcrumb}
     >
         <Head>
             <title>{props.title}</title>
@@ -49,14 +50,17 @@ export const unstable_getStaticProps = async (ctx: any) => {
     } else {
         slug = '/' + array(ctx.params.slug).join('/')
     }
-    const page = await requestGet(createApiUrl(`/api/page?page=${slug}`), null)
+    const page = await requestGet<IPage>(createApiUrl(`/api/page?page=${slug}`), null)
     if (!page) {
         throw new Error(`Not found: ${slug}`)
     }
     const image = page.preview ? page.preview.artifacts.fb : {}
+    const breadcrumbSize = page.breadcrumb?.length ?? 0
+    const breadcrumb = breadcrumbSize < 2 ? null : page.breadcrumb
 
     return {
         props: {
+            page,
             content: page.data,
             title: page.title,
             meta: meta({
@@ -65,6 +69,7 @@ export const unstable_getStaticProps = async (ctx: any) => {
                 imageWidth: image.width,
                 imageHeight: image.height,
             }),
+            breadcrumb,
         }
     }
 }

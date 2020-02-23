@@ -8,6 +8,8 @@ import { Content } from '../Content'
 import { Block } from '../Block'
 import { Breadcrumbs } from '../Breadcrumbs'
 import { IBreadcumbsPart } from 'src/types'
+import { useRouter } from 'next/router'
+import { route } from 'next/dist/next-server/server/router'
 
 const Navigation = dynamic(() => import('../Navigation').then(mod => mod.Navigation), {
     ssr: false,
@@ -21,6 +23,7 @@ export interface IAppProps {
 }
 
 export const App: React.FC<IAppProps> = props => {
+    const router = useRouter()
     const wide = props.wide ?? false
     const blockStyle = {
         alignItems: 'center'
@@ -36,7 +39,8 @@ export const App: React.FC<IAppProps> = props => {
                             <Block direction={'vertical'} style={blockStyle}>
                                 <Content wide={wide}>
                                     <Breadcrumbs
-                                        path={props.breadcrumbs}
+                                        items={props.breadcrumbs}
+                                        path={router.asPath}
                                     />
                                 </Content>
                             </Block>
