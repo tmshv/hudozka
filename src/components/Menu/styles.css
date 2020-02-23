@@ -3,6 +3,7 @@
     align-items: flex-start;
     flex-wrap: wrap;
 
+    font-size: var(--font-size-second);
     list-style: none;
 }
 
@@ -22,14 +23,18 @@
 /* MOBILE */
 
 .menuItem.mobile {
-    font-size: 1.25em;
-    color: var(--color-text-opposite);
+    font-size: var(--font-size-default);
 
     padding: var(--size-xs) var(--size-s);
 }
 
 .menuItem.mobile.selected {
     background-color: var(--color-back-opposite);
+    color: var(--color-text-opposite)
+}
+
+.menuItem.mobile.selected a {
+    color: var(--color-text-opposite)
 }
 
 /* DESKTOP */

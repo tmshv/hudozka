@@ -175,12 +175,8 @@ a.invisible {
     border-bottom-color: var(--color-text-opposite);
 }
 
-.actor {
-    border-bottom: 1px dashed black;
-}
-
-.actor:hover {
-    border-bottom: 2px solid black;
+.noscroll {
+    overflow: hidden;
 }
 
 @media (max-width: 31.25em) {

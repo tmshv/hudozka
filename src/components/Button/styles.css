@@ -1,9 +1,8 @@
 .button {
+    display: block;
     font-size: var(--font-size-default);
 
     text-align: center;
-    margin-top: var(--size-m);
-    margin-bottom: var(--size-m);
 
     border-radius: 100px;
     border: 1px solid var(--color-shadow);
@@ -17,8 +16,9 @@
 }
 
 .button:hover {
-    margin-left: 1px;
-    margin-right: 1px;
+    margin: 1px;
+    /* margin-left: 1px;
+    margin-right: 1px; */
 
     border: none;
     box-shadow: var(--shadow-active);
@@ -31,19 +31,23 @@
     color: var(--color-text-second);
 }
 
-/* THEME */
-
-.button.ghost {
-    border-color: rgba(0, 0, 0, 0);
-}
-
 /* SIZE */
 
-.button.default {
+.button.size_default {
     padding: var(--size-s) var(--size-m);
 }
 
-.button.small {
+.button.size_small {
     padding: var(--size-xs) var(--size-s);
     font-size: var(--font-size-second);
+}
+
+/* THEME */
+
+.button.theme_ghost {
+    border-color: rgba(0, 0, 0, 0);
+}
+
+.button.theme_icon {
+    padding: var(--size-xs) var(--size-xs);
 }

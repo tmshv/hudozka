@@ -36,7 +36,7 @@ export const App: React.FC<IAppProps> = props => {
                 header={(
                     <header>
                         <Navigation style={{
-                            marginBottom: 'var(--size-m)',
+                            margin: '0 var(--size-m) var(--size-m)',
                         }} />
                         {hideBreadcrumbs || !props.breadcrumbs ? null : (
                             <Block direction={'horizontal'} style={blockStyle}>
