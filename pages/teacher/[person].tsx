@@ -47,12 +47,7 @@ const Index: NextPage<IProps> = props => {
 }
 
 export const unstable_getStaticProps = async (ctx: any) => {
-    console.log('call unstable_getStaticProps', ctx)
-
-    // const id = ctx.query.person
-    // const id = ctx.params.person ?? 'va-sarzhin'
-    const id = ctx.params.person //?? 'mg-timasheva'
-
+    const id = ctx.params.person 
     if (!id) {
         throw new Error('sry')
     }
@@ -88,10 +83,7 @@ export const unstable_getStaticProps = async (ctx: any) => {
 }
 
 export const unstable_getStaticPaths = async () => {
-    console.log('call unstable_getStaticPaths')
-
     const urls = await requestGet<IResponseItems<string>>(createApiUrl(`/api/persons/urls`), null)
-    // const urls = {items: ['/teacher/va-sarzhin']}
 
     return {
         paths: urls.items
