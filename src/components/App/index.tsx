@@ -9,7 +9,6 @@ import { Block } from '../Block'
 import { Breadcrumbs } from '../Breadcrumbs'
 import { IBreadcumbsPart } from 'src/types'
 import { useRouter } from 'next/router'
-import { route } from 'next/dist/next-server/server/router'
 import { useMobile } from 'src/hooks/useMobile'
 
 const Navigation = dynamic(() => import('../Navigation').then(mod => mod.Navigation), {
