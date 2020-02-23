@@ -5,8 +5,24 @@ import { Meta } from 'src/components/Meta'
 import { MetaBuilder } from 'src/lib/meta'
 import { createApiUrl, requestGet, IResponseItems } from 'src/next-lib'
 import { NextPage } from 'next'
-import { IMeta } from 'src/types'
+import { IMeta, ImageArtifact, ImageDefinition } from 'src/types'
 import { Html } from 'src/components/Html'
+
+type Person = {
+    id: string
+    position: string
+    name: [string, string, string]
+    post: string
+    diploma: string
+    edu: string
+    file: string
+    hash: string
+    shortName: string
+    status: string
+    url: string
+    picture: ImageArtifact
+    preview: ImageDefinition
+}
 
 interface IProps {
     title: string
@@ -52,22 +68,13 @@ export const unstable_getStaticProps = async (ctx: any) => {
         throw new Error('sry')
     }
 
-    const person = await requestGet<any>(createApiUrl(`/api/persons/${id}`), null)
-    const name = person.name || []
-    const title = name.join(' ')
-    const image = person.preview ? person.preview.artifacts.fb : {}
-
+    const person = await requestGet<Person>(createApiUrl(`/api/persons/${id}`), null)
     if (!person?.post) {
         throw new Error(`post kek ${id}`)
     }
 
+    const title = person.name.join(' ')
     const meta = (new MetaBuilder())
-        .setData({
-            title,
-            image: image.src,
-            imageWidth: image.width,
-            imageHeight: image.height,
-        })
         .setImage(person.preview)
         .setTitle(title)
         .setDescription(person.position)

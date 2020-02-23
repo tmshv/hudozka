@@ -1,4 +1,4 @@
-import { IMeta, IImage } from 'src/types'
+import { IMeta, IImage, ImageDefinition } from 'src/types'
 
 export function meta(props: Partial<IMeta>): IMeta {
     const path = props.url || '/'
@@ -25,7 +25,7 @@ export function meta(props: Partial<IMeta>): IMeta {
 }
 
 export class MetaBuilder {
-    private image: IImage
+    private image: ImageDefinition
     private title: string
     private description: string
     private data: Partial<IMeta>
@@ -45,14 +45,22 @@ export class MetaBuilder {
         return this
     }
 
-    setImage(param: IImage) {
+    setImage(param: ImageDefinition) {
         this.image = param
         return this
     }
 
     build() {
+        const artifact = this.image.artifacts.fb
+        const image = {
+            image: artifact.src,
+            imageWidth: artifact.width,
+            imageHeight: artifact.height,
+        }
+
         return meta({
             ...this.data,
+            ...image,
             title: this.title,
             description: this.description,
         })
