@@ -5,24 +5,8 @@ import { Meta } from 'src/components/Meta'
 import { MetaBuilder } from 'src/lib/meta'
 import { createApiUrl, requestGet, IResponseItems } from 'src/next-lib'
 import { NextPage } from 'next'
-import { IMeta, ImageArtifact, ImageDefinition } from 'src/types'
+import { IMeta, Person } from 'src/types'
 import { Html } from 'src/components/Html'
-
-type Person = {
-    id: string
-    position: string
-    name: [string, string, string]
-    post: string
-    diploma: string
-    edu: string
-    file: string
-    hash: string
-    shortName: string
-    status: string
-    url: string
-    picture: ImageArtifact
-    preview: ImageDefinition
-}
 
 interface IProps {
     title: string
@@ -63,7 +47,7 @@ const Index: NextPage<IProps> = props => {
 }
 
 export const unstable_getStaticProps = async (ctx: any) => {
-    const id = ctx.params.person 
+    const id = ctx.params.person
     if (!id) {
         throw new Error('sry')
     }
