@@ -10,6 +10,7 @@ import { Breadcrumbs } from '../Breadcrumbs'
 import { IBreadcumbsPart } from 'src/types'
 import { useRouter } from 'next/router'
 import { route } from 'next/dist/next-server/server/router'
+import { useMobile } from 'src/hooks/useMobile'
 
 const Navigation = dynamic(() => import('../Navigation').then(mod => mod.Navigation), {
     ssr: false,
@@ -23,6 +24,7 @@ export interface IAppProps {
 }
 
 export const App: React.FC<IAppProps> = props => {
+    const hideBreadcrumbs = useMobile()
     const router = useRouter()
     const wide = props.wide ?? false
     const blockStyle = {
@@ -35,8 +37,8 @@ export const App: React.FC<IAppProps> = props => {
                 header={(
                     <header>
                         <Navigation />
-                        {!props.breadcrumbs ? null : (
-                            <Block direction={'vertical'} style={blockStyle}>
+                        {hideBreadcrumbs || !props.breadcrumbs ? null : (
+                            <Block direction={'horizontal'} style={blockStyle}>
                                 <Content wide={wide}>
                                     <Breadcrumbs
                                         items={props.breadcrumbs}

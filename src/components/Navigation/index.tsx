@@ -1,5 +1,5 @@
 import { MenuToggle } from '../MenuToggle'
-import { useScreenType } from 'src/hooks/useScreenType'
+import { useMobile } from 'src/hooks/useMobile'
 import { Menu } from '../Menu'
 import { Overlay } from '../Overlay'
 import { useState, useCallback, useContext } from 'react'
@@ -10,7 +10,7 @@ export interface INavigationProps {
 }
 
 export const Navigation: React.FC<INavigationProps> = props => {
-    const isMobile = useScreenType(['phone', 'tablet'])
+    const collapseMenu = useMobile()
     const [open, setOpen] = useState(false)
     const onClick = useCallback(
         () => {
@@ -34,7 +34,7 @@ export const Navigation: React.FC<INavigationProps> = props => {
                 }
             `}</style>
 
-            {isMobile ? (
+            {collapseMenu ? (
                 <MenuToggle
                     open={open}
                     position={'right'}
