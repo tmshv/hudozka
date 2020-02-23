@@ -1,11 +1,10 @@
-import * as React from 'react'
-import { IMeta } from '../../types'
+import { IMeta } from 'src/types'
 
-export interface IMetaProps {
+export type MetaProps = {
     meta: IMeta
 }
 
-export const Meta: React.FC<IMetaProps> = ({ meta }) => (
+export const Meta: React.FC<MetaProps> = ({ meta }) => (
     <>
         {/* Search Engine */}
         <meta name="description" content={meta.description} />
