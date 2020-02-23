@@ -53,9 +53,6 @@ export default class MyApp extends App {
                     <script src='/static/likely.js' />
                     <link href='/static/likely.css' rel='stylesheet' />
 
-                    {/* Fonts */}
-                    <link href="https://fonts.googleapis.com/css?family=PT+Sans|PT+Serif" rel="stylesheet" as="font" />
-
                     {/* Instagram Embed */}
                     <script async defer src="//platform.instagram.com/en_US/embeds.js" />
 
