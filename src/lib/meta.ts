@@ -1,4 +1,4 @@
-import { IMeta, IImage, ImageDefinition } from 'src/types'
+import { IMeta, ImageDefinition } from 'src/types'
 
 export function meta(props: Partial<IMeta>): IMeta {
     const path = props.url || '/'
