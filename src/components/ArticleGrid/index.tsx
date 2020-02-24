@@ -29,7 +29,9 @@ export const ArticleGrid: React.FC<ArticleGridProps> = ({ articles, nextPage, pr
                 {articles.map((article, i) => {
                     const gridColumn = article.featured ? 'span 2' : 'auto'
                     const layout: CardLayout = article.featured ? 'featured' : 'simple'
-                    const srcSet = article.preview.set.map(({ url, density }) => `${url} ${density}x`).join(' ')
+                    const preview = article.preview.artifacts.medium
+                    const src = preview.src
+                    const srcSet = preview.set.map(({ url, density }) => `${url} ${density}x`).join(' ')
 
                     const content = !article.featured
                         ? (
@@ -52,7 +54,7 @@ export const ArticleGrid: React.FC<ArticleGridProps> = ({ articles, nextPage, pr
                             href={article.url}
                             img={{
                                 alt: article.title,
-                                src: article.preview.src,
+                                src,
                                 srcSet,
                             }}
                             layout={layout}

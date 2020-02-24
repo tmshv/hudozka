@@ -3,8 +3,8 @@ import { App } from 'src/components/App'
 import { tail } from 'lodash'
 import { Page } from 'src/components/Page'
 import { Meta } from 'src/components/Meta'
-import { meta } from 'src/lib/meta'
-import { createApiUrl, requestGet, wrapInitialProps, IResponseItems } from 'src/next-lib'
+import { MetaBuilder } from 'src/lib/meta'
+import { createApiUrl, requestGet, IResponseItems } from 'src/next-lib'
 import { NextPage } from 'next'
 import { IBreadcumbsPart, IMeta, IPage } from 'src/types'
 
@@ -15,11 +15,10 @@ function array<T>(value: T | T[]) {
 }
 
 type Props = {
-    page: any
     title: string
     content: string
     breadcrumb: IBreadcumbsPart[]
-    meta: IMeta
+    meta?: IMeta
 }
 
 const Index: NextPage<Props> = props => (
@@ -32,7 +31,9 @@ const Index: NextPage<Props> = props => (
     >
         <Head>
             <title>{props.title}</title>
-            {/* <Meta meta={props.meta} /> */}
+            {!props.meta ? null : (
+                <Meta meta={props.meta} />
+            )}
         </Head>
 
         <Page
@@ -54,29 +55,26 @@ export const unstable_getStaticProps = async (ctx: any) => {
     if (!page) {
         throw new Error(`Not found: ${slug}`)
     }
-    const image = page.preview ? page.preview.artifacts.fb : {}
-    const breadcrumbSize = page.breadcrumb?.length ?? 0
+    const description = page.description ?? undefined
+    const breadcrumbSize = page?.breadcrumb?.length ?? 0
     const breadcrumb = breadcrumbSize < 2 ? null : page.breadcrumb
+    const meta = (new MetaBuilder())
+        .setImage(page.preview)
+        .setTitle(page.title)
+        .setDescription(description)
+        .build()
 
     return {
         props: {
-            page,
             content: page.data,
             title: page.title,
-            meta: meta({
-                title: page.title,
-                image: image.src,
-                imageWidth: image.width,
-                imageHeight: image.height,
-            }),
+            meta,
             breadcrumb,
         }
     }
 }
 
 export const unstable_getStaticPaths = async () => {
-    console.log('call all unstable_getStaticPaths')
-
     const urls = await requestGet<IResponseItems<string>>(createApiUrl(`/api/pages/urls`), null)
     if (!urls) {
         return null

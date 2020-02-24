@@ -2,10 +2,10 @@ import Head from 'next/head'
 import { App } from 'src/components/App'
 import { Article } from 'src/components/Article'
 import { Meta } from 'src/components/Meta'
-import { meta } from 'src/lib/meta'
+import { MetaBuilder } from 'src/lib/meta'
 import { createApiUrl, requestGet, IResponseItems } from 'src/next-lib'
 import { NextPage } from 'next'
-import { IMeta } from 'src/types'
+import { IMeta, Person } from 'src/types'
 import { Html } from 'src/components/Html'
 
 interface IProps {
@@ -47,44 +47,34 @@ const Index: NextPage<IProps> = props => {
 }
 
 export const unstable_getStaticProps = async (ctx: any) => {
-    console.log('call unstable_getStaticProps', ctx)
-
-    // const id = ctx.query.person
-    // const id = ctx.params.person ?? 'va-sarzhin'
-    const id = ctx.params.person //?? 'mg-timasheva'
-
+    const id = ctx.params.person
     if (!id) {
         throw new Error('sry')
     }
 
-    const person = await requestGet<any>(createApiUrl(`/api/persons/${id}`), null)
-    const name = person.name || []
-    const title = name.join(' ')
-    const image = person.preview ? person.preview.artifacts.fb : {}
-
+    const person = await requestGet<Person>(createApiUrl(`/api/persons/${id}`), null)
     if (!person?.post) {
         throw new Error(`post kek ${id}`)
     }
+
+    const title = person.name.join(' ')
+    const meta = (new MetaBuilder())
+        .setImage(person.preview)
+        .setTitle(title)
+        .setDescription(person.position)
+        .build()
 
     return {
         props: {
             person,
             title,
-            meta: meta({
-                title,
-                image: image.src,
-                imageWidth: image.width,
-                imageHeight: image.height,
-            })
+            meta,
         }
     }
 }
 
 export const unstable_getStaticPaths = async () => {
-    console.log('call unstable_getStaticPaths')
-
     const urls = await requestGet<IResponseItems<string>>(createApiUrl(`/api/persons/urls`), null)
-    // const urls = {items: ['/teacher/va-sarzhin']}
 
     return {
         paths: urls.items

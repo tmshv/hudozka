@@ -4,24 +4,27 @@ import { App } from 'src/components/App'
 import { Meta } from 'src/components/Meta'
 import { CollectiveImage } from 'src/components/CollectiveImage'
 import { meta } from 'src/lib/meta'
-import { IMeta, IImage } from 'src/types'
+import { IMeta, Person } from 'src/types'
 import { createApiUrl, requestGet, IResponseItems } from 'src/next-lib'
 import { NextPage, NextPageContext } from 'next'
 import { CardGrid } from 'src/components/CardGrid'
 import { Card } from 'src/components/Card'
+import { Block } from 'src/components/Block'
 
-interface IPerson {
-    url: string
-    name: string
-    position: string
-    picture: IImage
+type CardData = {
+    title: string
+    caption?: string
+    imageSrc: string
+    imageAlt: string
+    imageSrcSet: string
+    href: string
 }
 
 type Props = {
     title: string
     image: string
     meta: IMeta
-    data: IPerson[]
+    data: CardData[]
 }
 
 const Page: NextPage<Props> = props => {
@@ -52,24 +55,26 @@ const Page: NextPage<Props> = props => {
             <CardGrid style={{
                 marginBottom: 'var(--size-xl)',
             }}>
-                {props.data.map((item, index) => (
+                {props.data.map(item => (
                     <Card
-                        key={index}
+                        key={item.href}
                         layout={'featured'}
                         img={{
-                            src: item.picture.src,
-                            alt: item.name,
-                            srcSet: '',//item.name.sr,
+                            src: item.imageSrc,
+                            alt: item.imageAlt,
+                            srcSet: item.imageSrcSet,
                         }}
-                        href={item.url}
+                        href={item.href}
                     >
-                        <h2 style={{
-                            margin: '0 0 var(--size-s)',
-                            fontSize: '14pt',
-                        }}>
-                            {item.name[0]} {item.name[1]} {item.name[2]}
-                        </h2>
-                        {item.position}
+                        <Block direction={'vertical'}>
+                            <span>{item.title}</span>
+                            <span style={{
+                                paddingTop: 'var(--size-s)',
+                                fontSize: 'var(--font-size-second)',
+                            }}>
+                                {item.caption}
+                            </span>
+                        </Block>
                     </Card>
                 ))}
             </CardGrid>
@@ -78,14 +83,24 @@ const Page: NextPage<Props> = props => {
 }
 
 export const unstable_getStaticProps = async (ctx: NextPageContext) => {
-    // const pageUrl = ctx.req.url
-
-    const res = await requestGet<IResponseItems<IPerson>>(createApiUrl('/api/persons'), null)
-    const data = res?.items || []
+    const res = await requestGet<IResponseItems<Person>>(createApiUrl('/api/persons'), null)
     const title = 'Преподаватели Шлиссельбургской ДХШ'
     const imageFile = 'Images/HudozkaCollective2017.jpg'
     const resImage = await requestGet(createApiUrl(`/api/image?file=${imageFile}`), null)
     const image = get(resImage, 'artifacts.large', null)
+    const data: CardData[] = (res?.items || [])
+        .map(x => {
+            const title = `${x.name[0]} ${x.name[1]} ${x.name[2]}`
+            return {
+                title,
+                caption: x.position,
+                href: x.url,
+                imageSrc: x.picture.src,
+                imageAlt: title,
+                imageSrcSet: '',
+            }
+        })
+
 
     return {
         props: {
