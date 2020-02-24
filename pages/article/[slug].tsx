@@ -6,7 +6,7 @@ import { Meta } from 'src/components/Meta'
 import { MetaBuilder } from 'src/lib/meta'
 import { createApiUrl, requestGet, IResponseItems } from 'src/next-lib'
 import { NextPage } from 'next'
-import { IArticle } from 'src/types'
+import { IArticle, IMeta } from 'src/types'
 
 type Props = {
     title: string

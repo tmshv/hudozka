@@ -3,7 +3,7 @@ import { App } from 'src/components/App'
 import { Meta } from 'src/components/Meta'
 import { ArticleGrid } from 'src/components/ArticleGrid'
 import { HudozkaTitle } from 'src/components/HudozkaTitle'
-import { meta } from 'src/lib/meta'
+import { meta, MetaBuilder } from 'src/lib/meta'
 import { createApiUrl, requestGet, IResponseItems } from 'src/next-lib'
 import { NextPage } from 'next'
 import { IArticle } from 'src/types'
@@ -45,13 +45,15 @@ export const unstable_getStaticProps = async () => {
     const pageSize = process.env.APP_ARTICLES_PAGE_SIZE
     const res = await requestGet<IResponseItems<IArticle>>(createApiUrl(`/api/articles?page=${page}&pageSize=${pageSize}`), null)
     const articles = (res.items || [])
-        .map(x => ({
-            ...x,
-            featured: ['2019-kotiki', 'veloparking'].includes(x.id)
-        }))
     const nextPage = res.nextPage
     const prevPage = res.prevPage
     const title = 'Шлиссельбургская ДХШ'
+    const meta = (new MetaBuilder())
+        .setTitle(title)
+        .setData({
+            url: '/',
+        })
+        .build()
 
     return {
         props: {
@@ -59,10 +61,7 @@ export const unstable_getStaticProps = async () => {
             nextPage,
             prevPage,
             title,
-            meta: meta({
-                title,
-                url: '/',
-            })
+            meta,
         }
     }
 }

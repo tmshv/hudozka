@@ -66,7 +66,7 @@ export interface IArticle {
     featured: boolean
     url: string
     title: string
-    preview: IImage
+    preview: ImageDefinition
 }
 
 export type Person = {

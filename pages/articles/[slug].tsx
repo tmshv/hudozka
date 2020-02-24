@@ -2,17 +2,18 @@ import Head from 'next/head'
 import { range } from 'lodash'
 import { App } from 'src/components/App'
 import { ArticleGrid } from 'src/components/ArticleGrid'
-import { meta } from 'src/lib/meta'
+import { MetaBuilder } from 'src/lib/meta'
 import { Meta } from 'src/components/Meta'
 import { createApiUrl, requestGet, IResponseItems } from 'src/next-lib'
 import { NextPage } from 'next'
+import { IArticle } from 'src/types'
 
 const pageSize = Number(process.env.APP_ARTICLES_PAGE_SIZE)
 
 type Props = {
     meta: any
     title: string
-    data: any //(list of article)
+    data: IArticle[]
     nextPage: number
     prevPage: number
 }
@@ -42,20 +43,19 @@ const Page: NextPage<Props> = props => {
 }
 
 export const unstable_getStaticProps = async (ctx: any) => {
-    // const page = parseInt(ctx.query.page)
     const page = parseInt(ctx.params.slug)
-    const res = await requestGet<IResponseItems<any[]>>(
-        createApiUrl(`/api/articles?page=${page}&pageSize=${pageSize}`),
-        null
-    )
+    const res = await requestGet<IResponseItems<IArticle>>(createApiUrl(`/api/articles?page=${page}&pageSize=${pageSize}`), null)
     if (!res) {
         return null
     }
 
-    const data = res.items || []
-    const nextPage = (res as any).nextPage
-    const prevPage = (res as any).prevPage
+    const data = (res.items || [])
+    const nextPage = res.nextPage
+    const prevPage = res.prevPage
     const title = 'События'
+    const meta = (new MetaBuilder())
+        .setTitle(title)
+        .build()
 
     return {
         props: {
@@ -63,16 +63,12 @@ export const unstable_getStaticProps = async (ctx: any) => {
             nextPage,
             prevPage,
             title,
-            meta: meta({
-                title,
-            })
+            meta,
         }
     }
 }
 
 export const unstable_getStaticPaths = async () => {
-    console.log('call articles unstable_getStaticPaths')
-
     const urls = await requestGet<IResponseItems<string>>(createApiUrl(`/api/articles/urls`), null)
     if (!urls) {
         return null

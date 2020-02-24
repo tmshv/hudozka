@@ -51,18 +51,26 @@ export class MetaBuilder {
     }
 
     build() {
-        const artifact = this.image.artifacts.fb
-        const image = {
-            image: artifact.src,
-            imageWidth: artifact.width,
-            imageHeight: artifact.height,
-        }
+        const image = this.buildImage() 
 
         return meta({
             ...this.data,
             ...image,
-            title: this.title,
-            description: this.description,
+            title: this.title ?? undefined,
+            description: this.description ?? undefined,
         })
+    }
+
+    private buildImage() {
+        if (!this.image) {
+            return null
+        }
+
+        const artifact = this.image.artifacts.fb
+        return {
+            image: artifact.src,
+            imageWidth: artifact.width,
+            imageHeight: artifact.height,
+        }
     }
 }
