@@ -1,6 +1,7 @@
 import Article from '../core/Article'
-import { encodeArticle, findArticles } from '../server/articles'
+import { findArticles } from '../server/articles'
 import { Request, Response } from 'express'
+import { encodeArticle } from '../factory/article'
 
 const int = (value: string | string[]) => parseInt(Array.isArray(value)
     ? value[0]
@@ -29,7 +30,10 @@ export async function getAll(req: Request, res: Response) {
     const data = await findArticles(page, pageSize)
 
     if (data) {
-        res.json(data)
+        res.json({
+            ...data,
+            items: data.items.map(encodeArticle)
+        })
     } else {
         res.status(404)
         res.json({

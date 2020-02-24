@@ -8,6 +8,7 @@ export function encodePage(page: Page, breadcrumb: Breadcrumb) {
         title: page.title,
         url: page.url,
         data: page.data,
+        description: page.description,
         preview: encodeImage(page.preview),
         tokens: page.tokens,
         breadcrumb,
