@@ -1,17 +1,16 @@
 import Head from 'next/head'
-import { get } from 'lodash'
 import { App } from 'src/components/App'
 import { Article } from 'src/components/Article'
 import { Html } from 'src/components/Html'
 import { Meta } from 'src/components/Meta'
-import { meta, MetaBuilder } from 'src/lib/meta'
+import { MetaBuilder } from 'src/lib/meta'
 import { createApiUrl, requestGet, IResponseItems } from 'src/next-lib'
 import { NextPage } from 'next'
 import { IArticle } from 'src/types'
 
 type Props = {
     title: string
-    meta: any
+    meta: IMeta
     data: IArticle
 }
 
@@ -65,8 +64,6 @@ export const unstable_getStaticProps = async (ctx: any) => {
 }
 
 export const unstable_getStaticPaths = async () => {
-    console.log('call article unstable_getStaticPaths')
-
     const urls = await requestGet<IResponseItems<string>>(createApiUrl(`/api/articles/urls`), null)
     if (!urls) {
         return null
