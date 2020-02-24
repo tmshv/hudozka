@@ -18,7 +18,7 @@ type Props = {
     title: string
     content: string
     breadcrumb: IBreadcumbsPart[]
-    meta: IMeta
+    meta?: IMeta
 }
 
 const Index: NextPage<Props> = props => (
@@ -31,7 +31,9 @@ const Index: NextPage<Props> = props => (
     >
         <Head>
             <title>{props.title}</title>
-            <Meta meta={props.meta} />
+            {!props.meta ? null : (
+                <Meta meta={props.meta} />
+            )}
         </Head>
 
         <Page
@@ -53,10 +55,9 @@ export const unstable_getStaticProps = async (ctx: any) => {
     if (!page) {
         throw new Error(`Not found: ${slug}`)
     }
-    const description = page.description ?? null
-    const breadcrumbSize = page.breadcrumb?.length ?? 0
+    const description = page.description ?? undefined
+    const breadcrumbSize = page?.breadcrumb?.length ?? 0
     const breadcrumb = breadcrumbSize < 2 ? null : page.breadcrumb
-
     const meta = (new MetaBuilder())
         .setImage(page.preview)
         .setTitle(page.title)
