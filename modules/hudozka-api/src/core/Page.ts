@@ -43,6 +43,7 @@ export default class Page {
     public documents: any
     public preview: any
     public tokens: any[]
+    public description: string
 
     constructor(data) {
         this.id = data.id
@@ -56,6 +57,7 @@ export default class Page {
         this.documents = data.documents
         this.preview = data.preview
         this.tokens = data.tokens
+        this.description = data.description
     }
 
     plain() {
