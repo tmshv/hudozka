@@ -53,7 +53,7 @@ export const unstable_getStaticProps = async (ctx: any) => {
     if (!page) {
         throw new Error(`Not found: ${slug}`)
     }
-    const description = page.description ?? ''
+    const description = page.description ?? null
     const breadcrumbSize = page.breadcrumb?.length ?? 0
     const breadcrumb = breadcrumbSize < 2 ? null : page.breadcrumb
 
