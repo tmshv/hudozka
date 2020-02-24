@@ -13,7 +13,8 @@ export interface IPage {
     title: string
     url: string
     data: string
-    preview: any //IImage
+    preview: ImageDefinition
+    description: string
     tokens: any[]
     breadcrumb?: IBreadcumbsPart[]
 }
