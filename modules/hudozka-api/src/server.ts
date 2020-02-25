@@ -1,7 +1,6 @@
 import { config } from 'dotenv'
 import express from 'express'
 import { connect } from './db'
-import * as person from './controllers/person'
 import * as article from './controllers/article'
 import * as album from './controllers/album'
 import * as schedule from './controllers/schedule'
@@ -25,10 +24,6 @@ async function main() {
     }
 
     const app = express()
-    app.get('/persons', person.getAll)
-    app.get('/persons/urls', person.getUrls)
-    app.get('/persons/:slug', person.getItem)
-
     app.get('/articles', article.getAll)
     app.get('/articles/urls', article.getUrls)
     app.get('/articles/:slug', article.getItem)

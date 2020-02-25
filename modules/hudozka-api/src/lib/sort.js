@@ -1,17 +1,3 @@
-function prioritySort(priority, key, list) {
-	priority = priority.reverse()
-
-	let weight = i => {
-		const p = key(i)
-		const index = priority.indexOf(p)
-		return index > -1
-			? index + 1
-			: 0
-	}
-
-	return sort(list, weight)
-}
-
 function sort(list, fn, reverse = false) {
 	return list
 		.map(i => [fn(i), i])
@@ -32,6 +18,5 @@ function sortBy(fn, reverse = false) {
 	}
 }
 
-exports.prioritySort = prioritySort
 exports.sortBy = sortBy
 exports.sort = sort

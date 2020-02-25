@@ -20,7 +20,6 @@ export default class Config {
     public file: any
     public server: any
     public articlesPerPage: any
-    public collectiveOrder: any
     public articleCardDefaultPreview: any
     public collectiveImage: any
     public redirect: any
@@ -30,7 +29,6 @@ export default class Config {
         this.file = file
         this.server = data.server
         this.articlesPerPage = data.articlesPerPage || 5
-        this.collectiveOrder = data.collectiveOrder || []
         this.articleCardDefaultPreview = data.articleCardDefaultPreview
         this.collectiveImage = data.collectiveImage
 
