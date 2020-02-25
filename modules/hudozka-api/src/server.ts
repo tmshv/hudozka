@@ -45,7 +45,7 @@ async function main() {
     app.get('/pages/urls', page.getUrls)
     app.get('/page', page.getItem)
 
-    app.get('/images/:slug', image.getItem)
+    app.get('/image', image.getItem)
 
     app.get('/schedule', schedule.getItem)
     app.get('/tags', tag.getAll)
