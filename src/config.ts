@@ -36,10 +36,6 @@ export default {
             href: '/',
         },
         {
-            name: 'Расписание',
-            href: '/schedule',
-        },
-        {
             name: 'Поступление',
             href: '/join',
         },
