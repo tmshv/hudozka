@@ -41,15 +41,6 @@ async function getAlbumsUrls() {
     }))
 }
 
-async function getTeacherUrls() {
-    const res = await api.get('/api/persons/urls')
-
-    return res.data.items.map(url => ({
-        changefreq: 'monthly',
-        url,
-    }))
-}
-
 async function getArticleUrls() {
     const res = await api.get('/api/articles/urls')
 
@@ -64,7 +55,6 @@ async function getArticleUrls() {
         getMenuUrls(),
         getPageUrls(),
         getAlbumsUrls(),
-        getTeacherUrls(),
         getArticleUrls(),
     ])
     urls = urls.reduce((urls, i) => urls.concat(i))
