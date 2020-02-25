@@ -11,7 +11,6 @@ from sync.models.Image import Image
 from sync.models.Album import Album
 from sync.models.Article import Article
 from sync.models.Page import Page
-from sync.models.Person import Person
 from sync.models.Schedule import Schedule
 from sync.models.Settings import Settings
 
@@ -58,13 +57,6 @@ async def run(run_interval=0):
     )
     sync_pages.set_options(True, True, True)
 
-    sync_persons = Sync(
-        provider=io(settings.provider_root),
-        model=Person,
-    )
-    sync_persons.set_options(True, True, True)
-    sync_persons.validate_urls = False
-
     sync_articles = Sync(
         provider=io(settings.provider_root),
         model=Article,
@@ -105,7 +97,6 @@ async def run(run_interval=0):
         await asyncio.wait([
             run_sync(sync_documents),
             run_sync(sync_pages),
-            run_sync(sync_persons),
             run_sync(sync_articles),
             run_sync(sync_schedules),
             run_sync(sync_albums),

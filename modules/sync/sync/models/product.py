@@ -1,6 +1,5 @@
 import settings
 from db import collection
-from sync.core.person import SyncPerson
 from utils.text.transform import interpolate_swift
 
 
@@ -15,14 +14,6 @@ def resolve_value(param, store):
     return store(i)
 
 
-def resolve_teacher(i):
-    sync = SyncPerson(
-        collection(settings.collection_collective),
-        None,
-        ''
-    )
-    return resolve_value(i, lambda teacher_id: sync.read({'id': teacher_id}))
-
 
 def create_product(doc):
     # author, image, title, awards, teacher, date
@@ -32,9 +23,5 @@ def create_product(doc):
 
     product = {**doc}
     # unpop_image(product)
-
-    # product['teacher'] = resolve_teacher(doc['teacher'])
-    # if (product['teacher']):
-        # unpop_teacher(product)
 
     return product
