@@ -1,15 +1,31 @@
 import Head from 'next/head'
-import { get } from 'lodash'
 import { App } from 'src/components/App'
 import { Meta } from 'src/components/Meta'
 import { CollectiveImage } from 'src/components/CollectiveImage'
 import { meta } from 'src/lib/meta'
-import { IMeta, Person } from 'src/types'
-import { createApiUrl, requestGet, IResponseItems } from 'src/next-lib'
+import { IMeta, IPage, ImageDefinition } from 'src/types'
+import { createApiUrl, requestGet } from 'src/next-lib'
 import { NextPage, NextPageContext } from 'next'
 import { CardGrid } from 'src/components/CardGrid'
 import { Card } from 'src/components/Card'
 import { Block } from 'src/components/Block'
+
+const persons = [
+    '/teacher/mg-timasheva',
+    '/teacher/va-sarzhin',
+    '/teacher/od-gogoleva',
+    '/teacher/nv-andreeva',
+    '/teacher/vv-voronova',
+    '/teacher/ea-burovtseva',
+    '/teacher/sa-latipova',
+    '/teacher/iv-khramov',
+    '/teacher/ma-khramova',
+    // АС Тимашева
+    // ЕЮ Тарасова
+    // ИН Втюрина
+    // МЮ Валькова
+    // РК Тимашев
+]
 
 type CardData = {
     title: string
@@ -83,24 +99,28 @@ const Page: NextPage<Props> = props => {
 }
 
 export const unstable_getStaticProps = async (ctx: NextPageContext) => {
-    const res = await requestGet<IResponseItems<Person>>(createApiUrl('/api/persons'), null)
     const title = 'Преподаватели Шлиссельбургской ДХШ'
     const imageFile = 'Images/HudozkaCollective2017.jpg'
-    const resImage = await requestGet(createApiUrl(`/api/image?file=${imageFile}`), null)
-    const image = get(resImage, 'artifacts.large', null)
-    const data: CardData[] = (res?.items || [])
+    const resImage = await requestGet<ImageDefinition>(createApiUrl(`/api/image?file=${imageFile}`), null)
+    const image = resImage?.artifacts.large
+
+    const pages = await Promise.all(persons
+        .map(page => requestGet<IPage>(createApiUrl(`/api/page?page=${page}`), null))
+    )
+    const data: CardData[] = pages
+        .filter(Boolean)
         .map(x => {
-            const title = `${x.name[0]} ${x.name[1]} ${x.name[2]}`
+            const image = x.preview.artifacts.large
+
             return {
-                title,
-                caption: x.position,
+                title: x.title,
+                caption: x.description,
                 href: x.url,
-                imageSrc: x.picture.src,
+                imageSrc: image.src,
                 imageAlt: title,
-                imageSrcSet: '',
+                imageSrcSet: image.set.join(' ')
             }
         })
-
 
     return {
         props: {
