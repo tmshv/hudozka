@@ -1,5 +1,4 @@
 import { createMap } from '../utils/common'
-import { getCollective } from './collective'
 import {
     scheduleDate,
     getPeriod as schedulePeriod,
@@ -96,7 +95,7 @@ function migrate10to20(schedule) {
 async function migrate20to30(schedule) {
     const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat']//, 'sun']
 
-    const persons = await getCollective()
+    const persons = []
     const person = createMap(i => i.id, persons)
 
     const week = week => days
