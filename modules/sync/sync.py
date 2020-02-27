@@ -7,11 +7,8 @@ from sync.data.yandexdisk import YDProvider
 import asyncio
 import logging
 
-from sync.models.Image import Image
 from sync.models.Article import Article
 from sync.models.Page import Page
-from sync.models.Schedule import Schedule
-from sync.models.Settings import Settings
 
 
 def init_logger(name: str, file: str):
@@ -63,36 +60,11 @@ async def run(run_interval=0):
     sync_articles.set_options(True, True, True)
     sync_articles.validate_urls = False
 
-    sync_schedules = Sync(
-        provider=io(settings.provider_root),
-        model=Schedule,
-    )
-    sync_schedules.set_options(True, True, True)
-    sync_schedules.validate_urls = False
-
-    sync_settings = Sync(
-        provider=io(settings.provider_root),
-        model=Settings,
-    )
-    sync_settings.set_options(True, True, True)
-    sync_settings.validate_urls = False
-
-    sync_images = Sync(
-        provider=io(settings.provider_root),
-        model=Image,
-    )
-    sync_images.set_options(True, True, True)
-    sync_images.strict_origin = True
-    sync_images.validate_urls = False
-
     while True:
         await asyncio.wait([
             run_sync(sync_documents),
             run_sync(sync_pages),
             run_sync(sync_articles),
-            run_sync(sync_schedules),
-            run_sync(sync_settings),
-            run_sync(sync_images),
         ])
 
         if run_interval == 0:
