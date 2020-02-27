@@ -14,7 +14,6 @@ async function getMenuUrls(frequency = 'daily') {
         '/schedule',
         '/documents',
         '/collective',
-        '/gallery',
     ]
     return menu
         // .filter(i => 'url' in i)
@@ -33,14 +32,6 @@ async function getPageUrls(frequency = 'daily') {
     }))
 }
 
-async function getAlbumsUrls() {
-    const res = await api.get('/api/albums/urls')
-    return res.data.items.map(url => ({
-        changefreq: 'monthly',
-        url,
-    }))
-}
-
 async function getArticleUrls() {
     const res = await api.get('/api/articles/urls')
 
@@ -54,7 +45,6 @@ async function getArticleUrls() {
     let urls = await Promise.all([
         getMenuUrls(),
         getPageUrls(),
-        getAlbumsUrls(),
         getArticleUrls(),
     ])
     urls = urls.reduce((urls, i) => urls.concat(i))
