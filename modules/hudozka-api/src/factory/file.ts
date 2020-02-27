@@ -21,7 +21,6 @@ export function encodeFile(file) {
     const category = (file.category || '')
         .replace('Documents/', '')
         .replace('Pages/', '')
-        .replace('Albums/', '')
         .replace('Articles	/', '')
 
     return {
