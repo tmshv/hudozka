@@ -8,7 +8,6 @@ import asyncio
 import logging
 
 from sync.models.Image import Image
-from sync.models.Album import Album
 from sync.models.Article import Article
 from sync.models.Page import Page
 from sync.models.Schedule import Schedule
@@ -71,13 +70,6 @@ async def run(run_interval=0):
     sync_schedules.set_options(True, True, True)
     sync_schedules.validate_urls = False
 
-    sync_albums = Sync(
-        provider=io(settings.provider_root),
-        model=Album,
-    )
-    sync_albums.set_options(True, True, True)
-    sync_albums.validate_urls = False
-
     sync_settings = Sync(
         provider=io(settings.provider_root),
         model=Settings,
@@ -99,7 +91,6 @@ async def run(run_interval=0):
             run_sync(sync_pages),
             run_sync(sync_articles),
             run_sync(sync_schedules),
-            run_sync(sync_albums),
             run_sync(sync_settings),
             run_sync(sync_images),
         ])

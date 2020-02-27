@@ -43,8 +43,6 @@ skip_unchanged = value('skip_unchanged')
 
 image_processing_enabled = value('image_processing')
 
-album_html_img_class = 'hudozka-product'
-
 image_ext = '.jpg'
 image_sizes = [
     ('original', None, None),
@@ -76,18 +74,6 @@ date_formats = [
     '%d.%m.%Y %H:%M:%S'
 ]
 
-date_formats_direct = [
-    '%Y',
-    '%m.%Y',
-    '%d.%m.%Y',
-]
-
-date_formats_reverse = [
-    '%Y',
-    '%Y.%m',
-    '%Y.%m.%d'
-]
-
 origin = value('origin')
 
 collection_settings = 'settings'
@@ -95,12 +81,10 @@ collection_images = 'images'
 collection_documents = 'documents'
 collection_schedules = 'schedules'
 collection_articles = 'articles'
-collection_albums = 'albums'
 collection_pages = 'pages'
 
 hash_salt_articles = '6'
 hash_salt_pages = '4'
-hash_salt_albums = '1'
 hash_salt_documents = '4'
 hash_salt_images = '5'
 
@@ -113,7 +97,6 @@ dir_settings = './Settings'
 dir_documents = './Documents'
 dir_schedules = './Schedules'
 dir_articles = './Articles'
-dir_albums = './Gallery'
 dir_pages = './Pages'
 dir_images = './Images'
 

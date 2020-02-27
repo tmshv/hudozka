@@ -48,10 +48,6 @@ export default {
             href: '/collective',
         },
         {
-            name: 'Галерея',
-            href: '/gallery',
-        },
-        {
             name: '«Мы соседи»',
             href: '/neighbors',
         },
