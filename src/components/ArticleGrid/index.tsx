@@ -15,14 +15,16 @@ export function resizeImage(src: string, options: IResizeImage): string {
     return `https://images.weserv.nl/?url=${src}&w=${options.w}&h=${options.h}&n=-1`
 }
 
+const cardImgSize1 = { w: 500, h: 500 }
+const cardImgSize2 = { w: 1000, h: 1000 }
 function getImage(image?: ImageDefinition) {
     if (!image) {
         const defaultSrc = process.env.APP_CARD_DEFAULT_IMAGE
-        const src = resizeImage(defaultSrc, { w: 400, h: 400 })
+        const src = resizeImage(defaultSrc, cardImgSize1)
         const set = [
             {
                 density: 2,
-                href: resizeImage(defaultSrc, { w: 800, h: 800 }),
+                href: resizeImage(defaultSrc, cardImgSize2),
             }
         ]
         const srcSet = set
