@@ -12,13 +12,12 @@ export interface IResizeImage {
 }
 
 export function resizeImage(src: string, options: IResizeImage): string {
-    return src
-    // return `https://images.weserv.nl/?url=${src}&w=${options.w}&h=${options.h}&n=-1`
+    return `https://images.weserv.nl/?url=${src}&w=${options.w}&h=${options.h}&n=-1`
 }
 
 function getImage(image?: ImageDefinition) {
     if (!image) {
-        const defaultSrc = '/static/img/HudozkaMain2014.jpg'
+        const defaultSrc = process.env.APP_CARD_DEFAULT_IMAGE
         const src = resizeImage(defaultSrc, { w: 400, h: 400 })
         const set = [
             {
