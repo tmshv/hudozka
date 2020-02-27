@@ -9,10 +9,6 @@ module.exports = {
 		"promise",
 		"react",
 	],
-	"globals": {
-		"angular": true,
-		"DISQUS": true
-	},
 	"rules": {
 		"semi": ["error", "never"],
 		"space-before-function-paren": "off",

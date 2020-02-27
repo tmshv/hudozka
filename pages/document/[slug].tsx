@@ -50,8 +50,6 @@ export const unstable_getStaticProps = async (ctx: any) => {
 }
 
 export const unstable_getStaticPaths = async () => {
-    console.log('call file unstable_getStaticPaths')
-
     const urls = await requestGet<IResponseItems<string>>(createApiUrl(`/api/files/urls`), null)
     if (!urls) {
         return null

@@ -1,5 +1,4 @@
 import dynamic from 'next/dynamic'
-import Comments from '../Comments'
 import { Wrapper } from '../Wrapper'
 import { ConfigContext } from 'src/context/ConfigContext'
 import config from 'src/config'
@@ -61,8 +60,6 @@ export const App: React.FC<IAppProps> = props => {
                         {props.children}
                     </Content>
                 </Block>
-
-                {/* <Comments /> */}
             </Wrapper>
         </ConfigContext.Provider>
     )
