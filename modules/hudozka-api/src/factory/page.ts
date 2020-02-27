@@ -3,13 +3,15 @@ import Page from '../core/Page'
 import { Breadcrumb } from '../types'
 
 export function encodePage(page: Page, breadcrumb: Breadcrumb) {
+    const preview = encodeImage(page.preview)
+
     return {
         id: page.id,
         title: page.title,
         url: page.url,
         data: page.data,
         description: page.description,
-        preview: encodeImage(page.preview),
+        preview,
         tokens: page.tokens,
         breadcrumb,
     }
