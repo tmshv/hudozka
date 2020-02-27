@@ -1,6 +1,6 @@
 ## Usage
 
-Sync Hudozka
+Sync tool
 ```bash
 <ENV> python3 sync.py
 ```
