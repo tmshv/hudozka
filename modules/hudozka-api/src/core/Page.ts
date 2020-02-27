@@ -1,7 +1,6 @@
 import Data from './Data'
 import { find as storeFind, findOne, total } from '../lib/store'
 import Image from './Image'
-import Config from './Config'
 
 const store = () => Data.getStore('Page')
 
@@ -80,13 +79,6 @@ const previewFromImage = (imgs = []) => imgs.length
     ? imgs[0]
     : null
 
-async function resolveDefaultPreview() {
-    const config = await Config.findConfig()
-    if (!config) return null
-
-    return Image.findByFile(config.articleCardDefaultPreview)
-}
-
 async function processPage(article) {
     let preview = null
     const previewId = article.preview
@@ -95,8 +87,6 @@ async function processPage(article) {
 
     if (previewId) {
         preview = await Image.findById(previewId)
-    } else {
-        preview = await resolveDefaultPreview()
     }
 
     return new Page({

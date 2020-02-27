@@ -1,6 +1,5 @@
 import Data from './Data'
 import Image from './Image'
-import Config from './Config'
 import { find, findOne, total } from '../lib/store'
 import { Tag } from './Tag'
 
@@ -101,13 +100,6 @@ const previewFromImage = (imgs = []) => imgs.length
     ? imgs[0]
     : null
 
-async function resolveDefaultPreview() {
-    const config = await Config.findConfig()
-    if (!config) return null
-
-    return Image.findByFile(config.articleCardDefaultPreview)
-}
-
 async function processArticle(article) {
     let preview = null
     const previewId = article.preview
@@ -116,8 +108,6 @@ async function processArticle(article) {
 
     if (previewId) {
         preview = await Image.findById(previewId)
-    } else {
-        preview = await resolveDefaultPreview()
     }
 
     return new Article({
