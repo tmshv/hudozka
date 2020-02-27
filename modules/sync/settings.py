@@ -76,29 +76,23 @@ date_formats = [
 
 origin = value('origin')
 
-collection_settings = 'settings'
 collection_images = 'images'
 collection_documents = 'documents'
-collection_schedules = 'schedules'
 collection_articles = 'articles'
 collection_pages = 'pages'
 
 hash_salt_articles = '6'
 hash_salt_pages = '4'
 hash_salt_documents = '4'
-hash_salt_images = '5'
 
 provider_name = value('provider')['name']  # env('SYNC_PROVIDER', 'fs')
 provider_root = value('provider')['root']  # env('SYNC_PROVIDER', 'fs')
 
 f = abs_fn(provider_root)
 
-dir_settings = './Settings'
 dir_documents = './Documents'
-dir_schedules = './Schedules'
 dir_articles = './Articles'
 dir_pages = './Pages'
-dir_images = './Images'
 
 document_url_template = 'https://static.shlisselburg.org/art/uploads/{file}'
 document_url_preview_template = 'https://static.shlisselburg.org/art/images/{id}-{size}{ext}'
