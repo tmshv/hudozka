@@ -3,7 +3,7 @@ import Page from '../core/Page'
 import { Breadcrumb } from '../types'
 
 export function encodePage(page: Page, breadcrumb: Breadcrumb) {
-    const preview = encodeImage(page.preview)
+    const preview = page.preview ? encodeImage(page.preview) : null
 
     return {
         id: page.id,
