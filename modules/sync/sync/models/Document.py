@@ -181,14 +181,21 @@ async def get_pdf_title(provider, file):
     from PyPDF2.generic import TextStringObject
     from PyPDF2.generic import IndirectObject
 
+    def t(value):
+        value = str(value)
+        value = value.replace('\u0000', '')
+        if value == 'None':
+            return None
+        return value
+
     pdf = PdfFileReader(provider.read(file))
     info = pdf.getDocumentInfo()
 
     if info:
         if type(info.title) == TextStringObject:
-            return str(info.title)
+            return t(info.title)
 
         if type(info.title_raw) == IndirectObject:
             o = pdf.getObject(info.title_raw)
-            return str(o)
+            return t(info.title)
     return None
