@@ -12,7 +12,6 @@ async function getMenuUrls(frequency = 'daily') {
     const menu = [
         '/',
         '/schedule',
-        '/documents',
         '/collective',
     ]
     return menu
