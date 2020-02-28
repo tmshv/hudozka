@@ -1,6 +1,5 @@
 import settings
 from sync.core import Sync
-from sync.core.SyncDocument import SyncDocument
 from sync.data.fs import FSProvider
 from sync.data.yandexdisk import YDProvider
 
@@ -41,12 +40,6 @@ async def run_sync(sync: Sync, **kwargs):
 async def run(run_interval=0):
     io = lambda root: get_provider(settings.provider_name, root)
 
-    sync_documents = SyncDocument(
-        provider=io(settings.provider_root),
-        sizes=settings.image_sizes,
-    )
-    sync_documents.strict_origin = True
-
     sync_pages = Sync(
         provider=io(settings.provider_root),
         model=Page,
@@ -62,7 +55,6 @@ async def run(run_interval=0):
 
     while True:
         await asyncio.wait([
-            run_sync(sync_documents),
             run_sync(sync_pages),
             run_sync(sync_articles),
         ])
