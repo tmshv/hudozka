@@ -71,6 +71,7 @@ class Article(Model):
         self.preview = None
         self.images = None
         self.documents = None
+        self.tokens = None
         super().__init__(provider, store, file, params=params)
 
     def init(self):
@@ -103,10 +104,11 @@ class Article(Model):
         else:
             markdown_post = create_post_from_image_list(self.get_param('images'))
 
-        post, images, documents = await create_post(self.provider, self.get_param('folder'), markdown_post, sizes)
+        post, images, documents, tokens = await create_post(self.provider, self.get_param('folder'), markdown_post, sizes)
         self.post = post
         self.images = images
         self.documents = documents
+        self.tokens = tokens
 
         if self.has_param('preview'):
             preview = self.get_param('preview')
@@ -124,6 +126,7 @@ class Article(Model):
             'file': self.file,
             'origin': self.origin,
             'version': self.version,
+            'tokens': self.tokens,
             'preview': self.preview.ref if self.preview else None,
         }
 

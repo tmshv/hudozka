@@ -96,6 +96,7 @@ class Page(Model):
         self.title = None
         self.data = None
         self.preview = None
+        self.tokens = None
 
         self.__id_template: str = '{category}-{file}'
         self.__url_template: str = settings.document_url_template
@@ -126,11 +127,12 @@ class Page(Model):
         sizes = kwargs['sizes']
 
         markdown_post = self.get_param('content')
-        post, images, documents = await create_post(self.provider, self.get_param('folder'), markdown_post, sizes)
+        post, images, documents, tokens = await create_post(self.provider, self.get_param('folder'), markdown_post, sizes)
         self.title = title_from_html(post)
         self.data = post
         self.images = images
         self.documents = documents
+        self.tokens = tokens
 
         if self.has_param('preview'):
             preview = self.get_param('preview')
@@ -151,6 +153,7 @@ class Page(Model):
             'images': images,
             'documents': documents,
             'title': self.title,
+            'tokens': self.tokens,
             'preview': self.preview.ref if self.preview else None,
         }
 
