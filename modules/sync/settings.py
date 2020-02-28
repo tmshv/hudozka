@@ -81,9 +81,10 @@ collection_documents = 'documents'
 collection_articles = 'articles'
 collection_pages = 'pages'
 
-hash_salt_articles = '6'
+hash_salt_articles = '8'
 hash_salt_pages = '4'
 hash_salt_documents = '4'
+hash_salt_images = '5'
 
 provider_name = value('provider')['name']  # env('SYNC_PROVIDER', 'fs')
 provider_root = value('provider')['root']  # env('SYNC_PROVIDER', 'fs')
