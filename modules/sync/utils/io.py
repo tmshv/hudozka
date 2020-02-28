@@ -1,14 +1,10 @@
 import re
 import yaml
 
-from kazimir import markdown_to_html
 
 FM_BOUNDARY = re.compile(r'^-{3,}', re.MULTILINE)
 
 
-def read_yaml_md(data):
-    yaml_front_matter, content = split_yaml_front_matter(data)
-    return yaml_front_matter, markdown_to_html(content)
 
 
 def parse_yaml_front_matter(data: str):
