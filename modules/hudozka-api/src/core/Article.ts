@@ -53,6 +53,7 @@ export default class Article {
     public version: any
     public preview: any
     public url: any
+    public featured: boolean
 
     constructor(data) {
         this.id = data.id
@@ -70,6 +71,7 @@ export default class Article {
         this.file = data.file
         this.version = data.version
         this.preview = data.preview
+        this.featured = data.featured || false
 
         this.url = `/article/${this.id}`
     }
@@ -92,6 +94,7 @@ export default class Article {
             version: this.version,
             preview: this.preview,
             url: this.url,
+            featured: this.featured,
         }
     }
 }
