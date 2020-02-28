@@ -98,7 +98,11 @@ def html_from_tree(tree):
 
 async def typo(text):
     from kazimir import artlebedev
-    return await artlebedev.typograf(text)
+    result = await artlebedev.typograf(text)
+    if result == 'Размер текста ограничен 32 КБ':
+        return text
+
+    return result
     # url = 'http://www.typograf.ru/webservice/'
     # params = dict(text=text)
     # return await request.post(url, params, {'chr': 'utf-8'})
