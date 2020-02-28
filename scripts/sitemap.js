@@ -11,7 +11,6 @@ const api = axios.create({
 async function getMenuUrls(frequency = 'daily') {
     const menu = [
         '/',
-        '/schedule',
         '/collective',
     ]
     return menu
