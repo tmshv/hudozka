@@ -38,8 +38,12 @@ class Token:
         self.data = data
         self.joinable = True
 
-    async def compile(self):
-        return str(self.data)
+    async def get_data(self):
+        return self.data
+
+    async def compile(self) -> str:
+        data = await self.get_data()
+        return str(data)
 
     def merge(self, token):
         return self
@@ -73,7 +77,8 @@ class TextToken(Token):
         return TextToken(data.strip())
 
     async def compile(self):
-        return markdown_to_html(self.data)
+        data = await self.get_data()
+        return markdown_to_html(data)
 
 
 class FileToken(Token):
@@ -85,8 +90,11 @@ class FileToken(Token):
         super().__init__(name='file', data=data)
         self.joinable = False
 
+    async def get_data(self):
+        return parse_file(self.data)
+
     async def compile(self):
-        data = parse_file(self.data)
+        data = await self.get_data()
         url = data['file']
         text = data['caption'] if data['caption'] else url
         return f'<a href="{url}">{text}</a>'
@@ -107,9 +115,13 @@ class ImageToken(Token):
         merged_token.build = self.build
         return merged_token
 
+    async def get_data(self):
+        data = parse_file(self.data)
+        data = await self.build(data)
+        return data
+
     async def compile(self):
-        img = self.parse_data()
-        img = await self.build(img)
+        img = await self.get_data()
         alt = img['alt']
         caption = markdown_to_html(img['caption'])
         src = img['src']
@@ -123,9 +135,6 @@ class ImageToken(Token):
             </div>
         '''
         return tpl.format(img).strip()
-
-    def parse_data(self):
-        return parse_file(self.data)
 
 
 class ImageCollectionToken(ImageToken):
@@ -143,13 +152,16 @@ class ImageCollectionToken(ImageToken):
         merged_token.build = self.build
         return merged_token
 
-    async def compile(self):
-        data = self.parse_data()
+    async def get_data(self):
+        items = [parse_file(x) for x in self.data]
         images = []
-        for x in data:
+        for x in items:
             img = await self.build(x)
             images.append(img)
+        return images
 
+    async def compile(self):
+        images = await self.get_data()
         images = [x['src'] for x in images]
         images = [f'<img src="{x}">' for x in images]
         images = '\n'.join(images)
@@ -164,10 +176,6 @@ class ImageCollectionToken(ImageToken):
                 </div>
             </div>
         '''
-
-    def parse_data(self):
-        return [parse_file(x) for x in self.data]
-
 
 class UrlToken(Token):
     @staticmethod

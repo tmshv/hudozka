@@ -10,10 +10,14 @@ class DocumentToken(Token):
         super().__init__(name='file', data=data)
         self.joinable = False
         self.build = None
-
-    async def compile(self):
+    
+    async def get_data(self):
         data = parse_file(self.data)
         document = await self.build(data)
+        return document
+
+    async def compile(self):
+        document = await self.get_data()
 
         return create_document(document)
 
