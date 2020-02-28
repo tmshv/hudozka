@@ -99,7 +99,7 @@ class ImageToken(Token):
 
     def __init__(self, data) -> None:
         super().__init__(name='image', data=data)
-        self.joinable = True
+        self.joinable = False
         self.build = None
 
     def merge(self, token: Token):
