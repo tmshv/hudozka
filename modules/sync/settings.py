@@ -91,7 +91,6 @@ provider_root = value('provider')['root']  # env('SYNC_PROVIDER', 'fs')
 
 f = abs_fn(provider_root)
 
-dir_documents = './Documents'
 dir_articles = './Articles'
 dir_pages = './Pages'
 

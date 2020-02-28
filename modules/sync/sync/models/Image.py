@@ -7,7 +7,7 @@ from typing import Optional, List
 
 import settings
 from db import collection
-from sync.data import request, list_images
+from sync.data import request 
 from sync.models import Model
 from utils.hash import md5, hash_str
 from utils.image import image_magick_resize
@@ -53,13 +53,6 @@ class Image(Model):
             img.ref = doc['_id']
 
         return img
-
-    @staticmethod
-    async def scan(provider):
-        scan_path = settings.dir_images
-        documents = list_images(provider, scan_path)
-
-        return [Image.read_path(provider, i) for i in documents]
 
     @staticmethod
     def read_path(provider, path):

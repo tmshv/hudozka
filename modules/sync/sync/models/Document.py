@@ -3,7 +3,7 @@ from tempfile import mkstemp
 
 import settings
 from db import collection
-from sync.data import scan_subdirs, request
+from sync.data import request
 from sync.models import Model
 from sync.models.DocumentPreviewImage import DocumentPreviewImage
 from utils.hash import hash_str, md5
@@ -24,12 +24,6 @@ class Document(Model):
     @staticmethod
     async def delete(query):
         return store.find_one_and_delete(query)
-
-    @staticmethod
-    async def scan(provider):
-        scan_dir = settings.dir_documents
-        paths = scan_subdirs(provider, '.pdf', scan_dir)
-        return [Document.read_path(provider, path) for path in paths]
 
     @staticmethod
     def read_path(provider, path):
