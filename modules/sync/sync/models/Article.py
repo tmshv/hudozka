@@ -5,8 +5,8 @@ import os
 import kazimir
 import settings
 from db import collection
-from sync import create_date_and_title_from_folder_name, create_post_from_image_list, create_date, \
-    create_post
+from markdown import markdown
+from sync import create_date_and_title_from_folder_name, create_date, create_post
 from sync.data import list_images
 from sync.models import Model
 from sync.models.Image import Image
@@ -172,3 +172,12 @@ def read_manifest(provider, path):
     return {
         **manifest,
     }
+
+
+def create_post_from_image_list(images):
+    return markdown(
+        '\n'.join(map(
+            lambda i: '![]({img})'.format(img=i),
+            images
+        ))
+    )

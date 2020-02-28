@@ -3,8 +3,6 @@ import re
 from datetime import datetime
 
 import lxml.html
-from markdown import markdown
-
 import kazimir
 import settings
 from kazimir.CSVToken import CSVToken
@@ -181,11 +179,3 @@ def title_from_html(md):
     titles = html.cssselect('h1')
     if len(titles):
         return titles[0].text
-
-
-create_post_from_image_list = lambda images: markdown(
-    '\n'.join(map(
-        lambda i: '![]({img})'.format(img=i),
-        images
-    ))
-)
