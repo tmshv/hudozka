@@ -102,17 +102,8 @@ async def compile_tokens(tokens: list):
     return '\n'.join(result)
 
 
-def extract_files(text: str) -> [str]:
-    html = markdown(text)
-    post_html = lxml.html.fromstring(html)
-
-    images = post_html.cssselect('img')
-    images = [img.get('src') for img in images]
-
-    return images, []
 
 
-def html_from_tree(tree):
-    html = lxml.html.tostring(tree, encoding='unicode')
 
-    return html
+
+
