@@ -36,26 +36,6 @@ export function choise(scope, selector) {
     return scope.reduce(selector, null);
 }
 
-export function unique<T, U>(fn: (value: T) => U): (list: T[]) => U[] {
-    return list => Array.from(
-        new Set(list.map(fn))
-    )
-}
-
-export function branch(fn) {
-    let keys = unique(fn);
-
-    return list => keys(list)
-        .reduce((dict: any, key: any) => {
-            dict[key] = list.filter(
-                i => fn(i) === key
-            );
-
-            return dict;
-        }, {})
-
-}
-
 export function assign(dict, key, value) {
     dict[key] = value;
     return dict;

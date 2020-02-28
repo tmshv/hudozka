@@ -16,12 +16,15 @@ class Marker:
     def add_tree_middleware(self, callback):
         self.tree_middlewares.append(callback)
 
-    async def create_tree(self, text: str):
+    def parse(self, text: str):
         tokens = text.split('\n')
         tokens = self.markup_tokens(tokens)
         tokens = join_tokens(tokens)
         tokens = merge_tokens(tokens)
 
+        return tokens
+
+    async def create_tree(self, tokens: list):
         compiled = await compile_tokens(tokens)
         tree = lxml.html.fromstring(compiled)
         return await self.process_tree(tree)
@@ -102,17 +105,8 @@ async def compile_tokens(tokens: list):
     return '\n'.join(result)
 
 
-def extract_files(text: str) -> [str]:
-    html = markdown(text)
-    post_html = lxml.html.fromstring(html)
-
-    images = post_html.cssselect('img')
-    images = [img.get('src') for img in images]
-
-    return images, []
 
 
-def html_from_tree(tree):
-    html = lxml.html.tostring(tree, encoding='unicode')
 
-    return html
+
+

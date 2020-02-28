@@ -5,8 +5,8 @@ import os
 import kazimir
 import settings
 from db import collection
-from sync import create_date_and_title_from_folder_name, create_post_from_image_list, create_date, \
-    create_post
+from markdown import markdown
+from sync import create_date_and_title_from_folder_name, create_date, create_post
 from sync.data import list_images
 from sync.models import Model
 from sync.models.Image import Image
@@ -71,6 +71,7 @@ class Article(Model):
         self.preview = None
         self.images = None
         self.documents = None
+        self.tokens = None
         super().__init__(provider, store, file, params=params)
 
     def init(self):
@@ -103,10 +104,11 @@ class Article(Model):
         else:
             markdown_post = create_post_from_image_list(self.get_param('images'))
 
-        post, images, documents = await create_post(self.provider, self.get_param('folder'), markdown_post, sizes)
+        post, images, documents, tokens = await create_post(self.provider, self.get_param('folder'), markdown_post, sizes)
         self.post = post
         self.images = images
         self.documents = documents
+        self.tokens = tokens
 
         if self.has_param('preview'):
             preview = self.get_param('preview')
@@ -124,6 +126,7 @@ class Article(Model):
             'file': self.file,
             'origin': self.origin,
             'version': self.version,
+            'tokens': self.tokens,
             'preview': self.preview.ref if self.preview else None,
         }
 
@@ -172,3 +175,12 @@ def read_manifest(provider, path):
     return {
         **manifest,
     }
+
+
+def create_post_from_image_list(images):
+    return markdown(
+        '\n'.join(map(
+            lambda i: '![]({img})'.format(img=i),
+            images
+        ))
+    )

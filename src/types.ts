@@ -20,7 +20,7 @@ export interface IPage {
 }
 
 export interface IDocument {
-    category: string
+    // category: string
     fileName: string
     fileSize: number
     fileUrl: string

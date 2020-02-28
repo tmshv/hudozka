@@ -3,8 +3,6 @@ import re
 from datetime import datetime
 
 import lxml.html
-from markdown import markdown
-
 import kazimir
 import settings
 from kazimir.CSVToken import CSVToken
@@ -155,12 +153,22 @@ async def create_post(provider: Provider, folder: str, md: str, sizes):
     # m.add_token_factory(TokenFactory(FileToken))
     m.add_token_factory(TokenFactory(TextToken))
     m.add_tree_middleware(fix_links_quotes)
-    tree = await m.create_tree(md)
+
+    tokens = m.parse(md)
+    tree = await m.create_tree(tokens)
 
     post = kazimir.html_from_tree(tree)
     post = await kazimir.typo(post)
 
-    return post, images, documents
+    encoded_tokens = []
+    for t in tokens:
+        data = await t.get_data()
+        encoded_tokens.append({
+            'token': t.name,
+            'data': data,
+        })
+
+    return post, images, documents, encoded_tokens
 
 
 def images_from_html(md):
@@ -181,11 +189,3 @@ def title_from_html(md):
     titles = html.cssselect('h1')
     if len(titles):
         return titles[0].text
-
-
-create_post_from_image_list = lambda images: markdown(
-    '\n'.join(map(
-        lambda i: '![]({img})'.format(img=i),
-        images
-    ))
-)
