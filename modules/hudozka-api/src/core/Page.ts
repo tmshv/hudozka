@@ -1,6 +1,7 @@
 import Data from './Data'
 import { find as storeFind, findOne, total } from '../lib/store'
 import Image from './Image'
+import { Tag } from './Tag'
 
 const store = () => Data.getStore('Page')
 
@@ -37,6 +38,8 @@ export default class Page {
     public url: string
     public content: any
     public title: any
+    public date: Date
+    public tags: Tag[]
     public data: any
     public images: any
     public documents: any
@@ -52,26 +55,13 @@ export default class Page {
         this.content = data.content
         this.title = data.title
         this.data = data.data
+        this.date = data.date
         this.images = data.images
         this.documents = data.documents
         this.preview = data.preview
         this.tokens = data.tokens
+        this.tags = (data.tags || []).map(x => new Tag(x))
         this.description = data.description
-    }
-
-    plain() {
-        return {
-            id: this.id,
-            images: this.images,
-            documents: this.documents,
-            data: this.data,
-            title: this.title,
-            content: this.content,
-            hash: this.hash,
-            file: this.file,
-            preview: this.preview,
-            url: this.url,
-        }
     }
 }
 
