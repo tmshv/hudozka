@@ -33,7 +33,6 @@ async function main() {
     app.get('/image', image.getItem)
 
     app.get('/tags', tag.getAll)
-    app.get('/tags/:slug', tag.findItems)
 
     app.listen(port, () => {
         console.log(`> Ready on http://localhost:${port}`)
