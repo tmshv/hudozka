@@ -39,6 +39,10 @@ export function readQueryInt(req: Request, key: string) {
     return int(req.query[key]) || 0
 }
 
+export function readQueryString(req: Request, key: string) {
+    return `${req.query[key]}`
+}
+
 export function readQueryArray(req: Request, key: string) {
     return ensureArray(req.query[key])
 }

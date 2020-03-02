@@ -1,8 +1,24 @@
 import { Request, Response } from 'express'
 import Page from '../core/Page'
-import { dropTrailingSlash, getPathWaterfall, readQueryArray, readQueryInt } from '../lib/url'
+import { dropTrailingSlash, getPathWaterfall, readQueryArray, readQueryInt, readQueryString } from '../lib/url'
 import { encodePage } from '../factory/page'
 import * as breadcrumb from './breadcrumb'
+
+function getSort(sortBy: string) {
+    if (!sortBy) {
+        return null
+    }
+
+    if (sortBy.charAt(0) === '-') {
+        return {
+            [sortBy.substr(1, sortBy.length)]: -1,
+        }
+    }
+
+    return {
+        [sortBy]: 1,
+    }
+}
 
 async function resolveItem(page: Page) {
     const breadcrumbs = await breadcrumb.getItems(page.getUrl())
@@ -44,6 +60,8 @@ export async function getAll(req: Request, res: Response) {
 export async function getByTags(req: Request, res: Response) {
     const skip = readQueryInt(req, 'skip')
     const limit = readQueryInt(req, 'limit')
+    const sortBy = readQueryString(req, 'sortBy')
+    const sort = getSort(sortBy)
 
     const tags = readQueryArray(req, 'tag')
     if (tags.length === 0) {
@@ -53,7 +71,7 @@ export async function getByTags(req: Request, res: Response) {
         })
     }
 
-    const options = { skip, limit }
+    const options = { skip, limit, sort }
     const models = await Page.find({
         tags: { $in: ['event', 'album'] },
     }, options)
