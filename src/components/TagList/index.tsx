@@ -5,7 +5,13 @@ import { Button } from '../Button'
 
 export const Tag: React.FC<{ href: string }> = props => (
     <li className={'tagsItem'}>
-        <Button href={props.href}>{props.children}</Button>
+        <Button
+            href={props.href}
+            size={'small'}
+            disabled={true}
+        >
+            {props.children}
+        </Button>
     </li>
 )
 
@@ -20,7 +26,7 @@ export const TagList: React.FC<TagListProps> = props => (
                 key={x.slug}
                 href={x.href}
             >
-                # {x.name}
+                {x.name}
             </Tag>
         ))}
     </ul>

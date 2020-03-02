@@ -6,7 +6,7 @@ import { Meta } from 'src/components/Meta'
 import { MetaBuilder } from 'src/lib/meta'
 import { createApiUrl, requestGet, IResponseItems } from 'src/next-lib'
 import { NextPage } from 'next'
-import { IBreadcumbsPart, IMeta, IPage } from 'src/types'
+import { IBreadcumbsPart, IMeta, IPage, ITag } from 'src/types'
 
 function array<T>(value: T | T[]) {
     return Array.isArray(value)
@@ -16,6 +16,8 @@ function array<T>(value: T | T[]) {
 
 type Props = {
     title: string
+    tags: ITag[]
+    date: string
     content: string
     breadcrumb: IBreadcumbsPart[]
     meta?: IMeta
@@ -37,7 +39,8 @@ const Index: NextPage<Props> = props => (
         </Head>
 
         <Page
-            showSocialShare={true}
+            tags={props.tags}
+            date={props.date ? new Date(props.date) : null}
         >
             {props.content}
         </Page>
@@ -68,6 +71,8 @@ export const unstable_getStaticProps = async (ctx: any) => {
         props: {
             content: page.data,
             title: page.title,
+            tags: page.tags,
+            date: page.date,
             meta,
             breadcrumb,
         }
