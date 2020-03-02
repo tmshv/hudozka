@@ -59,7 +59,7 @@ export const unstable_getStaticProps = async () => {
 
     const url = `/api/pages/tags?${tagQuery}&skip=${skip}&limit=${limit}&sortBy=-date`
     const res = await requestGet<IResponseItems<IPage>>(createApiUrl(url), null)
-    const articles = (res.items || [])
+    const items = (res.items || [])
     // const nextPage = res.nextPage
     const nextPage = 2
     const prevPage = res.prevPage
@@ -73,7 +73,7 @@ export const unstable_getStaticProps = async () => {
 
     return {
         props: {
-            articles,
+            items,
             nextPage,
             prevPage,
             title,
