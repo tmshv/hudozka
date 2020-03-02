@@ -1,8 +1,22 @@
 import Data from './Data'
 import ImageArtifactType from './ImageArtifactType'
 import { findOne } from '../lib/store'
-import { mapOf } from '../server/lib'
 import { ObjectId } from 'mongodb'
+
+/**
+ *
+ * {a: {}, b: {}, ...} -> Map (a: Class, b: Class)
+ *
+ * @param Class
+ * @param object
+ */
+function mapOf(Class, object) {
+    return Object
+        .entries(object)
+        .reduce((map, i) => (
+            map.set(i[0], new Class(i[1]))
+        ), new Map())
+}
 
 const store = () => Data.getStore('Image')
 

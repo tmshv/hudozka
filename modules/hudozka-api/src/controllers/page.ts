@@ -10,8 +10,10 @@ function getSort(sortBy: string) {
     }
 
     if (sortBy.charAt(0) === '-') {
+        const key = sortBy.substr(1, sortBy.length)
+
         return {
-            [sortBy.substr(1, sortBy.length)]: -1,
+            [key]: -1,
         }
     }
 
@@ -73,7 +75,7 @@ export async function getByTags(req: Request, res: Response) {
 
     const options = { skip, limit, sort }
     const models = await Page.find({
-        tags: { $in: ['event', 'album'] },
+        tags: { $in: tags },
     }, options)
 
     if (models) {
