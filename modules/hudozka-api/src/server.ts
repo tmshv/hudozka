@@ -33,6 +33,7 @@ async function main() {
 
     app.get('/pages', page.getAll)
     app.get('/pages/urls', page.getUrls)
+    app.get('/pages/tags', page.getByTags)
     app.get('/page', page.getItem)
 
     app.get('/image', image.getItem)

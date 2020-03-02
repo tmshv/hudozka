@@ -2,11 +2,7 @@ import Article from '../core/Article'
 import { findArticles } from '../server/articles'
 import { Request, Response } from 'express'
 import { encodeArticle } from '../factory/article'
-
-const int = (value: string | string[]) => parseInt(Array.isArray(value)
-    ? value[0]
-    : value
-)
+import { readQueryInt } from '../lib/url'
 
 export async function getItem(req: Request, res: Response) {
     const id = req.params.slug
@@ -23,9 +19,8 @@ export async function getItem(req: Request, res: Response) {
 }
 
 export async function getAll(req: Request, res: Response) {
-    const { query } = req
-    const page = int(query.page)
-    const pageSize = int(query.pageSize)
+    const page = readQueryInt(req, 'page')
+    const pageSize = readQueryInt(req, 'pageSize')
 
     const data = await findArticles(page, pageSize)
 

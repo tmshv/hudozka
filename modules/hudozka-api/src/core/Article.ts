@@ -5,10 +5,6 @@ import { Tag } from './Tag'
 
 const store = () => Data.getStore<Article>('Article')
 
-function make(C) {
-    return x => new C(x)
-}
-
 export default class Article {
     static async find(query, options = {}): Promise<Article[]> {
         const items = await find(store(), query, options as any)
@@ -63,7 +59,7 @@ export default class Article {
         this.date = data.date
         this.title = data.title
         this.until = data.until
-        this.tags = (data.tags || []).map(make(Tag))
+        this.tags = (data.tags || []).map((x: string) => Tag.fromCyrillic(x))
         this.content = data.content
         this.hash = data.hash
         this.type = data.type
@@ -76,27 +72,27 @@ export default class Article {
         this.url = `/article/${this.id}`
     }
 
-    plain() {
-        return {
-            id: this.id,
-            images: this.images,
-            post: this.post,
-            folder: this.folder,
-            date: this.date,
-            title: this.title,
-            until: this.until,
-            tags: this.tags,
-            content: this.content,
-            hash: this.hash,
-            type: this.type,
-            origin: this.origin,
-            file: this.file,
-            version: this.version,
-            preview: this.preview,
-            url: this.url,
-            featured: this.featured,
-        }
-    }
+    // plain() {
+    //     return {
+    //         id: this.id,
+    //         images: this.images,
+    //         post: this.post,
+    //         folder: this.folder,
+    //         date: this.date,
+    //         title: this.title,
+    //         until: this.until,
+    //         tags: this.tags,
+    //         content: this.content,
+    //         hash: this.hash,
+    //         type: this.type,
+    //         origin: this.origin,
+    //         file: this.file,
+    //         version: this.version,
+    //         preview: this.preview,
+    //         url: this.url,
+    //         featured: this.featured,
+    //     }
+    // }
 }
 
 const previewFromImage = (imgs = []) => imgs.length

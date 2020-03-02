@@ -1,3 +1,6 @@
+import { Request } from 'express'
+import { ensureArray } from './array'
+
 export function dropTrailingSlash(path: string) {
     if (path === '/' || path === '') {
         return '/'
@@ -25,4 +28,17 @@ export function getPathWaterfall(path: string): string[] {
         }, [])
 
     return ['/', ...parts]
+}
+
+export function readQueryInt(req: Request, key: string) {
+    const int = (value: string | string[]) => parseInt(Array.isArray(value)
+        ? value[0]
+        : value
+    )
+
+    return int(req.query[key]) || 0
+}
+
+export function readQueryArray(req: Request, key: string) {
+    return ensureArray(req.query[key])
 }

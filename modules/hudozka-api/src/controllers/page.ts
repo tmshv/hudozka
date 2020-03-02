@@ -1,20 +1,27 @@
 import { Request, Response } from 'express'
 import Page from '../core/Page'
-import { dropTrailingSlash, getPathWaterfall } from '../lib/url'
+import { dropTrailingSlash, getPathWaterfall, readQueryArray, readQueryInt } from '../lib/url'
 import { encodePage } from '../factory/page'
 import * as breadcrumb from './breadcrumb'
 
+async function resolveItem(page: Page) {
+    const breadcrumbs = await breadcrumb.getItems(page.getUrl())
+    page.setBreadcrumb(breadcrumbs)
+
+    return page
+}
+
 export async function getItem(req: Request, res: Response) {
-    const page = dropTrailingSlash(req.query.page)
-    const breadcrumbs = await breadcrumb.getItems(page)
-    const resource = await Page.findByUrl(page)
+    const pageUrl = dropTrailingSlash(req.query.page)
+    const resource = await Page.findByUrl(pageUrl)
 
     if (resource) {
-        res.json(encodePage(resource, breadcrumbs))
+        const page = await resolveItem(resource)
+        res.json(encodePage(page))
     } else {
         res.status(404)
         res.json({
-            error: `Resource ${page} not found`
+            error: `Resource ${pageUrl} not found`
         })
     }
 }
@@ -23,6 +30,38 @@ export async function getAll(req: Request, res: Response) {
     const items = await Page.find({})
 
     if (items) {
+        res.json({
+            items,
+        })
+    } else {
+        res.status(404)
+        res.json({
+            error: `Not found`
+        })
+    }
+}
+
+export async function getByTags(req: Request, res: Response) {
+    const skip = readQueryInt(req, 'skip')
+    const limit = readQueryInt(req, 'limit')
+
+    const tags = readQueryArray(req, 'tag')
+    if (tags.length === 0) {
+        res.status(400)
+        return res.json({
+            error: `No tags in request`
+        })
+    }
+
+    const options = { skip, limit }
+    const models = await Page.find({
+        tags: { $in: ['event', 'album'] },
+    }, options)
+
+    if (models) {
+        const pages = await Promise.all(models.map(resolveItem))
+        const items = pages.map(encodePage)
+
         res.json({
             items,
         })

@@ -18,12 +18,14 @@ type PageDto = {
     preview?: ImageDto
     tokens: Token[]
     tags: Tag[]
+    featured: boolean
     breadcrumb: Breadcrumb
 }
 
-export function encodePage(page: Page, breadcrumb: Breadcrumb): PageDto {
+export function encodePage(page: Page): PageDto {
     const preview = page.preview ? encodeImage(page.preview) : null
     const date = page.date ? page.date.toString() : null
+    const breadcrumb = page.getBreadcrumb()
 
     return {
         id: page.id,
@@ -33,6 +35,7 @@ export function encodePage(page: Page, breadcrumb: Breadcrumb): PageDto {
         description: page.description,
         tokens: page.tokens,
         tags: page.tags,
+        featured: page.featured,
         preview,
         date,
         breadcrumb,

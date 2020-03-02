@@ -3,3 +3,16 @@ export function unique<T>(items: T[], key: (item: T) => string): T[]{
 
     return [...map.values()]
 }
+
+export function ensureArray<T>(value: T | T[]): T[] {
+    if (!value) {
+        return []
+    }
+
+    if (Array.isArray(value)) {
+        return value
+    }
+
+    return [value]
+}
+

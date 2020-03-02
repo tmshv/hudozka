@@ -2,8 +2,16 @@ import Data from './Data'
 import { find as storeFind, findOne, total } from '../lib/store'
 import Image from './Image'
 import { Tag } from './Tag'
+import { ObjectId } from 'mongodb'
+import { Breadcrumb } from '../types'
 
 const store = () => Data.getStore('Page')
+
+type PageDto = {
+    [name: string]: any
+    preview?: ObjectId
+    images: ObjectId[]
+}
 
 export default class Page {
     static async find(query, options = {}): Promise<Page[]> {
@@ -20,7 +28,7 @@ export default class Page {
             : processPage(item)
     }
 
-    static async findByUrl(url) {
+    static async findByUrl(url: string) {
         const item = await findOne(store(), { url })
 
         return !item
@@ -41,13 +49,16 @@ export default class Page {
     public date: Date
     public tags: Tag[]
     public data: any
-    public images: any
+    public images: ObjectId[]
     public documents: any
-    public preview: any
+    public preview?: Image
     public tokens: any[]
     public description: string
+    public featured: boolean
 
-    constructor(data) {
+    private breadcrumb: Breadcrumb
+
+    constructor(data: { [name: string]: any }) {
         this.id = data.id
         this.hash = data.hash
         this.file = data.file
@@ -60,27 +71,43 @@ export default class Page {
         this.documents = data.documents
         this.preview = data.preview
         this.tokens = data.tokens
-        this.tags = (data.tags || []).map(x => new Tag(x))
+        this.tags = (data.tags || []).map((x: string) => new Tag(x, x))
+        this.featured = data.featured
         this.description = data.description
+    }
+
+    public setBreadcrumb(value: Breadcrumb) {
+        this.breadcrumb = value
+        return this
+    }
+
+    public getBreadcrumb() {
+        return this.breadcrumb
+    }
+
+    public getUrl() {
+        return this.url
     }
 }
 
-const previewFromImage = (imgs = []) => imgs.length
-    ? imgs[0]
-    : null
+function firstItem<T>(items: T[] = []): T {
+    return items.length
+        ? items[0]
+        : null
+}
 
-async function processPage(article) {
-    let preview = null
-    const previewId = article.preview
-        ? article.preview
-        : previewFromImage(article.images)
+async function processPage(item: PageDto): Promise<Page> {
+    let preview: Image = null
+    const previewId = item.preview
+        ? item.preview
+        : firstItem(item.images)
 
     if (previewId) {
         preview = await Image.findById(previewId)
     }
 
     return new Page({
-        ...article,
+        ...item,
         preview,
     })
 }

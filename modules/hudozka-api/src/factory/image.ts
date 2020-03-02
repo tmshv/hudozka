@@ -1,4 +1,5 @@
 import ImageArtifactType from '../core/ImageArtifactType'
+import Image from '../core/Image'
 
 export type ImageArtifactDto = {
     height: number
@@ -23,7 +24,7 @@ export type ImageDto = {
     file: string
 }
 
-export function encodeImage(image): ImageDto {
+export function encodeImage(image: Image): ImageDto {
     const artifacts = [
         ImageArtifactType.SMALL,
         ImageArtifactType.MEDIUM,

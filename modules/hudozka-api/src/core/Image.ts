@@ -2,11 +2,12 @@ import Data from './Data'
 import ImageArtifactType from './ImageArtifactType'
 import { findOne } from '../lib/store'
 import { mapOf } from '../server/lib'
+import { ObjectId } from 'mongodb'
 
 const store = () => Data.getStore('Image')
 
 export default class Image {
-    static async findById(id) {
+    static async findById(id: ObjectId) {
         const data = await findOne(store(), { _id: id })
         if (!data) return null
 
