@@ -45,12 +45,6 @@ def create_date(date_str, date_formats=None):
     return None
 
 
-# 2016 На крыльях бабочек
-# 2016.10 На крыльях бабочек
-# 2016.10.10 На крыльях бабочек
-folder_name_pattern = re.compile('([\d.]+)(.*)')
-
-
 async def untouched(items: [Model]) -> [Model]:
     if settings.skip_unchanged:
         return items
@@ -71,21 +65,6 @@ async def untouched(items: [Model]) -> [Model]:
     # filtered_documents = [i[0] for i in stored_documents if is_equals(*i)]
 
     # return filtered_documents
-
-
-def create_date_and_title_from_folder_name(folder_name, date_formats=None):
-    m = folder_name_pattern.findall(folder_name)
-    if not m:
-        return None, None
-
-    date_str, title = m[0]
-    title = os.path.splitext(title.strip())[0]
-    date = create_date(date_str, date_formats)
-
-    if not date:
-        return None, title
-
-    return date, title
 
 
 async def create_post(provider: Provider, folder: str, md: str, sizes):
@@ -169,19 +148,6 @@ async def create_post(provider: Provider, folder: str, md: str, sizes):
         })
 
     return post, images, documents, encoded_tokens
-
-
-def images_from_html(md):
-    if not md:
-        return []
-
-    post_html = lxml.html.fromstring(md)
-
-    images = []
-    for img in post_html.cssselect('img'):
-        src = img.get('src')
-        images.append(src)
-    return images
 
 
 def title_from_html(md):
