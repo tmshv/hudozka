@@ -1,13 +1,17 @@
-import moment from 'moment'
-moment.locale('ru')
+import format from 'date-fns/format'
+import { ru } from 'date-fns/locale'
 
 /**
  *
- * Date -> DD.MM.YYYY
+ * Date -> D MMMM yyyy
  *
  * @param date
  */
-export const dateFormat = (date: string | Date) => moment(date).format('L')
+export const dateFormat = (date: string | Date) => {
+    return format(new Date(2014, 6, 2), "d MMMM yyyy", {
+        locale: ru
+    })
+}
 
 /**
  *
