@@ -64,6 +64,7 @@ class Page(Model):
         manifest_path = manifest_file('.md')
 
         if not provider.exists(manifest_path):
+            logger.warning(f'Manifest not found on path {manifest_path}')
             return None
 
         params = {
