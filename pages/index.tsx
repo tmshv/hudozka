@@ -1,19 +1,19 @@
 import Head from 'next/head'
 import { App } from 'src/components/App'
 import { Meta } from 'src/components/Meta'
-import { ArticleGrid } from 'src/components/ArticleGrid'
+import { PageGrid } from 'src/components/PageGrid'
 import { HudozkaTitle } from 'src/components/HudozkaTitle'
-import { meta, MetaBuilder } from 'src/lib/meta'
+import { MetaBuilder } from 'src/lib/meta'
 import { createApiUrl, requestGet, IResponseItems } from 'src/next-lib'
 import { NextPage } from 'next'
-import { IArticle } from 'src/types'
+import { IPage } from 'src/types'
 
 interface IProps {
     title: string
     meta: any
     prevPage: number
     nextPage: number
-    articles: any[]
+    items: any[]
 }
 
 const Page: NextPage<IProps> = props => (
@@ -32,8 +32,8 @@ const Page: NextPage<IProps> = props => (
             }}
         />
 
-        <ArticleGrid
-            articles={props.articles}
+        <PageGrid
+            items={props.items}
             prevPage={props.prevPage}
             nextPage={props.nextPage}
         />
@@ -42,10 +42,26 @@ const Page: NextPage<IProps> = props => (
 
 export const unstable_getStaticProps = async () => {
     const page = 1
-    const pageSize = process.env.APP_ARTICLES_PAGE_SIZE
-    const res = await requestGet<IResponseItems<IArticle>>(createApiUrl(`/api/articles?page=${page}&pageSize=${pageSize}`), null)
+    // const pageSize = parseInt(process.env.APP_ARTICLES_PAGE_SIZE)
+    const pageSize = 300
+
+    const limit = pageSize
+    const skip = (page - 1) * pageSize
+
+    const tags = [
+        'event',
+        'album',
+        'post',
+    ]
+    const tagQuery = tags
+        .map(x => `tag=${x}`)
+        .join('&')
+
+    const url = `/api/pages/tags?${tagQuery}&skip=${skip}&limit=${limit}&sortBy=-date`
+    const res = await requestGet<IResponseItems<IPage>>(createApiUrl(url), null)
     const articles = (res.items || [])
-    const nextPage = res.nextPage
+    // const nextPage = res.nextPage
+    const nextPage = 2
     const prevPage = res.prevPage
     const title = 'Шлиссельбургская ДХШ'
     const meta = (new MetaBuilder())

@@ -1,4 +1,4 @@
-import { IArticle, ImageDefinition } from 'src/types'
+import { ImageDefinition, IPage } from 'src/types'
 import { Pager } from '../Pager'
 import { CardGrid } from '../CardGrid'
 import { Card, CardLayout } from '../Card'
@@ -47,13 +47,13 @@ function getImage(image?: ImageDefinition) {
     }
 }
 
-export type ArticleGridProps = {
-    articles: IArticle[]
+export type PageGridProps = {
+    items: IPage[]
     nextPage: number | null
     prevPage: number | null
 }
 
-export const ArticleGrid: React.FC<ArticleGridProps> = ({ articles, nextPage, prevPage, ...props }) => {
+export const PageGrid: React.FC<PageGridProps> = ({ items, nextPage, prevPage, ...props }) => {
     const nextHref = nextPage ? `/articles/${nextPage}` : null
     let prevHref = prevPage ? `/articles/${prevPage}` : null
     if (prevPage === 1) {
@@ -67,32 +67,32 @@ export const ArticleGrid: React.FC<ArticleGridProps> = ({ articles, nextPage, pr
                     marginBottom: 'var(--size-m)',
                 }}
             >
-                {articles.map((article, i) => {
-                    const gridColumn = article.featured ? 'span 2' : 'auto'
-                    const layout: CardLayout = article.featured ? 'featured' : 'simple'
-                    const { src, srcSet } = getImage(article.preview)
+                {items.map((item, i) => {
+                    const gridColumn = item.featured ? 'span 2' : 'auto'
+                    const layout: CardLayout = item.featured ? 'featured' : 'simple'
+                    const { src, srcSet } = getImage(item.preview)
 
-                    const content = !article.featured
+                    const content = !item.featured
                         ? (
                             <Block
                                 direction={'vertical'}
                             >
-                                {article.title}
+                                {item.title}
                                 <Spacer />
                                 <Date style={{
                                     marginTop: 'var(--size-m)',
-                                }}>{article.date}</Date>
+                                }}>{item.date}</Date>
                             </Block>
                         ) : (
-                            article.title
+                            item.title
                         )
 
                     return (
                         <Card
                             key={i}
-                            href={article.url}
+                            href={item.url}
                             img={{
-                                alt: article.title,
+                                alt: item.title,
                                 src,
                                 srcSet,
                             }}
