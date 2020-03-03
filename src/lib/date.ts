@@ -13,11 +13,3 @@ export const dateFormat = (date: string | Date) => {
         locale: ru
     })
 }
-
-/**
- *
- * Date -> Unix time
- *
- * @param date
- */
-export const timestamp = (date: Date) => date.getTime()

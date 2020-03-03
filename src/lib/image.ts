@@ -5,7 +5,7 @@ export type ResizeOptions = {
     height: number
 }
 
-export function resizeImage(src: string, options: ResizeOptions): string {
+export function getResizedUrl(src: string, options: ResizeOptions): string {
     if (!src || src === '') {
         return null
     }
@@ -17,7 +17,7 @@ export function imageSrcSet(src: string, sizes: ImageSize[]): string {
     const set = sizes
         .map(x => ({
             value: x,
-            href: resizeImage(src, {
+            href: getResizedUrl(src, {
                 width: x,
                 height: x,
             }),
@@ -26,4 +26,11 @@ export function imageSrcSet(src: string, sizes: ImageSize[]): string {
     return set
         .map(x => `${x.href} ${x.value}w`)
         .join(', ')
+}
+
+export function imageSrc(src: string, size: ImageSize): string {
+    return getResizedUrl(src, {
+        width: size,
+        height: size,
+    })
 }
