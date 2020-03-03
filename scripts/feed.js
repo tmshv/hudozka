@@ -6,9 +6,12 @@ const api = axios.create({
     baseURL: 'https://api.tmshv.com/hudozka',
 })
 
-async function getArticles(pageSize) {
-    const page = 1
-    const res = await api.get(`/api/articles?page=${page}&pageSize=${pageSize}`)
+async function getArticles(limit) {
+    const query = ['post', 'event', 'album']
+        .map(t => `tag=${t}`)
+        .join('&')
+    const url = `/api/pages/tags?${query}&sortBy=-date&skip=0&pageSize=${limit}`
+    const res = await api.get(url)
 
     return res.data.items
 }
@@ -32,7 +35,7 @@ async function getArticles(pageSize) {
             date: new Date(article.date),
             id: article.id,
             link: article.url,
-            content: article.post,
+            content: article.data,
         })
     })
 
