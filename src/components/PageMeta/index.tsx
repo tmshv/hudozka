@@ -16,7 +16,7 @@ export const PageMeta: React.FC<PageMetaProps> = props => (
             <p className={'date'}>Опубликовано: {dateFormat(props.date)}</p>
         )}
 
-        {!(props.tags.length) ? null : (
+        {!(props.tags?.length) ? null : (
             <TagList items={props.tags} />
         )}
     </header>
