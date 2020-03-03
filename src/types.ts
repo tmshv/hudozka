@@ -8,6 +8,14 @@ export interface IBreadcumbsPart {
     href: string
 }
 
+export type PageCardData = {
+    url: string
+    title: string
+    featured: boolean
+    date: Date
+    coverSrc: string
+}
+
 export interface IPage {
     id: string
     title: string

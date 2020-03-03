@@ -6,12 +6,12 @@ import { HudozkaTitle } from 'src/components/HudozkaTitle'
 import { MetaBuilder } from 'src/lib/meta'
 import { getPagesCardsByTags } from 'src/rest'
 import { NextPage } from 'next'
-import { IPage, IMeta } from 'src/types'
+import { IMeta, PageCardData } from 'src/types'
 
 interface IProps {
     title: string
     meta: IMeta
-    items: IPage[]
+    items: PageCardData[]
 }
 
 const Index: NextPage<IProps> = props => (
@@ -32,8 +32,6 @@ const Index: NextPage<IProps> = props => (
 
         <PageGrid
             items={props.items}
-            prevPage={null}
-            nextPage={null}
         />
     </App>
 )
