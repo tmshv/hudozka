@@ -30,20 +30,10 @@ async function getPageUrls(frequency = 'daily') {
     }))
 }
 
-async function getArticleUrls() {
-    const res = await api.get('/api/articles/urls')
-
-    return res.data.items.map(url => ({
-        changefreq: 'monthly',
-        url,
-    }))
-}
-
 (async () => {
     let urls = await Promise.all([
         getMenuUrls(),
         getPageUrls(),
-        getArticleUrls(),
     ])
     urls = urls.reduce((urls, i) => urls.concat(i))
 
