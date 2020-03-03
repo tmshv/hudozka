@@ -8,10 +8,23 @@
     list-style: none;
 }
 
+.tags.vertical {
+    flex-direction: column;
+}
+
 .tagsItem {
     margin-right: var(--size-s);
+    margin-bottom: var(--size-s);
 }
 
 .tagsItem:last-child {
     margin-right: 0;
+}
+
+.tagsItem.vertical {
+    margin-bottom: var(--size-s);
+}
+
+.tagsItem.tags.vertical:last-child {
+    margin-bottom: 0;
 }
