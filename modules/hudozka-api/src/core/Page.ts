@@ -1,8 +1,17 @@
 import Data from './Data'
 import { find as storeFind, findOne, total } from '../lib/store'
 import Image from './Image'
+import { Tag } from './Tag'
+import { ObjectId } from 'mongodb'
+import { Breadcrumb } from '../types'
 
 const store = () => Data.getStore('Page')
+
+type PageDto = {
+    [name: string]: any
+    preview?: ObjectId
+    images: ObjectId[]
+}
 
 export default class Page {
     static async find(query, options = {}): Promise<Page[]> {
@@ -19,7 +28,7 @@ export default class Page {
             : processPage(item)
     }
 
-    static async findByUrl(url) {
+    static async findByUrl(url: string) {
         const item = await findOne(store(), { url })
 
         return !item
@@ -37,14 +46,19 @@ export default class Page {
     public url: string
     public content: any
     public title: any
+    public date: Date
+    public tags: Tag[]
     public data: any
-    public images: any
+    public images: ObjectId[]
     public documents: any
-    public preview: any
+    public preview?: Image
     public tokens: any[]
     public description: string
+    public featured: boolean
 
-    constructor(data) {
+    private breadcrumb: Breadcrumb
+
+    constructor(data: { [name: string]: any }) {
         this.id = data.id
         this.hash = data.hash
         this.file = data.file
@@ -52,45 +66,48 @@ export default class Page {
         this.content = data.content
         this.title = data.title
         this.data = data.data
+        this.date = data.date
         this.images = data.images
         this.documents = data.documents
         this.preview = data.preview
         this.tokens = data.tokens
+        this.tags = (data.tags || []).map((x: string) => new Tag(x, x))
+        this.featured = data.featured
         this.description = data.description
     }
 
-    plain() {
-        return {
-            id: this.id,
-            images: this.images,
-            documents: this.documents,
-            data: this.data,
-            title: this.title,
-            content: this.content,
-            hash: this.hash,
-            file: this.file,
-            preview: this.preview,
-            url: this.url,
-        }
+    public setBreadcrumb(value: Breadcrumb) {
+        this.breadcrumb = value
+        return this
+    }
+
+    public getBreadcrumb() {
+        return this.breadcrumb
+    }
+
+    public getUrl() {
+        return this.url
     }
 }
 
-const previewFromImage = (imgs = []) => imgs.length
-    ? imgs[0]
-    : null
+function firstItem<T>(items: T[] = []): T {
+    return items.length
+        ? items[0]
+        : null
+}
 
-async function processPage(article) {
-    let preview = null
-    const previewId = article.preview
-        ? article.preview
-        : previewFromImage(article.images)
+async function processPage(item: PageDto): Promise<Page> {
+    let preview: Image = null
+    const previewId = item.preview
+        ? item.preview
+        : firstItem(item.images)
 
     if (previewId) {
         preview = await Image.findById(previewId)
     }
 
     return new Page({
-        ...article,
+        ...item,
         preview,
     })
 }

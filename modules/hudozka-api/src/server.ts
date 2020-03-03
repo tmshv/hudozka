@@ -1,8 +1,6 @@
 import { config } from 'dotenv'
 import express from 'express'
 import { connect } from './db'
-import * as article from './controllers/article'
-import * as schedule from './controllers/schedule'
 import * as file from './controllers/file'
 import * as page from './controllers/page'
 import * as image from './controllers/image'
@@ -23,23 +21,18 @@ async function main() {
     }
 
     const app = express()
-    app.get('/articles', article.getAll)
-    app.get('/articles/urls', article.getUrls)
-    app.get('/articles/:slug', article.getItem)
-
     app.get('/files', file.getAll)
     app.get('/files/urls', file.getUrls)
     app.get('/files/:slug', file.getItem)
 
     app.get('/pages', page.getAll)
     app.get('/pages/urls', page.getUrls)
+    app.get('/pages/tags', page.getByTags)
     app.get('/page', page.getItem)
 
     app.get('/image', image.getItem)
 
-    app.get('/schedule', schedule.getItem)
     app.get('/tags', tag.getAll)
-    app.get('/tags/:slug', tag.findItems)
 
     app.listen(port, () => {
         console.log(`> Ready on http://localhost:${port}`)

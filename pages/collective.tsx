@@ -1,14 +1,15 @@
 import Head from 'next/head'
 import { App } from 'src/components/App'
 import { Meta } from 'src/components/Meta'
-import { CollectiveImage } from 'src/components/CollectiveImage'
 import { meta } from 'src/lib/meta'
-import { IMeta, IPage, ImageDefinition } from 'src/types'
+import { IMeta, IPage, ImageSize } from 'src/types'
 import { createApiUrl, requestGet } from 'src/next-lib'
 import { NextPage, NextPageContext } from 'next'
 import { CardGrid } from 'src/components/CardGrid'
 import { Card } from 'src/components/Card'
 import { Block } from 'src/components/Block'
+import { Image } from 'src/components/Image'
+import { imageSrcSet } from 'src/lib/image'
 
 const persons = [
     '/teacher/mg-timasheva',
@@ -38,7 +39,6 @@ type CardData = {
 
 type Props = {
     title: string
-    image: string
     meta: IMeta
     data: CardData[]
 }
@@ -48,6 +48,9 @@ const Page: NextPage<Props> = props => {
         console.log('kek error')
         return
     }
+
+    const src = 'https://art.shlisselburg.org/static/img/collective.jpg'
+    const srcSet = imageSrcSet(src, [ImageSize.big, ImageSize.large, ImageSize.medium, ImageSize.small])
 
     return (
         <App
@@ -59,14 +62,14 @@ const Page: NextPage<Props> = props => {
                 <Meta meta={props.meta} />
             </Head>
 
-            {!props.image ? null : (
-                <CollectiveImage
-                    data={props.image}
-                    style={{
-                        marginBottom: 'var(--size-l)',
-                    }}
-                />
-            )}
+            <Image
+                src={src}
+                srcSet={srcSet}
+                style={{
+                    marginBottom: 'var(--size-l)',
+                    borderRadius: 'var(--radius)',
+                }}
+            />
 
             <CardGrid style={{
                 marginBottom: 'var(--size-xl)',
@@ -100,10 +103,6 @@ const Page: NextPage<Props> = props => {
 
 export const unstable_getStaticProps = async (ctx: NextPageContext) => {
     const title = 'Преподаватели Шлиссельбургской ДХШ'
-    const imageFile = 'Images/HudozkaCollective2017.jpg'
-    const resImage = await requestGet<ImageDefinition>(createApiUrl(`/api/image?file=${imageFile}`), null)
-    const image = resImage?.artifacts.large
-
     const pages = await Promise.all(persons
         .map(page => requestGet<IPage>(createApiUrl(`/api/page?page=${page}`), null))
     )
@@ -116,16 +115,15 @@ export const unstable_getStaticProps = async (ctx: NextPageContext) => {
                 title: x.title,
                 caption: x.description,
                 href: x.url,
-                imageSrc: image.src,
                 imageAlt: title,
-                imageSrcSet: image.set.join(' ')
+                imageSrc: image.src,
+                imageSrcSet: imageSrcSet(image.src, [ImageSize.medium, ImageSize.small])
             }
         })
 
     return {
         props: {
             data,
-            image,
             title,
             meta: meta({
                 title,

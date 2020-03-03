@@ -6,7 +6,6 @@ from sync.data.yandexdisk import YDProvider
 import asyncio
 import logging
 
-from sync.models.Article import Article
 from sync.models.Page import Page
 
 
@@ -46,17 +45,9 @@ async def run(run_interval=0):
     )
     sync_pages.set_options(True, True, True)
 
-    sync_articles = Sync(
-        provider=io(settings.provider_root),
-        model=Article,
-    )
-    sync_articles.set_options(True, True, True)
-    sync_articles.validate_urls = False
-
     while True:
         await asyncio.wait([
             run_sync(sync_pages),
-            run_sync(sync_articles),
         ])
 
         if run_interval == 0:

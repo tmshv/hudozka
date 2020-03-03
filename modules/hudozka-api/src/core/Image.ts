@@ -1,12 +1,27 @@
 import Data from './Data'
 import ImageArtifactType from './ImageArtifactType'
 import { findOne } from '../lib/store'
-import { mapOf } from '../server/lib'
+import { ObjectId } from 'mongodb'
+
+/**
+ *
+ * {a: {}, b: {}, ...} -> Map (a: Class, b: Class)
+ *
+ * @param Class
+ * @param object
+ */
+function mapOf(Class, object) {
+    return Object
+        .entries(object)
+        .reduce((map, i) => (
+            map.set(i[0], new Class(i[1]))
+        ), new Map())
+}
 
 const store = () => Data.getStore('Image')
 
 export default class Image {
-    static async findById(id) {
+    static async findById(id: ObjectId) {
         const data = await findOne(store(), { _id: id })
         if (!data) return null
 
@@ -21,9 +36,9 @@ export default class Image {
         const artifacts = data.data
         return new Image({ ...data, artifacts })
     }
-    public hash: any
-    public file: any
-    public artifacts: any
+    public hash: string
+    public file: string
+    public artifacts: Map<string, ImageArtifact>
 
     constructor({ hash, file, artifacts }) {
         this.hash = hash
@@ -64,13 +79,22 @@ export default class Image {
             set: srcset,
         }
     }
+
+    getSrc(): string | null {
+        const a = this.getArtifact(ImageArtifactType.ORIGINAL)
+        if (!a) {
+            return null
+        }
+
+        return a.url
+    }
 }
 
 class ImageArtifact {
-    public url: any
-    public size: any
-    public width: any
-    public height: any
+    public url: string
+    public size: string
+    public width: number
+    public height: number
 
     constructor({ url, size, width, height }) {
         this.url = url

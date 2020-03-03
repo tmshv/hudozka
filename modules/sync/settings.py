@@ -78,10 +78,8 @@ origin = value('origin')
 
 collection_images = 'images'
 collection_documents = 'documents'
-collection_articles = 'articles'
 collection_pages = 'pages'
 
-hash_salt_articles = '8'
 hash_salt_pages = '4'
 hash_salt_documents = '4'
 hash_salt_images = '5'
@@ -91,7 +89,6 @@ provider_root = value('provider')['root']  # env('SYNC_PROVIDER', 'fs')
 
 f = abs_fn(provider_root)
 
-dir_articles = './Articles'
 dir_pages = './Pages'
 
 document_url_template = 'https://static.shlisselburg.org/art/uploads/{file}'

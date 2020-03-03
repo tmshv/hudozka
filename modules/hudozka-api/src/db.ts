@@ -27,7 +27,6 @@ function init(db: Db) {
     console.log('INIT DB')
 
     Data.setStore('Page', db.collection('pages'))
-    Data.setStore('Article', db.collection('articles'))
     Data.setStore('Image', db.collection('images'))
     Data.setStore('Document', db.collection('documents'))
     Data.setStore('Settings', db.collection('settings'))

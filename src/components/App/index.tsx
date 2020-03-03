@@ -15,13 +15,13 @@ const Navigation = dynamic(() => import('../Navigation').then(mod => mod.Navigat
 })
 
 export interface IAppProps {
-    showAuthor: boolean
+    showAuthor?: boolean
     wide?: boolean
     contentStyle?: React.CSSProperties
     breadcrumbs?: IBreadcumbsPart[]
 }
 
-export const App: React.FC<IAppProps> = props => {
+export const App: React.FC<IAppProps> = ({ showAuthor = false, ...props }) => {
     const hideBreadcrumbs = useMobile()
     const router = useRouter()
     const wide = props.wide ?? false
@@ -51,7 +51,7 @@ export const App: React.FC<IAppProps> = props => {
                 )}
                 footer={(
                     <Footer
-                        showAuthor={props.showAuthor}
+                        showAuthor={showAuthor}
                     />
                 )}
             >

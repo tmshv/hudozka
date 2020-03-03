@@ -8,15 +8,26 @@ export interface IBreadcumbsPart {
     href: string
 }
 
+export type PageCardData = {
+    url: string
+    title: string
+    date: Date
+    featured?: boolean
+    coverSrc?: string
+}
+
 export interface IPage {
     id: string
     title: string
     url: string
     data: string
+    date: string
     preview: ImageDefinition
     description: string
     tokens: any[]
+    tags: ITag[]
     breadcrumb?: IBreadcumbsPart[]
+    featured: boolean
 }
 
 export interface IDocument {
@@ -58,31 +69,12 @@ export interface ITag {
     href: string
 }
 
-export interface IArticle {
-    id: string
-    date: string
-    tags: ITag[]
-    post:string
-    featured: boolean
-    url: string
-    title: string
-    preview: ImageDefinition
-}
-
-export type Person = {
-    id: string
-    position: string
-    name: [string, string, string]
-    post: string
-    diploma: string
-    edu: string
-    file: string
-    hash: string
-    shortName: string
-    status: string
-    url: string
-    picture: ImageArtifact
-    preview: ImageDefinition
+export enum ImageSize {
+    big = 3000,
+    large = 1500,
+    medium = 1000,
+    small = 500,
+    thumbnail = 200,
 }
 
 export type ImageArtifact = {

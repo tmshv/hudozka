@@ -1,15 +1,20 @@
 import { translit } from '../lib/translit'
 
 export class Tag {
+    public static fromCyrillic(tag: string) {
+        const slug = tag
+            ? translit(tag).toLowerCase()
+            : tag
+
+        return new Tag(tag, slug)
+    }
+
     public name: string
     public slug: string
 
-    constructor(tag: string) {
-        this.name = tag
-
-        if (tag) {
-            this.slug = translit(tag).toLowerCase()
-        }
+    constructor(name: string, slug: string) {
+        this.name = name
+        this.slug = slug
     }
 
     public isValid() {

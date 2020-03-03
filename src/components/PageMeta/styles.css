@@ -1,0 +1,8 @@
+.pageMeta {
+    display: flex;
+    justify-content: space-between;
+}
+
+.pageMeta.center {
+    align-items: center;
+}

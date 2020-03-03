@@ -5,13 +5,6 @@ from sync import untouched
 from sync.data import Provider
 
 
-def get_id(item):
-    try:
-        return item.id
-    except AttributeError:
-        return item['id']
-
-
 class Sync:
     def __init__(self, provider: Provider, model):
         super().__init__()

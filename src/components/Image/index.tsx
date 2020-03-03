@@ -1,40 +1,35 @@
-import * as React from 'react'
-import cx from 'classnames'
+import './styles.css'
+import { memo, useRef, useEffect, useCallback } from 'react'
 
-export interface IImageProps {
+export type ImageProps = {
     style?: React.CSSProperties
-    imgStyle?: React.CSSProperties
     src: string
-    alt: string
-    opa: boolean
-    set: Array<{
-        url: string
-        density: number
-    }>
+    alt?: string
+    srcSet?: string
 }
 
-export const Image: React.FC<IImageProps> = React.memo(props => {
-    const srcSet = props.set
-        .map(({ url, density }) => `${url} ${density}x`)
-        .join(' ')
+export const Image: React.FC<ImageProps> = memo(props => {
+    const ref = useRef<HTMLImageElement>()
+    const onLoad = useCallback((event) => {
+        event.target.classList.add('loaded')
+        event.target.classList.remove('pending')
+    }, [])
+
+    useEffect(() => {
+        if (ref.current) {
+            ref.current.classList.add('pending')
+        }
+    })
 
     return (
-        <picture style={props.style}>
-            <style jsx>{`
-                picture img {
-                    display: block;
-                }
-            `}</style>
-
-            <img
-                style={props.imgStyle}
-                className={cx({
-                    opa: props.opa
-                })}
-                alt={props.alt}
-                src={props.src}
-                srcSet={srcSet}
-            />
-        </picture >
+        <img
+            ref={ref}
+            onLoad={onLoad}
+            className={'image'}
+            style={props.style}
+            alt={props.alt}
+            src={props.src}
+            srcSet={props.srcSet}
+        />
     )
 })

@@ -11,7 +11,7 @@ from db import collection
 from sync.data import request
 from sync.models import Model
 
-from sync import create_date, images_from_html, title_from_html, create_post
+from sync import create_date, title_from_html, create_post
 from sync.models.Image import Image
 from utils.hash import hash_str
 from utils.io import parse_yaml_front_matter
@@ -64,6 +64,7 @@ class Page(Model):
         manifest_path = manifest_file('.md')
 
         if not provider.exists(manifest_path):
+            logger.warning(f'Manifest not found on path {manifest_path}')
             return None
 
         params = {
@@ -173,9 +174,6 @@ class Page(Model):
         files = []
         files += self.get_param('images')
         files += self.get_param('documents')
-        if self.has_param('contentFile'):
-            files += [self.get_param('contentFile')]
-
         folder = self.get_param('folder')
         files = [os.path.join(folder, x) for x in files]
         files = sorted([self.file] + files)
@@ -199,9 +197,5 @@ def get_manifest(provider, path):
 
     if 'id' in manifest:
         manifest['id'] = str(manifest['id'])
-
-    if 'contentFile' in manifest:
-        dirname = os.path.dirname(path)
-        manifest['contentHtml'] = provider.read(os.path.join(dirname, manifest['contentFile'])).read().decode('utf-8')
 
     return manifest

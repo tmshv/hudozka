@@ -1,6 +1,7 @@
 import './styles.css'
 import cx from 'classnames'
 import Link from 'next/link'
+import { Image } from '../Image'
 
 export type CardLayout = 'simple' | 'featured'
 export type CardProps = {
@@ -19,8 +20,7 @@ export const Card: React.FC<CardProps> = props => (
         <Link href={props.href}>
             <a>
                 <div className={'card-image'}>
-                    <img
-                        className={cx({ opa: false })}
+                    <Image
                         alt={props.img.alt}
                         src={props.img.src}
                         srcSet={props.img.srcSet}
