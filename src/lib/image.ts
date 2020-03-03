@@ -6,6 +6,10 @@ export type ResizeOptions = {
 }
 
 export function resizeImage(src: string, options: ResizeOptions): string {
+    if (!src || src === '') {
+        return null
+    }
+
     return `https://images.weserv.nl/?url=${src}&w=${options.width}&h=${options.height}&n=-1`
 }
 

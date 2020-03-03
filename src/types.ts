@@ -11,9 +11,9 @@ export interface IBreadcumbsPart {
 export type PageCardData = {
     url: string
     title: string
-    featured: boolean
     date: Date
-    coverSrc: string
+    featured?: boolean
+    coverSrc?: string
 }
 
 export interface IPage {

@@ -20,8 +20,8 @@ export const PageGrid: React.FC<PageGridProps> = props => {
             {props.items.map((item, i) => {
                 const gridColumn = item.featured ? 'span 2' : 'auto'
                 const layout: CardLayout = item.featured ? 'featured' : 'simple'
-                const src = item.coverSrc
-                const srcSet = imageSrcSet(item.coverSrc, [ImageSize.large, ImageSize.medium, ImageSize.small])
+                const src = item.coverSrc ?? process.env.APP_CARD_DEFAULT_IMAGE
+                const srcSet = imageSrcSet(src, [ImageSize.large, ImageSize.medium, ImageSize.small])
 
                 const content = !item.featured
                     ? (
