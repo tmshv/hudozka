@@ -67,9 +67,6 @@ const Page: NextPage<Props> = props => {
                 srcSet={srcSet}
                 style={{
                     marginBottom: 'var(--size-l)',
-                }}
-                imgStyle={{
-                    width: '100%',
                     borderRadius: 'var(--radius)',
                 }}
             />
