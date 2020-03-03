@@ -1,49 +1,26 @@
-import { ImageDefinition, IPage } from 'src/types'
+import { ImageDefinition, IPage, ImageSize } from 'src/types'
 import { Pager } from '../Pager'
 import { CardGrid } from '../CardGrid'
 import { Card, CardLayout } from '../Card'
 import { Date } from './Date'
 import { Block } from '../Block'
 import { Spacer } from '../Spacer'
+import { imageSrcSet } from 'src/lib/image'
 
-export interface IResizeImage {
-    w: number
-    h: number
-}
-
-export function resizeImage(src: string, options: IResizeImage): string {
-    return `https://images.weserv.nl/?url=${src}&w=${options.w}&h=${options.h}&n=-1`
-}
-
-const cardImgSize1 = { w: 500, h: 500 }
-const cardImgSize2 = { w: 1000, h: 1000 }
 function getImage(image?: ImageDefinition) {
+    const sizes = [ImageSize.large, ImageSize.medium, ImageSize.small]
     if (!image) {
         const defaultSrc = process.env.APP_CARD_DEFAULT_IMAGE
-        const src = resizeImage(defaultSrc, cardImgSize1)
-        const set = [
-            {
-                density: 2,
-                href: resizeImage(defaultSrc, cardImgSize2),
-            }
-        ]
-        const srcSet = set
-            .map(({ href, density }) => `${href} ${density}x`)
-            .join(' ')
-
         return {
-            src,
-            srcSet,
+            src: defaultSrc,
+            srcSet: imageSrcSet(defaultSrc, sizes)
         }
     }
 
-    const preview = image.artifacts.medium
-    const src = preview.src
-    const srcSet = preview.set.map(({ url, density }) => `${url} ${density}x`).join(' ')
-
+    const src = image.artifacts.large.src
     return {
         src,
-        srcSet,
+        srcSet: imageSrcSet(src, sizes)
     }
 }
 
