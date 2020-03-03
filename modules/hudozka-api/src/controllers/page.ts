@@ -1,8 +1,10 @@
+import { pick } from 'lodash'
 import { Request, Response } from 'express'
 import Page from '../core/Page'
-import { dropTrailingSlash, getPathWaterfall, readQueryArray, readQueryInt, readQueryString } from '../lib/url'
+import { dropTrailingSlash, readQueryArray, readQueryInt, readQueryString } from '../lib/url'
 import { encodePage } from '../factory/page'
 import * as breadcrumb from './breadcrumb'
+import { isArrayOk } from '../lib/array'
 
 function getSort(sortBy: string) {
     if (!sortBy) {
@@ -64,6 +66,7 @@ export async function getByTags(req: Request, res: Response) {
     const limit = readQueryInt(req, 'limit')
     const sortBy = readQueryString(req, 'sortBy')
     const sort = getSort(sortBy)
+    const fields = readQueryArray(req, 'field')
 
     const tags = readQueryArray(req, 'tag')
     if (tags.length === 0) {
@@ -80,7 +83,10 @@ export async function getByTags(req: Request, res: Response) {
 
     if (models) {
         const pages = await Promise.all(models.map(resolveItem))
-        const items = pages.map(encodePage)
+        const encodedItems = pages.map(encodePage)
+        const items = isArrayOk(fields)
+            ? encodedItems.map(x => pick(x, fields))
+            : encodedItems
 
         res.json({
             items,

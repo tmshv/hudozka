@@ -36,9 +36,9 @@ export default class Image {
         const artifacts = data.data
         return new Image({ ...data, artifacts })
     }
-    public hash: any
-    public file: any
-    public artifacts: any
+    public hash: string
+    public file: string
+    public artifacts: Map<string, ImageArtifact>
 
     constructor({ hash, file, artifacts }) {
         this.hash = hash
@@ -79,13 +79,22 @@ export default class Image {
             set: srcset,
         }
     }
+
+    getSrc(): string | null {
+        const a = this.getArtifact(ImageArtifactType.ORIGINAL)
+        if (!a) {
+            return null
+        }
+
+        return a.url
+    }
 }
 
 class ImageArtifact {
-    public url: any
-    public size: any
-    public width: any
-    public height: any
+    public url: string
+    public size: string
+    public width: number
+    public height: number
 
     constructor({ url, size, width, height }) {
         this.url = url

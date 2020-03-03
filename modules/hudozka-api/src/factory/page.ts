@@ -20,12 +20,15 @@ type PageDto = {
     tags: Tag[]
     featured: boolean
     breadcrumb: Breadcrumb
+    coverSrc?: string
 }
 
 export function encodePage(page: Page): PageDto {
     const preview = page.preview ? encodeImage(page.preview) : null
     const date = page.date ? page.date.toString() : null
     const breadcrumb = page.getBreadcrumb()
+
+    const coverSrc = page.preview ? page.preview.getSrc() : null
 
     return {
         id: page.id,
@@ -39,5 +42,6 @@ export function encodePage(page: Page): PageDto {
         preview,
         date,
         breadcrumb,
+        coverSrc,
     }
 }
