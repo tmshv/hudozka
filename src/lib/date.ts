@@ -8,7 +8,8 @@ import { ru } from 'date-fns/locale'
  * @param date
  */
 export const dateFormat = (date: string | Date) => {
-    return format(new Date(2014, 6, 2), "d MMMM yyyy", {
+    const value = typeof date === 'string' ? new Date(date) : date
+    return format(value, "d MMMM yyyy", {
         locale: ru
     })
 }
