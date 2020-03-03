@@ -25,7 +25,6 @@ type Props = {
 
 const Index: NextPage<Props> = props => (
     <App
-        showAuthor={true}
         contentStyle={{
             marginTop: 'var(--size-l)'
         }}
