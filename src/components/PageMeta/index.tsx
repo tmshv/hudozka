@@ -13,7 +13,7 @@ export type PageMetaProps = {
 export const PageMeta: React.FC<PageMetaProps> = props => (
     <header className={'pageMeta'} style={props.style}>
         {!props.date ? null : (
-            <p className={'date'}>Опубликовано: {dateFormat(props.date)}</p>
+            <p className={'date'}>Опубликовано {dateFormat(props.date)}</p>
         )}
 
         {!(props.tags?.length) ? null : (
