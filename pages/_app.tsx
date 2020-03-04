@@ -1,5 +1,6 @@
 import 'src/style.css'
 import 'src/style/content.css'
+import 'src/style/article.css'
 import 'src/style/marker/marker-table.css'
 import 'src/style/kazimir/image.css'
 import 'src/style/kazimir/video.css'

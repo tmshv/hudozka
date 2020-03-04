@@ -83,10 +83,14 @@
     --half-margin: 0.5em;
     --single-margin: 1em;
     --double-margin: 2em;
-    --post-margin: 5em;
 
     /* OTHER */
     --block-border-radius: 3px;
+
+    /* ARTICLE */
+    --article-line-height: 1.5em;
+    --article-quote-padding: var(--half-margin);
+    --article-quote-font-size: 1.25em;
 
     /* KAZIMIR */
     --kazimir-caption-margin: 0px;

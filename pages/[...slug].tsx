@@ -40,6 +40,9 @@ const Index: NextPage<Props> = props => (
         <Page
             tags={props.tags}
             date={props.date ? new Date(props.date) : null}
+            style={{
+                marginBottom: 'var(--size-xl)',
+            }}
         >
             {props.content}
         </Page>
