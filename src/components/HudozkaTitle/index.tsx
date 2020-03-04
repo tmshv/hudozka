@@ -17,7 +17,7 @@ export const HudozkaTitle: React.FC<HudozkaTitleProps> = memo(props => (
 
             @media (max-width: 31.25em) {
                 div {
-                    --padding: 0 0 var(--double-margin);
+                    --padding: 0 0 2em;
                 }
             }
         `}</style>

@@ -1,6 +1,6 @@
 .MarkerTable {
     width: 100%;
-    margin-bottom: var(--double-margin);
+    margin-bottom: var(--size-l);
 
     border-spacing: 0;
     border-collapse: separate;

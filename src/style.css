@@ -14,10 +14,6 @@
 
     /* SIZE */
     --mobile-width: 31.25em;
-    --desktop-width: 59.99999em;
-
-    --tablet-min-width: 31.25em;
-    --tablet-max-width: 64em;
 
     /* CONTENT */
     --content-width: 60%;
@@ -76,18 +72,13 @@
     --shadow-active: 0 4px 16px var(--color-shadow);
 
     /* MARGINS */
-    --small-margin: 0.2em;
-    --half-margin: 0.5em;
     --single-margin: 1em;
-    --double-margin: 2em;
 
     /* OTHER */
     --block-border-radius: 3px;
 
     /* ARTICLE */
     --article-line-height: 1.5em;
-    --article-quote-padding: var(--half-margin);
-    --article-quote-font-size: 1.25em;
 
     /* KAZIMIR */
     --kazimir-caption-margin: 0px;
@@ -115,7 +106,7 @@ footer {
     padding: var(--single-margin);
     color: var(--color-text-opposite);
     background-color: var(--color-back-opposite);
-    font-size: var(--smaller-font-size);
+    font-size: var(--font-size-second);
 }
 
 h1 {
@@ -182,8 +173,8 @@ a.invisible {
 
 @media (max-width: 31.25em) {
     :root {
-        --smaller-font-size: 0.9rem;
-
+        --font-size-default: 14pt;
+        --font-size-accent: 16pt;
         --font-size-h1: 1.5rem;
         --font-size-h2: 1.5rem;
         --font-size-h3: 1.25rem;
@@ -193,9 +184,5 @@ a.invisible {
         --content-wide-margin: var(--size-m) var(--size-m);
 
         --kazimir-image-increase: 0px;
-
-        --article-line-height: 1.5em;
-        --article-quote-padding: 0.5em;
-        --article-quote-font-size: 1em;
     }
 }
