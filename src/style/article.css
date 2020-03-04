@@ -23,30 +23,25 @@
 }
 
 .article p {
-    margin-bottom: var(--article-line-height);
+    margin-bottom: var(--size-m);
     line-height: var(--article-line-height);
 }
 
-.article blockquote {
-    background-color: hsl(215, 10%, 96%);
-    padding: var(--article-quote-padding);
-    margin: var(--single-margin) 0;
-    font-family: var(--title-font);
-    font-style: italic;
-    font-weight: normal;
-    font-size: var(--article-quote-font-size);
+.article p:last-child {
+    margin-bottom: 0;
+}
 
-    border-radius: var(--block-border-radius);
+.article blockquote {
+    padding: var(--size-m);
+    font-size: var(--font-size-accent);
 }
 
 .article cite {
-    margin-top: var(--single-margin);
     display: block;
-    color: #aaa;
-    font-size: initial;
-    font-family: var(--text-font);
+    font-size: var(--font-size-default);
     text-align: right;
-    margin-right: var(--single-margin);
+
+    margin-top: var(--size-m);
 }
 
 .article hr {
