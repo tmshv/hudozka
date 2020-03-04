@@ -26,7 +26,8 @@ type Props = {
 const Index: NextPage<Props> = props => (
     <App
         contentStyle={{
-            marginTop: 'var(--size-l)'
+            marginTop: 'var(--size-l)',
+            marginBottom: 'var(--size-xl)',
         }}
         breadcrumbs={props.breadcrumb}
     >

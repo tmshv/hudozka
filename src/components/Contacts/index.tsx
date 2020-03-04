@@ -8,12 +8,12 @@ export const Contacts: React.FC = props => {
         <>
             <style jsx>{`
                 h4 {
-                    margin-bottom: var(--half-margin);
+                    margin-bottom: var(--size-s);
                 }
 
                 p {
-                    margin-left: var(--single-margin);
-                    margin-bottom: var(--half-margin);
+                    margin-left: var(--size-m);
+                    margin-bottom: var(--size-s);
                 }
             `}</style>
 
