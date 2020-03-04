@@ -200,5 +200,9 @@ a.invisible {
         --content-wide-margin: var(--size-m) var(--size-m);
 
         --kazimir-image-increase: 0px;
+
+        --article-line-height: 1.5em;
+        --article-quote-padding: 0.5em;
+        --article-quote-font-size: 1em;
     }
 }

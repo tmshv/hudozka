@@ -1,33 +1,33 @@
-.Article-Body {
+.article {
     hyphens: auto;
 }
 
-.Article-Body h1 {
+.article h1 {
     margin-bottom: var(--size-s);
 }
 
-.Article-Body ul {
+.article ul {
     margin-left: var(--half-margin);
     margin-bottom: var(--single-margin);
 
     list-style: disc;
 }
 
-.Article-Body ol {
+.article ol {
     margin-left: var(--half-margin);
     margin-bottom: var(--single-margin);
 }
 
-.Article-Body li {
+.article li {
     margin-bottom: var(--half-margin);
 }
 
-.Article-Body p {
+.article p {
     margin-bottom: var(--article-line-height);
     line-height: var(--article-line-height);
 }
 
-.Article-Body blockquote {
+.article blockquote {
     background-color: hsl(215, 10%, 96%);
     padding: var(--article-quote-padding);
     margin: var(--single-margin) 0;
@@ -39,7 +39,7 @@
     border-radius: var(--block-border-radius);
 }
 
-.Article-Body cite {
+.article cite {
     margin-top: var(--single-margin);
     display: block;
     color: #aaa;
@@ -49,7 +49,7 @@
     margin-right: var(--single-margin);
 }
 
-.Article-Body hr {
+.article hr {
     margin-bottom: var(--double-margin);
     border: none;
     height: 1px;
@@ -57,25 +57,19 @@
 }
 
 @media (max-width: var(--mobile-width)) {
-    .Article {
-        --article-line-height: 1.5em;
-        --article-quote-padding: 0.5em;
-        --article-quote-font-size: 1em;
-    }
-
-    .Article-Body {
+    .article {
         --text-margin: 0;
     }
 
-    .Article-Body img {
+    .article img {
         max-height: 20em;
     }
 
-    .Article-Body ul {
+    .article ul {
         margin-left: var(--single-margin);
     }
 
-    .Article-Body ol {
+    .article ol {
         margin-left: var(--single-margin);
     }
 }
