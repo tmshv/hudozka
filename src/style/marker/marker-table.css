@@ -1,0 +1,39 @@
+.MarkerTable {
+    width: 100%;
+    margin-bottom: var(--double-margin);
+
+    border-spacing: 0;
+    border-collapse: separate;
+}
+
+.MarkerTable thead {
+    height: 64px;
+}
+
+.MarkerTable th {
+    text-align: left;
+
+    padding: 5px;
+}
+
+.MarkerTable th:last-child {
+    text-align: right;
+}
+
+.MarkerTable tr td:last-child {
+    text-align: right;
+}
+
+.MarkerTable tr {
+    line-height: 32px;
+}
+
+.MarkerTable tr:nth-child(5n) {
+    background: #e9eaec;
+}
+
+.MarkerTable td {
+    min-width: 32px;
+
+    padding: 5px;
+}
