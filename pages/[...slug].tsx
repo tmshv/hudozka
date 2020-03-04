@@ -26,7 +26,8 @@ type Props = {
 const Index: NextPage<Props> = props => (
     <App
         contentStyle={{
-            marginTop: 'var(--size-l)'
+            marginTop: 'var(--size-l)',
+            marginBottom: 'var(--size-xl)',
         }}
         breadcrumbs={props.breadcrumb}
     >
@@ -40,9 +41,6 @@ const Index: NextPage<Props> = props => (
         <Page
             tags={props.tags}
             date={props.date ? new Date(props.date) : null}
-            style={{
-                marginBottom: 'var(--size-xl)',
-            }}
         >
             {props.content}
         </Page>
