@@ -14,7 +14,7 @@ export const Wrapper: React.FC<WrapperProps> = props => (
                 display: flex;
                 flex-direction: column;
                 min-height: 100vh;
-                background-color: white;
+                background-color: var(--color-back-main);
 
                 font-family: var(--text-font);
                 font-size: var(--font-size-default);

@@ -34,27 +34,16 @@
 
     /* COLOR */
     --dark-color: hsl(0, 0%, 20%);
-    --darker-color: hsl(0, 0%, 10%);
-    --light-color: hsl(0, 0%, 80%);
-    --lighter-color: hsl(0, 0%, 100%);
-    --link-color: hsl(0, 0%, 80%);
-
-    --blue-color: rgb(63, 156, 234);
-    --orange-color: rgb(240, 160, 65);
-    --green-color: rgb(92, 190, 64);
-    --yellow-color: rgb(255, 238, 0);
-    --pink-color: rgb(246, 85, 160);
-    --magenta-color: rgb(214, 39, 246);
-    --red-color: rgb(246, 27, 20);
-    --gray-color: rgb(153, 154, 160);
     --color-shadow: rgba(27, 51, 88, 0.15);
-
-    --inactive-link-color: var(--light-color);
+    --darker-color: hsl(0, 0%, 10%);
 
     /* TEXT COLOR */
     --color-text: #202020;
     --color-text-second: #9090a0;
     --color-text-opposite: #f0f0f0;
+
+    --color-link: hsl(0, 0%, 80%);
+    --color-link-opposite: hsl(0, 0%, 40%);
 
     --color-back-main: white;
     --color-back-opposite: var(--darker-color);
@@ -100,6 +89,7 @@ body {
     min-width: 320px;
 
     color: var(--color-text);
+    background-color: var(--color-back-main);
 }
 
 footer {
@@ -137,23 +127,19 @@ h2 {
 }
 
 a {
-    color: var(--dark-color);
+    color: var(--color-text);
 
     text-decoration: none;
-    border-bottom: 1px solid var(--link-color);
+    border-bottom: 1px solid var(--color-link);
 }
 
 a:hover {
-    border-bottom: 2px solid var(--dark-color);
+    border-bottom: 2px solid var(--color-text);
 }
 
 a:active {
     border-width: 2px;
 }
-
-/* a:visited {
-    color: #a4059c;
-} */
 
 a.invisible {
     border-bottom: none;
@@ -161,6 +147,7 @@ a.invisible {
 
 .opposite a {
     color: var(--color-text-opposite);
+    border-bottom-color: var(--color-link-opposite);
 }
 
 .opposite a:hover {

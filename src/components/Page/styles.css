@@ -1,5 +1,5 @@
 .page hr {
-    border: 1px solid black;
+    border: 1px solid var(--color-text);
     margin-top: var(--size-m);
     margin-bottom: var(--size-m);
 }
