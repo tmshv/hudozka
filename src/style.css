@@ -46,6 +46,7 @@
     --color-link-opposite: hsl(0, 0%, 40%);
 
     --color-back-main: white;
+    --color-back: white;
     --color-back-opposite: var(--darker-color);
 
     /* SIZE */
