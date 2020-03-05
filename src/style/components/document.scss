@@ -11,7 +11,7 @@
   //width: 20em;
   //height: 20em;
 
-  margin-bottom: var(--single-margin);
+  margin-bottom: var(--size-m);
 
   //display: flex;
   //justify-content: center;
@@ -37,11 +37,5 @@
 }
 
 .document__file-info {
-  font-size: var(--smaller-font-size);
-}
-
-@media (max-width: var(--mobile-width)) {
-  .document {
-    margin: 0 var(--single-margin) var(--single-margin);
-  }
+  font-size: var(--font-size-second);
 }

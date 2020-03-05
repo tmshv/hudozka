@@ -5,22 +5,6 @@
     --title-font: Shadow, Georgia, serif;
     --text-font: 'PT Sans', Helvetica, sans-serif;
 
-    --smaller-font-size: 0.9rem;
-
-    /* MENU */
-    --menu-mark-thickness: 4px;
-
-    /* SIZE */
-    --mobile-width: 31.25em;
-
-    /* CONTENT */
-    --content-width: 60%;
-    --content-margin: 0;
-    --content-wide-width: 100%;
-    --content-wide-margin: var(--size-l) var(--size-xl);
-
-    --embed-video-ratio: 56.25%;
-
     /* FONTS */
     --font-size-default: 14pt;
     --font-size-accent: 24pt;
@@ -56,14 +40,16 @@
     --shadow: 0 0 8px var(--color-shadow);
     --shadow-active: 0 4px 16px var(--color-shadow);
 
-    /* MARGINS */
-    --single-margin: 1em;
-
-    /* OTHER */
-    --block-border-radius: 3px;
-
-    /* ARTICLE */
+    /* SPECIAL */
     --article-line-height: 1.5em;
+    --menu-mark-thickness: 4px;
+    --embed-video-ratio: 56.25%;
+
+    /* CONTENT */
+    --content-width: 60%;
+    --content-margin: 0;
+    --content-wide-width: 100%;
+    --content-wide-margin: var(--size-l) var(--size-xl);
 
     /* KAZIMIR */
     --kazimir-caption-margin: 0px;
@@ -89,7 +75,7 @@ body {
 }
 
 footer {
-    padding: var(--single-margin);
+    padding: var(--size-m);
     color: var(--color-text-opposite);
     background-color: var(--color-back-opposite);
     font-size: var(--font-size-second);
@@ -103,14 +89,14 @@ h1 {
 }
 
 h2 {
-    margin: var(--single-margin) 0;
+    margin: var(--size-m) 0;
     font-size: var(--font-size-h2);
 
     hyphens: none;
 }
 
 h3 {
-    margin: var(--single-margin) 0;
+    margin: var(--size-m) 0;
 
     font-size: var(--font-size-h3);
 
@@ -167,5 +153,24 @@ a.invisible {
         --content-wide-margin: var(--size-m) var(--size-m);
 
         --kazimir-image-increase: 0px;
+    }
+}
+
+/* DARK THEME */
+@media (prefers-color-scheme: dark) {
+    :root {
+        /* TEXT COLOR */
+        --color-text: #cbd0d3;
+        --color-text-second: #bbc2c6;
+        --color-text-opposite: #2c363c;
+
+        --color-back-main: #1a1f22;
+        --color-back: #2c363c;
+        --color-back-opposite: #bbc2c6;
+        --color-link: #666;
+        --color-link-opposite: #8f9aa0;
+
+        --shadow: none;
+        --shadow-active: none;
     }
 }

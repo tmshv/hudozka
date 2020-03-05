@@ -8,14 +8,14 @@
 
 .article ul {
     margin-left: var(--size-s);
-    margin-bottom: var(--single-margin);
+    margin-bottom: var(--size-m);
 
     list-style: disc;
 }
 
 .article ol {
     margin-left: var(--size-s);
-    margin-bottom: var(--single-margin);
+    margin-bottom: var(--size-m);
 }
 
 .article li {
@@ -54,20 +54,4 @@
     .article blockquote {
         padding: 0
     }
-
-    /* .article {
-        --text-margin: 0;
-    }
-
-    .article img {
-        max-height: 20em;
-    }
-
-    .article ul {
-        margin-left: var(--single-margin);
-    }
-
-    .article ol {
-        margin-left: var(--single-margin);
-    } */
 }

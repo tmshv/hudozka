@@ -11,7 +11,7 @@ export interface IFooterProps {
 export const Footer: React.FC<IFooterProps> = props => (
     <footer className={'opposite'}>
         <Block direction={'vertical'} style={{
-            marginBottom: 'var(--single-margin)',
+            marginBottom: 'var(--size-m)',
         }}>
             <Contacts />
         </Block>
