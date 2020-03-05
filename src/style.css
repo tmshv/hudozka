@@ -33,11 +33,6 @@
     --font-size-h3: 1.5rem;
 
     /* COLOR */
-    --dark-color: hsl(0, 0%, 20%);
-    --color-shadow: rgba(27, 51, 88, 0.15);
-    --darker-color: hsl(0, 0%, 10%);
-
-    /* TEXT COLOR */
     --color-text: #202020;
     --color-text-second: #9090a0;
     --color-text-opposite: #f0f0f0;
@@ -47,7 +42,9 @@
 
     --color-back-main: white;
     --color-back: white;
-    --color-back-opposite: var(--darker-color);
+    --color-back-opposite: hsl(0, 0%, 10%);
+
+    --color-shadow: rgba(27, 51, 88, 0.15);
 
     /* SIZE */
     --size-xs: 0.35em;
