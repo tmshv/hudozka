@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=PT+Sans&display=swap');
 
 :root {
-    --white-shadow: 0 0.1em 0.3em rgba(0, 0, 0, 0.2);
-
     /* FONTS */
     --title-font: Shadow, Georgia, serif;
     --text-font: 'PT Sans', Helvetica, sans-serif;
