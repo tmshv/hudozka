@@ -15,16 +15,16 @@
     --font-size-h3: 1.5rem;
 
     /* COLOR */
-    --color-text: #202020;
-    --color-text-second: #9090a0;
-    --color-text-opposite: #f0f0f0;
+    --color-text: hsl(0, 0%, 15%);
+    --color-text-second: hsl(240, 10%, 70%);
+    --color-text-opposite: hsl(0, 0%, 95%);
 
-    --color-link: hsl(0, 0%, 80%);
-    --color-link-opposite: hsl(0, 0%, 40%);
+    --color-link: hsl(0, 0%, 85%);
+    --color-link-opposite: hsl(0, 0%, 35%);
 
     --color-back-main: white;
     --color-back: white;
-    --color-back-opposite: hsl(0, 0%, 10%);
+    --color-back-opposite: hsl(0, 0%, 15%);
 
     --color-shadow: rgba(27, 51, 88, 0.15);
 
@@ -160,15 +160,15 @@ a.invisible {
 @media (prefers-color-scheme: dark) {
     :root {
         /* TEXT COLOR */
-        --color-text: #cbd0d3;
-        --color-text-second: #bbc2c6;
-        --color-text-opposite: #2c363c;
+        --color-text: hsl(240, 10%, 80%);
+        --color-text-second: hsl(240, 10%, 40%);
+        --color-text-opposite: hsl(240, 10%, 15%);
 
-        --color-back-main: #1a1f22;
-        --color-back: #2c363c;
-        --color-back-opposite: #bbc2c6;
-        --color-link: #666;
-        --color-link-opposite: #8f9aa0;
+        --color-back-main: hsl(240, 10%, 10%);
+        --color-back: hsl(240, 10%, 15%);
+        --color-back-opposite: hsl(240, 10%, 80%);
+        --color-link: hsl(240, 10%, 40%);
+        --color-link-opposite: hsl(240, 10%, 60%);
 
         --shadow: none;
         --shadow-active: none;
