@@ -30,27 +30,31 @@ def find(store, item_id: str):
     return None
 
 
-class Page(Model):
-    @staticmethod
-    async def find(query):
+class PageController:
+    def __init__(self, provider):
+        self.provider = provider
+
+    async def find(self, query):
         return store.find(query)
 
-    @staticmethod
-    async def delete(query):
+    async def delete_item(self, query):
         return store.find_one_and_delete(query)
 
-    @staticmethod
-    async def scan(provider):
+    async def get_items(self):
         scan_path = settings.dir_pages
         items = [
-            Page.read(provider, path)
-            for path in provider.scan(scan_path)
-            if provider.is_dir(path)
+            Page.read(self.provider, path)
+            for path in self.provider.scan(scan_path)
+            if self.provider.is_dir(path)
         ]
         items = [i for i in items if i]
-
         return items
 
+    # async def read(self, path: str):
+    #     return Page.read(self.provider, path)
+
+
+class Page(Model):
     @staticmethod
     def read(provider, path):
         """

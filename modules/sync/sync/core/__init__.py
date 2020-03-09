@@ -1,12 +1,10 @@
 import logging
-
 import settings
 from sync import untouched
-from sync.data import Provider
 
 
 class Sync:
-    def __init__(self, provider: Provider, model):
+    def __init__(self, ctrl, name: str):
         super().__init__()
 
         self.validate_urls = True
@@ -16,11 +14,9 @@ class Sync:
         }
         self.__delete_query = lambda item: {'_id': item['_id']}
 
-        name = model.__name__
         self.logger = logging.getLogger('%s.%s' % (settings.name, name))
 
-        self.provider = provider
-        self.model = model
+        self.ctrl = ctrl
         self.filter_item_fn = lambda x: True
 
         self.skip_unchanged = True
@@ -36,9 +32,6 @@ class Sync:
     def set_item_filter(self, fn):
         self.filter_item_fn = fn
         return self
-
-    async def clean(self):
-        pass
 
     async def build(self, item):
         args = self._get_build_args()
@@ -83,7 +76,7 @@ class Sync:
         """
         self.logger.info('Checking for update')
 
-        items = await self.model.scan(self.provider)
+        items = await self.ctrl.get_items()
         self.logger.info('Found {} Item(s)'.format(len(items)))
         all_items = items
 
@@ -132,6 +125,3 @@ class Sync:
         if len(urls) != len(unique_urls):
             self.logger.error('URLs is not unique')
             raise Exception('URLs is not unique')
-
-    async def upload(self):
-        pass
