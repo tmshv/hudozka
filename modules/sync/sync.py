@@ -6,7 +6,7 @@ from sync.data.yandexdisk import YDProvider
 import asyncio
 import logging
 
-from sync.models.Page import Page
+from sync.models.Page import Page, PageController
 
 
 def init_logger(name: str, file: str):
@@ -37,11 +37,12 @@ async def run_sync(sync: Sync, **kwargs):
 
 
 async def run(run_interval=0):
-    io = lambda root: get_provider(settings.provider_name, root)
+    provider = get_provider(settings.provider_name, settings.provider_root)
+    controller = PageController(provider)
 
     sync_pages = Sync(
-        provider=io(settings.provider_root),
-        model=Page,
+        ctrl=controller,
+        name='Page'
     )
     sync_pages.set_options(True, True, True)
 

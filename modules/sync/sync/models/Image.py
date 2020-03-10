@@ -129,6 +129,9 @@ class Image(Model):
             return self.data[size]
         return None
 
+    def get_src(self):
+        return self.get_size('original')['url']
+
     def _get_image_file(self):
         return self._get_abs(self.file)
 

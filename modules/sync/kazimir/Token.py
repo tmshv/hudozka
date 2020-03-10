@@ -121,10 +121,12 @@ class ImageToken(Token):
         return data
 
     async def compile(self):
+        s = 1500 # ('big', 1500, 667)
         img = await self.get_data()
         alt = img['alt']
         caption = markdown_to_html(img['caption'])
         src = img['src']
+        src = f'https://images.weserv.nl/?url=${src}&w=${s}&h=${s}'
 
         tpl = f'''
             <div class="kazimir__image">
