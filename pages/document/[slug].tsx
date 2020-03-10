@@ -35,7 +35,7 @@ const Page: NextPage<Props> = props => {
     )
 }
 
-export const unstable_getStaticProps = async (ctx: any) => {
+export const getStaticProps = async (ctx: any) => {
     const id = ctx.params.slug
     const data = await requestGet(createApiUrl(`/api/files/${id}`), {})
 
@@ -49,7 +49,7 @@ export const unstable_getStaticProps = async (ctx: any) => {
     }
 }
 
-export const unstable_getStaticPaths = async () => {
+export const getStaticPaths = async () => {
     const urls = await requestGet<IResponseItems<string>>(createApiUrl(`/api/files/urls`), null)
     if (!urls) {
         return null
