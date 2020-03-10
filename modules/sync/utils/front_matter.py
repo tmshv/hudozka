@@ -1,10 +1,7 @@
 import re
 import yaml
 
-
 FM_BOUNDARY = re.compile(r'^-{3,}', re.MULTILINE)
-
-
 
 
 def parse_yaml_front_matter(data: str):
@@ -16,7 +13,7 @@ def parse_yaml_front_matter(data: str):
     }
 
 
-def split_yaml_front_matter(text, **defaults):
+def split_yaml_front_matter(text: str):
     """
     Parse text with YAML frontmatter, return metadata and content.
     Pass in optional metadata defaults as keyword args.
@@ -25,19 +22,15 @@ def split_yaml_front_matter(text, **defaults):
     and original text content.
     """
 
-    # metadata starts with defaults
-    metadata = defaults.copy()
-
     # split on the first two triple-dashes
     try:
         _, fm, content = FM_BOUNDARY.split(text, 2)
     except ValueError:
         # if we can't split, bail
-        return metadata, text
+        return None, None
 
     # parse yaml, now that we have frontmatter
     fm = yaml.safe_load(fm)
     if isinstance(fm, dict):
-        metadata.update(fm)
-
-    return metadata, content.strip()
+        return fm, content.strip()
+    return None, None

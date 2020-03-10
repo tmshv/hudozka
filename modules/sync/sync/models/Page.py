@@ -10,7 +10,7 @@ from sync.models import Model
 from sync import create_date, title_from_html, create_post
 from sync.models.Image import Image
 from utils.hash import hash_str
-from utils.io import parse_yaml_front_matter
+from utils.front_matter import parse_yaml_front_matter
 from utils.text.transform import url_encode_text
 
 logger = logging.getLogger(settings.name + '.Page')
