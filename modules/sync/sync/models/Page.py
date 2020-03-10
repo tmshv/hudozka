@@ -1,16 +1,12 @@
 import os
-
 import logging
-
 from lxml import etree
 import lxml.html
-
 import kazimir
 import settings
 from db import collection
 from sync.data import request
 from sync.models import Model
-
 from sync import create_date, title_from_html, create_post
 from sync.models.Image import Image
 from utils.hash import hash_str
@@ -42,57 +38,68 @@ class PageController:
 
     async def get_items(self):
         scan_path = settings.dir_pages
-        items = [
-            Page.read(self.provider, path)
-            for path in self.provider.scan(scan_path)
-            if self.provider.is_dir(path)
-        ]
-        items = [i for i in items if i]
+        items = []
+        for path in self.provider.scan(scan_path):
+            if not self.provider.is_dir(path):
+                continue
+            item = await self.create_item(path)
+            if not item:
+                continue
+            items.append(item)
         return items
 
-    # async def read(self, path: str):
-    #     return Page.read(self.provider, path)
-
-
-class Page(Model):
-    @staticmethod
-    def read(provider, path):
+    async def create_item(self, path: str):
         """
-        :param provider:
         :param path: path to page manifest file. For example: /Pages/<Some_Page>/<Some_Page>.md
         :return:
         """
         dir_name = os.path.basename(path)
+        manifest_path = os.path.join(path, f'{dir_name}.md')
 
-        manifest_file = lambda ext: os.path.join(path, dir_name + ext)
-        manifest_path = manifest_file('.md')
-
-        if not provider.exists(manifest_path):
+        if not self.provider.exists(manifest_path):
             logger.warning(f'Manifest not found on path {manifest_path}')
             return None
 
         params = {
             'file': os.path.basename(manifest_path),
             'folder': os.path.dirname(manifest_path),
-            'title': os.path.basename(manifest_path),
         }
 
-        manifest = get_manifest(provider, manifest_path)
+        manifest = await self.get_manifest(manifest_path)
         params = {
             **params,
             **manifest,
         }
 
         if 'url' not in params:
-            logger.warning('URL not specified for Page {}'.format(manifest_path))
+            logger.warning(f'URL not specified for Page {manifest_path}')
             return None
 
         return Page(
-            provider,
+            self.provider,
             manifest_path,
             params=params,
         )
 
+    async def get_manifest(self, path: str):
+        data = self.provider.read(path).read().decode('utf-8')
+        manifest = parse_yaml_front_matter(data)
+
+        if 'date' in manifest:
+            manifest['date'] = create_date(
+                manifest['date'], settings.date_formats)
+
+        if 'until' in manifest:
+            manifest['until'] = create_date(
+                manifest['until'], settings.date_formats)
+
+        if 'id' in manifest:
+            manifest['id'] = str(manifest['id'])
+
+        return manifest
+
+
+class Page(Model):
     def __init__(self, provider, file, params=None):
         self.__hash_salt = settings.hash_salt_pages
         self.__hash_keys = ['id', 'url']
@@ -187,19 +194,3 @@ class Page(Model):
 
     def __str__(self):
         return '<Page file={} id={}>'.format(self.file, self.id)
-
-
-def get_manifest(provider, path):
-    data = provider.read(path).read().decode('utf-8')
-    manifest = parse_yaml_front_matter(data)
-
-    if 'date' in manifest:
-        manifest['date'] = create_date(manifest['date'], settings.date_formats)
-
-    if 'until' in manifest:
-        manifest['until'] = create_date(manifest['until'], settings.date_formats)
-
-    if 'id' in manifest:
-        manifest['id'] = str(manifest['id'])
-
-    return manifest
