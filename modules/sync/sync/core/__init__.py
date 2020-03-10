@@ -109,14 +109,10 @@ class Sync:
 
         # DELETING
         if self.delete_enabled:
-            obsolete_items = await self.model.find(self.__items_to_delete_query(all_items))
-            obsolete_items = list(obsolete_items)
-
+            obsolete_items = await self.ctrl.find(self.__items_to_delete_query(all_items))
             for item in obsolete_items:
                 self.logger.info('Deleting Item {}'.format(item['id']))
-                await self.model.delete(self.__delete_query(item))
-
-        await self.clean()
+                await self.ctrl.delete_item(self.__delete_query(item))
 
     def check_urls_uniqueness(self, items):
         urls = [x.url for x in items]
