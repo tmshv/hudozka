@@ -98,22 +98,21 @@ async def create_post(provider: Provider, folder: str, md: str, sizes):
         }
 
     async def build_image(data):
-        src = data['file']
-        relative_image_path = os.path.join(folder, src)
-
-        image_path = provider.get_local(relative_image_path)
+        filename = data['file']
+        relative_path = os.path.join(folder, filename)
+        image_path = provider.get_local(relative_path)
         if os.path.exists(image_path):
-            image = await Image.new(provider, relative_image_path, sizes)
+            image = await Image.new(provider, relative_path, sizes)
             if image:
-                url = image.get_size('big')['url']
                 images.append(image)
 
+                src = image.get_src()
                 return {
-                    'src': url,
+                    'src': src,
                     'alt': data['caption'],
                     'caption': data['caption'],
                 }
-        raise Exception('Fail to get Image', relative_image_path)
+        raise Exception('Fail to get Image', relative_path)
 
     async def read_file(data):
         filepath = data
