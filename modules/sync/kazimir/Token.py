@@ -126,7 +126,7 @@ class ImageToken(Token):
         alt = img['alt']
         caption = markdown_to_html(img['caption'])
         src = img['src']
-        src = f'https://images.weserv.nl/?url=${src}&w=${s}&h=${s}'
+        src = f'https://images.weserv.nl/?url={src}&w={s}&h={s}'
 
         tpl = f'''
             <div class="kazimir__image">
