@@ -55,35 +55,28 @@ class PageController:
         """
         dir_name = os.path.basename(path)
         manifest_path = os.path.join(path, f'{dir_name}.md')
-
         if not self.provider.exists(manifest_path):
             logger.warning(f'Manifest not found on path {manifest_path}')
             return None
 
-        params = {
-            'file': os.path.basename(manifest_path),
-            'folder': os.path.dirname(manifest_path),
-        }
-
         manifest = await self.get_manifest(manifest_path)
-        params = {
-            **params,
-            **manifest,
-        }
-
-        if 'url' not in params:
-            logger.warning(f'URL not specified for Page {manifest_path}')
+        if not manifest:
+            logger.warning(f'Cannot define manifest. Skip {manifest_path}')
             return None
 
         return Page(
             self.provider,
             manifest_path,
-            params=params,
+            params=manifest,
         )
 
     async def get_manifest(self, path: str):
         data = self.provider.read(path).read().decode('utf-8')
         manifest = parse_yaml_front_matter(data)
+
+        if 'url' not in manifest:
+            logger.warning(f'URL not specified for Page {path}')
+            return None
 
         if 'date' in manifest:
             manifest['date'] = create_date(
@@ -96,7 +89,11 @@ class PageController:
         if 'id' in manifest:
             manifest['id'] = str(manifest['id'])
 
-        return manifest
+        return {
+            **manifest,
+            'file': os.path.basename(path),
+            'folder': os.path.dirname(path),
+        }
 
 
 class Page(Model):
