@@ -6,37 +6,47 @@ import { HudozkaTitle } from 'src/components/HudozkaTitle'
 import { MetaBuilder } from 'src/lib/meta'
 import { getPagesCardsByTags } from 'src/rest'
 import { NextPage } from 'next'
-import { IMeta, PageCardData } from 'src/types'
+import { IMeta, PageCardData, PageCardDto } from 'src/types'
 
 interface IProps {
     title: string
     meta: IMeta
-    items: PageCardData[]
+    items: PageCardDto[]
 }
 
-const Index: NextPage<IProps> = props => (
-    <App
-        showAuthor={true}
-        wide={true}
-    >
-        <Head>
-            <title>{props.title}</title>
-            <Meta meta={props.meta} />
-        </Head>
+const Index: NextPage<IProps> = props => {
+    const items = props.items.map<PageCardData>(item => ({
+        url: item.url,
+        title: item.title,
+        featured: item.featured,
+        date: new Date(item.date),
+        coverSrc: item.coverSrc,
+    }))
 
-        <HudozkaTitle
-            style={{
-                marginBottom: 'var(--size-l)'
-            }}
-        />
+    return (
+        <App
+            showAuthor={true}
+            wide={true}
+        >
+            <Head>
+                <title>{props.title}</title>
+                <Meta meta={props.meta} />
+            </Head>
 
-        <PageGrid
-            items={props.items}
-        />
-    </App>
-)
+            <HudozkaTitle
+                style={{
+                    marginBottom: 'var(--size-l)'
+                }}
+            />
 
-export const unstable_getStaticProps = async () => {
+            <PageGrid
+                items={items}
+            />
+        </App>
+    )
+}
+
+export const getStaticProps = async () => {
     const items = await getPagesCardsByTags([
         'event',
         'album',

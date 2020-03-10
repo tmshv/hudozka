@@ -51,13 +51,13 @@ export class MetaBuilder {
     }
 
     build() {
-        const image = this.buildImage() 
+        const image = this.buildImage()
 
         return meta({
             ...this.data,
             ...image,
-            title: this.title ?? undefined,
-            description: this.description ?? undefined,
+            title: this.title ?? null,
+            description: this.description ?? null,
         })
     }
 

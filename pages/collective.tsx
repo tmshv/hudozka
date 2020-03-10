@@ -101,7 +101,7 @@ const Page: NextPage<Props> = props => {
     )
 }
 
-export const unstable_getStaticProps = async (ctx: NextPageContext) => {
+export const getStaticProps = async (ctx: NextPageContext) => {
     const title = 'Преподаватели Шлиссельбургской ДХШ'
     const pages = await Promise.all(persons
         .map(page => requestGet<IPage>(createApiUrl(`/api/page?page=${page}`), null))

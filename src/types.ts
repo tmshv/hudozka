@@ -16,6 +16,14 @@ export type PageCardData = {
     coverSrc?: string
 }
 
+export type PageCardDto = {
+    url: string
+    title: string
+    featured: boolean
+    date: string
+    coverSrc: string
+}
+
 export interface IPage {
     id: string
     title: string

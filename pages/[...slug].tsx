@@ -47,7 +47,7 @@ const Index: NextPage<Props> = props => (
     </App>
 )
 
-export const unstable_getStaticProps = async (ctx: any) => {
+export const getStaticProps = async (ctx: any) => {
     let slug = null
     if (ctx.query) {
         slug = '/' + array(ctx.query.slug).join('/')
@@ -79,13 +79,14 @@ export const unstable_getStaticProps = async (ctx: any) => {
     }
 }
 
-export const unstable_getStaticPaths = async () => {
+export const getStaticPaths = async () => {
     const urls = await requestGet<IResponseItems<string>>(createApiUrl(`/api/pages/urls`), null)
     if (!urls) {
         return null
     }
 
     return {
+        fallback: true,
         paths: urls.items
             .map(path => {
                 const slug = tail(path.split('/'))
