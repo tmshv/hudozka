@@ -56,6 +56,7 @@ export const getStaticPaths = async () => {
     }
 
     return {
+        fallback: true,
         paths: urls.items
             .map(x => x.replace('/document/', ''))
             .map(slug => {
