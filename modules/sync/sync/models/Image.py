@@ -245,5 +245,5 @@ async def thumbnail(src, dest, size, quality):
 
 async def optimize(src, dest, quality):
     image = await read_image(src)
-    image.save(dest, quality=quality)
-    return image
+    w, h = image.size
+    return await thumbnail(src, dest, (w, h), quality)
