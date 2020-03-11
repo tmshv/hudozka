@@ -20,7 +20,7 @@ const Index: NextPage<IProps> = props => {
         title: item.title,
         featured: item.featured,
         date: new Date(item.date),
-        coverSrc: item.coverSrc,
+        coverSrc: item.cover?.src,
     }))
 
     return (

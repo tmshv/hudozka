@@ -109,15 +109,13 @@ export const getStaticProps = async (ctx: NextPageContext) => {
     const data: CardData[] = pages
         .filter(Boolean)
         .map(x => {
-            const image = x.preview.artifacts.large
-
             return {
                 title: x.title,
                 caption: x.description,
                 href: x.url,
                 imageAlt: title,
-                imageSrc: image.src,
-                imageSrcSet: imageSrcSet(image.src, [ImageSize.medium, ImageSize.small])
+                imageSrc: x.cover.src,
+                imageSrcSet: imageSrcSet(x.cover.src, [ImageSize.medium, ImageSize.small])
             }
         })
 
