@@ -86,7 +86,7 @@ async def create_post(provider: Provider, folder: str, md: str, sizes):
         text = data['caption'] if data['caption'] else data['file']
         url = f'/document/{document.id}'
 
-        image_url = document.preview.get_size('small')['url']
+        image_url = document.preview.get_src()
 
         return {
             'url': url,
