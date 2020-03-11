@@ -62,7 +62,7 @@ export const getStaticProps = async (ctx: any) => {
     const breadcrumbSize = page?.breadcrumb?.length ?? 0
     const breadcrumb = breadcrumbSize < 2 ? null : page.breadcrumb
     const meta = (new MetaBuilder())
-        .setImage(page.preview)
+        .setImage(page.cover)
         .setTitle(page.title)
         .setDescription(description)
         .build()

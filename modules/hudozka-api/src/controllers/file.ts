@@ -1,35 +1,16 @@
 import { Request, Response } from 'express'
 import Document from '../core/Document'
-import { encodeFile } from '../factory/file'
+import { encodeFile, encodeFileUrl } from '../factory/file'
 
 export async function getItem(req: Request, res: Response) {
-    const id = req.params.slug
-    const document = await Document.findById(id)
-
-    if (document) {
-        res.json(encodeFile(document))
+    const slug = req.params.slug
+    const item = await Document.findBySlug(slug)
+    if (item) {
+        res.json(encodeFile(item))
     } else {
         res.status(404)
         res.json({
-            error: `Resource ${id} not found`
-        })
-    }
-}
-
-export async function getAll(req: Request, res: Response) {
-    const documents = await Document.find({ hidden: false })
-    if (documents) {
-        const items = documents
-            .map(encodeFile)
-            .filter(x => x.imageUrl) // skip documents without preview image; needs to be refactored
-
-        res.json({
-            items,
-        })
-    } else {
-        res.status(404)
-        res.json({
-            error: `Not found`
+            error: `Resource ${slug} not found`
         })
     }
 }
@@ -38,7 +19,7 @@ export async function getUrls(req: Request, res: Response) {
     const data = await Document.find({})
 
     if (data) {
-        const items = data.map(x => `/document/${x.id}`)
+        const items = data.map(encodeFileUrl)
         res.json({
             items
         })

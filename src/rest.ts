@@ -27,7 +27,7 @@ export async function getPagesCardsByTags(tags: string[]): Promise<PageCardDto[]
         'title',
         'featured',
         'date',
-        'coverSrc'
+        'cover'
     ]
 
     const items = await getPagesByTags<PageCardDto>(tags, { fields, skip, limit, sortBy: '-date' })

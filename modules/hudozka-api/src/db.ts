@@ -12,14 +12,25 @@ export async function connect(dbName: string, mongoUri: string) {
     return db
 }
 
-export function collection(name) {
+export function collection(name: string) {
     return db.collection(name)
 }
 
-export function id(i) {
-    if (typeof i === 'string') return new ObjectId(i)
-    else if (i instanceof ObjectId) return i
-    else if (i instanceof Object) return '_id' in i ? new ObjectId(i._id) : null
+export type ObjectIdLike = ObjectId | string
+export function oid(i: ObjectIdLike | { _id: ObjectIdLike }): ObjectId | null {
+    if (i instanceof ObjectId) {
+        return i
+    } else if (typeof i === 'string') {
+        try {
+            return new ObjectId(i)
+        } catch (error) {
+            console.error(error)
+            return null
+        }
+    } else if (i instanceof Object) {
+        return '_id' in i ? oid(i._id) : null
+    }
+
     return null
 }
 

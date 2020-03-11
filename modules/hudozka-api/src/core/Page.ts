@@ -20,14 +20,6 @@ export default class Page {
         return Promise.all(items.map(processPage))
     }
 
-    static async findById(id) {
-        const item = await findOne(store(), { id })
-
-        return !item
-            ? null
-            : processPage(item)
-    }
-
     static async findByUrl(url: string) {
         const item = await findOne(store(), { url })
 

@@ -66,11 +66,10 @@ export class MetaBuilder {
             return null
         }
 
-        const artifact = this.image.artifacts.fb
         return {
-            image: artifact.src,
-            imageWidth: artifact.width,
-            imageHeight: artifact.height,
+            image: this.image.src,
+            imageWidth: this.image.width,
+            imageHeight: this.image.height,
         }
     }
 }

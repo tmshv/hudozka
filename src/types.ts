@@ -21,7 +21,20 @@ export type PageCardDto = {
     title: string
     featured: boolean
     date: string
-    coverSrc: string
+    cover?: ImageDefinition
+}
+
+export type FileDefinition = {
+    url: string
+    slug: string
+    name: string
+    cover?: ImageDefinition
+    file: {
+        name: string
+        size: string
+        type: string
+        src: string
+    }
 }
 
 export interface IPage {
@@ -30,7 +43,7 @@ export interface IPage {
     url: string
     data: string
     date: string
-    preview: ImageDefinition
+    cover: ImageDefinition
     description: string
     tokens: any[]
     tags: ITag[]
@@ -85,25 +98,8 @@ export enum ImageSize {
     thumbnail = 200,
 }
 
-export type ImageArtifact = {
+export type ImageDefinition = {
     width: number
     height: number
     src: string
-    set: Array<{
-        density: number
-        url: string
-    }>
-}
-
-export type ImageDefinition = {
-    file: string
-    hash: string
-    artifacts: {
-        original: ImageArtifact
-        large?: ImageArtifact
-        big?: ImageArtifact
-        medium?: ImageArtifact
-        small?: ImageArtifact
-        fb?: ImageArtifact
-    }
 }

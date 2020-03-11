@@ -1,48 +1,22 @@
-import ImageArtifactType from '../core/ImageArtifactType'
 import Image from '../core/Image'
 
-export type ImageArtifactDto = {
-    height: number
-    width: number
-    src: string
-    set: Array<{
-        density: number
-        url: string
-    }>
-}
+const ORIGINAL = 'original'
 
 export type ImageDto = {
-    artifacts: {
-        original: ImageArtifactDto,
-        large: ImageArtifactDto,
-        big: ImageArtifactDto,
-        medium: ImageArtifactDto,
-        small: ImageArtifactDto,
-        fb: ImageArtifactDto,
-    },
-    hash: string
-    file: string
+    width: number
+    height: number
+    src: string
 }
 
 export function encodeImage(image: Image): ImageDto {
-    const artifacts = [
-        ImageArtifactType.SMALL,
-        ImageArtifactType.MEDIUM,
-        ImageArtifactType.BIG,
-        ImageArtifactType.LARGE,
-        ImageArtifactType.ORIGIN,
-        ImageArtifactType.ORIGINAL,
-        ImageArtifactType.FACEBOOK = 'fb'
-    ].reduce((acc, size) => {
-        return {
-            ...acc,
-            [size]: image.getPicture(size),
-        }
-    }, {})
+    const a = image.getArtifact(ORIGINAL)
+    if (!image) {
+        return null
+    }
 
     return {
-        artifacts: artifacts as any,
-        hash: image.hash,
-        file: image.file,
+        src: a.url,
+        width: a.width,
+        height: a.height,
     }
 }

@@ -1,16 +1,15 @@
-import React from 'react'
 import Head from 'next/head'
 import { App } from 'src/components/App'
-import Document from 'src/components/Document'
+import { File } from 'src/components/File'
 import { Share } from 'src/components/Share'
-import { meta } from 'src/lib/meta'
+import { MetaBuilder } from 'src/lib/meta'
 import { Meta } from 'src/components/Meta'
 import { createApiUrl, requestGet, IResponseItems } from 'src/next-lib'
 import { NextPage } from 'next'
-import { IMeta } from 'src/types'
+import { IMeta, FileDefinition } from 'src/types'
 
 type Props = {
-    data: any //(file)
+    data: FileDefinition
     meta: IMeta
 }
 
@@ -26,25 +25,28 @@ const Page: NextPage<Props> = props => {
             showAuthor={true}
         >
             <Head>
-                <title>{props.data.title}</title>
+                <title>{props.data.name}</title>
                 <Meta meta={props.meta} />
             </Head>
-            <Document {...props.data} />
+            <File {...props.data} />
             <Share />
         </App>
     )
 }
 
 export const getStaticProps = async (ctx: any) => {
-    const id = ctx.params.slug
-    const data = await requestGet(createApiUrl(`/api/files/${id}`), {})
+    const slug = ctx.params.slug
+    const data = await requestGet<FileDefinition>(createApiUrl(`/api/files/${slug}`), null)
+    const meta = (new MetaBuilder())
+        .setImage(data.cover)
+        .setTitle(data.name)
+        .setDescription(data.name)
+        .build()
 
     return {
         props: {
             data,
-            meta: meta({
-                // title: file.meta,
-            })
+            meta,
         }
     }
 }

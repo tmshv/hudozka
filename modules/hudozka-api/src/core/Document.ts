@@ -11,8 +11,8 @@ export default class Document {
         return Promise.all(items.map(processDocument))
     }
 
-    static async findById(id) {
-        const data = await findOne(store(), { id })
+    static async findBySlug(slug: string) {
+        const data = await findOne(store(), { id: slug })
         if (!data) return null
 
         return processDocument(data)
@@ -21,22 +21,22 @@ export default class Document {
     public id: any
     public hash: any
     public file: any
-    public fileInfo: any
+    public fileInfo: FileInfo
     public type: any
     public title: any
     public category: any
     public url: any
-    public preview: any
+    public preview: Image
     public viewUrl: any
 
-    constructor(data) {
+    constructor(data: { preview: Image, [name: string]: any }) {
         this.id = data.id
         this.hash = data.hash
         this.file = data.file
         // In the future: use fileInfo only
         this.fileInfo = data.fileInfo
-            ? new DocumentFile(data.fileInfo)
-            : new DocumentFile(data.file)
+            ? new FileInfo(data.fileInfo)
+            : new FileInfo(data.file)
         this.type = data.type
         this.title = data.title
         this.category = data.category
@@ -47,9 +47,9 @@ export default class Document {
     }
 }
 
-class DocumentFile {
-    public name: any
-    public size: any
+class FileInfo {
+    public name: string
+    public size: number
 
     constructor(data) {
         this.name = data.name
