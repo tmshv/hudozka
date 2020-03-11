@@ -1,35 +1,36 @@
-import ImageArtifactType from '../core/ImageArtifactType'
+import Document from '../core/Document'
+import { encodeImage, ImageDto } from './image'
 
-const sizes = [
-    ImageArtifactType.MEDIUM,
-    ImageArtifactType.BIG,
-    ImageArtifactType.ORIGIN,
-]
-
-export function encodeFilePreview(file, sizes) {
-    const preview = file.preview
-    if (!preview) return null
-
-    const image = preview.findArtifact(sizes)
-    if (!image) return null
-
-    return image.url
+export type FileDto = {
+    url: string
+    slug: string
+    name: string
+    cover?: ImageDto
+    file: {
+        name: string
+        size: number
+        type: string
+        src: string
+    }
 }
 
-export function encodeFile(file) {
-    const imageUrl = encodeFilePreview(file, sizes)
-    const category = (file.category || '')
-        .replace('Documents/', '')
-        .replace('Pages/', '')
-        .replace('Articles	/', '')
+export function encodeFile(file: Document): FileDto {
+    const cover = file.preview ? encodeImage(file.preview) : null
 
     return {
-        imageUrl,
-        category,
-        title: file.title,
-        fileName: file.fileInfo.name,
-        fileSize: file.fileInfo.size,
-        fileUrl: file.url,
-        url: file.viewUrl,
+        url: encodeFileUrl(file),
+        slug: file.id,
+        cover,
+        name: file.title,
+        file: {
+            type: 'application/pdf',
+            name: file.fileInfo.name,
+            size: file.fileInfo.size,
+            src: file.url,
+        }
     }
+}
+
+export function encodeFileUrl(file: Document): string {
+    return `/document/${file.id}`
 }

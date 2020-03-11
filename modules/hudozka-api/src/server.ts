@@ -21,7 +21,6 @@ async function main() {
     }
 
     const app = express()
-    app.get('/files', file.getAll)
     app.get('/files/urls', file.getUrls)
     app.get('/files/:slug', file.getItem)
 

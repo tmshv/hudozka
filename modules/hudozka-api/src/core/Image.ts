@@ -1,5 +1,4 @@
 import Data from './Data'
-import ImageArtifactType from './ImageArtifactType'
 import { findOne } from '../lib/store'
 import { ObjectId } from 'mongodb'
 
@@ -47,46 +46,8 @@ export default class Image {
         this.artifacts = mapOf(ImageArtifact, artifacts)
     }
 
-    getArtifact(size) {
+    getArtifact(size: string) {
         return this.artifacts.get(size)
-    }
-
-    findArtifact(sizes) {
-        for (let size of sizes) {
-            const a = this.getArtifact(size)
-            if (a) return a
-        }
-
-        return null
-    }
-
-    getPicture(size) {
-        const retinaSize = ImageArtifactType.retina(size)
-
-        const a = this.getArtifact(size)
-        const a2 = this.getArtifact(retinaSize)
-        const srcset = !a2
-            ? []
-            : [{
-                url: a2.url,
-                density: ImageArtifactType.RETINA_DENSITY,
-            }]
-
-        return {
-            src: a.url,
-            width: a.width,
-            height: a.height,
-            set: srcset,
-        }
-    }
-
-    getSrc(): string | null {
-        const a = this.getArtifact(ImageArtifactType.ORIGINAL)
-        if (!a) {
-            return null
-        }
-
-        return a.url
     }
 }
 
