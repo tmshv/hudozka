@@ -16,7 +16,10 @@ const Page: NextPage = () => (
             </Block>
         )}
     >
-        <NotFound />
+        <Block direction={'vertical'}>
+            <NotFound />
+            <Spacer />
+        </Block>
     </Wrapper>
 )
 
