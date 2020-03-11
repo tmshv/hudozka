@@ -98,25 +98,8 @@ export enum ImageSize {
     thumbnail = 200,
 }
 
-export type ImageArtifact = {
-    width: number
-    height: number
-    src: string
-    set: Array<{
-        density: number
-        url: string
-    }>
-}
-
 export type ImageDefinition = {
     width: number
     height: number
     src: string
- 
-    // file: string
-    // hash: string
-    // artifacts: {
-    //     original: ImageArtifact
-    //     large?: ImageArtifact
-    // }
 }
