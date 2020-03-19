@@ -7,19 +7,13 @@ import { ITag } from 'src/types'
 
 export type PageProps = {
     style?: React.CSSProperties
-    children: string
     date: Date
     tags: ITag[]
 }
 
 export const Page: React.FC<PageProps> = props => (
     <div className={'page'} style={props.style}>
-        <Html
-            as={'article'}
-            className={'article'}
-            html={props.children}
-        />
-
+        {props.children}
         <hr />
         <Share />
 

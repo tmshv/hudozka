@@ -27,10 +27,6 @@
     line-height: var(--article-line-height);
 }
 
-.article p:last-child {
-    margin-bottom: 0;
-}
-
 .article blockquote {
     padding: var(--size-m);
     font-size: var(--font-size-accent);
