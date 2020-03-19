@@ -1,7 +1,6 @@
 const withCss = require('@zeit/next-css')
-const withSass = require('@zeit/next-sass')
 
-module.exports = withCss(withSass({
+module.exports = withCss({
     exportTrailingSlash: true,
     env: {
         APP_ARTICLES_PAGE_SIZE: 24,
@@ -11,4 +10,4 @@ module.exports = withCss(withSass({
         config.resolve.modules.push(__dirname)
         return config;
     },
-}))
+})
