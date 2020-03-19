@@ -5,7 +5,6 @@ import 'src/style/article.css'
 import 'src/style/marker/marker-table.css'
 import 'src/style/kazimir/image.css'
 import 'src/style/kazimir/video.css'
-import 'src/style/style.scss'
 
 import App from 'next/app'
 import Head from 'next/head'
