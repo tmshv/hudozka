@@ -19,32 +19,26 @@
     "author": "Roman Timashev",
     "license": "ISC",
     "dependencies": {
-        "axios": "^0.19.0",
+        "axios": "^0.19.2",
         "classnames": "^2.2.6",
-        "date-fns": "^2.10.0",
+        "date-fns": "^2.11.0",
         "lodash": "^4.17.15",
-        "next": "^9.3.0",
-        "react": "^16.12.0",
-        "react-dom": "^16.12.0",
+        "next": "^9.3.1",
+        "react": "^16.13.0",
+        "react-dom": "^16.13.0",
         "sitemap": "^1.5.0",
         "use-media": "^1.4.0"
     },
     "devDependencies": {
-        "@types/classnames": "^2.2.9",
+        "@types/classnames": "^2.2.10",
         "@types/lodash": "^4.14.149",
-        "@types/node": "^12.12.12",
-        "@types/react": "^16.9.12",
+        "@types/node": "^12.12.30",
+        "@types/react": "^16.9.23",
         "@zeit/next-css": "^1.0.1",
         "@zeit/next-sass": "^1.0.1",
-        "eslint": "^4.18.2",
-        "eslint-config-standard": "^6.2.1",
-        "eslint-plugin-promise": "^3.8.0",
-        "eslint-plugin-react": "^7.16.0",
-        "eslint-plugin-standard": "^2.0.1",
-        "feed": "^4.0.0",
-        "mocha": "^6.2.2",
-        "node-sass": "^4.13.0",
+        "feed": "^4.1.0",
+        "node-sass": "^4.13.1",
         "should": "^8.2.2",
-        "typescript": "^3.7.5"
+        "typescript": "^3.8.3"
     }
 }
