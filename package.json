@@ -37,7 +37,7 @@
         "@zeit/next-css": "^1.0.1",
         "@zeit/next-sass": "^1.0.1",
         "feed": "^4.0.0",
-        "node-sass": "^4.13.0",
+        "node-sass": "^4.13.1",
         "should": "^8.2.2",
         "typescript": "^3.7.5"
     }
