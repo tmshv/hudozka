@@ -15,8 +15,6 @@ from sync.data import Provider
 from sync.models import Model
 from sync.models.Document import Document
 from sync.models.Image import Image
-from utils.text.file import get_size
-from utils.text.file import get_ext
 
 
 def create_date(date_str, date_formats=None):
@@ -90,11 +88,12 @@ async def create_post(provider: Provider, folder: str, md: str, sizes):
 
         return {
             'url': url,
+            'slug': document.id,
             'image_url': image_url,
             'file_url': document.url,
             'title': document.title,
-            'file_size': get_size(document.file_size, 1),
-            'file_format': get_ext(data['file']),
+            'file_size': document.file_size,
+            'file_format': 'application/pdf',
         }
 
     async def build_image(data):
