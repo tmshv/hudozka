@@ -133,5 +133,24 @@ export type FileToken = {
     data: FileTokenData
 }
 
-export type Token = TextToken | ImageToken | FileToken
+export type HtmlToken = {
+    token: 'html'
+    data: string
+}
 
+export type YoutubeToken = {
+    token: 'youtube'
+    data: {
+        url: string
+    }
+}
+
+export type InstagramToken = {
+    token: 'instagram'
+    data: {
+        url: string
+        embed: string
+    }
+}
+
+export type Token = TextToken | ImageToken | FileToken | HtmlToken | YoutubeToken | InstagramToken
