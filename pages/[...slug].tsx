@@ -2,11 +2,14 @@ import Head from 'next/head'
 import { App } from 'src/components/App'
 import { tail } from 'lodash'
 import { Page } from 'src/components/Page'
+import { Markdown } from 'src/components/Markdown'
 import { Meta } from 'src/components/Meta'
 import { MetaBuilder } from 'src/lib/meta'
 import { createApiUrl, requestGet, IResponseItems } from 'src/next-lib'
 import { NextPage } from 'next'
-import { IBreadcumbsPart, IMeta, IPage, ITag } from 'src/types'
+import { IBreadcumbsPart, IMeta, IPage, ITag, FileTokenData, Token } from 'src/types'
+import { joinTokens } from 'src/lib/tokens'
+import { Html } from 'src/components/Html'
 
 function array<T>(value: T | T[]) {
     return Array.isArray(value)
@@ -14,13 +17,53 @@ function array<T>(value: T | T[]) {
         : [value]
 }
 
+const Youtube: React.SFC<{ url: string }> = props => {
+    const url = new URL(props.url)
+    const videoId = url.searchParams.get('v')
+    if (!videoId) {
+        return null
+    }
+
+    const src = `//www.youtube.com/embed/${videoId}`
+
+    return (
+        <div className="kazimir__video">
+            <iframe
+                src={src}
+                frameBorder="0"
+            // allowFullscreen
+            />
+        </div>
+    )
+}
+
+const File: React.SFC<FileTokenData> = props => (
+    <div className="document-row">
+        <a href={props['url']} className="invisible">
+            <div className="document-row__image">
+                <img src={props['image_url']} alt={props['title']} />
+            </div>
+        </a>
+
+        <div className="document-row__file">
+            <a href={props['url']}>{props['title']}</a>
+        </div>
+
+        <div className="document-row__file-info">
+            <a href="document['file_url']" target="_blank">
+                {props.file_format} ({props.file_size})
+                </a>
+        </div>
+    </div>
+)
+
 type Props = {
     title: string
     tags: ITag[]
     date: string
-    content: string
     breadcrumb: IBreadcumbsPart[]
     meta?: IMeta
+    tokens?: Token[]
 }
 
 const Index: NextPage<Props> = props => (
@@ -42,7 +85,64 @@ const Index: NextPage<Props> = props => (
             tags={props.tags}
             date={props.date ? new Date(props.date) : null}
         >
-            {props.content}
+            <article className={'article'}>
+                {joinTokens(props.tokens ?? []).map((x, i) => {
+                    switch (x.token) {
+                        case 'text':
+                            return (
+                                <Markdown
+                                    data={x.data}
+                                />
+                            )
+
+                        case 'html':
+                            return (
+                                <Html
+                                    html={x.data}
+                                />
+                            )
+
+                        case 'instagram':
+                            return (
+                                <Html
+                                    html={x.data.embed}
+                                />
+                            )
+
+                        case 'youtube':
+                            return (
+                                <Youtube
+                                    url={x.data.url}
+                                />
+                            )
+
+                        case 'image':
+                            return (
+                                <div className="kazimir__image">
+                                    <figure>
+                                        <img
+                                            src={x.data.src}
+                                            alt={x.data.alt}
+                                        />
+                                        <figcaption>{x.data.caption}</figcaption>
+                                    </figure>
+                                </div>
+                            )
+
+                        case 'file':
+                            return (
+                                <File {...x.data} />
+                            )
+
+                        default:
+                            return (
+                                <pre>
+                                    {JSON.stringify(x)}
+                                </pre>
+                            )
+                    }
+                })}
+            </article>
         </Page>
     </App>
 )
@@ -66,10 +166,11 @@ export const getStaticProps = async (ctx: any) => {
         .setTitle(page.title)
         .setDescription(description)
         .build()
+    const tokens = page.tokens
 
     return {
         props: {
-            content: page.data,
+            tokens,
             title: page.title,
             tags: page.tags,
             date: page.date,

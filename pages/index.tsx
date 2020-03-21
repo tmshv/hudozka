@@ -8,13 +8,13 @@ import { getPagesCardsByTags } from 'src/rest'
 import { NextPage } from 'next'
 import { IMeta, PageCardData, PageCardDto } from 'src/types'
 
-interface IProps {
+type Props = {
     title: string
     meta: IMeta
     items: PageCardDto[]
 }
 
-const Index: NextPage<IProps> = props => {
+const Index: NextPage<Props> = props => {
     const items = props.items.map<PageCardData>(item => ({
         url: item.url,
         title: item.title,

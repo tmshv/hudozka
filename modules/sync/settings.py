@@ -65,7 +65,7 @@ collection_images = 'images'
 collection_documents = 'documents'
 collection_pages = 'pages'
 
-hash_salt_pages = '4'
+hash_salt_pages = '6'
 hash_salt_documents = '4'
 hash_salt_images = '5'
 

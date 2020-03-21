@@ -5,7 +5,7 @@ import { Copyright } from 'src/components/Copyright'
 import { Block } from 'src/components/Block'
 import { Spacer } from 'src/components/Spacer'
 
-const Page: NextPage = () => (
+const Index: NextPage = () => (
     <Wrapper
         header={null}
         footer={(
@@ -23,4 +23,4 @@ const Page: NextPage = () => (
     </Wrapper>
 )
 
-export default Page
+export default Index

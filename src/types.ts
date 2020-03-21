@@ -103,3 +103,54 @@ export type ImageDefinition = {
     height: number
     src: string
 }
+
+export type TextToken = {
+    token: 'text'
+    data: string
+}
+
+export type ImageToken = {
+    token: 'image'
+    data: {
+        src: string
+        alt: string
+        caption: string
+    }
+}
+
+export type FileTokenData = {
+    url: string
+    slug: string
+    image_url: string
+    file_url: string
+    title: string
+    file_size: number
+    file_format: 'application/pdf'
+}
+
+export type FileToken = {
+    token: 'file'
+    data: FileTokenData
+}
+
+export type HtmlToken = {
+    token: 'html'
+    data: string
+}
+
+export type YoutubeToken = {
+    token: 'youtube'
+    data: {
+        url: string
+    }
+}
+
+export type InstagramToken = {
+    token: 'instagram'
+    data: {
+        url: string
+        embed: string
+    }
+}
+
+export type Token = TextToken | ImageToken | FileToken | HtmlToken | YoutubeToken | InstagramToken
