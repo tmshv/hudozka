@@ -10,7 +10,7 @@ from kazimir.DocumentToken import DocumentToken
 from kazimir.YoutubeToken import YoutubeToken
 from kazimir.InstagramToken import InstagramToken
 from kazimir.Marker import Marker
-from kazimir.Token import TokenFactory, SplitToken, UrlToken, ImageToken, BuildTokenFactory, TextToken
+from kazimir.Token import TokenFactory, SplitToken, UrlToken, ImageToken, BuildTokenFactory, TextToken, HtmlToken
 from sync.data import Provider
 from sync.models import Model
 from sync.models.Document import Document
@@ -66,8 +66,6 @@ async def untouched(items: [Model]) -> [Model]:
 
 
 async def create_post(provider: Provider, folder: str, md: str, sizes):
-    from kazimir.fix_links_quotes import fix_links_quotes
-
     images = []
     documents = []
 
@@ -128,14 +126,10 @@ async def create_post(provider: Provider, folder: str, md: str, sizes):
     m.add_token_factory(BuildTokenFactory(DocumentToken, build=build_document))
     m.add_token_factory(BuildTokenFactory(CSVToken, build=read_file))
     # m.add_token_factory(TokenFactory(FileToken))
+    m.add_token_factory(TokenFactory(HtmlToken))
     m.add_token_factory(TokenFactory(TextToken))
-    m.add_tree_middleware(fix_links_quotes)
 
     tokens = m.parse(md)
-    tree = await m.create_tree(tokens)
-
-    post = kazimir.html_from_tree(tree)
-    post = await kazimir.typo(post)
 
     encoded_tokens = []
     for t in tokens:
@@ -145,11 +139,4 @@ async def create_post(provider: Provider, folder: str, md: str, sizes):
             'data': data,
         })
 
-    return post, images, documents, encoded_tokens
-
-
-def title_from_html(md):
-    html = lxml.html.fromstring(md)
-    titles = html.cssselect('h1')
-    if len(titles):
-        return titles[0].text
+    return images, documents, encoded_tokens

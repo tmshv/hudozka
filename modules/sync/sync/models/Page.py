@@ -2,19 +2,34 @@ import os
 import logging
 from lxml import etree
 import lxml.html
-import kazimir
 import settings
 from db import collection
 from sync.data import request
 from sync.models import Model
-from sync import create_date, title_from_html, create_post
+from sync import create_date, create_post
 from sync.models.Image import Image
 from utils.hash import hash_str
 from utils.front_matter import parse_yaml_front_matter
 from utils.text.transform import url_encode_text
+from markdown import markdown
+
 
 logger = logging.getLogger(settings.name + '.Page')
 store = collection(settings.collection_pages)
+
+
+def extract_files(html) -> [str]:
+    images = html.cssselect('img')
+    images = [img.get('src') for img in images]
+
+    return images, []
+
+
+def title_from_html(html):
+    titles = html.cssselect('h1')
+    if len(titles):
+        return titles[0].text
+    return ''
 
 
 def find(store, item_id: str):
@@ -103,7 +118,6 @@ class Page(Model):
         self.images = []
         self.documents = []
         self.title = None
-        self.data = None
         self.preview = None
         self.tokens = None
 
@@ -114,7 +128,12 @@ class Page(Model):
         super().__init__(provider, store, file, params=params)
 
     def init(self):
-        images, documents = kazimir.extract_files(self.get_param('content'))
+        content = self.get_param('content')
+        html = markdown(content)
+        html_tree = lxml.html.fromstring(html)
+        images, documents = extract_files(html_tree)
+        self.title = title_from_html(html_tree)
+
         self.params['images'] = images
         self.params['documents'] = documents
 
@@ -136,9 +155,7 @@ class Page(Model):
         sizes = kwargs['sizes']
 
         markdown_post = self.get_param('content')
-        post, images, documents, tokens = await create_post(self.provider, self.get_param('folder'), markdown_post, sizes)
-        self.title = title_from_html(post)
-        self.data = post
+        images, documents, tokens = await create_post(self.provider, self.get_param('folder'), markdown_post, sizes)
         self.images = images
         self.documents = documents
         self.tokens = tokens
@@ -158,7 +175,6 @@ class Page(Model):
             'hash': self.hash,
             'url': self.url,
             'file': self.file,
-            'data': self.data,
             'images': images,
             'documents': documents,
             'title': self.title,

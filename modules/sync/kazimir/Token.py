@@ -41,10 +41,6 @@ class Token:
     async def get_data(self):
         return self.data
 
-    async def compile(self) -> str:
-        data = await self.get_data()
-        return str(data)
-
     def merge(self, token):
         return self
 
@@ -76,9 +72,19 @@ class TextToken(Token):
         data += token.data
         return TextToken(data.strip())
 
-    async def compile(self):
-        data = await self.get_data()
-        return markdown_to_html(data)
+
+class HtmlToken(Token):
+    @staticmethod
+    def test(data: str):
+        """
+        Result of compiling markdown to html is the same as source data meaning that the source is html
+        """
+        html = markdown(data)
+        return html == data
+
+    def __init__(self, data: str) -> None:
+        super().__init__(name='html', data=data)
+        self.joinable = False
 
 
 class FileToken(Token):
@@ -93,12 +99,6 @@ class FileToken(Token):
     async def get_data(self):
         return parse_file(self.data)
 
-    async def compile(self):
-        data = await self.get_data()
-        url = data['file']
-        text = data['caption'] if data['caption'] else url
-        return f'<a href="{url}">{text}</a>'
-
 
 class ImageToken(Token):
     @staticmethod
@@ -110,74 +110,11 @@ class ImageToken(Token):
         self.joinable = False
         self.build = None
 
-    def merge(self, token: Token):
-        merged_token = ImageCollectionToken([self.data, token.data])
-        merged_token.build = self.build
-        return merged_token
-
     async def get_data(self):
         data = parse_file(self.data)
         data = await self.build(data)
         return data
 
-    async def compile(self):
-        s = 1500 # ('big', 1500, 667)
-        img = await self.get_data()
-        alt = img['alt']
-        caption = markdown_to_html(img['caption'])
-        src = img['src']
-        src = f'https://images.weserv.nl/?url={src}&w={s}&h={s}'
-
-        tpl = f'''
-            <div class="kazimir__image">
-                <figure>
-                    <img alt="{alt}" src="{src}">
-                    <figcaption>{caption}</figcaption>
-                </figure>
-            </div>
-        '''
-        return tpl.format(img).strip()
-
-
-class ImageCollectionToken(ImageToken):
-    def __init__(self, data) -> None:
-        super().__init__(data)
-        self.name = 'image_collection'
-        self.build = None
-
-    def merge(self, token: Token):
-        if isinstance(token.data, list):
-            data = token.data
-        else:
-            data = [token.data]
-        merged_token = ImageCollectionToken([*self.data, *data])
-        merged_token.build = self.build
-        return merged_token
-
-    async def get_data(self):
-        items = [parse_file(x) for x in self.data]
-        images = []
-        for x in items:
-            img = await self.build(x)
-            images.append(img)
-        return images
-
-    async def compile(self):
-        images = await self.get_data()
-        images = [x['src'] for x in images]
-        images = [f'<img src="{x}">' for x in images]
-        images = '\n'.join(images)
-
-        return f'''
-            <div class="kazimir__image-collection">
-                <div class="fotorama"
-                     data-width="100%"
-                     data-ratio="800/600"
-                >
-                    {images}
-                </div>
-            </div>
-        '''
 
 class UrlToken(Token):
     @staticmethod

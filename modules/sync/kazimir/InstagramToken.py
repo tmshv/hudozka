@@ -18,11 +18,21 @@ class InstagramToken(UrlToken):
         url = urlparse(data)
         return url.netloc in ['www.instagram.com', 'instagram.com']
 
-    async def compile(self):
-        match = pattr.match(self.data)
-        if match:
-            m = match.group('media')
-            return await embed_instagram(m)
+    def __init__(self, data: str) -> None:
+        super().__init__(data=data)
+        self.name = 'instagram'
+
+    async def get_data(self):
+        m = pattr.match(self.data)
+        embed = None
+        if m:
+            m = m.group('media')
+            embed = await embed_instagram(m)
+
+        return {
+            'url': self.data,
+            'embed': embed,
+        }
 
 
 async def embed_instagram(media):
@@ -51,20 +61,23 @@ async def embed_instagram(media):
     </blockquote>
     """
 
-    url = 'https://api.instagram.com/oembed?url=http://instagr.am/p/{}&hidecaption=true&omitscript=true'.format(media)
+    url = f'https://api.instagram.com/oembed?url=http://instagr.am/p/{media}&hidecaption=true&omitscript=true'
     req = requests.get(url)
     if req.status_code == 200:
         html = req.json()['html']
         html = fix_html(html)
-        i = etree.fromstring(html)
 
-        obj = etree.Element('div')
-        obj.set('class', "kazimir__embed")
-        obj.append(i)
-        return etree.tostring(obj).decode()
+        return html
+        # i = etree.fromstring(html)
+
+        # obj = etree.Element('div')
+        # obj.set('class', "kazimir__embed")
+        # obj.append(i)
+        # return etree.tostring(obj).decode()
     else:
         raise Exception(
-            'Failed to compile Instagram {media}: Status Code: {status}'.format(media=media, status=req.status_code)
+            'Failed to compile Instagram {media}: Status Code: {status}'.format(
+                media=media, status=req.status_code)
         )
 
 

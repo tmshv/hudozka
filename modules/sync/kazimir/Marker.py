@@ -8,13 +8,9 @@ class Marker:
     def __init__(self) -> None:
         super().__init__()
         self.tokens = []
-        self.tree_middlewares = []
 
     def add_token_factory(self, token):
         self.tokens.append(token)
-
-    def add_tree_middleware(self, callback):
-        self.tree_middlewares.append(callback)
 
     def parse(self, text: str):
         tokens = text.split('\n')
@@ -23,16 +19,6 @@ class Marker:
         tokens = merge_tokens(tokens)
 
         return tokens
-
-    async def create_tree(self, tokens: list):
-        compiled = await compile_tokens(tokens)
-        tree = lxml.html.fromstring(compiled)
-        return await self.process_tree(tree)
-
-    async def process_tree(self, tree):
-        for fn in self.tree_middlewares:
-            tree = await fn(tree)
-        return tree
 
     def markup_tokens(self, tokens: list):
         marked_tokens = []
@@ -95,18 +81,3 @@ def merge_tokens(tokens: list):
             token = token.merge(x)
         tokens_out.append(token)
     return tokens_out
-
-
-async def compile_tokens(tokens: list):
-    result = []
-    for token in tokens:
-        data = await token.compile()
-        result.append(data)
-    return '\n'.join(result)
-
-
-
-
-
-
-
