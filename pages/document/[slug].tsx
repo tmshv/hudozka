@@ -13,7 +13,7 @@ type Props = {
     meta: IMeta
 }
 
-const Page: NextPage<Props> = props => {
+const Index: NextPage<Props> = props => {
     if (!props.data) {
         console.log('kek error', props)
 
@@ -71,4 +71,4 @@ export const getStaticPaths = async () => {
     }
 }
 
-export default Page
+export default Index
