@@ -21,6 +21,11 @@ export default {
         },
         {
             type: 'link',
+            value: 'https://clck.ru/H83zS',
+            title: 'Навигатор дополнительного образования ЛО',
+        },
+        {
+            type: 'link',
             value: 'https://vk.com/shlisselburghudozka',
             title: 'Вконтакте'
         },
