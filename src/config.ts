@@ -57,7 +57,7 @@ export default {
         },
         {
             name: 'Сведения об образовательной организации',
-            href: '/info/',
+            href: '/info',
         },
     ]
 }
