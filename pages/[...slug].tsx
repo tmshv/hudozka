@@ -9,11 +9,32 @@ import { createApiUrl, requestGet, IResponseItems } from 'src/next-lib'
 import { NextPage } from 'next'
 import { IBreadcumbsPart, IMeta, IPage, ITag, FileTokenData, Token } from 'src/types'
 import { joinTokens } from 'src/lib/tokens'
+import { Html } from 'src/components/Html'
 
 function array<T>(value: T | T[]) {
     return Array.isArray(value)
         ? value
         : [value]
+}
+
+const Youtube: React.SFC<{ url: string }> = props => {
+    const url = new URL(props.url)
+    const videoId = url.searchParams.get('v')
+    if (!videoId) {
+        return null
+    }
+
+    const src = `//www.youtube.com/embed/${videoId}`
+
+    return (
+        <div className="kazimir__video">
+            <iframe
+                src={src}
+                frameBorder="0"
+            // allowFullscreen
+            />
+        </div>
+    )
 }
 
 const File: React.SFC<FileTokenData> = props => (
@@ -71,6 +92,27 @@ const Index: NextPage<Props> = props => (
                             return (
                                 <Markdown
                                     data={x.data}
+                                />
+                            )
+
+                        case 'html':
+                            return (
+                                <Html
+                                    html={x.data}
+                                />
+                            )
+
+                        case 'instagram':
+                            return (
+                                <Html
+                                    html={x.data.embed}
+                                />
+                            )
+
+                        case 'youtube':
+                            return (
+                                <Youtube
+                                    url={x.data.url}
                                 />
                             )
 
