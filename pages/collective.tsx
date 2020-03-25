@@ -49,7 +49,7 @@ const Index: NextPage<Props> = props => {
         return
     }
 
-    const src = 'https://art.shlisselburg.org/static/img/collective.jpg'
+    const src = 'https://art.shlisselburg.org/static/img/collective2019.jpg'
     const srcSet = imageSrcSet(src, [ImageSize.big, ImageSize.large, ImageSize.medium, ImageSize.small])
 
     return (
