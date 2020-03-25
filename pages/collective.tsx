@@ -21,6 +21,10 @@ const persons = [
     '/teacher/sa-latipova',
     '/teacher/iv-khramov',
     '/teacher/ma-khramova',
+    '/teacher/av-belyaeva',
+    '/teacher/aa-khopryaninova',
+    '/teacher/ay-orlova',
+    '/teacher/ms-strukova',
     // АС Тимашева
     // ЕЮ Тарасова
     // ИН Втюрина
