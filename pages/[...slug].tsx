@@ -43,7 +43,7 @@ const File: React.SFC<FileTokenData> = props => {
     const format = ext(props.file_format)
 
     return (
-        <div className="document-row">
+        <div className={'document-row'}>
             <a href={props['url']} className="invisible">
                 <div className="document-row__image">
                     <img src={props['image_url']} alt={props['title']} />
