@@ -90,6 +90,9 @@ class Document(Model):
 
         if self.has_param('hidden'):
             self.hidden = self.get_param('hidden')
+    
+    def set_title(self, value: str):
+        self.title = value
 
     async def build(self, **kwargs):
         sizes = kwargs['sizes']
@@ -179,6 +182,8 @@ async def get_pdf_title(provider, file):
         value = str(value)
         value = value.replace('\u0000', '')
         if value == 'None':
+            return None
+        if value == '':
             return None
         return value
 
