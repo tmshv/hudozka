@@ -1,16 +1,17 @@
-const getExt = (name: string) => /\.(\w+)$/.exec(name)[1]
-const defaultExt = (ext: string) => ext.toUpperCase()
-const exts = ['png', 'pdf', 'jpg', 'jpeg', 'gif', 'doc']
-const extd = ['ПНГ', 'ПДФ', 'ЖПГ', 'ЖПГ', 'ГИФ', 'ДОК']
 const units = ['байт', 'КБ', 'МБ', 'ГБ', 'ТБ', 'ПБ']
 
-export function ext(filname: string): string {
-    const ext = getExt(filname)
-    const i = exts.indexOf(ext)
+const mime = new Map([
+    ['application/pdf', 'ПДФ'],
+    ['image/jpeg', 'ЖПГ'],
+    ['image/png', 'ПНГ'],
+])
 
-    return i > -1
-        ? extd[i]
-        : defaultExt(ext)
+export function ext(mimeType: string): string {
+    if (mime.has(mimeType)) {
+        return mime.get(mimeType)
+    }
+
+    return mimeType
 }
 
 export function size(bytes: any, precision = 1): string {

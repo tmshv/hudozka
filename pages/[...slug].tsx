@@ -9,6 +9,7 @@ import { createApiUrl, requestGet, IResponseItems } from 'src/next-lib'
 import { NextPage } from 'next'
 import { IBreadcumbsPart, IMeta, IPage, ITag, FileTokenData, Token } from 'src/types'
 import { joinTokens } from 'src/lib/tokens'
+import { size, ext } from 'src/lib/file'
 import { Html } from 'src/components/Html'
 
 function array<T>(value: T | T[]) {
@@ -37,25 +38,30 @@ const Youtube: React.SFC<{ url: string }> = props => {
     )
 }
 
-const File: React.SFC<FileTokenData> = props => (
-    <div className="document-row">
-        <a href={props['url']} className="invisible">
-            <div className="document-row__image">
-                <img src={props['image_url']} alt={props['title']} />
+const File: React.SFC<FileTokenData> = props => {
+    const fileSize = size(props.file_size)
+    const format = ext(props.file_format)
+
+    return (
+        <div className="document-row">
+            <a href={props['url']} className="invisible">
+                <div className="document-row__image">
+                    <img src={props['image_url']} alt={props['title']} />
+                </div>
+            </a>
+
+            <div className="document-row__file">
+                <a href={props['url']}>{props['title']}</a>
             </div>
-        </a>
 
-        <div className="document-row__file">
-            <a href={props['url']}>{props['title']}</a>
-        </div>
-
-        <div className="document-row__file-info">
-            <a href="document['file_url']" target="_blank">
-                {props.file_format} ({props.file_size})
+            <div className="document-row__file-info">
+                <a href={props.file_url} target="_blank">
+                    {format} ({fileSize})
                 </a>
+            </div>
         </div>
-    </div>
-)
+    )
+}
 
 type Props = {
     title: string
