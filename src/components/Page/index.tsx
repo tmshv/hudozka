@@ -6,7 +6,7 @@ import { ITag } from 'src/types'
 
 export type PageProps = {
     style?: React.CSSProperties
-    date: Date
+    date?: Date
     tags: ITag[]
 }
 
