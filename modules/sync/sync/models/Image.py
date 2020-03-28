@@ -66,8 +66,6 @@ class Image(Model):
     def __init__(self, provider, file, data, url_factory):
         self.__hash_salt = settings.hash_salt_images
 
-        self.origin = None
-
         self.data = data
         self.url_factory = url_factory
 
@@ -76,8 +74,6 @@ class Image(Model):
     def init(self):
         self.id = self.__get_id()
         self.hash = self.__get_hash()
-
-        self.origin = f"{settings.origin}:{os.path.dirname(self.file)}"
 
     async def is_changed(self):
         i = await Image.find_one({'file': self.file})
@@ -119,7 +115,6 @@ class Image(Model):
         return {
             'id': self.id,
             'file': self.file,
-            'origin': self.origin,
             'hash': self.hash,
             'data': self.data,
         }

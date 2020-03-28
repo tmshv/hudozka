@@ -2,7 +2,6 @@
 database_uri: 'mongodb://localhost:27017/hudozka'
 
 env: 'production'
-origin: 'Yandex.Disk'
 yandex_disk_access_token: '<YANDEX_DISK_TOKEN>'
 interval: 0
 
