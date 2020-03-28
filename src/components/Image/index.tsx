@@ -1,4 +1,5 @@
-import './styles.css'
+import s from './styles.module.css'
+
 import { memo, useRef, useEffect, useCallback } from 'react'
 
 export type ImageProps = {
@@ -25,7 +26,7 @@ export const Image: React.FC<ImageProps> = memo(props => {
         <img
             ref={ref}
             onLoad={onLoad}
-            className={'image'}
+            className={s.image}
             style={props.style}
             alt={props.alt}
             src={props.src}

@@ -1,3 +1,4 @@
+import s from './styles.module.css'
 import cx from 'classnames'
 import { useRouter } from 'next/router'
 import { ActiveLink } from './ActiveLink'
@@ -5,7 +6,6 @@ import { isPartOfPath } from 'src/lib/url'
 
 export type MenuItemProps = {
     href: string
-    layout: 'desktop' | 'mobile'
 }
 
 export const MenuItem: React.FC<MenuItemProps> = props => {
@@ -17,8 +17,8 @@ export const MenuItem: React.FC<MenuItemProps> = props => {
 
     return (
         <li
-            className={cx('menuItem', props.layout, {
-                selected,
+            className={cx({
+                [s.selected]: selected,
             })}
         >
             <ActiveLink

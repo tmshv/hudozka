@@ -27,28 +27,28 @@
 
 /* MODIFICATORS */
 
-.button.disabled {
+.disabled {
     pointer-events: none;
     color: var(--color-text-second);
 }
 
 /* SIZE */
 
-.button.size_default {
+.sizeDefault {
     padding: var(--size-s) var(--size-m);
 }
 
-.button.size_small {
+.sizeSmall {
     padding: var(--size-xs) var(--size-s);
     font-size: var(--font-size-second);
 }
 
 /* THEME */
 
-.button.theme_ghost {
+.themeGhost {
     border-color: rgba(0, 0, 0, 0);
 }
 
-.button.theme_icon {
+.themeIcon {
     padding: var(--size-xs) var(--size-xs);
 }

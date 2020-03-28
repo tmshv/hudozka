@@ -1,4 +1,4 @@
-import './styles.css'
+import s from './styles.module.css'
 
 import cx from 'classnames'
 import { dateFormat } from 'src/lib/date'
@@ -18,7 +18,9 @@ export const PageMeta: React.FC<PageMetaProps> = props => {
     const direction: Direction = mobile ? 'vertical' : 'horizontal'
 
     return (
-        <div className={cx('pageMeta', center)} style={props.style}>
+        <div className={cx(s.pageMeta, {
+            [s.center]: center,
+        })} style={props.style}>
             {!props.date ? null : (
                 <p className={'date'}>Опубликовано {dateFormat(props.date)}</p>
             )}

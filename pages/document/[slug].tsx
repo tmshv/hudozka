@@ -28,7 +28,12 @@ const Index: NextPage<Props> = props => {
                 <title>{props.data.name}</title>
                 <Meta meta={props.meta} />
             </Head>
-            <File {...props.data} />
+            <File
+                {...props.data}
+                style={{
+                    marginTop: 'var(--size-l)',
+                }}
+            />
             <Share />
         </App>
     )

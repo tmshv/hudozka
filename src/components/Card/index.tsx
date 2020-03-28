@@ -1,7 +1,13 @@
-import './styles.css'
+import s from './styles.module.css'
+
 import cx from 'classnames'
 import Link from 'next/link'
 import { Image } from '../Image'
+
+const layoutClass = {
+    simple: s.simple,
+    featured: s.featured,
+}
 
 export type CardLayout = 'simple' | 'featured'
 export type CardProps = {
@@ -16,10 +22,10 @@ export type CardProps = {
 }
 
 export const Card: React.FC<CardProps> = props => (
-    <div className={cx('card', props.layout)} style={props.style}>
+    <div className={cx(s.card, layoutClass[props.layout])} style={props.style}>
         <Link href={props.href}>
             <a>
-                <div className={'card-image'}>
+                <div className={s.image}>
                     <Image
                         alt={props.img.alt}
                         src={props.img.src}
@@ -27,7 +33,7 @@ export const Card: React.FC<CardProps> = props => (
                     />
                 </div>
 
-                <div className={'card-body'}>
+                <div className={s.body}>
                     {props.children}
                 </div>
             </a>

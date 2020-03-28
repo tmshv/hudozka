@@ -1,4 +1,4 @@
-import './styles.css'
+import s from './styles.module.css'
 
 import { IBreadcumbsPart } from 'src/types'
 import { Button } from '../Button'
@@ -14,7 +14,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = props => {
     const items = insertBetween(props.items, () => '/')
 
     return (
-        <nav className={'breadcrumbs'} style={props.style}>
+        <nav className={s.breadcrumbs} style={props.style}>
             {items.map((x, i) => {
                 if (typeof x === 'string') {
                     return (
