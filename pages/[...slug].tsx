@@ -160,7 +160,7 @@ export const getStaticProps = async (ctx: any) => {
     } else {
         slug = '/' + array(ctx.params.slug).join('/')
     }
-    const page = await requestGet<IPage>(createApiUrl(`/api/page?page=${slug}`), null)
+    const page = await requestGet<IPage | null>(createApiUrl(`/api/page?page=${slug}`), null)
     if (!page) {
         throw new Error(`Not found: ${slug}`)
     }
@@ -187,7 +187,7 @@ export const getStaticProps = async (ctx: any) => {
 }
 
 export const getStaticPaths = async () => {
-    const urls = await requestGet<IResponseItems<string>>(createApiUrl(`/api/pages/urls`), null)
+    const urls = await requestGet<IResponseItems<string> | null>(createApiUrl(`/api/pages/urls`), null)
     if (!urls) {
         return null
     }
