@@ -37,6 +37,10 @@
     color: var(--color-text-opposite)
 }
 
+.mobile li.selected a {
+     color: var(--color-text-opposite)
+}
+ 
 /* MENU ITEM DESKTOP */
 
 .desktop li {
