@@ -9,8 +9,7 @@
         "next-build": "next build",
         "export": "next export -o dist",
         "sitemap": "node scripts/sitemap.js",
-        "feed": "node scripts/feed.js",
-        "test": "mocha --compilers js:babel-register"
+        "feed": "node scripts/feed.js"
     },
     "repository": {
         "type": "git",
