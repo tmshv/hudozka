@@ -49,7 +49,7 @@ type Props = {
 
 const Index: NextPage<Props> = props => {
     if (!props.data) {
-        console.log('kek error')
+        console.log('collective kek error')
         return
     }
 

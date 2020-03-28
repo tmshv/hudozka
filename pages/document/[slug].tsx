@@ -15,7 +15,7 @@ type Props = {
 
 const Index: NextPage<Props> = props => {
     if (!props.data) {
-        console.log('kek error', props)
+        console.log('document kek error', props)
 
         return null
     }
