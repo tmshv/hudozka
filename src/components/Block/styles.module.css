@@ -5,10 +5,10 @@
     justify-content: flex-start;
 }
 
-.block.horizontal {
+.horizontal {
     flex-direction: row;
 }
 
-.block.vertical {
+.vertical {
     flex-direction: column;
 }

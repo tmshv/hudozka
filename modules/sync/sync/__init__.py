@@ -79,6 +79,7 @@ async def create_post(provider: Provider, folder: str, md: str, sizes):
         title = data['caption']
         if title:
             document.set_title(title)
+            await document.save()
 
         if not document:
             raise Exception(f'Failed to build Document {filepath}')

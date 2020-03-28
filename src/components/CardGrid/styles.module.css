@@ -1,4 +1,4 @@
-.card-grid {
+.grid {
     --min-cell-size: 240px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(var(--min-cell-size), 1fr));
@@ -8,7 +8,7 @@
 }
 
 @media screen and (max-width: 31.25em) {
-    .card-grid {
+    .grid {
         grid-template-columns: 1fr;
         /* grid-template-columns: auto; */
         grid-gap: var(--size-l) 0;

@@ -28,16 +28,14 @@ class Document(Model):
     @staticmethod
     def read_path(provider, path):
         name = os.path.basename(path)
-
-        document = {
-            'category': os.path.dirname(path),
+        params = {
             'title': os.path.splitext(name)[0]
         }
 
         return Document(
             provider,
             path,
-            document
+            params
         )
 
     @staticmethod
@@ -45,7 +43,6 @@ class Document(Model):
         document = Document.read_path(provider, file)
         changed = await document.is_changed()
         if changed:
-            document.hide()
             await document.build(sizes=sizes)
             await document.upload()
             await document.save()
@@ -70,16 +67,12 @@ class Document(Model):
         self.file_size = None
         self.preview = None
 
-        self.type = 'document'  # 'award'
-        self.hidden = False
-
         super().__init__(provider, store, file, params=params)
 
     def init(self):
         self.__set_id()
         self.__set_url()
         self.__set_hash()
-        self._set_origin()
 
         filename = os.path.basename(self.file)
         self.file_name = filename
@@ -88,9 +81,6 @@ class Document(Model):
         if self.has_param('title'):
             self.title = self.get_param('title')
 
-        if self.has_param('hidden'):
-            self.hidden = self.get_param('hidden')
-    
     def set_title(self, value: str):
         self.title = value
 
@@ -130,10 +120,7 @@ class Document(Model):
             'file': self.file,
             'hash': self.hash,
             'url': self.url,
-            'type': self.type,
             'title': self.title,
-            'origin': self.origin,
-            'hidden': self.hidden,
             'preview': self.preview.ref,
             'fileInfo': {
                 'name': self.file_name,
@@ -164,10 +151,6 @@ class Document(Model):
 
     async def create_preview(self, sizes):
         self.preview = await DocumentPreviewImage.new(self.provider, self.file, sizes)
-
-    def hide(self):
-        self.hidden = True
-        return self
 
     def __str__(self):
         return f'<Document file={self.file} id={self.id}>'

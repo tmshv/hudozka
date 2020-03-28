@@ -59,8 +59,6 @@ date_formats = [
     '%d.%m.%Y %H:%M:%S'
 ]
 
-origin = value('origin')
-
 collection_images = 'images'
 collection_documents = 'documents'
 collection_pages = 'pages'

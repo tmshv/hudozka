@@ -8,7 +8,6 @@ class Sync:
         super().__init__()
 
         self.validate_urls = True
-        self.strict_origin = False
         self.__default_build_args = {
             'sizes': settings.image_sizes,
         }
@@ -52,14 +51,6 @@ class Sync:
         query = {
             'id': {'$nin': [doc.id for doc in items]},
         }
-
-        if self.strict_origin:
-            items_origin = list(set([doc.origin for doc in items]))
-
-            query = {
-                **query,
-                'origin': {'$in': items_origin},
-            }
 
         return query
 

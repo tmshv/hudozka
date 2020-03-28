@@ -11,9 +11,3 @@
 .breadcrumbs li {
     margin-bottom: var(--size-xs);
 }
-
-.breadcrumbCurrent {
-    color: var(--color-text-second);
-    font-size: var(--font-size-second);
-    text-overflow: ellipsis;
-}

@@ -1,4 +1,4 @@
-import './styles.css'
+import s from './styles.module.css'
 
 import { Transition } from './Transition'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
@@ -34,7 +34,7 @@ export const Overlay: React.FC<IOverlayProps> = props => {
         >
             <div
                 onClick={onClick}
-                className={'overlay'}
+                className={s.overlay}
                 style={props.style}
             >
                 {props.children}

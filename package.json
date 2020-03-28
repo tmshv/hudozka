@@ -24,7 +24,7 @@
         "date-fns": "^2.11.0",
         "lodash": "^4.17.15",
         "markdown-it": "^10.0.0",
-        "next": "^9.3.1",
+        "next": "^9.3.2",
         "react": "^16.13.0",
         "react-dom": "^16.13.0",
         "sitemap": "^1.5.0",
@@ -36,7 +36,6 @@
         "@types/lodash": "^4.14.149",
         "@types/node": "^12.12.30",
         "@types/react": "^16.9.23",
-        "@zeit/next-css": "^1.0.1",
         "feed": "^4.1.0",
         "should": "^8.2.2",
         "typescript": "^3.8.3"

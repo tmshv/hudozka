@@ -1,8 +1,19 @@
-import './styles.css'
+import s from './styles.module.css'
 
 import Link from 'next/link'
 import cx from 'classnames'
 import { useCallback } from 'react'
+
+const sizeClass = {
+    default: s.sizeDefault,
+    small: s.sizeSmall,
+}
+
+const themeClass = {
+    default: '',
+    icon: s.themeIcon,
+    ghost: s.themeGhost,
+}
 
 export type ButtonProps = {
     value?: any
@@ -15,8 +26,8 @@ export type ButtonProps = {
 }
 
 export const Button: React.FC<ButtonProps> = ({ size = 'default', theme = 'default', disabled = false, ...props }) => {
-    const className = cx('button', `size_${size}`, `theme_${theme}`, {
-        disabled
+    const className = cx(s.button, sizeClass[size], themeClass[theme], {
+        [s.disabled]: disabled,
     })
     const onClick = useCallback(event => {
         if (props.onClick) {
