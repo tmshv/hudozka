@@ -193,7 +193,7 @@ export const getStaticPaths = async () => {
     }
 
     return {
-        fallback: true,
+        fallback: false,
         paths: urls.items
             .map(path => {
                 const slug = tail(path.split('/'))
