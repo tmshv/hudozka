@@ -40,7 +40,17 @@ export default class MyApp extends App {
                         href="/feed.xml"
                     />
 
-                    <link href='/static/shadow-font/style.css' rel='stylesheet' />
+                    <link
+                        href="/static/shadow-font/style.css"
+                        rel="stylesheet"
+                    />
+
+                    {/* Google Fonts */}
+                    <link
+                        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;900&display=swap"
+                        rel="preload"
+                        as="style"
+                    />
 
                     {/* Opa */}
                     <script src="/static/opa.js" />
