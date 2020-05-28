@@ -43,7 +43,6 @@ export default class MyApp extends App {
                     <link href='/static/shadow-font/style.css' rel='stylesheet' />
 
                     {/* Google Fonts */}
-                    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
                     <link
                         href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;900&display=swap"
                         rel="preload"
