@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=PT+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;900&display=swap');
 
 :root {
     /* FONTS */
     --title-font: Shadow, Georgia, serif;
-    --text-font: 'PT Sans', Helvetica, sans-serif;
+    --text-font: 'Roboto', Helvetica, sans-serif;
 
     /* FONTS */
     --font-size-default: 14pt;
