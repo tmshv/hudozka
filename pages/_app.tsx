@@ -42,8 +42,7 @@ export default class MyApp extends App {
 
                     <link
                         href="/static/shadow-font/style.css"
-                        as="style"
-                        rel="preload"
+                        rel="stylesheet"
                     />
 
                     {/* Google Fonts */}
