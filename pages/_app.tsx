@@ -40,7 +40,11 @@ export default class MyApp extends App {
                         href="/feed.xml"
                     />
 
-                    <link href='/static/shadow-font/style.css' rel='stylesheet' />
+                    <link
+                        href="/static/shadow-font/style.css"
+                        as="style"
+                        rel="preload"
+                    />
 
                     {/* Google Fonts */}
                     <link
