@@ -64,5 +64,9 @@ export default {
             name: 'Сведения об образовательной организации',
             href: '/info',
         },
+        {
+            name: 'Дистанционное образование',
+            href: '/info/online-education',
+        }
     ]
 }
