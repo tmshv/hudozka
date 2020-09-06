@@ -38,6 +38,6 @@
         "eslint": "^7.1.0",
         "feed": "^4.1.0",
         "should": "^8.2.2",
-        "typescript": "^3.8.3"
+        "typescript": "^3.9.7"
     }
 }
