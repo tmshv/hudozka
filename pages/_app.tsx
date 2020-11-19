@@ -52,10 +52,6 @@ export default class MyApp extends App {
                         as="style"
                     />
 
-                    {/* Opa */}
-                    <script src="/static/opa.js" />
-                    <link rel="stylesheet" href="/static/opa.css" />
-
                     {/* Likely */}
                     <script src='/static/likely.js' />
                     <link href='/static/likely.css' rel='stylesheet' />
