@@ -1,0 +1,6 @@
+*.db
+node_modules
+.env
+.cache
+.tmp
+build
