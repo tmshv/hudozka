@@ -11,6 +11,7 @@
   },
   "devDependencies": {},
   "dependencies": {
+    "strapi-provider-upload-digitalocean": "git+https://github.com/iliyat/strapi-provider-upload-digitalocean.git",
     "strapi": "3.4.5",
     "strapi-admin": "3.4.5",
     "strapi-utils": "3.4.5",
