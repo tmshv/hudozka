@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "pages",
+  "info": {
+    "name": "Page",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "excerpt": {
+      "type": "text"
+    },
+    "cover": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "content": {
+      "type": "dynamiczone",
+      "components": [
+        "hudozka.document",
+        "hudozka.image",
+        "hudozka.text",
+        "hudozka.embed"
+      ]
+    },
+    "tags": {
+      "collection": "tag",
+      "via": "page"
+    }
+  }
+}

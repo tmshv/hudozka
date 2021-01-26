@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_hudozka_documents",
+  "info": {
+    "name": "Document",
+    "icon": "file"
+  },
+  "options": {},
+  "attributes": {
+    "media": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "files"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "title": {
+      "type": "string"
+    }
+  }
+}
