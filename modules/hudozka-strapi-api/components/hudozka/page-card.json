@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_hudozka_page_cards",
+  "info": {
+    "name": "PageCard",
+    "icon": "award"
+  },
+  "options": {},
+  "attributes": {
+    "page": {
+      "model": "page"
+    },
+    "layout": {
+      "type": "enumeration",
+      "enum": [
+        "small",
+        "medium",
+        "big"
+      ],
+      "default": "small",
+      "required": true
+    }
+  }
+}
