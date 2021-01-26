@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_hudozka_images",
+  "info": {
+    "name": "Image",
+    "icon": "image"
+  },
+  "options": {},
+  "attributes": {
+    "media": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": true
+    },
+    "wide": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

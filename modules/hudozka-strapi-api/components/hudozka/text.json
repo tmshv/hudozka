@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_hudozka_texts",
+  "info": {
+    "name": "Text",
+    "icon": "candy-cane"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "richtext",
+      "required": true
+    }
+  }
+}

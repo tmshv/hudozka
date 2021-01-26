@@ -1,0 +1,24 @@
+{
+  "kind": "singleType",
+  "collectionName": "homes",
+  "info": {
+    "name": "Home",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "cards": {
+      "type": "dynamiczone",
+      "components": [
+        "hudozka.page-card"
+      ]
+    }
+  }
+}

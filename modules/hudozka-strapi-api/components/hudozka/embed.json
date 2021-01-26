@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_hudozka_embeds",
+  "info": {
+    "name": "Embed",
+    "icon": "vial"
+  },
+  "options": {},
+  "attributes": {
+    "src": {
+      "type": "string",
+      "required": true
+    }
+  }
+}
