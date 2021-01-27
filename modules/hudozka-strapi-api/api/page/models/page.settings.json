@@ -38,6 +38,11 @@
     "tags": {
       "collection": "tag",
       "via": "page"
+    },
+    "slug": {
+      "type": "string",
+      "required": true,
+      "unique": true
     }
   }
 }
