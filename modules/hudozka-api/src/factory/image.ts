@@ -6,6 +6,7 @@ export type ImageDto = {
     width: number
     height: number
     src: string
+    filepath: string
 }
 
 export function encodeImage(image: Image): ImageDto {
@@ -18,5 +19,6 @@ export function encodeImage(image: Image): ImageDto {
         src: a.url,
         width: a.width,
         height: a.height,
+        filepath: image.file,
     }
 }

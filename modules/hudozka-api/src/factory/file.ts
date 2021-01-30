@@ -6,6 +6,7 @@ export type FileDto = {
     slug: string
     name: string
     cover?: ImageDto
+    filepath: string
     file: {
         name: string
         size: number
@@ -22,6 +23,7 @@ export function encodeFile(file: Document): FileDto {
         slug: file.id,
         cover,
         name: file.title,
+        filepath: file.file,
         file: {
             type: 'application/pdf',
             name: file.fileInfo.name,
