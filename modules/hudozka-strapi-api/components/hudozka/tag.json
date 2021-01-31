@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_hudozka_tags",
+  "info": {
+    "name": "Tag",
+    "icon": "horse-head"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "value": {
+      "type": "string"
+    }
+  }
+}
