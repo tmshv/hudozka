@@ -43,6 +43,18 @@
       "type": "string",
       "required": true,
       "unique": true
+    },
+    "breadcrumbs": {
+      "collection": "page",
+      "via": "breadcrumbsTarget",
+      "dominant": true
+    },
+    "breadcrumbRelations": {
+      "collection": "page",
+      "via": "breadcrumbs"
+    },
+    "date": {
+      "type": "date"
     }
   }
 }
