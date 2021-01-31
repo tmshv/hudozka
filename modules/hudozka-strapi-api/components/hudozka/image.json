@@ -18,6 +18,9 @@
     "wide": {
       "type": "boolean",
       "default": false
+    },
+    "caption": {
+      "type": "text"
     }
   }
 }
