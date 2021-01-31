@@ -46,7 +46,7 @@
     },
     "breadcrumbs": {
       "collection": "page",
-      "via": "breadcrumbsTarget",
+      "via": "breadcrumbRelations",
       "dominant": true
     },
     "breadcrumbRelations": {
