@@ -21,8 +21,8 @@
       "type": "string"
     },
     "page": {
-      "model": "page",
-      "via": "tags"
+      "via": "tags",
+      "model": "page"
     }
   }
 }

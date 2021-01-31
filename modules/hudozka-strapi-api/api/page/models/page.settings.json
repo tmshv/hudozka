@@ -36,8 +36,8 @@
       ]
     },
     "tags": {
-      "via": "page",
-      "collection": "tag"
+      "collection": "tag",
+      "via": "page"
     },
     "slug": {
       "type": "string",
