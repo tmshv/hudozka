@@ -11,31 +11,12 @@ import { IBreadcumbsPart, IMeta, IPage, ITag, FileTokenData, Token } from 'src/t
 import { joinTokens } from 'src/lib/tokens'
 import { size, ext } from 'src/lib/file'
 import { Html } from 'src/components/Html'
+import { Youtube } from '@/components/Youtube'
 
 function array<T>(value: T | T[]) {
     return Array.isArray(value)
         ? value
         : [value]
-}
-
-const Youtube: React.SFC<{ url: string }> = props => {
-    const url = new URL(props.url)
-    const videoId = url.searchParams.get('v')
-    if (!videoId) {
-        return null
-    }
-
-    const src = `//www.youtube.com/embed/${videoId}`
-
-    return (
-        <div className="kazimir__video">
-            <iframe
-                src={src}
-                frameBorder="0"
-            // allowFullscreen
-            />
-        </div>
-    )
 }
 
 const File: React.SFC<FileTokenData> = props => {
