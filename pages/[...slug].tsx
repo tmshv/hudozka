@@ -1,23 +1,20 @@
 import Head from 'next/head'
+import Image from 'next/image'
 import { App } from 'src/components/App'
 import { tail } from 'lodash'
 import { Page } from 'src/components/Page'
 import { Markdown } from 'src/components/Markdown'
 import { Meta } from 'src/components/Meta'
 import { MetaBuilder } from 'src/lib/meta'
-import { createApiUrl, requestGet, IResponseItems } from 'src/next-lib'
+import { createApiUrl, requestGet, IResponseItems, apiGet } from 'src/next-lib'
 import { NextPage } from 'next'
 import { IBreadcumbsPart, IMeta, IPage, ITag, FileTokenData, Token } from 'src/types'
 import { joinTokens } from 'src/lib/tokens'
 import { size, ext } from 'src/lib/file'
 import { Html } from 'src/components/Html'
 import { Youtube } from '@/components/Youtube'
-
-function array<T>(value: T | T[]) {
-    return Array.isArray(value)
-        ? value
-        : [value]
-}
+import { createPage } from '@/remote/factory'
+import { asArray } from '@/remote/lib'
 
 const File: React.SFC<FileTokenData> = props => {
     const fileSize = size(props.file_size)
@@ -27,7 +24,11 @@ const File: React.SFC<FileTokenData> = props => {
         <div className={'document-row'}>
             <a href={props['url']} className="invisible">
                 <div className="document-row__image">
-                    <img src={props['image_url']} alt={props['title']} />
+                    <Image
+                        src={props['image_url']}
+                        width={200}
+                        height={200}
+                    />
                 </div>
             </a>
 
@@ -107,9 +108,11 @@ const Index: NextPage<Props> = props => (
                             return (
                                 <div className="kazimir__image">
                                     <figure>
-                                        <img
+                                        <Image
                                             src={x.data.src}
                                             alt={x.data.alt}
+                                            width={x.data.width}
+                                            height={x.data.height}
                                         />
                                         <figcaption>{x.data.caption}</figcaption>
                                     </figure>
@@ -137,14 +140,19 @@ const Index: NextPage<Props> = props => (
 export const getStaticProps = async (ctx: any) => {
     let slug = null
     if (ctx.query) {
-        slug = '/' + array(ctx.query.slug).join('/')
+        slug = '/' + asArray(ctx.query.slug).join('/')
     } else {
-        slug = '/' + array(ctx.params.slug).join('/')
+        slug = '/' + asArray(ctx.params.slug).join('/')
     }
-    const page = await requestGet<IPage | null>(createApiUrl(`/api/page?page=${slug}`), null)
+
+    let apiUrl = `https://hudozka.tmshv.com/pages?slug=${slug}`
+    const page = await apiGet(createPage)(apiUrl, null)
     if (!page) {
-        throw new Error(`Not found: ${slug}`)
+        return {
+            notFound: true,
+        }
     }
+
     const description = page.description ?? undefined
     const breadcrumbSize = page?.breadcrumb?.length ?? 0
     const breadcrumb = breadcrumbSize < 2 ? null : page.breadcrumb

@@ -115,6 +115,8 @@ export type ImageToken = {
         src: string
         alt: string
         caption: string
+        width: number
+        height: number
     }
 }
 
@@ -124,8 +126,8 @@ export type FileTokenData = {
     image_url: string
     file_url: string
     title: string
-    file_size: number
-    file_format: 'application/pdf'
+    file_size?: number
+    file_format: string
 }
 
 export type FileToken = {

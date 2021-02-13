@@ -36,3 +36,14 @@ export function wrapInitialProps(fn: (ctx: NextPageContext) => void) {
 export function createApiUrl(path: string) {
     return `https://api.tmshv.com/hudozka${path}`
 }
+
+export function apiGet<I, O>(factory: (response: I) => O) {
+    return async (url: string, defaultResponse: O) => {
+        const res = await requestGet<I>(url, null)
+        if (!res) {
+            return defaultResponse
+        }
+
+        return factory(res)
+    }
+}
