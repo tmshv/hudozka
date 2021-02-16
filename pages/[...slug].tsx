@@ -182,13 +182,6 @@ export const getStaticProps: GetStaticProps<any> = async ctx => {
         .build()
     const tokens = page.tokens
 
-    tokens.push({
-        token: 'slug',
-        data: {
-            slug,
-        }
-    })
-
     return {
         props: {
             tokens,
