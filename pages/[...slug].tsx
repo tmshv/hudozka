@@ -79,6 +79,7 @@ const Index: NextPage<Props> = props => (
                         case 'text':
                             return (
                                 <Markdown
+                                    key={i}
                                     data={x.data}
                                 />
                             )
@@ -86,6 +87,7 @@ const Index: NextPage<Props> = props => (
                         case 'html':
                             return (
                                 <Html
+                                    key={i}
                                     html={x.data}
                                 />
                             )
@@ -93,6 +95,7 @@ const Index: NextPage<Props> = props => (
                         case 'instagram':
                             return (
                                 <Html
+                                    key={i}
                                     html={x.data.embed}
                                 />
                             )
@@ -100,13 +103,14 @@ const Index: NextPage<Props> = props => (
                         case 'youtube':
                             return (
                                 <Youtube
+                                    key={i}
                                     url={x.data.url}
                                 />
                             )
 
                         case 'image':
                             return (
-                                <div className="kazimir__image">
+                                <div key={i} className="kazimir__image">
                                     <figure>
                                         <Image
                                             src={x.data.src}
@@ -121,12 +125,12 @@ const Index: NextPage<Props> = props => (
 
                         case 'file':
                             return (
-                                <File {...x.data} />
+                                <File key={i} {...x.data} />
                             )
 
                         default:
                             return (
-                                <pre>
+                                <pre key={i}>
                                     {JSON.stringify(x)}
                                 </pre>
                             )
