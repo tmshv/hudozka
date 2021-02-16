@@ -6,14 +6,14 @@ import { Page } from 'src/components/Page'
 import { Markdown } from 'src/components/Markdown'
 import { Meta } from 'src/components/Meta'
 import { MetaBuilder } from 'src/lib/meta'
-import { createApiUrl, requestGet, IResponseItems, apiGet } from 'src/next-lib'
+import { apiGet } from '@/next-lib'
 import { NextPage } from 'next'
-import { IBreadcumbsPart, IMeta, IPage, ITag, FileTokenData, Token } from 'src/types'
+import { IBreadcumbsPart, IMeta, ITag, FileTokenData, Token } from '@/types'
 import { joinTokens } from 'src/lib/tokens'
 import { size, ext } from 'src/lib/file'
 import { Html } from 'src/components/Html'
 import { Youtube } from '@/components/Youtube'
-import { createPage } from '@/remote/factory'
+import { createPage, createPageUrls } from '@/remote/factory'
 import { asArray } from '@/remote/lib'
 
 const File: React.SFC<FileTokenData> = props => {
@@ -176,7 +176,8 @@ export const getStaticProps = async (ctx: any) => {
 }
 
 export const getStaticPaths = async () => {
-    const urls = await requestGet<IResponseItems<string> | null>(createApiUrl(`/api/pages/urls`), null)
+    let apiUrl = `https://hudozka.tmshv.com/pages`
+    const urls = await apiGet(createPageUrls)(apiUrl, null)
     if (!urls) {
         return null
     }

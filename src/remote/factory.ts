@@ -3,6 +3,12 @@ import { IPage, PageCardDto, Token } from "@/types";
 import { asItem } from "./lib";
 import { StrapiComponent, StrapiHome, StrapiPage, StrapiPageCard } from "./types";
 
+export function createPageUrls(pages: StrapiPage[]) {
+    return {
+        items: pages.map(page => page.slug),
+    }
+}
+
 export function createPageTokens(components: StrapiComponent[]): Token[] {
     return components.map(component => {
         switch (component.__component) {
