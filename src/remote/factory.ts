@@ -65,6 +65,9 @@ export function createPageTokens(components: StrapiComponent[]): Token[] {
 
 export function createPage(res: StrapiPage | StrapiPage[]): IPage {
     const item = asItem(res)
+    if (!item) {
+        return null
+    }
 
     return {
         title: item.title,

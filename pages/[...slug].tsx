@@ -7,14 +7,14 @@ import { Markdown } from 'src/components/Markdown'
 import { Meta } from 'src/components/Meta'
 import { MetaBuilder } from 'src/lib/meta'
 import { apiGet } from '@/next-lib'
-import { NextPage } from 'next'
+import { GetStaticProps, NextPage } from 'next'
 import { IBreadcumbsPart, IMeta, ITag, FileTokenData, Token } from '@/types'
 import { joinTokens } from 'src/lib/tokens'
 import { size, ext } from 'src/lib/file'
 import { Html } from 'src/components/Html'
 import { Youtube } from '@/components/Youtube'
 import { createPage, createPageUrls } from '@/remote/factory'
-import { asArray } from '@/remote/lib'
+import { paramsToSlug } from '@/remote/lib'
 
 const File: React.SFC<FileTokenData> = props => {
     const fileSize = size(props.file_size)
@@ -137,16 +137,10 @@ const Index: NextPage<Props> = props => (
     </App>
 )
 
-export const getStaticProps = async (ctx: any) => {
-    let slug = null
-    if (ctx.query) {
-        slug = '/' + asArray(ctx.query.slug).join('/')
-    } else {
-        slug = '/' + asArray(ctx.params.slug).join('/')
-    }
-
-    let apiUrl = `https://hudozka.tmshv.com/pages?slug=${slug}`
-    const page = await apiGet(createPage)(apiUrl, null)
+export const getStaticProps: GetStaticProps<any> = async ctx => {
+    const slug = paramsToSlug(ctx.params.slug)
+    const url = `https://hudozka.tmshv.com/pages?slug=${slug}`
+    const page = await apiGet(createPage)(url, null)
     if (!page) {
         return {
             notFound: true,

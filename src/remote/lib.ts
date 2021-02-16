@@ -9,3 +9,9 @@ export function asItem<T>(value: T | T[]) {
         ? value[0]
         : value
 }
+
+export function paramsToSlug(parts: string | string[]): string {
+    const slug = asArray(parts).join('/')
+
+    return `/${slug}`
+}
