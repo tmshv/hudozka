@@ -1,7 +1,7 @@
 import { getResizedUrl, imageSrc } from "@/lib/image";
-import { IPage, Token } from "@/types";
+import { IPage, PageCardDto, Token } from "@/types";
 import { asItem } from "./lib";
-import { StrapiComponent, StrapiPage } from "./types";
+import { StrapiComponent, StrapiHome, StrapiPage, StrapiPageCard } from "./types";
 
 export function createPageTokens(components: StrapiComponent[]): Token[] {
     return components.map(component => {
@@ -86,4 +86,29 @@ export function createPage(res: StrapiPage | StrapiPage[]): IPage {
         // breadcrumb?: [],
         featured: false,
     }
+}
+
+function isCardFeatured(card: StrapiPageCard): boolean {
+    return card.layout === 'big' || card.layout === 'medium'
+}
+
+export function createHomeCards(data: StrapiHome): PageCardDto[] {
+    // const cover = item.coverSrc ?? process.env.APP_CARD_DEFAULT_IMAGE
+
+    return data.cards.map(card => {
+        return {
+            id: card.id,
+            // id: card.page.id,
+            url: card.page.slug,
+            title: card.page.title,
+            featured: isCardFeatured(card),
+            date: card.page.date,
+            cover: {
+                src: card.page.cover.url,
+                width: card.page.cover.width,
+                height: card.page.cover.height,
+                alt: '',
+            }
+        }
+    })
 }

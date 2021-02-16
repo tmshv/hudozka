@@ -9,14 +9,16 @@ export interface IBreadcumbsPart {
 }
 
 export type PageCardData = {
+    id: number
     url: string
     title: string
     date: Date
     featured?: boolean
-    coverSrc?: string
+    cover?: ImageDefinition
 }
 
 export type PageCardDto = {
+    id: number
     url: string
     title: string
     featured: boolean

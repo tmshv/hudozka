@@ -111,3 +111,18 @@ export type StrapiPage = {
     // "breadcrumbs": [],
     // "breadcrumbRelations": []
 }
+
+export type StrapiHome = {
+    id: number,
+    title: string
+    cards: StrapiPageCard[]
+    // "created_at": "2021-02-04T04:12:38.291Z",
+    // "updated_at": "2021-02-04T16:28:30.961Z",
+}
+
+export type StrapiPageCard = {
+    __component: 'hudozka.page-card',
+    id: number,
+    page: StrapiPage,
+    layout: 'small' | 'medium' | 'big',
+}

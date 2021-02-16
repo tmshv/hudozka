@@ -2,7 +2,6 @@ import s from './styles.module.css'
 
 import cx from 'classnames'
 import Link from 'next/link'
-import { Image } from '../Image'
 
 const layoutClass = {
     simple: s.simple,
@@ -13,11 +12,7 @@ export type CardLayout = 'simple' | 'featured'
 export type CardProps = {
     style?: React.CSSProperties
     href: string
-    img: {
-        alt: string
-        src: string
-        srcSet: string
-    }
+    cover: React.ReactNode
     layout: CardLayout
 }
 
@@ -26,11 +21,7 @@ export const Card: React.FC<CardProps> = props => (
         <Link href={props.href}>
             <a>
                 <div className={s.image}>
-                    <Image
-                        alt={props.img.alt}
-                        src={props.img.src}
-                        srcSet={props.img.srcSet}
-                    />
+                    {props.cover}
                 </div>
 
                 <div className={s.body}>
