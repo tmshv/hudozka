@@ -29,6 +29,7 @@ async function getUrls() {
             break
         }
 
+        start += limit
         urls = [...urls, ...res.items]
     }
 
