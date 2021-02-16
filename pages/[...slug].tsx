@@ -24,7 +24,6 @@ async function getUrls() {
     while (true) {
         const url = `https://hudozka.tmshv.com/pages?_limit=${limit}&_start=${start}`
         const res = await apiGet(createPageUrls)(url, null)
-
         if (!res || res.items.length === 0) {
             break
         }
