@@ -16,6 +16,25 @@ import { Youtube } from '@/components/Youtube'
 import { createPage, createPageUrls } from '@/remote/factory'
 import { paramsToSlug } from '@/remote/lib'
 
+async function getUrls() {
+    let urls = []
+
+    const limit = 100
+    let start = 0
+    while (true) {
+        const url = `https://hudozka.tmshv.com/pages?_limit=${limit}&_start=${start}`
+        const res = await apiGet(createPageUrls)(url, null)
+
+        if (!res || res.items.length === 0) {
+            break
+        }
+
+        urls = [...urls, ...res.items]
+    }
+
+    return urls
+}
+
 const File: React.SFC<FileTokenData> = props => {
     const fileSize = size(props.file_size)
     const format = ext(props.file_format)
@@ -146,6 +165,8 @@ export const getStaticProps: GetStaticProps<any> = async ctx => {
     const url = `https://hudozka.tmshv.com/pages?slug=${slug}`
     const page = await apiGet(createPage)(url, null)
     if (!page) {
+        console.log('kek something happend');
+
         return {
             notFound: true,
         }
@@ -161,6 +182,13 @@ export const getStaticProps: GetStaticProps<any> = async ctx => {
         .build()
     const tokens = page.tokens
 
+    tokens.push({
+        token: 'slug',
+        data: {
+            slug,
+        }
+    })
+
     return {
         props: {
             tokens,
@@ -174,15 +202,11 @@ export const getStaticProps: GetStaticProps<any> = async ctx => {
 }
 
 export const getStaticPaths = async () => {
-    let apiUrl = `https://hudozka.tmshv.com/pages`
-    const urls = await apiGet(createPageUrls)(apiUrl, null)
-    if (!urls) {
-        return null
-    }
+    const urls = await getUrls()
 
     return {
         fallback: false,
-        paths: urls.items
+        paths: urls
             .map(path => {
                 const slug = tail(path.split('/'))
 
