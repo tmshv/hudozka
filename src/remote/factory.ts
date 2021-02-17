@@ -80,7 +80,9 @@ export function createPageTokens(components: StrapiComponent[]): Token[] {
                 return {
                     token: 'grid',
                     data: {
-                        items: component.items.map(createCardGrid)
+                        items: component.items
+                            .filter(Boolean)
+                            .map(createCardGrid)
                     }
                 }
             }
