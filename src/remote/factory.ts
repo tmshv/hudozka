@@ -1,11 +1,18 @@
 import { getResizedUrl, imageSrc } from "@/lib/image";
 import { IPage, ITag, PageCardDto, Token } from "@/types";
 import { asItem } from "./lib";
-import { StrapiComponent, StrapiHome, StrapiPage, StrapiPageCard } from "./types";
+import { StrapiComponentEmbed, StrapiComponent, StrapiHome, StrapiPage, StrapiPageCard } from "./types";
 
 export function createPageUrls(pages: StrapiPage[]) {
     return {
         items: pages.map(page => page.slug),
+    }
+}
+
+export function createEmbed(component: StrapiComponentEmbed): Token {
+    return {
+        token: 'html',
+        data: `<iframe src="${component.src}" width="100%" height="480" frameborder="0"></iframe>`
     }
 }
 
@@ -50,6 +57,10 @@ export function createPageTokens(components: StrapiComponent[]): Token[] {
                         file_format: component.media.mime,
                     }
                 }
+            }
+
+            case 'hudozka.embed': {
+                return createEmbed(component)
             }
 
             default:

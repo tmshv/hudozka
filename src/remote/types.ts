@@ -67,7 +67,7 @@ type StrapiComponentDocument = {
     // }
 }
 
-type StrapiComponentEmbed = {
+export type StrapiComponentEmbed = {
     __component: "hudozka.embed",
     id: number,
     src: string,
