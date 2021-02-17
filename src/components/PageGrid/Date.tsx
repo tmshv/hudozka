@@ -8,7 +8,7 @@ export const Date: React.FC<DateProps> = props => (
     <p style={props.style}>
         <style jsx>{`
             p {
-                color: var(--color-text-second);
+                color: var(--color-text);
                 font-size: var(--font-size-second);
             }
         `}</style>

@@ -27,11 +27,11 @@
     --color-shadow: rgba(27, 51, 88, 0.25);
 
     /* SIZE */
-    --size-xs: 0.35em;
-    --size-s: 0.75em;
-    --size-m: 1em;
-    --size-l: 2em;
-    --size-xl: 3em;
+    --size-xs: 0.35rem;
+    --size-s: 0.75rem;
+    --size-m: 1.25rem;
+    --size-l: 2rem;
+    --size-xl: 3rem;
 
     /* EFFECTS */
     --radius: 16px;
@@ -81,6 +81,7 @@ footer {
 }
 
 h1 {
+    font-family: var(--title-font);
     text-align: center;
     font-size: var(--font-size-h1);
 
@@ -88,6 +89,7 @@ h1 {
 }
 
 h2 {
+    font-family: var(--title-font);
     margin: var(--size-m) 0;
     font-size: var(--font-size-h2);
 
@@ -100,11 +102,6 @@ h3 {
     font-size: var(--font-size-h3);
 
     hyphens: none;
-}
-
-h1,
-h2 {
-    font-family: var(--title-font);
 }
 
 a {
@@ -159,8 +156,8 @@ a.invisible {
 @media (prefers-color-scheme: dark) {
     :root {
         /* TEXT COLOR */
-        --color-text: hsl(240, 10%, 90%);
-        --color-text-second: hsl(240, 10%, 90%);
+        --color-text: hsl(240, 10%, 80%);
+        --color-text-second: hsl(240, 10%, 60%);
         --color-text-opposite: hsl(240, 10%, 15%);
 
         --color-back-main: hsl(240, 10%, 10%);
