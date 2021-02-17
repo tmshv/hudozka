@@ -1,13 +1,10 @@
 import Image from 'next/image'
-import { ImageSize, PageCardData, PageCardDto } from 'src/types'
+import { ImageSize, PageCardDto } from 'src/types'
 import { CardGrid } from '../CardGrid'
 import { Card, CardLayout } from '../Card'
 import { Date } from './Date'
 import { Block } from '../Block'
 import { Spacer } from '../Spacer'
-import { imageSrcSet, imageSrc } from 'src/lib/image'
-import { Button } from '../Button'
-import { useState, useCallback } from 'react'
 
 export type PageGridProps = {
     items: PageCardDto[]

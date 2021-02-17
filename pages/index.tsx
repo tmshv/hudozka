@@ -5,7 +5,7 @@ import { PageGrid } from 'src/components/PageGrid'
 import { HudozkaTitle } from 'src/components/HudozkaTitle'
 import { MetaBuilder } from 'src/lib/meta'
 import { NextPage } from 'next'
-import { IMeta, PageCardData, PageCardDto } from 'src/types'
+import { IMeta, PageCardDto } from 'src/types'
 import { apiGet } from '@/next-lib'
 import { createHomeCards } from '@/remote/factory'
 
