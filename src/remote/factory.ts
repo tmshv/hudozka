@@ -9,7 +9,20 @@ export function createPageUrls(pages: StrapiPage[]) {
     }
 }
 
+export function isYoutubeUrl(url: string): boolean {
+    return /youtube\.com/.test(url)
+}
+
 export function createEmbed(component: StrapiComponentEmbed): Token {
+    if (isYoutubeUrl(component.src)) {
+        return {
+            token: 'youtube',
+            data: {
+                url: component.src,
+            }
+        }
+    }
+
     return {
         token: 'html',
         data: `<iframe src="${component.src}" width="100%" height="480" frameborder="0"></iframe>`
