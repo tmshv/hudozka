@@ -32,7 +32,8 @@
         "hudozka.document",
         "hudozka.image",
         "hudozka.text",
-        "hudozka.embed"
+        "hudozka.embed",
+        "hudozka.card-grid"
       ]
     },
     "tags": {
