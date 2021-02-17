@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { ImageSize, PageCardDto } from 'src/types'
+import { PageCardDto } from '@/types'
 import { CardGrid } from '../CardGrid'
 import { Card, CardLayout } from '../Card'
 import { Date } from './Date'

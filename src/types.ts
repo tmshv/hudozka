@@ -84,14 +84,6 @@ export interface ITag {
     href: string
 }
 
-export enum ImageSize {
-    big = 3000,
-    large = 1500,
-    medium = 1000,
-    small = 500,
-    thumbnail = 200,
-}
-
 export type ImageDefinition = {
     width: number
     height: number
