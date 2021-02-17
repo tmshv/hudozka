@@ -157,7 +157,7 @@ export function createCardGrid(card: StrapiPageCard): PageCardDto {
             src: card.page.cover.url,
             width: card.page.cover.width,
             height: card.page.cover.height,
-            // alt: '',
+            alt: card.page.title,
         }
     }
 }

@@ -96,6 +96,7 @@ export type ImageDefinition = {
     width: number
     height: number
     src: string
+    alt?: string
 }
 
 export type TextToken = {

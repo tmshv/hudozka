@@ -47,6 +47,7 @@ export const PageGrid: React.FC<PageGridProps> = props => {
                                 layout={'fill'}
                                 objectFit={'cover'}
                                 src={item.cover.src}
+                                alt={item.cover.alt}
                             />
                         )}
                         layout={layout}
