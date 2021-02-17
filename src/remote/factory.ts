@@ -1,7 +1,7 @@
 import { getResizedUrl } from "@/lib/image";
 import { IPage, ITag, PageCardDto, Token } from "@/types";
 import { asItem } from "./lib";
-import { StrapiComponentEmbed, StrapiComponent, StrapiHome, StrapiPage, StrapiPageCard, StrapiComponentCardGrid } from "./types";
+import { StrapiComponentEmbed, StrapiComponent, StrapiHome, StrapiPage, StrapiPageCard } from "./types";
 
 export function createPageUrls(pages: StrapiPage[]) {
     return {
@@ -160,25 +160,10 @@ export function createCardGrid(card: StrapiPageCard): PageCardDto {
             // alt: '',
         }
     }
-
+}
 
 export function createHomeCards(data: StrapiHome): PageCardDto[] {
     // const cover = item.coverSrc ?? process.env.APP_CARD_DEFAULT_IMAGE
 
-    return data.cards.map(card => {
-        return {
-            id: card.id,
-            // id: card.page.id,
-            url: card.page.slug,
-            title: card.page.title,
-            featured: isCardFeatured(card),
-            date: card.page.date,
-            cover: {
-                src: card.page.cover.url,
-                width: card.page.cover.width,
-                height: card.page.cover.height,
-                alt: '',
-            }
-        }
-    })
+    return data.cards.map(createCardGrid)
 }
