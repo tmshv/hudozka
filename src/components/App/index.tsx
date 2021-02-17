@@ -21,10 +21,9 @@ export interface IAppProps {
     breadcrumbs?: IBreadcumbsPart[]
 }
 
-export const App: React.FC<IAppProps> = ({ showAuthor = false, ...props }) => {
+export const App: React.FC<IAppProps> = ({ showAuthor = false, wide = false, ...props }) => {
     const hideBreadcrumbs = useMobile()
     const router = useRouter()
-    const wide = props.wide ?? false
     const blockStyle = {
         justifyContent: 'center'
     }

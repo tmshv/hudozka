@@ -1,41 +1,38 @@
 import Head from 'next/head'
+import Image from 'next/image'
 import { App } from 'src/components/App'
 import { tail } from 'lodash'
 import { Page } from 'src/components/Page'
 import { Markdown } from 'src/components/Markdown'
 import { Meta } from 'src/components/Meta'
 import { MetaBuilder } from 'src/lib/meta'
-import { createApiUrl, requestGet, IResponseItems } from 'src/next-lib'
-import { NextPage } from 'next'
-import { IBreadcumbsPart, IMeta, IPage, ITag, FileTokenData, Token } from 'src/types'
-import { joinTokens } from 'src/lib/tokens'
+import { apiGet } from '@/next-lib'
+import { GetStaticProps, NextPage } from 'next'
+import { IBreadcumbsPart, IMeta, ITag, FileTokenData, Token } from '@/types'
 import { size, ext } from 'src/lib/file'
 import { Html } from 'src/components/Html'
+import { Youtube } from '@/components/Youtube'
+import { createPage, createPageUrls } from '@/remote/factory'
+import { paramsToSlug } from '@/remote/lib'
+import { PageGrid } from '@/components/PageGrid'
 
-function array<T>(value: T | T[]) {
-    return Array.isArray(value)
-        ? value
-        : [value]
-}
+async function getUrls() {
+    let urls = []
 
-const Youtube: React.SFC<{ url: string }> = props => {
-    const url = new URL(props.url)
-    const videoId = url.searchParams.get('v')
-    if (!videoId) {
-        return null
+    const limit = 100
+    let start = 0
+    while (true) {
+        const url = `https://hudozka.tmshv.com/pages?_limit=${limit}&_start=${start}`
+        const res = await apiGet(createPageUrls)(url, null)
+        if (!res || res.items.length === 0) {
+            break
+        }
+
+        start += limit
+        urls = [...urls, ...res.items]
     }
 
-    const src = `//www.youtube.com/embed/${videoId}`
-
-    return (
-        <div className="kazimir__video">
-            <iframe
-                src={src}
-                frameBorder="0"
-            // allowFullscreen
-            />
-        </div>
-    )
+    return urls
 }
 
 const File: React.SFC<FileTokenData> = props => {
@@ -46,7 +43,11 @@ const File: React.SFC<FileTokenData> = props => {
         <div className={'document-row'}>
             <a href={props['url']} className="invisible">
                 <div className="document-row__image">
-                    <img src={props['image_url']} alt={props['title']} />
+                    <Image
+                        src={props['image_url']}
+                        width={200}
+                        height={200}
+                    />
                 </div>
             </a>
 
@@ -69,7 +70,7 @@ type Props = {
     date: string
     breadcrumb: IBreadcumbsPart[]
     meta?: IMeta
-    tokens?: Token[]
+    tokens: Token[]
 }
 
 const Index: NextPage<Props> = props => (
@@ -92,11 +93,12 @@ const Index: NextPage<Props> = props => (
             date={props.date ? new Date(props.date) : null}
         >
             <article className={'article'}>
-                {joinTokens(props.tokens ?? []).map((x, i) => {
+                {props.tokens.map((x, i) => {
                     switch (x.token) {
                         case 'text':
                             return (
                                 <Markdown
+                                    key={i}
                                     data={x.data}
                                 />
                             )
@@ -104,6 +106,7 @@ const Index: NextPage<Props> = props => (
                         case 'html':
                             return (
                                 <Html
+                                    key={i}
                                     html={x.data}
                                 />
                             )
@@ -111,6 +114,7 @@ const Index: NextPage<Props> = props => (
                         case 'instagram':
                             return (
                                 <Html
+                                    key={i}
                                     html={x.data.embed}
                                 />
                             )
@@ -118,31 +122,41 @@ const Index: NextPage<Props> = props => (
                         case 'youtube':
                             return (
                                 <Youtube
+                                    key={i}
                                     url={x.data.url}
                                 />
                             )
 
                         case 'image':
                             return (
-                                <div className="kazimir__image">
-                                    <figure>
-                                        <img
-                                            src={x.data.src}
-                                            alt={x.data.alt}
-                                        />
-                                        <figcaption>{x.data.caption}</figcaption>
-                                    </figure>
-                                </div>
+                                <figure key={i} className="kazimir__image">
+                                    <Image
+                                        src={x.data.src}
+                                        alt={x.data.alt}
+                                        width={x.data.width}
+                                        height={x.data.height}
+                                        layout={'responsive'}
+                                    />
+                                    <figcaption>{x.data.caption}</figcaption>
+                                </figure>
                             )
 
                         case 'file':
                             return (
-                                <File {...x.data} />
+                                <File key={i} {...x.data} />
+                            )
+
+                        case 'grid':
+                            return (
+                                <PageGrid
+                                    key={i}
+                                    items={x.data.items}
+                                />
                             )
 
                         default:
                             return (
-                                <pre>
+                                <pre key={i}>
                                     {JSON.stringify(x)}
                                 </pre>
                             )
@@ -153,17 +167,18 @@ const Index: NextPage<Props> = props => (
     </App>
 )
 
-export const getStaticProps = async (ctx: any) => {
-    let slug = null
-    if (ctx.query) {
-        slug = '/' + array(ctx.query.slug).join('/')
-    } else {
-        slug = '/' + array(ctx.params.slug).join('/')
-    }
-    const page = await requestGet<IPage | null>(createApiUrl(`/api/page?page=${slug}`), null)
+export const getStaticProps: GetStaticProps<any> = async ctx => {
+    const slug = paramsToSlug(ctx.params.slug)
+    const url = `https://hudozka.tmshv.com/pages?slug=${slug}`
+    const page = await apiGet(createPage)(url, null)
     if (!page) {
-        throw new Error(`Not found: ${slug}`)
+        console.log('kek something happend');
+
+        return {
+            notFound: true,
+        }
     }
+
     const description = page.description ?? undefined
     const breadcrumbSize = page?.breadcrumb?.length ?? 0
     const breadcrumb = breadcrumbSize < 2 ? null : page.breadcrumb
@@ -187,14 +202,11 @@ export const getStaticProps = async (ctx: any) => {
 }
 
 export const getStaticPaths = async () => {
-    const urls = await requestGet<IResponseItems<string> | null>(createApiUrl(`/api/pages/urls`), null)
-    if (!urls) {
-        return null
-    }
+    const urls = await getUrls()
 
     return {
         fallback: false,
-        paths: urls.items
+        paths: urls
             .map(path => {
                 const slug = tail(path.split('/'))
 

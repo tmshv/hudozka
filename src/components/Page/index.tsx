@@ -1,6 +1,5 @@
 import s from './styles.module.css'
 
-import { Share } from '../Share'
 import { PageMeta } from '../PageMeta'
 import { ITag } from 'src/types'
 
@@ -13,8 +12,6 @@ export type PageProps = {
 export const Page: React.FC<PageProps> = props => (
     <div className={s.page} style={props.style}>
         {props.children}
-        <hr />
-        <Share />
 
         <PageMeta
             style={{

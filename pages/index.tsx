@@ -4,9 +4,10 @@ import { Meta } from 'src/components/Meta'
 import { PageGrid } from 'src/components/PageGrid'
 import { HudozkaTitle } from 'src/components/HudozkaTitle'
 import { MetaBuilder } from 'src/lib/meta'
-import { getPagesCardsByTags } from 'src/rest'
 import { NextPage } from 'next'
-import { IMeta, PageCardData, PageCardDto } from 'src/types'
+import { IMeta, PageCardDto } from 'src/types'
+import { apiGet } from '@/next-lib'
+import { createHomeCards } from '@/remote/factory'
 
 type Props = {
     title: string
@@ -14,44 +15,33 @@ type Props = {
     items: PageCardDto[]
 }
 
-const Index: NextPage<Props> = props => {
-    const items = props.items.map<PageCardData>(item => ({
-        url: item.url,
-        title: item.title,
-        featured: item.featured,
-        date: new Date(item.date),
-        coverSrc: item.cover?.src,
-    }))
+const Index: NextPage<Props> = props => (
+    <App
+        showAuthor={true}
+        wide={false}
+    >
+        <Head>
+            <title>{props.title}</title>
+            <Meta meta={props.meta} />
+        </Head>
 
-    return (
-        <App
-            showAuthor={true}
-            wide={true}
-        >
-            <Head>
-                <title>{props.title}</title>
-                <Meta meta={props.meta} />
-            </Head>
+        <HudozkaTitle
+            style={{
+                marginTop: 'var(--size-m)',
+                marginBottom: 'var(--size-m)',
+            }}
+        />
 
-            <HudozkaTitle
-                style={{
-                    marginBottom: 'var(--size-l)'
-                }}
-            />
-
-            <PageGrid
-                items={items}
-            />
-        </App>
-    )
-}
+        <PageGrid
+            items={props.items}
+        />
+    </App>
+)
 
 export const getStaticProps = async () => {
-    const items = await getPagesCardsByTags([
-        'event',
-        'album',
-        'post',
-    ])
+    const url = 'https://hudozka.tmshv.com/home'
+    const items = await apiGet(createHomeCards)(url, [])
+
     const title = 'Шлиссельбургская ДХШ'
     const meta = (new MetaBuilder())
         .setTitle(title)

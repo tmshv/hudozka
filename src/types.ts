@@ -8,15 +8,8 @@ export interface IBreadcumbsPart {
     href: string
 }
 
-export type PageCardData = {
-    url: string
-    title: string
-    date: Date
-    featured?: boolean
-    coverSrc?: string
-}
-
 export type PageCardDto = {
+    id: number
     url: string
     title: string
     featured: boolean
@@ -85,23 +78,17 @@ export interface IImage {
 }
 
 export interface ITag {
+    id: number
     name: string
     slug: string
     href: string
-}
-
-export enum ImageSize {
-    big = 3000,
-    large = 1500,
-    medium = 1000,
-    small = 500,
-    thumbnail = 200,
 }
 
 export type ImageDefinition = {
     width: number
     height: number
     src: string
+    alt?: string
 }
 
 export type TextToken = {
@@ -115,6 +102,8 @@ export type ImageToken = {
         src: string
         alt: string
         caption: string
+        width: number
+        height: number
     }
 }
 
@@ -124,8 +113,8 @@ export type FileTokenData = {
     image_url: string
     file_url: string
     title: string
-    file_size: number
-    file_format: 'application/pdf'
+    file_size?: number
+    file_format: string
 }
 
 export type FileToken = {
@@ -153,4 +142,18 @@ export type InstagramToken = {
     }
 }
 
-export type Token = TextToken | ImageToken | FileToken | HtmlToken | YoutubeToken | InstagramToken
+export type GridToken = {
+    token: 'grid'
+    data: {
+        items: PageCardDto[]
+    }
+}
+
+export type Token =
+    | TextToken
+    | ImageToken
+    | FileToken
+    | HtmlToken
+    | YoutubeToken
+    | InstagramToken
+    | GridToken

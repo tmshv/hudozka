@@ -1,0 +1,19 @@
+.title {
+  text-align: center;
+}
+
+.title .suffix {
+  font-size: var(--font-size-h2);
+}
+
+.prefix {
+  font-size: var(--font-size-h2);
+  display: block;
+  margin-bottom: var(--size-s);
+}
+
+@media (max-width: 31.25em) {
+  .title {
+    --padding: 0 0 2em;
+  }
+}

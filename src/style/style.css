@@ -14,7 +14,7 @@
 
     /* COLOR */
     --color-text: hsl(0, 0%, 15%);
-    --color-text-second: hsl(240, 10%, 70%);
+    --color-text-second: hsl(240, 10%, 60%);
     --color-text-opposite: hsl(0, 0%, 95%);
 
     --color-link: hsl(0, 0%, 85%);
@@ -46,14 +46,13 @@
     --embed-video-ratio: 56.25%;
 
     /* CONTENT */
-    --content-width: 60%;
+    --content-width: 75%;
     --content-margin: 0;
     --content-wide-width: 100%;
     --content-wide-margin: var(--size-l) var(--size-xl);
 
     /* KAZIMIR */
     --kazimir-caption-margin: 0px;
-    --kazimir-radius: 10px;
     --kazimir-image-increase: 50px;
 }
 
@@ -160,8 +159,8 @@ a.invisible {
 @media (prefers-color-scheme: dark) {
     :root {
         /* TEXT COLOR */
-        --color-text: hsl(240, 10%, 80%);
-        --color-text-second: hsl(240, 10%, 40%);
+        --color-text: hsl(240, 10%, 90%);
+        --color-text-second: hsl(240, 10%, 90%);
         --color-text-opposite: hsl(240, 10%, 15%);
 
         --color-back-main: hsl(240, 10%, 10%);

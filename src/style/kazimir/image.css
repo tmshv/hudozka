@@ -1,8 +1,8 @@
 .kazimir__image {
-    position: relative;
-    width: calc(100% + var(--kazimir-image-increase));
-    margin-left: calc(-0.5 * var(--kazimir-image-increase));
-    margin-bottom: var(--size-m);
+    /* position: relative; */
+    /* width: calc(100% + var(--kazimir-image-increase)); */
+    /* margin-left: calc(-0.5 * var(--kazimir-image-increase)); */
+    margin-bottom: var(--size-l);
 }
 
 .kazimir__image p {
@@ -10,15 +10,17 @@
 }
 
 .kazimir__image img {
-    border-radius: var(--kazimir-radius);
+    border-radius: var(--radius);
 
     max-width: 100%;
     max-height: 35em;
 }
 
 .kazimir__image figcaption {
-    color: var(--color-text-second);
+    color: var(--color-text);
     font-size: var(--font-size-second);
     font-style: italic;
     font-weight: 100;
+    padding-top: var(--size-xs);
+    text-align: center;
 }

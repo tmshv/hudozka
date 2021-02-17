@@ -20,3 +20,4 @@ dist
 **/.vscode
 *.log
 .now
+.vercel
