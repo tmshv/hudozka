@@ -1,4 +1,4 @@
-import { getResizedUrl, imageSrc } from "@/lib/image";
+import { getResizedUrl } from "@/lib/image";
 import { IPage, ITag, PageCardDto, Token } from "@/types";
 import { asItem } from "./lib";
 import { StrapiComponentEmbed, StrapiComponent, StrapiHome, StrapiPage, StrapiPageCard } from "./types";
