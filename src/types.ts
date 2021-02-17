@@ -87,6 +87,7 @@ export interface IImage {
 }
 
 export interface ITag {
+    id: number
     name: string
     slug: string
     href: string

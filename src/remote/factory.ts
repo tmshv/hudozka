@@ -1,5 +1,5 @@
 import { getResizedUrl, imageSrc } from "@/lib/image";
-import { IPage, PageCardDto, Token } from "@/types";
+import { IPage, ITag, PageCardDto, Token } from "@/types";
 import { asItem } from "./lib";
 import { StrapiComponent, StrapiHome, StrapiPage, StrapiPageCard } from "./types";
 
@@ -69,6 +69,13 @@ export function createPage(res: StrapiPage | StrapiPage[]): IPage {
         return null
     }
 
+    const tags: ITag[] = item.tags.map(tag => ({
+        id: tag.id,
+        name: tag.name,
+        slug: tag.slug,
+        href: `/tags/${tag.slug}`,
+    }))
+
     return {
         title: item.title,
         description: item.excerpt,
@@ -91,7 +98,7 @@ export function createPage(res: StrapiPage | StrapiPage[]): IPage {
             ...createPageTokens(item.content)
                 .filter(Boolean),
         ],
-        tags: [],
+        tags,
         // breadcrumb?: [],
         featured: false,
     }

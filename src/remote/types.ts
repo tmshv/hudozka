@@ -79,6 +79,15 @@ export type StrapiComponent =
     | StrapiComponentDocument
     | StrapiComponentEmbed
 
+export type StrapiTag = {
+    id: number,
+    slug: string,
+    name: string,
+    // "page": 114,
+    // "created_at": "2021-01-31T20:38:39.373Z",
+    // "updated_at": "2021-02-17T07:37:54.749Z"
+}
+
 export type StrapiPage = {
     id: number,
     title: string,
@@ -90,24 +99,7 @@ export type StrapiPage = {
     created_at: string,
     updated_at: string,
     content: StrapiComponent[],
-    // "tags": [
-    //     {
-    //         "id": 5,
-    //         "slug": "hudozka",
-    //         "name": "Художка",
-    //         "page": 114,
-    //         "created_at": "2021-01-31T20:38:39.373Z",
-    //         "updated_at": "2021-02-04T04:04:34.943Z"
-    //     },
-    //     {
-    //         "id": 6,
-    //         "slug": "public-space",
-    //         "name": "Среда",
-    //         "page": 114,
-    //         "created_at": "2021-01-31T20:38:39.722Z",
-    //         "updated_at": "2021-02-04T04:04:34.943Z"
-    //     }
-    // ],
+    tags: StrapiTag[],
     // "breadcrumbs": [],
     // "breadcrumbRelations": []
 }
