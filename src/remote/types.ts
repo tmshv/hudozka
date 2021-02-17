@@ -73,11 +73,18 @@ export type StrapiComponentEmbed = {
     src: string,
 }
 
+export type StrapiComponentCardGrid = {
+    __component: "hudozka.card-grid",
+    id: number,
+    items: StrapiPageCard[],
+}
+
 export type StrapiComponent =
     | StrapiComponentText
     | StrapiComponentImage
     | StrapiComponentDocument
     | StrapiComponentEmbed
+    | StrapiComponentCardGrid
 
 export type StrapiTag = {
     id: number,

@@ -15,42 +15,27 @@ type Props = {
     items: PageCardDto[]
 }
 
-const Index: NextPage<Props> = props => {
-    const items = props.items.map<PageCardData>(item => ({
-        id: item.id,
-        url: item.url,
-        title: item.title,
-        featured: item.featured,
-        date: new Date(item.date),
-        cover: {
-            src: item.cover.src,
-            width: item.cover.width,
-            height: item.cover.height,
-        }
-    }))
+const Index: NextPage<Props> = props => (
+    <App
+        showAuthor={true}
+        wide={true}
+    >
+        <Head>
+            <title>{props.title}</title>
+            <Meta meta={props.meta} />
+        </Head>
 
-    return (
-        <App
-            showAuthor={true}
-            wide={true}
-        >
-            <Head>
-                <title>{props.title}</title>
-                <Meta meta={props.meta} />
-            </Head>
+        <HudozkaTitle
+            style={{
+                marginBottom: 'var(--size-l)'
+            }}
+        />
 
-            <HudozkaTitle
-                style={{
-                    marginBottom: 'var(--size-l)'
-                }}
-            />
-
-            <PageGrid
-                items={items}
-            />
-        </App>
-    )
-}
+        <PageGrid
+            items={props.items}
+        />
+    </App>
+)
 
 export const getStaticProps = async () => {
     const url = 'https://hudozka.tmshv.com/home'

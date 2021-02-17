@@ -158,4 +158,18 @@ export type InstagramToken = {
     }
 }
 
-export type Token = TextToken | ImageToken | FileToken | HtmlToken | YoutubeToken | InstagramToken
+export type GridToken = {
+    token: 'grid'
+    data: {
+        items: PageCardDto[]
+    }
+}
+
+export type Token =
+    | TextToken
+    | ImageToken
+    | FileToken
+    | HtmlToken
+    | YoutubeToken
+    | InstagramToken
+    | GridToken

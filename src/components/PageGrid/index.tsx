@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { ImageSize, PageCardData } from 'src/types'
+import { ImageSize, PageCardData, PageCardDto } from 'src/types'
 import { CardGrid } from '../CardGrid'
 import { Card, CardLayout } from '../Card'
 import { Date } from './Date'
@@ -10,7 +10,7 @@ import { Button } from '../Button'
 import { useState, useCallback } from 'react'
 
 export type PageGridProps = {
-    items: PageCardData[]
+    items: PageCardDto[]
 }
 
 export const PageGrid: React.FC<PageGridProps> = props => {

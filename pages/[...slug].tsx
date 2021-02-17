@@ -15,6 +15,7 @@ import { Html } from 'src/components/Html'
 import { Youtube } from '@/components/Youtube'
 import { createPage, createPageUrls } from '@/remote/factory'
 import { paramsToSlug } from '@/remote/lib'
+import { PageGrid } from '@/components/PageGrid'
 
 async function getUrls() {
     let urls = []
@@ -145,6 +146,14 @@ const Index: NextPage<Props> = props => (
                         case 'file':
                             return (
                                 <File key={i} {...x.data} />
+                            )
+
+                        case 'grid':
+                            return (
+                                <PageGrid
+                                    key={i}
+                                    items={x.data.items}
+                                />
                             )
 
                         default:
