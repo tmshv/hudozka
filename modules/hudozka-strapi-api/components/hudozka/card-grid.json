@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_hudozka_card_grids",
+  "info": {
+    "name": "CardGrid",
+    "icon": "braille"
+  },
+  "options": {},
+  "attributes": {
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "hudozka.page-card"
+    }
+  }
+}
