@@ -14,7 +14,7 @@
 
     /* COLOR */
     --color-text: hsl(0, 0%, 15%);
-    --color-text-second: hsl(240, 10%, 70%);
+    --color-text-second: hsl(240, 10%, 60%);
     --color-text-opposite: hsl(0, 0%, 95%);
 
     --color-link: hsl(0, 0%, 85%);
