@@ -46,7 +46,7 @@
     --embed-video-ratio: 56.25%;
 
     /* CONTENT */
-    --content-width: 60%;
+    --content-width: 75%;
     --content-margin: 0;
     --content-wide-width: 100%;
     --content-wide-margin: var(--size-l) var(--size-xl);
