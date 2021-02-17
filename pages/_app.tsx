@@ -52,13 +52,6 @@ export default class MyApp extends App {
                         as="style"
                     />
 
-                    {/* Likely */}
-                    <script src='/static/likely.js' />
-                    <link href='/static/likely.css' rel='stylesheet' />
-
-                    {/* Instagram Embed */}
-                    <script async defer src="//platform.instagram.com/en_US/embeds.js" />
-
                     <YMetrika account={24027460} />
                     <GAnalytics account={'UA-60209057-1'} />
                 </Head>
