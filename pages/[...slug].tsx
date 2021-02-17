@@ -130,17 +130,16 @@ const Index: NextPage<Props> = props => (
 
                         case 'image':
                             return (
-                                <div key={i} className="kazimir__image">
-                                    <figure>
-                                        <Image
-                                            src={x.data.src}
-                                            alt={x.data.alt}
-                                            width={x.data.width}
-                                            height={x.data.height}
-                                        />
-                                        <figcaption>{x.data.caption}</figcaption>
-                                    </figure>
-                                </div>
+                                <figure key={i} className="kazimir__image">
+                                    <Image
+                                        src={x.data.src}
+                                        alt={x.data.alt}
+                                        width={x.data.width}
+                                        height={x.data.height}
+                                        layout={'responsive'}
+                                    />
+                                    <figcaption>{x.data.caption}</figcaption>
+                                </figure>
                             )
 
                         case 'file':
