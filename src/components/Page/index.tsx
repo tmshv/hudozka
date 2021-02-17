@@ -13,7 +13,6 @@ export type PageProps = {
 export const Page: React.FC<PageProps> = props => (
     <div className={s.page} style={props.style}>
         {props.children}
-        <hr />
         <Share />
 
         <PageMeta
