@@ -14,7 +14,7 @@ export const PageGrid: React.FC<PageGridProps> = props => {
     return (
         <CardGrid
             style={{
-                marginBottom: 'var(--size-m)',
+                marginBottom: 'var(--size-xl)',
             }}
         >
             {props.items.map(item => {
