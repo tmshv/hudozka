@@ -17,10 +17,10 @@
 }
 
 .kazimir__image figcaption {
-    color: var(--color-text-second);
+    color: var(--color-text);
     font-size: var(--font-size-second);
     font-style: italic;
     font-weight: 100;
-    padding-top: var(--size-s);
-    padding-left: var(--size-s);
+    padding-top: var(--size-xs);
+    text-align: center;
 }
