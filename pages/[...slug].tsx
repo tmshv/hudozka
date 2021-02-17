@@ -9,7 +9,6 @@ import { MetaBuilder } from 'src/lib/meta'
 import { apiGet } from '@/next-lib'
 import { GetStaticProps, NextPage } from 'next'
 import { IBreadcumbsPart, IMeta, ITag, FileTokenData, Token } from '@/types'
-import { joinTokens } from 'src/lib/tokens'
 import { size, ext } from 'src/lib/file'
 import { Html } from 'src/components/Html'
 import { Youtube } from '@/components/Youtube'
@@ -71,7 +70,7 @@ type Props = {
     date: string
     breadcrumb: IBreadcumbsPart[]
     meta?: IMeta
-    tokens?: Token[]
+    tokens: Token[]
 }
 
 const Index: NextPage<Props> = props => (
@@ -94,7 +93,7 @@ const Index: NextPage<Props> = props => (
             date={props.date ? new Date(props.date) : null}
         >
             <article className={'article'}>
-                {joinTokens(props.tokens ?? []).map((x, i) => {
+                {props.tokens.map((x, i) => {
                     switch (x.token) {
                         case 'text':
                             return (
