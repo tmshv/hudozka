@@ -18,7 +18,7 @@ type Props = {
 const Index: NextPage<Props> = props => (
     <App
         showAuthor={true}
-        wide={true}
+        wide={false}
     >
         <Head>
             <title>{props.title}</title>
