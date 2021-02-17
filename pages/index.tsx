@@ -27,7 +27,8 @@ const Index: NextPage<Props> = props => (
 
         <HudozkaTitle
             style={{
-                marginBottom: 'var(--size-l)'
+                marginTop: 'var(--size-m)',
+                marginBottom: 'var(--size-m)',
             }}
         />
 
