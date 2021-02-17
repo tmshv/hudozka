@@ -159,8 +159,8 @@ a.invisible {
 @media (prefers-color-scheme: dark) {
     :root {
         /* TEXT COLOR */
-        --color-text: hsl(240, 10%, 80%);
-        --color-text-second: hsl(240, 10%, 40%);
+        --color-text: hsl(240, 10%, 90%);
+        --color-text-second: hsl(240, 10%, 90%);
         --color-text-opposite: hsl(240, 10%, 15%);
 
         --color-back-main: hsl(240, 10%, 10%);
