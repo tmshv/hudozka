@@ -45,17 +45,11 @@
       "required": true,
       "unique": true
     },
-    "breadcrumbs": {
-      "collection": "page",
-      "via": "breadcrumbRelations",
-      "dominant": true
-    },
-    "breadcrumbRelations": {
-      "collection": "page",
-      "via": "breadcrumbs"
-    },
     "date": {
       "type": "date"
+    },
+    "parent": {
+      "model": "page"
     }
   }
 }
