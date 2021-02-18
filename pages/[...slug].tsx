@@ -15,6 +15,7 @@ import { Youtube } from '@/components/Youtube'
 import { createPage, createPageUrls } from '@/remote/factory'
 import { paramsToSlug } from '@/remote/lib'
 import { PageGrid } from '@/components/PageGrid'
+import { useRouter } from 'next/router'
 
 async function getUrls() {
     let urls = []
@@ -73,99 +74,110 @@ type Props = {
     tokens: Token[]
 }
 
-const Index: NextPage<Props> = props => (
-    <App
-        contentStyle={{
-            marginTop: 'var(--size-l)',
-            marginBottom: 'var(--size-xl)',
-        }}
-        breadcrumbs={props.breadcrumb}
-    >
-        <Head>
-            <title>{props.title}</title>
-            {!props.meta ? null : (
-                <Meta meta={props.meta} />
-            )}
-        </Head>
+const Index: NextPage<Props> = props => {
+    const router = useRouter()
+    if (router.isFallback) {
+        return (
+            <div>
+                loading...
+            </div>
+        )
+    }
 
-        <Page
-            tags={props.tags}
-            date={props.date ? new Date(props.date) : null}
+    return (
+        <App
+            contentStyle={{
+                marginTop: 'var(--size-l)',
+                marginBottom: 'var(--size-xl)',
+            }}
+            breadcrumbs={props.breadcrumb}
         >
-            <article className={'article'}>
-                {props.tokens.map((x, i) => {
-                    switch (x.token) {
-                        case 'text':
-                            return (
-                                <Markdown
-                                    key={i}
-                                    data={x.data}
-                                />
-                            )
+            <Head>
+                <title>{props.title}</title>
+                {!props.meta ? null : (
+                    <Meta meta={props.meta} />
+                )}
+            </Head>
 
-                        case 'html':
-                            return (
-                                <Html
-                                    key={i}
-                                    html={x.data}
-                                />
-                            )
-
-                        case 'instagram':
-                            return (
-                                <Html
-                                    key={i}
-                                    html={x.data.embed}
-                                />
-                            )
-
-                        case 'youtube':
-                            return (
-                                <Youtube
-                                    key={i}
-                                    url={x.data.url}
-                                />
-                            )
-
-                        case 'image':
-                            return (
-                                <figure key={i} className="kazimir__image">
-                                    <Image
-                                        src={x.data.src}
-                                        alt={x.data.alt}
-                                        width={x.data.width}
-                                        height={x.data.height}
-                                        layout={'responsive'}
+            <Page
+                tags={props.tags}
+                date={props.date ? new Date(props.date) : null}
+            >
+                <article className={'article'}>
+                    {props.tokens.map((x, i) => {
+                        switch (x.token) {
+                            case 'text':
+                                return (
+                                    <Markdown
+                                        key={i}
+                                        data={x.data}
                                     />
-                                    <figcaption>{x.data.caption}</figcaption>
-                                </figure>
-                            )
+                                )
 
-                        case 'file':
-                            return (
-                                <File key={i} {...x.data} />
-                            )
+                            case 'html':
+                                return (
+                                    <Html
+                                        key={i}
+                                        html={x.data}
+                                    />
+                                )
 
-                        case 'grid':
-                            return (
-                                <PageGrid
-                                    key={i}
-                                    items={x.data.items}
-                                />
-                            )
+                            case 'instagram':
+                                return (
+                                    <Html
+                                        key={i}
+                                        html={x.data.embed}
+                                    />
+                                )
 
-                        default:
-                            return (
-                                <pre key={i}>
-                                    {JSON.stringify(x)}
-                                </pre>
-                            )
-                    }
-                })}
-            </article>
-        </Page>
-    </App>
-)
+                            case 'youtube':
+                                return (
+                                    <Youtube
+                                        key={i}
+                                        url={x.data.url}
+                                    />
+                                )
+
+                            case 'image':
+                                return (
+                                    <figure key={i} className="kazimir__image">
+                                        <Image
+                                            src={x.data.src}
+                                            alt={x.data.alt}
+                                            width={x.data.width}
+                                            height={x.data.height}
+                                            layout={'responsive'}
+                                        />
+                                        <figcaption>{x.data.caption}</figcaption>
+                                    </figure>
+                                )
+
+                            case 'file':
+                                return (
+                                    <File key={i} {...x.data} />
+                                )
+
+                            case 'grid':
+                                return (
+                                    <PageGrid
+                                        key={i}
+                                        items={x.data.items}
+                                    />
+                                )
+
+                            default:
+                                return (
+                                    <pre key={i}>
+                                        {JSON.stringify(x)}
+                                    </pre>
+                                )
+                        }
+                    })}
+                </article>
+            </Page>
+        </App>
+    )
+}
 
 export const getStaticProps: GetStaticProps<any> = async ctx => {
     const slug = paramsToSlug(ctx.params.slug)
@@ -190,6 +202,7 @@ export const getStaticProps: GetStaticProps<any> = async ctx => {
     const tokens = page.tokens
 
     return {
+        revalidate: 30,
         props: {
             tokens,
             title: page.title,
@@ -205,7 +218,7 @@ export const getStaticPaths = async () => {
     const urls = await getUrls()
 
     return {
-        fallback: false,
+        fallback: true,
         paths: urls
             .map(path => {
                 const slug = tail(path.split('/'))
