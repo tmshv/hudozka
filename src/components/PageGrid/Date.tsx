@@ -1,3 +1,5 @@
+import s from './date.module.css'
+
 import { dateFormat } from 'src/lib/date'
 
 export type DateProps = {
@@ -5,13 +7,7 @@ export type DateProps = {
     children: string | Date
 }
 export const Date: React.FC<DateProps> = props => (
-    <p style={props.style}>
-        <style jsx>{`
-            p {
-                color: var(--color-text);
-                font-size: var(--font-size-second);
-            }
-        `}</style>
+    <p className={s.date} style={props.style}>
         {dateFormat(props.children)}
     </p>
 )
