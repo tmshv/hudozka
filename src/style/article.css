@@ -3,7 +3,12 @@
 }
 
 .article h1 {
-    margin-bottom: var(--size-m);
+    margin-bottom: var(--size-l);
+}
+
+.article h2 {
+    margin-top: var(--size-xl);
+    margin-bottom: var(--size-l);
 }
 
 .article ul {
