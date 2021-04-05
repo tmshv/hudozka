@@ -58,7 +58,7 @@ const Index: NextPage<Props> = props => {
         date: '20.01.2021г.',
         person: 'Тимашева Марина Геннадьевна',
         position: 'Директор',
-        key: '0ac4ea89753a4ba9893799442325fb41',
+        signature: '0ac4ea89753a4ba9893799442325fb41',
     }
 
     return (

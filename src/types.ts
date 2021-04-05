@@ -48,7 +48,7 @@ export type Sign = {
     date: string
     person: string
     position: string
-    key: string
+    signature: string
 }
 
 export interface IDocument {

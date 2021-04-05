@@ -11,7 +11,7 @@ export const Signature: React.FC<SignatureProps> = props => {
             <li>Дата и время подписания: {props.date}</li>
             <li>ФИО подписавшего документ: {props.person}</li>
             <li>Должность: {props.position}</li>
-            <li>Уникальный программный ключ: {props.key}</li>
+            <li>Уникальный программный ключ: {props.signature}</li>
         </ul>
     )
 
