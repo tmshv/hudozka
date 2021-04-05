@@ -43,6 +43,7 @@ type Props = {
     breadcrumb: IBreadcumbsPart[]
     meta?: IMeta
     tokens: Token[]
+    documentSignature: Sign
 }
 
 const Index: NextPage<Props> = props => {
@@ -53,12 +54,6 @@ const Index: NextPage<Props> = props => {
                 loading...
             </div>
         )
-    }
-    const sign: Sign = {
-        date: '20.01.2021г.',
-        person: 'Тимашева Марина Геннадьевна',
-        position: 'Директор',
-        signature: '0ac4ea89753a4ba9893799442325fb41',
     }
 
     return (
@@ -133,7 +128,7 @@ const Index: NextPage<Props> = props => {
                                 return (
                                     <FileCard
                                         key={i}
-                                        sign={sign}
+                                        sign={props.documentSignature}
                                         {...x.data}
                                     />
                                 )
@@ -191,6 +186,12 @@ export const getStaticProps: GetStaticProps<Props> = async ctx => {
             date: page.date,
             meta,
             breadcrumb,
+            documentSignature: {
+                date: '20.01.2021г.',
+                person: 'Тимашева Марина Геннадьевна',
+                position: 'Директор',
+                signature: '0ac4ea89753a4ba9893799442325fb41',
+            }
         }
     }
 }
