@@ -1,5 +1,6 @@
+import 'rc-tooltip/assets/bootstrap_white.css'
+
 import 'src/style/style.css'
-import 'src/style/document-row.css'
 import 'src/style/content.css'
 import 'src/style/article.css'
 import 'src/style/marker/marker-table.css'

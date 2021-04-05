@@ -44,6 +44,13 @@ export interface IPage {
     featured: boolean
 }
 
+export type Sign = {
+    date: string
+    person: string
+    position: string
+    key: string
+}
+
 export interface IDocument {
     // category: string
     fileName: string

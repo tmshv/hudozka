@@ -71,6 +71,8 @@ body {
 
     color: var(--color-text);
     background-color: var(--color-back-main);
+
+    font-family: var(--text-font);
 }
 
 footer {
@@ -136,6 +138,39 @@ a.invisible {
     overflow: hidden;
 }
 
+
+/* RC TOOLTIP OVERRIDE */
+.hudozka.rc-tooltip {
+    position: absolute;
+    background-color: initial;
+    padding: 0;
+    opacity: 1;
+}
+.hudozka.rc-tooltip-placement-left .rc-tooltip-arrow {
+    border-left-color: var(--color-back-opposite);
+}
+.hudozka.rc-tooltip-placement-right .rc-tooltip-arrow {
+    border-right-color: var(--color-back-opposite);
+}
+.hudozka.rc-tooltip-placement-top .rc-tooltip-arrow {
+    border-top-color: var(--color-back-opposite);
+}
+.hudozka.rc-tooltip-placement-bottom .rc-tooltip-arrow {
+    border-bottom-color: var(--color-back-opposite);
+}
+.hudozka .rc-tooltip-inner {
+  padding: var(--size-m);
+  color: var(--color-text-opposite);
+  text-align: left;
+  text-decoration: none;
+  background-color: var(--color-back-opposite);
+  border-radius: var(--radius);
+  min-height: 34px;
+  border: none;
+  box-shadow: var(--shadow);
+}
+
+/* MOBILE */
 @media (max-width: 31.25em) {
     :root {
         --font-size-default: 14pt;

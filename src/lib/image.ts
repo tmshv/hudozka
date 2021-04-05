@@ -10,5 +10,5 @@ export function getResizedUrl(src: string, options: ResizeOptions): string {
         return null
     }
 
-    return `http://images.weserv.nl/?url=${src}&w=${options.width}&h=${options.height}&n=${n}`
+    return `https://images.weserv.nl/?url=${src}&w=${options.width}&h=${options.height}&n=${n}`
 }

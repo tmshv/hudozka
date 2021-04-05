@@ -8,14 +8,14 @@ import { Meta } from 'src/components/Meta'
 import { MetaBuilder } from 'src/lib/meta'
 import { apiGet } from '@/next-lib'
 import { GetStaticProps, NextPage } from 'next'
-import { IBreadcumbsPart, IMeta, ITag, FileTokenData, Token } from '@/types'
-import { size, ext } from 'src/lib/file'
+import { IBreadcumbsPart, IMeta, ITag, Sign, Token } from '@/types'
 import { Html } from 'src/components/Html'
 import { Youtube } from '@/components/Youtube'
 import { createPage, createPageUrls } from '@/remote/factory'
 import { paramsToSlug } from '@/remote/lib'
 import { PageGrid } from '@/components/PageGrid'
 import { useRouter } from 'next/router'
+import { FileCard } from '@/components/FIleCard'
 
 async function getUrls() {
     let urls = []
@@ -36,35 +36,6 @@ async function getUrls() {
     return urls
 }
 
-const File: React.SFC<FileTokenData> = props => {
-    const fileSize = size(props.file_size)
-    const format = ext(props.file_format)
-
-    return (
-        <div className={'document-row'}>
-            <a href={props['url']} className="invisible">
-                <div className="document-row__image">
-                    <Image
-                        src={props['image_url']}
-                        width={200}
-                        height={200}
-                    />
-                </div>
-            </a>
-
-            <div className="document-row__file">
-                <a href={props['url']}>{props['title']}</a>
-            </div>
-
-            <div className="document-row__file-info">
-                <a href={props.file_url} target="_blank">
-                    {format} ({fileSize})
-                </a>
-            </div>
-        </div>
-    )
-}
-
 type Props = {
     title: string
     tags: ITag[]
@@ -82,6 +53,12 @@ const Index: NextPage<Props> = props => {
                 loading...
             </div>
         )
+    }
+    const sign: Sign = {
+        date: '20.01.2021г.',
+        person: 'Тимашева Марина Геннадьевна',
+        position: 'Директор',
+        key: '0ac4ea89753a4ba9893799442325fb41',
     }
 
     return (
@@ -154,7 +131,11 @@ const Index: NextPage<Props> = props => {
 
                             case 'file':
                                 return (
-                                    <File key={i} {...x.data} />
+                                    <FileCard
+                                        key={i}
+                                        sign={sign}
+                                        {...x.data}
+                                    />
                                 )
 
                             case 'grid':
