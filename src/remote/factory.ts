@@ -58,11 +58,12 @@ export function createPageTokens(components: StrapiComponent[]): Token[] {
                     data: {
                         url: component.media.url,
                         slug: 'jopa',
-                        image_url: getResizedUrl(component.media.url, {
-                            width: 200,
-                            height: 200,
-                            n: 1,
-                        }),
+                        image_url: component.media.url,
+                        // image_url: getResizedUrl(component.media.url, {
+                        //     width: 200,
+                        //     height: 200,
+                        //     n: 1,
+                        // }),
                         file_url: component.media.url,
                         title: component.title,
                         file_size: component.media.size * 1000,

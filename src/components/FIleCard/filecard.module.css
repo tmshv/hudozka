@@ -1,0 +1,21 @@
+.file {
+  display: flex;
+  flex-direction: row;
+
+  margin-bottom: var(--size-l);
+}
+
+.image {
+  box-shadow: var(--shadow);
+}
+
+.name {
+  margin-left: var(--size-m);
+  flex-grow: 7;
+}
+
+.info {
+  flex-grow: 1;
+  font-size: var(--font-size-second);
+  text-align: right;
+}
