@@ -160,7 +160,7 @@ const Index: NextPage<Props> = props => {
     )
 }
 
-export const getStaticProps: GetStaticProps<any> = async ctx => {
+export const getStaticProps: GetStaticProps<Props> = async ctx => {
     const slug = paramsToSlug(ctx.params.slug)
     const url = `https://hudozka.tmshv.com/pages?slug=${slug}`
     const page = await apiGet(createPage)(url, null)
