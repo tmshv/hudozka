@@ -6,8 +6,7 @@
     "scripts": {
         "start": "next start",
         "dev": "next",
-        "build": "npm run next-build && npm run sitemap && npm run feed",
-        "next-build": "next build",
+        "build": "next build",
         "sitemap": "node scripts/sitemap.js",
         "feed": "node scripts/feed.js"
     },
