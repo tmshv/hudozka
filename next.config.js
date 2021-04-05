@@ -6,4 +6,7 @@ module.exports = {
             'images.weserv.nl',
         ],
     },
+    future: {
+        webpack5: true,
+    }
 }
