@@ -160,8 +160,6 @@ export const getStaticProps: GetStaticProps<Props> = async ctx => {
     const url = `https://hudozka.tmshv.com/pages?slug=${slug}`
     const page = await apiGet(createPage)(url, null)
     if (!page) {
-        console.log('kek something happend');
-
         return {
             notFound: true,
         }
