@@ -5,8 +5,5 @@ module.exports = {
             'hudozkacdn.tmshv.com',
             'images.weserv.nl',
         ],
-    },
-    future: {
-        webpack5: true,
     }
 }
