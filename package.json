@@ -5,7 +5,7 @@
     "description": "",
     "scripts": {
         "start": "next start",
-        "dev": "next",
+        "dev": "next dev",
         "build": "next build",
         "sitemap": "node scripts/sitemap.js",
         "feed": "node scripts/feed.js"
