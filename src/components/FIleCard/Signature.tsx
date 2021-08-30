@@ -16,10 +16,8 @@ export const Signature: React.FC<SignatureProps> = props => {
     )
 
     return (
-        <>
-            <Tooltip overlayClassName={'hudozka'} placement="left" trigger={['hover', 'click']} overlay={content}>
-                <FiShield className={s.secure} size={20} />
-            </Tooltip>
-        </>
+        <Tooltip overlayClassName={'hudozka'} placement="left" trigger={['hover', 'click']} overlay={content}>
+            <FiShield className={s.secure} size={20} />
+        </Tooltip>
     )
 }

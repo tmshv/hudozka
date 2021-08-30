@@ -22,8 +22,8 @@ export const FileCard: React.FC<FileCardProps> = props => {
                         className={s.image}
                         loader={({ src, width, quality }) => {
                             return getResizedUrl(src, {
-                                width: 200,
-                                height: 200,
+                                width,
+                                height: width,
                                 n: 1,
                             })
                         }}
@@ -35,17 +35,13 @@ export const FileCard: React.FC<FileCardProps> = props => {
                 </div>
             </a>
 
-            <div className={s.name}>
-                <span style={{
-                    display: 'flex',
-                }}>
-                    {!props.sign ? null : (
-                        <Signature
-                            {...props.sign}
-                        />
-                    )}
-                    <a href={props.url}>{props.title}</a>
-                </span>
+            <div>
+                {!props.sign ? null : (
+                    <Signature
+                        {...props.sign}
+                    />
+                )}
+                <a href={props.url}>{props.title}</a>
             </div>
 
             <div className={s.info}>

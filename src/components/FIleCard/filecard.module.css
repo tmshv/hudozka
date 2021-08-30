@@ -1,6 +1,9 @@
 .file {
-  display: flex;
+  display: grid;
   flex-direction: row;
+
+  grid-template-columns: 100px auto 150px;
+  gap: var(--size-m);
 
   margin-bottom: var(--size-l);
 }
@@ -9,13 +12,7 @@
   box-shadow: var(--shadow);
 }
 
-.name {
-  margin-left: var(--size-m);
-  flex-grow: 7;
-}
-
 .info {
-  flex-grow: 1;
   font-size: var(--font-size-second);
   text-align: right;
 }
