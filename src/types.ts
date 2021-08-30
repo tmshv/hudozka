@@ -13,8 +13,8 @@ export type PageCardDto = {
     url: string
     title: string
     featured: boolean
-    date: string
-    cover?: ImageDefinition
+    date: string | null
+    cover: ImageDefinition
 }
 
 export type FileDefinition = {

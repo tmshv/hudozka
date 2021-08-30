@@ -1,7 +1,6 @@
-import { getResizedUrl } from "@/lib/image";
-import { IPage, ITag, PageCardDto, Token } from "@/types";
+import { ImageDefinition, IPage, ITag, PageCardDto, Token } from "@/types";
 import { asItem } from "./lib";
-import { StrapiComponentEmbed, StrapiComponent, StrapiHome, StrapiPage, StrapiPageCard } from "./types";
+import { StrapiComponentEmbed, StrapiComponent, StrapiHome, StrapiPage, StrapiPageCard, StrapiTag, StrapiMedia } from "./types";
 
 export function createPageUrls(pages: StrapiPage[]) {
     return {
@@ -59,11 +58,6 @@ export function createPageTokens(components: StrapiComponent[]): Token[] {
                         url: component.media.url,
                         slug: 'jopa',
                         image_url: component.media.url,
-                        // image_url: getResizedUrl(component.media.url, {
-                        //     width: 200,
-                        //     height: 200,
-                        //     n: 1,
-                        // }),
                         file_url: component.media.url,
                         title: component.title,
                         file_size: component.media.size * 1000,
@@ -144,27 +138,36 @@ function isCardFeatured(card: StrapiPageCard): boolean {
     return card.layout === 'big' || card.layout === 'medium'
 }
 
+function createImageFromMedia(media: StrapiMedia): ImageDefinition {
+    return {
+        src: media.url,
+        width: media.width,
+        height: media.height,
+        alt: media.alternativeText ?? '',
+    }
+}
+
 export function createCardGrid(card: StrapiPageCard): PageCardDto {
     // const cover = item.coverSrc ?? process.env.APP_CARD_DEFAULT_IMAGE
+    const cover = card.page.cover ? createImageFromMedia(card.page.cover) : {
+        src: 'https://hudozkacdn.tmshv.com/main_fad9fdf29a.jpg',
+        width: 1920,
+        height: 1858,
+        alt: ''
+    }
 
     return {
         id: card.id,
-        // id: card.page.id,
         url: card.page.slug,
         title: card.page.title,
         featured: isCardFeatured(card),
         date: card.page.date,
-        cover: {
-            src: card.page.cover.url,
-            width: card.page.cover.width,
-            height: card.page.cover.height,
-            alt: card.page.title,
-        }
+        cover,
     }
 }
 
 export function createHomeCards(data: StrapiHome): PageCardDto[] {
-    // const cover = item.coverSrc ?? process.env.APP_CARD_DEFAULT_IMAGE
-
-    return data.cards.map(createCardGrid)
+    return data.cards
+        .map(createCardGrid)
+        .filter(x => !!x.url)
 }

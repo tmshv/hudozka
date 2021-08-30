@@ -10,7 +10,7 @@ type StrapiMediaObject = {
     // "path": null,
 }
 
-type StrapiMedia = StrapiMediaObject & {
+export type StrapiMedia = StrapiMediaObject & {
     id: number,
     alternativeText: string | null,
     caption: string | null,
@@ -100,7 +100,7 @@ export type StrapiPage = {
     title: string,
     excerpt: string,
     slug: string,
-    date?: string,
+    date: string | null,
     cover?: StrapiMedia,
     published_at: string,
     created_at: string,
