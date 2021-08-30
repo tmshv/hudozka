@@ -1,0 +1,25 @@
+{
+  "kind": "singleType",
+  "collectionName": "menus",
+  "info": {
+    "name": "Menu",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "menu": {
+      "type": "component",
+      "repeatable": false,
+      "component": "hudozka.card-grid",
+      "required": true
+    },
+    "homeLabel": {
+      "type": "string",
+      "required": true
+    }
+  }
+}
