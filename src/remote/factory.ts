@@ -1,6 +1,6 @@
-import { ImageDefinition, IPage, ITag, PageCardDto, Token } from "@/types";
+import { ImageDefinition, IMenu, IPage, ITag, PageCardDto, Token } from "@/types";
 import { asItem } from "./lib";
-import { StrapiComponentEmbed, StrapiComponent, StrapiHome, StrapiPage, StrapiPageCard, StrapiTag, StrapiMedia } from "./types";
+import { StrapiComponentEmbed, StrapiComponent, StrapiHome, StrapiPage, StrapiPageCard, StrapiTag, StrapiMedia, StrapiMenu } from "./types";
 
 export function createPageUrls(pages: StrapiPage[]) {
     return {
@@ -102,7 +102,19 @@ export function createPageTokens(components: StrapiComponent[]): Token[] {
     })
 }
 
-export function createPage(res: StrapiPage | StrapiPage[]): IPage {
+export function createMenu(res: StrapiMenu): IMenu[] {
+    const items: IMenu[] = res.menu.items.map(x => ({
+        href: x.page.slug,
+        name: x.page.title,
+    }))
+
+    return [{
+        href: '/',
+        name: res.homeLabel,
+    }, ...items]
+}
+
+export function createPage(res: StrapiPage | StrapiPage[]): IPage | null {
     const item = asItem(res)
     if (!item) {
         return null

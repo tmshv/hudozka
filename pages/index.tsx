@@ -5,13 +5,14 @@ import { PageGrid } from 'src/components/PageGrid'
 import { HudozkaTitle } from 'src/components/HudozkaTitle'
 import { MetaBuilder } from 'src/lib/meta'
 import { NextPage } from 'next'
-import { IMeta, PageCardDto } from 'src/types'
+import { IMenu, IMeta, PageCardDto } from 'src/types'
 import { apiGet } from '@/next-lib'
-import { createHomeCards } from '@/remote/factory'
+import { createHomeCards, createMenu } from '@/remote/factory'
 
 type Props = {
     title: string
     meta: IMeta
+    menu: IMenu[]
     items: PageCardDto[]
 }
 
@@ -19,6 +20,7 @@ const Index: NextPage<Props> = props => (
     <App
         showAuthor={true}
         wide={false}
+        menu={props.menu}
     >
         <Head>
             <title>{props.title}</title>
@@ -41,6 +43,7 @@ const Index: NextPage<Props> = props => (
 export const getStaticProps = async () => {
     const url = 'https://hudozka.tmshv.com/home'
     const items = await apiGet(createHomeCards)(url, [])
+    const menu = await apiGet(createMenu)('https://hudozka.tmshv.com/menu', [])
 
     const title = 'Шлиссельбургская ДХШ'
     const meta = (new MetaBuilder())
@@ -55,6 +58,7 @@ export const getStaticProps = async () => {
             items,
             title,
             meta,
+            menu,
         }
     }
 }

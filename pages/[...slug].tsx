@@ -8,10 +8,10 @@ import { Meta } from 'src/components/Meta'
 import { MetaBuilder } from 'src/lib/meta'
 import { apiGet } from '@/next-lib'
 import { GetStaticProps, NextPage } from 'next'
-import { IBreadcumbsPart, IMeta, ITag, Sign, Token } from '@/types'
+import { IBreadcumbsPart, IMenu, IMeta, ITag, Sign, Token } from '@/types'
 import { Html } from 'src/components/Html'
 import { Youtube } from '@/components/Youtube'
-import { createPage, createPageUrls } from '@/remote/factory'
+import { createMenu, createPage, createPageUrls } from '@/remote/factory'
 import { paramsToSlug } from '@/remote/lib'
 import { PageGrid } from '@/components/PageGrid'
 import { useRouter } from 'next/router'
@@ -42,6 +42,7 @@ type Props = {
     date: string
     breadcrumb: IBreadcumbsPart[]
     meta?: IMeta
+    menu: IMenu[],
     tokens: Token[]
     documentSignature: Sign
 }
@@ -62,6 +63,7 @@ const Index: NextPage<Props> = props => {
                 marginTop: 'var(--size-l)',
                 marginBottom: 'var(--size-xl)',
             }}
+            menu={props.menu}
             breadcrumbs={props.breadcrumb}
         >
             <Head>
@@ -165,6 +167,8 @@ export const getStaticProps: GetStaticProps<Props> = async ctx => {
         }
     }
 
+    const menu = await apiGet(createMenu)('https://hudozka.tmshv.com/menu', [])
+
     const description = page.description ?? undefined
     const breadcrumbSize = page?.breadcrumb?.length ?? 0
     const breadcrumb = breadcrumbSize < 2 ? null : page.breadcrumb
@@ -183,6 +187,7 @@ export const getStaticProps: GetStaticProps<Props> = async ctx => {
             tags: page.tags,
             date: page.date,
             meta,
+            menu,
             breadcrumb,
             documentSignature: {
                 date: '20.01.2021г.',

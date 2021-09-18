@@ -90,7 +90,7 @@ export type StrapiTag = {
     id: number,
     slug: string,
     name: string,
-    // "page": 114,
+    page: StrapiPage,
     // "created_at": "2021-01-31T20:38:39.373Z",
     // "updated_at": "2021-02-17T07:37:54.749Z"
 }
@@ -115,6 +115,14 @@ export type StrapiHome = {
     id: number,
     title: string
     cards: StrapiPageCard[]
+    // "created_at": "2021-02-04T04:12:38.291Z",
+    // "updated_at": "2021-02-04T16:28:30.961Z",
+}
+
+export type StrapiMenu = {
+    id: number,
+    homeLabel: string
+    menu: StrapiComponentCardGrid
     // "created_at": "2021-02-04T04:12:38.291Z",
     // "updated_at": "2021-02-04T16:28:30.961Z",
 }

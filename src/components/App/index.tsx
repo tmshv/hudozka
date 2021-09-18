@@ -6,7 +6,7 @@ import { Footer } from '../Footer'
 import { Content } from '../Content'
 import { Block } from '../Block'
 import { Breadcrumbs } from '../Breadcrumbs'
-import { IBreadcumbsPart } from 'src/types'
+import { IBreadcumbsPart, IMenu } from 'src/types'
 import { useRouter } from 'next/router'
 import { useMobile } from 'src/hooks/useMobile'
 
@@ -19,9 +19,10 @@ export interface IAppProps {
     wide?: boolean
     contentStyle?: React.CSSProperties
     breadcrumbs?: IBreadcumbsPart[]
+    menu: IMenu[]
 }
 
-export const App: React.FC<IAppProps> = ({ showAuthor = false, wide = false, ...props }) => {
+export const App: React.FC<IAppProps> = ({ showAuthor = false, wide = false, menu, ...props }) => {
     const hideBreadcrumbs = useMobile()
     const router = useRouter()
     const blockStyle = {
@@ -29,7 +30,10 @@ export const App: React.FC<IAppProps> = ({ showAuthor = false, wide = false, ...
     }
 
     return (
-        <ConfigContext.Provider value={config}>
+        <ConfigContext.Provider value={{
+            ...config,
+            menu,
+        }}>
             <Wrapper
                 header={(
                     <header>
