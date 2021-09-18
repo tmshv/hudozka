@@ -4,14 +4,12 @@ import { File } from 'src/components/File'
 import { Share } from 'src/components/Share'
 import { MetaBuilder } from 'src/lib/meta'
 import { Meta } from 'src/components/Meta'
-import { createApiUrl, requestGet, IResponseItems } from 'src/next-lib'
-import { NextPage } from 'next'
-import { IMeta, FileDefinition } from 'src/types'
+import { createApiUrl, requestGet, IResponseItems, apiGet } from 'src/next-lib'
+import { InferGetStaticPropsType, NextPage } from 'next'
+import { FileDefinition } from 'src/types'
+import { createMenu } from '@/remote/factory'
 
-type Props = {
-    data: FileDefinition
-    meta: IMeta
-}
+type Props = InferGetStaticPropsType<typeof getStaticProps>
 
 const Index: NextPage<Props> = props => {
     if (!props.data) {
@@ -23,6 +21,7 @@ const Index: NextPage<Props> = props => {
     return (
         <App
             showAuthor={true}
+            menu={props.menu}
         >
             <Head>
                 <title>{props.data.name}</title>
@@ -47,11 +46,13 @@ export const getStaticProps = async (ctx: any) => {
         .setTitle(data.name)
         .setDescription(data.name)
         .build()
+    const menu = await apiGet(createMenu)('https://hudozka.tmshv.com/menu', [])
 
     return {
         props: {
             data,
             meta,
+            menu,
         }
     }
 }
