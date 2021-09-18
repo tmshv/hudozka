@@ -12,6 +12,15 @@ export function isYoutubeUrl(url: string): boolean {
     return /youtube\.com/.test(url)
 }
 
+export function getCoverImage(media?: StrapiMedia) {
+    return media ? createImageFromMedia(media) : {
+        src: 'https://hudozkacdn.tmshv.com/main_fad9fdf29a.jpg',
+        width: 1920,
+        height: 1858,
+        alt: ''
+    }
+}
+
 export function createEmbed(component: StrapiComponentEmbed): Token {
     if (isYoutubeUrl(component.src)) {
         return {
@@ -99,6 +108,7 @@ export function createPage(res: StrapiPage | StrapiPage[]): IPage {
         return null
     }
 
+    const cover = getCoverImage(item.cover)
     const tags: ITag[] = item.tags.map(tag => ({
         id: tag.id,
         name: tag.name,
@@ -114,11 +124,7 @@ export function createPage(res: StrapiPage | StrapiPage[]): IPage {
 
         data: '',
         date: '',
-        cover: {
-            src: item.cover.url,
-            width: item.cover.width,
-            height: item.cover.height,
-        },
+        cover,
         tokens: [
             {
                 token: 'text',
@@ -148,13 +154,7 @@ function createImageFromMedia(media: StrapiMedia): ImageDefinition {
 }
 
 export function createCardGrid(card: StrapiPageCard): PageCardDto {
-    // const cover = item.coverSrc ?? process.env.APP_CARD_DEFAULT_IMAGE
-    const cover = card.page.cover ? createImageFromMedia(card.page.cover) : {
-        src: 'https://hudozkacdn.tmshv.com/main_fad9fdf29a.jpg',
-        width: 1920,
-        height: 1858,
-        alt: ''
-    }
+    const cover = getCoverImage(card.page.cover)
 
     return {
         id: card.id,
