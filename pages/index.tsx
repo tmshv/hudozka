@@ -4,7 +4,7 @@ import { Meta } from 'src/components/Meta'
 import { PageGrid } from 'src/components/PageGrid'
 import { HudozkaTitle } from 'src/components/HudozkaTitle'
 import { MetaBuilder } from 'src/lib/meta'
-import { NextPage } from 'next'
+import { GetStaticProps, NextPage } from 'next'
 import { IMenu, IMeta, PageCardDto } from 'src/types'
 import { apiGet } from '@/next-lib'
 import { createHomeCards, createMenu } from '@/remote/factory'
@@ -40,7 +40,7 @@ const Index: NextPage<Props> = props => (
     </App>
 )
 
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps<Props> = async () => {
     const url = 'https://hudozka.tmshv.com/home'
     const items = await apiGet(createHomeCards)(url, [])
     const menu = await apiGet(createMenu)('https://hudozka.tmshv.com/menu', [])
