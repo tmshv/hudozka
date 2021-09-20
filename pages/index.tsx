@@ -59,7 +59,8 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
             title,
             meta,
             menu,
-        }
+        },
+        revalidate: 30,
     }
 }
 
