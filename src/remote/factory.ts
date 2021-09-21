@@ -1,4 +1,4 @@
-import { ImageDefinition, IMenu, IPage, ITag, PageCardDto, Token } from "@/types";
+import { ImageDefinition, IMenu, IPage, ITag, PageCardDto, Pic, Token } from "@/types";
 import { asItem } from "./lib";
 import { StrapiComponentEmbed, StrapiComponent, StrapiHome, StrapiPage, StrapiPageCard, StrapiTag, StrapiMedia, StrapiMenu } from "./types";
 import { typograf, markdownToHtml } from 'src/lib/text'
@@ -53,18 +53,23 @@ export async function createPageToken(component: StrapiComponent): Promise<Token
         case 'hudozka.image': {
             const src = component.media.formats?.large?.url ?? component.media.url
             const thumb = component.media.formats?.thumbnail?.url ?? component.media.url
+            const data: Pic = {
+                alt: component.caption,
+                caption: component.caption,
+                src,
+                width: component.media.width,
+                height: component.media.height,
+            }
+
             const blur = await encodeImageToBlurhash(thumb)
+            if (blur) {
+                data.blur = blur
+            }
+
             return {
                 token: 'image',
                 wide: component.wide,
-                data: {
-                    alt: component.caption,
-                    caption: component.caption,
-                    src,
-                    width: component.media.width,
-                    height: component.media.height,
-                    blur,
-                }
+                data,
             }
         }
 
