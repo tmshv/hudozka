@@ -119,7 +119,7 @@ export function createMenu(res: StrapiMenu): IMenu[] {
     }, ...items]
 }
 
-export async function createPage(res: StrapiPage | StrapiPage[]): IPage | null {
+export async function createPage(res: StrapiPage | StrapiPage[]): Promise<IPage | null> {
     const item = asItem(res)
     if (!item) {
         return null
