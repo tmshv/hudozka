@@ -2,6 +2,7 @@ import { ImageDefinition, IMenu, IPage, ITag, PageCardDto, Token } from "@/types
 import { asItem } from "./lib";
 import { StrapiComponentEmbed, StrapiComponent, StrapiHome, StrapiPage, StrapiPageCard, StrapiTag, StrapiMedia, StrapiMenu } from "./types";
 import { typograf, markdownToHtml } from 'src/lib/text'
+import { encodeImageToBlurhash } from "./image";
 
 const md = (text: string) => typograf(markdownToHtml(text))
 
@@ -40,70 +41,70 @@ export function createEmbed(component: StrapiComponentEmbed): Token {
     }
 }
 
-export function createPageTokens(components: StrapiComponent[]): Token[] {
-    return components.map(component => {
-        switch (component.__component) {
-            case 'hudozka.text': {
-                return {
-                    token: 'html',
-                    data: md(component.text),
-                }
+export async function createPageToken(component: StrapiComponent): Promise<Token> {
+    switch (component.__component) {
+        case 'hudozka.text': {
+            return {
+                token: 'html',
+                data: md(component.text),
             }
-
-            case 'hudozka.image': {
-                return {
-                    token: 'image',
-                    wide: component.wide,
-                    data: {
-                        alt: component.caption,
-                        caption: component.caption,
-                        src: component.media.url,
-                        width: component.media.width,
-                        height: component.media.height,
-                    }
-                }
-            }
-
-            case 'hudozka.document': {
-                return {
-                    token: 'file',
-                    data: {
-                        url: component.media.url,
-                        slug: 'jopa',
-                        image_url: component.media.url,
-                        file_url: component.media.url,
-                        title: component.title,
-                        file_size: component.media.size * 1000,
-                        // file_size: component.media.size,
-                        file_format: component.media.mime,
-                    }
-                }
-            }
-
-            case 'hudozka.embed': {
-                return createEmbed(component)
-            }
-
-            case 'hudozka.card-grid': {
-                return {
-                    token: 'grid',
-                    data: {
-                        items: component.items
-                            .filter(Boolean)
-                            .map(createCardGrid)
-                    }
-                }
-            }
-
-            default:
-                return {
-                    token: 'text',
-                    data: `
-                        ${JSON.stringify(component)}
-                    `,
-                }
         }
-    })
+
+        case 'hudozka.image': {
+            const src = component.media.formats?.large?.url ?? component.media.url
+            const thumb = component.media.formats?.thumbnail?.url ?? component.media.url
+            const blur = await encodeImageToBlurhash(thumb)
+            return {
+                token: 'image',
+                wide: component.wide,
+                data: {
+                    alt: component.caption,
+                    caption: component.caption,
+                    src,
+                    width: component.media.width,
+                    height: component.media.height,
+                    blur,
+                }
+            }
+        }
+
+        case 'hudozka.document': {
+            return {
+                token: 'file',
+                data: {
+                    url: component.media.url,
+                    slug: 'jopa',
+                    image_url: component.media.url,
+                    file_url: component.media.url,
+                    title: component.title,
+                    file_size: component.media.size * 1000,
+                    // file_size: component.media.size,
+                    file_format: component.media.mime,
+                }
+            }
+        }
+
+        case 'hudozka.embed': {
+            return createEmbed(component)
+        }
+
+        case 'hudozka.card-grid': {
+            return {
+                token: 'grid',
+                data: {
+                    items: component.items
+                        .filter(Boolean)
+                        .map(createCardGrid)
+                }
+            }
+        }
+
+        default:
+            return {
+                token: 'text',
+                data: ` ${JSON.stringify(component)}`,
+            }
+    }
 }
 
 export function createMenu(res: StrapiMenu): IMenu[] {
@@ -118,7 +119,7 @@ export function createMenu(res: StrapiMenu): IMenu[] {
     }, ...items]
 }
 
-export function createPage(res: StrapiPage | StrapiPage[]): IPage | null {
+export async function createPage(res: StrapiPage | StrapiPage[]): IPage | null {
     const item = asItem(res)
     if (!item) {
         return null
@@ -131,6 +132,8 @@ export function createPage(res: StrapiPage | StrapiPage[]): IPage | null {
         slug: tag.slug,
         href: `/tags/${tag.slug}`,
     }))
+
+    const tokens = await Promise.all(item.content.map(createPageToken))
 
     return {
         title: item.title,
@@ -147,8 +150,7 @@ export function createPage(res: StrapiPage | StrapiPage[]): IPage | null {
                 data: md(`# ${item.title}`),
             },
 
-            ...createPageTokens(item.content)
-                .filter(Boolean),
+            ...tokens.filter(Boolean),
         ],
         tags,
         // breadcrumb?: [],

@@ -28,6 +28,7 @@
         "react-dom": "^17.0.1",
         "react-icons": "^4.2.0",
         "react-use": "^17.2.1",
+        "sharp": "^0.29.1",
         "sitemap": "^1.5.0",
         "typograf": "^6.11.1",
         "use-media": "^1.4.0"
@@ -37,6 +38,7 @@
         "@types/lodash": "^4.14.149",
         "@types/node": "^12.12.34",
         "@types/react": "^16.9.32",
+        "@types/sharp": "^0.29.2",
         "eslint": "^7.1.0",
         "feed": "^4.1.0",
         "should": "^8.2.2",

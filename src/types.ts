@@ -104,6 +104,7 @@ export type Pic = {
     width: number
     height: number
     caption?: string
+    blur?: string
 }
 
 export type TextToken = {

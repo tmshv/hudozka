@@ -36,11 +36,14 @@ export const Picture: React.FC<PictureProps> = memo(({ wide = false, ...props })
     return (
         <figure className={`${s.pic} ${layout} ${w ? s.wide : ''}`}>
             <Image
+                className={s.img}
                 src={props.src}
-                alt={props.alt}
+                // alt={props.alt}
                 width={props.width}
                 height={props.height}
                 layout={'responsive'}
+                blurDataURL={props.blur}
+                placeholder={'blur'}
             />
             {!props.caption ? null : (
                 <figcaption>{props.caption}</figcaption>

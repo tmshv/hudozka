@@ -20,8 +20,8 @@ export async function requestGet<T>(url: string, defaultResponse: T): Promise<T>
 /**
  * This wrapper prevents fetching api request in static export mode and production environment
  * because nextjs call getInitialProps on the client side
- * 
- * @param {*} fn 
+ *
+ * @param {*} fn
  */
 export function wrapInitialProps(fn: (ctx: NextPageContext) => void) {
     return async (ctx: NextPageContext) => {
@@ -37,9 +37,13 @@ export function createApiUrl(path: string) {
     return `https://api.tmshv.com/hudozka${path}`
 }
 
-export function apiGet<I, O>(factory: (response: I) => O) {
+export type FactoryFunction<I, O> =
+    | ((response: I) => O)
+    | ((response: I) => Promise<O>)
+
+export function apiGet<I, O>(factory: FactoryFunction<I, O>) {
     return async (url: string, defaultResponse: O) => {
-        const res = await requestGet<I>(url, null)
+        const res = await requestGet<I>(url, null as any)
         if (!res) {
             return defaultResponse
         }

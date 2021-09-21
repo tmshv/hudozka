@@ -16,8 +16,12 @@
     max-width: 80%;
 }
 
-.pic img {
+.img {
     border-radius: var(--radius);
+
+    /* override nextjs blurred placeholder filter */
+    /* need for border radius */
+    filter: none !important;
 }
 
 .pic figcaption {
