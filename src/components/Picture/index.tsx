@@ -25,14 +25,16 @@ function size(w: number, h: number, tolerance: number) {
 
 export type PictureProps = Pic & {
     style?: React.CSSProperties
+    wide?: boolean
 }
 
-export const Picture: React.FC<PictureProps> = memo(props => {
+export const Picture: React.FC<PictureProps> = memo(({ wide = false, ...props }) => {
     const ss = size(props.width, props.height, 0.95)
     const layout = modifiers.get(ss)
+    const w = ss === 'horizontal' ? wide : false
 
     return (
-        <figure className={`${s.pic} ${layout}`}>
+        <figure className={`${s.pic} ${layout} ${w ? s.wide : ''}`}>
             <Image
                 src={props.src}
                 alt={props.alt}

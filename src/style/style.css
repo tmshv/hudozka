@@ -53,7 +53,7 @@
 
     /* KAZIMIR */
     --kazimir-caption-margin: 0px;
-    --kazimir-image-increase: 50px;
+    --picture-wide-increase: 100px;
 }
 
 * {
@@ -183,7 +183,7 @@ a.invisible {
         --content-margin: var(--size-m);
         --content-wide-margin: var(--size-m) var(--size-m);
 
-        --kazimir-image-increase: 0px;
+        --picture-wide-increase: 0px;
     }
 }
 

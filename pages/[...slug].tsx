@@ -121,6 +121,7 @@ const Index: NextPage<Props> = props => {
                                         width={x.data.width}
                                         height={x.data.height}
                                         caption={x.data.caption}
+                                        wide={x.wide}
                                     />
                                 )
 

@@ -113,6 +113,7 @@ export type TextToken = {
 
 export type ImageToken = {
     token: 'image'
+    wide: boolean
     data: Pic
 }
 

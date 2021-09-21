@@ -1,8 +1,11 @@
 .pic {
-    /* position: relative; */
-    /* width: calc(100% + var(--kazimir-image-increase)); */
-    /* margin-left: calc(-0.5 * var(--kazimir-image-increase)); */
     margin-bottom: var(--size-xl);
+}
+
+.pic.wide {
+    position: relative;
+    width: calc(100% + var(--picture-wide-increase));
+    margin-left: calc(-0.5 * var(--picture-wide-increase));
 }
 
 .pic.vertical {

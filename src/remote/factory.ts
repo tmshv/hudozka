@@ -50,6 +50,7 @@ export function createPageTokens(components: StrapiComponent[]): Token[] {
             case 'hudozka.image': {
                 return {
                     token: 'image',
+                    wide: component.wide,
                     data: {
                         alt: component.caption,
                         caption: component.caption,
