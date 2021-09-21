@@ -1,6 +1,9 @@
 import { ImageDefinition, IMenu, IPage, ITag, PageCardDto, Token } from "@/types";
 import { asItem } from "./lib";
 import { StrapiComponentEmbed, StrapiComponent, StrapiHome, StrapiPage, StrapiPageCard, StrapiTag, StrapiMedia, StrapiMenu } from "./types";
+import { typograf, markdownToHtml } from 'src/lib/text'
+
+const md = (text: string) => typograf(markdownToHtml(text))
 
 export function createPageUrls(pages: StrapiPage[]) {
     return {
@@ -42,8 +45,8 @@ export function createPageTokens(components: StrapiComponent[]): Token[] {
         switch (component.__component) {
             case 'hudozka.text': {
                 return {
-                    token: 'text',
-                    data: component.text,
+                    token: 'html',
+                    data: md(component.text),
                 }
             }
 
@@ -140,8 +143,8 @@ export function createPage(res: StrapiPage | StrapiPage[]): IPage | null {
         cover,
         tokens: [
             {
-                token: 'text',
-                data: `# ${item.title}`,
+                token: 'html',
+                data: md(`# ${item.title}`),
             },
 
             ...createPageTokens(item.content)

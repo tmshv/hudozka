@@ -51,6 +51,8 @@
     --content-wide-width: 100%;
     --content-wide-margin: var(--size-l) var(--size-xl);
 
+    --text-max-width: 800px;
+
     /* KAZIMIR */
     --kazimir-caption-margin: 0px;
     --picture-wide-increase: 100px;

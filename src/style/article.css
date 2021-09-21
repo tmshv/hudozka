@@ -25,11 +25,13 @@
 
 .article li {
     margin-bottom: var(--size-s);
+    max-width: var(--text-max-width);
 }
 
 .article p {
     margin-bottom: var(--size-m);
     line-height: var(--article-line-height);
+    max-width: var(--text-max-width);
 }
 
 .article blockquote {

@@ -2,7 +2,6 @@ import Head from 'next/head'
 import { App } from 'src/components/App'
 import { tail } from 'lodash'
 import { Page } from 'src/components/Page'
-import { Markdown } from 'src/components/Markdown'
 import { Meta } from 'src/components/Meta'
 import { MetaBuilder } from 'src/lib/meta'
 import { apiGet } from '@/next-lib'
@@ -80,14 +79,6 @@ const Index: NextPage<Props> = props => {
                 <article className={'article'}>
                     {props.tokens.map((x, i) => {
                         switch (x.token) {
-                            case 'text':
-                                return (
-                                    <Markdown
-                                        key={i}
-                                        data={x.data}
-                                    />
-                                )
-
                             case 'html':
                                 return (
                                     <Html
