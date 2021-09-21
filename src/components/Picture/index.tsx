@@ -43,7 +43,7 @@ export const Picture: React.FC<PictureProps> = memo(({ wide = false, ...props })
                 layout={'responsive'}
             />
             {!props.caption ? null : (
-                <figcaption>{props.caption} ({props.width}x{props.height})</figcaption>
+                <figcaption>{props.caption}</figcaption>
             )}
         </figure>
     )
