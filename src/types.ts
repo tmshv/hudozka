@@ -98,6 +98,14 @@ export type ImageDefinition = {
     alt?: string
 }
 
+export type Pic = {
+    src: string
+    alt?: string
+    width: number
+    height: number
+    caption?: string
+}
+
 export type TextToken = {
     token: 'text'
     data: string
@@ -105,13 +113,7 @@ export type TextToken = {
 
 export type ImageToken = {
     token: 'image'
-    data: {
-        src: string
-        alt: string
-        caption: string
-        width: number
-        height: number
-    }
+    data: Pic
 }
 
 export type FileTokenData = {

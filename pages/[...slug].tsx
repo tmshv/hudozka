@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import { App } from 'src/components/App'
 import { tail } from 'lodash'
 import { Page } from 'src/components/Page'
@@ -16,6 +15,7 @@ import { paramsToSlug } from '@/remote/lib'
 import { PageGrid } from '@/components/PageGrid'
 import { useRouter } from 'next/router'
 import { FileCard } from '@/components/FIleCard'
+import { Picture } from '@/components/Picture'
 
 async function getUrls() {
     let urls = []
@@ -114,16 +114,14 @@ const Index: NextPage<Props> = props => {
 
                             case 'image':
                                 return (
-                                    <figure key={i} className="kazimir__image">
-                                        <Image
-                                            src={x.data.src}
-                                            alt={x.data.alt}
-                                            width={x.data.width}
-                                            height={x.data.height}
-                                            layout={'responsive'}
-                                        />
-                                        <figcaption>{x.data.caption}</figcaption>
-                                    </figure>
+                                    <Picture
+                                        key={i}
+                                        src={x.data.src}
+                                        alt={x.data.alt}
+                                        width={x.data.width}
+                                        height={x.data.height}
+                                        caption={x.data.caption}
+                                    />
                                 )
 
                             case 'file':
