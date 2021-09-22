@@ -16,3 +16,14 @@
   font-size: var(--font-size-second);
   text-align: right;
 }
+
+/* MOBILE */
+@media (max-width: 31.25em) {
+  .file {
+    grid-template-columns: 75px auto;
+  }
+
+  .info {
+    display: none;
+  }
+}
