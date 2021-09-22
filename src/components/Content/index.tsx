@@ -3,7 +3,6 @@ import { useReducedMotion } from 'src/hooks/useReducedMotion'
 
 export type ContentProps = {
     style?: React.CSSProperties
-    wide: boolean
 }
 
 export const Content: React.FC<ContentProps> = props => {
@@ -13,7 +12,6 @@ export const Content: React.FC<ContentProps> = props => {
         <div
             className={cx('content', {
                 'reduced-motion': motionDisabled,
-                'content_wide': props.wide,
             })}
             style={props.style}
         >

@@ -16,13 +16,12 @@ const Navigation = dynamic(() => import('../Navigation').then(mod => mod.Navigat
 
 export interface IAppProps {
     showAuthor?: boolean
-    wide?: boolean
     contentStyle?: React.CSSProperties
     breadcrumbs?: IBreadcumbsPart[]
     menu: IMenu[]
 }
 
-export const App: React.FC<IAppProps> = ({ showAuthor = false, wide = false, menu, ...props }) => {
+export const App: React.FC<IAppProps> = ({ showAuthor = false, menu, ...props }) => {
     const hideBreadcrumbs = useMobile()
     const router = useRouter()
     const blockStyle = {
@@ -42,7 +41,7 @@ export const App: React.FC<IAppProps> = ({ showAuthor = false, wide = false, men
                         }} />
                         {hideBreadcrumbs || !props.breadcrumbs ? null : (
                             <Block direction={'horizontal'} style={blockStyle}>
-                                <Content wide={wide}>
+                                <Content>
                                     <Breadcrumbs
                                         items={props.breadcrumbs}
                                         path={router.asPath}
@@ -59,7 +58,7 @@ export const App: React.FC<IAppProps> = ({ showAuthor = false, wide = false, men
                 )}
             >
                 <Block direction={'horizontal'} style={blockStyle}>
-                    <Content wide={wide} style={props.contentStyle}>
+                    <Content style={props.contentStyle}>
                         {props.children}
                     </Content>
                 </Block>

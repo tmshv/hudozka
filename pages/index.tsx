@@ -19,7 +19,6 @@ type Props = {
 const Index: NextPage<Props> = props => (
     <App
         showAuthor={true}
-        wide={false}
         menu={props.menu}
     >
         <Head>
