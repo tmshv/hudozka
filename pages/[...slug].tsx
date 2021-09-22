@@ -17,13 +17,13 @@ import { FileCard } from '@/components/FIleCard'
 import { Picture } from '@/components/Picture'
 
 async function getUrls() {
-    let urls = []
+    let urls: string[] = []
 
     const limit = 100
     let start = 0
     while (true) {
         const url = `https://hudozka.tmshv.com/pages?_limit=${limit}&_start=${start}`
-        const res = await apiGet(createPageUrls)(url, null)
+        const res = await apiGet(createPageUrls)(url, () => ({ items: [] }))
         if (!res || res.items.length === 0) {
             break
         }
@@ -74,7 +74,7 @@ const Index: NextPage<Props> = props => {
 
             <Page
                 tags={props.tags}
-                date={props.date ? new Date(props.date) : null}
+                date={props.date ? new Date(props.date) : undefined}
             >
                 <article className={'article'}>
                     {props.tokens.map((x, i) => {
@@ -149,9 +149,9 @@ const Index: NextPage<Props> = props => {
 }
 
 export const getStaticProps: GetStaticProps<Props> = async ctx => {
-    const slug = paramsToSlug(ctx.params.slug)
+    const slug = paramsToSlug(ctx.params?.slug ?? [])
     const url = `https://hudozka.tmshv.com/pages?slug=${slug}`
-    const page = await apiGet(createPage) (url, () => null)
+    const page = await apiGet(createPage)(url, () => null)
     if (!page) {
         return {
             notFound: true,
@@ -163,7 +163,7 @@ export const getStaticProps: GetStaticProps<Props> = async ctx => {
 
     const description = page.description ?? undefined
     const breadcrumbSize = page?.breadcrumb?.length ?? 0
-    const breadcrumb = breadcrumbSize < 2 ? null : page.breadcrumb
+    const breadcrumb = breadcrumbSize < 2 ? [] : page.breadcrumb ?? []
     const meta = (new MetaBuilder())
         .setImage(page.cover)
         .setTitle(page.title)
