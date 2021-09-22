@@ -40,14 +40,16 @@ export function createApiUrl(path: string) {
 export type FactoryFunction<I, O> =
     | ((response: I) => O)
     | ((response: I) => Promise<O>)
+export type ApiDefaultResponse<O> = () => O
 
 export function apiGet<I, O>(factory: FactoryFunction<I, O>) {
-    return async (url: string, defaultResponse: O) => {
-        const res = await requestGet<I>(url, null as any)
-        if (!res) {
-            return defaultResponse
+    return async (url: string, getDefaultResponse: ApiDefaultResponse<O>) => {
+        const res = await fetch(url)
+        if (res.ok) {
+            const data = await res.json() as I
+            return factory(data)
         }
 
-        return factory(res)
+        return getDefaultResponse()
     }
 }
