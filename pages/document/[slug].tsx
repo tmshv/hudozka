@@ -46,7 +46,7 @@ export const getStaticProps = async (ctx: any) => {
         .setTitle(data.name)
         .setDescription(data.name)
         .build()
-    const menu = await apiGet(createMenu)('https://hudozka.tmshv.com/menu', [])
+    const menu = await apiGet(createMenu)('https://hudozka.tmshv.com/menu', () => [])
 
     return {
         props: {
