@@ -25,6 +25,7 @@
 
 .article li {
     margin-bottom: var(--size-s);
+    line-height: var(--article-line-height);
     max-width: var(--text-max-width);
 }
 
