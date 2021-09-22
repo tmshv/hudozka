@@ -1,3 +1,5 @@
+import s from './wrapper.module.css'
+
 import cx from 'classnames'
 
 export type WrapperProps = {
@@ -8,22 +10,10 @@ export type WrapperProps = {
 }
 
 export const Wrapper: React.FC<WrapperProps> = props => (
-    <div className={cx('wrapper', 'theme-default')} style={props.style}>
-        <style jsx>{`
-            .wrapper {
-                display: flex;
-                flex-direction: column;
-                min-height: 100vh;
-                background-color: var(--color-back-main);
-
-                font-family: var(--text-font);
-                font-size: var(--font-size-default);
-            }
-        `}</style>
-
+    <div className={cx(s.container, 'theme-default')} style={props.style}>
         {props.header}
 
-        <main style={props.mainStyle}>
+        <main className={s.main} style={props.mainStyle}>
             {props.children}
         </main>
 
