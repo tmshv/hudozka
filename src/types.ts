@@ -14,14 +14,14 @@ export type PageCardDto = {
     title: string
     featured: boolean
     date: string | null
-    cover: ImageDefinition
+    cover: Pic
 }
 
 export type FileDefinition = {
     url: string
     slug: string
     name: string
-    cover?: ImageDefinition
+    cover?: Pic
     file: {
         name: string
         size: string
@@ -36,7 +36,7 @@ export interface IPage {
     url: string
     data: string
     date: string
-    cover: ImageDefinition
+    cover: Pic
     description: string
     tokens: any[]
     tags: ITag[]
@@ -89,13 +89,7 @@ export interface ITag {
     name: string
     slug: string
     href: string
-}
-
-export type ImageDefinition = {
-    width: number
-    height: number
-    src: string
-    alt?: string
+    count: number
 }
 
 export type Pic = {

@@ -1,4 +1,4 @@
-import { ImageDefinition, IMenu, IPage, ITag, PageCardDto, Pic, Token } from "@/types";
+import { IMenu, IPage, ITag, PageCardDto, Pic, Token } from "@/types";
 import { asItem } from "./lib";
 import { StrapiComponentEmbed, StrapiComponent, StrapiHome, StrapiPage, StrapiPageCard, StrapiTag, StrapiMedia, StrapiMenu } from "./types";
 import { typograf, markdownToHtml } from 'src/lib/text'
@@ -14,15 +14,6 @@ export function createPageUrls(pages: StrapiPage[]) {
 
 export function isYoutubeUrl(url: string): boolean {
     return /youtube\.com/.test(url)
-}
-
-export function getCoverImage(media?: StrapiMedia) {
-    return media ? createImageFromMedia(media) : {
-        src: 'https://hudozkacdn.tmshv.com/main_fad9fdf29a.jpg',
-        width: 1920,
-        height: 1858,
-        alt: ''
-    }
 }
 
 export function createEmbed(component: StrapiComponentEmbed): Token {
@@ -51,20 +42,10 @@ export async function createPageToken(component: StrapiComponent): Promise<Token
         }
 
         case 'hudozka.image': {
-            const src = component.media.formats?.large?.url ?? component.media.url
-            const thumb = component.media.formats?.thumbnail?.url ?? component.media.url
-            const data: Pic = {
-                alt: component.caption,
+            const data = await createPicFromMedia(component.media, {
+                alternativeText: component.caption,
                 caption: component.caption,
-                src,
-                width: component.media.width,
-                height: component.media.height,
-            }
-
-            const blur = await encodeImageToBlurhash(thumb)
-            if (blur) {
-                data.blur = blur
-            }
+            })
 
             return {
                 token: 'image',
@@ -94,12 +75,14 @@ export async function createPageToken(component: StrapiComponent): Promise<Token
         }
 
         case 'hudozka.card-grid': {
+            const items = await Promise.all(component.items
+                .filter(Boolean)
+                .map(createCardGrid)
+            )
             return {
                 token: 'grid',
                 data: {
-                    items: component.items
-                        .filter(Boolean)
-                        .map(createCardGrid)
+                    items,
                 }
             }
         }
@@ -130,7 +113,7 @@ export async function createPage(res: StrapiPage | StrapiPage[]): Promise<IPage 
         return null
     }
 
-    const cover = getCoverImage(item.cover)
+    const cover = await getCoverImage(item.cover)
     const tags: ITag[] = item.tags.map(tag => ({
         id: tag.id,
         name: tag.name,
@@ -167,17 +150,50 @@ function isCardFeatured(card: StrapiPageCard): boolean {
     return card.layout === 'big' || card.layout === 'medium'
 }
 
-function createImageFromMedia(media: StrapiMedia): ImageDefinition {
+export async function getCoverImage(media?: StrapiMedia): Promise<Pic> {
+    if (media) {
+        return createPicFromMedia(media)
+    }
+
     return {
-        src: media.url,
-        width: media.width,
-        height: media.height,
-        alt: media.alternativeText ?? '',
+        src: 'https://hudozkacdn.tmshv.com/main_fad9fdf29a.jpg',
+        width: 1920,
+        height: 1858,
+        // alt: '',
+        // caption: '',
+        // blur: '',
     }
 }
 
-export function createCardGrid(card: StrapiPageCard): PageCardDto {
-    const cover = getCoverImage(card.page.cover)
+async function createPicFromMedia(media: StrapiMedia, overrides?: Partial<StrapiMedia>): Promise<Pic> {
+    const src = media.formats?.large?.url ?? media.url
+    const pic: Pic = {
+        src,
+        width: media.width,
+        height: media.height,
+    }
+
+    const alt = overrides?.alternativeText ?? media.alternativeText ?? undefined
+    if (alt) {
+        pic.alt = alt
+    }
+
+    const caption = overrides?.caption ?? media.caption ?? undefined
+    if (caption) {
+        pic.caption = caption
+    }
+
+    const thumb = media.formats?.thumbnail?.url ?? media.url
+    const blur = await encodeImageToBlurhash(thumb)
+    if (blur) {
+        pic.blur = blur
+    }
+
+    return pic
+}
+
+export async function createCardGrid(card: StrapiPageCard): Promise<PageCardDto> {
+    const cover = await getCoverImage(card.page.cover)
 
     return {
         id: card.id,
@@ -189,8 +205,10 @@ export function createCardGrid(card: StrapiPageCard): PageCardDto {
     }
 }
 
-export function createHomeCards(data: StrapiHome): PageCardDto[] {
-    return data.cards
+export async function createHomeCards(data: StrapiHome): Promise<PageCardDto[]> {
+    const items = await Promise.all(data.cards
         .map(createCardGrid)
+    )
+    return items
         .filter(x => !!x.url)
 }
