@@ -119,6 +119,7 @@ export async function createPage(res: StrapiPage | StrapiPage[]): Promise<IPage 
         name: tag.name,
         slug: tag.slug,
         href: `/tags/${tag.slug}`,
+        count: 0,
     }))
 
     const tokens = await Promise.all(item.content.map(createPageToken))
