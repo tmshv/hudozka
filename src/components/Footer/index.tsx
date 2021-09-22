@@ -1,3 +1,6 @@
+import s from './footer.module.css'
+
+import cx from 'classnames'
 import { Copyright } from '../Copyright'
 import { Author } from './Author'
 import { Block } from '../Block'
@@ -9,9 +12,9 @@ export interface IFooterProps {
 }
 
 export const Footer: React.FC<IFooterProps> = props => (
-    <footer className={'opposite'}>
+    <footer className={cx(s.footer, 'opposite')}>
         <Block direction={'vertical'} style={{
-            marginBottom: 'var(--size-m)',
+            marginBottom: 'var(--size-l)',
         }}>
             <Contacts />
         </Block>

@@ -77,13 +77,6 @@ body {
     font-family: var(--text-font);
 }
 
-footer {
-    padding: var(--size-m);
-    color: var(--color-text-opposite);
-    background-color: var(--color-back-opposite);
-    font-size: var(--font-size-second);
-}
-
 h1 {
     font-family: var(--title-font);
     text-align: center;
