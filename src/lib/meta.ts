@@ -1,4 +1,4 @@
-import { IMeta, ImageDefinition } from 'src/types'
+import { IMeta, Pic } from 'src/types'
 
 export function meta(props: Partial<IMeta>): IMeta {
     const path = props.url || '/'
@@ -25,7 +25,7 @@ export function meta(props: Partial<IMeta>): IMeta {
 }
 
 export class MetaBuilder {
-    private image: ImageDefinition
+    private image: Pic
     private title: string
     private description: string
     private data: Partial<IMeta>
@@ -45,7 +45,7 @@ export class MetaBuilder {
         return this
     }
 
-    setImage(param: ImageDefinition) {
+    setImage(param: Pic) {
         this.image = param
         return this
     }

@@ -151,14 +151,15 @@ const Index: NextPage<Props> = props => {
 export const getStaticProps: GetStaticProps<Props> = async ctx => {
     const slug = paramsToSlug(ctx.params.slug)
     const url = `https://hudozka.tmshv.com/pages?slug=${slug}`
-    const page = await apiGet(createPage)(url, null)
+    const page = await apiGet(createPage) (url, () => null)
     if (!page) {
         return {
             notFound: true,
         }
     }
 
-    const menu = await apiGet(createMenu)('https://hudozka.tmshv.com/menu', [])
+    const menu = await apiGet(createMenu)
+        ('https://hudozka.tmshv.com/menu', () => [])
 
     const description = page.description ?? undefined
     const breadcrumbSize = page?.breadcrumb?.length ?? 0

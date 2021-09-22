@@ -41,9 +41,10 @@ const Index: NextPage<Props> = props => (
 )
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-    const url = 'https://hudozka.tmshv.com/home'
-    const items = await apiGet(createHomeCards)(url, [])
-    const menu = await apiGet(createMenu)('https://hudozka.tmshv.com/menu', [])
+    const items = await apiGet(createHomeCards)
+        ('https://hudozka.tmshv.com/home', async () => [])
+    const menu = await apiGet(createMenu)
+        ('https://hudozka.tmshv.com/menu', () => [])
 
     const title = 'Шлиссельбургская ДХШ'
     const meta = (new MetaBuilder())
