@@ -38,7 +38,7 @@ export const Picture: React.FC<PictureProps> = memo(({ wide = false, ...props })
             <Image
                 className={s.img}
                 src={props.src}
-                // alt={props.alt}
+                alt={props.alt}
                 width={props.width}
                 height={props.height}
                 layout={'responsive'}
