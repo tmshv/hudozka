@@ -1,8 +1,0 @@
-@font-face {
-    font-family: "Shadow";
-    font-display: swap;
-	src: url("Shadow-Regular.eot");
-	src: url("Shadow-Regular.woff") format("woff"),
-	url("Shadow-Regular.otf") format("opentype"),
-	url("Shadow-Regular.svg") format("svg");
-}
