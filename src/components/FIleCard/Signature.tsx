@@ -1,3 +1,4 @@
+import 'rc-tooltip/assets/bootstrap_white.css'
 import s from './signature.module.css'
 
 import { Sign } from '@/types'
