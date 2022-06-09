@@ -6,7 +6,6 @@ import { Author } from './Author'
 import { Block } from '../Block'
 import { Spacer } from '../Spacer'
 import { Contacts } from '../Contacts'
-import { Gosuslugi } from '../Gosuslugi'
 
 export interface IFooterProps {
     showAuthor: boolean
@@ -20,14 +19,7 @@ export const Footer: React.FC<IFooterProps> = props => (
             <Contacts />
         </Block>
 
-        <div style={{
-            backgroundColor: 'white',
-            padding: 10,
-            borderRadius: 10,
-            marginBottom: 10,
-        }}>
-            <Gosuslugi/>
-        </div>
+        {props.children}
 
         <Block direction={'horizontal'}>
             <Copyright />

@@ -7,6 +7,38 @@ export const getCode = () => `
 <style>
 #js-show-iframe-wrapper{background:var(--pos-banner-fluid-23__background)}#js-show-iframe-wrapper .pos-banner-fluid .pos-banner-btn_2{width:100%;min-height:52px;background:#fff;color:#0d4cd3;font-size:16px;font-family:LatoWeb,sans-serif;font-weight:400;padding:0;line-height:1.2;border:2px solid #0d4cd3}#js-show-iframe-wrapper .pos-banner-fluid .pos-banner-btn_2:active,#js-show-iframe-wrapper .pos-banner-fluid .pos-banner-btn_2:focus,#js-show-iframe-wrapper .pos-banner-fluid .pos-banner-btn_2:hover{background:#e4ecfd}#js-show-iframe-wrapper .bf-23{position:relative;display:grid;grid-template-columns:var(--pos-banner-fluid-23__grid-template-columns);grid-template-rows:var(--pos-banner-fluid-23__grid-template-rows);width:100%;max-width:var(--pos-banner-fluid-23__max-width);box-sizing:border-box;grid-auto-flow:row dense}#js-show-iframe-wrapper .bf-23__decor{background:var(--pos-banner-fluid-23__bg-url) var(--pos-banner-fluid-23__bg-url-position) no-repeat;background-size:cover;background-color:#f8efec;position:relative}#js-show-iframe-wrapper .bf-23__content{display:flex;flex-direction:column;padding:var(--pos-banner-fluid-23__content-padding);grid-row:var(--pos-banner-fluid-23__content-grid-row);justify-content:center}#js-show-iframe-wrapper .bf-23__text{margin:var(--pos-banner-fluid-23__text-margin);font-size:var(--pos-banner-fluid-23__text-font-size);line-height:1.4;font-family:LatoWeb,sans-serif;font-weight:700;color:#0b1f33}#js-show-iframe-wrapper .bf-23__bottom-wrap{display:flex;flex-direction:row;align-items:center}#js-show-iframe-wrapper .bf-23__logo-wrap{position:absolute;top:var(--pos-banner-fluid-23__logo-wrap-top);left:var(--pos-banner-fluid-23__logo-wrap-right);padding:var(--pos-banner-fluid-23__logo-wrap-padding);background:#fff;border-radius:0 0 8px 0}#js-show-iframe-wrapper .bf-23__logo{width:var(--pos-banner-fluid-23__logo-width);margin-left:1px}#js-show-iframe-wrapper .bf-23__slogan{font-family:LatoWeb,sans-serif;font-weight:700;font-size:var(--pos-banner-fluid-23__slogan-font-size);line-height:1.2;color:#005ca9}#js-show-iframe-wrapper .bf-23__btn-wrap{width:100%;max-width:var(--pos-banner-fluid-23__button-wrap-max-width)}
 </style >
+<div id='js-show-iframe-wrapper'>
+  <div class='pos-banner-fluid bf-23'>
+
+    <div class='bf-23__decor'>
+      <div class='bf-23__logo-wrap'>
+        <img
+          class='bf-23__logo'
+          src='https://pos.gosuslugi.ru/bin/banner-fluid/gosuslugi-logo-blue.svg'
+          alt='Госуслуги'
+        />
+        <div class='bf-23__slogan'>Решаем вместе</div >
+      </div >
+    </div >
+    <div class='bf-23__content'>
+      <div class='bf-23__text'>
+        Есть предложения по организации учебного процесса или знаете, как сделать школу лучше?
+      </div >
+
+      <div class='bf-23__bottom-wrap'>
+        <div class='bf-23__btn-wrap'>
+          <!-- pos-banner-btn_2 не удалять; другие классы не добавлять -->
+          <button
+            class='pos-banner-btn_2'
+            type='button'
+          >Написать о проблеме
+          </button >
+        </div >
+      </div>
+    </div >
+
+  </div >
+</div >
 <script>
 
 (function(){

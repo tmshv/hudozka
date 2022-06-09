@@ -9,8 +9,10 @@ import { Breadcrumbs } from '../Breadcrumbs'
 import { IBreadcumbsPart, IMenu } from 'src/types'
 import { useRouter } from 'next/router'
 import { useMobile } from 'src/hooks/useMobile'
+import { Gosuslugi } from '../Gosuslugi'
+import { INavigationProps } from '@/components/Navigation'
 
-const Navigation = dynamic(() => import('../Navigation').then(mod => mod.Navigation), {
+const Navigation = dynamic<INavigationProps>(() => import('../Navigation').then(mod => mod.Navigation), {
     ssr: false,
 })
 
@@ -54,7 +56,16 @@ export const App: React.FC<IAppProps> = ({ showAuthor = false, menu, ...props })
                 footer={(
                     <Footer
                         showAuthor={showAuthor}
-                    />
+                    >
+                        <div style={{
+                            backgroundColor: 'white',
+                            padding: 10,
+                            borderRadius: 10,
+                            marginBottom: 30,
+                        }}>
+                            <Gosuslugi />
+                        </div>
+                    </Footer>
                 )}
             >
                 <Block direction={'horizontal'} style={blockStyle}>
