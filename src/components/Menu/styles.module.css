@@ -8,16 +8,11 @@
     font-size: var(--font-size-second);
     list-style: none;
 
-    padding: var(--size-s);
-}
-
-/* MENU LAYOUT */
-
-.desktop {
+    /* NOT VERTICAL */
     flex-direction: row;
 }
 
-.mobile {
+.vertical {
     flex-direction: column;
 }
 
@@ -27,7 +22,7 @@
     user-select: none;
     background-color: var(--color-back-main);
     border-radius: var(--size-s);
-    transition: box-shadow 200ms ease-in;
+    transition: box-shadow 200ms ease-in, background-color 200ms ease-in;
     padding: var(--size-s) var(--size-s);
 }
 
@@ -47,4 +42,12 @@
 .menuItem a {
     text-decoration: none;
     color: var(--color-text);
+}
+
+/* DARK THEME */
+@media (prefers-color-scheme: dark) {
+    .menuItem.active:hover {
+        box-shadow: none;
+        background-color: var(--color-back);
+    }
 }

@@ -6,25 +6,21 @@
 
     text-align: center;
 
-    border-radius: 100px;
+    border-radius: var(--size-s);
     border: 1px solid var(--color-shadow);
 
     color: var(--color-text);
     background-color: var(--color-back);
-
-    transition: box-shadow 150ms;
+    box-shadow: none;
+    transition: box-shadow 200ms ease-in, background-color 200ms ease-in;
 
     outline: none;
     cursor: pointer;
 }
 
 .button:hover {
-    margin: 1px;
-    /* margin-left: 1px;
-    margin-right: 1px; */
-
-    border: none;
-    box-shadow: var(--shadow-active);
+    border-color: rgba(0, 0, 0, 0);
+    box-shadow: var(--shadow);
 }
 
 /* MODIFICATORS */
@@ -52,5 +48,13 @@
 }
 
 .themeIcon {
+    border-color: rgba(0, 0, 0, 0);
     padding: var(--size-xs) var(--size-xs);
+}
+
+/* DARK THEME */
+@media (prefers-color-scheme: dark) {
+    .button:hover {
+        background-color: var(--color-back-active);
+    }
 }

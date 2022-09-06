@@ -8,18 +8,16 @@ import { ActiveLink } from "./ActiveLink"
 
 let cx = classnames.bind(s)
 
-export type MenuLayout = "desktop" | "mobile"
-
 export type MenuProps = {
-    layout: MenuLayout
+    vertical?: boolean
     items: IMenu[]
 }
 
-export const Menu: React.FC<MenuProps> = ({ layout, items }) => {
+export const Menu: React.FC<MenuProps> = ({ vertical = false, items }) => {
     const router = useRouter()
     return (
         <NavigationMenu.Root>
-            <NavigationMenu.List className={cx(s.menu, layout)}>
+            <NavigationMenu.List className={cx(s.menu, { vertical })}>
                 {
                     items.map(item => {
                         const current = router.asPath === item.href

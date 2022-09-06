@@ -1,7 +1,5 @@
-import s from "./styles.module.css"
-
-import cx from "classnames"
 import { Button } from "@/ui/Button"
+import { HamburgerMenuIcon, Cross1Icon } from "@radix-ui/react-icons"
 
 export interface IMenuToggleProps {
     style?: React.CSSProperties
@@ -16,12 +14,11 @@ export const MenuToggle: React.FC<IMenuToggleProps> = props => {
             style={props.style}
             theme={"icon"}
         >
-            <div
-                className={cx(s.toggle, {
-                    [s.open]: props.open,
-                    [s.close]: !props.open,
-                })}
-            />
+            {props.open ? (
+                <Cross1Icon width={24} height={24} />
+            ) : (
+                <HamburgerMenuIcon width={24} height={24} />
+            )}
         </Button>
     )
 }

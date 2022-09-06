@@ -5,6 +5,10 @@
     justify-content: flex-start;
 }
 
+.block.align {
+    align-items: center;
+}
+
 .horizontal {
     flex-direction: row;
 }
