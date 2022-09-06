@@ -1,5 +1,6 @@
+export type InsertBetweenFunction<T> = (i: number) => T
 
-export function insertBetween<T, I = T>(items: T[], fn: (i: number) => I): Array<T | I> {
+export function insertBetween<T, I = T>(items: T[], fn: InsertBetweenFunction<I>): Array<T | I> {
     return items.reduce<Array<T | I>>((acc, x, i) => {
         acc.push(x)
 
