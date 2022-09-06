@@ -13,3 +13,5 @@ export const HudozkaTitle: React.FC<HudozkaTitleProps> = memo(props => (
         <span className={s.suffix}>детская художественная школа</span>
     </h1>
 ))
+
+HudozkaTitle.displayName = 'HudozkaTitle'

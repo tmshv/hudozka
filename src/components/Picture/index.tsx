@@ -51,3 +51,5 @@ export const Picture: React.FC<PictureProps> = memo(({ wide = false, ...props })
         </figure>
     )
 })
+
+Picture.displayName = 'Picture'
