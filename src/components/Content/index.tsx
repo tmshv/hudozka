@@ -3,6 +3,7 @@ import { useReducedMotion } from "src/hooks/useReducedMotion"
 
 export type ContentProps = {
     style?: React.CSSProperties
+    children?: React.ReactNode
 }
 
 export const Content: React.FC<ContentProps> = props => {

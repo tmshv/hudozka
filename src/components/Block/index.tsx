@@ -7,6 +7,7 @@ export type BlockProps = {
     as?: keyof HTMLElementTagNameMap
     style?: React.CSSProperties
     direction: "horizontal" | "vertical"
+    children?: React.ReactNode
 }
 
 export const Block: React.FC<BlockProps> = ({ as = "div", style, direction, ...props }) => {

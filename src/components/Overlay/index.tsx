@@ -5,6 +5,7 @@ import { useReducedMotion } from "../../hooks/useReducedMotion"
 import { useLockBodyScroll } from "react-use"
 
 export type OverlayProps = {
+    children?: React.ReactNode
     show: boolean
     onClickOverlay: () => void
     style?: React.CSSProperties

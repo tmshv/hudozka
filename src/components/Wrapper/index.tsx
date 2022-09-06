@@ -7,6 +7,7 @@ export type WrapperProps = {
     footer: React.ReactNode
     style?: React.CSSProperties
     mainStyle?: React.CSSProperties
+    children?: React.ReactNode
 }
 
 export const Wrapper: React.FC<WrapperProps> = props => (

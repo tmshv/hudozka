@@ -1,8 +1,9 @@
 import Link from "next/link"
 
-export interface ActiveLinkProps {
+export type ActiveLinkProps = {
     href?: string
     activeStyle?: React.CSSProperties
+    children?: React.ReactNode
 }
 
 export const ActiveLink: React.FC<ActiveLinkProps> = props => props.href

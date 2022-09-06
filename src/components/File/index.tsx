@@ -8,7 +8,7 @@ export type FileProps = FileDefinition & {
     style?: React.CSSProperties
 }
 
-export const File: React.SFC<FileProps> = props => (
+export const File: React.FC<FileProps> = props => (
     <div className={s.file} style={props.style}>
         {!props.cover?.src ? null : (
             <div className={s.image}>

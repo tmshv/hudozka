@@ -10,20 +10,21 @@ import { IBreadcumbsPart, IMenu } from "src/types"
 import { useRouter } from "next/router"
 import { useMobile } from "src/hooks/useMobile"
 import { Gosuslugi } from "../Gosuslugi"
-import { INavigationProps } from "@/components/Navigation"
+import { NavigationProps } from "@/components/Navigation"
 
-const Navigation = dynamic<INavigationProps>(() => import("../Navigation").then(mod => mod.Navigation), {
+const Navigation = dynamic<NavigationProps>(() => import("../Navigation").then(mod => mod.Navigation), {
     ssr: false,
 })
 
-export interface IAppProps {
+export type AppProps = {
     showAuthor?: boolean
     contentStyle?: React.CSSProperties
     breadcrumbs?: IBreadcumbsPart[]
     menu: IMenu[]
+    children?: React.ReactNode
 }
 
-export const App: React.FC<IAppProps> = ({ showAuthor = false, menu, ...props }) => {
+export const App: React.FC<AppProps> = ({ showAuthor = false, menu, ...props }) => {
     const hideBreadcrumbs = useMobile()
     const router = useRouter()
     const blockStyle = {

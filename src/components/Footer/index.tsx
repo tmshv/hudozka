@@ -7,11 +7,12 @@ import { Block } from "../Block"
 import { Spacer } from "../Spacer"
 import { Contacts } from "../Contacts"
 
-export interface IFooterProps {
+export type FooterProps = {
     showAuthor: boolean
+    children?: React.ReactNode
 }
 
-export const Footer: React.FC<IFooterProps> = props => (
+export const Footer: React.FC<FooterProps> = props => (
     <footer className={cx(s.footer, "opposite")}>
         <Block direction={"vertical"} style={{
             marginBottom: "var(--size-l)",

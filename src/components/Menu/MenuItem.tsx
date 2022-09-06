@@ -6,6 +6,7 @@ import { isPartOfPath } from "src/lib/url"
 
 export type MenuItemProps = {
     href: string
+    children?: React.ReactNode
 }
 
 export const MenuItem: React.FC<MenuItemProps> = props => {

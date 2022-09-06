@@ -8,11 +8,11 @@ import { Block } from "../Block"
 import { Spacer } from "../Spacer"
 import { useToggle } from "react-use"
 
-export interface INavigationProps {
+export type NavigationProps = {
     style?: React.CSSProperties
 }
 
-export const Navigation: React.FC<INavigationProps> = props => {
+export const Navigation: React.FC<NavigationProps> = props => {
     const collapseMenu = useMobile()
     const [open, toggleOpen] = useToggle(false)
     const { menu } = useContext(ConfigContext)

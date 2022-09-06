@@ -12,6 +12,7 @@ const directionClass = {
 export type Direction = 'horizontal' | 'vertical'
 
 export type TagProps = {
+    children?: React.ReactNode
     href: string
     direction: Direction
 }
