@@ -53,11 +53,18 @@ export class MetaBuilder {
     build() {
         const image = this.buildImage()
 
+        const params: Record<string, string> = {}
+        if (this.title) {
+            params.title = this.title
+        }
+        if (this.description) {
+            params.description = this.description
+        }
+
         return meta({
             ...this.data,
             ...image,
-            title: this.title,
-            description: this.description,
+            ...params,
         })
     }
 
