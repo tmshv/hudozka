@@ -1,5 +1,7 @@
 import s from './error.module.css'
 
+import Link from 'next/link'
+
 export const NotFound: React.FC = () => (
     <section className={s.section}>
         <div>
@@ -7,6 +9,10 @@ export const NotFound: React.FC = () => (
             <img src="/static/graphics/skull.jpg" />
         </div>
 
-        <div><a href="/">На главную</a></div>
+        <div>
+            <Link href={'/'}>
+                <a>На главную</a>
+            </Link>
+        </div>
     </section>
 )
