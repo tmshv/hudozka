@@ -3,35 +3,35 @@ import s from "./footer.module.css"
 import cx from "classnames"
 import { Copyright } from "../Copyright"
 import { Author } from "./Author"
-import { Block } from "../Block"
 import { Spacer } from "../Spacer"
 import { Contacts } from "../Contacts"
+import { Box } from "@/ui/Box"
 
 export type FooterProps = {
     showAuthor: boolean
     children?: React.ReactNode
 }
 
-export const Footer: React.FC<FooterProps> = props => (
+export const Footer: React.FC<FooterProps> = ({ showAuthor, children }) => (
     <footer className={cx(s.footer, "opposite")}>
-        <Block direction={"vertical"} style={{
+        <Box vertical align={false} style={{
             marginBottom: "var(--size-l)",
         }}>
             <Contacts />
-        </Block>
+        </Box>
 
-        {props.children}
+        {children}
 
-        <Block direction={"horizontal"}>
+        <Box>
             <Copyright />
 
-            {!props.showAuthor ? null : (
+            {!showAuthor ? null : (
                 <>
                     <Spacer as={"span"} />
                     <Author />
                 </>
             )}
-        </Block>
+        </Box>
     </footer >
 )
 
