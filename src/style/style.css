@@ -136,10 +136,6 @@ a.invisible {
     border-bottom-color: var(--color-text-opposite);
 }
 
-.noscroll {
-    overflow: hidden;
-}
-
 
 /* RC TOOLTIP OVERRIDE */
 .hudozka.rc-tooltip {

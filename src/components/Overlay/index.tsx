@@ -2,30 +2,20 @@ import s from "./styles.module.css"
 
 import { Transition } from "./Transition"
 import { useReducedMotion } from "../../hooks/useReducedMotion"
-import { useCallback, useEffect } from "react"
+import { useLockBodyScroll } from "react-use"
 
-export interface IOverlayProps {
+export type OverlayProps = {
     show: boolean
     onClickOverlay: () => void
     style?: React.CSSProperties
+    duration: number
 }
 
-export const Overlay: React.FC<IOverlayProps> = props => {
+export const Overlay: React.FC<OverlayProps> = props => {
     const motionDisabled = useReducedMotion()
-    const onClick = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
-        if (event.target === event.currentTarget) {
-            props.onClickOverlay()
-        }
-    }, [props.onClickOverlay])
-    const duration = motionDisabled ? 0 : 250
+    const duration = motionDisabled ? 0 : props.duration
 
-    useEffect(() => {
-        if (props.show) {
-            document.body.classList.add("noscroll")
-        } else {
-            document.body.classList.remove("noscroll")
-        }
-    }, [props.show])
+    useLockBodyScroll(props.show)
 
     return (
         <Transition
@@ -33,7 +23,11 @@ export const Overlay: React.FC<IOverlayProps> = props => {
             show={props.show}
         >
             <div
-                onClick={onClick}
+                onClick={(event) => {
+                    if (event.target === event.currentTarget) {
+                        props.onClickOverlay()
+                    }
+                }}
                 className={s.overlay}
                 style={props.style}
             >
