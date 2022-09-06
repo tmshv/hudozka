@@ -22,7 +22,8 @@ export const Navigation: React.FC<NavigationProps> = props => {
             <Overlay
                 show={open}
                 onClickOverlay={toggleOpen}
-                duration={250}
+                // duration={250}
+                duration={0}
             >
                 <Box style={{
                     padding: "var(--size-s)",
