@@ -38,13 +38,6 @@ export default class MyApp extends App {
                         href="/feed.xml"
                     />
 
-                    {/* Google Fonts */}
-                    <link
-                        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;900&display=swap"
-                        rel="preload"
-                        as="style"
-                    />
-
                     <YMetrika account={24027460} />
                     <GAnalytics account={'UA-60209057-1'} />
                 </Head>
