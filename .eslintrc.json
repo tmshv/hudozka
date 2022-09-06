@@ -15,6 +15,7 @@
       "warn",
       4
     ],
+    "eol-last": ["error", "always"],
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error"
   }
