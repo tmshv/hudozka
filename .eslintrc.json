@@ -11,7 +11,7 @@
       "always-multiline"
     ],
     "quotes": [
-      "error",
+      "warn",
       "double"
     ],
     "no-tabs": "off",
