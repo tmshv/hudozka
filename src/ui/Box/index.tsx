@@ -10,6 +10,7 @@ export type BoxProps = {
     children?: React.ReactNode
     style?: React.CSSProperties
     wrap?: boolean
+    align?: boolean
     vertical?: boolean
     center?: boolean
 }
@@ -19,11 +20,12 @@ export const Box: React.FC<BoxProps> = ({
     wrap = false,
     vertical = false,
     center = false,
+    align = true,
     style,
     ...props
 }) => {
     const newProps = {
-        className: cx(s.box, { vertical, center, wrap }),
+        className: cx(s.box, { vertical, align, center, wrap }),
         style,
     }
 

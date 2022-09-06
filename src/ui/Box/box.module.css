@@ -1,11 +1,14 @@
 .box {
     display: flex;
-    /* align-items: baseline; */
-    align-items: center;
+    align-items: baseline;
 
     justify-content: flex-start;
     flex-wrap: nowrap;
     flex-direction: row;
+}
+
+.box.align {
+    align-items: center;
 }
 
 .box.wrap {
@@ -13,6 +16,7 @@
 }
 
 .box.center {
+    align-items: center;
     justify-content: center;
 }
 
