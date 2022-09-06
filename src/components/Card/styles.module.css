@@ -23,6 +23,8 @@
     display: block;
     height: 100%;
     position: relative;
+    color: var(--color-text);
+    text-decoration: none;
 }
 
 .image {
