@@ -1,24 +1,22 @@
-import { Button } from "@/ui/Button"
+import { Button, ButtonProps } from "@/ui/Button"
 import { HamburgerMenuIcon, Cross1Icon } from "@radix-ui/react-icons"
 
-export interface IMenuToggleProps {
-    style?: React.CSSProperties
+export type MenuToggleProps = Omit<ButtonProps, "theme"> & {
     open: boolean
-    onClick: () => void
 }
 
-export const MenuToggle: React.FC<IMenuToggleProps> = props => {
+export const MenuToggle: React.FC<MenuToggleProps> = ({ open, ...props }) => {
+    const icon = open ? (
+        <Cross1Icon width={24} height={24} />
+    ) : (
+        <HamburgerMenuIcon width={24} height={24} />
+    )
     return (
         <Button
-            onClick={props.onClick}
-            style={props.style}
+            {...props}
             theme={"icon"}
         >
-            {props.open ? (
-                <Cross1Icon width={24} height={24} />
-            ) : (
-                <HamburgerMenuIcon width={24} height={24} />
-            )}
+            {icon}
         </Button>
     )
 }
