@@ -1,13 +1,13 @@
-import Head from 'next/head'
-import { App } from 'src/components/App'
-import { Meta } from 'src/components/Meta'
-import { PageGrid } from 'src/components/PageGrid'
-import { HudozkaTitle } from 'src/components/HudozkaTitle'
-import { MetaBuilder } from 'src/lib/meta'
-import { GetStaticProps, NextPage } from 'next'
-import { IMenu, IMeta, PageCardDto } from 'src/types'
-import { apiGet } from '@/next-lib'
-import { createHomeCards, createMenu } from '@/remote/factory'
+import Head from "next/head"
+import { App } from "src/components/App"
+import { Meta } from "src/components/Meta"
+import { PageGrid } from "src/components/PageGrid"
+import { HudozkaTitle } from "src/components/HudozkaTitle"
+import { MetaBuilder } from "src/lib/meta"
+import { GetStaticProps, NextPage } from "next"
+import { IMenu, IMeta, PageCardDto } from "src/types"
+import { apiGet } from "@/next-lib"
+import { createHomeCards, createMenu } from "@/remote/factory"
 
 type Props = {
     title: string
@@ -28,8 +28,8 @@ const Index: NextPage<Props> = props => (
 
         <HudozkaTitle
             style={{
-                marginTop: 'var(--size-m)',
-                marginBottom: 'var(--size-m)',
+                marginTop: "var(--size-m)",
+                marginBottom: "var(--size-m)",
             }}
         />
 
@@ -40,14 +40,14 @@ const Index: NextPage<Props> = props => (
 )
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-    const items = await apiGet(createHomeCards)('https://hudozka.tmshv.com/home', async () => [])
-    const menu = await apiGet(createMenu)('https://hudozka.tmshv.com/menu', () => [])
+    const items = await apiGet(createHomeCards)("https://hudozka.tmshv.com/home", async () => [])
+    const menu = await apiGet(createMenu)("https://hudozka.tmshv.com/menu", () => [])
 
-    const title = 'Шлиссельбургская ДХШ'
+    const title = "Шлиссельбургская ДХШ"
     const meta = (new MetaBuilder())
         .setTitle(title)
         .setData({
-            url: '/',
+            url: "/",
         })
         .build()
 

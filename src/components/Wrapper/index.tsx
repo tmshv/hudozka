@@ -1,6 +1,6 @@
-import s from './wrapper.module.css'
+import s from "./wrapper.module.css"
 
-import cx from 'classnames'
+import cx from "classnames"
 
 export type WrapperProps = {
     header: React.ReactNode
@@ -10,7 +10,7 @@ export type WrapperProps = {
 }
 
 export const Wrapper: React.FC<WrapperProps> = props => (
-    <div className={cx(s.container, 'theme-default')} style={props.style}>
+    <div className={cx(s.container, "theme-default")} style={props.style}>
         {props.header}
 
         <main className={s.main} style={props.mainStyle}>

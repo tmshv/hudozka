@@ -102,12 +102,12 @@ export type Pic = {
 }
 
 export type TextToken = {
-    token: 'text'
+    token: "text"
     data: string
 }
 
 export type ImageToken = {
-    token: 'image'
+    token: "image"
     wide: boolean
     data: Pic
 }
@@ -123,24 +123,24 @@ export type FileTokenData = {
 }
 
 export type FileToken = {
-    token: 'file'
+    token: "file"
     data: FileTokenData
 }
 
 export type HtmlToken = {
-    token: 'html'
+    token: "html"
     data: string
 }
 
 export type YoutubeToken = {
-    token: 'youtube'
+    token: "youtube"
     data: {
         url: string
     }
 }
 
 export type InstagramToken = {
-    token: 'instagram'
+    token: "instagram"
     data: {
         url: string
         embed: string
@@ -148,7 +148,7 @@ export type InstagramToken = {
 }
 
 export type GridToken = {
-    token: 'grid'
+    token: "grid"
     data: {
         items: PageCardDto[]
     }

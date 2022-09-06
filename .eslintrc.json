@@ -10,6 +10,10 @@
       "error",
       "always-multiline"
     ],
+    "quotes": [
+      "error",
+      "double"
+    ],
     "no-tabs": "off",
     "indent": [
       "warn",

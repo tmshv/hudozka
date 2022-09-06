@@ -1,14 +1,14 @@
-import { Block, BlockProps } from '../Block'
-import { Button } from '../Button'
-import { Spacer } from '../Spacer'
+import { Block, BlockProps } from "../Block"
+import { Button } from "../Button"
+import { Spacer } from "../Spacer"
 
-export type PagerProps = Omit<BlockProps, 'direction'> & {
+export type PagerProps = Omit<BlockProps, "direction"> & {
     nextHref: string | null
     prevHref: string | null
 }
 
 export const Pager: React.FC<PagerProps> = ({ prevHref, nextHref, ...props }) => (
-    <Block {...props} direction={'horizontal'}>
+    <Block {...props} direction={"horizontal"}>
         {!prevHref ? null : (
             <Button href={prevHref}>Предыдущая страница</Button>
         )}

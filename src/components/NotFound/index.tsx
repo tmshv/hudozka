@@ -1,6 +1,6 @@
-import s from './error.module.css'
+import s from "./error.module.css"
 
-import Link from 'next/link'
+import Link from "next/link"
 
 export const NotFound: React.FC = () => (
     <section className={s.section}>
@@ -10,7 +10,7 @@ export const NotFound: React.FC = () => (
         </div>
 
         <div>
-            <Link href={'/'}>
+            <Link href={"/"}>
                 <a>На главную</a>
             </Link>
         </div>

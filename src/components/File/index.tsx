@@ -1,8 +1,8 @@
-import s from './styles.module.css'
+import s from "./styles.module.css"
 
-import { FileDefinition } from 'src/types'
-import { ext, size } from 'src/lib/file'
-import Link from 'next/link'
+import { FileDefinition } from "src/types"
+import { ext, size } from "src/lib/file"
+import Link from "next/link"
 
 export type FileProps = FileDefinition & {
     style?: React.CSSProperties

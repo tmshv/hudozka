@@ -1,13 +1,13 @@
-import 'src/style/style.css'
-import 'src/style/content.css'
-import 'src/style/article.css'
-import 'src/style/marker/marker-table.css'
-import 'src/style/kazimir/video.css'
+import "src/style/style.css"
+import "src/style/content.css"
+import "src/style/article.css"
+import "src/style/marker/marker-table.css"
+import "src/style/kazimir/video.css"
 
-import App from 'next/app'
-import Head from 'next/head'
-import { YMetrika } from 'src/components/YMetrika'
-import { GAnalytics } from 'src/components/GAnalytics'
+import App from "next/app"
+import Head from "next/head"
+import { YMetrika } from "src/components/YMetrika"
+import { GAnalytics } from "src/components/GAnalytics"
 
 export default class MyApp extends App {
     render() {
@@ -39,7 +39,7 @@ export default class MyApp extends App {
                     />
 
                     <YMetrika account={24027460} />
-                    <GAnalytics account={'UA-60209057-1'} />
+                    <GAnalytics account={"UA-60209057-1"} />
                 </Head>
                 <Component {...pageProps} />
             </>

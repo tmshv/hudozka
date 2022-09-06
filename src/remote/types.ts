@@ -128,8 +128,8 @@ export type StrapiMenu = {
 }
 
 export type StrapiPageCard = {
-    __component: 'hudozka.page-card',
+    __component: "hudozka.page-card",
     id: number,
     page: StrapiPage,
-    layout: 'small' | 'medium' | 'big',
+    layout: "small" | "medium" | "big",
 }

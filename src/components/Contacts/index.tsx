@@ -1,8 +1,8 @@
-import s from './contacts.module.css'
+import s from "./contacts.module.css"
 
-import { useContext } from 'react'
-import { ConfigContext } from 'src/context/ConfigContext'
-import Link from 'next/link'
+import { useContext } from "react"
+import { ConfigContext } from "src/context/ConfigContext"
+import Link from "next/link"
 
 export const Contacts: React.FC = props => {
     const { contacts } = useContext(ConfigContext)

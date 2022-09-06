@@ -1,20 +1,20 @@
-import Head from 'next/head'
-import { App } from 'src/components/App'
-import { tail } from 'lodash'
-import { Page } from 'src/components/Page'
-import { Meta } from 'src/components/Meta'
-import { MetaBuilder } from 'src/lib/meta'
-import { apiGet } from '@/next-lib'
-import { GetStaticProps, NextPage } from 'next'
-import { IBreadcumbsPart, IMenu, IMeta, ITag, Sign, Token } from '@/types'
-import { Html } from 'src/components/Html'
-import { Youtube } from '@/components/Youtube'
-import { createMenu, createPage, createPageUrls } from '@/remote/factory'
-import { paramsToSlug } from '@/remote/lib'
-import { PageGrid } from '@/components/PageGrid'
-import { useRouter } from 'next/router'
-import { FileCard } from '@/components/FIleCard'
-import { Picture } from '@/components/Picture'
+import Head from "next/head"
+import { App } from "src/components/App"
+import { tail } from "lodash"
+import { Page } from "src/components/Page"
+import { Meta } from "src/components/Meta"
+import { MetaBuilder } from "src/lib/meta"
+import { apiGet } from "@/next-lib"
+import { GetStaticProps, NextPage } from "next"
+import { IBreadcumbsPart, IMenu, IMeta, ITag, Sign, Token } from "@/types"
+import { Html } from "src/components/Html"
+import { Youtube } from "@/components/Youtube"
+import { createMenu, createPage, createPageUrls } from "@/remote/factory"
+import { paramsToSlug } from "@/remote/lib"
+import { PageGrid } from "@/components/PageGrid"
+import { useRouter } from "next/router"
+import { FileCard } from "@/components/FIleCard"
+import { Picture } from "@/components/Picture"
 
 async function getUrls() {
     let urls: string[] = []
@@ -59,8 +59,8 @@ const Index: NextPage<Props> = props => {
     return (
         <App
             contentStyle={{
-                marginTop: 'var(--size-l)',
-                marginBottom: 'var(--size-xl)',
+                marginTop: "var(--size-l)",
+                marginBottom: "var(--size-xl)",
             }}
             menu={props.menu}
             breadcrumbs={props.breadcrumb}
@@ -76,10 +76,10 @@ const Index: NextPage<Props> = props => {
                 tags={props.tags}
                 date={props.date ? new Date(props.date) : undefined}
             >
-                <article className={'article'}>
+                <article className={"article"}>
                     {props.tokens.map((x, i) => {
                         switch (x.token) {
-                        case 'html':
+                        case "html":
                             return (
                                 <Html
                                     key={i}
@@ -87,7 +87,7 @@ const Index: NextPage<Props> = props => {
                                 />
                             )
 
-                        case 'instagram':
+                        case "instagram":
                             return (
                                 <Html
                                     key={i}
@@ -95,7 +95,7 @@ const Index: NextPage<Props> = props => {
                                 />
                             )
 
-                        case 'youtube':
+                        case "youtube":
                             return (
                                 <Youtube
                                     key={i}
@@ -103,7 +103,7 @@ const Index: NextPage<Props> = props => {
                                 />
                             )
 
-                        case 'image':
+                        case "image":
                             return (
                                 <Picture
                                     key={i}
@@ -117,7 +117,7 @@ const Index: NextPage<Props> = props => {
                                 />
                             )
 
-                        case 'file':
+                        case "file":
                             return (
                                 <FileCard
                                     key={i}
@@ -126,7 +126,7 @@ const Index: NextPage<Props> = props => {
                                 />
                             )
 
-                        case 'grid':
+                        case "grid":
                             return (
                                 <PageGrid
                                     key={i}
@@ -158,7 +158,7 @@ export const getStaticProps: GetStaticProps<Props> = async ctx => {
         }
     }
 
-    const menu = await apiGet(createMenu)('https://hudozka.tmshv.com/menu', () => [])
+    const menu = await apiGet(createMenu)("https://hudozka.tmshv.com/menu", () => [])
 
     const description = page.description ?? undefined
     const breadcrumbSize = page?.breadcrumb?.length ?? 0
@@ -181,10 +181,10 @@ export const getStaticProps: GetStaticProps<Props> = async ctx => {
             menu,
             breadcrumb,
             documentSignature: {
-                date: '20.01.2021г.',
-                person: 'Тимашева Марина Геннадьевна',
-                position: 'Директор',
-                signature: '0ac4ea89753a4ba9893799442325fb41',
+                date: "20.01.2021г.",
+                person: "Тимашева Марина Геннадьевна",
+                position: "Директор",
+                signature: "0ac4ea89753a4ba9893799442325fb41",
             },
         },
     }
@@ -197,7 +197,7 @@ export const getStaticPaths = async () => {
         fallback: true,
         paths: urls
             .map(path => {
-                const slug = tail(path.split('/'))
+                const slug = tail(path.split("/"))
 
                 return {
                     params: {

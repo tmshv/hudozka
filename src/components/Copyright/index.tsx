@@ -1,5 +1,5 @@
-import { useContext } from 'react'
-import { ConfigContext } from 'src/context/ConfigContext'
+import { useContext } from "react"
+import { ConfigContext } from "src/context/ConfigContext"
 
 export const Copyright: React.FC = () => {
     const { yearStart, yearEnd } = useContext(ConfigContext)
