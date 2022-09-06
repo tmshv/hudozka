@@ -1,20 +1,9 @@
-import axios from 'axios'
 import { NextPageContext } from 'next'
 
 export interface IResponseItems<T> {
     items: T[]
     nextPage: number
     prevPage: number
-}
-
-export async function requestGet<T>(url: string, defaultResponse: T): Promise<T> {
-    try {
-        const res = await axios.get<T>(url)
-
-        return res.data
-    } catch (e) {
-        return defaultResponse
-    }
 }
 
 /**
