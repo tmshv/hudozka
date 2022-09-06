@@ -1,4 +1,4 @@
-import s from "./styles.module.css"
+import s from "./button.module.css"
 
 import Link from "next/link"
 import cx from "classnames"
