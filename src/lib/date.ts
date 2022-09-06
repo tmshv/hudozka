@@ -10,6 +10,6 @@ import { ru } from 'date-fns/locale'
 export const dateFormat = (date: string | Date) => {
     const value = typeof date === 'string' ? new Date(date) : date
     return format(value, "d MMMM yyyy", {
-        locale: ru
+        locale: ru,
     })
 }

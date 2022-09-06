@@ -24,7 +24,7 @@ export const MenuItem: React.FC<MenuItemProps> = props => {
             <ActiveLink
                 href={href}
                 activeStyle={{
-                    fontWeight: 'bold'
+                    fontWeight: 'bold',
                 }}
             >
                 {props.children}

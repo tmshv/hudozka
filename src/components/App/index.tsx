@@ -27,7 +27,7 @@ export const App: React.FC<IAppProps> = ({ showAuthor = false, menu, ...props })
     const hideBreadcrumbs = useMobile()
     const router = useRouter()
     const blockStyle = {
-        justifyContent: 'center'
+        justifyContent: 'center',
     }
 
     return (

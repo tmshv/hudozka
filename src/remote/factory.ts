@@ -1,8 +1,8 @@
-import { IMenu, IPage, ITag, PageCardDto, Pic, Token } from "@/types";
-import { asItem } from "./lib";
-import { StrapiComponentEmbed, StrapiComponent, StrapiHome, StrapiPage, StrapiPageCard, StrapiTag, StrapiMedia, StrapiMenu } from "./types";
+import { IMenu, IPage, ITag, PageCardDto, Pic, Token } from "@/types"
+import { asItem } from "./lib"
+import { StrapiComponentEmbed, StrapiComponent, StrapiHome, StrapiPage, StrapiPageCard, StrapiTag, StrapiMedia, StrapiMenu } from "./types"
 import { typograf, markdownToHtml } from 'src/lib/text'
-import { encodeImageToBlurhash } from "./image";
+import { encodeImageToBlurhash } from "./image"
 
 const md = (text: string) => typograf(markdownToHtml(text))
 
@@ -22,13 +22,13 @@ export function createEmbed(component: StrapiComponentEmbed): Token {
             token: 'youtube',
             data: {
                 url: component.src,
-            }
+            },
         }
     }
 
     return {
         token: 'html',
-        data: `<iframe src="${component.src}" width="100%" height="480" frameborder="0"></iframe>`
+        data: `<iframe src="${component.src}" width="100%" height="480" frameborder="0"></iframe>`,
     }
 }
 
@@ -66,7 +66,7 @@ export async function createPageToken(component: StrapiComponent): Promise<Token
                     file_size: component.media.size * 1000,
                     // file_size: component.media.size,
                     file_format: component.media.mime,
-                }
+                },
             }
         }
 
@@ -83,7 +83,7 @@ export async function createPageToken(component: StrapiComponent): Promise<Token
                 token: 'grid',
                 data: {
                     items,
-                }
+                },
             }
         }
 

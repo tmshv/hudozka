@@ -7,5 +7,5 @@ export type SpacerProps = {
 export const Spacer: React.FC<SpacerProps> = ({ as = 'div' }) => createElement(as, {
     style: {
         flex: 1,
-    }
-}) 
+    },
+})

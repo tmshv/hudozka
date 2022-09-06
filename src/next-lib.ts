@@ -15,7 +15,7 @@ export interface IResponseItems<T> {
 export function wrapInitialProps(fn: (ctx: NextPageContext) => void) {
     return async (ctx: NextPageContext) => {
         if (process.env.NODE_ENV === 'production' && process.browser) {
-            return window['__NEXT_DATA__'].props.pageProps;
+            return window['__NEXT_DATA__'].props.pageProps
         }
 
         return fn(ctx)

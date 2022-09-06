@@ -79,67 +79,67 @@ const Index: NextPage<Props> = props => {
                 <article className={'article'}>
                     {props.tokens.map((x, i) => {
                         switch (x.token) {
-                            case 'html':
-                                return (
-                                    <Html
-                                        key={i}
-                                        html={x.data}
-                                    />
-                                )
+                        case 'html':
+                            return (
+                                <Html
+                                    key={i}
+                                    html={x.data}
+                                />
+                            )
 
-                            case 'instagram':
-                                return (
-                                    <Html
-                                        key={i}
-                                        html={x.data.embed}
-                                    />
-                                )
+                        case 'instagram':
+                            return (
+                                <Html
+                                    key={i}
+                                    html={x.data.embed}
+                                />
+                            )
 
-                            case 'youtube':
-                                return (
-                                    <Youtube
-                                        key={i}
-                                        url={x.data.url}
-                                    />
-                                )
+                        case 'youtube':
+                            return (
+                                <Youtube
+                                    key={i}
+                                    url={x.data.url}
+                                />
+                            )
 
-                            case 'image':
-                                return (
-                                    <Picture
-                                        key={i}
-                                        src={x.data.src}
-                                        alt={x.data.alt}
-                                        width={x.data.width}
-                                        height={x.data.height}
-                                        caption={x.data.caption}
-                                        blur={x.data.blur}
-                                        wide={x.wide}
-                                    />
-                                )
+                        case 'image':
+                            return (
+                                <Picture
+                                    key={i}
+                                    src={x.data.src}
+                                    alt={x.data.alt}
+                                    width={x.data.width}
+                                    height={x.data.height}
+                                    caption={x.data.caption}
+                                    blur={x.data.blur}
+                                    wide={x.wide}
+                                />
+                            )
 
-                            case 'file':
-                                return (
-                                    <FileCard
-                                        key={i}
-                                        sign={props.documentSignature}
-                                        {...x.data}
-                                    />
-                                )
+                        case 'file':
+                            return (
+                                <FileCard
+                                    key={i}
+                                    sign={props.documentSignature}
+                                    {...x.data}
+                                />
+                            )
 
-                            case 'grid':
-                                return (
-                                    <PageGrid
-                                        key={i}
-                                        items={x.data.items}
-                                    />
-                                )
+                        case 'grid':
+                            return (
+                                <PageGrid
+                                    key={i}
+                                    items={x.data.items}
+                                />
+                            )
 
-                            default:
-                                return (
-                                    <pre key={i}>
-                                        {JSON.stringify(x)}
-                                    </pre>
-                                )
+                        default:
+                            return (
+                                <pre key={i}>
+                                    {JSON.stringify(x)}
+                                </pre>
+                            )
                         }
                     })}
                 </article>
@@ -158,8 +158,7 @@ export const getStaticProps: GetStaticProps<Props> = async ctx => {
         }
     }
 
-    const menu = await apiGet(createMenu)
-        ('https://hudozka.tmshv.com/menu', () => [])
+    const menu = await apiGet(createMenu)('https://hudozka.tmshv.com/menu', () => [])
 
     const description = page.description ?? undefined
     const breadcrumbSize = page?.breadcrumb?.length ?? 0
@@ -186,8 +185,8 @@ export const getStaticProps: GetStaticProps<Props> = async ctx => {
                 person: 'Тимашева Марина Геннадьевна',
                 position: 'Директор',
                 signature: '0ac4ea89753a4ba9893799442325fb41',
-            }
-        }
+            },
+        },
     }
 }
 

@@ -34,7 +34,7 @@ export const Navigation: React.FC<INavigationProps> = props => {
                         open={open}
                         onClick={onClick}
                         style={{
-                            margin: 'var(--size-xs)'
+                            margin: 'var(--size-xs)',
                         }}
                     />
                 </Block>
@@ -59,18 +59,18 @@ export const Navigation: React.FC<INavigationProps> = props => {
                         open={open}
                         onClick={onClick}
                         style={{
-                            margin: 'var(--size-xs)'
+                            margin: 'var(--size-xs)',
                         }}
                     />
                 </Block>
             ) : (
-                    <nav style={props.style}>
-                        <Menu
-                            layout={'desktop'}
-                            items={menu}
-                        />
-                    </nav>
-                )}
+                <nav style={props.style}>
+                    <Menu
+                        layout={'desktop'}
+                        items={menu}
+                    />
+                </nav>
+            )}
         </>
     )
 }

@@ -29,6 +29,7 @@ export const FileCard: React.FC<FileCardProps> = props => {
                             })
                         }}
                         src={props.image_url}
+                        alt={''}
                         width={100}
                         height={100}
                         objectFit={'contain'}

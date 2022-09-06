@@ -11,6 +11,6 @@ export const Html: React.FC<HtmlProps> = ({ as = 'div', ...props }) => {
         className: props.className,
         dangerouslySetInnerHTML: {
             __html: props.html,
-        }
+        },
     })
 }

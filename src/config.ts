@@ -27,13 +27,13 @@ const config = {
         {
             type: 'link',
             value: 'https://vk.com/shlisselburghudozka',
-            title: 'Вконтакте'
+            title: 'Вконтакте',
         },
         {
             type: 'link',
             value: 'https://www.instagram.com/hudozka',
-            title: 'Инстаграм'
-        }
+            title: 'Инстаграм',
+        },
     ],
     menu: [
         {
@@ -67,8 +67,8 @@ const config = {
         {
             name: 'Дистанционное образование',
             href: '/info/online-education',
-        }
-    ]
+        },
+    ],
 }
 
 export default config
