@@ -25,10 +25,10 @@ export function meta(props: Partial<IMeta>): IMeta {
 }
 
 export class MetaBuilder {
-    private image: Pic
-    private title: string
-    private description: string
-    private data: Partial<IMeta>
+    private image?: Pic
+    private title?: string
+    private description?: string
+    private data?: Partial<IMeta>
 
     setData(param: Partial<IMeta>) {
         this.data = param
@@ -56,8 +56,8 @@ export class MetaBuilder {
         return meta({
             ...this.data,
             ...image,
-            title: this.title ?? null,
-            description: this.description ?? null,
+            title: this.title,
+            description: this.description,
         })
     }
 
