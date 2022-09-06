@@ -1,7 +1,7 @@
 import { MenuToggle } from "../MenuToggle"
 import { useMobile } from "src/hooks/useMobile"
 import { Menu } from "../Menu"
-import { Overlay } from "../Overlay"
+import { Overlay } from "@/ui/Overlay"
 import { useContext } from "react"
 import { ConfigContext } from "src/context/ConfigContext"
 import { Block } from "../Block"
