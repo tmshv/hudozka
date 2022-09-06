@@ -4,7 +4,7 @@ import { Menu } from "../Menu"
 import { Overlay } from "@/ui/Overlay"
 import { useContext } from "react"
 import { ConfigContext } from "src/context/ConfigContext"
-import { Block } from "../Block"
+import { Box } from "@/ui/Box"
 import { Spacer } from "../Spacer"
 import { useToggle } from "react-use"
 
@@ -24,7 +24,7 @@ export const Navigation: React.FC<NavigationProps> = props => {
                 onClickOverlay={toggleOpen}
                 duration={250}
             >
-                <Block direction={"horizontal"} align style={{
+                <Box style={{
                     padding: "var(--size-s)",
                 }}>
                     <Spacer />
@@ -32,17 +32,17 @@ export const Navigation: React.FC<NavigationProps> = props => {
                         open={open}
                         onClick={toggleOpen}
                     />
-                </Block>
-                <Block direction={"horizontal"} style={{
+                </Box>
+                <Box style={{
                     justifyContent: "center",
                 }}>
                     <Menu vertical
                         items={menu}
                     />
-                </Block>
+                </Box>
             </Overlay>
 
-            <Block direction={"horizontal"} align style={{
+            <Box wrap style={{
                 padding: "var(--size-s)",
             }}>
                 {collapseMenu ? null : (
@@ -57,12 +57,9 @@ export const Navigation: React.FC<NavigationProps> = props => {
                     <MenuToggle
                         open={open}
                         onClick={toggleOpen}
-                        style={{
-                            margin: "var(--size-xs)",
-                        }}
                     />
                 )}
-            </Block>
+            </Box>
         </>
     )
 }
