@@ -49,6 +49,9 @@ export const Navigation: React.FC<NavigationProps> = props => {
                 {collapseMenu ? null : (
                     <Menu
                         items={menu}
+                        onItemClick={() => {
+                            toggleOpen(false)
+                        }}
                     />
                 )}
 

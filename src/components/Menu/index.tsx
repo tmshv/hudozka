@@ -11,9 +11,10 @@ let cx = classnames.bind(s)
 export type MenuProps = {
     vertical?: boolean
     items: IMenu[]
+    onItemClick?: (item: IMenu) => void
 }
 
-export const Menu: React.FC<MenuProps> = ({ vertical = false, items }) => {
+export const Menu: React.FC<MenuProps> = ({ vertical = false, onItemClick, items }) => {
     const router = useRouter()
     return (
         <NavigationMenu.Root>
@@ -21,18 +22,24 @@ export const Menu: React.FC<MenuProps> = ({ vertical = false, items }) => {
                 {
                     items.map(item => {
                         const current = router.asPath === item.href
-                        const href = current ? undefined : item.href
+                        const href = current
+                            ? undefined
+                            : item.href
+                        const className = !href
+                            ? `${s.menuItem} ${s.current}`
+                            : `${s.menuItem} ${s.active}`
 
-                        if (!href) {
-                            return (
-                                <NavigationMenu.Item key={item.href} className={`${s.menuItem} ${s.current}`}>
-                                    <ActiveLink>{item.name}</ActiveLink>
-                                </NavigationMenu.Item>
-                            )
-                        }
                         return (
-                            <NavigationMenu.Item key={item.href} className={`${s.menuItem} ${s.active}`}>
-                                <ActiveLink href={item.href}>{item.name}</ActiveLink>
+                            <NavigationMenu.Item
+                                key={item.href}
+                                className={className}
+                                onClick={() => {
+                                    if (typeof onItemClick === "function") {
+                                        onItemClick(item)
+                                    }
+                                }}
+                            >
+                                <ActiveLink href={href}>{item.name}</ActiveLink>
                             </NavigationMenu.Item>
                         )
                     })
