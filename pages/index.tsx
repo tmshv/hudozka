@@ -1,6 +1,6 @@
 import Head from "next/head"
 import { App } from "src/components/App"
-import { Meta } from "src/components/Meta"
+import { NextSeo } from "next-seo"
 import { PageGrid } from "src/components/PageGrid"
 import { HudozkaTitle } from "src/components/HudozkaTitle"
 import { MetaBuilder } from "src/lib/meta"
@@ -17,26 +17,46 @@ type Props = {
 }
 
 const Index: NextPage<Props> = props => (
-    <App
-        showAuthor={true}
-        menu={props.menu}
-    >
-        <Head>
-            <title>{props.title}</title>
-            <Meta meta={props.meta} />
-        </Head>
-
-        <HudozkaTitle
-            style={{
-                marginTop: "var(--size-m)",
-                marginBottom: "var(--size-m)",
+    <>
+        <NextSeo
+            title={props.meta.title}
+            description={props.meta.description}
+            canonical="https://art.shlisselburg.org/"
+            openGraph={{
+                url: props.meta.url,
+                title: props.meta.title,
+                description: props.meta.description,
+                images: [
+                    {
+                        url: props.meta.image,
+                        width: props.meta.imageWidth,
+                        height: props.meta.imageHeight,
+                        alt: props.meta.description,
+                        type: "image/jpeg",
+                    },
+                ],
+                site_name: props.meta.siteName,
             }}
         />
+        <Head>
+            <title>{props.title}</title>
+        </Head>
+        <App
+            showAuthor={true}
+            menu={props.menu}
+        >
+            <HudozkaTitle
+                style={{
+                    marginTop: "var(--size-m)",
+                    marginBottom: "var(--size-m)",
+                }}
+            />
 
-        <PageGrid
-            items={props.items}
-        />
-    </App>
+            <PageGrid
+                items={props.items}
+            />
+        </App>
+    </>
 )
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
