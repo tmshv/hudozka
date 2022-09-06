@@ -44,14 +44,16 @@
 
     /* EFFECTS */
     --radius: 16px;
-    --shadow: 0 0 8px var(--color-shadow);
+    --shadow:
+        0 2px 4px rgba(27, 51, 88, 0.2),
+        0 4px 8px -8px rgba(0, 0, 0, 0.2),
+        0 8px 16px -8px rgba(0, 0, 0, 0.3);
     --shadow-active:
         0 12px 24px -8px rgba(27, 51, 88, 0.25),
         0 8px 16px -8px rgba(0, 0, 0, 0.3);
 
     /* SPECIAL */
     --article-line-height: 1.5em;
-    --menu-mark-thickness: 4px;
     --embed-video-ratio: 56.25%;
 
     /* CONTENT */
@@ -108,24 +110,9 @@ h3 {
     hyphens: none;
 }
 
-a {
-    color: var(--color-text);
-
-    text-decoration: none;
-    border-bottom: 1px solid var(--color-link);
-}
-
-a:hover {
-    border-bottom: 2px solid var(--color-text);
-}
-
-a:active {
-    border-width: 2px;
-}
-
-a.invisible {
+/* a.invisible {
     border-bottom: none;
-}
+} */
 
 .opposite a {
     color: var(--color-text-opposite);
@@ -134,10 +121,6 @@ a.invisible {
 
 .opposite a:hover {
     border-bottom-color: var(--color-text-opposite);
-}
-
-.noscroll {
-    overflow: hidden;
 }
 
 
@@ -199,6 +182,7 @@ a.invisible {
 
         --color-back-main: hsl(240, 10%, 10%);
         --color-back: hsl(240, 10%, 15%);
+        --color-back-active: hsl(240, 10%, 20%);
         --color-back-opposite: hsl(240, 10%, 80%);
         --color-link: hsl(240, 10%, 40%);
         --color-link-opposite: hsl(240, 10%, 60%);

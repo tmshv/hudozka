@@ -2,6 +2,21 @@
     hyphens: auto;
 }
 
+.article a {
+    color: var(--color-text);
+
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-link);
+}
+
+.article a:hover {
+    border-bottom: 2px solid var(--color-text);
+}
+
+.article a:active {
+    border-width: 2px;
+}
+
 .article h1 {
     margin-bottom: var(--size-l);
 }

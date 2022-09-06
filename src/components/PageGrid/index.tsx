@@ -3,8 +3,8 @@ import { PageCardDto } from "@/types"
 import { CardGrid } from "../CardGrid"
 import { Card, CardLayout } from "../Card"
 import { Date } from "./Date"
-import { Block } from "../Block"
 import { Spacer } from "../Spacer"
+import { Box } from "@/ui/Box"
 
 export type PageGridProps = {
     items: PageCardDto[]
@@ -23,9 +23,7 @@ export const PageGrid: React.FC<PageGridProps> = props => {
 
                 const content = !item.featured
                     ? (
-                        <Block
-                            direction={"vertical"}
-                        >
+                        <Box vertical>
                             {item.title}
                             <Spacer />
                             {!item.date ? null : (
@@ -33,7 +31,7 @@ export const PageGrid: React.FC<PageGridProps> = props => {
                                     marginTop: "var(--size-m)",
                                 }}>{item.date}</Date>
                             )}
-                        </Block>
+                        </Box>
                     ) : (
                         item.title
                     )

@@ -1,17 +1,19 @@
-import s from './styles.module.css'
+import s from "./styles.module.css"
 
-import cx from 'classnames'
-import { ITag } from 'src/types'
-import { Button } from '../Button'
+import cx from "classnames"
+import { ITag } from "src/types"
+import { Button } from "@/ui/Button"
+import Image from "next/image"
 
 const directionClass = {
-    horizontal: '',
+    horizontal: "",
     vertical: s.vertical,
 }
 
-export type Direction = 'horizontal' | 'vertical'
+export type Direction = "horizontal" | "vertical"
 
 export type TagProps = {
+    children?: React.ReactNode
     href: string
     direction: Direction
 }

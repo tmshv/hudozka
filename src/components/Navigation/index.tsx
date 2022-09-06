@@ -1,76 +1,65 @@
 import { MenuToggle } from "../MenuToggle"
 import { useMobile } from "src/hooks/useMobile"
 import { Menu } from "../Menu"
-import { Overlay } from "../Overlay"
-import { useState, useCallback, useContext } from "react"
+import { Overlay } from "@/ui/Overlay"
+import { useContext } from "react"
 import { ConfigContext } from "src/context/ConfigContext"
-import { Block } from "../Block"
+import { Box } from "@/ui/Box"
 import { Spacer } from "../Spacer"
+import { useToggle } from "react-use"
 
-export interface INavigationProps {
+export type NavigationProps = {
     style?: React.CSSProperties
 }
 
-export const Navigation: React.FC<INavigationProps> = props => {
+export const Navigation: React.FC<NavigationProps> = props => {
     const collapseMenu = useMobile()
-    const [open, setOpen] = useState(false)
-    const onClick = useCallback(
-        () => {
-            setOpen(!open)
-        },
-        [open]
-    )
+    const [open, toggleOpen] = useToggle(false)
     const { menu } = useContext(ConfigContext)
 
     return (
         <>
             <Overlay
                 show={open}
-                onClickOverlay={onClick}
+                onClickOverlay={toggleOpen}
+                duration={250}
             >
-                <Block direction={"horizontal"}>
+                <Box style={{
+                    padding: "var(--size-s)",
+                }}>
                     <Spacer />
                     <MenuToggle
                         open={open}
-                        onClick={onClick}
-                        style={{
-                            margin: "var(--size-xs)",
-                        }}
+                        onClick={toggleOpen}
                     />
-                </Block>
-                <Block direction={"horizontal"} style={{
+                </Box>
+                <Box style={{
                     justifyContent: "center",
                 }}>
-                    <nav style={{
-                        width: "75%",
-                    }}>
-                        <Menu
-                            layout={"mobile"}
-                            items={menu}
-                        />
-                    </nav>
-                </Block>
-            </Overlay>
-
-            {collapseMenu ? (
-                <Block direction={"horizontal"}>
-                    <Spacer />
-                    <MenuToggle
-                        open={open}
-                        onClick={onClick}
-                        style={{
-                            margin: "var(--size-xs)",
-                        }}
-                    />
-                </Block>
-            ) : (
-                <nav style={props.style}>
-                    <Menu
-                        layout={"desktop"}
+                    <Menu vertical
                         items={menu}
                     />
-                </nav>
-            )}
+                </Box>
+            </Overlay>
+
+            <Box wrap style={{
+                padding: "var(--size-s)",
+            }}>
+                {collapseMenu ? null : (
+                    <Menu
+                        items={menu}
+                    />
+                )}
+
+                <Spacer />
+
+                {!collapseMenu ? null : (
+                    <MenuToggle
+                        open={open}
+                        onClick={toggleOpen}
+                    />
+                )}
+            </Box>
         </>
     )
 }

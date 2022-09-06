@@ -10,6 +10,7 @@ const layoutClass = {
 
 export type CardLayout = "simple" | "featured"
 export type CardProps = {
+    children?: React.ReactNode
     style?: React.CSSProperties
     href: string
     cover: React.ReactNode

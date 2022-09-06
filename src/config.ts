@@ -40,34 +40,6 @@ const config = {
             name: "Школа",
             href: "/",
         },
-        {
-            name: "Поступление",
-            href: "/join",
-        },
-        {
-            name: "Предметы",
-            href: "/courses",
-        },
-        {
-            name: "Коллектив",
-            href: "/collective",
-        },
-        {
-            name: "«Мы соседи»",
-            href: "/neighbors",
-        },
-        {
-            name: "Документы",
-            href: "/documents",
-        },
-        {
-            name: "Сведения об образовательной организации",
-            href: "/info",
-        },
-        {
-            name: "Дистанционное образование",
-            href: "/info/online-education",
-        },
     ],
 }
 

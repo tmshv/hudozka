@@ -1,7 +1,6 @@
 .container {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
   background-color: var(--color-back-main);
 
   font-family: var(--text-font);
@@ -9,5 +8,6 @@
 }
 
 .main {
+  min-height: 100vh;
   flex: 1;
 }

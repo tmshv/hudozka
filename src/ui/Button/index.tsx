@@ -1,8 +1,9 @@
-import s from "./styles.module.css"
+import s from "./button.module.css"
 
 import Link from "next/link"
 import cx from "classnames"
 import { useCallback } from "react"
+import type { MouseEvent, MouseEventHandler } from "react"
 
 const sizeClass = {
     default: s.sizeDefault,
@@ -16,6 +17,7 @@ const themeClass = {
 }
 
 export type ButtonProps = {
+    children?: React.ReactNode
     value?: any
     style?: React.CSSProperties
     href?: string
@@ -29,11 +31,11 @@ export const Button: React.FC<ButtonProps> = ({ size = "default", theme = "defau
     const className = cx(s.button, sizeClass[size], themeClass[theme], {
         [s.disabled]: disabled,
     })
-    const onClick = useCallback(event => {
-        if (props.onClick) {
+    const onClick = useCallback<MouseEventHandler<HTMLButtonElement>>(event => {
+        if (typeof props.onClick === "function") {
             props.onClick(props.value, event)
         }
-    }, [props.value, props.onClick])
+    }, [props])
 
     if (props.href) {
         return (

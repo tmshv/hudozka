@@ -4,6 +4,7 @@ import { PageMeta } from "../PageMeta"
 import { ITag } from "src/types"
 
 export type PageProps = {
+    children?: React.ReactNode
     style?: React.CSSProperties
     date?: Date
     tags: ITag[]

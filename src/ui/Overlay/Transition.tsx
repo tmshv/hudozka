@@ -1,25 +1,26 @@
-import * as React from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 
-export interface ITransitionProps {
+export type TransitionProps = {
+    children?: React.ReactNode
     duration: number
     extraStyle?: React.CSSProperties
     show: boolean
 }
 
-export const Transition: React.FC<ITransitionProps> = props => {
-    const [mounted, setMounted] = React.useState(props.show)
-    const [opacity, setOpacity] = React.useState(0)
-    const onTransitionEnd = React.useCallback(() => {
+export const Transition: React.FC<TransitionProps> = props => {
+    const [mounted, setMounted] = useState(props.show)
+    const [opacity, setOpacity] = useState(0)
+    const onTransitionEnd = useCallback(() => {
         if (opacity === 0) {
             setMounted(false)
         }
     }, [opacity])
-    const transition = React.useMemo(
+    const transition = useMemo(
         () => `all ${props.duration}ms`,
         [props.duration]
     )
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (!props.show) {
             setOpacity(0)
             return

@@ -1,29 +1,25 @@
-import dynamic from "next/dynamic"
 import { Wrapper } from "../Wrapper"
 import { ConfigContext } from "src/context/ConfigContext"
 import config from "src/config"
 import { Footer } from "../Footer"
 import { Content } from "../Content"
-import { Block } from "../Block"
 import { Breadcrumbs } from "../Breadcrumbs"
 import { IBreadcumbsPart, IMenu } from "src/types"
 import { useRouter } from "next/router"
 import { useMobile } from "src/hooks/useMobile"
 import { Gosuslugi } from "../Gosuslugi"
-import { INavigationProps } from "@/components/Navigation"
+import { Navigation } from "@/components/Navigation"
+import { Box } from "@/ui/Box"
 
-const Navigation = dynamic<INavigationProps>(() => import("../Navigation").then(mod => mod.Navigation), {
-    ssr: false,
-})
-
-export interface IAppProps {
+export type AppProps = {
     showAuthor?: boolean
     contentStyle?: React.CSSProperties
     breadcrumbs?: IBreadcumbsPart[]
     menu: IMenu[]
+    children?: React.ReactNode
 }
 
-export const App: React.FC<IAppProps> = ({ showAuthor = false, menu, ...props }) => {
+export const App: React.FC<AppProps> = ({ showAuthor = false, menu, ...props }) => {
     const hideBreadcrumbs = useMobile()
     const router = useRouter()
     const blockStyle = {
@@ -39,17 +35,17 @@ export const App: React.FC<IAppProps> = ({ showAuthor = false, menu, ...props })
                 header={(
                     <header>
                         <Navigation style={{
-                            margin: "0 var(--size-m) var(--size-m)",
+                            // margin: "0 var(--size-m) var(--size-m)",
                         }} />
                         {hideBreadcrumbs || !props.breadcrumbs ? null : (
-                            <Block direction={"horizontal"} style={blockStyle}>
+                            <Box style={blockStyle}>
                                 <Content>
                                     <Breadcrumbs
                                         items={props.breadcrumbs}
                                         path={router.asPath}
                                     />
                                 </Content>
-                            </Block>
+                            </Box>
                         )}
                     </header>
                 )}
@@ -68,11 +64,11 @@ export const App: React.FC<IAppProps> = ({ showAuthor = false, menu, ...props })
                     </Footer>
                 )}
             >
-                <Block direction={"horizontal"} style={blockStyle}>
+                <Box style={blockStyle}>
                     <Content style={props.contentStyle}>
                         {props.children}
                     </Content>
-                </Block>
+                </Box>
             </Wrapper>
         </ConfigContext.Provider>
     )

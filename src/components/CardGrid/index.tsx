@@ -1,6 +1,7 @@
 import s from "./styles.module.css"
 
 export type CardGridProps = {
+    children?: React.ReactNode
     style?: React.CSSProperties
 }
 
