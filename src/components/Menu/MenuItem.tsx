@@ -13,7 +13,7 @@ export const MenuItem: React.FC<MenuItemProps> = props => {
     const router = useRouter()
     const current = router.asPath === props.href
     const selected = current || (!ignore.includes(props.href) && isPartOfPath(props.href, router.asPath))
-    const href = current ? null : props.href
+    const href = current ? undefined : props.href
 
     return (
         <li
