@@ -43,7 +43,7 @@ export const Picture: React.FC<PictureProps> = memo(({ wide = false, ...props })
                 height={props.height}
                 layout={"responsive"}
                 blurDataURL={props.blur}
-                placeholder={"blur"}
+                placeholder={props.blur ? "blur": "empty"}
             />
             {!props.caption ? null : (
                 <figcaption>{props.caption}</figcaption>
