@@ -8,7 +8,7 @@ const mime = new Map([
 
 export function ext(mimeType: string): string {
     if (mime.has(mimeType)) {
-        return mime.get(mimeType)
+        return mime.get(mimeType)!
     }
 
     return mimeType
