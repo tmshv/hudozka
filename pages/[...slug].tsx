@@ -14,7 +14,7 @@ import { paramsToSlug } from "@/remote/lib"
 import { PageGrid } from "@/components/PageGrid"
 import { useRouter } from "next/router"
 import { FileCard } from "@/components/FIleCard"
-import { Picture } from "@/components/Picture"
+import { Picture } from "@/ui/Picture"
 
 async function getUrls() {
     let urls: string[] = []
