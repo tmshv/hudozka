@@ -2,7 +2,7 @@ import Head from "next/head"
 import { App } from "src/components/App"
 import { tail } from "lodash"
 import { Page } from "src/components/Page"
-import { Meta } from "src/components/Meta"
+import { NextSeo } from "next-seo"
 import { MetaBuilder } from "src/lib/meta"
 import { apiGet } from "@/next-lib"
 import { GetStaticProps, NextPage } from "next"
@@ -57,94 +57,116 @@ const Index: NextPage<Props> = props => {
     }
 
     return (
-        <App
-            contentStyle={{
-                marginTop: "var(--size-l)",
-                marginBottom: "var(--size-xl)",
-            }}
-            menu={props.menu}
-            breadcrumbs={props.breadcrumb}
-        >
-            <Head>
-                <title>{props.title}</title>
-                {!props.meta ? null : (
-                    <Meta meta={props.meta} />
-                )}
-            </Head>
+        <>
+            {!props.meta ? null : (
+                <NextSeo
+                    title={props.meta.title}
+                    description={props.meta.description}
+                    canonical="https://art.shlisselburg.org/"
+                    openGraph={{
+                        url: props.meta.url,
+                        title: props.meta.title,
+                        description: props.meta.description,
+                        images: [
+                            {
+                                url: props.meta.image,
+                                width: props.meta.imageWidth,
+                                height: props.meta.imageHeight,
+                                alt: props.meta.description,
+                                type: "image/jpeg",
+                            },
+                        ],
+                        site_name: props.meta.siteName,
+                    }}
+                />
+            )}
 
-            <Page
-                tags={props.tags}
-                date={props.date ? new Date(props.date) : undefined}
+            <App
+                contentStyle={{
+                    marginTop: "var(--size-l)",
+                    marginBottom: "var(--size-xl)",
+                }}
+                menu={props.menu}
+                breadcrumbs={props.breadcrumb}
             >
-                <article className={"article"}>
-                    {props.tokens.map((x, i) => {
-                        switch (x.token) {
-                        case "html":
-                            return (
-                                <Html
-                                    key={i}
-                                    html={x.data}
-                                />
-                            )
+                <Head>
+                    <title>{props.title}</title>
+                </Head>
 
-                        case "instagram":
-                            return (
-                                <Html
-                                    key={i}
-                                    html={x.data.embed}
-                                />
-                            )
+                <Page
+                    tags={props.tags}
+                    date={props.date ? new Date(props.date) : undefined}
+                >
+                    <article className={"article"}>
+                        {props.tokens.map((x, i) => {
+                            switch (x.token) {
+                            case "html":
+                                return (
+                                    <Html
+                                        key={i}
+                                        html={x.data}
+                                    />
+                                )
 
-                        case "youtube":
-                            return (
-                                <Youtube
-                                    key={i}
-                                    url={x.data.url}
-                                />
-                            )
+                            case "instagram":
+                                return (
+                                    <Html
+                                        key={i}
+                                        html={x.data.embed}
+                                    />
+                                )
 
-                        case "image":
-                            return (
-                                <Picture
-                                    key={i}
-                                    src={x.data.src}
-                                    alt={x.data.alt}
-                                    width={x.data.width}
-                                    height={x.data.height}
-                                    caption={x.data.caption}
-                                    blur={x.data.blur}
-                                    wide={x.wide}
-                                />
-                            )
+                            case "youtube":
+                                return (
+                                    <Youtube
+                                        key={i}
+                                        url={x.data.url}
+                                    />
+                                )
 
-                        case "file":
-                            return (
-                                <FileCard
-                                    key={i}
-                                    sign={props.documentSignature}
-                                    {...x.data}
-                                />
-                            )
+                            case "image":
+                                return (
+                                    <Picture
+                                        key={i}
+                                        src={x.data.src}
+                                        alt={x.data.alt}
+                                        width={x.data.width}
+                                        height={x.data.height}
+                                        caption={x.data.caption}
+                                        blur={x.data.blur}
+                                        wide={x.wide}
+                                    />
+                                )
 
-                        case "grid":
-                            return (
-                                <PageGrid
-                                    key={i}
-                                    items={x.data.items}
-                                />
-                            )
+                            case "file":
+                                return (
+                                    <FileCard
+                                        key={i}
+                                        sign={props.documentSignature}
+                                        {...x.data}
+                                    />
+                                )
 
-                        default:
-                            return (
-                                <pre key={i}>
-                                    {JSON.stringify(x)}
-                                </pre>
-                            )
-                        }
-                    })}
-                </article>
-            </Page>
-        </App>
+                            case "grid":
+                                return (
+                                    <PageGrid
+                                        key={i}
+                                        items={x.data.items}
+                                    />
+                                )
+
+                            default:
+                                return (
+                                    <pre key={i}>
+                                        {JSON.stringify(x)}
+                                    </pre>
+                                )
+                            }
+                        })}
+                    </article>
+                </Page>
+            </App>
+        </>
     )
 }
 
