@@ -1,13 +1,23 @@
 import sharp from "sharp"
 
-export async function encodeImageToBlurhash(url: string) {
-    const res = await fetch(url)
-    if (!res.ok) {
+async function fetchBuffer(url: string) {
+    try {
+        const res = await fetch(url)
+        if (!res.ok) {
+            return undefined
+        }
+        const data = await res.arrayBuffer()
+        return Buffer.from(data)
+    } catch (error) {
         return undefined
     }
+}
 
-    const data = await res.arrayBuffer()
-    const buffer = Buffer.from(data)
+export async function encodeImageToBlurhash(url: string) {
+    const buffer = await fetchBuffer(url)
+    if (!buffer) {
+        return undefined
+    }
 
     const t = sharp(buffer)
         .raw()
