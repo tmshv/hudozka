@@ -1,0 +1,21 @@
+.box {
+    display: flex;
+    /* align-items: baseline; */
+    align-items: center;
+
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+
+.box.wrap {
+    flex-wrap: wrap;
+}
+
+.box.center {
+    justify-content: center;
+}
+
+.box.vertical {
+    flex-direction: column;
+}
