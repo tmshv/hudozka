@@ -14,7 +14,7 @@ export async function encodeImageToBlurhash(url: string) {
         .resize(8, 8, { fit: "inside" })
         .toFormat('jpeg')
 
-    const { data: out, info } = await t.toBuffer({ resolveWithObject: true })
+    const { data } = await t.toBuffer({ resolveWithObject: true })
 
-    return `data:image/jpeg;base64,${out.toString('base64')}`
+    return `data:image/jpeg;base64,${data.toString('base64')}`
 }
