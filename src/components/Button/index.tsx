@@ -32,10 +32,10 @@ export const Button: React.FC<ButtonProps> = ({ size = "default", theme = "defau
         [s.disabled]: disabled,
     })
     const onClick = useCallback<MouseEventHandler<HTMLButtonElement>>(event => {
-        if (props.onClick) {
+        if (typeof props.onClick === "function") {
             props.onClick(props.value, event)
         }
-    }, [props.value, props.onClick])
+    }, [props])
 
     if (props.href) {
         return (
