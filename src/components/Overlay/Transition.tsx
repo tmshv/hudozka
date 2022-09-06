@@ -16,7 +16,8 @@ export const Transition: React.FC<ITransitionProps> = props => {
     }, [opacity])
     const transition = React.useMemo(
         () => `all ${props.duration}ms`,
-    [props.duration])
+        [props.duration]
+    )
 
     React.useEffect(() => {
         if (!props.show) {

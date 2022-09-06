@@ -34,64 +34,64 @@ export function createEmbed(component: StrapiComponentEmbed): Token {
 
 export async function createPageToken(component: StrapiComponent): Promise<Token> {
     switch (component.__component) {
-        case 'hudozka.text': {
-            return {
-                token: 'html',
-                data: md(component.text),
-            }
+    case 'hudozka.text': {
+        return {
+            token: 'html',
+            data: md(component.text),
         }
+    }
 
-        case 'hudozka.image': {
-            const data = await createPicFromMedia(component.media, {
-                alternativeText: component.caption,
-                caption: component.caption,
-            })
+    case 'hudozka.image': {
+        const data = await createPicFromMedia(component.media, {
+            alternativeText: component.caption,
+            caption: component.caption,
+        })
 
-            return {
-                token: 'image',
-                wide: component.wide,
-                data,
-            }
+        return {
+            token: 'image',
+            wide: component.wide,
+            data,
         }
+    }
 
-        case 'hudozka.document': {
-            return {
-                token: 'file',
-                data: {
-                    url: component.media.url,
-                    slug: 'jopa',
-                    image_url: component.media.url,
-                    file_url: component.media.url,
-                    title: component.title,
-                    file_size: component.media.size * 1000,
-                    // file_size: component.media.size,
-                    file_format: component.media.mime,
-                },
-            }
+    case 'hudozka.document': {
+        return {
+            token: 'file',
+            data: {
+                url: component.media.url,
+                slug: 'jopa',
+                image_url: component.media.url,
+                file_url: component.media.url,
+                title: component.title,
+                file_size: component.media.size * 1000,
+                // file_size: component.media.size,
+                file_format: component.media.mime,
+            },
         }
+    }
 
-        case 'hudozka.embed': {
-            return createEmbed(component)
+    case 'hudozka.embed': {
+        return createEmbed(component)
+    }
+
+    case 'hudozka.card-grid': {
+        const items = await Promise.all(component.items
+            .filter(Boolean)
+            .map(createCardGrid)
+        )
+        return {
+            token: 'grid',
+            data: {
+                items,
+            },
         }
+    }
 
-        case 'hudozka.card-grid': {
-            const items = await Promise.all(component.items
-                .filter(Boolean)
-                .map(createCardGrid)
-            )
-            return {
-                token: 'grid',
-                data: {
-                    items,
-                },
-            }
+    default:
+        return {
+            token: 'text',
+            data: ` ${JSON.stringify(component)}`,
         }
-
-        default:
-            return {
-                token: 'text',
-                data: ` ${JSON.stringify(component)}`,
-            }
     }
 }
 
