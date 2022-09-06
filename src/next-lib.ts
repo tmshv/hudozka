@@ -22,10 +22,6 @@ export function wrapInitialProps(fn: (ctx: NextPageContext) => void) {
     }
 }
 
-export function createApiUrl(path: string) {
-    return `https://api.tmshv.com/hudozka${path}`
-}
-
 export type FactoryFunction<I, O> =
     | ((response: I) => O)
     | ((response: I) => Promise<O>)
