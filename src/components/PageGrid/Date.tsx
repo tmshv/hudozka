@@ -1,6 +1,6 @@
-import s from './date.module.css'
+import s from "./date.module.css"
 
-import { dateFormat } from 'src/lib/date'
+import { dateFormat } from "src/lib/date"
 
 export type DateProps = {
     style?: React.CSSProperties

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from "react"
 
 export interface ITransitionProps {
     duration: number
@@ -16,7 +16,8 @@ export const Transition: React.FC<ITransitionProps> = props => {
     }, [opacity])
     const transition = React.useMemo(
         () => `all ${props.duration}ms`,
-    [props.duration])
+        [props.duration]
+    )
 
     React.useEffect(() => {
         if (!props.show) {
@@ -34,7 +35,11 @@ export const Transition: React.FC<ITransitionProps> = props => {
         }
     }, [props.show])
 
-    return mounted && (
+    if (!mounted) {
+        return null
+    }
+
+    return (
         <div
             style={{
                 ...props.extraStyle,

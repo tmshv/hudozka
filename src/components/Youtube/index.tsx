@@ -4,7 +4,7 @@ export type YoutubeProps = {
 
 export const Youtube: React.FC<{ url: string }> = props => {
     const url = new URL(props.url)
-    const videoId = url.searchParams.get('v')
+    const videoId = url.searchParams.get("v")
     if (!videoId) {
         return null
     }

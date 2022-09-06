@@ -1,9 +1,9 @@
-import 'rc-tooltip/assets/bootstrap_white.css'
-import s from './signature.module.css'
+import "rc-tooltip/assets/bootstrap_white.css"
+import s from "./signature.module.css"
 
-import { Sign } from '@/types'
-import { FiShield } from 'react-icons/fi'
-import Tooltip from 'rc-tooltip'
+import { Sign } from "@/types"
+import { FiShield } from "react-icons/fi"
+import Tooltip from "rc-tooltip"
 
 export type SignatureProps = Sign
 export const Signature: React.FC<SignatureProps> = props => {
@@ -17,7 +17,7 @@ export const Signature: React.FC<SignatureProps> = props => {
     )
 
     return (
-        <Tooltip overlayClassName={'hudozka'} placement="left" trigger={['hover', 'click']} overlay={content}>
+        <Tooltip overlayClassName={"hudozka"} placement="left" trigger={["hover", "click"]} overlay={content}>
             <FiShield className={s.secure} size={20} />
         </Tooltip>
     )

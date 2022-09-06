@@ -1,19 +1,19 @@
-import s from './styles.module.css'
-import cx from 'classnames'
-import { useRouter } from 'next/router'
-import { ActiveLink } from './ActiveLink'
-import { isPartOfPath } from 'src/lib/url'
+import s from "./styles.module.css"
+import cx from "classnames"
+import { useRouter } from "next/router"
+import { ActiveLink } from "./ActiveLink"
+import { isPartOfPath } from "src/lib/url"
 
 export type MenuItemProps = {
     href: string
 }
 
 export const MenuItem: React.FC<MenuItemProps> = props => {
-    const ignore = ['/']
+    const ignore = ["/"]
     const router = useRouter()
     const current = router.asPath === props.href
     const selected = current || (!ignore.includes(props.href) && isPartOfPath(props.href, router.asPath))
-    const href = current ? null : props.href
+    const href = current ? undefined : props.href
 
     return (
         <li
@@ -24,7 +24,7 @@ export const MenuItem: React.FC<MenuItemProps> = props => {
             <ActiveLink
                 href={href}
                 activeStyle={{
-                    fontWeight: 'bold'
+                    fontWeight: "bold",
                 }}
             >
                 {props.children}

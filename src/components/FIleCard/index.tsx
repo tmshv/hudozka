@@ -1,10 +1,11 @@
-import s from './filecard.module.css'
+import s from "./filecard.module.css"
 
-import Image from 'next/image'
-import { FileTokenData, Sign } from '@/types'
-import { size, ext } from '@/lib/file'
-import { getResizedUrl } from '@/lib/image'
-import { Signature } from './Signature'
+import Image from "next/image"
+import { FileTokenData, Sign } from "@/types"
+import { size, ext } from "@/lib/file"
+import { getResizedUrl } from "@/lib/image"
+import { Signature } from "./Signature"
+import Link from "next/link"
 
 export type FileCardProps = FileTokenData & {
     sign?: Sign
@@ -28,9 +29,10 @@ export const FileCard: React.FC<FileCardProps> = props => {
                             })
                         }}
                         src={props.image_url}
+                        alt={""}
                         width={100}
                         height={100}
-                        objectFit={'contain'}
+                        objectFit={"contain"}
                     />
                 </div>
             </a>
@@ -45,9 +47,11 @@ export const FileCard: React.FC<FileCardProps> = props => {
             </div>
 
             <div className={s.info}>
-                <a href={props.file_url} target="_blank">
-                    {format} ({fileSize})
-                </a>
+                <Link href={props.file_url}>
+                    <a target="_blank" rel="noreferrer">
+                        {format} ({fileSize})
+                    </a>
+                </Link>
             </div>
         </div>
     )

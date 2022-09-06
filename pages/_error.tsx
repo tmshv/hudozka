@@ -1,22 +1,22 @@
-import { NextPage } from 'next'
-import { Wrapper } from 'src/components/Wrapper'
-import { NotFound } from 'src/components/NotFound'
-import { Copyright } from 'src/components/Copyright'
-import { Block } from 'src/components/Block'
-import { Spacer } from 'src/components/Spacer'
+import { NextPage } from "next"
+import { Wrapper } from "src/components/Wrapper"
+import { NotFound } from "src/components/NotFound"
+import { Copyright } from "src/components/Copyright"
+import { Block } from "src/components/Block"
+import { Spacer } from "src/components/Spacer"
 
 const Index: NextPage = () => (
     <Wrapper
         header={null}
         footer={(
-            <Block as={'footer'} direction={'horizontal'}>
+            <Block as={"footer"} direction={"horizontal"}>
                 <Spacer />
                 <Copyright />
                 <Spacer />
             </Block>
         )}
     >
-        <Block direction={'vertical'}>
+        <Block direction={"vertical"}>
             <NotFound />
             <Spacer />
         </Block>

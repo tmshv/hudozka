@@ -1,5 +1,5 @@
-import format from 'date-fns/format'
-import { ru } from 'date-fns/locale'
+import format from "date-fns/format"
+import { ru } from "date-fns/locale"
 
 /**
  *
@@ -8,8 +8,8 @@ import { ru } from 'date-fns/locale'
  * @param date
  */
 export const dateFormat = (date: string | Date) => {
-    const value = typeof date === 'string' ? new Date(date) : date
+    const value = typeof date === "string" ? new Date(date) : date
     return format(value, "d MMMM yyyy", {
-        locale: ru
+        locale: ru,
     })
 }

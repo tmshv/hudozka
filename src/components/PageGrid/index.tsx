@@ -1,10 +1,10 @@
-import Image from 'next/image'
-import { PageCardDto } from '@/types'
-import { CardGrid } from '../CardGrid'
-import { Card, CardLayout } from '../Card'
-import { Date } from './Date'
-import { Block } from '../Block'
-import { Spacer } from '../Spacer'
+import Image from "next/image"
+import { PageCardDto } from "@/types"
+import { CardGrid } from "../CardGrid"
+import { Card, CardLayout } from "../Card"
+import { Date } from "./Date"
+import { Block } from "../Block"
+import { Spacer } from "../Spacer"
 
 export type PageGridProps = {
     items: PageCardDto[]
@@ -14,23 +14,23 @@ export const PageGrid: React.FC<PageGridProps> = props => {
     return (
         <CardGrid
             style={{
-                marginBottom: 'var(--size-xl)',
+                marginBottom: "var(--size-xl)",
             }}
         >
             {props.items.map(item => {
-                const gridColumn = item.featured ? 'span 2' : 'auto'
-                const layout: CardLayout = item.featured ? 'featured' : 'simple'
+                const gridColumn = item.featured ? "span 2" : "auto"
+                const layout: CardLayout = item.featured ? "featured" : "simple"
 
                 const content = !item.featured
                     ? (
                         <Block
-                            direction={'vertical'}
+                            direction={"vertical"}
                         >
                             {item.title}
                             <Spacer />
                             {!item.date ? null : (
                                 <Date style={{
-                                    marginTop: 'var(--size-m)',
+                                    marginTop: "var(--size-m)",
                                 }}>{item.date}</Date>
                             )}
                         </Block>
@@ -44,11 +44,11 @@ export const PageGrid: React.FC<PageGridProps> = props => {
                         href={item.url}
                         cover={(
                             <Image
-                                layout={'fill'}
-                                objectFit={'cover'}
+                                layout={"fill"}
+                                objectFit={"cover"}
                                 src={item.cover.src}
                                 alt={item.cover.alt}
-                                placeholder={'blur'}
+                                placeholder={"blur"}
                                 blurDataURL={item.cover.blur}
                             />
                         )}

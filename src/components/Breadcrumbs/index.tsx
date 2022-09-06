@@ -1,8 +1,8 @@
-import s from './styles.module.css'
+import s from "./styles.module.css"
 
-import { IBreadcumbsPart } from 'src/types'
-import { Button } from '../Button'
-import { insertBetween } from 'src/lib/array'
+import { IBreadcumbsPart } from "src/types"
+import { Button } from "../Button"
+import { insertBetween } from "src/lib/array"
 
 export type BreadcrumbsProps = {
     style?: React.CSSProperties
@@ -11,15 +11,15 @@ export type BreadcrumbsProps = {
 }
 
 export const Breadcrumbs: React.FC<BreadcrumbsProps> = props => {
-    const items = insertBetween(props.items, () => '/')
+    const items = insertBetween(props.items, () => "/")
 
     return (
         <nav className={s.breadcrumbs} style={props.style}>
             {items.map((x, i) => {
-                if (typeof x === 'string') {
+                if (typeof x === "string") {
                     return (
                         <li key={i}>
-                            <span style={{ margin: '0 var(--size-xs)' }}>{x}</span>
+                            <span style={{ margin: "0 var(--size-xs)" }}>{x}</span>
                         </li>
                     )
                 }
@@ -28,8 +28,8 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = props => {
                     <li key={x.href}>
                         <Button
                             href={x.href}
-                            theme={'ghost'}
-                            size={'small'}
+                            theme={"ghost"}
+                            size={"small"}
                             disabled={x.href === props.path}
                         >
                             {x.name}

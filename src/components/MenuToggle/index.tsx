@@ -1,7 +1,7 @@
-import s from './styles.module.css'
+import s from "./styles.module.css"
 
-import cx from 'classnames'
-import { Button } from '../Button'
+import cx from "classnames"
+import { Button } from "../Button"
 
 export interface IMenuToggleProps {
     style?: React.CSSProperties
@@ -14,7 +14,7 @@ export const MenuToggle: React.FC<IMenuToggleProps> = props => {
         <Button
             onClick={props.onClick}
             style={props.style}
-            theme={'icon'}
+            theme={"icon"}
         >
             <div
                 className={cx(s.toggle, {

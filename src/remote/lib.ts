@@ -11,7 +11,7 @@ export function asItem<T>(value: T | T[]) {
 }
 
 export function paramsToSlug(parts: string | string[]): string {
-    const slug = asArray(parts).join('/')
+    const slug = asArray(parts).join("/")
 
     return `/${slug}`
 }

@@ -1,11 +1,11 @@
-import { MenuToggle } from '../MenuToggle'
-import { useMobile } from 'src/hooks/useMobile'
-import { Menu } from '../Menu'
-import { Overlay } from '../Overlay'
-import { useState, useCallback, useContext } from 'react'
-import { ConfigContext } from 'src/context/ConfigContext'
-import { Block } from '../Block'
-import { Spacer } from '../Spacer'
+import { MenuToggle } from "../MenuToggle"
+import { useMobile } from "src/hooks/useMobile"
+import { Menu } from "../Menu"
+import { Overlay } from "../Overlay"
+import { useState, useCallback, useContext } from "react"
+import { ConfigContext } from "src/context/ConfigContext"
+import { Block } from "../Block"
+import { Spacer } from "../Spacer"
 
 export interface INavigationProps {
     style?: React.CSSProperties
@@ -28,24 +28,24 @@ export const Navigation: React.FC<INavigationProps> = props => {
                 show={open}
                 onClickOverlay={onClick}
             >
-                <Block direction={'horizontal'}>
+                <Block direction={"horizontal"}>
                     <Spacer />
                     <MenuToggle
                         open={open}
                         onClick={onClick}
                         style={{
-                            margin: 'var(--size-xs)'
+                            margin: "var(--size-xs)",
                         }}
                     />
                 </Block>
-                <Block direction={'horizontal'} style={{
-                    justifyContent: 'center',
+                <Block direction={"horizontal"} style={{
+                    justifyContent: "center",
                 }}>
                     <nav style={{
-                        width: '75%',
+                        width: "75%",
                     }}>
                         <Menu
-                            layout={'mobile'}
+                            layout={"mobile"}
                             items={menu}
                         />
                     </nav>
@@ -53,24 +53,24 @@ export const Navigation: React.FC<INavigationProps> = props => {
             </Overlay>
 
             {collapseMenu ? (
-                <Block direction={'horizontal'}>
+                <Block direction={"horizontal"}>
                     <Spacer />
                     <MenuToggle
                         open={open}
                         onClick={onClick}
                         style={{
-                            margin: 'var(--size-xs)'
+                            margin: "var(--size-xs)",
                         }}
                     />
                 </Block>
             ) : (
-                    <nav style={props.style}>
-                        <Menu
-                            layout={'desktop'}
-                            items={menu}
-                        />
-                    </nav>
-                )}
+                <nav style={props.style}>
+                    <Menu
+                        layout={"desktop"}
+                        items={menu}
+                    />
+                </nav>
+            )}
         </>
     )
 }

@@ -1,7 +1,7 @@
-import s from './styles.module.css'
+import s from "./styles.module.css"
 
-import { PageMeta } from '../PageMeta'
-import { ITag } from 'src/types'
+import { PageMeta } from "../PageMeta"
+import { ITag } from "src/types"
 
 export type PageProps = {
     style?: React.CSSProperties
@@ -15,7 +15,7 @@ export const Page: React.FC<PageProps> = props => (
 
         <PageMeta
             style={{
-                marginTop: 'var(--size-m)',
+                marginTop: "var(--size-m)",
             }}
             date={props.date}
             tags={props.tags}

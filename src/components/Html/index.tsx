@@ -1,4 +1,4 @@
-import { createElement } from 'react'
+import { createElement } from "react"
 
 export type HtmlProps = {
     className?: string
@@ -6,11 +6,11 @@ export type HtmlProps = {
     html: string
 }
 
-export const Html: React.FC<HtmlProps> = ({ as = 'div', ...props }) => {
+export const Html: React.FC<HtmlProps> = ({ as = "div", ...props }) => {
     return createElement(as, {
         className: props.className,
         dangerouslySetInnerHTML: {
             __html: props.html,
-        }
+        },
     })
 }

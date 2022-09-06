@@ -1,7 +1,7 @@
-import MarkdownIt from 'markdown-it'
-import Typograf from 'typograf'
+import MarkdownIt from "markdown-it"
+import Typograf from "typograf"
 
-const tp = new Typograf({ locale: ['ru'] })
+const tp = new Typograf({ locale: ["ru"] })
 const md = new MarkdownIt({
     html: true,
 })

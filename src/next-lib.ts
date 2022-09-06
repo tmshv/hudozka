@@ -1,20 +1,9 @@
-import axios from 'axios'
-import { NextPageContext } from 'next'
+import { NextPageContext } from "next"
 
 export interface IResponseItems<T> {
     items: T[]
     nextPage: number
     prevPage: number
-}
-
-export async function requestGet<T>(url: string, defaultResponse: T): Promise<T> {
-    try {
-        const res = await axios.get<T>(url)
-
-        return res.data
-    } catch (e) {
-        return defaultResponse
-    }
 }
 
 /**
@@ -25,16 +14,12 @@ export async function requestGet<T>(url: string, defaultResponse: T): Promise<T>
  */
 export function wrapInitialProps(fn: (ctx: NextPageContext) => void) {
     return async (ctx: NextPageContext) => {
-        if (process.env.NODE_ENV === 'production' && process.browser) {
-            return window['__NEXT_DATA__'].props.pageProps;
+        if (process.env.NODE_ENV === "production" && process.browser) {
+            return window["__NEXT_DATA__"].props.pageProps
         }
 
         return fn(ctx)
     }
-}
-
-export function createApiUrl(path: string) {
-    return `https://api.tmshv.com/hudozka${path}`
 }
 
 export type FactoryFunction<I, O> =

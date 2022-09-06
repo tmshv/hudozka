@@ -1,6 +1,6 @@
-import s from './title.module.css'
+import s from "./title.module.css"
 
-import { memo } from 'react'
+import { memo } from "react"
 
 export type HudozkaTitleProps = {
     style?: React.CSSProperties
@@ -13,3 +13,5 @@ export const HudozkaTitle: React.FC<HudozkaTitleProps> = memo(props => (
         <span className={s.suffix}>детская художественная школа</span>
     </h1>
 ))
+
+HudozkaTitle.displayName = "HudozkaTitle"

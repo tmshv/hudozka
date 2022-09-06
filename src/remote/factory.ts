@@ -1,8 +1,8 @@
-import { IMenu, IPage, ITag, PageCardDto, Pic, Token } from "@/types";
-import { asItem } from "./lib";
-import { StrapiComponentEmbed, StrapiComponent, StrapiHome, StrapiPage, StrapiPageCard, StrapiTag, StrapiMedia, StrapiMenu } from "./types";
-import { typograf, markdownToHtml } from 'src/lib/text'
-import { encodeImageToBlurhash } from "./image";
+import { IMenu, IPage, ITag, PageCardDto, Pic, Token } from "@/types"
+import { asItem } from "./lib"
+import { StrapiComponentEmbed, StrapiComponent, StrapiHome, StrapiPage, StrapiPageCard, StrapiTag, StrapiMedia, StrapiMenu } from "./types"
+import { typograf, markdownToHtml } from "src/lib/text"
+import { encodeImageToBlurhash } from "./image"
 
 const md = (text: string) => typograf(markdownToHtml(text))
 
@@ -19,79 +19,79 @@ export function isYoutubeUrl(url: string): boolean {
 export function createEmbed(component: StrapiComponentEmbed): Token {
     if (isYoutubeUrl(component.src)) {
         return {
-            token: 'youtube',
+            token: "youtube",
             data: {
                 url: component.src,
-            }
+            },
         }
     }
 
     return {
-        token: 'html',
-        data: `<iframe src="${component.src}" width="100%" height="480" frameborder="0"></iframe>`
+        token: "html",
+        data: `<iframe src="${component.src}" width="100%" height="480" frameborder="0"></iframe>`,
     }
 }
 
 export async function createPageToken(component: StrapiComponent): Promise<Token> {
     switch (component.__component) {
-        case 'hudozka.text': {
-            return {
-                token: 'html',
-                data: md(component.text),
-            }
+    case "hudozka.text": {
+        return {
+            token: "html",
+            data: md(component.text),
         }
+    }
 
-        case 'hudozka.image': {
-            const data = await createPicFromMedia(component.media, {
-                alternativeText: component.caption,
-                caption: component.caption,
-            })
+    case "hudozka.image": {
+        const data = await createPicFromMedia(component.media, {
+            alternativeText: component.caption,
+            caption: component.caption,
+        })
 
-            return {
-                token: 'image',
-                wide: component.wide,
-                data,
-            }
+        return {
+            token: "image",
+            wide: component.wide,
+            data,
         }
+    }
 
-        case 'hudozka.document': {
-            return {
-                token: 'file',
-                data: {
-                    url: component.media.url,
-                    slug: 'jopa',
-                    image_url: component.media.url,
-                    file_url: component.media.url,
-                    title: component.title,
-                    file_size: component.media.size * 1000,
-                    // file_size: component.media.size,
-                    file_format: component.media.mime,
-                }
-            }
+    case "hudozka.document": {
+        return {
+            token: "file",
+            data: {
+                url: component.media.url,
+                slug: "jopa",
+                image_url: component.media.url,
+                file_url: component.media.url,
+                title: component.title,
+                file_size: component.media.size * 1000,
+                // file_size: component.media.size,
+                file_format: component.media.mime,
+            },
         }
+    }
 
-        case 'hudozka.embed': {
-            return createEmbed(component)
+    case "hudozka.embed": {
+        return createEmbed(component)
+    }
+
+    case "hudozka.card-grid": {
+        const items = await Promise.all(component.items
+            .filter(Boolean)
+            .map(createCardGrid)
+        )
+        return {
+            token: "grid",
+            data: {
+                items,
+            },
         }
+    }
 
-        case 'hudozka.card-grid': {
-            const items = await Promise.all(component.items
-                .filter(Boolean)
-                .map(createCardGrid)
-            )
-            return {
-                token: 'grid',
-                data: {
-                    items,
-                }
-            }
+    default:
+        return {
+            token: "text",
+            data: ` ${JSON.stringify(component)}`,
         }
-
-        default:
-            return {
-                token: 'text',
-                data: ` ${JSON.stringify(component)}`,
-            }
     }
 }
 
@@ -102,7 +102,7 @@ export function createMenu(res: StrapiMenu): IMenu[] {
     }))
 
     return [{
-        href: '/',
+        href: "/",
         name: res.homeLabel,
     }, ...items]
 }
@@ -130,12 +130,12 @@ export async function createPage(res: StrapiPage | StrapiPage[]): Promise<IPage 
         id: `${item.id}`,
         url: item.slug,
 
-        data: '',
-        date: '',
+        data: "",
+        date: "",
         cover,
         tokens: [
             {
-                token: 'html',
+                token: "html",
                 data: md(`# ${item.title}`),
             },
 
@@ -148,7 +148,7 @@ export async function createPage(res: StrapiPage | StrapiPage[]): Promise<IPage 
 }
 
 function isCardFeatured(card: StrapiPageCard): boolean {
-    return card.layout === 'big' || card.layout === 'medium'
+    return card.layout === "big" || card.layout === "medium"
 }
 
 export async function getCoverImage(media?: StrapiMedia): Promise<Pic> {
@@ -157,7 +157,7 @@ export async function getCoverImage(media?: StrapiMedia): Promise<Pic> {
     }
 
     return {
-        src: 'https://hudozkacdn.tmshv.com/main_fad9fdf29a.jpg',
+        src: "https://hudozkacdn.tmshv.com/main_fad9fdf29a.jpg",
         width: 1920,
         height: 1858,
         // alt: '',

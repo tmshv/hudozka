@@ -1,11 +1,11 @@
-import { useEffect } from 'react'
-import { getCode } from './lib'
+import { useEffect } from "react"
+import { getCode } from "./lib"
 
 export type GosuslugiProps = {}
 
 export const Gosuslugi: React.FC<GosuslugiProps> = () => {
     useEffect(() => {
-        window.dispatchEvent(new Event('resize'))
+        window.dispatchEvent(new Event("resize"))
     })
 
     return (

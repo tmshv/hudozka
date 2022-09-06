@@ -1,8 +1,8 @@
-import s from './styles.module.css'
+import s from "./styles.module.css"
 
-import cx from 'classnames'
-import { MenuItem } from './MenuItem'
-import { IMenu } from 'src/types'
+import cx from "classnames"
+import { MenuItem } from "./MenuItem"
+import { IMenu } from "src/types"
 
 const layoutClass = {
     desktop: s.desktop,
@@ -10,7 +10,7 @@ const layoutClass = {
 }
 
 export type MenuProps = {
-    layout: 'desktop' | 'mobile'
+    layout: "desktop" | "mobile"
     items: IMenu[]
 }
 

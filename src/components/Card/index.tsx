@@ -1,14 +1,14 @@
-import s from './styles.module.css'
+import s from "./styles.module.css"
 
-import cx from 'classnames'
-import Link from 'next/link'
+import cx from "classnames"
+import Link from "next/link"
 
 const layoutClass = {
     simple: s.simple,
     featured: s.featured,
 }
 
-export type CardLayout = 'simple' | 'featured'
+export type CardLayout = "simple" | "featured"
 export type CardProps = {
     style?: React.CSSProperties
     href: string

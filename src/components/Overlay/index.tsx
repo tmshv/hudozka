@@ -1,8 +1,8 @@
-import s from './styles.module.css'
+import s from "./styles.module.css"
 
-import { Transition } from './Transition'
-import { useReducedMotion } from '../../hooks/useReducedMotion'
-import { useCallback, useEffect } from 'react'
+import { Transition } from "./Transition"
+import { useReducedMotion } from "../../hooks/useReducedMotion"
+import { useCallback, useEffect } from "react"
 
 export interface IOverlayProps {
     show: boolean
@@ -21,9 +21,9 @@ export const Overlay: React.FC<IOverlayProps> = props => {
 
     useEffect(() => {
         if (props.show) {
-            document.body.classList.add('noscroll')
+            document.body.classList.add("noscroll")
         } else {
-            document.body.classList.remove('noscroll')
+            document.body.classList.remove("noscroll")
         }
     }, [props.show])
 

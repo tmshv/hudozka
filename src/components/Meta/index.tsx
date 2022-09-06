@@ -1,4 +1,4 @@
-import { IMeta } from 'src/types'
+import { IMeta } from "src/types"
 
 export type MetaProps = {
     meta: IMeta

@@ -1,4 +1,4 @@
-import s from './styles.module.css'
+import s from "./styles.module.css"
 
 export type CardGridProps = {
     style?: React.CSSProperties
