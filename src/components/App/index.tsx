@@ -1,4 +1,3 @@
-import dynamic from "next/dynamic"
 import { Wrapper } from "../Wrapper"
 import { ConfigContext } from "src/context/ConfigContext"
 import config from "src/config"
@@ -10,11 +9,7 @@ import { IBreadcumbsPart, IMenu } from "src/types"
 import { useRouter } from "next/router"
 import { useMobile } from "src/hooks/useMobile"
 import { Gosuslugi } from "../Gosuslugi"
-import { NavigationProps } from "@/components/Navigation"
-
-const Navigation = dynamic<NavigationProps>(() => import("../Navigation").then(mod => mod.Navigation), {
-    ssr: false,
-})
+import { Navigation } from "@/components/Navigation"
 
 export type AppProps = {
     showAuthor?: boolean
@@ -40,7 +35,7 @@ export const App: React.FC<AppProps> = ({ showAuthor = false, menu, ...props }) 
                 header={(
                     <header>
                         <Navigation style={{
-                            margin: "0 var(--size-m) var(--size-m)",
+                            // margin: "0 var(--size-m) var(--size-m)",
                         }} />
                         {hideBreadcrumbs || !props.breadcrumbs ? null : (
                             <Block direction={"horizontal"} style={blockStyle}>

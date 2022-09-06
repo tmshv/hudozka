@@ -3,8 +3,12 @@
     align-items: flex-start;
     flex-wrap: wrap;
 
+    gap: var(--size-m);
+
     font-size: var(--font-size-second);
     list-style: none;
+
+    padding: var(--size-s);
 }
 
 /* MENU LAYOUT */
@@ -19,34 +23,28 @@
 
 /* MENU ITEM */
 
-.menu li {
-    position: relative;
-    border-top: var(--menu-mark-thickness) solid rgba(0, 0, 0, 0);
+.menuItem {
+    user-select: none;
+    background-color: var(--color-back-main);
+    border-radius: var(--size-s);
+    transition: box-shadow 200ms ease-in;
+    padding: var(--size-s) var(--size-s);
 }
 
-/* MENU ITEM MOBILE */
-
-.mobile li {
-    font-size: var(--font-size-default);
-
-    padding: var(--size-xs) var(--size-s);
+.menuItem.active {
+    cursor: pointer;
 }
 
-.mobile li.selected {
+.menuItem.active:hover {
+    box-shadow: var(--shadow);
+}
+
+.menuItem.current {
+    color: var(--color-text-opposite);
     background-color: var(--color-back-opposite);
-    color: var(--color-text-opposite)
 }
 
-.mobile li.selected a {
-     color: var(--color-text-opposite)
-}
- 
-/* MENU ITEM DESKTOP */
-
-.desktop li {
-    padding: var(--size-xs) var(--size-s);
-}
-
-.desktop li.selected {
-    border-top-color: var(--color-back-opposite);
+.menuItem a {
+    text-decoration: none;
+    color: var(--color-text);
 }

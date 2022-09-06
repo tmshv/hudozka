@@ -19,12 +19,10 @@ export const Navigation: React.FC<NavigationProps> = props => {
 
     if (!collapseMenu) {
         return (
-            <nav style={props.style}>
-                <Menu
-                    layout={"desktop"}
-                    items={menu}
-                />
-            </nav>
+            <Menu
+                layout={"desktop"}
+                items={menu}
+            />
         )
     }
 
