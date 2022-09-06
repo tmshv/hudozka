@@ -2,7 +2,7 @@ import s from "./styles.module.css"
 
 import cx from "classnames"
 import { ITag } from "src/types"
-import { Button } from "../Button"
+import { Button } from "@/ui/Button"
 import Image from "next/image"
 
 const directionClass = {

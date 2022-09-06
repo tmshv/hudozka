@@ -1,7 +1,7 @@
 import s from "./styles.module.css"
 
 import cx from "classnames"
-import { Button } from "../Button"
+import { Button } from "@/ui/Button"
 
 export interface IMenuToggleProps {
     style?: React.CSSProperties

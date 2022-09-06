@@ -1,7 +1,7 @@
 import s from "./styles.module.css"
 
 import { IBreadcumbsPart } from "src/types"
-import { Button } from "../Button"
+import { Button } from "@/ui/Button"
 import { insertBetween } from "src/lib/array"
 
 export type BreadcrumbsProps = {

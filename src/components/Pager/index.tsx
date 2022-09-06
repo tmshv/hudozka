@@ -1,5 +1,5 @@
 import { Block, BlockProps } from "../Block"
-import { Button } from "../Button"
+import { Button } from "@/ui/Button"
 import { Spacer } from "../Spacer"
 
 export type PagerProps = Omit<BlockProps, "direction"> & {
