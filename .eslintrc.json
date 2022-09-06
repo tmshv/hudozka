@@ -1,3 +1,21 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": "next/core-web-vitals",
+  "rules": {
+    "semi": [
+      "error",
+      "never"
+    ],
+    "space-before-function-paren": "off",
+    "comma-dangle": [
+      "error",
+      "always-multiline"
+    ],
+    "no-tabs": "off",
+    "indent": [
+      "warn",
+      4
+    ],
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error"
+  }
 }
