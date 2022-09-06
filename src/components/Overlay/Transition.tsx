@@ -34,7 +34,11 @@ export const Transition: React.FC<ITransitionProps> = props => {
         }
     }, [props.show])
 
-    return mounted && (
+    if (!mounted) {
+        return null
+    }
+
+    return (
         <div
             style={{
                 ...props.extraStyle,
