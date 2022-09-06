@@ -1,6 +1,6 @@
 const currentYear = () => (new Date()).getFullYear()
 
-export default {
+const config = {
     yearStart: 2012,
     yearEnd: currentYear(),
     contacts: [
@@ -70,3 +70,5 @@ export default {
         }
     ]
 }
+
+export default config
