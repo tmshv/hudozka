@@ -14,6 +14,7 @@ export type BoxProps = {
     align?: boolean
     vertical?: boolean
     center?: boolean
+    gap?: number
 }
 
 export const Box: React.FC<BoxProps> = ({
@@ -23,12 +24,16 @@ export const Box: React.FC<BoxProps> = ({
     center = false,
     align = true,
     style,
+    gap,
     className,
     ...props
 }) => {
     const newProps = {
         className: cx(s.box, className, { vertical, align, center, wrap }),
-        style,
+        style: {
+            ...style,
+            gap,
+        },
     }
 
     return createElement(as, newProps, props.children)

@@ -13,6 +13,12 @@ import { Box } from "@/ui/Box"
 import { Button } from "@/ui/Button"
 import { EyeOpenIcon } from "@radix-ui/react-icons"
 import { useTheme } from "@/ui/theme/useTheme"
+import { Copyright } from "../Copyright"
+import { Spacer } from "../Spacer"
+import { Author } from "../Author"
+import { Title } from "@/ui/Title"
+import { Panel } from "@/ui/Panel"
+import { Contacts } from "../Contacts"
 
 export type AppProps = {
     showAuthor?: boolean
@@ -54,23 +60,46 @@ export const App: React.FC<AppProps> = ({ showAuthor = false, menu, ...props }) 
                     </header>
                 )}
                 footer={(
-                    <Footer
-                        showAuthor={showAuthor}
-                    >
+                    <Footer>
+                        <Box gap={40} align={false} style={{
+                            marginBottom: "var(--size-l)",
+                        }}>
+                            <Panel ghost>
+                                <Contacts />
+                            </Panel>
+
+                            <Panel ghost>
+                                <Title level={3}>
+                                    Версия для слабовидящих
+                                </Title>
+                                <Button theme="icon" size="default" onClick={() => {
+                                    setTheme(theme === "default" ? "contrast" : "default")
+                                }}>
+                                    <EyeOpenIcon width={24} height={24} />
+                                </Button>
+                            </Panel>
+                        </Box>
+
                         <div style={{
                             backgroundColor: "white",
                             padding: 10,
                             borderRadius: 10,
                             marginBottom: 30,
                         }}>
-                            <Gosuslugi />
+                            {/* <Gosuslugi /> */}
                         </div>
 
-                        <Button theme="icon" size="default" onClick={() => {
-                            setTheme(theme === "default" ? "contrast" : "default")
-                        }}>
-                            <EyeOpenIcon width={24} height={24} />
-                        </Button>
+
+                        <Box>
+                            <Copyright />
+
+                            {!showAuthor ? null : (
+                                <>
+                                    <Spacer as={"span"} />
+                                    <Author />
+                                </>
+                            )}
+                        </Box>
                     </Footer>
                 )}
             >

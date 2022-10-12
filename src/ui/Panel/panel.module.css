@@ -1,8 +1,12 @@
 .panel {
-    padding: var(--size-m);
     border-radius: var(--radius);
 }
 
 .default {
+    padding: var(--size-m);
     background-color: white;
+}
+
+.ghost {
+    background-color: none;
 }

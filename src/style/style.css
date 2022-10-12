@@ -236,3 +236,24 @@ h3 {
     --radius-small: 0;
     --border: 5px solid var(--color-back-opposite);
 }
+
+/* CONTRAST + DARK THEME */
+@media (prefers-color-scheme: dark) {
+    .theme-contrast {
+        /* TEXT COLOR */
+        --color-text: white;
+        --color-text-second: white;
+        --color-text-opposite: black;
+
+        --color-back-main: black;
+        --color-back: black;
+        --color-back-opposite: white;
+
+        /* --color-back-active: hsl(240, 10%, 20%); */
+        /* --color-link: hsl(240, 10%, 40%); */
+        /* --color-link-opposite: hsl(240, 10%, 60%); */
+
+        --color-hover: white;
+        --color-hover-back: white;
+    }
+}
