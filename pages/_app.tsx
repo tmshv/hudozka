@@ -8,6 +8,7 @@ import App from "next/app"
 import Head from "next/head"
 import { YMetrika } from "src/components/YMetrika"
 import { GAnalytics } from "src/components/GAnalytics"
+import { Theme } from "@/ui/theme/Theme"
 
 export default class MyApp extends App {
     render() {
@@ -41,7 +42,9 @@ export default class MyApp extends App {
                     <YMetrika account={24027460} />
                     <GAnalytics account={"UA-60209057-1"} />
                 </Head>
-                <Component {...pageProps} />
+                <Theme>
+                    <Component {...pageProps} />
+                </Theme>
             </>
         )
     }

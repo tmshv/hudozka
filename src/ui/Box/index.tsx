@@ -8,6 +8,7 @@ const cx = classnames.bind(s)
 export type BoxProps = {
     as?: keyof HTMLElementTagNameMap
     children?: React.ReactNode
+    className?: string
     style?: React.CSSProperties
     wrap?: boolean
     align?: boolean
@@ -22,10 +23,11 @@ export const Box: React.FC<BoxProps> = ({
     center = false,
     align = true,
     style,
+    className,
     ...props
 }) => {
     const newProps = {
-        className: cx(s.box, { vertical, align, center, wrap }),
+        className: cx(s.box, className, { vertical, align, center, wrap }),
         style,
     }
 

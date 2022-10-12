@@ -10,6 +10,9 @@ import { useMobile } from "src/hooks/useMobile"
 import { Gosuslugi } from "../Gosuslugi"
 import { Navigation } from "@/components/Navigation"
 import { Box } from "@/ui/Box"
+import { Button } from "@/ui/Button"
+import { EyeOpenIcon } from "@radix-ui/react-icons"
+import { useTheme } from "@/ui/theme/useTheme"
 
 export type AppProps = {
     showAuthor?: boolean
@@ -25,6 +28,7 @@ export const App: React.FC<AppProps> = ({ showAuthor = false, menu, ...props }) 
     const blockStyle = {
         justifyContent: "center",
     }
+    const { theme, setTheme } = useTheme()
 
     return (
         <ConfigContext.Provider value={{
@@ -61,6 +65,12 @@ export const App: React.FC<AppProps> = ({ showAuthor = false, menu, ...props }) 
                         }}>
                             <Gosuslugi />
                         </div>
+
+                        <Button theme="icon" size="default" onClick={() => {
+                            setTheme(theme === "default" ? "contrast" : "default")
+                        }}>
+                            <EyeOpenIcon width={24} height={24} />
+                        </Button>
                     </Footer>
                 )}
             >

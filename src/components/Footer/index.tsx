@@ -6,6 +6,7 @@ import { Author } from "./Author"
 import { Spacer } from "../Spacer"
 import { Contacts } from "../Contacts"
 import { Box } from "@/ui/Box"
+import { Panel } from "@/ui/Panel"
 
 export type FooterProps = {
     showAuthor: boolean
@@ -14,10 +15,18 @@ export type FooterProps = {
 
 export const Footer: React.FC<FooterProps> = ({ showAuthor, children }) => (
     <footer className={cx(s.footer, "opposite")}>
-        <Box vertical align={false} style={{
-            marginBottom: "var(--size-l)",
-        }}>
-            <Contacts />
+        <Box>
+            <Box vertical align={false} style={{
+                marginBottom: "var(--size-l)",
+            }}>
+                <Contacts />
+            </Box>
+
+            <Panel style={{
+                marginBottom: "var(--size-l)",
+            }}>
+                <Contacts />
+            </Panel>
         </Box>
 
         {children}

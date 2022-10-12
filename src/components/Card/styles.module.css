@@ -5,6 +5,8 @@
     box-shadow: var(--shadow);
     overflow: hidden;
     transition: box-shadow 150ms;
+
+    border: var(--border);
 }
 
 .card:hover {
@@ -52,8 +54,8 @@
 
     border-radius: var(--radius) var(--radius) 0 0;
     width: 100%;
-    height: var(--radius);
-    top: calc(var(--radius) * -1);
+    height: var(--size-m);
+    top: calc(var(--size-m) * -1);
     left: 0;
 }
 
@@ -68,10 +70,9 @@
     position: absolute;
 
     --offset: var(--size-m);
-    --r: var(--size-s);
     left: var(--offset);
     right: var(--offset);
     bottom: var(--offset);
 
-    border-radius: var(--radius) var(--radius) var(--r) var(--r);
+    border-radius: var(--radius-small);
 }

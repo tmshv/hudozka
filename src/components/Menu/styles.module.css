@@ -21,7 +21,7 @@
 .menuItem {
     user-select: none;
     background-color: var(--color-back-main);
-    border-radius: var(--size-s);
+    border-radius: var(--radius-small);
     transition: box-shadow 200ms ease-in, background-color 200ms ease-in;
     padding: var(--size-s) var(--size-s);
 }
@@ -32,6 +32,12 @@
 
 .menuItem.active:hover {
     box-shadow: var(--shadow);
+    color: var(--color-hover);
+    background-color: var(--color-hover-back);
+}
+
+.menuItem.active:hover a {
+    color: var(--color-hover);
 }
 
 .menuItem.current {
