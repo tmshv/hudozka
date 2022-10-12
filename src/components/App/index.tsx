@@ -7,7 +7,6 @@ import { Breadcrumbs } from "../Breadcrumbs"
 import { IBreadcumbsPart, IMenu } from "src/types"
 import { useRouter } from "next/router"
 import { useMobile } from "src/hooks/useMobile"
-import { Gosuslugi } from "../Gosuslugi"
 import { Navigation } from "@/components/Navigation"
 import { Box } from "@/ui/Box"
 import { Button } from "@/ui/Button"
@@ -19,6 +18,11 @@ import { Author } from "../Author"
 import { Title } from "@/ui/Title"
 import { Panel } from "@/ui/Panel"
 import { Contacts } from "../Contacts"
+import dynamic from "next/dynamic"
+
+const Gosuslugi = dynamic(import("../Gosuslugi").then(module => module.Gosuslugi), {
+    ssr: false,
+})
 
 export type AppProps = {
     showAuthor?: boolean
@@ -86,7 +90,7 @@ export const App: React.FC<AppProps> = ({ showAuthor = false, menu, ...props }) 
                             borderRadius: 10,
                             marginBottom: 30,
                         }}>
-                            {/* <Gosuslugi /> */}
+                            <Gosuslugi />
                         </div>
 
 
