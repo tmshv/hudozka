@@ -7,8 +7,7 @@ export default function Document() {
                 {/* Google Fonts */}
                 <link
                     href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;900&display=swap"
-                    rel="preload"
-                    as="style"
+                    rel="stylesheet"
                 />
 
             </Head>

@@ -1,6 +1,7 @@
 import s from "./wrapper.module.css"
 
 import cx from "classnames"
+import { useTheme } from "@/ui/theme/useTheme"
 
 export type WrapperProps = {
     header: React.ReactNode
@@ -10,14 +11,18 @@ export type WrapperProps = {
     children?: React.ReactNode
 }
 
-export const Wrapper: React.FC<WrapperProps> = props => (
-    <div className={cx(s.container, "theme-default")} style={props.style}>
-        {props.header}
+export const Wrapper: React.FC<WrapperProps> = props => {
+    const { theme } = useTheme()
 
-        <main className={s.main} style={props.mainStyle}>
-            {props.children}
-        </main>
+    return (
+        <div className={cx(s.container, `theme-${theme}`)} style={props.style}>
+            {props.header}
 
-        {props.footer}
-    </div>
-)
+            <main className={s.main} style={props.mainStyle}>
+                {props.children}
+            </main>
+
+            {props.footer}
+        </div>
+    )
+}

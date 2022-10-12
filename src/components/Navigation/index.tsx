@@ -7,6 +7,8 @@ import { ConfigContext } from "src/context/ConfigContext"
 import { Box } from "@/ui/Box"
 import { Spacer } from "../Spacer"
 import { useToggle } from "react-use"
+import { Button } from "@/ui/Button"
+import { EyeOpenIcon } from "@radix-ui/react-icons"
 
 export type NavigationProps = {
     style?: React.CSSProperties
