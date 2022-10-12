@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useLocalStorage } from "react-use"
 import { ThemeContext } from "./ThemeContext"
 import { ThemeType } from "./types"
 
@@ -7,10 +7,10 @@ export type ThemeProps = {
 }
 
 export const Theme: React.FC<ThemeProps> = ({ children }) => {
-    const [theme, setTheme] = useState<ThemeType>("default")
+    const [theme, setTheme] = useLocalStorage<ThemeType>("hudozka-theme", "default")
 
     return (
-        <ThemeContext.Provider value={[theme, setTheme]}>
+        <ThemeContext.Provider value={[theme ?? "default", setTheme]}>
             {children}
         </ThemeContext.Provider>
     )
