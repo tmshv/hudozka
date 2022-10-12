@@ -89,6 +89,7 @@ body {
     font-family: var(--text-font);
 }
 
+/* TITLE */
 h1 {
     font-family: var(--title-font);
     text-align: center;
@@ -106,8 +107,7 @@ h2 {
 }
 
 h3 {
-    margin: var(--size-m) 0;
-
+    margin-bottom: var(--size-s);
     font-size: var(--font-size-h3);
 
     hyphens: none;
