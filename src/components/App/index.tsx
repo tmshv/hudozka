@@ -10,7 +10,7 @@ import { useMobile } from "src/hooks/useMobile"
 import { Navigation } from "@/components/Navigation"
 import { Box } from "@/ui/Box"
 import { Button } from "@/ui/Button"
-import { EyeOpenIcon } from "@radix-ui/react-icons"
+import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons"
 import { useTheme } from "@/ui/theme/useTheme"
 import { Copyright } from "../Copyright"
 import { Spacer } from "../Spacer"
@@ -79,7 +79,11 @@ export const App: React.FC<AppProps> = ({ showAuthor = false, menu, ...props }) 
                                 <Button theme="icon" size="default" onClick={() => {
                                     setTheme(theme === "default" ? "contrast" : "default")
                                 }}>
-                                    <EyeOpenIcon width={24} height={24} />
+                                    {theme === "default" ? (
+                                        <EyeOpenIcon width={24} height={24} />
+                                    ) : (
+                                        <EyeClosedIcon width={24} height={24} />
+                                    )}
                                 </Button>
                             </Panel>
                         </Box>
