@@ -12,6 +12,7 @@ import { EyeOpenIcon } from "@radix-ui/react-icons"
 import { HudozkaLogo } from "../HudozkaLogo"
 import { useDarkTheme } from "@/hooks/useDarkTheme"
 import { HudozkaTitle } from "../HudozkaTitle"
+import Link from "next/link"
 
 export type NavigationProps = {
     style?: React.CSSProperties
@@ -52,7 +53,11 @@ export const Navigation: React.FC<NavigationProps> = props => {
             <Box wrap gap={"var(--size-s)"} style={{
                 padding: "var(--size-s)",
             }}>
-                <HudozkaLogo dark={dark} />
+                <Link href="/">
+                    <a>
+                        <HudozkaLogo dark={dark} />
+                    </a>
+                </Link>
 
                 {!mobile ? null : (
                     <HudozkaTitle compact />
