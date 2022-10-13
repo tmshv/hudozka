@@ -3,7 +3,7 @@
     align-items: flex-start;
     flex-wrap: wrap;
 
-    gap: var(--size-m);
+    gap: var(--size-s);
 
     font-size: var(--font-size-second);
     list-style: none;
@@ -19,11 +19,18 @@
 /* MENU ITEM */
 
 .menuItem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     user-select: none;
     background-color: var(--color-back-main);
     border-radius: var(--radius-small);
     transition: box-shadow 200ms ease-in, background-color 200ms ease-in;
-    padding: var(--size-s) var(--size-s);
+    /* padding: var(--size-s) var(--size-s); */
+    padding: 0 var(--size-s);
+
+    height: var(--size-l);
 }
 
 .menuItem.active {

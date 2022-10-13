@@ -8,6 +8,7 @@ import { GetStaticProps, NextPage } from "next"
 import { IMenu, IMeta, PageCardDto } from "src/types"
 import { apiGet } from "@/next-lib"
 import { createHomeCards, createMenu } from "@/remote/factory"
+import { useMobile } from "@/hooks/useMobile"
 
 type Props = {
     title: string
@@ -16,48 +17,54 @@ type Props = {
     items: PageCardDto[]
 }
 
-const Index: NextPage<Props> = props => (
-    <>
-        <NextSeo
-            title={props.meta.title}
-            description={props.meta.description}
-            canonical="https://art.shlisselburg.org/"
-            openGraph={{
-                url: props.meta.url,
-                title: props.meta.title,
-                description: props.meta.description,
-                images: [
-                    {
-                        url: props.meta.image,
-                        width: props.meta.imageWidth,
-                        height: props.meta.imageHeight,
-                        alt: props.meta.description,
-                        type: "image/jpeg",
-                    },
-                ],
-                site_name: props.meta.siteName,
-            }}
-        />
-        <Head>
-            <title>{props.title}</title>
-        </Head>
-        <App
-            showAuthor={true}
-            menu={props.menu}
-        >
-            <HudozkaTitle
-                style={{
-                    marginTop: "var(--size-m)",
-                    marginBottom: "var(--size-m)",
+const Index: NextPage<Props> = props => {
+    const mobile = useMobile()
+
+    return (
+        <>
+            <NextSeo
+                title={props.meta.title}
+                description={props.meta.description}
+                canonical="https://art.shlisselburg.org/"
+                openGraph={{
+                    url: props.meta.url,
+                    title: props.meta.title,
+                    description: props.meta.description,
+                    images: [
+                        {
+                            url: props.meta.image,
+                            width: props.meta.imageWidth,
+                            height: props.meta.imageHeight,
+                            alt: props.meta.description,
+                            type: "image/jpeg",
+                        },
+                    ],
+                    site_name: props.meta.siteName,
                 }}
             />
+            <Head>
+                <title>{props.title}</title>
+            </Head>
+            <App
+                showAuthor={true}
+                menu={props.menu}
+            >
+                {mobile ? null : (
+                    <HudozkaTitle
+                        style={{
+                            marginTop: "var(--size-m)",
+                            marginBottom: "var(--size-m)",
+                        }}
+                    />
+                )}
 
-            <PageGrid
-                items={props.items}
-            />
-        </App>
-    </>
-)
+                <PageGrid
+                    items={props.items}
+                />
+            </App>
+        </>
+    )
+}
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
     const items = await apiGet(createHomeCards)("https://hudozka.tmshv.com/home", async () => [])

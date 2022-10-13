@@ -14,7 +14,7 @@ export type BoxProps = {
     align?: boolean
     vertical?: boolean
     center?: boolean
-    gap?: number
+    gap?: number | string
 }
 
 export const Box: React.FC<BoxProps> = ({

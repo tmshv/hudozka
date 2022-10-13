@@ -9,13 +9,17 @@ import { Spacer } from "../Spacer"
 import { useToggle } from "react-use"
 import { Button } from "@/ui/Button"
 import { EyeOpenIcon } from "@radix-ui/react-icons"
+import { HudozkaLogo } from "../HudozkaLogo"
+import { useDarkTheme } from "@/hooks/useDarkTheme"
+import { HudozkaTitle } from "../HudozkaTitle"
 
 export type NavigationProps = {
     style?: React.CSSProperties
 }
 
 export const Navigation: React.FC<NavigationProps> = props => {
-    const collapseMenu = useMobile()
+    const mobile = useMobile()
+    const dark = useDarkTheme()
     const [open, toggleOpen] = useToggle(false)
     const { menu } = useContext(ConfigContext)
 
@@ -45,10 +49,16 @@ export const Navigation: React.FC<NavigationProps> = props => {
                 </Box>
             </Overlay>
 
-            <Box wrap style={{
+            <Box wrap gap={"var(--size-s)"} style={{
                 padding: "var(--size-s)",
             }}>
-                {collapseMenu ? null : (
+                <HudozkaLogo dark={dark} />
+
+                {!mobile ? null : (
+                    <HudozkaTitle compact />
+                )}
+
+                {mobile ? null : (
                     <Menu
                         items={menu}
                         onItemClick={() => {
@@ -59,7 +69,7 @@ export const Navigation: React.FC<NavigationProps> = props => {
 
                 <Spacer />
 
-                {!collapseMenu ? null : (
+                {!mobile ? null : (
                     <MenuToggle
                         open={open}
                         onClick={toggleOpen}
