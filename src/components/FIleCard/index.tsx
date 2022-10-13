@@ -1,12 +1,16 @@
 import s from "./filecard.module.css"
 
 import Image from "next/image"
+import dynamic from "next/dynamic"
 import { FileTokenData, Sign } from "@/types"
 import { size, ext } from "@/lib/file"
 import { getResizedUrl } from "@/lib/image"
-import { Signature } from "./Signature"
 import Link from "next/link"
 import { Box } from "@/ui/Box"
+
+const Signature = dynamic(import("./Signature").then(m => m.Signature), {
+    ssr: false,
+})
 
 export type FileCardProps = FileTokenData & {
     sign?: Sign
