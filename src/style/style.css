@@ -160,7 +160,7 @@ h3 {
 
 /* MOBILE */
 @media (max-width: 31.25em) {
-    :root {
+    :root, .theme-contrast {
         --font-size-default: 14pt;
         --font-size-accent: 16pt;
         --font-size-h1: 1.5rem;
