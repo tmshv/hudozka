@@ -1,7 +1,7 @@
 import s from "./signature.module.css"
 
 import { Sign } from "@/types"
-import { FiShield } from "react-icons/fi"
+import { HiOutlineShieldCheck } from "react-icons/hi"
 
 import * as Tooltip from "@radix-ui/react-tooltip"
 
@@ -20,7 +20,7 @@ export const Signature: React.FC<SignatureProps> = props => {
         <Tooltip.Provider>
             <Tooltip.Root>
                 <Tooltip.Trigger className={s.tooltipTrigger}>
-                    <FiShield className={s.secure} size={20} />
+                    <HiOutlineShieldCheck className={s.secure} size={20} />
                 </Tooltip.Trigger>
 
                 <Tooltip.Portal>
