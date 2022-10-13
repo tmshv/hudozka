@@ -43,7 +43,7 @@
         "@types/node": "^12.12.34",
         "@types/react": "^18.0.18",
         "@types/sharp": "^0.29.2",
-        "eslint": "^8.23.0",
+        "eslint": "^8.25.0",
         "eslint-config-next": "^12.3.0",
         "feed": "^4.1.0",
         "should": "^8.2.2",
