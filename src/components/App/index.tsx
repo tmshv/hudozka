@@ -72,7 +72,9 @@ export const App: React.FC<AppProps> = ({ showAuthor = false, menu, ...props }) 
                                 <Contacts />
                             </Panel>
 
-                            <Panel ghost>
+                            <Panel ghost style={{
+                                alignItems: "baseline",
+                            }}>
                                 <Title level={3}>
                                     Версия для слабовидящих
                                 </Title>
