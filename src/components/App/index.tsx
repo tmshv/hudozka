@@ -49,7 +49,7 @@ export const App: React.FC<AppProps> = ({ showAuthor = false, menu, ...props }) 
                 header={(
                     <header>
                         <Navigation style={{
-                            // margin: "0 var(--size-m) var(--size-m)",
+                            padding: "var(--size-s)",
                         }} />
                         {hideBreadcrumbs || !props.breadcrumbs ? null : (
                             <Box style={blockStyle}>
