@@ -6,6 +6,7 @@ import { size, ext } from "@/lib/file"
 import { getResizedUrl } from "@/lib/image"
 import { Signature } from "./Signature"
 import Link from "next/link"
+import { Box } from "@/ui/Box"
 
 export type FileCardProps = FileTokenData & {
     sign?: Sign
@@ -38,12 +39,16 @@ export const FileCard: React.FC<FileCardProps> = props => {
             </a>
 
             <div>
-                {!props.sign ? null : (
-                    <Signature
-                        {...props.sign}
-                    />
-                )}
-                <a href={props.url}>{props.title}</a>
+                <Box align={false} gap={"var(--size-xs)"}>
+                    {!props.sign ? null : (
+                        <Signature
+                            {...props.sign}
+                        />
+                    )}
+                    <Link href={props.url}>
+                        <a>{props.title}</a>
+                    </Link>
+                </Box>
             </div>
 
             <div className={s.info}>
