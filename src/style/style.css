@@ -161,17 +161,17 @@ h3 {
 /* MOBILE */
 @media (max-width: 31.25em) {
     :root, .theme-contrast {
-        --font-size-default: 14pt;
-        --font-size-accent: 16pt;
-        --font-size-h1: 1.5rem;
-        --font-size-h2: 1.5rem;
-        --font-size-h3: 1.25rem;
+        --font-size-default: 14pt !important;
+        --font-size-accent: 16pt !important;
+        --font-size-h1: 1.5rem !important;
+        --font-size-h2: 1.5rem !important;
+        --font-size-h3: 1.25rem !important;
 
-        --content-width: 100%;
-        --content-margin: var(--size-m);
-        --content-wide-margin: var(--size-m) var(--size-m);
+        --content-width: 100% !important;
+        --content-margin: var(--size-m) !important;
+        --content-wide-margin: var(--size-m) var(--size-m) !important;
 
-        --picture-wide-increase: 0px;
+        --picture-wide-increase: 0px !important;
     }
 }
 
