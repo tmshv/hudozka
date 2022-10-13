@@ -1,9 +1,27 @@
-.secure {
-  padding-right: var(--size-xs);
-  position: relative;
-  top: 2px;
-}
-
 .signature{
     list-style: none;
+}
+
+.tooltipTrigger {
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+}
+
+.tooltip {
+  padding: var(--size-m);
+  color: var(--color-text-opposite);
+  text-align: left;
+  text-decoration: none;
+  background-color: var(--color-back-opposite);
+  border-radius: var(--radius);
+  min-height: 34px;
+  border: none;
+  box-shadow: var(--shadow);
+}
+
+.tooltipArrow {
+  width: var(--size-m);
+  height: var(--size-s);
+
+  fill: var(--color-back-opposite);
 }

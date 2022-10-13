@@ -1,9 +1,9 @@
-import "rc-tooltip/assets/bootstrap_white.css"
 import s from "./signature.module.css"
 
 import { Sign } from "@/types"
-import { FiShield } from "react-icons/fi"
-import Tooltip from "rc-tooltip"
+import { HiOutlineShieldCheck } from "react-icons/hi"
+
+import * as Tooltip from "@radix-ui/react-tooltip"
 
 export type SignatureProps = Sign
 export const Signature: React.FC<SignatureProps> = props => {
@@ -17,8 +17,19 @@ export const Signature: React.FC<SignatureProps> = props => {
     )
 
     return (
-        <Tooltip overlayClassName={"hudozka"} placement="left" trigger={["hover", "click"]} overlay={content}>
-            <FiShield className={s.secure} size={20} />
-        </Tooltip>
+        <Tooltip.Provider>
+            <Tooltip.Root>
+                <Tooltip.Trigger className={s.tooltipTrigger}>
+                    <HiOutlineShieldCheck className={s.secure} size={20} />
+                </Tooltip.Trigger>
+
+                <Tooltip.Portal>
+                    <Tooltip.Content className={s.tooltip}>
+                        {content}
+                        <Tooltip.Arrow className={s.tooltipArrow} />
+                    </Tooltip.Content>
+                </Tooltip.Portal>
+            </Tooltip.Root>
+        </Tooltip.Provider>
     )
 }

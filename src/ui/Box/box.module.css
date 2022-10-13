@@ -1,7 +1,5 @@
 .box {
     display: flex;
-    align-items: baseline;
-
     justify-content: flex-start;
     flex-wrap: nowrap;
     flex-direction: row;
