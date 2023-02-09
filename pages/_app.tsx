@@ -6,6 +6,7 @@ import "src/style/kazimir/video.css"
 
 import App from "next/app"
 import Head from "next/head"
+import Script from "next/script"
 import { YMetrika } from "src/components/YMetrika"
 import { GAnalytics } from "src/components/GAnalytics"
 import { Theme } from "@/ui/theme/Theme"
@@ -26,6 +27,7 @@ export default class MyApp extends App {
                     <meta name="google-site-verification" content="A-TEemUw4hHpULUDCd6xhxfHnyRbgKtss90JGKXnSpw" />
                     <meta name='yandex-verification' content='643c7dac144b9dac' />
                     <meta name="msvalidate.01" content="E878301FE3E3F12D233A6B1156889601" />
+                    <meta name="proculture-verification" content="79110940fd847c3cfe52392ed68f3210" />
 
                     <link rel="icon" type="image/png" href="/static/graphics/favicon-32.png" />
                     <link rel="apple-touch-icon" sizes="57x57" href="/static/graphics/favicon-57.png" />
@@ -42,11 +44,14 @@ export default class MyApp extends App {
 
                     <YMetrika account={24027460} />
                     <GAnalytics account={"UA-60209057-1"} />
+
                     <ThemeColor
                         color="white"
                         darkColor="hsl(240, 10%, 10%)"
                     />
                 </Head>
+                <Script src="https://culturaltracking.ru/static/js/spxl.js?pixelId=27154" data-pixel-id="27154"></Script>
+
                 <Theme>
                     <Component {...pageProps} />
                 </Theme>
