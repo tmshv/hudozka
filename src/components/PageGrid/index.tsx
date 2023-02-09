@@ -45,7 +45,7 @@ export const PageGrid: React.FC<PageGridProps> = props => {
                                 layout={"fill"}
                                 objectFit={"cover"}
                                 src={item.cover.src}
-                                alt={item.cover.alt}
+                                alt={item.cover.alt ?? ""}
                                 placeholder={item.cover.blur ? "blur" : "empty"}
                                 blurDataURL={item.cover.blur}
                             />
