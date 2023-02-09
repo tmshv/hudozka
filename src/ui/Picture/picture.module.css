@@ -22,6 +22,9 @@
     /* override nextjs blurred placeholder filter */
     /* need for border radius */
     filter: none !important;
+
+    width: 100%;
+    height: auto;
 }
 
 .pic figcaption {

@@ -37,7 +37,6 @@ export const FileCard: React.FC<FileCardProps> = props => {
                         alt={""}
                         width={100}
                         height={100}
-                        objectFit={"contain"}
                     />
                 </div>
             </a>

@@ -5,10 +5,10 @@ export type CardGridProps = {
     style?: React.CSSProperties
 }
 
-export const CardGrid: React.FC<CardGridProps> = props => {
+export const CardGrid: React.FC<CardGridProps> = ({ children, style }) => {
     return (
-        <section className={s.grid} style={props.style}>
-            {props.children}
+        <section className={s.grid} style={style}>
+            {children}
         </section>
     )
 }

@@ -42,8 +42,10 @@ export const PageGrid: React.FC<PageGridProps> = props => {
                         href={item.url}
                         cover={(
                             <Image
-                                layout={"fill"}
-                                objectFit={"cover"}
+                                fill
+                                style={{
+                                    objectFit: "cover",
+                                }}
                                 src={item.cover.src}
                                 alt={item.cover.alt ?? ""}
                                 placeholder={item.cover.blur ? "blur" : "empty"}
