@@ -41,7 +41,6 @@ export const Picture: React.FC<PictureProps> = memo(({
                 alt={alt ?? ""}
                 width={width}
                 height={height}
-                layout={"responsive"}
                 blurDataURL={blur}
                 placeholder={blur ? "blur" : "empty"}
             />
