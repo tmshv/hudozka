@@ -48,9 +48,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({ style }) => 
 
             <Box wrap gap={"var(--size-s)"} style={style}>
                 <Link href="/">
-                    <a>
-                        <HudozkaLogo dark={dark} />
-                    </a>
+                    <HudozkaLogo dark={dark} />
                 </Link>
                 <HudozkaTitle compact />
                 <Spacer />

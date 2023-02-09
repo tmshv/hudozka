@@ -15,7 +15,7 @@ export const Contacts: React.FC = props => {
             {contacts.map((x, i) => (
                 <p key={i} className={s.link}>
                     <Link href={x.value}>
-                        <a >{x.title}</a>
+                        {x.title}
                     </Link>
                 </p>
             ))}

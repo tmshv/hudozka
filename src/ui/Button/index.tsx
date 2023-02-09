@@ -39,10 +39,8 @@ export const Button: React.FC<ButtonProps> = ({ size = "default", theme = "defau
 
     if (props.href) {
         return (
-            <Link href={props.href}>
-                <a className={className} style={props.style}>
-                    {props.children}
-                </a>
+            <Link href={props.href} className={className} style={props.style}>
+                {props.children}
             </Link>
         )
     }

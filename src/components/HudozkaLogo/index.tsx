@@ -1,6 +1,6 @@
 import s from "./logo.module.css"
 
-import Image from "next/future/image"
+import Image from "next/image"
 import image from "src/assets/hudozka-logo.png"
 
 export type HudozkaLogoProps = {

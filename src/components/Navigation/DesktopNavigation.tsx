@@ -17,9 +17,7 @@ export const DesktopNavigation: React.FC<DesktopNavigationProps> = ({ style }) =
     return (
         <Box wrap gap={"var(--size-s)"} style={style}>
             <Link href="/">
-                <a>
-                    <HudozkaLogo dark={dark} />
-                </a>
+                <HudozkaLogo dark={dark} />
             </Link>
 
             <Menu

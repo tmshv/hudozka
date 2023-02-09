@@ -50,16 +50,14 @@ export const FileCard: React.FC<FileCardProps> = props => {
                         />
                     )}
                     <Link href={props.url}>
-                        <a>{props.title}</a>
+                        {props.title}
                     </Link>
                 </Box>
             </div>
 
             <div className={s.info}>
-                <Link href={props.file_url}>
-                    <a target="_blank" rel="noreferrer">
-                        {format} ({fileSize})
-                    </a>
+                <Link href={props.file_url} target="_blank" rel="noreferrer">
+                    {format} ({fileSize})
                 </Link>
             </div>
         </div>
