@@ -46,6 +46,6 @@
         "eslint-config-next": "^13.1.0",
         "feed": "^4.1.0",
         "should": "^8.2.2",
-        "typescript": "^4.8.2"
+        "typescript": "^4.9.0"
     }
 }
