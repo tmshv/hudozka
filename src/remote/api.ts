@@ -1,8 +1,24 @@
-import { apiGet } from "@/next-lib"
 import { createHomeCards, createMenu, createPage, createPageUrls } from "@/remote/factory"
 import { IMenu, IPage, PageCardDto } from "@/types"
 
 const backendUrl = "https://hudozka.tmshv.com"
+
+export type FactoryFunction<I, O> =
+    | ((response: I) => O)
+    | ((response: I) => Promise<O>)
+export type ApiDefaultResponse<O> = () => O
+
+export function apiGet<I, O>(factory: FactoryFunction<I, O>) {
+    return async (url: string, getDefaultResponse: ApiDefaultResponse<O>) => {
+        const res = await fetch(url)
+        if (res.ok) {
+            const data = await res.json() as I
+            return factory(data)
+        }
+
+        return getDefaultResponse()
+    }
+}
 
 export async function getUrls(): Promise<string[]> {
     let urls: string[] = []
