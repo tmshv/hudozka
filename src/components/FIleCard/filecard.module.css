@@ -10,6 +10,7 @@
 
 .image {
   box-shadow: var(--shadow);
+  object-fit: contain;
 }
 
 .info {
