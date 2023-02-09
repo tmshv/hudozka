@@ -1,6 +1,5 @@
 import Head from "next/head"
 import { App } from "src/components/App"
-import { tail } from "lodash"
 import { Page } from "src/components/Page"
 import { NextSeo } from "next-seo"
 import { MetaBuilder } from "src/lib/meta"
@@ -15,6 +14,7 @@ import { PageGrid } from "@/components/PageGrid"
 import { useRouter } from "next/router"
 import { FileCard } from "@/components/FIleCard"
 import { Picture } from "@/ui/Picture"
+import { tail } from "@/lib/array"
 
 async function getUrls() {
     let urls: string[] = []

@@ -11,3 +11,9 @@ export function insertBetween<T, I = T>(items: T[], fn: InsertBetweenFunction<I>
         return acc
     }, [])
 }
+
+export function tail<T>(items: T[]): T[] {
+    const [_, ...rest] = items
+    return rest
+}
+
