@@ -11,7 +11,6 @@ private*.json
 /build
 /out
 dist
-.next
 **/venv
 **/__pycache__
 **/*.pyc
@@ -20,3 +19,4 @@ dist
 *.log
 .now
 .vercel
+.next
