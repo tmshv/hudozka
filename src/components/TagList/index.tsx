@@ -22,7 +22,7 @@ export const Tag: React.FC<TagProps> = props => (
     <li>
         <Button
             href={props.href}
-            size={'small'}
+            size={"small"}
             disabled={true}
         >
             {props.children}
