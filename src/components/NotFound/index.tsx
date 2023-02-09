@@ -11,7 +11,7 @@ export const NotFound: React.FC = () => (
 
         <div>
             <Link href={"/"}>
-                <a>На главную</a>
+                На главную
             </Link>
         </div>
     </section>

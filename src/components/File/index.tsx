@@ -12,20 +12,16 @@ export const File: React.FC<FileProps> = props => (
     <div className={s.file} style={props.style}>
         {!props.cover?.src ? null : (
             <div className={s.image}>
-                <Link href={props.file.src} >
-                    <a target="_blank" rel="noreferrer" className="invisible">
-                        <img src={props.cover.src} alt={props.name} />
-                    </a>
+                <Link href={props.file.src} target="_blank" rel="noreferrer" className="invisible">
+                    <img src={props.cover.src} alt={props.name} />
                 </Link>
             </div>
         )}
 
         <div className={s.info}>
             <span>{props.name}</span>
-            <Link href={props.file.src} >
-                <a target="_blank" rel="noreferrer">
-                    {ext(props.file.type)} ({size(props.file.size)})
-                </a>
+            <Link href={props.file.src} target={"_blank"} rel={"noreferrer"}>
+                {ext(props.file.type)} ({size(props.file.size)})
             </Link>
         </div>
     </div>
