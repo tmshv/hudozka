@@ -3,37 +3,17 @@ import { App } from "src/components/App"
 import { Page } from "src/components/Page"
 import { NextSeo } from "next-seo"
 import { MetaBuilder } from "src/lib/meta"
-import { apiGet } from "@/next-lib"
 import { GetStaticProps, NextPage } from "next"
 import { IBreadcumbsPart, IMenu, IMeta, ITag, Sign, Token } from "@/types"
 import { Html } from "src/components/Html"
 import { Youtube } from "@/components/Youtube"
-import { createMenu, createPage, createPageUrls } from "@/remote/factory"
 import { paramsToSlug } from "@/remote/lib"
 import { PageGrid } from "@/components/PageGrid"
 import { useRouter } from "next/router"
 import { FileCard } from "@/components/FIleCard"
 import { Picture } from "@/ui/Picture"
 import { tail } from "@/lib/array"
-
-async function getUrls() {
-    let urls: string[] = []
-
-    const limit = 100
-    let start = 0
-    while (true) {
-        const url = `https://hudozka.tmshv.com/pages?_limit=${limit}&_start=${start}`
-        const res = await apiGet(createPageUrls)(url, () => ({ items: [] }))
-        if (!res || res.items.length === 0) {
-            break
-        }
-
-        start += limit
-        urls = [...urls, ...res.items]
-    }
-
-    return urls
-}
+import { getMenu, getPageBySlug, getUrls } from "@/remote/api"
 
 type Props = {
     title: string
@@ -172,15 +152,14 @@ const Index: NextPage<Props> = props => {
 
 export const getStaticProps: GetStaticProps<Props> = async ctx => {
     const slug = paramsToSlug(ctx.params?.slug ?? [])
-    const url = `https://hudozka.tmshv.com/pages?slug=${slug}`
-    const page = await apiGet(createPage)(url, () => null)
+    const page = await getPageBySlug(slug)
     if (!page) {
         return {
             notFound: true,
         }
     }
 
-    const menu = await apiGet(createMenu)("https://hudozka.tmshv.com/menu", () => [])
+    const menu = await getMenu()
 
     const description = page.description ?? undefined
     const breadcrumbSize = page?.breadcrumb?.length ?? 0

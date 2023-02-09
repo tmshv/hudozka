@@ -6,9 +6,8 @@ import { HudozkaTitle } from "src/components/HudozkaTitle"
 import { MetaBuilder } from "src/lib/meta"
 import { GetStaticProps, NextPage } from "next"
 import { IMenu, IMeta, PageCardDto } from "src/types"
-import { apiGet } from "@/next-lib"
-import { createHomeCards, createMenu } from "@/remote/factory"
 import { useMobile } from "@/hooks/useMobile"
+import { getHomeCards, getMenu } from "@/remote/api"
 
 type Props = {
     title: string
@@ -67,8 +66,8 @@ const Index: NextPage<Props> = props => {
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-    const items = await apiGet(createHomeCards)("https://hudozka.tmshv.com/home", async () => [])
-    const menu = await apiGet(createMenu)("https://hudozka.tmshv.com/menu", () => [])
+    const items = await getHomeCards()
+    const menu = await getMenu()
 
     const title = "Шлиссельбургская ДХШ"
     const meta = (new MetaBuilder())
