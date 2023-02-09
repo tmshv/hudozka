@@ -5,7 +5,7 @@ npm-debug.log
 
 private*.json
 
-/node_modules
+node_modules
 /bower_components
 /modules/hudozka-api-v1/lib
 /build
