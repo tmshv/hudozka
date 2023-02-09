@@ -8,6 +8,7 @@
         "dev": "next dev",
         "build": "next build",
         "lint": "next lint",
+        "format": "next lint --fix",
         "sitemap": "node scripts/sitemap.js",
         "feed": "node scripts/feed.js"
     },
