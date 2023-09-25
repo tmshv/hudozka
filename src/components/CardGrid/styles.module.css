@@ -1,6 +1,6 @@
 .grid {
-    /* --min-cell-size: 270px; */
-    /* grid-template-columns: repeat(auto-fill, minmax(var(--min-cell-size), 1fr)); */
+    --min-cell-size: 270px;
+    grid-template-columns: repeat(auto-fill, minmax(var(--min-cell-size), 1fr));
     display: grid;
     grid-auto-rows: 25em;
     grid-auto-flow: dense;
@@ -13,3 +13,4 @@
         grid-gap: var(--size-m);
     }
 }
+

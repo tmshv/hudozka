@@ -5,12 +5,23 @@ import { Card, CardLayout } from "../Card"
 import { Date } from "./Date"
 import { Spacer } from "../Spacer"
 import { Box } from "@/ui/Box"
+import { useMobile } from "@/hooks/useMobile"
+
+function itemColumn(item: PageCardDto): string {
+    return item.featured ? "span 2" : "auto"
+}
+
+function itemLayout(item: PageCardDto): CardLayout {
+    return item.featured ? "featured" : "simple"
+}
 
 export type PageGridProps = {
     items: PageCardDto[]
 }
 
 export const PageGrid: React.FC<PageGridProps> = props => {
+    const mobile = useMobile()
+
     return (
         <CardGrid
             style={{
@@ -18,8 +29,10 @@ export const PageGrid: React.FC<PageGridProps> = props => {
             }}
         >
             {props.items.map(item => {
-                const gridColumn = item.featured ? "span 2" : "auto"
-                const layout: CardLayout = item.featured ? "featured" : "simple"
+                const gridColumn = mobile
+                    ? "auto"
+                    : itemColumn(item)
+                const layout = itemLayout(item)
 
                 const content = !item.featured
                     ? (
@@ -64,3 +77,5 @@ export const PageGrid: React.FC<PageGridProps> = props => {
         </CardGrid>
     )
 }
+
+
