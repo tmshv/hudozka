@@ -36,12 +36,12 @@
 /* IMAGE  ANIMATION */
 
 .card .image {
-    transition: box-shadow 150ms ease, transform 150ms ease;
+    transition: box-shadow 250ms ease, transform 250ms ease;
 }
 
 .card:hover .image {
     box-shadow: var(--shadow-active);
-    transform: scale(1.025);
+    transform: scale(1.05);
 }
 
 /* SIMPLE */
