@@ -18,15 +18,20 @@ export type CardProps = {
 }
 
 export const Card: React.FC<CardProps> = props => (
-    <div className={cx(s.card, layoutClass[props.layout])} style={props.style}>
-        <Link href={props.href}>
-            <div className={s.image}>
-                {props.cover}
-            </div>
+    <Link
+        href={props.href}
+        // className={cx(s.card, layoutClass[props.layout])}
+        className={cx(s.card, layoutClass["simple"])}
+        style={props.style}
+    >
+        <div className={s.image}>
+            {props.cover}
+        </div>
 
-            <div className={s.body}>
-                {props.children}
-            </div>
-        </Link>
-    </div>
+        <div className={s.body}>
+            {props.children}
+        </div>
+    </Link>
 )
+
+
