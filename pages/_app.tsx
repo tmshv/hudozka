@@ -28,6 +28,7 @@ export default class MyApp extends App {
                     <meta name='yandex-verification' content='643c7dac144b9dac' />
                     <meta name="msvalidate.01" content="E878301FE3E3F12D233A6B1156889601" />
                     <meta name="proculture-verification" content="79110940fd847c3cfe52392ed68f3210" />
+                    <meta name="apple-mobile-web-app-capable" content="yes" />
 
                     <link rel="icon" type="image/png" href="/static/graphics/favicon-32.png" />
                     <link rel="apple-touch-icon" sizes="57x57" href="/static/graphics/favicon-57.png" />
