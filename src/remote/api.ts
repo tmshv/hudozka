@@ -10,10 +10,15 @@ export type ApiDefaultResponse<O> = () => O
 
 export function apiGet<I, O>(factory: FactoryFunction<I, O>) {
     return async (url: string, getDefaultResponse: ApiDefaultResponse<O>) => {
-        const res = await fetch(url)
-        if (res.ok) {
-            const data = await res.json() as I
-            return factory(data)
+        try {
+            const res = await fetch(url)
+            if (res.ok) {
+                const data = await res.json() as I
+                return factory(data)
+            }
+        } catch (error) {
+            console.error(`Failed fetch request: ${error}`)
+            return getDefaultResponse()
         }
 
         return getDefaultResponse()
