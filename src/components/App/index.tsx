@@ -99,7 +99,6 @@ export const App: React.FC<AppProps> = ({ showAuthor = false, menu, ...props }) 
                             <Gosuslugi />
                         </div>
 
-
                         <Box>
                             <Copyright />
 
