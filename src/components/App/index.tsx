@@ -9,8 +9,7 @@ import { useRouter } from "next/router"
 import { useMobile } from "src/hooks/useMobile"
 import { Navigation } from "@/components/Navigation"
 import { Box } from "@/ui/Box"
-import { Button } from "@/ui/Button"
-import { HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi"
+import { AccessibilityButton } from "../AccessibilityButton"
 import { useTheme } from "@/ui/theme/useTheme"
 import { Copyright } from "../Copyright"
 import { Spacer } from "../Spacer"
@@ -19,7 +18,6 @@ import { Title } from "@/ui/Title"
 import { Panel } from "@/ui/Panel"
 import { Contacts } from "../Contacts"
 import dynamic from "next/dynamic"
-import { mk } from "date-fns/locale"
 
 import qr0 from "src/assets/qr00.png"
 import qr1 from "src/assets/qr01.png"
@@ -83,15 +81,7 @@ export const App: React.FC<AppProps> = ({ showAuthor = false, menu, ...props }) 
                                 <Title level={3}>
                                     Версия для слабовидящих
                                 </Title>
-                                <Button theme="icon" size="default" onClick={() => {
-                                    setTheme(theme === "default" ? "contrast" : "default")
-                                }}>
-                                    {theme === "default" ? (
-                                        <HiOutlineEyeOff size={24} />
-                                    ) : (
-                                        <HiOutlineEye size={24} />
-                                    )}
-                                </Button>
+                                <AccessibilityButton />
                             </Panel>
 
                             <Panel ghost style={{

@@ -5,6 +5,8 @@ import { Box } from "@/ui/Box"
 import { HudozkaLogo } from "../HudozkaLogo"
 import { useDarkTheme } from "@/hooks/useDarkTheme"
 import Link from "next/link"
+import { AccessibilityButton } from "../AccessibilityButton"
+import { Spacer } from "../Spacer"
 
 export type DesktopNavigationProps = {
     style?: React.CSSProperties
@@ -23,6 +25,9 @@ export const DesktopNavigation: React.FC<DesktopNavigationProps> = ({ style }) =
             <Menu
                 items={menu}
             />
+
+            <Spacer />
+            <AccessibilityButton />
         </Box>
     )
 }
