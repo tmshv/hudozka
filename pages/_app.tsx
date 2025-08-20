@@ -8,7 +8,6 @@ import App from "next/app"
 import Head from "next/head"
 import Script from "next/script"
 import { YMetrika } from "src/components/YMetrika"
-import { GAnalytics } from "src/components/GAnalytics"
 import { Theme } from "@/ui/theme/Theme"
 import { ThemeColor } from "@/ui/ThemeColor"
 
@@ -44,7 +43,6 @@ export default class MyApp extends App {
                     />
 
                     <YMetrika account={24027460} />
-                    <GAnalytics account={"UA-60209057-1"} />
 
                     <ThemeColor
                         color="white"
