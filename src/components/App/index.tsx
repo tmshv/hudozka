@@ -73,7 +73,7 @@ export const App: React.FC<AppProps> = ({ showAuthor = false, menu, ...props }) 
                 )}
                 footer={(
                     <Footer>
-                        <Box gap={40} align={false} style={{
+                        <Box wrap gap={40} align={false} style={{
                             marginBottom: "var(--size-l)",
                         }}>
                             <Panel ghost>
