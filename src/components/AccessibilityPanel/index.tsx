@@ -1,4 +1,5 @@
-import { decreaseFontSize, hideImages, increaseFontSize, reset, setBlackOnWhite, setBlueOnBlue, setBrownOnYellow, setDefaultTheme, setGreenOnBrown, setLetterSpacingOne, setLetterSpacingTwo, setLetterSpacingFour, setLineHeightOneAndHalf, setLineHeightTwo, setLineHeightTwoAndHalf, setSansFont, setSerifFont, setWhiteOnBlack, showImages } from "@/store/theme"
+import { decreaseFontSize, hideImages, increaseFontSize, reset, setBlackOnWhite, setBlueOnBlue, setBrownOnYellow, setDefaultTheme, setGreenOnBrown, setLetterSpacingOne, setLetterSpacingTwo, setLetterSpacingFour, setLineHeightOneAndHalf, setLineHeightTwo, setLineHeightTwoAndHalf, setSerifFont, setSansSerifFont, setWhiteOnBlack, showImages } from "@/store/theme"
+import { HiCog, HiOutlineEyeOff } from "react-icons/hi"
 import s from "./panel.module.css"
 
 function AccessibilityPanel() {
@@ -27,8 +28,8 @@ function AccessibilityPanel() {
 
             <div className={s.block}>
                 <p>Шрифт:</p>
-                <a onClick={setSansFont}>С засечками</a>
-                <a onClick={setSerifFont}>Без засечек</a>
+                <a onClick={setSerifFont}>С засечками</a>
+                <a onClick={setSansSerifFont}>Без засечек</a>
                 {/*<a id="btn-on-braille" href="javascript:void(0)" onClick="smSetting('fontBraille', 'brailleOn')" title="только для печати">Брайля</a>*/}
                 {/*<a id="btn-off-braille" href="javascript:void(0)" onClick="smSetting('fontBraille', 'brailleOff')">Обычный</a>*/}
             </div>
@@ -49,9 +50,14 @@ function AccessibilityPanel() {
         </div>
 
         <div className={s.row}>
-            <a onClick={reset}><i className="fa fa-cog fa-fw"></i>Сброс настроек</a>
-            {/*<a id="mobile-version" href="?mobile=1"><i className="fa fa-mobile fa-fw"></i> Мобильная версия</a>*/}
-            <a onClick={setDefaultTheme}><i className="fa fa-eye-slash fa-fw"></i>Обычная версия</a>
+            <button onClick={reset}>
+                <HiCog />
+                Сброс настроек
+            </button>
+            <button onClick={setDefaultTheme}>
+                <HiOutlineEyeOff />
+                Обычная версия
+            </button>
             {/*<a id="_playlist" href="javascript:void(0)" onClick="playSound('all', this);"><i className="fa fa-play fa-fw"></i>Прослушать всё</a>*/}
         </div>
     </div>

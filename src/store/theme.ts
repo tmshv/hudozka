@@ -1,11 +1,12 @@
-import { proxy, subscribe, useSnapshot } from "valtio"
+import { proxy, subscribe } from "valtio"
 
 export type ThemeName = "default" | "contrast"
 export type ColorSchemeVariant = "black-on-white" | "white-on-black" | "blue-on-blue" | "brown-on-yellow" | "green-on-brown"
+export type FontTypeVariant = "serif" | "sans-serif"
 
 const MIN_FONT_SIZE = 8
 const MAX_FONT_SIZE = 48
-const CHANGE_FONT_SIZE_DELTA = 0.2
+const CHANGE_FONT_SIZE_DELTA = 1
 
 function clamp(val: number, min: number, max: number): number {
     if (val < min) {
@@ -19,7 +20,7 @@ function clamp(val: number, min: number, max: number): number {
 
 export type ThemeOptions = {
     theme: ThemeName
-    fontType: string
+    fontType: FontTypeVariant
     fontSize: number
     lineHeight: number
     letterSpacing: number
@@ -32,7 +33,7 @@ export const theme = proxy<ThemeOptions>({
     fontSize: 14,
     lineHeight: 1.5,
     letterSpacing: 1,
-    fontType: "Times New Roman",
+    fontType: "sans-serif",
     showImages: true,
     colorScheme: "black-on-white",
 })
@@ -41,7 +42,7 @@ export function reset() {
     theme.fontSize = 14
     theme.lineHeight = 1.5
     theme.letterSpacing = 1
-    theme.fontType = "Times New Roman"
+    theme.fontType = "sans-serif"
     theme.showImages = true
     theme.colorScheme = "black-on-white"
 }
@@ -63,12 +64,12 @@ export function decreaseFontSize() {
     theme.fontSize = clamp(theme.fontSize - CHANGE_FONT_SIZE_DELTA, MIN_FONT_SIZE, MAX_FONT_SIZE)
 }
 
-export function setSerifFont() {
+export function setSansSerifFont() {
     theme.fontType = "sans-serif"
 }
 
-export function setSansFont() {
-    theme.fontType = "Times New Roman"
+export function setSerifFont() {
+    theme.fontType = "serif"
 }
 
 export function showImages() {
@@ -123,29 +124,10 @@ export function setLetterSpacingFour() {
     theme.letterSpacing = 4
 }
 
-function getColor(scheme: ColorSchemeVariant): [string, string] {
-    switch (theme.colorScheme) {
-    case "black-on-white":
-        return ["black", "white"]
-    case "white-on-black":
-        return ["white", "black"]
-    case "blue-on-blue":
-        return ["oklch(32% 24% 253deg)", "oklch(84% 21% 245deg)"]
-    case "brown-on-yellow":
-        return ["oklch(41% 3% 92deg)", "oklch(96% 9% 101deg)"]
-    case "green-on-brown":
-        return ["oklch(85% 47% 128deg)", "oklch(29% 10% 61deg)"]
-    default:
-        return ["black", "white"]
-    }
-}
-
 const unsubscribe = subscribe(theme, () => {
     document.documentElement.style.setProperty("--font-size-default", `${theme.fontSize}pt`)
-
-    document.documentElement.style.setProperty("--title-font", theme.fontType)
-    document.documentElement.style.setProperty("--text-font", theme.fontType)
-
+    document.documentElement.style.setProperty("--font-size-second", `${theme.fontSize}pt`)
+    document.documentElement.style.setProperty("--font-size-accent", `${theme.fontSize}pt`)
     document.documentElement.style.setProperty("--article-line-height", `${theme.lineHeight}em`)
     if (theme.letterSpacing === 1) {
         document.documentElement.style.setProperty("--letter-spacing", "normal")
@@ -153,10 +135,12 @@ const unsubscribe = subscribe(theme, () => {
         document.documentElement.style.setProperty("--letter-spacing", `${theme.letterSpacing}px`)
     }
 
-    const [t, b] = getColor(theme.colorScheme)
-    document.documentElement.style.setProperty("--color-text", t)
-    document.documentElement.style.setProperty("--color-text-second", t)
-    document.documentElement.style.setProperty("--color-text-opposite", b)
-    document.documentElement.style.setProperty("--color-back-main", b)
-    document.documentElement.style.setProperty("--color-back", b)
+    // TODO remove this from here and move this logic directly to body tag after moving from pages to app
+    document.body.classList.forEach(name => {
+        document.body.classList.remove(name)
+    })
+    if (theme.theme === "contrast") {
+        document.body.classList.add("theme-contrast")
+        document.body.classList.add(theme.colorScheme);
+    }
 })
