@@ -1,7 +1,8 @@
 import s from "./wrapper.module.css"
 
 import cx from "classnames"
-import { useTheme } from "@/ui/theme/useTheme"
+import { useSnapshot } from "valtio"
+import { theme } from "@/store/theme"
 
 export type WrapperProps = {
     header: React.ReactNode
@@ -12,10 +13,10 @@ export type WrapperProps = {
 }
 
 export const Wrapper: React.FC<WrapperProps> = props => {
-    const { theme } = useTheme()
+    const t = useSnapshot(theme)
 
     return (
-        <div className={cx(s.container, `theme-${theme}`)} style={props.style}>
+        <div className={cx(s.container, `theme-${t.theme}`, `font-${t.fontType}`, t.colorScheme ?? "black-on-white", !t.showImages ? "no-images" : null)} style={props.style}>
             {props.header}
 
             <main className={s.main} style={props.mainStyle}>

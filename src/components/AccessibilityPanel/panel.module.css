@@ -1,0 +1,91 @@
+/*body {
+    margin: 0 auto;
+    padding: 0;
+    width: 96%;
+    padding-top: 90px;
+}*/
+
+.viewsettings {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    color: black;
+    background: white;
+    z-index: 10;
+    font-size: 20px !important;
+    line-height: 30px;
+    font-family: sans-serif;
+    letter-spacing: normal !important;
+
+    /*position: fixed;
+    top: 0;*/
+    margin: 10px;
+    padding: 10px;
+
+    text-align: center;
+    border: 2px solid;
+}
+
+.viewsettings .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+}
+
+.viewsettings p {
+    margin: 0;
+}
+
+.viewsettings a {
+    border: 1px solid;
+    text-decoration: none;
+    padding: 4px 10px;
+    cursor: pointer;
+
+    color: black;
+}
+.viewsettings a:hover {
+    background-color: #cfcfcf !important;
+    color: #000 !important;
+}
+.viewsettings a:focus {
+    outline: 1px solid !important;
+}
+
+.viewsettings .block {
+    display: inline-block;
+    vertical-align: top;
+    line-height: 30px;
+    border: 2px solid;
+    padding: 6px 10px;
+    margin: 2px;
+}
+
+.viewsettings .block a {
+    margin-right: 8px;
+}
+
+.viewsettings button {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    border: 1px solid;
+    font-size: 20px !important;
+    padding: 4px 10px;
+    cursor: pointer;
+
+    color: black;
+    background-color: white;
+}
+
+.viewsettings button:hover {
+    background-color: #cfcfcf !important;
+    color: #000 !important;
+}
+
+.viewsettings button:focus {
+    outline: 1px solid !important;
+}

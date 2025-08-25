@@ -21,6 +21,8 @@
     --font-size-h2: 3rem;
     --font-size-h3: 1.5rem;
 
+    --letter-spacing: normal;
+
     /* COLOR */
     --color-text: hsl(0, 0%, 15%);
     --color-text-second: hsl(240, 10%, 60%);
@@ -89,6 +91,7 @@ body {
     background-color: var(--color-back-main);
 
     font-family: var(--text-font);
+    letter-spacing: var(--letter-spacing);
 }
 
 /* TITLE */
@@ -167,35 +170,16 @@ h3 {
 
 /* CONTRAST THEME */
 .theme-contrast {
-    /* FONTS */
-    --title-font: 'Roboto', Helvetica, sans-serif;
-    --text-font: 'Roboto', Helvetica, sans-serif;
-
-    /* TEXT COLOR */
-    --color-text: black;
-    --color-text-second: black;
-    --color-text-opposite: white;
-
-    --color-back-main: white;
-    --color-back: white;
-    --color-back-active: hsl(240, 10%, 20%);
-    /* --color-back-opposite: hsl(240, 10%, 80%); */
-    --color-back-opposite: black;
-    --color-link: hsl(240, 10%, 40%);
-    --color-link-opposite: hsl(240, 10%, 60%);
-
-    --color-hover: white;
-    --color-hover-back: black;
+    /*margin-top: 235px;*/
 
     /* EFFECTS */
-    /* --radius: 0px; */
     --shadow: none;
     --shadow-active: none;
 
     /* FONTS */
-    --font-size-default: 16pt;
-    --font-size-accent: 24pt;
-    --font-size-second: 14pt;
+    /*--font-size-default: 16pt;*/
+    /*--font-size-accent: 24pt;*/
+    /*--font-size-second: 14pt;*/
 
     --font-size-h1: 5rem;
     --font-size-h2: 3rem;
@@ -207,23 +191,103 @@ h3 {
     --border: 5px solid var(--color-back-opposite);
 }
 
-/* CONTRAST + DARK THEME */
-@media (prefers-color-scheme: dark) {
-    .theme-contrast {
-        /* TEXT COLOR */
-        --color-text: white;
-        --color-text-second: white;
-        --color-text-opposite: black;
-
-        --color-back-main: black;
-        --color-back: black;
-        --color-back-opposite: white;
-
-        /* --color-back-active: hsl(240, 10%, 20%); */
-        /* --color-link: hsl(240, 10%, 40%); */
-        /* --color-link-opposite: hsl(240, 10%, 60%); */
-
-        --color-hover: white;
-        --color-hover-back: white;
-    }
+.theme-contrast.font-sans-serif {
+    --title-font: "Roboto", Helvetica, sans-serif;
+    --text-font: "Roboto", Helvetica, sans-serif;
 }
+
+.theme-contrast.font-serif {
+    --title-font: "Times New Roman", serif;
+    --text-font: "Times New Roman", serif;
+}
+
+.theme-contrast.black-on-white {
+    --color-text: black;
+    --color-text-second: black;
+    --color-text-opposite: white;
+    --color-back-main: white;
+    --color-back: white;
+    --color-back-opposite: black;
+
+    --color-hover: white;
+    --color-hover-back: black;
+
+    --color-back-active: black;
+    --color-link: black;
+    --color-link-opposite: white;
+}
+
+.theme-contrast.white-on-black {
+    --color-text: white;
+    --color-text-second: white;
+    --color-text-opposite: black;
+    --color-back-main: black;
+    --color-back: black;
+    --color-back-opposite: white;
+
+    --color-hover: black;
+    --color-hover-back: white;
+
+    /*--color-back-active: hsl(240, 10%, 20%);*/
+    /*--color-link: hsl(240, 10%, 40%);*/
+    /*--color-link-opposite: hsl(240, 10%, 60%);*/
+}
+
+.theme-contrast.blue-on-blue {
+    --color-text: oklch(32% 24% 253deg);
+    --color-text-second: oklch(32% 24% 253deg);
+    --color-text-opposite: oklch(84% 21% 245deg);
+    --color-back-main: oklch(84% 21% 245deg);
+    --color-back: oklch(84% 21% 245deg);
+    --color-back-opposite: oklch(32% 24% 253deg);
+
+    --color-hover: oklch(84% 21% 245deg);
+    --color-hover-back: oklch(32% 24% 253deg);
+
+    /*--color-back-active: hsl(240, 10%, 20%);*/
+    /*--color-link: hsl(240, 10%, 40%);*/
+    /*--color-link-opposite: hsl(240, 10%, 60%);*/
+}
+
+.theme-contrast.brown-on-yellow {
+    --color-text: oklch(41% 3% 92deg);
+    --color-text-second: oklch(41% 3% 92deg);
+    --color-text-opposite: oklch(96% 9% 101deg);
+    --color-back-main: oklch(96% 9% 101deg);
+    --color-back: oklch(96% 9% 101deg);
+    --color-back-opposite: oklch(41% 3% 92deg);
+
+    --color-hover: oklch(96% 9% 101deg);
+    --color-hover-back: oklch(41% 3% 92deg);
+
+    /*--color-back-active: hsl(240, 10%, 20%);*/
+    /*--color-link: hsl(240, 10%, 40%);*/
+    /*--color-link-opposite: hsl(240, 10%, 60%);*/
+}
+
+.theme-contrast.green-on-brown {
+    --color-text: oklch(85% 47% 128deg);
+    --color-text-second: oklch(85% 47% 128deg);
+    --color-text-opposite: oklch(29% 10% 61deg);
+    --color-back-main: oklch(29% 10% 61deg);
+    --color-back: oklch(29% 10% 61deg);
+    --color-back-opposite: oklch(85% 47% 128deg);
+
+    --color-hover: oklch(29% 10% 61deg);
+    --color-hover-back: oklch(85% 47% 128deg);
+
+    /*--color-back-active: hsl(240, 10%, 20%);*/
+    /*--color-link: hsl(240, 10%, 40%);*/
+    /*--color-link-opposite: hsl(240, 10%, 60%);*/
+}
+
+.theme-contrast.no-images img {
+    display: none;
+}
+
+/*.theme-contrast.no-images img:after {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 1px solid black;
+}*/

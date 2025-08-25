@@ -8,7 +8,6 @@ import App from "next/app"
 import Head from "next/head"
 import Script from "next/script"
 import { YMetrika } from "src/components/YMetrika"
-import { Theme } from "@/ui/theme/Theme"
 import { ThemeColor } from "@/ui/ThemeColor"
 
 export default class MyApp extends App {
@@ -51,9 +50,7 @@ export default class MyApp extends App {
                 </Head>
                 <Script src="https://culturaltracking.ru/static/js/spxl.js?pixelId=27154" data-pixel-id="27154"></Script>
 
-                <Theme>
-                    <Component {...pageProps} />
-                </Theme>
+                <Component {...pageProps} />
             </>
         )
     }
