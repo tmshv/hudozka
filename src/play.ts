@@ -1,8 +1,8 @@
-import { state } from "./store/play";
+import { state } from "./store/play"
 
 
 function play() {
-    const synth = window.speechSynthesis;
+    const synth = window.speechSynthesis
 
     const a = document.querySelector("article")
     if (!a || !a.textContent) {
@@ -10,7 +10,7 @@ function play() {
     }
 
     const u = new SpeechSynthesisUtterance(a.textContent)
-    const voice = synth.getVoices().find((v) => v.name === state.voice);
+    const voice = synth.getVoices().find((v) => v.name === state.voice)
     if (voice) {
         u.voice = voice
     }

@@ -141,6 +141,6 @@ const unsubscribe = subscribe(theme, () => {
     })
     if (theme.theme === "contrast") {
         document.body.classList.add("theme-contrast")
-        document.body.classList.add(theme.colorScheme);
+        document.body.classList.add(theme.colorScheme)
     }
 })
