@@ -1,19 +1,19 @@
 import s from "./logo.module.css"
 
 import Image from "next/image"
-import image from "src/assets/hudozka-logo.png"
+import src from "src/assets/hudozka-logo.png"
 
-export type HudozkaLogoProps = {
-    dark?: boolean
+function HudozkaLogo() {
+    return (
+        <div className={s.container}>
+            <Image
+                src={src}
+                width={36}
+                height={36}
+                alt={"Hudozka"}
+            />
+        </div>
+    )
 }
 
-export const HudozkaLogo: React.FC<HudozkaLogoProps> = ({ dark }) => (
-    <div className={`${s.container} ${dark ? s.dark : ""}`}>
-        <Image
-            src={image}
-            width={36}
-            height={36}
-            alt={"Hudozka"}
-        />
-    </div>
-)
+export default HudozkaLogo
