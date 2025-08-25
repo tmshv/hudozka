@@ -1,16 +1,17 @@
 @font-face {
     font-family: "Shadow";
     font-display: swap;
-	src: url("/static/shadow-font/Shadow-Regular.eot");
-	src: url("/static/shadow-font/Shadow-Regular.woff") format("woff"),
-	url("/static/shadow-font/Shadow-Regular.otf") format("opentype"),
-	url("/static/shadow-font/Shadow-Regular.svg") format("svg");
+    src: url("/static/shadow-font/Shadow-Regular.eot");
+    src:
+        url("/static/shadow-font/Shadow-Regular.woff") format("woff"),
+        url("/static/shadow-font/Shadow-Regular.otf") format("opentype"),
+        url("/static/shadow-font/Shadow-Regular.svg") format("svg");
 }
 
 :root {
     /* FONTS */
     --title-font: Shadow, Georgia, serif;
-    --text-font: 'Roboto', Helvetica, sans-serif;
+    --text-font: "Roboto", Helvetica, sans-serif;
 
     /* FONTS */
     --font-size-default: 14pt;
@@ -49,8 +50,7 @@
     --radius: 24px;
     --radius-small: 12px;
     --shadow:
-        0 2px 4px rgba(27, 51, 88, 0.2),
-        0 4px 8px -8px rgba(0, 0, 0, 0.2),
+        0 2px 4px rgba(27, 51, 88, 0.2), 0 4px 8px -8px rgba(0, 0, 0, 0.2),
         0 8px 16px -8px rgba(0, 0, 0, 0.3);
     --shadow: none;
     --shadow-active:
@@ -133,7 +133,8 @@ h3 {
 
 /* MOBILE */
 @media (max-width: 31.25em) {
-    :root, .theme-contrast {
+    :root,
+    .theme-contrast {
         --font-size-default: 14pt !important;
         --font-size-accent: 16pt !important;
         --font-size-h1: 1.5rem !important;
