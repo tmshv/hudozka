@@ -25,7 +25,8 @@
     --letter-spacing: normal;
 
     /* COLOR */
-    --color-text: hsl(0, 0%, 15%);
+    --color-text: oklch(27% 0% 90deg);
+
     --color-text-second: hsl(240, 10%, 60%);
     --color-text-opposite: hsl(0, 0%, 95%);
 
