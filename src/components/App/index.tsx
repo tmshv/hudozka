@@ -1,6 +1,5 @@
 import { Wrapper } from "../Wrapper"
-import { ConfigContext } from "src/context/ConfigContext"
-import config from "src/config"
+import { MenuContext } from "@/context/MenuContext"
 import { Footer } from "../Footer"
 import { Content } from "../Content"
 import { Breadcrumbs } from "../Breadcrumbs"
@@ -10,7 +9,7 @@ import { useMobile } from "src/hooks/useMobile"
 import { Navigation } from "@/components/Navigation"
 import { Box } from "@/ui/Box"
 import { AccessibilityButton } from "../AccessibilityButton"
-import { Copyright } from "../Copyright"
+import Copyright from "@/components/Copyright"
 import { Spacer } from "../Spacer"
 import { Author } from "../Author"
 import { Title } from "@/ui/Title"
@@ -45,10 +44,7 @@ export const App: React.FC<AppProps> = ({ showAuthor = false, menu, ...props }) 
     }
 
     return (
-        <ConfigContext.Provider value={{
-            ...config,
-            menu,
-        }}>
+        <MenuContext.Provider value={menu}>
             <Wrapper
                 header={(
                     <header>
@@ -157,6 +153,6 @@ export const App: React.FC<AppProps> = ({ showAuthor = false, menu, ...props }) 
                     </Content>
                 </Box>
             </Wrapper>
-        </ConfigContext.Provider>
+        </MenuContext.Provider>
     )
 }

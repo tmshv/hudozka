@@ -1,8 +1,20 @@
+import { proxy } from "valtio"
+
 const currentYear = () => (new Date()).getFullYear()
 
-const config = {
-    yearStart: 2012,
-    yearEnd: currentYear(),
+type Contact = {
+    type: string
+    value: string
+    title: string
+}
+
+type State = {
+    years: [number, number]
+    contacts: Contact[]
+}
+
+export const state = proxy<State>({
+    years: [2012, currentYear()],
     contacts: [
         {
             type: "link",
@@ -35,12 +47,4 @@ const config = {
             title: "Инстаграм",
         },
     ],
-    menu: [
-        {
-            name: "Школа",
-            href: "/",
-        },
-    ],
-}
-
-export default config
+})

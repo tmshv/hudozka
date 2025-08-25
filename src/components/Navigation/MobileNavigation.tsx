@@ -2,7 +2,7 @@ import { MenuToggle } from "../MenuToggle"
 import { Menu } from "../Menu"
 import { Overlay } from "@/ui/Overlay"
 import { useContext } from "react"
-import { ConfigContext } from "src/context/ConfigContext"
+import { MenuContext } from "@/context/MenuContext"
 import { Box } from "@/ui/Box"
 import { Spacer } from "../Spacer"
 import { useToggle } from "react-use"
@@ -18,7 +18,7 @@ export type MobileNavigationProps = {
 export const MobileNavigation: React.FC<MobileNavigationProps> = ({ style }) => {
     const dark = useDarkTheme()
     const [open, toggleOpen] = useToggle(false)
-    const { menu } = useContext(ConfigContext)
+    const menu = useContext(MenuContext)
 
     return (
         <>

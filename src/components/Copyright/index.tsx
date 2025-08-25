@@ -1,10 +1,13 @@
-import { useContext } from "react"
-import { ConfigContext } from "src/context/ConfigContext"
+import { state } from "@/store/config"
+import { useSnapshot } from "valtio"
 
-export const Copyright: React.FC = () => {
-    const { yearStart, yearEnd } = useContext(ConfigContext)
+function Copyright() {
+    const { years } = useSnapshot(state)
+    const year = years.map(String).join("—")
 
     return (
-        <span>©&nbsp;{yearStart}—{yearEnd} Шлиссельбургская детская художественная школа</span>
+        <span>©&nbsp;{year} Шлиссельбургская детская художественная школа</span>
     )
 }
+
+export default Copyright

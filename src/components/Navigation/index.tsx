@@ -1,8 +1,4 @@
 import { useMobile } from "src/hooks/useMobile"
-import { useContext } from "react"
-import { ConfigContext } from "src/context/ConfigContext"
-import { useToggle } from "react-use"
-import { useDarkTheme } from "@/hooks/useDarkTheme"
 import { DesktopNavigation } from "./DesktopNavigation"
 import { MobileNavigation } from "./MobileNavigation"
 
