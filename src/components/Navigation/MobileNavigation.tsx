@@ -6,8 +6,7 @@ import { MenuContext } from "@/context/MenuContext"
 import { Box } from "@/ui/Box"
 import { Spacer } from "../Spacer"
 import { useToggle } from "react-use"
-import { HudozkaLogo } from "../HudozkaLogo"
-import { useDarkTheme } from "@/hooks/useDarkTheme"
+import HudozkaLogo from "../HudozkaLogo"
 import { HudozkaTitle } from "../HudozkaTitle"
 import Link from "next/link"
 
@@ -16,7 +15,6 @@ export type MobileNavigationProps = {
 }
 
 export const MobileNavigation: React.FC<MobileNavigationProps> = ({ style }) => {
-    const dark = useDarkTheme()
     const [open, toggleOpen] = useToggle(false)
     const menu = useContext(MenuContext)
 
@@ -48,7 +46,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({ style }) => 
 
             <Box wrap gap={"var(--size-s)"} style={style}>
                 <Link href="/">
-                    <HudozkaLogo dark={dark} />
+                    <HudozkaLogo />
                 </Link>
                 <HudozkaTitle compact />
                 <Spacer />
