@@ -1,8 +1,14 @@
+import play from "@/play"
+import { state as playState, setVoice } from "@/store/play"
 import { decreaseFontSize, hideImages, increaseFontSize, reset, setBlackOnWhite, setBlueOnBlue, setBrownOnYellow, setDefaultTheme, setGreenOnBrown, setLetterSpacingOne, setLetterSpacingTwo, setLetterSpacingFour, setLineHeightOneAndHalf, setLineHeightTwo, setLineHeightTwoAndHalf, setSerifFont, setSansSerifFont, setWhiteOnBlack, showImages } from "@/store/theme"
-import { HiCog, HiOutlineEyeOff } from "react-icons/hi"
+import { HiCog, HiOutlineEyeOff, HiPlay } from "react-icons/hi"
+import { useSnapshot } from "valtio"
 import s from "./panel.module.css"
+import VoiceSelect from "./voice"
 
 function AccessibilityPanel() {
+    const p = useSnapshot(playState)
+
     return ( <div className={s.viewsettings}>
         <div className={s.row}>
             <div className={s.block}>
@@ -58,7 +64,13 @@ function AccessibilityPanel() {
                 <HiOutlineEyeOff />
                 Обычная версия
             </button>
-            {/*<a id="_playlist" href="javascript:void(0)" onClick="playSound('all', this);"><i className="fa fa-play fa-fw"></i>Прослушать всё</a>*/}
+            <button onClick={play}>
+                <HiPlay />
+                Прослушать всё
+            </button>
+            <VoiceSelect value={p.voice} onChange={(event) => {
+                setVoice(event.target.value)
+            }} />
         </div>
     </div>
     )
