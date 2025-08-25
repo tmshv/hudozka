@@ -21,6 +21,8 @@
     --font-size-h2: 3rem;
     --font-size-h3: 1.5rem;
 
+    --letter-spacing: normal;
+
     /* COLOR */
     --color-text: hsl(0, 0%, 15%);
     --color-text-second: hsl(240, 10%, 60%);
@@ -89,6 +91,7 @@ body {
     background-color: var(--color-back-main);
 
     font-family: var(--text-font);
+    letter-spacing: var(--letter-spacing);
 }
 
 /* TITLE */
@@ -168,21 +171,19 @@ h3 {
 /* CONTRAST THEME */
 .theme-contrast {
     /* FONTS */
-    --title-font: 'Roboto', Helvetica, sans-serif;
-    --text-font: 'Roboto', Helvetica, sans-serif;
+    /*--title-font: "Roboto", Helvetica, sans-serif;*/
+    /*--text-font: "Roboto", Helvetica, sans-serif;*/
 
     /* TEXT COLOR */
-    --color-text: black;
+    /*--color-text: black;
     --color-text-second: black;
     --color-text-opposite: white;
-
     --color-back-main: white;
     --color-back: white;
     --color-back-active: hsl(240, 10%, 20%);
-    /* --color-back-opposite: hsl(240, 10%, 80%); */
     --color-back-opposite: black;
     --color-link: hsl(240, 10%, 40%);
-    --color-link-opposite: hsl(240, 10%, 60%);
+    --color-link-opposite: hsl(240, 10%, 60%);*/
 
     --color-hover: white;
     --color-hover-back: black;
@@ -193,9 +194,9 @@ h3 {
     --shadow-active: none;
 
     /* FONTS */
-    --font-size-default: 16pt;
-    --font-size-accent: 24pt;
-    --font-size-second: 14pt;
+    /*--font-size-default: 16pt;*/
+    /*--font-size-accent: 24pt;*/
+    /*--font-size-second: 14pt;*/
 
     --font-size-h1: 5rem;
     --font-size-h2: 3rem;
@@ -206,6 +207,19 @@ h3 {
     --radius-small: 0;
     --border: 5px solid var(--color-back-opposite);
 }
+
+.theme-contrast.no-images img {
+    display: none;
+    /*opacity: 0.5;*/
+    /*position: relative;*/
+}
+
+/*.theme-contrast.no-images img:after {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 1px solid black;
+}*/
 
 /* CONTRAST + DARK THEME */
 @media (prefers-color-scheme: dark) {

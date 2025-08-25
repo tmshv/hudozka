@@ -1,2 +1,5 @@
-export type ThemeType = "default" | "contrast"
-export type SetTheme = (theme: ThemeType) => void
+export type ThemeOptions = {
+    theme: "default" | "contrast"
+    fontSize?: number
+}
+export type SetTheme = (theme: ThemeOptions["theme"]) => void

@@ -10,7 +10,6 @@ import { useMobile } from "src/hooks/useMobile"
 import { Navigation } from "@/components/Navigation"
 import { Box } from "@/ui/Box"
 import { AccessibilityButton } from "../AccessibilityButton"
-import { useTheme } from "@/ui/theme/useTheme"
 import { Copyright } from "../Copyright"
 import { Spacer } from "../Spacer"
 import { Author } from "../Author"
@@ -22,6 +21,7 @@ import dynamic from "next/dynamic"
 import qr0 from "src/assets/qr00.png"
 import qr1 from "src/assets/qr01.png"
 import Image from "next/image"
+import AccessibilityPanel from "../AccessibilityPanel"
 
 const Gosuslugi = dynamic(import("../Gosuslugi").then(module => module.Gosuslugi), {
     ssr: false,
@@ -41,7 +41,6 @@ export const App: React.FC<AppProps> = ({ showAuthor = false, menu, ...props }) 
     const blockStyle = {
         justifyContent: "center",
     }
-    const { theme, setTheme } = useTheme()
 
     return (
         <ConfigContext.Provider value={{
@@ -146,6 +145,8 @@ export const App: React.FC<AppProps> = ({ showAuthor = false, menu, ...props }) 
                     </Footer>
                 )}
             >
+                <AccessibilityPanel/>
+
                 <Box style={blockStyle}>
                     <Content style={props.contentStyle}>
                         {props.children}

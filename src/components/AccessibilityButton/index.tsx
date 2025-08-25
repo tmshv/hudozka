@@ -1,19 +1,18 @@
+import { theme, toggleTheme } from "@/store/theme"
 import { Button } from "@/ui/Button"
 import { HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi"
-import { useTheme } from "@/ui/theme/useTheme"
+import { useSnapshot } from "valtio"
 
 export function AccessibilityButton() {
-    const { theme, setTheme } = useTheme()
+    const t = useSnapshot(theme)
 
     return (
         <Button
             theme="icon"
             size="default"
-            onClick={() => {
-                setTheme(theme === "default" ? "contrast" : "default")
-            }}
+            onClick={toggleTheme}
         >
-            {theme === "default" ? (
+            {t.theme === "default" ? (
                 <HiOutlineEyeOff size={24} />
             ) : (
                 <HiOutlineEye size={24} />

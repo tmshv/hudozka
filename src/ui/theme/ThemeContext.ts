@@ -1,4 +1,5 @@
 import { createContext } from "react"
-import { SetTheme, ThemeType } from "./types"
+import { DEFAULT } from "./const"
+import { SetTheme, ThemeOptions } from "./types"
 
-export const ThemeContext = createContext<[ThemeType, SetTheme]>(["default", () => {}])
+export const ThemeContext = createContext<[ThemeOptions, SetTheme]>([DEFAULT, () => {}])

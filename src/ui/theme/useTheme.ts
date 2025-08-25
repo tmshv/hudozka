@@ -1,9 +1,9 @@
 import { useContext } from "react"
 import { ThemeContext } from "./ThemeContext"
-import { SetTheme, ThemeType } from "./types"
+import { SetTheme, ThemeOptions } from "./types"
 
 export type UseThemeResult = {
-    theme: ThemeType
+    theme: ThemeOptions["theme"]
     setTheme: SetTheme
     // toggleTheme:
 }
@@ -11,5 +11,8 @@ export type UseThemeResult = {
 export function useTheme(): UseThemeResult {
     const [theme, setTheme] = useContext(ThemeContext)
 
-    return { theme, setTheme }
+    return {
+        setTheme,
+        theme: theme.theme ?? "default",
+    }
 }
