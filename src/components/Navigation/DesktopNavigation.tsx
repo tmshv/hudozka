@@ -1,6 +1,6 @@
 import { Menu } from "../Menu"
 import { useContext } from "react"
-import { ConfigContext } from "src/context/ConfigContext"
+import { MenuContext } from "@/context/MenuContext"
 import { Box } from "@/ui/Box"
 import { HudozkaLogo } from "../HudozkaLogo"
 import { useDarkTheme } from "@/hooks/useDarkTheme"
@@ -14,7 +14,7 @@ export type DesktopNavigationProps = {
 
 export const DesktopNavigation: React.FC<DesktopNavigationProps> = ({ style }) => {
     const dark = useDarkTheme()
-    const { menu } = useContext(ConfigContext)
+    const menu = useContext(MenuContext)
 
     return (
         <Box wrap gap={"var(--size-s)"} style={style}>

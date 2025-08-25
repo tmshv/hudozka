@@ -1,12 +1,12 @@
 import s from "./contacts.module.css"
 
-import { useContext } from "react"
-import { ConfigContext } from "src/context/ConfigContext"
 import Link from "next/link"
 import { Title } from "@/ui/Title"
+import { useSnapshot } from "valtio"
+import { state } from "@/store/config"
 
 export const Contacts: React.FC = props => {
-    const { contacts } = useContext(ConfigContext)
+    const { contacts } = useSnapshot(state)
 
     return (
         <>
