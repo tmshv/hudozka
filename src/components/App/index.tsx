@@ -92,6 +92,7 @@ export const App: React.FC<AppProps> = ({ showAuthor = false, menu, ...props }) 
                                 </Title>
 
                                 <ul>
+                                    <li>
                                             Независимая оценка качества оказания услуг
                                         </Link>
                                     </li>
