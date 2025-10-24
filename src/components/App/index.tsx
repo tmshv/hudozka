@@ -16,6 +16,7 @@ import { Title } from "@/ui/Title"
 import { Panel } from "@/ui/Panel"
 import { Contacts } from "../Contacts"
 import dynamic from "next/dynamic"
+import Link from "next/link"
 
 import qr0 from "src/assets/qr00.png"
 import qr1 from "src/assets/qr01.png"
@@ -89,39 +90,28 @@ export const App: React.FC<AppProps> = ({ showAuthor = false, menu, ...props }) 
                                 alignItems: "baseline",
                             }}>
                                 <Title level={3}>
-                                    Независимая оценка качества оказания услуг
+                                    Анкеты
                                 </Title>
-                                <div style={{
-                                    backgroundColor: "white",
-                                    padding: 10,
-                                    borderRadius: 10,
-                                }}>
-                                    <Image
-                                        src={qr0}
-                                        alt="Example Image"
-                                        width={100}
-                                        height={100}
-                                    />
-                                </div>
-                            </Panel>
-                            <Panel ghost style={{
-                                alignItems: "baseline",
-                            }}>
-                                <Title level={3}>
-                                    Анкета Министерства культуры РФ
-                                </Title>
-                                <div style={{
-                                    backgroundColor: "white",
-                                    padding: 10,
-                                    borderRadius: 10,
-                                }}>
-                                    <Image
-                                        src={qr1}
-                                        alt="Example Image"
-                                        width={100}
-                                        height={100}
-                                    />
-                                </div>
+
+                                <ul>
+                                    <li>
+                                        <Link href={"https://bus.gov.ru/qrcode/rate/351942"}>
+                                            Независимая оценка качества оказания услуг
+                                        </Link>
+                                    </li>
+
+                                    <li>
+                                        <Link href={"https://forms.mkrf.ru/e/2579/xTPLeBU7/?ap_orgcode=600340071"}>
+                                            Анкета Министерства культуры РФ
+                                        </Link>
+                                    </li>
+
+                                    <li>
+                                        <Link href={"https://forms.yandex.ru/u/68ef8e9c90fa7b0bacf46e9d/"}>
+                                            Анкета получателей образовательных услуг ДОП Кировского муниципального района Ленинградской области 2025
+                                        </Link>
+                                    </li>
+                                </ul>
                             </Panel>
                         </Box>
 
