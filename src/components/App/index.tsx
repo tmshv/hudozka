@@ -18,8 +18,6 @@ import { Contacts } from "../Contacts"
 import dynamic from "next/dynamic"
 import Link from "next/link"
 
-import qr0 from "src/assets/qr00.png"
-import qr1 from "src/assets/qr01.png"
 import Image from "next/image"
 import AccessibilityPanel from "../AccessibilityPanel"
 import useAccessibility from "@/hooks/useAccessibility"
@@ -94,8 +92,6 @@ export const App: React.FC<AppProps> = ({ showAuthor = false, menu, ...props }) 
                                 </Title>
 
                                 <ul>
-                                    <li>
-                                        <Link href={"https://bus.gov.ru/qrcode/rate/351942"}>
                                             Независимая оценка качества оказания услуг
                                         </Link>
                                     </li>
