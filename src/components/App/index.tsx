@@ -93,6 +93,7 @@ export const App: React.FC<AppProps> = ({ showAuthor = false, menu, ...props }) 
 
                                 <ul>
                                     <li>
+                                        <Link href={"https://bus.gov.ru/qrcode/rate/351942"}>
                                             Независимая оценка качества оказания услуг
                                         </Link>
                                     </li>
