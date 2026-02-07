@@ -29,7 +29,7 @@ export const Box: React.FC<BoxProps> = ({
     ...props
 }) => {
     const newProps = {
-        className: cx(s.box, className, { vertical, align, center, wrap }),
+        className: cx(className, s.box, { vertical, align, center, wrap }),
         style: {
             ...style,
             gap,
