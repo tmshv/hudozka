@@ -38,6 +38,10 @@ export function MyComponent({ value }: MyComponentProps) {
 }
 ```
 
+## Dependencies
+
+When adding or updating packages in `package.json`, do not specify the PATCH version — use `^MAJOR.MINOR.0`. The exact patch version is managed by the lockfile and `npm update`.
+
 ## Architecture
 
 **Pages Router with SSG/ISR:** All pages use `getStaticProps`/`getStaticPaths` with 30-second revalidation. The catch-all route `pages/[...slug].tsx` handles all dynamic content pages.
