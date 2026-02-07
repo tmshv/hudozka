@@ -1,28 +1,28 @@
-const sitemap = require('sitemap')
-const axios = require('axios')
-const fs = require('fs').promises
-const homeUrl = 'https://art.shlisselburg.org'
+const sitemap = require("sitemap")
+const axios = require("axios")
+const fs = require("fs").promises
+const homeUrl = "https://art.shlisselburg.org"
 const sitemapCacheTime = 600000
 
 const api = axios.create({
-    baseURL: 'https://api.tmshv.com/hudozka',
+    baseURL: "https://api.tmshv.com/hudozka",
 })
 
-async function getMenuUrls(frequency = 'daily') {
+async function getMenuUrls(frequency = "daily") {
     const menu = [
-        '/',
-        '/collective',
+        "/",
+        "/collective",
     ]
     return menu
         // .filter(i => 'url' in i)
         .map(url => ({
             url,
-            changefreq: frequency
+            changefreq: frequency,
         }))
 }
 
-async function getPageUrls(frequency = 'daily') {
-    const res = await api.get('/api/pages/urls')
+async function getPageUrls(frequency = "daily") {
+    const res = await api.get("/api/pages/urls")
 
     return res.data.items.map(url => ({
         changefreq: frequency,
@@ -40,9 +40,9 @@ async function getPageUrls(frequency = 'daily') {
     let map = sitemap.createSitemap({
         hostname: homeUrl,
         cacheTime: sitemapCacheTime,
-        urls
+        urls,
     })
     const content = map.toString()
 
-    await fs.writeFile('dist/sitemap.xml', content, { encoding: 'utf-8' })
+    await fs.writeFile("dist/sitemap.xml", content, { encoding: "utf-8" })
 })()
