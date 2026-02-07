@@ -7,7 +7,7 @@ import "src/style/kazimir/video.css"
 import App from "next/app"
 import Head from "next/head"
 import Script from "next/script"
-import { YMetrika } from "src/components/YMetrika"
+import { YMetrika } from "@/components/YMetrika"
 import { ThemeColor } from "@/ui/ThemeColor"
 
 export default class MyApp extends App {
@@ -41,7 +41,9 @@ export default class MyApp extends App {
                         href="/feed.xml"
                     />
 
-                    <YMetrika account={24027460} />
+                    {process.env.NEXT_PUBLIC_YMETRIKA_ACCOUNT && (
+                        <YMetrika account={Number(process.env.NEXT_PUBLIC_YMETRIKA_ACCOUNT)} />
+                    )}
 
                     <ThemeColor
                         color="white"

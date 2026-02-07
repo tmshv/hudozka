@@ -26,6 +26,18 @@ Feature branches are named `issue-XXX` where `XXX` is the related GitHub issue n
 
 ESLint 9 flat config (`eslint.config.js`) using `FlatCompat` from `@eslint/eslintrc` to bridge `eslint-config-next` (which doesn't support native flat config in Next.js 15.x). Extends `next/core-web-vitals`. Enforces: no semicolons, double quotes, 4-space indentation, always-multiline trailing commas, `eol-last`.
 
+**React components:** Use regular function declarations (not arrow functions) and `type` for props. Do not use `React.FC`.
+
+```tsx
+export type MyComponentProps = {
+    value: string
+}
+
+export function MyComponent({ value }: MyComponentProps) {
+    return <div>{value}</div>
+}
+```
+
 ## Architecture
 
 **Pages Router with SSG/ISR:** All pages use `getStaticProps`/`getStaticPaths` with 30-second revalidation. The catch-all route `pages/[...slug].tsx` handles all dynamic content pages.
