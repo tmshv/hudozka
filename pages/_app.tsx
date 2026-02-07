@@ -7,7 +7,7 @@ import "src/style/kazimir/video.css"
 import App from "next/app"
 import Head from "next/head"
 import Script from "next/script"
-import { YMetrika } from "src/components/YMetrika"
+import { YMetrika } from "@/components/YMetrika"
 import { ThemeColor } from "@/ui/ThemeColor"
 
 export default class MyApp extends App {
