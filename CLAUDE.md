@@ -18,6 +18,10 @@ Website for the Art School of Shlisselburg ([art.shlisselburg.org](https://art.s
 
 Node 22 required (see `mise.toml`). Deployed on Vercel.
 
+## Git Workflow
+
+Feature branches are named `issue-XXX` where `XXX` is the related GitHub issue number.
+
 ## Code Style
 
 ESLint 9 flat config (`eslint.config.js`) using `FlatCompat` from `@eslint/eslintrc` to bridge `eslint-config-next` (which doesn't support native flat config in Next.js 15.x). Extends `next/core-web-vitals`. Enforces: no semicolons, double quotes, 4-space indentation, always-multiline trailing commas, `eol-last`.
