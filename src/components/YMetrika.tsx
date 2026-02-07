@@ -2,7 +2,7 @@ export type YMetrikaProps = {
     account: number
 }
 
-function script(account: number) {
+export function script(account: number) {
     return `
         (function (d, w, c) {
             (w[c] = w[c] || []).push(function() {
