@@ -41,7 +41,9 @@ export default class MyApp extends App {
                         href="/feed.xml"
                     />
 
-                    <YMetrika account={24027460} />
+                    {process.env.NEXT_PUBLIC_YMETRIKA_ACCOUNT && (
+                        <YMetrika account={Number(process.env.NEXT_PUBLIC_YMETRIKA_ACCOUNT)} />
+                    )}
 
                     <ThemeColor
                         color="white"
