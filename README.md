@@ -1,42 +1,46 @@
 # [ART.SHLISSELBURG.ORG](https://art.shlisselburg.org)
 
-Site of Art school of Shlisselburg
+Website for the Art School of Shlisselburg. Built with Next.js and powered by Strapi CMS.
 
 Font: [«Shadow»](http://mishapanfilov.ru/font_shadow.html)
 
-## Usage
+## Development
 
-### Build
+### Prerequisites
 
+- Node.js 22 (see `mise.toml`)
+
+### Getting Started
+
+1. Install dependencies
 ```bash
-$ docker build -t tmshv/hudozka .
+npm install
 ```
 
-### How to run
-
-#### Add .env file
-
-```
-MONGO_HUDOZKA_PASSWORD=<strong_password>
-HUDOZKA_DB_URI=mongodb://hudozka:strong_password@mongo:27017/hudozka?authSource=admin
-```
-
-#### Run
+2. Start development server
 ```bash
-$ docker-compose up -d
+npm run dev
 ```
 
-### How to sync data base
+The development server runs at [http://localhost:3000](http://localhost:3000) with Turbo mode enabled.
 
-Local DB to remote DB
+## Content Management
+Content is fetched from Strapi CMS and rendered using flexible content tokens:
+- `text` — Markdown with Russian typography (Typograf)
+- `image` — Responsive images with blur hash
+- `file` — Document downloads
+- `html` — Raw HTML embeds
+- `youtube` — Video embeds
+- `instagram` — Social media embeds
+- `grid` — Card grids
 
-```bash
-DB=hudozka
-HOST=<ip_address>
-USER=<mongo_user>
-PWD=<mongo_password>
-mongodump -d ${DB} --gzip --archive | mongorestore -h ${HOST} -u ${USER} -p ${PWD} -d ${DB} --gzip --archive
-```
+## Accessibility
+The site includes an accessibility panel with configurable:
+- Font size (8-48pt)
+- Color schemes (5 presets: black-on-white, white-on-black, blue-on-blue, brown-on-yellow, green-on-brown)
+- Line height and letter spacing
+- Image toggling
+- Font family (serif/sans-serif)
 
 ## Contributors
 - Roman Timashev ([roman@tmshv.ru](mailto:roman@tmshv.ru))
