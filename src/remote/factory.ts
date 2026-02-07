@@ -77,7 +77,7 @@ export async function createPageToken(component: StrapiComponent): Promise<Token
     case "hudozka.card-grid": {
         const items = await Promise.all(component.items
             .filter(Boolean)
-            .map(createCardGrid)
+            .map(createCardGrid),
         )
         return {
             token: "grid",
@@ -208,7 +208,7 @@ export async function createCardGrid(card: StrapiPageCard): Promise<PageCardDto>
 
 export async function createHomeCards(data: StrapiHome): Promise<PageCardDto[]> {
     const items = await Promise.all(data.cards
-        .map(createCardGrid)
+        .map(createCardGrid),
     )
     return items
         .filter(x => !!x.url)
