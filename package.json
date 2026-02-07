@@ -41,6 +41,8 @@
     },
     "devDependencies": {
         "@eslint/eslintrc": "^3.3.1",
+        "@testing-library/jest-dom": "^6.9.1",
+        "@testing-library/react": "^16.3.2",
         "@types/classnames": "^2.2.10",
         "@types/markdown-it": "^12.2.3",
         "@types/node": "^22.19.9",
@@ -52,6 +54,7 @@
         "eslint-config-next": "^15.5.0",
         "feed": "^4.1.0",
         "globals": "^16.0.0",
+        "happy-dom": "^20.5.0",
         "typescript": "^5.9.0",
         "vitest": "^4.0.18"
     }
