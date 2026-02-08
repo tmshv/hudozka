@@ -1,7 +1,7 @@
 import Head from "next/head"
 import { App } from "@/components/App"
 import { Page } from "@/components/Page"
-import { NextSeo } from "next-seo"
+import { generateNextSeo } from "next-seo/pages"
 import { MetaBuilder } from "@/lib/meta"
 import type { GetStaticProps, NextPage } from "next"
 import type { BreadcrumbPart, MenuItem, Meta, Tag, Sign, Token } from "@/types"
@@ -38,12 +38,12 @@ const Index: NextPage<Props> = props => {
 
     return (
         <>
-            {!props.meta ? null : (
-                <NextSeo
-                    title={props.meta.title}
-                    description={props.meta.description}
-                    canonical="https://art.shlisselburg.org/"
-                    openGraph={{
+            <Head>
+                {!props.meta ? null : generateNextSeo({
+                    title: props.meta.title,
+                    description: props.meta.description,
+                    canonical: "https://art.shlisselburg.org/",
+                    openGraph: {
                         url: props.meta.url,
                         title: props.meta.title,
                         description: props.meta.description,
@@ -56,10 +56,11 @@ const Index: NextPage<Props> = props => {
                                 type: "image/jpeg",
                             },
                         ],
-                        site_name: props.meta.siteName,
-                    }}
-                />
-            )}
+                        siteName: props.meta.siteName,
+                    },
+                })}
+                <title>{props.title}</title>
+            </Head>
 
             <App
                 contentStyle={{
@@ -69,9 +70,6 @@ const Index: NextPage<Props> = props => {
                 menu={props.menu}
                 breadcrumbs={props.breadcrumb}
             >
-                <Head>
-                    <title>{props.title}</title>
-                </Head>
 
                 <Page
                     tags={props.tags}

@@ -1,6 +1,6 @@
 import Head from "next/head"
 import { App } from "@/components/App"
-import { NextSeo } from "next-seo"
+import { generateNextSeo } from "next-seo/pages"
 import { PageGrid } from "@/components/PageGrid"
 import { HudozkaTitle } from "@/components/HudozkaTitle"
 import { MetaBuilder } from "@/lib/meta"
@@ -21,27 +21,27 @@ const Index: NextPage<Props> = props => {
 
     return (
         <>
-            <NextSeo
-                title={props.meta.title}
-                description={props.meta.description}
-                canonical="https://art.shlisselburg.org/"
-                openGraph={{
-                    url: props.meta.url,
+            <Head>
+                {generateNextSeo({
                     title: props.meta.title,
                     description: props.meta.description,
-                    images: [
-                        {
-                            url: props.meta.image,
-                            width: props.meta.imageWidth,
-                            height: props.meta.imageHeight,
-                            alt: props.meta.description,
-                            type: "image/jpeg",
-                        },
-                    ],
-                    site_name: props.meta.siteName,
-                }}
-            />
-            <Head>
+                    canonical: "https://art.shlisselburg.org/",
+                    openGraph: {
+                        url: props.meta.url,
+                        title: props.meta.title,
+                        description: props.meta.description,
+                        images: [
+                            {
+                                url: props.meta.image,
+                                width: props.meta.imageWidth,
+                                height: props.meta.imageHeight,
+                                alt: props.meta.description,
+                                type: "image/jpeg",
+                            },
+                        ],
+                        siteName: props.meta.siteName,
+                    },
+                })}
                 <title>{props.title}</title>
             </Head>
             <App
