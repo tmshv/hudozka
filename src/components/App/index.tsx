@@ -3,9 +3,9 @@ import { MenuContext } from "@/context/MenuContext"
 import { Footer } from "../Footer"
 import { Content } from "../Content"
 import { Breadcrumbs } from "../Breadcrumbs"
-import { IBreadcumbsPart, IMenu } from "src/types"
+import type { BreadcrumbPart, MenuItem } from "@/types"
 import { useRouter } from "next/router"
-import { useMobile } from "src/hooks/useMobile"
+import { useMobile } from "@/hooks/useMobile"
 import { Navigation } from "@/components/Navigation"
 import { Box } from "@/ui/Box"
 import { AccessibilityButton } from "../AccessibilityButton"
@@ -29,8 +29,8 @@ const Gosuslugi = dynamic(import("../Gosuslugi").then(module => module.Gosuslugi
 export type AppProps = {
     showAuthor?: boolean
     contentStyle?: React.CSSProperties
-    breadcrumbs?: IBreadcumbsPart[]
-    menu: IMenu[]
+    breadcrumbs?: BreadcrumbPart[]
+    menu: MenuItem[]
     children?: React.ReactNode
 }
 

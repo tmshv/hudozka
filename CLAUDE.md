@@ -20,13 +20,13 @@ Node 22 required (see `mise.toml`). Deployed on Vercel.
 
 ## Git Workflow
 
-Feature branches are named `issue-XXX` where `XXX` is the related GitHub issue number.
+Feature branches are named `issue-XXX` where `XXX` is the related GitHub issue number. PR descriptions should not include a test plan section.
 
 ## CI/CD
 
 - `Dockerfile` — multi-stage Alpine build with standalone Next.js output, pushed to GHCR
 - `.github/workflows/build-app.yaml` — builds and pushes Docker image on push to master
-- `.github/workflows/test-app.yml` — builds Docker image (no push) on PRs
+- `.github/workflows/test-app.yml` — runs lint, tests, and build on PRs (build runs only after lint and tests pass)
 
 ## Code Style
 
@@ -75,7 +75,14 @@ CSS Modules (`.module.css`) for component-scoped styles. Global theme via CSS cu
 
 ## TypeScript
 
-Path alias: `@/*` → `src/*`. Strict mode enabled. Target ES6. `moduleDetection: "force"` in tsconfig (required because Next.js auto-generates `.next/types/validator.ts` without exports, which breaks `isolatedModules`). Both `@/` and `src/` import styles are used in the codebase — prefer `@/` for new code.
+Path alias: `@/*` → `src/*`. Strict mode enabled. Target ES6. `moduleDetection: "force"` in tsconfig (required because Next.js auto-generates `.next/types/validator.ts` without exports, which breaks `verbatimModuleSyntax`). Use `@/` path alias for all local imports, not `src/`. Legacy `src/` imports exist in the codebase but should not be used in new or modified code.
+
+`verbatimModuleSyntax` is enabled — use `import type` for type-only imports. When importing both values and types from the same module, use separate `import` and `import type` statements:
+
+```ts
+import { createPage } from "@/remote/factory"
+import type { Page } from "@/types"
+```
 
 ## Accessibility
 

@@ -1,9 +1,9 @@
-export interface IMenu {
+export type MenuItem = {
     name: string
     href: string
 }
 
-export interface IBreadcumbsPart {
+export type BreadcrumbPart = {
     name: string
     href: string
 }
@@ -30,7 +30,7 @@ export type FileDefinition = {
     }
 }
 
-export interface IPage {
+export type Page = {
     id: string
     title: string
     url: string
@@ -39,8 +39,8 @@ export interface IPage {
     cover: Pic
     description: string
     tokens: Token[]
-    tags: ITag[]
-    breadcrumb?: IBreadcumbsPart[]
+    tags: Tag[]
+    breadcrumb?: BreadcrumbPart[]
     featured: boolean
 }
 
@@ -51,7 +51,7 @@ export type Sign = {
     signature: string
 }
 
-export interface IDocument {
+export type DocFile = {
     // category: string
     fileName: string
     fileSize: number
@@ -61,7 +61,7 @@ export interface IDocument {
     url: string
 }
 
-export interface IMeta {
+export type Meta = {
     url: string
     siteName: string
     locale: string
@@ -78,7 +78,7 @@ export interface IMeta {
 }
 
 
-export interface ITag {
+export type Tag = {
     id: number
     name: string
     slug: string

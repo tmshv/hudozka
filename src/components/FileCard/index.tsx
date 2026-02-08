@@ -2,7 +2,7 @@ import s from "./filecard.module.css"
 
 import Image from "next/image"
 import dynamic from "next/dynamic"
-import { FileTokenData, Sign } from "@/types"
+import type { FileTokenData, Sign } from "@/types"
 import { size, ext } from "@/lib/file"
 import { getResizedUrl } from "@/lib/image"
 import Link from "next/link"

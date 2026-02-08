@@ -1,4 +1,4 @@
-import { NextPage } from "next"
+import type { NextPage } from "next"
 import { Wrapper } from "@/components/Wrapper"
 import { NotFound } from "@/components/NotFound"
 import Copyright from "@/components/Copyright"

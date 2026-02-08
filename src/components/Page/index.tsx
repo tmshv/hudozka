@@ -1,13 +1,13 @@
 import s from "./styles.module.css"
 
 import { PageMeta } from "../PageMeta"
-import { ITag } from "src/types"
+import type { Tag } from "@/types"
 
 export type PageProps = {
     children?: React.ReactNode
     style?: React.CSSProperties
     date?: Date
-    tags: ITag[]
+    tags: Tag[]
 }
 
 export const Page: React.FC<PageProps> = props => (

@@ -1,5 +1,5 @@
 import { createHomeCards, createMenu, createPage, createPageUrls } from "@/remote/factory"
-import { IMenu, IPage, PageCardDto } from "@/types"
+import type { MenuItem, Page, PageCardDto } from "@/types"
 
 const backendUrl = "https://hudozka.tmshv.com"
 
@@ -43,7 +43,7 @@ export async function getUrls(): Promise<string[]> {
     return urls
 }
 
-export async function getPageBySlug(slug: string): Promise<IPage | null> {
+export async function getPageBySlug(slug: string): Promise<Page | null> {
     const url = `${backendUrl}/pages?slug=${slug}`
     const page = await apiGet(createPage)(url, () => null)
     if (!page) {
@@ -57,7 +57,7 @@ export async function getHomeCards(): Promise<PageCardDto[]> {
     return items
 }
 
-export async function getMenu(): Promise<IMenu[]> {
+export async function getMenu(): Promise<MenuItem[]> {
     const menu = await apiGet(createMenu)(`${backendUrl}/menu`, () => [])
     return menu
 }

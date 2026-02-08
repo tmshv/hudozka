@@ -1,7 +1,7 @@
-import { IMenu, IPage, ITag, PageCardDto, Pic, Token } from "@/types"
+import type { MenuItem, Page, Tag, PageCardDto, Pic, Token } from "@/types"
 import { asItem } from "./lib"
-import { StrapiComponentEmbed, StrapiComponent, StrapiHome, StrapiPage, StrapiPageCard, StrapiTag, StrapiMedia, StrapiMenu } from "./types"
-import { typograf, markdownToHtml } from "src/lib/text"
+import type { StrapiComponentEmbed, StrapiComponent, StrapiHome, StrapiPage, StrapiPageCard, StrapiTag, StrapiMedia, StrapiMenu } from "./types"
+import { typograf, markdownToHtml } from "@/lib/text"
 import { encodeImageToBlurhash } from "./image"
 
 const md = (text: string) => typograf(markdownToHtml(text))
@@ -95,8 +95,8 @@ export async function createPageToken(component: StrapiComponent): Promise<Token
     }
 }
 
-export function createMenu(res: StrapiMenu): IMenu[] {
-    const items: IMenu[] = res.menu.items.map(x => ({
+export function createMenu(res: StrapiMenu): MenuItem[] {
+    const items: MenuItem[] = res.menu.items.map(x => ({
         href: x.page.slug,
         name: x.page.title,
     }))
@@ -107,14 +107,14 @@ export function createMenu(res: StrapiMenu): IMenu[] {
     }, ...items]
 }
 
-export async function createPage(res: StrapiPage | StrapiPage[]): Promise<IPage | null> {
+export async function createPage(res: StrapiPage | StrapiPage[]): Promise<Page | null> {
     const item = asItem(res)
     if (!item) {
         return null
     }
 
     const cover = await getCoverImage(item.cover)
-    const tags: ITag[] = item.tags.map(tag => ({
+    const tags: Tag[] = item.tags.map(tag => ({
         id: tag.id,
         name: tag.name,
         slug: tag.slug,

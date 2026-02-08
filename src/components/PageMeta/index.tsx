@@ -1,15 +1,16 @@
 import s from "./styles.module.css"
 
 import cx from "classnames"
-import { dateFormat } from "src/lib/date"
-import { ITag } from "src/types"
-import { TagList, Direction } from "../TagList"
-import { useMobile } from "src/hooks/useMobile"
+import { dateFormat } from "@/lib/date"
+import type { Tag } from "@/types"
+import { TagList } from "../TagList"
+import type { Direction } from "../TagList"
+import { useMobile } from "@/hooks/useMobile"
 
 export type PageMetaProps = {
     style?: React.CSSProperties
     date?: Date
-    tags?: ITag[]
+    tags?: Tag[]
 }
 
 export const PageMeta: React.FC<PageMetaProps> = props => {

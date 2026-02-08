@@ -1,11 +1,11 @@
 import Head from "next/head"
-import { App } from "src/components/App"
-import { Page } from "src/components/Page"
+import { App } from "@/components/App"
+import { Page } from "@/components/Page"
 import { NextSeo } from "next-seo"
-import { MetaBuilder } from "src/lib/meta"
-import { GetStaticProps, NextPage } from "next"
-import { IBreadcumbsPart, IMenu, IMeta, ITag, Sign, Token } from "@/types"
-import { Html } from "src/components/Html"
+import { MetaBuilder } from "@/lib/meta"
+import type { GetStaticProps, NextPage } from "next"
+import type { BreadcrumbPart, MenuItem, Meta, Tag, Sign, Token } from "@/types"
+import { Html } from "@/components/Html"
 import { Youtube } from "@/components/Youtube"
 import { paramsToSlug } from "@/remote/lib"
 import { PageGrid } from "@/components/PageGrid"
@@ -17,11 +17,11 @@ import { getMenu, getPageBySlug, getUrls } from "@/remote/api"
 
 type Props = {
     title: string
-    tags: ITag[]
+    tags: Tag[]
     date: string
-    breadcrumb: IBreadcumbsPart[]
-    meta?: IMeta
-    menu: IMenu[],
+    breadcrumb: BreadcrumbPart[]
+    meta?: Meta
+    menu: MenuItem[],
     tokens: Token[]
     documentSignature: Sign
 }
