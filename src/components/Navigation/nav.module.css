@@ -1,0 +1,107 @@
+/* Responsive switching */
+
+.desktop {
+    display: block;
+}
+
+.mobile {
+    display: none;
+}
+
+@media (max-width: 31.25em) {
+    .desktop {
+        display: none;
+    }
+
+    .mobile {
+        display: block;
+    }
+}
+
+/* Mobile menu: details/summary toggle */
+
+.details {
+    position: relative;
+}
+
+.details summary {
+    list-style: none;
+    cursor: pointer;
+}
+
+.details summary::-webkit-details-marker {
+    display: none;
+}
+
+.toggle {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--size-xs);
+    border: 1px solid rgba(0, 0, 0, 0);
+    border-radius: var(--size-s);
+    background-color: var(--color-back);
+    color: var(--color-text);
+    cursor: pointer;
+    transition: box-shadow 200ms ease-in, background-color 200ms ease-in;
+}
+
+.toggle:hover {
+    border-color: rgba(0, 0, 0, 0);
+    box-shadow: var(--shadow);
+}
+
+@media (prefers-color-scheme: dark) {
+    .toggle:hover {
+        background-color: var(--color-back-active);
+    }
+}
+
+/* Icon swap */
+
+.iconClose {
+    display: none;
+}
+
+.details[open] .iconOpen {
+    display: none;
+}
+
+.details[open] .iconClose {
+    display: inline-block;
+}
+
+/* Fullscreen overlay panel */
+
+.panel {
+    position: fixed;
+    inset: 0;
+    z-index: 1000000;
+    overflow-y: auto;
+    background-color: var(--color-back-main);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.panelClose {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: var(--size-s);
+}
+
+/* Body scroll lock when menu is open */
+
+:global(body):has(.details[open]) {
+    overflow: hidden;
+}
+
+/* Reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+    .toggle {
+        transition: none;
+    }
+}
