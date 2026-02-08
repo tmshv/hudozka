@@ -1,5 +1,5 @@
-import useMedia from "use-media"
+import { useMediaQuery } from "@/hooks/useMediaQuery"
 
 export function useReducedMotion(): boolean {
-    return useMedia("(prefers-reduced-motion: reduce)")
+    return useMediaQuery("(prefers-reduced-motion: reduce)")
 }

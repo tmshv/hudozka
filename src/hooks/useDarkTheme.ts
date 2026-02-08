@@ -1,5 +1,5 @@
-import useMedia from "use-media"
+import { useMediaQuery } from "@/hooks/useMediaQuery"
 
 export function useDarkTheme(): boolean {
-    return useMedia("(prefers-color-scheme: dark)")
+    return useMediaQuery("(prefers-color-scheme: dark)")
 }
