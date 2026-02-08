@@ -1,3 +1,5 @@
+"use client"
+
 import s from "./wrapper.module.css"
 
 import cx from "classnames"
