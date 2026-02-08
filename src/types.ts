@@ -38,7 +38,7 @@ export interface IPage {
     date: string
     cover: Pic
     description: string
-    tokens: any[]
+    tokens: Token[]
     tags: ITag[]
     breadcrumb?: IBreadcumbsPart[]
     featured: boolean
