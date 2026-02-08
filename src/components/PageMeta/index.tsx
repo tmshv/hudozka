@@ -1,10 +1,10 @@
 import s from "./styles.module.css"
 
 import cx from "classnames"
-import { dateFormat } from "src/lib/date"
-import { Tag } from "src/types"
+import { dateFormat } from "@/lib/date"
+import { Tag } from "@/types"
 import { TagList, Direction } from "../TagList"
-import { useMobile } from "src/hooks/useMobile"
+import { useMobile } from "@/hooks/useMobile"
 
 export type PageMetaProps = {
     style?: React.CSSProperties

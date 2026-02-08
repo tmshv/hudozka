@@ -1,7 +1,7 @@
 import { MenuItem, Page, Tag, PageCardDto, Pic, Token } from "@/types"
 import { asItem } from "./lib"
 import { StrapiComponentEmbed, StrapiComponent, StrapiHome, StrapiPage, StrapiPageCard, StrapiTag, StrapiMedia, StrapiMenu } from "./types"
-import { typograf, markdownToHtml } from "src/lib/text"
+import { typograf, markdownToHtml } from "@/lib/text"
 import { encodeImageToBlurhash } from "./image"
 
 const md = (text: string) => typograf(markdownToHtml(text))

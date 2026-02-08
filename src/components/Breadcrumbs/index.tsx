@@ -1,8 +1,8 @@
 import s from "./styles.module.css"
 
-import { BreadcrumbPart } from "src/types"
+import { BreadcrumbPart } from "@/types"
 import { Button } from "@/ui/Button"
-import { insertBetween } from "src/lib/array"
+import { insertBetween } from "@/lib/array"
 
 export type BreadcrumbsProps = {
     style?: React.CSSProperties

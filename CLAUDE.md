@@ -75,7 +75,7 @@ CSS Modules (`.module.css`) for component-scoped styles. Global theme via CSS cu
 
 ## TypeScript
 
-Path alias: `@/*` → `src/*`. Strict mode enabled. Target ES6. `moduleDetection: "force"` in tsconfig (required because Next.js auto-generates `.next/types/validator.ts` without exports, which breaks `isolatedModules`). Both `@/` and `src/` import styles are used in the codebase — prefer `@/` for new code.
+Path alias: `@/*` → `src/*`. Strict mode enabled. Target ES6. `moduleDetection: "force"` in tsconfig (required because Next.js auto-generates `.next/types/validator.ts` without exports, which breaks `isolatedModules`). Use `@/` path alias for all local imports, not `src/`. Legacy `src/` imports exist in the codebase but should not be used in new or modified code.
 
 ## Accessibility
 

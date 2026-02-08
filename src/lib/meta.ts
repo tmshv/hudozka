@@ -1,4 +1,4 @@
-import { Meta, Pic } from "src/types"
+import { Meta, Pic } from "@/types"
 
 export function meta(props: Partial<Meta>): Meta {
     const path = props.url || "/"
