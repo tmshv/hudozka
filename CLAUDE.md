@@ -14,7 +14,7 @@ Website for the Art School of Shlisselburg ([art.shlisselburg.org](https://art.s
 - `npm run format` — auto-fix lint issues
 - `npm test` — run unit tests (Vitest, non-watch mode)
 
-Node 22 required (see `mise.toml`). Deployed on Vercel.
+Node 24 required (see `mise.toml`). Deployed on Vercel.
 
 ## Git Workflow
 
@@ -28,7 +28,7 @@ Feature branches are named `issue-XXX` where `XXX` is the related GitHub issue n
 
 ## Code Style
 
-ESLint 9 flat config (`eslint.config.js`) using `FlatCompat` from `@eslint/eslintrc` to bridge `eslint-config-next` (which doesn't support native flat config in Next.js 15.x). Extends `next/core-web-vitals`. Enforces: no semicolons, double quotes, 4-space indentation, always-multiline trailing commas, `eol-last`.
+ESLint 9 flat config (`eslint.config.js`) with native `eslint-config-next` 16.x support. Extends `next/core-web-vitals`. Enforces: no semicolons, double quotes, 4-space indentation, always-multiline trailing commas, `eol-last`.
 
 **React components:** Use regular function declarations (not arrow functions) and `type` for props. Do not use `React.FC`.
 

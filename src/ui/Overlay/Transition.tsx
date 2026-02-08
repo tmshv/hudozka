@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 
 export type TransitionProps = {
     children?: React.ReactNode
@@ -7,9 +7,11 @@ export type TransitionProps = {
     show: boolean
 }
 
-export const Transition: React.FC<TransitionProps> = props => {
+export function Transition(props: TransitionProps) {
     const [mounted, setMounted] = useState(props.show)
     const [opacity, setOpacity] = useState(0)
+    const timerRef = useRef<ReturnType<typeof setTimeout>>(null)
+
     const onTransitionEnd = useCallback(() => {
         if (opacity === 0) {
             setMounted(false)
@@ -20,19 +22,27 @@ export const Transition: React.FC<TransitionProps> = props => {
         [props.duration],
     )
 
+    if (props.show && !mounted) {
+        setMounted(true)
+    }
+
+    if (!props.show && opacity !== 0) {
+        setOpacity(0)
+    }
+
     useEffect(() => {
         if (!props.show) {
-            setOpacity(0)
             return
         }
 
-        setMounted(true)
-        let t = setTimeout(() => {
+        timerRef.current = setTimeout(() => {
             setOpacity(1)
         }, 16)
 
         return () => {
-            clearTimeout(t)
+            if (timerRef.current) {
+                clearTimeout(timerRef.current)
+            }
         }
     }, [props.show])
 

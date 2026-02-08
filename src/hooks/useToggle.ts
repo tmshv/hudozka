@@ -1,8 +1,9 @@
-import { useReducer } from "react"
+import { useCallback, useState } from "react"
 
 export function useToggle(initialValue: boolean): [boolean, (nextValue?: boolean) => void] {
-    return useReducer(
-        (state: boolean, next?: boolean) => typeof next === "boolean" ? next : !state,
-        initialValue,
-    )
+    const [state, setState] = useState(initialValue)
+    const toggle = useCallback((next?: boolean) => {
+        setState(prev => typeof next === "boolean" ? next : !prev)
+    }, [])
+    return [state, toggle]
 }
