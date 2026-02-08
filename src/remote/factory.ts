@@ -1,4 +1,4 @@
-import type { MenuItem, Page, Tag, PageCardDto, Pic, Token } from "@/types"
+import type { MenuItem, Page, Tag, PageCardDto, Pic, Token, FeedPage } from "@/types"
 import { asItem } from "./lib"
 import type { StrapiComponentEmbed, StrapiComponent, StrapiHome, StrapiPage, StrapiPageCard, StrapiTag, StrapiMedia, StrapiMenu } from "./types"
 import { typograf, markdownToHtml } from "@/lib/text"
@@ -212,4 +212,16 @@ export async function createHomeCards(data: StrapiHome): Promise<PageCardDto[]> 
     )
     return items
         .filter(x => !!x.url)
+}
+
+export function createFeedPages(pages: StrapiPage[]): FeedPage[] {
+    return pages
+        .filter(page => page.date)
+        .map(page => ({
+            id: `${page.id}`,
+            title: page.title,
+            url: page.slug,
+            date: page.date!,
+            excerpt: page.excerpt,
+        }))
 }
