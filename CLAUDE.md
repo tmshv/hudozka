@@ -20,7 +20,7 @@ Node 22 required (see `mise.toml`). Deployed on Vercel.
 
 ## Git Workflow
 
-Feature branches are named `issue-XXX` where `XXX` is the related GitHub issue number.
+Feature branches are named `issue-XXX` where `XXX` is the related GitHub issue number. PR descriptions should not include a test plan section.
 
 ## CI/CD
 
