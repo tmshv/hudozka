@@ -10,7 +10,6 @@
         "build": "next build",
         "lint": "eslint .",
         "format": "eslint --fix .",
-        "feed": "node scripts/feed.js",
         "test": "vitest run"
     },
     "repository": {
@@ -46,7 +45,6 @@
         "@typescript-eslint/parser": "^8.54.0",
         "eslint": "^9.0.0",
         "eslint-config-next": "^15.5.0",
-        "feed": "^4.1.0",
         "globals": "^16.0.0",
         "happy-dom": "^20.5.0",
         "typescript": "^5.9.0",

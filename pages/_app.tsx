@@ -33,9 +33,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 
                 <link
                     rel="alternate"
-                    type="application/rss+xml"
+                    type="application/feed+json"
                     title="Шлиссельбургская Детская Художественная Школа"
-                    href="/feed.xml"
+                    href="/feed.json"
                 />
 
                 {process.env.NEXT_PUBLIC_YMETRIKA_ACCOUNT && (

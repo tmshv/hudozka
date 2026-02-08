@@ -156,3 +156,11 @@ export type Token =
     | YoutubeToken
     | InstagramToken
     | GridToken
+
+export type FeedPage = {
+    id: string
+    title: string
+    url: string
+    date: string
+    excerpt: string
+}
