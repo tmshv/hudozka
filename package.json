@@ -19,8 +19,8 @@
     "author": "Roman Timashev",
     "license": "ISC",
     "dependencies": {
-        "@radix-ui/react-navigation-menu": "^1.0.0",
-        "@radix-ui/react-tooltip": "^1.0.0",
+        "@radix-ui/react-navigation-menu": "^1.2.0",
+        "@radix-ui/react-tooltip": "^1.2.0",
         "classnames": "^2.5.0",
         "dangerously-set-html-content": "^1.0.13",
         "date-fns": "^4.0.0",
@@ -33,6 +33,11 @@
         "sharp": "^0.34.0",
         "typograf": "^6.11.1",
         "valtio": "^2.1.7"
+    },
+    "overrides": {
+        "dangerously-set-html-content": {
+            "react": "$react"
+        }
     },
     "devDependencies": {
         "@testing-library/jest-dom": "^6.9.1",
