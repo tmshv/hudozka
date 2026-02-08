@@ -2,8 +2,9 @@ import s from "./styles.module.css"
 
 import cx from "classnames"
 import { dateFormat } from "@/lib/date"
-import { Tag } from "@/types"
-import { TagList, Direction } from "../TagList"
+import type { Tag } from "@/types"
+import { TagList } from "../TagList"
+import type { Direction } from "../TagList"
 import { useMobile } from "@/hooks/useMobile"
 
 export type PageMetaProps = {

@@ -1,6 +1,6 @@
 import s from "./signature.module.css"
 
-import { Sign } from "@/types"
+import type { Sign } from "@/types"
 import { HiOutlineShieldCheck } from "react-icons/hi"
 
 import * as Tooltip from "@radix-ui/react-tooltip"

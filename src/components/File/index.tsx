@@ -1,6 +1,6 @@
 import s from "./styles.module.css"
 
-import { FileDefinition } from "src/types"
+import type { FileDefinition } from "@/types"
 import { ext, size } from "src/lib/file"
 import Link from "next/link"
 import Image from "next/image"

@@ -1,6 +1,6 @@
 import s from "./styles.module.css"
 
-import { MenuItem } from "@/types"
+import type { MenuItem } from "@/types"
 import * as NavigationMenu from "@radix-ui/react-navigation-menu"
 import classnames from "classnames/bind"
 import { useRouter } from "next/router"

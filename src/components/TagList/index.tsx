@@ -1,7 +1,7 @@
 import s from "./styles.module.css"
 
 import cx from "classnames"
-import { Tag } from "@/types"
+import type { Tag } from "@/types"
 import { Button } from "@/ui/Button"
 
 const directionClass = {

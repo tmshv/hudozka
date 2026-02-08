@@ -1,5 +1,5 @@
 import { createHomeCards, createMenu, createPage, createPageUrls } from "@/remote/factory"
-import { MenuItem, Page, PageCardDto } from "@/types"
+import type { MenuItem, Page, PageCardDto } from "@/types"
 
 const backendUrl = "https://hudozka.tmshv.com"
 

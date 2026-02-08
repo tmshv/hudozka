@@ -1,7 +1,7 @@
 import s from "./styles.module.css"
 
 import { PageMeta } from "../PageMeta"
-import { Tag } from "@/types"
+import type { Tag } from "@/types"
 
 export type PageProps = {
     children?: React.ReactNode
