@@ -1,6 +1,6 @@
 import s from "./styles.module.css"
 
-import { IMenu } from "@/types"
+import { MenuItem } from "@/types"
 import * as NavigationMenu from "@radix-ui/react-navigation-menu"
 import classnames from "classnames/bind"
 import { useRouter } from "next/router"
@@ -10,8 +10,8 @@ let cx = classnames.bind(s)
 
 export type MenuProps = {
     vertical?: boolean
-    items: IMenu[]
-    onItemClick?: (item: IMenu) => void
+    items: MenuItem[]
+    onItemClick?: (item: MenuItem) => void
 }
 
 export const Menu: React.FC<MenuProps> = ({ vertical = false, onItemClick, items }) => {

@@ -1,6 +1,6 @@
-import { IMeta, Pic } from "src/types"
+import { Meta, Pic } from "src/types"
 
-export function meta(props: Partial<IMeta>): IMeta {
+export function meta(props: Partial<Meta>): Meta {
     const path = props.url || "/"
     const url = `https://art.shlisselburg.org${path}`
 
@@ -28,9 +28,9 @@ export class MetaBuilder {
     private image?: Pic
     private title?: string
     private description?: string
-    private data?: Partial<IMeta>
+    private data?: Partial<Meta>
 
-    setData(param: Partial<IMeta>) {
+    setData(param: Partial<Meta>) {
         this.data = param
         return this
     }

@@ -2,14 +2,14 @@ import s from "./styles.module.css"
 
 import cx from "classnames"
 import { dateFormat } from "src/lib/date"
-import { ITag } from "src/types"
+import { Tag } from "src/types"
 import { TagList, Direction } from "../TagList"
 import { useMobile } from "src/hooks/useMobile"
 
 export type PageMetaProps = {
     style?: React.CSSProperties
     date?: Date
-    tags?: ITag[]
+    tags?: Tag[]
 }
 
 export const PageMeta: React.FC<PageMetaProps> = props => {

@@ -5,14 +5,14 @@ import { PageGrid } from "src/components/PageGrid"
 import { HudozkaTitle } from "src/components/HudozkaTitle"
 import { MetaBuilder } from "src/lib/meta"
 import { GetStaticProps, NextPage } from "next"
-import { IMenu, IMeta, PageCardDto } from "src/types"
+import { MenuItem, Meta, PageCardDto } from "src/types"
 import { useMobile } from "@/hooks/useMobile"
 import { getHomeCards, getMenu } from "@/remote/api"
 
 type Props = {
     title: string
-    meta: IMeta
-    menu: IMenu[]
+    meta: Meta
+    menu: MenuItem[]
     items: PageCardDto[]
 }
 
