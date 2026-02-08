@@ -27,7 +27,7 @@ import Link from "next/link"
 import AccessibilityPanel from "../AccessibilityPanel"
 import useAccessibility from "@/hooks/useAccessibility"
 
-const Gosuslugi = dynamic(import("../Gosuslugi").then(module => module.Gosuslugi), {
+const Gosuslugi = dynamic(() => import("../Gosuslugi").then(module => ({ default: module.Gosuslugi })), {
     ssr: false,
 })
 
