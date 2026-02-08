@@ -1,3 +1,5 @@
+import s from "./app.module.css"
+
 import { Wrapper } from "../Wrapper"
 import { MenuContext } from "@/context/MenuContext"
 import { Footer } from "../Footer"
@@ -9,7 +11,8 @@ import { useMobile } from "@/hooks/useMobile"
 import { Navigation } from "@/components/Navigation"
 import { Box } from "@/ui/Box"
 import { AccessibilityButton } from "../AccessibilityButton"
-import Copyright from "@/components/Copyright"
+import { Copyright } from "@/components/Copyright"
+import { yearRange } from "@/const"
 import { Spacer } from "../Spacer"
 import { Author } from "../Author"
 import { Title } from "@/ui/Title"
@@ -18,7 +21,6 @@ import { Contacts } from "../Contacts"
 import dynamic from "next/dynamic"
 import Link from "next/link"
 
-import Image from "next/image"
 import AccessibilityPanel from "../AccessibilityPanel"
 import useAccessibility from "@/hooks/useAccessibility"
 
@@ -34,13 +36,10 @@ export type AppProps = {
     children?: React.ReactNode
 }
 
-export const App: React.FC<AppProps> = ({ showAuthor = false, menu, ...props }) => {
+export function App({ showAuthor = false, menu, ...props }: AppProps) {
     const hideBreadcrumbs = useMobile()
     const accessibility = useAccessibility()
     const router = useRouter()
-    const blockStyle = {
-        justifyContent: "center",
-    }
 
     return (
         <MenuContext.Provider value={menu}>
@@ -51,11 +50,11 @@ export const App: React.FC<AppProps> = ({ showAuthor = false, menu, ...props }) 
                             <AccessibilityPanel/>
                         )}
 
-                        <Navigation style={{
-                            padding: "var(--size-s)",
-                        }} />
+                        <div className={s.navigation}>
+                            <Navigation />
+                        </div>
                         {hideBreadcrumbs || !props.breadcrumbs ? null : (
-                            <Box style={blockStyle}>
+                            <Box center>
                                 <Content>
                                     <Breadcrumbs
                                         items={props.breadcrumbs}
@@ -68,25 +67,19 @@ export const App: React.FC<AppProps> = ({ showAuthor = false, menu, ...props }) 
                 )}
                 footer={(
                     <Footer>
-                        <Box wrap gap={40} align={false} style={{
-                            marginBottom: "var(--size-l)",
-                        }}>
+                        <Box wrap gap={40} align={false} className={s.footerLinks}>
                             <Panel ghost>
                                 <Contacts />
                             </Panel>
 
-                            <Panel ghost style={{
-                                alignItems: "baseline",
-                            }}>
+                            <Panel ghost className={s.footerPanel}>
                                 <Title level={3}>
                                     Версия для слабовидящих
                                 </Title>
                                 <AccessibilityButton />
                             </Panel>
 
-                            <Panel ghost style={{
-                                alignItems: "baseline",
-                            }}>
+                            <Panel ghost className={s.footerPanel}>
                                 <Title level={3}>
                                     Анкеты
                                 </Title>
@@ -113,17 +106,12 @@ export const App: React.FC<AppProps> = ({ showAuthor = false, menu, ...props }) 
                             </Panel>
                         </Box>
 
-                        <div style={{
-                            backgroundColor: "white",
-                            padding: 10,
-                            borderRadius: 10,
-                            marginBottom: 30,
-                        }}>
+                        <div className={s.gosuslugi}>
                             <Gosuslugi />
                         </div>
 
                         <Box>
-                            <Copyright />
+                            <Copyright years={yearRange} />
 
                             {!showAuthor ? null : (
                                 <>
@@ -135,7 +123,7 @@ export const App: React.FC<AppProps> = ({ showAuthor = false, menu, ...props }) 
                     </Footer>
                 )}
             >
-                <Box style={blockStyle}>
+                <Box center>
                     <Content style={props.contentStyle}>
                         {props.children}
                     </Content>

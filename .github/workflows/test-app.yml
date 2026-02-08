@@ -59,5 +59,15 @@ jobs:
             - name: Install dependencies
               run: npm ci
 
+            - name: Cache Next.js build
+              uses: actions/cache@v4
+              with:
+                  path: .next/cache
+                  key: nextjs-${{ hashFiles('package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx', '**/*.css') }}
+                  restore-keys: nextjs-${{ hashFiles('package-lock.json') }}-
+
+            - name: Disable Next.js telemetry
+              run: npx next telemetry disable
+
             - name: Build
               run: npm run build

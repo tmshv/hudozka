@@ -20,4 +20,10 @@ describe("Panel", () => {
         expect(el.className).toMatch(/ghost/)
         expect(el.className).not.toMatch(/default/)
     })
+
+    it("forwards a custom className", () => {
+        const { container } = render(<Panel className="custom">content</Panel>)
+        const el = container.firstElementChild!
+        expect(el.className).toContain("custom")
+    })
 })

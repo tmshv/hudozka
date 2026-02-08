@@ -1,7 +1,5 @@
 import { proxy } from "valtio"
 
-const currentYear = () => (new Date()).getFullYear()
-
 type Contact = {
     type: string
     value: string
@@ -9,12 +7,10 @@ type Contact = {
 }
 
 type State = {
-    years: [number, number]
     contacts: Contact[]
 }
 
 export const state = proxy<State>({
-    years: [2012, currentYear()],
     contacts: [
         {
             type: "link",

@@ -1,7 +1,8 @@
 import type { NextPage } from "next"
 import { Wrapper } from "@/components/Wrapper"
 import { NotFound } from "@/components/NotFound"
-import Copyright from "@/components/Copyright"
+import { Copyright } from "@/components/Copyright"
+import { yearRange } from "@/const"
 import { Spacer } from "@/components/Spacer"
 import { Box } from "@/ui/Box"
 
@@ -11,7 +12,7 @@ const Index: NextPage = () => (
         footer={(
             <Box as={"footer"}>
                 <Spacer />
-                <Copyright />
+                <Copyright years={yearRange} />
                 <Spacer />
             </Box>
         )}
