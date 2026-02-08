@@ -11,7 +11,8 @@ import { useMobile } from "@/hooks/useMobile"
 import { Navigation } from "@/components/Navigation"
 import { Box } from "@/ui/Box"
 import { AccessibilityButton } from "../AccessibilityButton"
-import Copyright from "@/components/Copyright"
+import { Copyright } from "@/components/Copyright"
+import { yearRange } from "@/const"
 import { Spacer } from "../Spacer"
 import { Author } from "../Author"
 import { Title } from "@/ui/Title"
@@ -110,7 +111,7 @@ export function App({ showAuthor = false, menu, ...props }: AppProps) {
                         </div>
 
                         <Box>
-                            <Copyright />
+                            <Copyright years={yearRange} />
 
                             {!showAuthor ? null : (
                                 <>
