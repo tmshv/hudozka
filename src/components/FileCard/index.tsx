@@ -8,7 +8,7 @@ import { getResizedUrl } from "@/lib/image"
 import Link from "next/link"
 import { Box } from "@/ui/Box"
 
-const Signature = dynamic(import("./Signature").then(m => m.Signature), {
+const Signature = dynamic(() => import("./Signature").then(m => ({ default: m.Signature })), {
     ssr: false,
 })
 

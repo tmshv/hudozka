@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest"
-import { meta, MetaBuilder } from "./meta"
+import { meta, MetaBuilder, buildMetadata } from "./meta"
 
 describe("meta", () => {
     it("should return defaults when called with empty object", () => {
@@ -57,5 +57,70 @@ describe("MetaBuilder", () => {
 
         expect(result.url).toBe("https://art.shlisselburg.org/test")
         expect(result.type).toBe("article")
+    })
+})
+
+describe("buildMetadata", () => {
+    const defaultMeta = meta({})
+
+    it("should map title and description", () => {
+        const result = buildMetadata(defaultMeta)
+        expect(result.title).toBe("Шлиссельбургская ДХШ")
+        expect(result.description).toBe("Сайт Шлиссельбургской художественной школы")
+    })
+
+    it("should map openGraph fields", () => {
+        const result = buildMetadata(defaultMeta)
+        const og = result.openGraph
+        expect(og).toBeDefined()
+        expect(og).toMatchObject({
+            url: "https://art.shlisselburg.org/",
+            title: "Шлиссельбургская ДХШ",
+            description: "Сайт Шлиссельбургской художественной школы",
+            siteName: "Шлиссельбургская Детская Художественная Школа",
+            locale: "ru_RU",
+            type: "website",
+        })
+    })
+
+    it("should map openGraph images", () => {
+        const result = buildMetadata(defaultMeta)
+        const images = (result.openGraph as { images: unknown[] }).images
+        expect(images).toHaveLength(1)
+        expect(images[0]).toEqual({
+            url: "https://art.shlisselburg.org/entrance.jpg",
+            width: 1200,
+            height: 630,
+        })
+    })
+
+    it("should map twitter fields", () => {
+        const result = buildMetadata(defaultMeta)
+        expect(result.twitter).toEqual({
+            card: "summary_large_image",
+            site: "@",
+            creator: "@tmshv",
+        })
+    })
+
+    it("should use custom values from MetaBuilder", () => {
+        const m = new MetaBuilder()
+            .setTitle("Custom Page")
+            .setDescription("A custom description")
+            .setImage({ src: "https://example.com/cover.jpg", width: 800, height: 400 })
+            .setData({ url: "/custom" })
+            .build()
+
+        const result = buildMetadata(m)
+        expect(result.title).toBe("Custom Page")
+        expect(result.description).toBe("A custom description")
+
+        const og = result.openGraph as { url: string, images: { url: string, width: number, height: number }[] }
+        expect(og.url).toBe("https://art.shlisselburg.org/custom")
+        expect(og.images[0]).toEqual({
+            url: "https://example.com/cover.jpg",
+            width: 800,
+            height: 400,
+        })
     })
 })

@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import type { Meta, Pic } from "@/types"
 
 export function meta(props: Partial<Meta>): Meta {
@@ -78,5 +79,26 @@ export class MetaBuilder {
             imageWidth: this.image.width,
             imageHeight: this.image.height,
         }
+    }
+}
+
+export function buildMetadata(m: Meta): Metadata {
+    return {
+        title: m.title,
+        description: m.description,
+        openGraph: {
+            url: m.url,
+            title: m.title,
+            description: m.description,
+            siteName: m.siteName,
+            locale: m.locale,
+            type: m.type as "website",
+            images: [{ url: m.image, width: m.imageWidth, height: m.imageHeight }],
+        },
+        twitter: {
+            card: m.twitterCard as "summary_large_image",
+            site: m.twitterSite,
+            creator: m.twitterCreator,
+        },
     }
 }

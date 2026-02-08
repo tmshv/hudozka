@@ -1,9 +1,11 @@
+"use client"
+
 import s from "./styles.module.css"
 
 import type { MenuItem } from "@/types"
 import * as NavigationMenu from "@radix-ui/react-navigation-menu"
 import classnames from "classnames/bind"
-import { useRouter } from "next/router"
+import { usePathname } from "next/navigation"
 import { ActiveLink } from "./ActiveLink"
 
 let cx = classnames.bind(s)
@@ -15,13 +17,13 @@ export type MenuProps = {
 }
 
 export const Menu: React.FC<MenuProps> = ({ vertical = false, onItemClick, items }) => {
-    const router = useRouter()
+    const pathname = usePathname()
     return (
         <NavigationMenu.Root>
             <NavigationMenu.List className={cx(s.menu, { vertical })}>
                 {
                     items.map(item => {
-                        const current = router.asPath === item.href
+                        const current = pathname === item.href
                         const href = current
                             ? undefined
                             : item.href
