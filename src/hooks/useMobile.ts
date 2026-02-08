@@ -1,5 +1,5 @@
-import useMedia from "use-media"
+import { useMediaQuery } from "@/hooks/useMediaQuery"
 
 export function useMobile(): boolean {
-    return useMedia("(max-width: 31.25em)", false)
+    return useMediaQuery("(max-width: 31.25em)", false)
 }
