@@ -26,7 +26,7 @@ Feature branches are named `issue-XXX` where `XXX` is the related GitHub issue n
 
 - `Dockerfile` — multi-stage Alpine build with standalone Next.js output, pushed to GHCR
 - `.github/workflows/build-app.yaml` — builds and pushes Docker image on push to master
-- `.github/workflows/test-app.yml` — builds Docker image (no push) on PRs
+- `.github/workflows/test-app.yml` — runs lint, tests, and build on PRs (build runs only after lint and tests pass)
 
 ## Code Style
 
