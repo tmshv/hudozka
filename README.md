@@ -8,7 +8,7 @@ Font: [«Shadow»](http://mishapanfilov.ru/font_shadow.html)
 
 ### Prerequisites
 
-- Node.js 22 (see `mise.toml`)
+- Node.js 24 (see `mise.toml`)
 
 ### Getting Started
 
