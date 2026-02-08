@@ -1,4 +1,5 @@
 import { proxy, subscribe } from "valtio"
+import { clamp } from "@/lib/math"
 
 export type ThemeName = "default" | "contrast"
 export type ColorSchemeVariant = "black-on-white" | "white-on-black" | "blue-on-blue" | "brown-on-yellow" | "green-on-brown"
@@ -7,16 +8,6 @@ export type FontTypeVariant = "serif" | "sans-serif"
 const MIN_FONT_SIZE = 8
 const MAX_FONT_SIZE = 48
 const CHANGE_FONT_SIZE_DELTA = 1
-
-function clamp(val: number, min: number, max: number): number {
-    if (val < min) {
-        return min
-    }
-    if (val > max) {
-        return max
-    }
-    return val
-}
 
 export type ThemeOptions = {
     theme: ThemeName
