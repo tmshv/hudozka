@@ -14,8 +14,8 @@ export function ext(mimeType: string): string {
     return mimeType
 }
 
-export function size(bytes: any, precision = 1): string {
-    if (isNaN(parseFloat(bytes)) || !isFinite(bytes)) return ""
+export function size(bytes: number, precision = 1): string {
+    if (Number.isNaN(bytes) || !Number.isFinite(bytes)) return ""
 
     const number = Math.floor(Math.log(bytes) / Math.log(1024))
     const size = (bytes / Math.pow(1024, Math.floor(number))).toFixed(precision)

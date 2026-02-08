@@ -22,6 +22,12 @@ Node 22 required (see `mise.toml`). Deployed on Vercel.
 
 Feature branches are named `issue-XXX` where `XXX` is the related GitHub issue number.
 
+## CI/CD
+
+- `Dockerfile` — multi-stage Alpine build with standalone Next.js output, pushed to GHCR
+- `.github/workflows/build-app.yaml` — builds and pushes Docker image on push to master
+- `.github/workflows/test-app.yml` — builds Docker image (no push) on PRs
+
 ## Code Style
 
 ESLint 9 flat config (`eslint.config.js`) using `FlatCompat` from `@eslint/eslintrc` to bridge `eslint-config-next` (which doesn't support native flat config in Next.js 15.x). Extends `next/core-web-vitals`. Enforces: no semicolons, double quotes, 4-space indentation, always-multiline trailing commas, `eol-last`.
@@ -50,7 +56,7 @@ When adding or updating packages in `package.json`, do not specify the PATCH ver
 
 **Content tokens:** Pages are composed of flexible content blocks (tokens): `text`, `image`, `file`, `html`, `youtube`, `instagram`, `grid`. The `Token` discriminated union is defined in `src/types.ts`. Each token type maps to a renderer component.
 
-**State management:** Valtio for reactive state (`src/store/`). Theme/accessibility preferences in `theme` store, playback state in `play` store. Navigation data passed via React Context (`src/context/MenuContext`).
+**State management:** Valtio for reactive state (`src/store/`). Theme/accessibility preferences in `theme` store, playback state in `play` store, school contact info and year range in `config` store. Navigation data passed via React Context (`src/context/MenuContext`).
 
 ## Key Directories
 
@@ -81,7 +87,7 @@ Remote images from `hudozkacdn.tmshv.com` with `images.weserv.nl` as proxy. Blur
 
 ## Testing
 
-Vitest for unit tests. Config in `vitest.config.ts` with `@/` and `src/` path aliases. Test files are co-located with source (`src/lib/*.test.ts`). Currently covers `src/lib/` utility functions: array, string, url, file, image, date, text, meta.
+Vitest for unit tests. Config in `vitest.config.ts` with `@/` and `src/` path aliases. Test files are co-located with source across `src/lib/`, `src/ui/`, and `src/components/`. Covers utility functions (array, string, url, file, image, date, text, meta), UI primitives (Box, Button, Panel), and components (Breadcrumbs, YMetrika).
 
 ## Known Legacy / Technical Debt
 
@@ -90,7 +96,6 @@ Active modernization is tracked in GitHub issues #222–#238. Key items:
 - `pages/_app.tsx` is the only class component (extends `App`). Should be a function component.
 - `src/types.ts` has `I`-prefix interfaces (`IPage`, `IMenu`, etc.) from the Angular era alongside modern `type` aliases. The `tokens` field on `IPage` is `any[]` despite a proper `Token` union type existing.
 - `src/store/theme.ts` manipulates DOM directly outside React lifecycle (sets CSS vars on `document.documentElement`, toggles `document.body` classes). Has a TODO to fix after App Router migration.
-- `src/components/YMetrika.jsx` is the only `.jsx` file — currently unused (commented out in `_app.tsx`).
 - Two orphaned `.scss` files in `src/style/` (`tape-viewer.scss`, `vertical-image.scss`) — not imported anywhere, no SCSS preprocessor configured.
 - Some inline styles in `src/components/App/index.tsx` should be CSS modules.
 - `react-use` and `use-media` dependencies are unmaintained; only `useToggle` and `useLockBodyScroll` are used from `react-use`.

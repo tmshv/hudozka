@@ -18,13 +18,13 @@ const themeClass = {
 
 export type ButtonProps = {
     children?: React.ReactNode
-    value?: any
+    value?: string
     style?: React.CSSProperties
     href?: string
     theme?: "default" | "ghost" | "icon"
     size?: "default" | "small"
     disabled?: boolean
-    onClick?: (value: any, event: MouseEvent) => void
+    onClick?: (value: string | undefined, event: MouseEvent) => void
 }
 
 export const Button: React.FC<ButtonProps> = ({ size = "default", theme = "default", disabled = false, ...props }) => {

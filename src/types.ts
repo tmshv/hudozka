@@ -24,7 +24,7 @@ export type FileDefinition = {
     cover?: Pic
     file: {
         name: string
-        size: string
+        size: number
         type: string
         src: string
     }
@@ -77,12 +77,6 @@ export interface IMeta {
     twitterCreator: string
 }
 
-export interface IImage {
-    alt: string
-    src: string
-    srcSet: Array<{ url: string, density: number }>
-    set: any // TODO
-}
 
 export interface ITag {
     id: number

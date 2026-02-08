@@ -17,7 +17,7 @@ export type FileCardProps = FileTokenData & {
 }
 
 export const FileCard: React.FC<FileCardProps> = props => {
-    const fileSize = size(props.file_size)
+    const fileSize = props.file_size != null ? size(props.file_size) : ""
     const format = ext(props.file_format)
 
     return (
