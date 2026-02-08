@@ -8,14 +8,15 @@ import { AccessibilityButton } from "../AccessibilityButton"
 import { Spacer } from "../Spacer"
 
 export type DesktopNavigationProps = {
+    className?: string
     style?: React.CSSProperties
 }
 
-export const DesktopNavigation: React.FC<DesktopNavigationProps> = ({ style }) => {
+export function DesktopNavigation({ style, className }: DesktopNavigationProps) {
     const menu = useContext(MenuContext)
 
     return (
-        <Box wrap gap={"var(--size-s)"} style={style}>
+        <Box wrap className={className} gap={"var(--size-s)"} style={style}>
             <Link href="/">
                 <HudozkaLogo />
             </Link>
@@ -29,3 +30,4 @@ export const DesktopNavigation: React.FC<DesktopNavigationProps> = ({ style }) =
         </Box>
     )
 }
+

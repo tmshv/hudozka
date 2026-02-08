@@ -1,4 +1,4 @@
-import { useMobile } from "src/hooks/useMobile"
+import s from "./nav.module.css"
 import { DesktopNavigation } from "./DesktopNavigation"
 import { MobileNavigation } from "./MobileNavigation"
 
@@ -6,16 +6,15 @@ export type NavigationProps = {
     style?: React.CSSProperties
 }
 
-export const Navigation: React.FC<NavigationProps> = ({ style }) => {
-    const mobile = useMobile()
-
-    if (mobile) {
-        return (
-            <MobileNavigation style={style} />
-        )
-    }
-
+export function Navigation({ style }: NavigationProps) {
     return (
-        <DesktopNavigation style={style} />
+        <>
+            <div className={s.desktop}>
+                <DesktopNavigation style={style} />
+            </div>
+            <div className={s.mobile}>
+                <MobileNavigation style={style} />
+            </div>
+        </>
     )
 }
