@@ -1,11 +1,11 @@
 import { MenuToggle } from "../MenuToggle"
 import { Menu } from "../Menu"
 import { Overlay } from "@/ui/Overlay"
-import { useContext } from "react"
+import { useCallback, useContext } from "react"
 import { MenuContext } from "@/context/MenuContext"
 import { Box } from "@/ui/Box"
 import { Spacer } from "../Spacer"
-import { useToggle } from "react-use"
+import { useToggle } from "@/hooks/useToggle"
 import HudozkaLogo from "../HudozkaLogo"
 import { HudozkaTitle } from "../HudozkaTitle"
 import Link from "next/link"
@@ -16,6 +16,7 @@ export type MobileNavigationProps = {
 
 export const MobileNavigation: React.FC<MobileNavigationProps> = ({ style }) => {
     const [open, toggleOpen] = useToggle(false)
+    const handleToggle = useCallback(() => toggleOpen(), [toggleOpen])
     const menu = useContext(MenuContext)
 
     return (
@@ -32,7 +33,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({ style }) => 
                     <Spacer />
                     <MenuToggle
                         open={open}
-                        onClick={toggleOpen}
+                        onClick={handleToggle}
                     />
                 </Box>
                 <Box style={{
@@ -52,7 +53,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({ style }) => 
                 <Spacer />
                 <MenuToggle
                     open={open}
-                    onClick={toggleOpen}
+                    onClick={handleToggle}
                 />
             </Box>
         </>
