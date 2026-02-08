@@ -26,6 +26,7 @@ describe("size", () => {
 
     it("should return empty string for non-finite values", () => {
         expect(size(Infinity)).toBe("")
+        expect(size(-Infinity)).toBe("")
     })
 
     it("should format bytes", () => {

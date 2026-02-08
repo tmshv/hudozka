@@ -32,7 +32,7 @@ export const Gosuslugi: React.FC<GosuslugiProps> = () => {
             }
 
             // This call taken from getCode <script>Widget("https://pos.gosuslugi.ru/form", 312519)</script>
-            (window as any).Widget("https://pos.gosuslugi.ru/form", 312519)
+            window.Widget("https://pos.gosuslugi.ru/form", 312519)
         })
 
         return () => {
