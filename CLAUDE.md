@@ -12,8 +12,6 @@ Website for the Art School of Shlisselburg ([art.shlisselburg.org](https://art.s
 - `npm run build` — production build
 - `npm run lint` — ESLint checks
 - `npm run format` — auto-fix lint issues
-- `npm run sitemap` — generate sitemap.xml
-- `npm run feed` — generate RSS feed
 - `npm test` — run unit tests (Vitest, non-watch mode)
 
 Node 22 required (see `mise.toml`). Deployed on Vercel.
