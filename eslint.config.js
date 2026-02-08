@@ -1,14 +1,6 @@
-import { dirname } from "path"
-import { fileURLToPath } from "url"
-import { FlatCompat } from "@eslint/eslintrc"
 import { defineConfig, globalIgnores } from "eslint/config"
+import nextVitals from "eslint-config-next/core-web-vitals"
 import globals from "globals"
-
-const __dirname = dirname(fileURLToPath(import.meta.url))
-
-const compat = new FlatCompat({
-    baseDirectory: __dirname,
-})
 
 export default defineConfig([
     globalIgnores([
@@ -19,7 +11,7 @@ export default defineConfig([
         "public/static/**",
         "next-env.d.ts",
     ]),
-    ...compat.extends("next/core-web-vitals"),
+    ...nextVitals,
     {
         languageOptions: {
             globals: globals.browser,
