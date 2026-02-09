@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Website for the Art School of Shlisselburg ([art.shlisselburg.org](https://art.shlisselburg.org)). Content is in Russian. Built with Next.js using the Pages Router and Strapi headless CMS as the backend. The project has migrated through Express → Angular 1 → React class components → Next.js; some legacy artifacts remain.
+Website for the Art School of Shlisselburg ([art.shlisselburg.org](https://art.shlisselburg.org)). Content is in Russian. Built with Next.js using the App Router and Strapi headless CMS as the backend. The project has migrated through Express → Angular 1 → React class components → Next.js (Pages Router) → Next.js (App Router); some legacy artifacts remain.
 
 ## Commands
 
@@ -48,18 +48,23 @@ When adding or updating packages in `package.json`, do not specify the PATCH ver
 
 ## Architecture
 
-**Pages Router with SSG/ISR:** All pages use `getStaticProps`/`getStaticPaths` with 30-second revalidation. The catch-all route `pages/[...slug].tsx` handles all dynamic content pages.
+**App Router with SSG/ISR:** Pages are server components in the `app/` directory with `export const revalidate = 30`. The root layout (`app/layout.tsx`) fetches menu data and provides it via `MenuContext` through a `Providers` client component. The catch-all route `app/[...slug]/page.tsx` handles all dynamic content pages with `generateStaticParams` and `generateMetadata`.
+
+**Server/client boundary:** Layout and page components are server components that fetch data. The `App` component (`src/components/App`) is a `"use client"` component that provides the layout chrome (navigation, breadcrumbs, footer). Content is passed as `children` from server pages through the client boundary. Components using hooks (`PageGrid`, `HomeContent`, `PageContent`, `Menu`, `MobileNavigation`, `Wrapper`) are marked `"use client"`.
 
 **Data flow:** Strapi CMS API (`hudozka.tmshv.com`) → `src/remote/api.ts` fetches data via `apiGet()` generic wrapper → `src/remote/factory.ts` normalizes CMS responses into app types (`src/types.ts`) → pages render token-based content blocks. The API layer uses a factory pattern with default-response fallbacks on failure.
 
-**Content tokens:** Pages are composed of flexible content blocks (tokens): `text`, `image`, `file`, `html`, `youtube`, `instagram`, `grid`. The `Token` discriminated union is defined in `src/types.ts`. Each token type maps to a renderer component.
+**Metadata:** Uses the Next.js Metadata API (`generateMetadata`, `export const metadata`). The `buildMetadata()` helper in `src/lib/meta.ts` bridges the app's `Meta` type to Next.js `Metadata` format.
 
-**State management:** Valtio for reactive state (`src/store/`). Theme/accessibility preferences in `theme` store, playback state in `play` store, school contact info and year range in `config` store. Navigation data passed via React Context (`src/context/MenuContext`).
+**Content tokens:** Pages are composed of flexible content blocks (tokens): `text`, `image`, `file`, `html`, `youtube`, `instagram`, `grid`. The `Token` discriminated union is defined in `src/types.ts`. Each token type maps to a renderer component in the `PageContent` client component.
+
+**State management:** Valtio for reactive state (`src/store/`). Theme/accessibility preferences in `theme` store, playback state in `play` store, school contact info and year range in `config` store. Navigation data passed via React Context (`src/context/MenuContext`), provided by the root layout.
 
 ## Key Directories
 
+- `app/` — App Router pages, layouts, and route handlers (layout, home page, `[...slug]` catch-all, not-found, sitemap, robots, feed)
 - `src/components/` — page-level and feature components (folder-per-component with `index.tsx` + `styles.module.css`)
-- `src/ui/` — reusable primitives (Box, Button, Picture, Panel, Overlay, Title, ThemeColor)
+- `src/ui/` — reusable primitives (Box, Button, Picture, Panel, Overlay, Title)
 - `src/remote/` — Strapi API integration (`api.ts` for fetching, `factory.ts` for transforms, `types.ts` for CMS response shapes)
 - `src/store/` — Valtio stores (theme/accessibility, playback config)
 - `src/hooks/` — custom hooks (`useMobile`, `useAccessibility`, `useDarkTheme`, `useReducedMotion`)
@@ -73,7 +78,7 @@ CSS Modules (`.module.css`) for component-scoped styles. Global theme via CSS cu
 
 ## TypeScript
 
-Path alias: `@/*` → `src/*`. Strict mode enabled. Target ES6. `moduleDetection: "force"` in tsconfig (required because Next.js auto-generates `.next/types/validator.ts` without exports, which breaks `verbatimModuleSyntax`). Use `@/` path alias for all local imports, not `src/`. Legacy `src/` imports exist in the codebase but should not be used in new or modified code.
+Path alias: `@/*` → `src/*`. Strict mode enabled. Target ES2020. `moduleDetection: "force"` in tsconfig (required because Next.js auto-generates `.next/types/validator.ts` without exports, which breaks `verbatimModuleSyntax`). Use `@/` path alias for all local imports, not `src/`. Legacy `src/` imports exist in the codebase but should not be used in new or modified code.
 
 `verbatimModuleSyntax` is enabled — use `import type` for type-only imports. When importing both values and types from the same module, use separate `import` and `import type` statements:
 
@@ -98,9 +103,8 @@ Vitest for unit tests. Config in `vitest.config.ts` with `@/` and `src/` path al
 
 Active modernization is tracked in GitHub issues #222–#238. Key items:
 
-- `pages/_app.tsx` is the only class component (extends `App`). Should be a function component.
 - `src/types.ts` has `I`-prefix interfaces (`IPage`, `IMenu`, etc.) from the Angular era alongside modern `type` aliases. The `tokens` field on `IPage` is `any[]` despite a proper `Token` union type existing.
-- `src/store/theme.ts` manipulates DOM directly outside React lifecycle (sets CSS vars on `document.documentElement`, toggles `document.body` classes). Has a TODO to fix after App Router migration.
+- `src/store/theme.ts` manipulates DOM directly outside React lifecycle (sets CSS vars on `document.documentElement`, toggles `document.body` classes).
 - Two orphaned `.scss` files in `src/style/` (`tape-viewer.scss`, `vertical-image.scss`) — not imported anywhere, no SCSS preprocessor configured.
 - Some inline styles in `src/components/App/index.tsx` should be CSS modules.
 - `react-use` and `use-media` dependencies are unmaintained; only `useToggle` and `useLockBodyScroll` are used from `react-use`.
