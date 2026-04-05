@@ -22,3 +22,5 @@ dist
 .next
 tsconfig.tsbuildinfo
 .env
+
+pb_data/*.db*
