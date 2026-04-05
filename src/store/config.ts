@@ -37,10 +37,10 @@ export const state = proxy<State>({
             value: "https://vk.com/shlisselburghudozka",
             title: "Вконтакте",
         },
-        {
-            type: "link",
-            value: "https://www.instagram.com/hudozka",
-            title: "Инстаграм",
-        },
+        // {
+        //     type: "link",
+        //     value: "https://www.instagram.com/hudozka",
+        //     title: "Инстаграм",
+        // },
     ],
 })
