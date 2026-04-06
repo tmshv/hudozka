@@ -619,7 +619,7 @@ cd /Users/tmshv/Workspace/__github_tmshv/hudozka && git add src/remote/factory.t
 - Rewrite: `src/remote/api.ts`
 - Rewrite: `src/remote/api.test.ts`
 
-- [ ] **Step 1: Rewrite `src/remote/api.ts`**
+- [x] **Step 1: Rewrite `src/remote/api.ts`**
 
 Replace entire contents with:
 
@@ -805,7 +805,7 @@ export async function getRecentPages(limit: number = 30): Promise<FeedPage[]> {
 }
 ```
 
-- [ ] **Step 2: Rewrite `src/remote/api.test.ts`**
+- [x] **Step 2: Rewrite `src/remote/api.test.ts`**
 
 Replace entire contents with:
 
@@ -902,7 +902,7 @@ describe("getRecentPages", () => {
 })
 ```
 
-- [ ] **Step 3: Run tests**
+- [x] **Step 3: Run tests**
 
 ```bash
 cd /Users/tmshv/Workspace/__github_tmshv/hudozka && npx vitest run src/remote/
@@ -910,7 +910,7 @@ cd /Users/tmshv/Workspace/__github_tmshv/hudozka && npx vitest run src/remote/
 
 Expected: all tests pass
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 cd /Users/tmshv/Workspace/__github_tmshv/hudozka && git add src/remote/api.ts src/remote/api.test.ts && git commit -m "rewrite api.ts for PocketBase SDK"

@@ -1,70 +1,179 @@
-import { createHomeCards, createMenu, createPage, createPageUrls, createFeedPages } from "@/remote/factory"
+import { pb } from "./pb"
+import { createPage, createHomeCards, createMenu, createFeedPages } from "./factory"
+import type { PbPage, PbImage, PbFile, PbTag, PbHomeData, PbMenuData } from "./types"
+import type { DocV1Block } from "./doc"
 import type { MenuItem, Page, PageCardDto, FeedPage } from "@/types"
 
-const backendUrl = "https://hudozka.tmshv.com"
+function buildIdFilter(ids: string[]): string {
+    return ids.map(id => `id="${id}"`).join(" || ")
+}
 
-export type FactoryFunction<I, O> =
-    | ((response: I) => O)
-    | ((response: I) => Promise<O>)
-export type ApiDefaultResponse<O> = () => O
+async function fetchImagesByIds(ids: string[]): Promise<Map<string, PbImage>> {
+    if (ids.length === 0) return new Map()
+    const records = await pb.collection("images").getFullList<PbImage>({
+        filter: buildIdFilter(ids),
+    })
+    return new Map(records.map(r => [r.id, r]))
+}
 
-export function apiGet<I, O>(factory: FactoryFunction<I, O>) {
-    return async (url: string, getDefaultResponse: ApiDefaultResponse<O>) => {
-        try {
-            const res = await fetch(url)
-            if (res.ok) {
-                const data = await res.json() as I
-                return factory(data)
+async function fetchFilesByIds(ids: string[]): Promise<Map<string, PbFile>> {
+    if (ids.length === 0) return new Map()
+    const records = await pb.collection("files").getFullList<PbFile>({
+        filter: buildIdFilter(ids),
+    })
+    return new Map(records.map(r => [r.id, r]))
+}
+
+async function fetchPagesByIds(ids: string[]): Promise<Map<string, PbPage>> {
+    if (ids.length === 0) return new Map()
+    const records = await pb.collection("pages").getFullList<PbPage>({
+        filter: buildIdFilter(ids),
+    })
+    return new Map(records.map(r => [r.id, r]))
+}
+
+async function fetchTagsByIds(ids: string[]): Promise<PbTag[]> {
+    if (ids.length === 0) return []
+    return pb.collection("tags").getFullList<PbTag>({
+        filter: buildIdFilter(ids),
+    })
+}
+
+function collectBlockRefs(blocks: DocV1Block[]) {
+    const imageIds = new Set<string>()
+    const fileIds = new Set<string>()
+    const pageIds = new Set<string>()
+
+    for (const block of blocks) {
+        switch (block.type) {
+        case "image":
+            imageIds.add(block.image)
+            break
+        case "document":
+            fileIds.add(block.file)
+            break
+        case "card-grid":
+            for (const item of block.items) {
+                pageIds.add(item.page)
             }
-        } catch (error) {
-            console.error(`Failed fetch request: ${error}`)
-            return getDefaultResponse()
+            break
         }
-
-        return getDefaultResponse()
     }
+
+    return { imageIds, fileIds, pageIds }
 }
 
 export async function getUrls(): Promise<string[]> {
-    let urls: string[] = []
-    const limit = 100
-    let start = 0
-    while (true) {
-        const url = `${backendUrl}/pages?_limit=${limit}&_start=${start}`
-        const res = await apiGet(createPageUrls)(url, () => ({ items: [] }))
-        if (!res || res.items.length === 0) {
-            break
-        }
-
-        start += limit
-        urls = [...urls, ...res.items]
+    try {
+        const records = await pb.collection("pages").getFullList<PbPage>({
+            fields: "slug",
+            filter: "draft=false",
+        })
+        return records.map(r => r.slug)
+    } catch (error) {
+        console.error(`Failed to fetch URLs: ${error}`)
+        return []
     }
-
-    return urls
 }
 
 export async function getPageBySlug(slug: string): Promise<Page | null> {
-    const url = `${backendUrl}/pages?slug=${slug}`
-    const page = await apiGet(createPage)(url, () => null)
-    if (!page) {
+    try {
+        const record = await pb.collection("pages").getFirstListItem<PbPage>(
+            `slug="${slug}"`,
+        )
+
+        // Collect all referenced IDs from blocks
+        const refs = collectBlockRefs(record.doc.blocks)
+
+        // Include cover image ID
+        if (record.cover) {
+            refs.imageIds.add(record.cover)
+        }
+
+        // Round 2: fetch images, files, tags, card-grid pages in parallel
+        const [images, files, tags, cardGridPages] = await Promise.all([
+            fetchImagesByIds([...refs.imageIds]),
+            fetchFilesByIds([...refs.fileIds]),
+            fetchTagsByIds(record.tags),
+            fetchPagesByIds([...refs.pageIds]),
+        ])
+
+        // Round 3: fetch cover images for card-grid pages
+        const cardGridCoverIds = new Set<string>()
+        for (const page of cardGridPages.values()) {
+            if (page.cover && !images.has(page.cover)) {
+                cardGridCoverIds.add(page.cover)
+            }
+        }
+        const cardGridImages = cardGridCoverIds.size > 0
+            ? await fetchImagesByIds([...cardGridCoverIds])
+            : new Map<string, PbImage>()
+
+        // Merge all images for card-grid covers
+        const allCardGridImages = new Map([...images, ...cardGridImages])
+
+        return createPage(record, images, files, tags, cardGridPages, allCardGridImages)
+    } catch (error) {
+        console.error(`Failed to fetch page: ${error}`)
         return null
     }
-    return page
 }
 
 export async function getHomeCards(): Promise<PageCardDto[]> {
-    const items = await apiGet(createHomeCards)(`${backendUrl}/home`, async () => [])
-    return items
+    try {
+        const kv = await pb.collection("kv").getFirstListItem<{ data: PbHomeData }>(
+            "key=\"home\"",
+        )
+        const data = kv.data
+        if (!data.cards || data.cards.length === 0) return []
+
+        const pageIds = data.cards.map(c => c.page)
+        const pages = await fetchPagesByIds(pageIds)
+
+        const coverIds = [...pages.values()]
+            .map(p => p.cover)
+            .filter(Boolean)
+        const images = await fetchImagesByIds(coverIds)
+
+        return createHomeCards(data, pages, images)
+    } catch (error) {
+        console.error(`Failed to fetch home cards: ${error}`)
+        return []
+    }
 }
 
 export async function getMenu(): Promise<MenuItem[]> {
-    const menu = await apiGet(createMenu)(`${backendUrl}/menu`, () => [])
-    return menu
+    try {
+        const kv = await pb.collection("kv").getFirstListItem<{ data: PbMenuData }>(
+            "key=\"menu\"",
+        )
+        const data = kv.data
+        if (!data.items || data.items.length === 0) {
+            return [{
+                href: "/",
+                name: data.homeLabel,
+            }]
+        }
+
+        const pageIds = data.items.map(i => i.page)
+        const pages = await fetchPagesByIds(pageIds)
+
+        return createMenu(data, pages)
+    } catch (error) {
+        console.error(`Failed to fetch menu: ${error}`)
+        return []
+    }
 }
 
 export async function getRecentPages(limit: number = 30): Promise<FeedPage[]> {
-    const url = `${backendUrl}/pages?_sort=date:DESC&_limit=${limit}`
-    const pages = await apiGet(createFeedPages)(url, () => [])
-    return pages
+    try {
+        const result = await pb.collection("pages").getList<PbPage>(1, limit, {
+            filter: "date!='' && draft=false",
+            sort: "-date",
+        })
+        return createFeedPages(result.items)
+    } catch (error) {
+        console.error(`Failed to fetch recent pages: ${error}`)
+        return []
+    }
 }
-
