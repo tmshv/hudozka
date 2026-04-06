@@ -46,7 +46,7 @@ cd /Users/tmshv/Workspace/__github_tmshv/hudozka && git add package.json package
 
 PocketBase uses string IDs (`"2yrq5oqtg7expg0"`), not numeric. `Tag.id` and `PageCardDto.id` must change from `number` to `string`. Only downstream usage is as React `key` — safe change.
 
-- [ ] **Step 1: Update `Tag.id` to string**
+- [x] **Step 1: Update `Tag.id` to string**
 
 In `src/types.ts`, change:
 
@@ -60,7 +60,7 @@ export type Tag = {
 }
 ```
 
-- [ ] **Step 2: Update `PageCardDto.id` to string**
+- [x] **Step 2: Update `PageCardDto.id` to string**
 
 In `src/types.ts`, change:
 
@@ -75,7 +75,7 @@ export type PageCardDto = {
 }
 ```
 
-- [ ] **Step 3: Run lint and tests**
+- [x] **Step 3: Run lint and tests**
 
 ```bash
 cd /Users/tmshv/Workspace/__github_tmshv/hudozka && npm run lint && npm test
@@ -83,7 +83,7 @@ cd /Users/tmshv/Workspace/__github_tmshv/hudozka && npm run lint && npm test
 
 Expected: pass (existing factory.test.ts uses `id: 1` etc — but those tests will be rewritten in Task 5)
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 cd /Users/tmshv/Workspace/__github_tmshv/hudozka && git add src/types.ts && git commit -m "change Tag.id and PageCardDto.id to string for PocketBase"
@@ -96,7 +96,7 @@ cd /Users/tmshv/Workspace/__github_tmshv/hudozka && git add src/types.ts && git 
 **Files:**
 - Create: `src/remote/doc.ts`
 
-- [ ] **Step 1: Create `src/remote/doc.ts`**
+- [x] **Step 1: Create `src/remote/doc.ts`**
 
 ```ts
 export type DocV1BlockText = {
@@ -150,7 +150,7 @@ export type DocV1 = {
 }
 ```
 
-- [ ] **Step 2: Verify no type errors**
+- [x] **Step 2: Verify no type errors**
 
 ```bash
 cd /Users/tmshv/Workspace/__github_tmshv/hudozka && npx tsc --noEmit src/remote/doc.ts
@@ -158,7 +158,7 @@ cd /Users/tmshv/Workspace/__github_tmshv/hudozka && npx tsc --noEmit src/remote/
 
 Expected: no errors
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 cd /Users/tmshv/Workspace/__github_tmshv/hudozka && git add src/remote/doc.ts && git commit -m "add DocV1 content block types"
@@ -172,7 +172,7 @@ cd /Users/tmshv/Workspace/__github_tmshv/hudozka && git add src/remote/doc.ts &&
 - Create: `src/remote/pb.ts`
 - Rewrite: `src/remote/types.ts`
 
-- [ ] **Step 1: Create `src/remote/pb.ts`**
+- [x] **Step 1: Create `src/remote/pb.ts`**
 
 ```ts
 import PocketBase from "pocketbase"
@@ -183,7 +183,7 @@ pb.autoCancellation(false)
 export { pb }
 ```
 
-- [ ] **Step 2: Rewrite `src/remote/types.ts`**
+- [x] **Step 2: Rewrite `src/remote/types.ts`**
 
 Replace entire contents with:
 
@@ -248,7 +248,7 @@ export type PbMenuData = {
 }
 ```
 
-- [ ] **Step 3: Verify no type errors**
+- [x] **Step 3: Verify no type errors**
 
 ```bash
 cd /Users/tmshv/Workspace/__github_tmshv/hudozka && npx tsc --noEmit src/remote/types.ts src/remote/pb.ts
@@ -256,7 +256,7 @@ cd /Users/tmshv/Workspace/__github_tmshv/hudozka && npx tsc --noEmit src/remote/
 
 Expected: no errors (factory.ts will have errors — expected, fixed in next tasks)
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 cd /Users/tmshv/Workspace/__github_tmshv/hudozka && git add src/remote/pb.ts src/remote/types.ts && git commit -m "add PB client singleton and PB record types"
@@ -271,7 +271,7 @@ cd /Users/tmshv/Workspace/__github_tmshv/hudozka && git add src/remote/pb.ts src
 
 The factory is pure transforms — no PB client, no fetching. It receives resolved records and maps.
 
-- [ ] **Step 1: Write the failing test for `createFeedPages`**
+- [x] **Step 1: Write the failing test for `createFeedPages`**
 
 Rewrite `src/remote/factory.test.ts`:
 
@@ -328,7 +328,7 @@ describe("createFeedPages", () => {
 })
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 ```bash
 cd /Users/tmshv/Workspace/__github_tmshv/hudozka && npx vitest run src/remote/factory.test.ts
@@ -336,7 +336,7 @@ cd /Users/tmshv/Workspace/__github_tmshv/hudozka && npx vitest run src/remote/fa
 
 Expected: FAIL (factory.ts still imports old Strapi types)
 
-- [ ] **Step 3: Rewrite `src/remote/factory.ts`**
+- [x] **Step 3: Rewrite `src/remote/factory.ts`**
 
 Replace entire contents with:
 
@@ -597,7 +597,7 @@ export function createFeedPages(pages: PbPage[]): FeedPage[] {
 }
 ```
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 ```bash
 cd /Users/tmshv/Workspace/__github_tmshv/hudozka && npx vitest run src/remote/factory.test.ts
@@ -605,7 +605,7 @@ cd /Users/tmshv/Workspace/__github_tmshv/hudozka && npx vitest run src/remote/fa
 
 Expected: PASS
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 cd /Users/tmshv/Workspace/__github_tmshv/hudozka && git add src/remote/factory.ts src/remote/factory.test.ts && git commit -m "rewrite factory for PocketBase record types"
