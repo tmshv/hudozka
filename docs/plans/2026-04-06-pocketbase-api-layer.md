@@ -926,13 +926,13 @@ cd /Users/tmshv/Workspace/__github_tmshv/hudozka && git add src/remote/api.ts sr
 - Modify: `next.config.ts`
 - Modify: `.env.example`
 
-- [ ] **Step 1: Delete `src/remote/image.ts` and `src/remote/lib.ts`**
+- [x] **Step 1: Delete `src/remote/image.ts` and `src/remote/lib.ts`**
 
 ```bash
 cd /Users/tmshv/Workspace/__github_tmshv/hudozka && git rm src/remote/image.ts src/remote/lib.ts
 ```
 
-- [ ] **Step 2: Update `next.config.ts`**
+- [x] **Step 2: Update `next.config.ts`**
 
 Add `127.0.0.1` to `remotePatterns`:
 
@@ -954,7 +954,7 @@ const config: NextConfig = {
 export default config
 ```
 
-- [ ] **Step 3: Update `.env.example`**
+- [x] **Step 3: Update `.env.example`**
 
 Add `POCKETBASE_URL`:
 
@@ -964,7 +964,7 @@ NEXT_PUBLIC_YMETRIKA_ACCOUNT=XXX
 POCKETBASE_URL=http://127.0.0.1:8090
 ```
 
-- [ ] **Step 4: Run lint and full test suite**
+- [x] **Step 4: Run lint and full test suite**
 
 ```bash
 cd /Users/tmshv/Workspace/__github_tmshv/hudozka && npm run lint && npm test
@@ -972,7 +972,7 @@ cd /Users/tmshv/Workspace/__github_tmshv/hudozka && npm run lint && npm test
 
 Expected: all pass
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 cd /Users/tmshv/Workspace/__github_tmshv/hudozka && git add src/remote/image.ts src/remote/lib.ts next.config.ts .env.example && git commit -m "remove unused Strapi files, add PB to config"
