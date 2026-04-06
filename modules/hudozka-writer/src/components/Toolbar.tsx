@@ -1,0 +1,111 @@
+import type { Editor } from "@tiptap/react"
+import "./Toolbar.css"
+
+export type ToolbarProps = {
+    editor: Editor | null
+    onSave: () => void
+    saving: boolean
+}
+
+export function Toolbar({ editor, onSave, saving }: ToolbarProps) {
+    if (!editor) return null
+
+    return (
+        <div className="toolbar">
+            <div className="toolbar-group">
+                <button
+                    onClick={() => editor.chain().focus().toggleBold().run()}
+                    className={editor.isActive("bold") ? "active" : ""}
+                    title="Bold"
+                >
+                    B
+                </button>
+                <button
+                    onClick={() => editor.chain().focus().toggleItalic().run()}
+                    className={editor.isActive("italic") ? "active" : ""}
+                    title="Italic"
+                >
+                    I
+                </button>
+                <button
+                    onClick={() => editor.chain().focus().toggleStrike().run()}
+                    className={editor.isActive("strike") ? "active" : ""}
+                    title="Strikethrough"
+                >
+                    S
+                </button>
+                <button
+                    onClick={() => editor.chain().focus().toggleCode().run()}
+                    className={editor.isActive("code") ? "active" : ""}
+                    title="Inline code"
+                >
+                    &lt;/&gt;
+                </button>
+            </div>
+
+            <div className="toolbar-group">
+                <button
+                    onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+                    className={editor.isActive("heading", { level: 1 }) ? "active" : ""}
+                >
+                    H1
+                </button>
+                <button
+                    onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+                    className={editor.isActive("heading", { level: 2 }) ? "active" : ""}
+                >
+                    H2
+                </button>
+                <button
+                    onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+                    className={editor.isActive("heading", { level: 3 }) ? "active" : ""}
+                >
+                    H3
+                </button>
+            </div>
+
+            <div className="toolbar-group">
+                <button
+                    onClick={() => editor.chain().focus().toggleBulletList().run()}
+                    className={editor.isActive("bulletList") ? "active" : ""}
+                    title="Bullet list"
+                >
+                    List
+                </button>
+                <button
+                    onClick={() => editor.chain().focus().toggleOrderedList().run()}
+                    className={editor.isActive("orderedList") ? "active" : ""}
+                    title="Numbered list"
+                >
+                    1.
+                </button>
+                <button
+                    onClick={() => editor.chain().focus().toggleBlockquote().run()}
+                    className={editor.isActive("blockquote") ? "active" : ""}
+                    title="Blockquote"
+                >
+                    &ldquo;
+                </button>
+                <button
+                    onClick={() => editor.chain().focus().toggleCodeBlock().run()}
+                    className={editor.isActive("codeBlock") ? "active" : ""}
+                    title="Code block"
+                >
+                    Code
+                </button>
+                <button
+                    onClick={() => editor.chain().focus().setHorizontalRule().run()}
+                    title="Horizontal rule"
+                >
+                    ---
+                </button>
+            </div>
+
+            <div className="toolbar-group toolbar-save">
+                <button onClick={onSave} disabled={saving} className="toolbar-save-btn">
+                    {saving ? "Saving..." : "Save"}
+                </button>
+            </div>
+        </div>
+    )
+}

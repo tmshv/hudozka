@@ -1,0 +1,53 @@
+.toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 8px 0;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 16px;
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 10;
+}
+
+.toolbar-group {
+    display: flex;
+    gap: 2px;
+}
+
+.toolbar button {
+    padding: 4px 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+    cursor: pointer;
+    font-size: 0.85rem;
+    min-width: 32px;
+}
+
+.toolbar button:hover {
+    background: #f0f0f0;
+}
+
+.toolbar button.active {
+    background: #213547;
+    color: white;
+    border-color: #213547;
+}
+
+.toolbar-save {
+    margin-left: auto;
+}
+
+.toolbar-save-btn {
+    background: #213547 !important;
+    color: white !important;
+    border-color: #213547 !important;
+    padding: 4px 16px !important;
+}
+
+.toolbar-save-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed !important;
+}

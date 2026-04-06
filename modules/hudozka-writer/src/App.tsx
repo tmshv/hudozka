@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react"
 import { pb } from "./pb"
 import { Login } from "./components/Login"
+import { Editor } from "./components/Editor"
 import type { PbPage } from "./types"
 import "./App.css"
 
@@ -82,7 +83,7 @@ export function App() {
                 <button onClick={handleLogout}>Logout</button>
             </header>
             <main className="app-main">
-                <pre>{JSON.stringify(page.doc, null, 2)}</pre>
+                <Editor page={page} />
             </main>
         </div>
     )

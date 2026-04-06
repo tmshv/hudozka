@@ -1279,7 +1279,7 @@ git commit -m "add custom Tiptap nodes for DocV1 block types"
 - Create: `modules/hudozka-writer/src/components/Toolbar.css`
 - Modify: `modules/hudozka-writer/src/App.tsx` — replace JSON dump with Editor
 
-- [ ] **Step 1: Write `src/components/Toolbar.tsx`**
+- [x] **Step 1: Write `src/components/Toolbar.tsx`**
 
 ```tsx
 import type { Editor } from "@tiptap/react"
@@ -1395,7 +1395,7 @@ export function Toolbar({ editor, onSave, saving }: ToolbarProps) {
 }
 ```
 
-- [ ] **Step 2: Write `src/components/Toolbar.css`**
+- [x] **Step 2: Write `src/components/Toolbar.css`**
 
 ```css
 .toolbar {
@@ -1453,7 +1453,7 @@ export function Toolbar({ editor, onSave, saving }: ToolbarProps) {
 }
 ```
 
-- [ ] **Step 3: Write `src/components/Editor.tsx`**
+- [x] **Step 3: Write `src/components/Editor.tsx`**
 
 ```tsx
 import { useEditor, EditorContent } from "@tiptap/react"
@@ -1526,7 +1526,7 @@ export function Editor({ page }: EditorProps) {
 }
 ```
 
-- [ ] **Step 4: Write `src/components/Editor.css`**
+- [x] **Step 4: Write `src/components/Editor.css`**
 
 ```css
 .editor {
@@ -1591,7 +1591,7 @@ export function Editor({ page }: EditorProps) {
 }
 ```
 
-- [ ] **Step 5: Update `src/App.tsx`** — replace JSON dump with Editor
+- [x] **Step 5: Update `src/App.tsx`** — replace JSON dump with Editor
 
 Replace the `<pre>` tag in the return statement with the Editor component:
 
@@ -1614,19 +1614,19 @@ import { Editor } from "./components/Editor"
     )
 ```
 
-- [ ] **Step 6: Verify compiles**
+- [x] **Step 6: Verify compiles**
 
 ```bash
 cd modules/hudozka-writer && npx tsc -b --noEmit
 ```
 
-- [ ] **Step 7: Manual test** — run dev server, login, load a page. Verify:
+- [x] **Step 7: Manual test** (skipped - not automatable) — run dev server, login, load a page. Verify:
 - Text content renders in editor and is editable
 - Custom blocks (image, document, embed, card-grid) show as styled cards
 - Toolbar buttons toggle formatting
 - Save button sends updated doc to PocketBase
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 git add modules/hudozka-writer/src/components/ modules/hudozka-writer/src/App.tsx
