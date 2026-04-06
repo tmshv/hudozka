@@ -984,13 +984,13 @@ cd /Users/tmshv/Workspace/__github_tmshv/hudozka && git add src/remote/image.ts 
 
 **Files:** none (verification only)
 
-- [ ] **Step 1: Create `.env.local` if not exists**
+- [x] **Step 1: Create `.env.local` if not exists**
 
 ```bash
 cd /Users/tmshv/Workspace/__github_tmshv/hudozka && echo 'POCKETBASE_URL=http://127.0.0.1:8090' >> .env.local
 ```
 
-- [ ] **Step 2: Run build against PB**
+- [x] **Step 2: Run build against PB**
 
 ```bash
 cd /Users/tmshv/Workspace/__github_tmshv/hudozka && npm run build
@@ -998,7 +998,7 @@ cd /Users/tmshv/Workspace/__github_tmshv/hudozka && npm run build
 
 Expected: build succeeds. Pages generate against PocketBase. Some pages may show warnings if card-grid references can't be resolved — that's OK for now.
 
-- [ ] **Step 3: Run full test suite**
+- [x] **Step 3: Run full test suite**
 
 ```bash
 cd /Users/tmshv/Workspace/__github_tmshv/hudozka && npm test
@@ -1006,7 +1006,7 @@ cd /Users/tmshv/Workspace/__github_tmshv/hudozka && npm test
 
 Expected: all tests pass
 
-- [ ] **Step 4: Verify lint**
+- [x] **Step 4: Verify lint**
 
 ```bash
 cd /Users/tmshv/Workspace/__github_tmshv/hudozka && npm run lint
