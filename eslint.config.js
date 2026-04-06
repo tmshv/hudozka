@@ -9,6 +9,8 @@ export default defineConfig([
         "build/**",
         "modules/**",
         "public/static/**",
+        "pb_data/**",
+        "pb_migrations/**",
         "next-env.d.ts",
     ]),
     ...nextVitals,
