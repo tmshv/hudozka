@@ -244,7 +244,7 @@ git commit -m "scaffold hudozka-writer with Vite 8, React 19, TS 5.9, Tiptap"
 - Create: `modules/hudozka-writer/src/pb.ts`
 - Create: `modules/hudozka-writer/src/types.ts`
 
-- [ ] **Step 1: Write `src/pb.ts`**
+- [x] **Step 1: Write `src/pb.ts`**
 
 ```ts
 import PocketBase from "pocketbase"
@@ -256,7 +256,7 @@ export const pb = new PocketBase(url)
 pb.autoCancellation(false)
 ```
 
-- [ ] **Step 2: Write `src/types.ts`**
+- [x] **Step 2: Write `src/types.ts`**
 
 Copy DocV1 types and PB record types needed by the writer.
 
@@ -347,13 +347,13 @@ export type DocV1 = {
 }
 ```
 
-- [ ] **Step 3: Verify types compile**
+- [x] **Step 3: Verify types compile**
 
 ```bash
 cd modules/hudozka-writer && npx tsc -b --noEmit
 ```
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add modules/hudozka-writer/src/pb.ts modules/hudozka-writer/src/types.ts
