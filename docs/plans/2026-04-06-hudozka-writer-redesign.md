@@ -675,7 +675,7 @@ git commit -m "add App shell with auth gate and page loader"
 
 This is the core data bridge. Converts DocV1Block[] to Tiptap-compatible JSON document and back.
 
-- [ ] **Step 1: Write `src/lib/id.ts`**
+- [x] **Step 1: Write `src/lib/id.ts`**
 
 ```ts
 export function generateBlockId(): string {
@@ -683,7 +683,7 @@ export function generateBlockId(): string {
 }
 ```
 
-- [ ] **Step 2: Write `src/lib/serialize.ts`**
+- [x] **Step 2: Write `src/lib/serialize.ts`**
 
 Tiptap's Markdown extension can parse markdown content directly. For custom nodes (image, document, embed, card-grid), we insert them as custom node JSON between text content groups.
 
@@ -888,13 +888,13 @@ export function tiptapToDoc(content: JSONContent[], getMarkdownForRange?: (from:
 
 **Note:** The actual markdown serialization in the save path will use Tiptap's `editor.storage.markdown.getMarkdown()` to get proper markdown from the editor. The `tiptapToDoc` function handles the structural conversion (splitting at custom nodes), and the Editor component will handle the markdown extraction per text range. This will be refined in Task 7 when wiring the editor.
 
-- [ ] **Step 3: Verify compiles**
+- [x] **Step 3: Verify compiles**
 
 ```bash
 cd modules/hudozka-writer && npx tsc -b --noEmit
 ```
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add modules/hudozka-writer/src/lib/
