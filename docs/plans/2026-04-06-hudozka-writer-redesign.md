@@ -915,7 +915,7 @@ git commit -m "add DocV1 <-> Tiptap serialization layer"
 - Create: `modules/hudozka-writer/src/nodes/index.ts`
 - Create: `modules/hudozka-writer/src/nodes/nodes.css`
 
-- [ ] **Step 1a: Write `src/nodes/WriterDocument.ts`** — custom Document node that allows our block types
+- [x] **Step 1a: Write `src/nodes/WriterDocument.ts`** — custom Document node that allows our block types
 
 ```ts
 import { Node } from "@tiptap/core"
@@ -927,7 +927,7 @@ export const WriterDocument = Node.create({
 })
 ```
 
-- [ ] **Step 1b: Write `src/nodes/TextBlock.ts`** — wraps text content with a block ID for round-tripping
+- [x] **Step 1b: Write `src/nodes/TextBlock.ts`** — wraps text content with a block ID for round-tripping
 
 ```ts
 import { Node, mergeAttributes } from "@tiptap/core"
@@ -957,7 +957,7 @@ export const TextBlock = Node.create({
 })
 ```
 
-- [ ] **Step 2: Write `src/nodes/ImageBlock.tsx`**
+- [x] **Step 2: Write `src/nodes/ImageBlock.tsx`**
 
 ```tsx
 import { Node, mergeAttributes } from "@tiptap/core"
@@ -1041,7 +1041,7 @@ export const ImageBlock = Node.create({
 })
 ```
 
-- [ ] **Step 3: Write `src/nodes/DocumentBlock.tsx`** (read-only)
+- [x] **Step 3: Write `src/nodes/DocumentBlock.tsx`** (read-only)
 
 ```tsx
 import { Node, mergeAttributes } from "@tiptap/core"
@@ -1088,7 +1088,7 @@ export const DocumentBlock = Node.create({
 })
 ```
 
-- [ ] **Step 4: Write `src/nodes/EmbedBlock.tsx`** (read-only)
+- [x] **Step 4: Write `src/nodes/EmbedBlock.tsx`** (read-only)
 
 ```tsx
 import { Node, mergeAttributes } from "@tiptap/core"
@@ -1133,7 +1133,7 @@ export const EmbedBlock = Node.create({
 })
 ```
 
-- [ ] **Step 5: Write `src/nodes/CardGridBlock.tsx`** (read-only)
+- [x] **Step 5: Write `src/nodes/CardGridBlock.tsx`** (read-only)
 
 ```tsx
 import { Node, mergeAttributes } from "@tiptap/core"
@@ -1179,7 +1179,7 @@ export const CardGridBlock = Node.create({
 })
 ```
 
-- [ ] **Step 6: Write `src/nodes/nodes.css`**
+- [x] **Step 6: Write `src/nodes/nodes.css`**
 
 ```css
 .node-block-label {
@@ -1244,7 +1244,7 @@ export const CardGridBlock = Node.create({
 }
 ```
 
-- [ ] **Step 7: Write `src/nodes/index.ts`** (barrel export)
+- [x] **Step 7: Write `src/nodes/index.ts`** (barrel export)
 
 ```ts
 export { WriterDocument } from "./WriterDocument"
@@ -1255,13 +1255,13 @@ export { EmbedBlock } from "./EmbedBlock"
 export { CardGridBlock } from "./CardGridBlock"
 ```
 
-- [ ] **Step 8: Verify compiles**
+- [x] **Step 8: Verify compiles**
 
 ```bash
 cd modules/hudozka-writer && npx tsc -b --noEmit
 ```
 
-- [ ] **Step 9: Commit**
+- [x] **Step 9: Commit**
 
 ```bash
 git add modules/hudozka-writer/src/nodes/
