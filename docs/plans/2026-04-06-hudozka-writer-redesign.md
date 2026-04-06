@@ -1642,7 +1642,7 @@ git commit -m "add Tiptap editor with toolbar and save to PocketBase"
 - Create: `modules/hudozka-writer/src/components/ImagePicker.css`
 - Modify: `modules/hudozka-writer/src/nodes/ImageBlock.tsx` — add "Pick image" button that opens picker
 
-- [ ] **Step 1: Write `src/components/ImagePicker.tsx`**
+- [x] **Step 1: Write `src/components/ImagePicker.tsx`**
 
 ```tsx
 import { useState, useEffect, useRef } from "react"
@@ -1778,7 +1778,7 @@ export function ImagePicker({ onSelect, onClose }: ImagePickerProps) {
 }
 ```
 
-- [ ] **Step 2: Write `src/components/ImagePicker.css`**
+- [x] **Step 2: Write `src/components/ImagePicker.css`**
 
 ```css
 .picker-overlay {
@@ -1910,7 +1910,7 @@ export function ImagePicker({ onSelect, onClose }: ImagePickerProps) {
 }
 ```
 
-- [ ] **Step 3: Update `src/nodes/ImageBlock.tsx`** — add "Pick image" button
+- [x] **Step 3: Update `src/nodes/ImageBlock.tsx`** — add "Pick image" button
 
 Add a state for showing the picker and a button to trigger it. Update the `ImageBlockView` component:
 
@@ -2007,20 +2007,20 @@ Add to `src/nodes/nodes.css`:
 }
 ```
 
-- [ ] **Step 4: Verify compiles**
+- [x] **Step 4: Verify compiles**
 
 ```bash
 cd modules/hudozka-writer && npx tsc -b --noEmit
 ```
 
-- [ ] **Step 5: Manual test** — load a page with image blocks. Verify:
+- [x] **Step 5: Manual test** (skipped - not automatable) — load a page with image blocks. Verify:
 - Image thumbnails display
 - Click image or "Pick" button opens picker modal
 - Browse tab shows thumbnails from PB
 - Upload tab can upload a new image
 - Selecting an image updates the block
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add modules/hudozka-writer/src/components/ImagePicker.tsx modules/hudozka-writer/src/components/ImagePicker.css modules/hudozka-writer/src/nodes/ImageBlock.tsx modules/hudozka-writer/src/nodes/nodes.css
