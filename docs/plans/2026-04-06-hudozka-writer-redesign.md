@@ -368,7 +368,7 @@ git commit -m "add PocketBase client and DocV1 types to writer"
 - Create: `modules/hudozka-writer/src/components/Login.tsx`
 - Create: `modules/hudozka-writer/src/components/Login.css`
 
-- [ ] **Step 1: Write `src/components/Login.tsx`**
+- [x] **Step 1: Write `src/components/Login.tsx`**
 
 ```tsx
 import { useState } from "react"
@@ -428,7 +428,7 @@ export function Login({ onLogin }: LoginProps) {
 }
 ```
 
-- [ ] **Step 2: Write `src/components/Login.css`**
+- [x] **Step 2: Write `src/components/Login.css`**
 
 ```css
 .login {
@@ -478,13 +478,13 @@ export function Login({ onLogin }: LoginProps) {
 }
 ```
 
-- [ ] **Step 3: Verify compiles**
+- [x] **Step 3: Verify compiles**
 
 ```bash
 cd modules/hudozka-writer && npx tsc -b --noEmit
 ```
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add modules/hudozka-writer/src/components/
