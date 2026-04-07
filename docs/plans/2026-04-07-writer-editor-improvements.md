@@ -347,7 +347,7 @@ git commit -m "feat: add global markdown/rendered toggle"
 
 Shared dropdown used by both the "+" button and slash commands.
 
-- [ ] **Step 1: Create BlockMenu component**
+- [x] **Step 1: Create BlockMenu component**
 
 Create `src/components/BlockMenu.tsx`:
 
@@ -419,7 +419,7 @@ export { BLOCK_TYPES }
 export type { BlockType }
 ```
 
-- [ ] **Step 2: Create BlockMenu styles**
+- [x] **Step 2: Create BlockMenu styles**
 
 Create `src/components/BlockMenu.css`:
 
@@ -450,7 +450,7 @@ Create `src/components/BlockMenu.css`:
 }
 ```
 
-- [ ] **Step 3: Verify build passes**
+- [x] **Step 3: Verify build passes**
 
 Run:
 ```bash
@@ -459,7 +459,7 @@ cd modules/hudozka-writer && npx tsc --noEmit
 
 Expected: no errors.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add modules/hudozka-writer/src/components/BlockMenu.tsx modules/hudozka-writer/src/components/BlockMenu.css
