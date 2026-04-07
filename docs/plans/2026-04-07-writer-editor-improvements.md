@@ -920,7 +920,7 @@ git commit -m "feat: add slash commands for block insertion"
 - Modify: `src/nodes/DocumentBlock.tsx`
 - Modify: `src/nodes/nodes.css`
 
-- [ ] **Step 1: Add PbFile type**
+- [x] **Step 1: Add PbFile type**
 
 In `src/types.ts`, add after the `PbPage` type:
 
@@ -931,7 +931,7 @@ export type PbFile = PbRecord & {
 }
 ```
 
-- [ ] **Step 2: Create FilePicker component**
+- [x] **Step 2: Create FilePicker component**
 
 Create `src/components/FilePicker.tsx`:
 
@@ -1061,7 +1061,7 @@ export function FilePicker({ onSelect, onClose }: FilePickerProps) {
 }
 ```
 
-- [ ] **Step 3: Create FilePicker styles**
+- [x] **Step 3: Create FilePicker styles**
 
 Create `src/components/FilePicker.css`:
 
@@ -1100,7 +1100,7 @@ Create `src/components/FilePicker.css`:
 }
 ```
 
-- [ ] **Step 4: Make DocumentBlock interactive**
+- [x] **Step 4: Make DocumentBlock interactive**
 
 Replace the entire content of `src/nodes/DocumentBlock.tsx`:
 
@@ -1205,7 +1205,7 @@ export const DocumentBlock = Node.create({
 })
 ```
 
-- [ ] **Step 5: Add DocumentBlock styles**
+- [x] **Step 5: Add DocumentBlock styles**
 
 Append to `src/nodes/nodes.css`:
 
@@ -1250,7 +1250,7 @@ Append to `src/nodes/nodes.css`:
 }
 ```
 
-- [ ] **Step 6: Verify build passes**
+- [x] **Step 6: Verify build passes**
 
 Run:
 ```bash
@@ -1259,7 +1259,7 @@ cd modules/hudozka-writer && npx tsc --noEmit
 
 Expected: no errors.
 
-- [ ] **Step 7: Manual test**
+- [x] **Step 7: Manual test** (skipped - not automatable)
 
 Run `npm run dev`. On a page with a document block:
 1. The file block shows filename (resolved from PB) or "Click to select file"
@@ -1268,7 +1268,7 @@ Run `npm run dev`. On a page with a document block:
 4. Edit title inline
 5. Save — changes persist after reload
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 git add modules/hudozka-writer/src/types.ts modules/hudozka-writer/src/components/FilePicker.tsx modules/hudozka-writer/src/components/FilePicker.css modules/hudozka-writer/src/nodes/DocumentBlock.tsx modules/hudozka-writer/src/nodes/nodes.css

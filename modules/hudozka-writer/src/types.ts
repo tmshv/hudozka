@@ -20,6 +20,11 @@ export type PbImage = PbRecord & {
     caption: string
 }
 
+export type PbFile = PbRecord & {
+    file: string
+    filename: string
+}
+
 export type PbPage = PbRecord & {
     title: string
     slug: string

@@ -1,15 +1,71 @@
 import { Node, mergeAttributes } from "@tiptap/core"
 import { ReactNodeViewRenderer, NodeViewWrapper } from "@tiptap/react"
 import type { NodeViewProps } from "@tiptap/react"
+import { useState, useEffect } from "react"
+import { pb } from "../pb"
+import { FilePicker } from "../components/FilePicker"
+import type { PbFile } from "../types"
 
-function DocumentBlockView({ node }: NodeViewProps) {
+function DocumentBlockView({ node, updateAttributes }: NodeViewProps) {
+    const { fileId, title } = node.attrs
+    const [filename, setFilename] = useState<string | null>(null)
+    const [showPicker, setShowPicker] = useState(false)
+
+    useEffect(() => {
+        if (!fileId) return
+        pb.collection("files").getOne<PbFile>(fileId).then((f) => {
+            setFilename(f.filename)
+        }).catch(() => {
+            setFilename(null)
+        })
+    }, [fileId])
+
+    function handleSelect(newFileId: string) {
+        updateAttributes({ fileId: newFileId })
+        setShowPicker(false)
+    }
+
     return (
-        <NodeViewWrapper className="node-readonly-block" data-drag-handle>
+        <NodeViewWrapper className="node-document-block" data-drag-handle>
             <div className="node-block-label">Document</div>
-            <div className="node-block-info">
-                <strong>{node.attrs.title || "Untitled"}</strong>
-                <code>{node.attrs.fileId}</code>
+            {fileId ? (
+                <div
+                    className="node-document-file"
+                    onClick={() => setShowPicker(true)}
+                    style={{ cursor: "pointer" }}
+                >
+                    📎 {filename ?? fileId}
+                </div>
+            ) : (
+                <div
+                    className="node-document-placeholder"
+                    onClick={() => setShowPicker(true)}
+                    style={{ cursor: "pointer" }}
+                >
+                    Click to select file
+                </div>
+            )}
+            <div className="node-document-controls">
+                <input
+                    type="text"
+                    placeholder="Title"
+                    value={title || ""}
+                    onChange={(e) => updateAttributes({ title: e.target.value })}
+                    className="node-document-title"
+                />
+                <button
+                    className="node-image-pick-btn"
+                    onClick={() => setShowPicker(true)}
+                >
+                    Pick
+                </button>
             </div>
+            {showPicker && (
+                <FilePicker
+                    onSelect={handleSelect}
+                    onClose={() => setShowPicker(false)}
+                />
+            )}
         </NodeViewWrapper>
     )
 }

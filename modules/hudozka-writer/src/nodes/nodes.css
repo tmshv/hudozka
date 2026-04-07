@@ -67,3 +67,42 @@
     cursor: pointer;
     font-size: 0.85rem;
 }
+
+.node-document-block {
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 12px;
+    margin: 8px 0;
+    background: #fafafa;
+    cursor: grab;
+}
+
+.node-document-file {
+    padding: 8px;
+    background: #f0f0f0;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.node-document-placeholder {
+    padding: 8px;
+    background: #f0f0f0;
+    border-radius: 4px;
+    color: #888;
+    text-align: center;
+}
+
+.node-document-controls {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.node-document-title {
+    flex: 1;
+    padding: 4px 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
