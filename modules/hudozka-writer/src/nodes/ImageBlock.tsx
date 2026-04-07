@@ -5,8 +5,9 @@ import { pb } from "../pb"
 import type { PbImage } from "../types"
 import { useState, useEffect } from "react"
 import { ImagePicker } from "../components/ImagePicker"
+import { BlockActions } from "../components/BlockActions"
 
-function ImageBlockView({ node, updateAttributes }: NodeViewProps) {
+function ImageBlockView({ node, updateAttributes, editor, getPos }: NodeViewProps) {
     const { imageId, wide, caption } = node.attrs
     const [thumbnail, setThumbnail] = useState<string | null>(null)
     const [showPicker, setShowPicker] = useState(false)
@@ -27,7 +28,8 @@ function ImageBlockView({ node, updateAttributes }: NodeViewProps) {
     }
 
     return (
-        <NodeViewWrapper className="node-image-block" data-drag-handle>
+        <NodeViewWrapper className="node-image-block">
+            <BlockActions editor={editor} getPos={getPos} />
             <div className="node-block-label">Image</div>
             {thumbnail ? (
                 <img

@@ -13,7 +13,6 @@
     padding: 12px;
     margin: 8px 0;
     background: #fafafa;
-    cursor: grab;
 }
 
 .node-image-thumb {
@@ -74,7 +73,6 @@
     padding: 12px;
     margin: 8px 0;
     background: #fafafa;
-    cursor: grab;
 }
 
 .node-document-file {

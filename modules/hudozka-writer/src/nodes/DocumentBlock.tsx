@@ -5,8 +5,9 @@ import { useState, useEffect } from "react"
 import { pb } from "../pb"
 import { FilePicker } from "../components/FilePicker"
 import type { PbFile } from "../types"
+import { BlockActions } from "../components/BlockActions"
 
-function DocumentBlockView({ node, updateAttributes }: NodeViewProps) {
+function DocumentBlockView({ node, updateAttributes, editor, getPos }: NodeViewProps) {
     const { fileId, title } = node.attrs
     const [filename, setFilename] = useState<string | null>(null)
     const [showPicker, setShowPicker] = useState(false)
@@ -26,8 +27,9 @@ function DocumentBlockView({ node, updateAttributes }: NodeViewProps) {
     }
 
     return (
-        <NodeViewWrapper className="node-document-block" data-drag-handle>
-            <div className="node-block-label">Document</div>
+        <NodeViewWrapper className="node-document-block">
+            <BlockActions editor={editor} getPos={getPos} />
+            <div className="node-block-label">File</div>
             {fileId ? (
                 <div
                     className="node-document-file"

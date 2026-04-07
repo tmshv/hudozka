@@ -430,7 +430,7 @@ For each custom block:
 3. Add `<BlockActions editor={editor} getPos={getPos} />` as first child inside NodeViewWrapper
 4. Add `editor` and `getPos` to the destructured `NodeViewProps`
 
-- [ ] **Step 1: Update `ImageBlock.tsx`**
+- [x] **Step 1: Update `ImageBlock.tsx`**
 
 Change the view function signature and NodeViewWrapper:
 
@@ -452,7 +452,7 @@ Add the import at the top:
 import { BlockActions } from "../components/BlockActions"
 ```
 
-- [ ] **Step 2: Update `DocumentBlock.tsx`**
+- [x] **Step 2: Update `DocumentBlock.tsx`**
 
 Same pattern. Change view function signature:
 
@@ -474,7 +474,7 @@ Add import:
 import { BlockActions } from "../components/BlockActions"
 ```
 
-- [ ] **Step 3: Update `EmbedBlock.tsx`**
+- [x] **Step 3: Update `EmbedBlock.tsx`**
 
 Change view function signature:
 
@@ -496,7 +496,7 @@ Add import:
 import { BlockActions } from "../components/BlockActions"
 ```
 
-- [ ] **Step 4: Update `CardGridBlock.tsx`**
+- [x] **Step 4: Update `CardGridBlock.tsx`**
 
 Change view function signature:
 
@@ -518,7 +518,7 @@ Add import:
 import { BlockActions } from "../components/BlockActions"
 ```
 
-- [ ] **Step 5: Remove `cursor: grab` from custom block CSS in `nodes.css`**
+- [x] **Step 5: Remove `cursor: grab` from custom block CSS in `nodes.css`**
 
 The drag handle is now in BlockActions. Remove `cursor: grab` from these rules:
 
@@ -526,7 +526,7 @@ In `.node-image-block, .node-readonly-block` (line 9-17): remove `cursor: grab;`
 
 In `.node-document-block` (line 71-78): remove `cursor: grab;`
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add src/nodes/ImageBlock.tsx src/nodes/DocumentBlock.tsx src/nodes/EmbedBlock.tsx src/nodes/CardGridBlock.tsx src/nodes/nodes.css

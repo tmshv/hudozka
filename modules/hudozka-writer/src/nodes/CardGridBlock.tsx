@@ -4,13 +4,14 @@ import type { NodeViewProps } from "@tiptap/react"
 import { useState, useEffect } from "react"
 import { pb } from "../pb"
 import type { PbPage } from "../types"
+import { BlockActions } from "../components/BlockActions"
 
 type ResolvedItem = {
     page: string
     title: string | null
 }
 
-function CardGridBlockView({ node }: NodeViewProps) {
+function CardGridBlockView({ node, editor, getPos }: NodeViewProps) {
     const items = JSON.parse(node.attrs.items || "[]")
     const [resolved, setResolved] = useState<ResolvedItem[]>([])
     const [loading, setLoading] = useState(false)
@@ -38,7 +39,8 @@ function CardGridBlockView({ node }: NodeViewProps) {
     }, [node.attrs.items])
 
     return (
-        <NodeViewWrapper className="node-readonly-block" data-drag-handle>
+        <NodeViewWrapper className="node-readonly-block">
+            <BlockActions editor={editor} getPos={getPos} />
             <div className="node-block-label">
                 Card Grid ({items.length})
             </div>
