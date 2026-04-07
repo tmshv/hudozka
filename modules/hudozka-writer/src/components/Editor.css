@@ -2,6 +2,10 @@
     width: 100%;
 }
 
+.editor-content {
+    position: relative;
+}
+
 .editor-content .tiptap {
     outline: none;
     min-height: 400px;

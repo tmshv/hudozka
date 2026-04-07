@@ -478,7 +478,7 @@ git commit -m "feat: add BlockMenu component for block type selection"
 
 A Tiptap extension that shows a "+" button between blocks on hover.
 
-- [ ] **Step 1: Create BlockInsert extension**
+- [x] **Step 1: Create BlockInsert extension**
 
 Create `src/extensions/BlockInsert.tsx`:
 
@@ -637,7 +637,7 @@ export const BlockInsert = Extension.create({
 })
 ```
 
-- [ ] **Step 2: Create BlockInsert styles**
+- [x] **Step 2: Create BlockInsert styles**
 
 Create `src/extensions/BlockInsert.css`:
 
@@ -679,7 +679,7 @@ Create `src/extensions/BlockInsert.css`:
 }
 ```
 
-- [ ] **Step 3: Register BlockInsert in Editor**
+- [x] **Step 3: Register BlockInsert in Editor**
 
 In `src/components/Editor.tsx`, add the import and register the extension:
 
@@ -693,7 +693,7 @@ Add to the `extensions` array in `useEditor`:
 BlockInsert,
 ```
 
-- [ ] **Step 4: Make editor container position relative**
+- [x] **Step 4: Make editor container position relative**
 
 In `src/components/Editor.css`, add to the `.editor-content` rule (or create it if only `.editor-content .tiptap` exists):
 
@@ -703,7 +703,7 @@ In `src/components/Editor.css`, add to the `.editor-content` rule (or create it 
 }
 ```
 
-- [ ] **Step 5: Verify build passes**
+- [x] **Step 5: Verify build passes**
 
 Run:
 ```bash
@@ -712,11 +712,11 @@ cd modules/hudozka-writer && npx tsc --noEmit
 
 Expected: no errors.
 
-- [ ] **Step 6: Manual test**
+- [x] **Step 6: Manual test** (skipped - not automatable)
 
 Run `npm run dev`. Hover between blocks — a "+" button should appear in the left gutter. Click it — block type dropdown opens. Select "Image" — an empty image block is inserted.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add modules/hudozka-writer/src/extensions/BlockInsert.tsx modules/hudozka-writer/src/extensions/BlockInsert.css modules/hudozka-writer/src/components/Editor.tsx modules/hudozka-writer/src/components/Editor.css

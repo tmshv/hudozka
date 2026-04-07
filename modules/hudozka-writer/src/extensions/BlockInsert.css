@@ -1,0 +1,35 @@
+.block-insert-wrapper {
+    position: absolute;
+    left: -40px;
+    transform: translateY(-50%);
+    z-index: 20;
+}
+
+.block-insert-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    background: white;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1;
+    color: #888;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+}
+
+.block-insert-btn:hover {
+    border-color: #213547;
+    color: #213547;
+    background: #f0f4ff;
+}
+
+.block-insert-menu-container {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 4px;
+}
