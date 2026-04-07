@@ -2,10 +2,11 @@ import { useEditor, EditorContent } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
 import { Markdown } from "@tiptap/markdown"
 import Link from "@tiptap/extension-link"
-import { useState, useCallback } from "react"
+import { useState, useCallback, useRef, useEffect } from "react"
 import { pb } from "../pb"
 import { docToTiptap, tiptapToDoc } from "../lib/serialize"
 import { Toolbar } from "./Toolbar"
+import { DraftBanner } from "./DraftBanner"
 import {
     WriterDocument,
     ImageBlock,
@@ -19,16 +20,32 @@ import "../nodes/nodes.css"
 import "./Editor.css"
 import type { PbPage, DocV1 } from "../types"
 
+function serializeDoc(doc: DocV1): string {
+    return JSON.stringify(doc)
+}
+
 export type EditorProps = {
     page: PbPage
 }
 
 export function Editor({ page }: EditorProps) {
     const [saving, setSaving] = useState(false)
+    const [publishing, setPublishing] = useState(false)
     const [markdownMode, setMarkdownMode] = useState(false)
     const [markdownText, setMarkdownText] = useState("")
+    const [dirty, setDirty] = useState(false)
+    const [hasDraft, setHasDraft] = useState(page.draft !== null)
+    const [publishedDoc, setPublishedDoc] = useState(page.doc)
 
-    const tiptapDoc = docToTiptap(page.doc)
+    const snapshotRef = useRef("")
+
+    const initialDoc = page.draft ?? page.doc
+    const tiptapDoc = docToTiptap(initialDoc)
+
+    // Set initial snapshot
+    useEffect(() => {
+        snapshotRef.current = serializeDoc(initialDoc)
+    }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     const editor = useEditor({
         extensions: [
@@ -46,18 +63,31 @@ export function Editor({ page }: EditorProps) {
             SlashCommands,
         ],
         content: tiptapDoc,
+        onUpdate: ({ editor }) => {
+            const json = editor.getJSON()
+            const doc = tiptapToDoc(json.content ?? [])
+            const current = serializeDoc(doc)
+            setDirty(current !== snapshotRef.current)
+        },
     })
+
+    const getCurrentDoc = useCallback((): DocV1 => {
+        if (!editor) return { version: 1, blocks: [] }
+        if (markdownMode) {
+            editor.commands.setContent(markdownText, { contentType: "markdown" })
+            setMarkdownMode(false)
+        }
+        const json = editor.getJSON()
+        return tiptapToDoc(json.content ?? [])
+    }, [editor, markdownMode, markdownText])
 
     const handleToggleMarkdown = useCallback(() => {
         if (!editor) return
-
         if (!markdownMode) {
-            // Switching to markdown mode: serialize editor content
             const md = editor.getMarkdown()
             setMarkdownText(md)
             setMarkdownMode(true)
         } else {
-            // Switching back to rendered mode: parse markdown into editor
             editor.commands.setContent(markdownText, { contentType: "markdown" })
             setMarkdownMode(false)
         }
@@ -67,31 +97,69 @@ export function Editor({ page }: EditorProps) {
         if (!editor) return
         setSaving(true)
         try {
-            if (markdownMode) {
-                // Apply markdown text back to editor before saving
-                editor.commands.setContent(markdownText, { contentType: "markdown" })
-                setMarkdownMode(false)
-            }
-            const json = editor.getJSON()
-            const doc: DocV1 = tiptapToDoc(json.content ?? [])
-            await pb.collection("pages").update(page.id, { doc })
+            const doc = getCurrentDoc()
+            await pb.collection("pages").update(page.id, { draft: doc })
+            snapshotRef.current = serializeDoc(doc)
+            setDirty(false)
+            setHasDraft(true)
         } catch (err) {
             console.error("Save failed:", err)
             alert("Save failed. Check console.")
         } finally {
             setSaving(false)
         }
-    }, [editor, page.id, markdownMode, markdownText])
+    }, [editor, page.id, getCurrentDoc])
+
+    const handlePublish = useCallback(async () => {
+        if (!editor) return
+        setPublishing(true)
+        try {
+            const doc = getCurrentDoc()
+            await pb.collection("pages").update(page.id, { doc, draft: null })
+            snapshotRef.current = serializeDoc(doc)
+            setDirty(false)
+            setHasDraft(false)
+            setPublishedDoc(doc)
+        } catch (err) {
+            console.error("Publish failed:", err)
+            alert("Publish failed. Check console.")
+        } finally {
+            setPublishing(false)
+        }
+    }, [editor, page.id, getCurrentDoc])
+
+    const handleDiscard = useCallback(async () => {
+        if (!editor) return
+        try {
+            await pb.collection("pages").update(page.id, { draft: null })
+            const tiptap = docToTiptap(publishedDoc)
+            editor.commands.setContent(tiptap)
+            snapshotRef.current = serializeDoc(publishedDoc)
+            setDirty(false)
+            setHasDraft(false)
+            setMarkdownMode(false)
+        } catch (err) {
+            console.error("Discard failed:", err)
+            alert("Discard failed. Check console.")
+        }
+    }, [editor, page.id, publishedDoc])
 
     return (
         <div className="editor">
             <Toolbar
                 editor={editor}
                 onSave={handleSave}
+                onPublish={handlePublish}
                 saving={saving}
+                publishing={publishing}
+                dirty={dirty}
+                hasDraft={hasDraft}
                 markdownMode={markdownMode}
                 onToggleMarkdown={handleToggleMarkdown}
             />
+            {hasDraft && (
+                <DraftBanner onDiscard={handleDiscard} />
+            )}
             {markdownMode ? (
                 <textarea
                     className="editor-markdown"

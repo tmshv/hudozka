@@ -54,7 +54,7 @@ git commit -m "feat(writer): update PbPage type for draft/publish workflow"
 **Files:**
 - Modify: `modules/hudozka-writer/src/components/Editor.tsx`
 
-- [ ] **Step 1: Rewrite Editor component with draft support**
+- [x] **Step 1: Rewrite Editor component with draft support**
 
 Replace the full content of `Editor.tsx`:
 
@@ -235,7 +235,7 @@ export function Editor({ page }: EditorProps) {
 }
 ```
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 ```bash
 git add modules/hudozka-writer/src/components/Editor.tsx
