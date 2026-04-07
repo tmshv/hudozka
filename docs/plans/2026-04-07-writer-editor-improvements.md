@@ -1283,7 +1283,7 @@ git commit -m "feat: add interactive file block editor with FilePicker"
 - Modify: `src/nodes/CardGridBlock.tsx`
 - Modify: `src/nodes/nodes.css`
 
-- [ ] **Step 1: Update CardGridBlockView to fetch page titles**
+- [x] **Step 1: Update CardGridBlockView to fetch page titles**
 
 Replace the entire content of `src/nodes/CardGridBlock.tsx`:
 
@@ -1374,7 +1374,7 @@ export const CardGridBlock = Node.create({
 })
 ```
 
-- [ ] **Step 2: Add CardGrid list styles**
+- [x] **Step 2: Add CardGrid list styles**
 
 Append to `src/nodes/nodes.css`:
 
@@ -1391,7 +1391,7 @@ Append to `src/nodes/nodes.css`:
 }
 ```
 
-- [ ] **Step 3: Verify build passes**
+- [x] **Step 3: Verify build passes**
 
 Run:
 ```bash
@@ -1400,14 +1400,14 @@ cd modules/hudozka-writer && npx tsc --noEmit
 
 Expected: no errors.
 
-- [ ] **Step 4: Manual test**
+- [x] **Step 4: Manual test** (skipped - not automatable)
 
 Run `npm run dev`. Open a page with a card grid block. Verify:
 1. Shows "Card Grid (N)" header with count
 2. Below it, a bulleted list of resolved page titles
 3. If a page ID can't be resolved, shows the raw ID as fallback
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add modules/hudozka-writer/src/nodes/CardGridBlock.tsx modules/hudozka-writer/src/nodes/nodes.css
