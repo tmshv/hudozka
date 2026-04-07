@@ -9,18 +9,14 @@ import type {
     DocV1BlockCardGrid,
 } from "../types"
 import { generateBlockId } from "./id"
+import { getMarkdownManager } from "./markdown"
 
 // -- DocV1 -> Tiptap JSON --
 
 function textBlockToTiptap(block: DocV1BlockText): JSONContent[] {
-    // Split markdown text into paragraphs and return as flat nodes
-    const paragraphs = block.text.split(/\n\n+/)
-    return paragraphs
-        .filter((p) => p.trim())
-        .map((p) => ({
-            type: "paragraph",
-            content: [{ type: "text", text: p.trim() }],
-        }))
+    const manager = getMarkdownManager()
+    const parsed = manager.parse(block.text)
+    return parsed.content ?? []
 }
 
 function imageBlockToTiptap(block: DocV1BlockImage): JSONContent {
@@ -108,18 +104,10 @@ function isCustomBlockNode(node: JSONContent): boolean {
     return CUSTOM_BLOCK_TYPES.has(node.type ?? "")
 }
 
-function tiptapTextContent(node: JSONContent): string {
-    if (node.type === "text") return node.text ?? ""
-    if (!node.content) return ""
-    return node.content.map(tiptapTextContent).join("")
-}
-
 function textNodesToMarkdown(nodes: JSONContent[]): string {
-    const parts: string[] = []
-    for (const node of nodes) {
-        parts.push(tiptapTextContent(node))
-    }
-    return parts.join("\n\n")
+    const manager = getMarkdownManager()
+    const doc: JSONContent = { type: "doc", content: nodes }
+    return manager.serialize(doc)
 }
 
 export function tiptapToDoc(content: JSONContent[]): DocV1 {
