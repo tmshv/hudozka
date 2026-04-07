@@ -25,3 +25,8 @@ tsconfig.tsbuildinfo
 
 pb_data/*.db*
 pb_data/storage
+
+# ralphex progress logs
+.ralphex/progress/
+
+.superpowers/
