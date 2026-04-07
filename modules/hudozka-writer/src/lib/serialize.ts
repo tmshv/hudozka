@@ -13,16 +13,14 @@ import { generateBlockId } from "./id"
 // -- DocV1 -> Tiptap JSON --
 
 function textBlockToTiptap(block: DocV1BlockText): JSONContent[] {
-    // Return a wrapper node that holds the markdown text for the Markdown extension to parse
-    // We use a custom "textBlock" node to preserve the block ID and enable round-tripping
-    return [{
-        type: "textBlock",
-        attrs: { id: block.id },
-        content: [{
+    // Split markdown text into paragraphs and return as flat nodes
+    const paragraphs = block.text.split(/\n\n+/)
+    return paragraphs
+        .filter((p) => p.trim())
+        .map((p) => ({
             type: "paragraph",
-            content: [{ type: "text", text: block.text }],
-        }],
-    }]
+            content: [{ type: "text", text: p.trim() }],
+        }))
 }
 
 function imageBlockToTiptap(block: DocV1BlockImage): JSONContent {
@@ -99,30 +97,27 @@ export function docToTiptap(doc: DocV1): JSONContent {
 
 // -- Tiptap JSON -> DocV1 --
 
+const CUSTOM_BLOCK_TYPES = new Set([
+    "imageBlock",
+    "documentBlock",
+    "embedBlock",
+    "cardGridBlock",
+])
+
 function isCustomBlockNode(node: JSONContent): boolean {
-    return ["imageBlock", "documentBlock", "embedBlock", "cardGridBlock"].includes(node.type ?? "")
+    return CUSTOM_BLOCK_TYPES.has(node.type ?? "")
 }
 
 function tiptapTextContent(node: JSONContent): string {
-    // Recursively extract text from Tiptap JSON node
     if (node.type === "text") return node.text ?? ""
     if (!node.content) return ""
     return node.content.map(tiptapTextContent).join("")
 }
 
 function textNodesToMarkdown(nodes: JSONContent[]): string {
-    // For textBlock nodes, extract the raw markdown text
-    // For other rich-text nodes, we need to convert back
-    // The Markdown extension handles this via editor.storage.markdown.getMarkdown()
-    // This is a fallback for direct JSON conversion
     const parts: string[] = []
     for (const node of nodes) {
-        if (node.type === "textBlock") {
-            // Extract text content from the textBlock wrapper
-            parts.push(tiptapTextContent(node))
-        } else {
-            parts.push(tiptapTextContent(node))
-        }
+        parts.push(tiptapTextContent(node))
     }
     return parts.join("\n\n")
 }
@@ -137,7 +132,7 @@ export function tiptapToDoc(content: JSONContent[]): DocV1 {
         if (text.trim()) {
             blocks.push({
                 type: "text",
-                id: textBuffer[0].attrs?.id ?? generateBlockId(),
+                id: generateBlockId(),
                 text,
             })
         }

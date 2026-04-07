@@ -8,7 +8,6 @@ import { docToTiptap, tiptapToDoc } from "../lib/serialize"
 import { Toolbar } from "./Toolbar"
 import {
     WriterDocument,
-    TextBlock,
     ImageBlock,
     DocumentBlock,
     EmbedBlock,
@@ -35,7 +34,6 @@ export function Editor({ page }: EditorProps) {
             }),
             Markdown,
             Link.configure({ openOnClick: false }),
-            TextBlock,
             ImageBlock,
             DocumentBlock,
             EmbedBlock,
