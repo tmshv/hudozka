@@ -635,13 +635,13 @@ git commit -m "feat(writer): replace floating BlockInsert with inline BlockActio
 
 BlockActions uses `position: absolute` to sit left of the block. Every block's outermost wrapper needs `position: relative`. For custom blocks, they already have styled classes. For text blocks, the `NodeViewWrapper` gets Tiptap's default `data-node-view-wrapper` attribute.
 
-- [ ] **Step 1: Add position: relative to custom block classes in `nodes.css`**
+- [x] **Step 1: Add position: relative to custom block classes in `nodes.css`**
 
 Add `position: relative;` to:
 - `.node-image-block, .node-readonly-block`
 - `.node-document-block`
 
-- [ ] **Step 2: Add a global rule for all NodeView wrappers in `BlockActions.css`**
+- [x] **Step 2: Add a global rule for all NodeView wrappers in `BlockActions.css`**
 
 Add to `BlockActions.css`:
 
@@ -653,7 +653,7 @@ Add to `BlockActions.css`:
 
 This targets all Tiptap NodeView wrappers, ensuring BlockActions can position itself absolutely in any block type.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add src/nodes/nodes.css src/components/BlockActions.css
