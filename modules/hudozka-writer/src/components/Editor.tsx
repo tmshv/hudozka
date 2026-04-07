@@ -23,6 +23,8 @@ export type EditorProps = {
 
 export function Editor({ page }: EditorProps) {
     const [saving, setSaving] = useState(false)
+    const [markdownMode, setMarkdownMode] = useState(false)
+    const [markdownText, setMarkdownText] = useState("")
 
     const tiptapDoc = docToTiptap(page.doc)
 
@@ -42,10 +44,30 @@ export function Editor({ page }: EditorProps) {
         content: tiptapDoc,
     })
 
+    const handleToggleMarkdown = useCallback(() => {
+        if (!editor) return
+
+        if (!markdownMode) {
+            // Switching to markdown mode: serialize editor content
+            const md = editor.getMarkdown()
+            setMarkdownText(md)
+            setMarkdownMode(true)
+        } else {
+            // Switching back to rendered mode: parse markdown into editor
+            editor.commands.setContent(markdownText, { contentType: "markdown" })
+            setMarkdownMode(false)
+        }
+    }, [editor, markdownMode, markdownText])
+
     const handleSave = useCallback(async () => {
         if (!editor) return
         setSaving(true)
         try {
+            if (markdownMode) {
+                // Apply markdown text back to editor before saving
+                editor.commands.setContent(markdownText, { contentType: "markdown" })
+                setMarkdownMode(false)
+            }
             const json = editor.getJSON()
             const doc: DocV1 = tiptapToDoc(json.content ?? [])
             await pb.collection("pages").update(page.id, { doc })
@@ -55,12 +77,26 @@ export function Editor({ page }: EditorProps) {
         } finally {
             setSaving(false)
         }
-    }, [editor, page.id])
+    }, [editor, page.id, markdownMode, markdownText])
 
     return (
         <div className="editor">
-            <Toolbar editor={editor} onSave={handleSave} saving={saving} />
-            <EditorContent editor={editor} className="editor-content" />
+            <Toolbar
+                editor={editor}
+                onSave={handleSave}
+                saving={saving}
+                markdownMode={markdownMode}
+                onToggleMarkdown={handleToggleMarkdown}
+            />
+            {markdownMode ? (
+                <textarea
+                    className="editor-markdown"
+                    value={markdownText}
+                    onChange={(e) => setMarkdownText(e.target.value)}
+                />
+            ) : (
+                <EditorContent editor={editor} className="editor-content" />
+            )}
         </div>
     )
 }

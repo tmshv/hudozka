@@ -58,3 +58,21 @@
 .editor-content .tiptap ol {
     padding-left: 1.5em;
 }
+
+.editor-markdown {
+    width: 100%;
+    min-height: 400px;
+    padding: 16px;
+    font-family: monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    resize: vertical;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.editor-markdown:focus {
+    border-color: #213547;
+}

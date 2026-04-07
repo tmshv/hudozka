@@ -146,7 +146,7 @@ git commit -m "fix: use @tiptap/markdown for text block serialization"
 - Modify: `src/components/Toolbar.tsx`
 - Modify: `src/components/Toolbar.css`
 
-- [ ] **Step 1: Add MD toggle button to Toolbar**
+- [x] **Step 1: Add MD toggle button to Toolbar**
 
 In `src/components/Toolbar.tsx`, add `markdownMode` and `onToggleMarkdown` props:
 
@@ -180,7 +180,7 @@ Update the destructured props:
 export function Toolbar({ editor, onSave, saving, markdownMode, onToggleMarkdown }: ToolbarProps) {
 ```
 
-- [ ] **Step 2: Add markdown mode state and textarea to Editor**
+- [x] **Step 2: Add markdown mode state and textarea to Editor**
 
 In `src/components/Editor.tsx`, add state and toggle logic:
 
@@ -289,7 +289,7 @@ export function Editor({ page }: EditorProps) {
 }
 ```
 
-- [ ] **Step 3: Add markdown textarea styles**
+- [x] **Step 3: Add markdown textarea styles**
 
 Append to `src/components/Editor.css`:
 
@@ -313,7 +313,7 @@ Append to `src/components/Editor.css`:
 }
 ```
 
-- [ ] **Step 4: Verify build passes**
+- [x] **Step 4: Verify build passes**
 
 Run:
 ```bash
@@ -322,7 +322,7 @@ cd modules/hudozka-writer && npx tsc --noEmit
 
 Expected: no errors.
 
-- [ ] **Step 5: Manual test**
+- [x] **Step 5: Manual test** (skipped - not automatable)
 
 Run `npm run dev`. Open a page with content:
 1. Click "MD" button — textarea shows markdown with formatting (headings, bold, etc.)
@@ -330,7 +330,7 @@ Run `npm run dev`. Open a page with content:
 3. Click "MD" again — editor shows rendered content with changes
 4. Save — changes persist after reload
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add modules/hudozka-writer/src/components/Editor.tsx modules/hudozka-writer/src/components/Editor.css modules/hudozka-writer/src/components/Toolbar.tsx

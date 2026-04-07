@@ -5,9 +5,11 @@ export type ToolbarProps = {
     editor: Editor | null
     onSave: () => void
     saving: boolean
+    markdownMode: boolean
+    onToggleMarkdown: () => void
 }
 
-export function Toolbar({ editor, onSave, saving }: ToolbarProps) {
+export function Toolbar({ editor, onSave, saving, markdownMode, onToggleMarkdown }: ToolbarProps) {
     if (!editor) return null
 
     return (
@@ -98,6 +100,16 @@ export function Toolbar({ editor, onSave, saving }: ToolbarProps) {
                     title="Horizontal rule"
                 >
                     ---
+                </button>
+            </div>
+
+            <div className="toolbar-group">
+                <button
+                    onClick={onToggleMarkdown}
+                    className={markdownMode ? "active" : ""}
+                    title="Toggle markdown view"
+                >
+                    MD
                 </button>
             </div>
 
