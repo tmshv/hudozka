@@ -542,7 +542,7 @@ git commit -m "feat(writer): use BlockActions in custom block NodeViews"
 - Delete: `src/extensions/BlockInsert.tsx`
 - Delete: `src/extensions/BlockInsert.css`
 
-- [ ] **Step 1: Update `Editor.tsx` imports and extensions**
+- [x] **Step 1: Update `Editor.tsx` imports and extensions**
 
 Replace the imports:
 
@@ -611,13 +611,13 @@ const editor = useEditor({
 })
 ```
 
-- [ ] **Step 2: Delete BlockInsert extension files**
+- [x] **Step 2: Delete BlockInsert extension files**
 
 ```bash
 rm src/extensions/BlockInsert.tsx src/extensions/BlockInsert.css
 ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add src/components/Editor.tsx src/nodes/index.ts
