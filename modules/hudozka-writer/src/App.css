@@ -22,12 +22,15 @@
 }
 
 .app-header button {
-    margin-left: auto;
     padding: 4px 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
     background: white;
     cursor: pointer;
+}
+
+.app-header button:first-of-type {
+    margin-left: auto;
 }
 
 .app-main {

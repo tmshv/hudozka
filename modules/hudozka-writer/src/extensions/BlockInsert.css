@@ -1,8 +1,17 @@
 .block-insert-wrapper {
     position: absolute;
-    left: -40px;
-    transform: translateY(-50%);
+    left: -100px;
     z-index: 20;
+    display: flex;
+    gap: 2px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+}
+
+.block-insert-wrapper.visible {
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .block-insert-btn {
@@ -25,6 +34,21 @@
     border-color: #213547;
     color: #213547;
     background: #f0f4ff;
+}
+
+.block-drag-btn {
+    cursor: grab;
+    letter-spacing: 1px;
+}
+
+.block-drag-btn:active {
+    cursor: grabbing;
+}
+
+.block-delete-btn:hover {
+    border-color: #c00;
+    color: #c00;
+    background: #fff0f0;
 }
 
 .block-insert-menu-container {

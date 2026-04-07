@@ -45,6 +45,27 @@ export function App() {
         setPage(null)
     }
 
+    async function handleDuplicate() {
+        if (!page) return
+        const newSlug = `${page.slug}-copy`
+        try {
+            const record = await pb.collection("pages").create<PbPage>({
+                title: `${page.title} (copy)`,
+                slug: newSlug,
+                excerpt: page.excerpt,
+                date: page.date,
+                cover: page.cover,
+                doc: page.doc,
+                tags: page.tags,
+                draft: true,
+            })
+            window.location.search = `?page=${record.slug}`
+        } catch (err) {
+            console.error("Duplicate failed:", err)
+            alert("Duplicate failed. Check console.")
+        }
+    }
+
     if (!authenticated) {
         return <Login onLogin={() => setAuthenticated(true)} />
     }
@@ -80,6 +101,7 @@ export function App() {
             <header className="app-header">
                 <span className="app-title">{page.title}</span>
                 <span className="app-slug">/{page.slug}</span>
+                <button onClick={handleDuplicate}>Duplicate</button>
                 <button onClick={handleLogout}>Logout</button>
             </header>
             <main className="app-main">

@@ -23,15 +23,15 @@ const ITEMS: SlashCommandItem[] = [
 
 const slashCommandsPluginKey = new PluginKey("slashCommands")
 
-function SlashMenu({ items, command }: { items: SlashCommandItem[]; command: (item: SlashCommandItem) => void }) {
+function SlashMenu({ items, command, selectedIndex }: { items: SlashCommandItem[]; command: (item: SlashCommandItem) => void; selectedIndex: number }) {
     if (items.length === 0) return null
 
     return (
         <div className="slash-menu">
-            {items.map((item) => (
+            {items.map((item, index) => (
                 <button
                     key={item.type}
-                    className="slash-menu-item"
+                    className={`slash-menu-item${index === selectedIndex ? " slash-menu-item--selected" : ""}`}
                     onClick={() => command(item)}
                 >
                     {item.label}
@@ -58,6 +58,20 @@ export const SlashCommands = Extension.create({
                 render: () => {
                     let container: HTMLDivElement | null = null
                     let root: ReturnType<typeof createRoot> | null = null
+                    let selectedIndex = 0
+                    let currentItems: SlashCommandItem[] = []
+                    let currentCommand: ((item: SlashCommandItem) => void) | null = null
+
+                    function renderMenu() {
+                        if (!root) return
+                        root.render(
+                            <SlashMenu
+                                items={currentItems}
+                                command={currentCommand!}
+                                selectedIndex={selectedIndex}
+                            />
+                        )
+                    }
 
                     return {
                         onStart: (props: SuggestionProps<SlashCommandItem, SlashCommandItem>) => {
@@ -74,12 +88,10 @@ export const SlashCommands = Extension.create({
                                 container.style.zIndex = "50"
                             }
 
-                            root.render(
-                                <SlashMenu
-                                    items={props.items}
-                                    command={props.command}
-                                />
-                            )
+                            selectedIndex = 0
+                            currentItems = props.items
+                            currentCommand = props.command
+                            renderMenu()
                         },
                         onUpdate: (props: SuggestionProps<SlashCommandItem, SlashCommandItem>) => {
                             if (!root || !container) return
@@ -90,12 +102,10 @@ export const SlashCommands = Extension.create({
                                 container.style.top = `${rect.bottom + 4}px`
                             }
 
-                            root.render(
-                                <SlashMenu
-                                    items={props.items}
-                                    command={props.command}
-                                />
-                            )
+                            currentItems = props.items
+                            currentCommand = props.command
+                            selectedIndex = 0
+                            renderMenu()
                         },
                         onExit: () => {
                             root?.unmount()
@@ -104,11 +114,28 @@ export const SlashCommands = Extension.create({
                             root = null
                         },
                         onKeyDown: (props: SuggestionKeyDownProps) => {
-                            if (props.event.key === "Escape") {
+                            const { key } = props.event
+                            if (key === "Escape") {
                                 root?.unmount()
                                 container?.remove()
                                 container = null
                                 root = null
+                                return true
+                            }
+                            if (key === "ArrowDown") {
+                                selectedIndex = (selectedIndex + 1) % currentItems.length
+                                renderMenu()
+                                return true
+                            }
+                            if (key === "ArrowUp") {
+                                selectedIndex = (selectedIndex - 1 + currentItems.length) % currentItems.length
+                                renderMenu()
+                                return true
+                            }
+                            if (key === "Enter") {
+                                if (currentItems[selectedIndex] && currentCommand) {
+                                    currentCommand(currentItems[selectedIndex])
+                                }
                                 return true
                             }
                             return false
