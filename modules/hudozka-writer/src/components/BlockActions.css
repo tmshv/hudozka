@@ -1,0 +1,61 @@
+.block-actions {
+    position: absolute;
+    left: -88px;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    gap: 2px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+}
+
+.block-actions.block-actions-visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.block-action-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    background: white;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1;
+    color: #888;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+    padding: 0;
+}
+
+.block-action-btn:hover {
+    border-color: #213547;
+    color: #213547;
+    background: #f0f4ff;
+}
+
+.block-drag-handle {
+    cursor: grab;
+    letter-spacing: 1px;
+}
+
+.block-drag-handle:active {
+    cursor: grabbing;
+}
+
+.block-action-delete:hover {
+    border-color: #c00;
+    color: #c00;
+    background: #fff0f0;
+}
+
+.block-actions-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 4px;
+}
