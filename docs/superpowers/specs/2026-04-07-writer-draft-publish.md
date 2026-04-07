@@ -11,22 +11,22 @@ PocketBase `pages` collection fields (already applied by user):
 | Field        | Type    | Purpose                                                |
 |--------------|---------|--------------------------------------------------------|
 | `doc`        | JSON    | Published document content (read by the main site)     |
-| `draft_doc`  | JSON    | Unpublished work-in-progress, `null` when no draft     |
+| `draft`      | JSON    | Unpublished work-in-progress, `null` when no draft     |
 | `published`  | boolean | Page visibility (renamed from `draft`, inverted logic)  |
 
 ## Editor Load Behavior
 
 When opening a page:
-- If `draft_doc` is not null: load `draft_doc` into the editor, show a banner "You have unpublished changes" with a **Discard** button.
-- If `draft_doc` is null: load `doc` into the editor, no banner.
+- If `draft` is not null: load `draft` into the editor, show a banner "You have unpublished changes" with a **Discard** button.
+- If `draft` is null: load `doc` into the editor, no banner.
 
 ## Save / Publish / Discard
 
 | Action      | API call                                           | Effect                                    |
 |-------------|----------------------------------------------------|-------------------------------------------|
-| **Save**    | `update(id, { draft_doc: editorContent })`         | Persists WIP without affecting live site   |
-| **Publish** | `update(id, { doc: editorContent, draft_doc: null })` | Pushes content live, clears draft       |
-| **Discard** | `update(id, { draft_doc: null })`                  | Drops WIP, reloads editor from `doc`       |
+| **Save**    | `update(id, { draft: editorContent })`         | Persists WIP without affecting live site   |
+| **Publish** | `update(id, { doc: editorContent, draft: null })` | Pushes content live, clears draft       |
+| **Discard** | `update(id, { draft: null })`                  | Drops WIP, reloads editor from `doc`       |
 
 No confirmation dialog on Discard.
 
@@ -36,21 +36,21 @@ Current layout: `[formatting...] [MD] [Save]`
 
 New layout: `[formatting...] [MD] [Save] [Publish]`
 
-- **Save** button: enabled only when editor content differs from the last-saved state. Writes to `draft_doc`.
-- **Publish** button: enabled when there are any unpublished changes (unsaved edits or existing `draft_doc`). Writes to `doc`, clears `draft_doc`.
+- **Save** button: enabled only when editor content differs from the last-saved state. Writes to `draft`.
+- **Publish** button: enabled when there are any unpublished changes (unsaved edits or existing `draft`). Writes to `doc`, clears `draft`.
 
 After Save: Save button becomes disabled (no new changes), Publish remains enabled (draft exists).
 After Publish: both buttons become disabled (content is live, no draft).
 
 ## Draft Banner
 
-Shown above the editor when `draft_doc` was loaded. Simple bar with text and a Discard button:
+Shown above the editor when `draft` was loaded. Simple bar with text and a Discard button:
 
 ```
 [You have unpublished changes]                    [Discard]
 ```
 
-Clicking Discard: sends API call to clear `draft_doc`, reloads editor content from `doc`, hides the banner.
+Clicking Discard: sends API call to clear `draft`, reloads editor content from `doc`, hides the banner.
 
 ## Page Visibility Toggle
 
@@ -75,9 +75,7 @@ This drives the enabled/disabled state of Save and Publish buttons.
 ## Type Changes
 
 Update `PbPage` in `modules/hudozka-writer/src/types.ts`:
-- Remove `draft: boolean`
-- Add `published: boolean`
-- Add `draft_doc: DocV1 | null`
+- Replace `draft: boolean` with `published: boolean` and `draft: DocV1 | null`
 
 ## Files to Modify
 
