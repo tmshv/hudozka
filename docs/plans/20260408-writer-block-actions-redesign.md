@@ -154,7 +154,7 @@ git commit -m "refactor(writer): simplify BlockActions to always-visible delete 
 - Create: `modules/hudozka-writer/src/components/BlockInsert.tsx`
 - Create: `modules/hudozka-writer/src/components/BlockInsert.css`
 
-- [ ] **Step 1: Create BlockInsert.tsx**
+- [x] **Step 1: Create BlockInsert.tsx**
 
 A [+] button that sits between blocks and opens a `BlockMenu` dropdown:
 
@@ -212,7 +212,7 @@ export function BlockInsert({ editor, getPos }: BlockInsertProps) {
 }
 ```
 
-- [ ] **Step 2: Create BlockInsert.css**
+- [x] **Step 2: Create BlockInsert.css**
 
 ```css
 .block-insert {
@@ -258,7 +258,7 @@ export function BlockInsert({ editor, getPos }: BlockInsertProps) {
 }
 ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add modules/hudozka-writer/src/components/BlockInsert.tsx modules/hudozka-writer/src/components/BlockInsert.css
