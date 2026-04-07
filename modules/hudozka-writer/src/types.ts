@@ -33,7 +33,8 @@ export type PbPage = PbRecord & {
     cover: string
     doc: DocV1
     tags: string[]
-    draft: boolean
+    published: boolean
+    draft: DocV1 | null
 }
 
 // -- DocV1 document format --

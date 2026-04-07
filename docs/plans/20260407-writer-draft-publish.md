@@ -17,7 +17,7 @@
 **Files:**
 - Modify: `modules/hudozka-writer/src/types.ts:28-37`
 
-- [ ] **Step 1: Update PbPage type definition**
+- [x] **Step 1: Update PbPage type definition**
 
 Replace the current `PbPage` type:
 
@@ -35,12 +35,12 @@ export type PbPage = PbRecord & {
 }
 ```
 
-- [ ] **Step 2: Verify build**
+- [x] **Step 2: Verify build**
 
 Run: `cd modules/hudozka-writer && npx tsc --noEmit`
 Expected: errors in `App.tsx` where `draft` was used as boolean — that's expected, we fix it in Task 4.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add modules/hudozka-writer/src/types.ts
