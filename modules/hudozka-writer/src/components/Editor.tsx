@@ -14,6 +14,7 @@ import {
     CardGridBlock,
 } from "../nodes"
 import { BlockInsert } from "../extensions/BlockInsert"
+import { SlashCommands } from "../extensions/SlashCommands"
 import "../nodes/nodes.css"
 import "./Editor.css"
 import type { PbPage, DocV1 } from "../types"
@@ -42,6 +43,7 @@ export function Editor({ page }: EditorProps) {
             EmbedBlock,
             CardGridBlock,
             BlockInsert,
+            SlashCommands,
         ],
         content: tiptapDoc,
     })

@@ -732,13 +732,13 @@ git commit -m "feat: add hover + button for block insertion"
 - Modify: `src/components/Editor.tsx`
 - Modify: `package.json` (new dep: `@tiptap/suggestion`)
 
-- [ ] **Step 1: Install @tiptap/suggestion**
+- [x] **Step 1: Install @tiptap/suggestion**
 
 ```bash
 cd modules/hudozka-writer && npm install @tiptap/suggestion@^3.0.0
 ```
 
-- [ ] **Step 2: Create SlashCommands extension**
+- [x] **Step 2: Create SlashCommands extension**
 
 Create `src/extensions/SlashCommands.ts`:
 
@@ -877,7 +877,7 @@ export const SlashCommands = Extension.create({
 })
 ```
 
-- [ ] **Step 3: Register SlashCommands in Editor**
+- [x] **Step 3: Register SlashCommands in Editor**
 
 In `src/components/Editor.tsx`, add the import:
 ```tsx
@@ -889,7 +889,7 @@ Add to the `extensions` array in `useEditor`:
 SlashCommands,
 ```
 
-- [ ] **Step 4: Verify build passes**
+- [x] **Step 4: Verify build passes**
 
 Run:
 ```bash
@@ -898,11 +898,11 @@ cd modules/hudozka-writer && npx tsc --noEmit
 
 Expected: no errors.
 
-- [ ] **Step 5: Manual test**
+- [x] **Step 5: Manual test** (skipped - not automatable)
 
 Run `npm run dev`. In an empty paragraph, type `/`. A dropdown should appear with block types. Type `/im` — only "Image" shows. Press Enter or click — image block is inserted.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add modules/hudozka-writer/src/extensions/SlashCommands.ts modules/hudozka-writer/src/components/Editor.tsx modules/hudozka-writer/package.json modules/hudozka-writer/package-lock.json
