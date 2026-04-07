@@ -36,18 +36,28 @@
     border-color: #213547;
 }
 
-.toolbar-save {
+.toolbar-actions {
     margin-left: auto;
+    gap: 4px;
 }
 
 .toolbar-save-btn {
+    padding: 4px 16px !important;
+}
+
+.toolbar-save-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed !important;
+}
+
+.toolbar-publish-btn {
     background: #213547 !important;
     color: white !important;
     border-color: #213547 !important;
     padding: 4px 16px !important;
 }
 
-.toolbar-save-btn:disabled {
+.toolbar-publish-btn:disabled {
     opacity: 0.6;
     cursor: not-allowed !important;
 }

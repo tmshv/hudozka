@@ -319,7 +319,7 @@ git commit -m "feat(writer): add DraftBanner component"
 - Modify: `modules/hudozka-writer/src/components/Toolbar.tsx`
 - Modify: `modules/hudozka-writer/src/components/Toolbar.css`
 
-- [ ] **Step 1: Update Toolbar component**
+- [x] **Step 1: Update Toolbar component**
 
 Replace the full content of `Toolbar.tsx`:
 
@@ -477,7 +477,7 @@ export function Toolbar({
 }
 ```
 
-- [ ] **Step 2: Update Toolbar styles**
+- [x] **Step 2: Update Toolbar styles**
 
 Replace `.toolbar-save` and `.toolbar-save-btn` rules in `Toolbar.css`. Remove old `.toolbar-save` and `.toolbar-save-btn` rules and add:
 
@@ -509,7 +509,7 @@ Replace `.toolbar-save` and `.toolbar-save-btn` rules in `Toolbar.css`. Remove o
 }
 ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add modules/hudozka-writer/src/components/Toolbar.tsx modules/hudozka-writer/src/components/Toolbar.css

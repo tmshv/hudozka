@@ -4,13 +4,30 @@ import "./Toolbar.css"
 export type ToolbarProps = {
     editor: Editor | null
     onSave: () => void
+    onPublish: () => void
     saving: boolean
+    publishing: boolean
+    dirty: boolean
+    hasDraft: boolean
     markdownMode: boolean
     onToggleMarkdown: () => void
 }
 
-export function Toolbar({ editor, onSave, saving, markdownMode, onToggleMarkdown }: ToolbarProps) {
+export function Toolbar({
+    editor,
+    onSave,
+    onPublish,
+    saving,
+    publishing,
+    dirty,
+    hasDraft,
+    markdownMode,
+    onToggleMarkdown,
+}: ToolbarProps) {
     if (!editor) return null
+
+    const canSave = dirty
+    const canPublish = dirty || hasDraft
 
     return (
         <div className="toolbar">
@@ -113,9 +130,20 @@ export function Toolbar({ editor, onSave, saving, markdownMode, onToggleMarkdown
                 </button>
             </div>
 
-            <div className="toolbar-group toolbar-save">
-                <button onClick={onSave} disabled={saving} className="toolbar-save-btn">
+            <div className="toolbar-group toolbar-actions">
+                <button
+                    onClick={onSave}
+                    disabled={!canSave || saving}
+                    className="toolbar-save-btn"
+                >
                     {saving ? "Saving..." : "Save"}
+                </button>
+                <button
+                    onClick={onPublish}
+                    disabled={!canPublish || publishing}
+                    className="toolbar-publish-btn"
+                >
+                    {publishing ? "Publishing..." : "Publish"}
                 </button>
             </div>
         </div>
