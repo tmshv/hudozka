@@ -250,7 +250,7 @@ git commit -m "feat(writer): add save/publish/discard handlers with dirty tracki
 - Create: `modules/hudozka-writer/src/components/DraftBanner.tsx`
 - Create: `modules/hudozka-writer/src/components/DraftBanner.css`
 
-- [ ] **Step 1: Create DraftBanner component**
+- [x] **Step 1: Create DraftBanner component**
 
 `modules/hudozka-writer/src/components/DraftBanner.tsx`:
 
@@ -273,7 +273,7 @@ export function DraftBanner({ onDiscard }: DraftBannerProps) {
 }
 ```
 
-- [ ] **Step 2: Create DraftBanner styles**
+- [x] **Step 2: Create DraftBanner styles**
 
 `modules/hudozka-writer/src/components/DraftBanner.css`:
 
@@ -304,7 +304,7 @@ export function DraftBanner({ onDiscard }: DraftBannerProps) {
 }
 ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add modules/hudozka-writer/src/components/DraftBanner.tsx modules/hudozka-writer/src/components/DraftBanner.css
