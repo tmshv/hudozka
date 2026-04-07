@@ -39,7 +39,7 @@ function CardGridBlockView({ node, editor, getPos }: NodeViewProps) {
     }, [node.attrs.items])
 
     return (
-        <NodeViewWrapper className="node-readonly-block">
+        <NodeViewWrapper className="node-readonly-block" data-drag-handle>
             <BlockActions editor={editor} getPos={getPos} />
             <div className="node-block-label">
                 Card Grid ({items.length})

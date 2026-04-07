@@ -28,7 +28,7 @@ function ImageBlockView({ node, updateAttributes, editor, getPos }: NodeViewProp
     }
 
     return (
-        <NodeViewWrapper className="node-image-block">
+        <NodeViewWrapper className="node-image-block" data-drag-handle>
             <BlockActions editor={editor} getPos={getPos} />
             <div className="node-block-label">Image</div>
             {thumbnail ? (

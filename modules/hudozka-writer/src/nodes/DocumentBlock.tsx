@@ -27,7 +27,7 @@ function DocumentBlockView({ node, updateAttributes, editor, getPos }: NodeViewP
     }
 
     return (
-        <NodeViewWrapper className="node-document-block">
+        <NodeViewWrapper className="node-document-block" data-drag-handle>
             <BlockActions editor={editor} getPos={getPos} />
             <div className="node-block-label">File</div>
             {fileId ? (
