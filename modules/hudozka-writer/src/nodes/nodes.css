@@ -6,13 +6,12 @@
     margin-bottom: 4px;
 }
 
-.node-image-block,
-.node-readonly-block {
-    position: relative;
+.node-image-block > .node-view-content,
+.node-readonly-block > .node-view-content,
+.node-document-block > .node-view-content {
     border: 1px solid #e0e0e0;
     border-radius: 6px;
     padding: 12px;
-    margin: 8px 0;
     background: #fafafa;
 }
 
@@ -66,15 +65,6 @@
     background: white;
     cursor: pointer;
     font-size: 0.85rem;
-}
-
-.node-document-block {
-    position: relative;
-    border: 1px solid #e0e0e0;
-    border-radius: 6px;
-    padding: 12px;
-    margin: 8px 0;
-    background: #fafafa;
 }
 
 .node-document-file {

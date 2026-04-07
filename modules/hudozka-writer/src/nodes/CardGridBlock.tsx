@@ -5,6 +5,7 @@ import { useState, useEffect } from "react"
 import { pb } from "../pb"
 import type { PbPage } from "../types"
 import { BlockActions } from "../components/BlockActions"
+import { BlockInsert } from "../components/BlockInsert"
 
 type ResolvedItem = {
     page: string
@@ -39,23 +40,28 @@ function CardGridBlockView({ node, editor, getPos }: NodeViewProps) {
     }, [node.attrs.items])
 
     return (
-        <NodeViewWrapper className="node-readonly-block" data-drag-handle>
-            <BlockActions editor={editor} getPos={getPos} />
-            <div className="node-block-label">
-                Card Grid ({items.length})
-            </div>
-            {loading ? (
-                <div className="node-block-info">Loading...</div>
-            ) : (
-                <ul className="node-cardgrid-list">
-                    {resolved.map((item) => (
-                        <li key={item.page} className="node-cardgrid-item">
-                            {item.title ?? item.page}
-                        </li>
-                    ))}
-                </ul>
-            )}
-        </NodeViewWrapper>
+        <>
+            <NodeViewWrapper className="node-view-block node-readonly-block">
+                <BlockActions editor={editor} getPos={getPos} />
+                <div className="node-view-content">
+                    <div className="node-block-label">
+                        Card Grid ({items.length})
+                    </div>
+                    {loading ? (
+                        <div className="node-block-info">Loading...</div>
+                    ) : (
+                        <ul className="node-cardgrid-list">
+                            {resolved.map((item) => (
+                                <li key={item.page} className="node-cardgrid-item">
+                                    {item.title ?? item.page}
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
+            </NodeViewWrapper>
+            <BlockInsert editor={editor} getPos={getPos} />
+        </>
     )
 }
 

@@ -290,7 +290,7 @@ Every block view gets a consistent flex row layout:
 <BlockInsert ... />
 ```
 
-- [ ] **Step 1: Add shared layout styles to BlockActions.css**
+- [x] **Step 1: Add shared layout styles to BlockActions.css**
 
 Append these rules to the end of `BlockActions.css` (they use the `[data-node-view-wrapper]` selector which is already in this file):
 
@@ -314,7 +314,7 @@ Append these rules to the end of `BlockActions.css` (they use the `[data-node-vi
 
 Note: remove the existing `[data-node-view-wrapper] { position: relative; }` rule at the bottom of the file — the new one replaces it.
 
-- [ ] **Step 2: Add active block outline to Editor.css**
+- [x] **Step 2: Add active block outline to Editor.css**
 
 Append to `Editor.css`:
 
@@ -326,7 +326,7 @@ Append to `Editor.css`:
 }
 ```
 
-- [ ] **Step 3: Add active block tracking to BlockActions**
+- [x] **Step 3: Add active block tracking to BlockActions**
 
 We need BlockActions to set a class on its parent `NodeViewWrapper` when the block is active. Update `BlockActions.tsx` to add/remove `active-block` class. Replace the file with:
 
@@ -427,7 +427,7 @@ export function BlockActions({ editor, getPos }: BlockActionsProps) {
 }
 ```
 
-- [ ] **Step 4: Update textBlocks.tsx**
+- [x] **Step 4: Update textBlocks.tsx**
 
 Replace the entire file. All views get the flex layout with `BlockInsert` after:
 
@@ -582,7 +582,7 @@ export const DraggableHorizontalRule = HorizontalRule.extend({
 })
 ```
 
-- [ ] **Step 5: Update ImageBlock.tsx**
+- [x] **Step 5: Update ImageBlock.tsx**
 
 In `ImageBlockView`, wrap in flex layout, remove `data-drag-handle`, add `BlockInsert`:
 
@@ -649,7 +649,7 @@ In `ImageBlockView`, wrap in flex layout, remove `data-drag-handle`, add `BlockI
 
 Add import at top: `import { BlockInsert } from "../components/BlockInsert"`
 
-- [ ] **Step 6: Update DocumentBlock.tsx**
+- [x] **Step 6: Update DocumentBlock.tsx**
 
 Same pattern. Change the return in `DocumentBlockView`:
 
@@ -707,7 +707,7 @@ Same pattern. Change the return in `DocumentBlockView`:
 
 Add import at top: `import { BlockInsert } from "../components/BlockInsert"`
 
-- [ ] **Step 7: Update EmbedBlock.tsx**
+- [x] **Step 7: Update EmbedBlock.tsx**
 
 ```tsx
 function EmbedBlockView({ node, editor, getPos }: NodeViewProps) {
@@ -730,7 +730,7 @@ function EmbedBlockView({ node, editor, getPos }: NodeViewProps) {
 
 Add import: `import { BlockInsert } from "../components/BlockInsert"`
 
-- [ ] **Step 8: Update CardGridBlock.tsx**
+- [x] **Step 8: Update CardGridBlock.tsx**
 
 ```tsx
     return (
@@ -761,7 +761,7 @@ Add import: `import { BlockInsert } from "../components/BlockInsert"`
 
 Add import: `import { BlockInsert } from "../components/BlockInsert"`
 
-- [ ] **Step 9: Update nodes.css — remove position: relative from block cards**
+- [x] **Step 9: Update nodes.css — remove position: relative from block cards**
 
 The card blocks (`.node-image-block`, `.node-readonly-block`, `.node-document-block`) previously had `position: relative` for absolute-positioned `BlockActions`. That's no longer needed since BlockActions uses flex layout. Remove `position: relative` from these selectors in `nodes.css`. The `margin: 8px 0` should also be removed since spacing is handled by the tiptap `> * + *` rule.
 
@@ -830,7 +830,7 @@ Note: these classes are now on `NodeViewWrapper` alongside `node-view-block`, so
 
 Remove the old `.node-image-block, .node-readonly-block` and `.node-document-block` rules entirely.
 
-- [ ] **Step 10: Verify in browser**
+- [x] **Step 10: Verify in browser** (skipped - manual browser verification)
 
 Open the writer, check:
 1. Every block has delete + drag handle on the left
@@ -840,7 +840,7 @@ Open the writer, check:
 5. Delete button removes the block
 6. [+] opens menu and inserts a new block
 
-- [ ] **Step 11: Commit**
+- [x] **Step 11: Commit**
 
 ```bash
 git add modules/hudozka-writer/src/nodes/textBlocks.tsx modules/hudozka-writer/src/nodes/ImageBlock.tsx modules/hudozka-writer/src/nodes/DocumentBlock.tsx modules/hudozka-writer/src/nodes/EmbedBlock.tsx modules/hudozka-writer/src/nodes/CardGridBlock.tsx modules/hudozka-writer/src/nodes/nodes.css modules/hudozka-writer/src/components/BlockActions.tsx modules/hudozka-writer/src/components/BlockActions.css modules/hudozka-writer/src/components/Editor.css

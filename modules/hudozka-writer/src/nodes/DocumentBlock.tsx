@@ -6,6 +6,7 @@ import { pb } from "../pb"
 import { FilePicker } from "../components/FilePicker"
 import type { PbFile } from "../types"
 import { BlockActions } from "../components/BlockActions"
+import { BlockInsert } from "../components/BlockInsert"
 
 function DocumentBlockView({ node, updateAttributes, editor, getPos }: NodeViewProps) {
     const { fileId, title } = node.attrs
@@ -27,48 +28,53 @@ function DocumentBlockView({ node, updateAttributes, editor, getPos }: NodeViewP
     }
 
     return (
-        <NodeViewWrapper className="node-document-block" data-drag-handle>
-            <BlockActions editor={editor} getPos={getPos} />
-            <div className="node-block-label">File</div>
-            {fileId ? (
-                <div
-                    className="node-document-file"
-                    onClick={() => setShowPicker(true)}
-                    style={{ cursor: "pointer" }}
-                >
-                    📎 {filename ?? fileId}
+        <>
+            <NodeViewWrapper className="node-view-block node-document-block">
+                <BlockActions editor={editor} getPos={getPos} />
+                <div className="node-view-content">
+                    <div className="node-block-label">File</div>
+                    {fileId ? (
+                        <div
+                            className="node-document-file"
+                            onClick={() => setShowPicker(true)}
+                            style={{ cursor: "pointer" }}
+                        >
+                            📎 {filename ?? fileId}
+                        </div>
+                    ) : (
+                        <div
+                            className="node-document-placeholder"
+                            onClick={() => setShowPicker(true)}
+                            style={{ cursor: "pointer" }}
+                        >
+                            Click to select file
+                        </div>
+                    )}
+                    <div className="node-document-controls">
+                        <input
+                            type="text"
+                            placeholder="Title"
+                            value={title || ""}
+                            onChange={(e) => updateAttributes({ title: e.target.value })}
+                            className="node-document-title"
+                        />
+                        <button
+                            className="node-image-pick-btn"
+                            onClick={() => setShowPicker(true)}
+                        >
+                            Pick
+                        </button>
+                    </div>
+                    {showPicker && (
+                        <FilePicker
+                            onSelect={handleSelect}
+                            onClose={() => setShowPicker(false)}
+                        />
+                    )}
                 </div>
-            ) : (
-                <div
-                    className="node-document-placeholder"
-                    onClick={() => setShowPicker(true)}
-                    style={{ cursor: "pointer" }}
-                >
-                    Click to select file
-                </div>
-            )}
-            <div className="node-document-controls">
-                <input
-                    type="text"
-                    placeholder="Title"
-                    value={title || ""}
-                    onChange={(e) => updateAttributes({ title: e.target.value })}
-                    className="node-document-title"
-                />
-                <button
-                    className="node-image-pick-btn"
-                    onClick={() => setShowPicker(true)}
-                >
-                    Pick
-                </button>
-            </div>
-            {showPicker && (
-                <FilePicker
-                    onSelect={handleSelect}
-                    onClose={() => setShowPicker(false)}
-                />
-            )}
-        </NodeViewWrapper>
+            </NodeViewWrapper>
+            <BlockInsert editor={editor} getPos={getPos} />
+        </>
     )
 }
 

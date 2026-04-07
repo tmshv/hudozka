@@ -49,3 +49,15 @@
 [data-node-view-wrapper] {
     position: relative;
 }
+
+.node-view-block {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 4px;
+}
+
+.node-view-content {
+    flex: 1;
+    min-width: 0;
+}

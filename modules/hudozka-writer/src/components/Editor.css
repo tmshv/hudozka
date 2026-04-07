@@ -80,3 +80,9 @@
 .editor-markdown:focus {
     border-color: #213547;
 }
+
+.editor-content .tiptap [data-node-view-wrapper].active-block > .node-view-content {
+    outline: 2px solid #d0d5dd;
+    outline-offset: 2px;
+    border-radius: 4px;
+}

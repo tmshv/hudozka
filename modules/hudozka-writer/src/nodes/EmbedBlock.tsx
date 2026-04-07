@@ -2,16 +2,22 @@ import { Node, mergeAttributes } from "@tiptap/core"
 import { ReactNodeViewRenderer, NodeViewWrapper } from "@tiptap/react"
 import type { NodeViewProps } from "@tiptap/react"
 import { BlockActions } from "../components/BlockActions"
+import { BlockInsert } from "../components/BlockInsert"
 
 function EmbedBlockView({ node, editor, getPos }: NodeViewProps) {
     return (
-        <NodeViewWrapper className="node-readonly-block" data-drag-handle>
-            <BlockActions editor={editor} getPos={getPos} />
-            <div className="node-block-label">Embed</div>
-            <div className="node-block-info">
-                <code>{node.attrs.src}</code>
-            </div>
-        </NodeViewWrapper>
+        <>
+            <NodeViewWrapper className="node-view-block node-readonly-block">
+                <BlockActions editor={editor} getPos={getPos} />
+                <div className="node-view-content">
+                    <div className="node-block-label">Embed</div>
+                    <div className="node-block-info">
+                        <code>{node.attrs.src}</code>
+                    </div>
+                </div>
+            </NodeViewWrapper>
+            <BlockInsert editor={editor} getPos={getPos} />
+        </>
     )
 }
 
