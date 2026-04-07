@@ -524,7 +524,7 @@ git commit -m "feat(writer): add Publish button and update toolbar layout"
 - Modify: `modules/hudozka-writer/src/App.tsx`
 - Modify: `modules/hudozka-writer/src/App.css`
 
-- [ ] **Step 1: Update App component**
+- [x] **Step 1: Update App component**
 
 Replace the full content of `App.tsx`:
 
@@ -665,7 +665,7 @@ export function App() {
 }
 ```
 
-- [ ] **Step 2: Add published toggle styles to App.css**
+- [x] **Step 2: Add published toggle styles to App.css**
 
 Add to the end of `App.css`:
 
@@ -684,12 +684,12 @@ Add to the end of `App.css`:
 }
 ```
 
-- [ ] **Step 3: Verify build**
+- [x] **Step 3: Verify build**
 
 Run: `cd modules/hudozka-writer && npx tsc --noEmit`
 Expected: no errors.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add modules/hudozka-writer/src/App.tsx modules/hudozka-writer/src/App.css

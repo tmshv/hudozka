@@ -57,12 +57,26 @@ export function App() {
                 cover: page.cover,
                 doc: page.doc,
                 tags: page.tags,
-                draft: true,
+                published: false,
+                draft: null,
             })
             window.location.search = `?page=${record.slug}`
         } catch (err) {
             console.error("Duplicate failed:", err)
             alert("Duplicate failed. Check console.")
+        }
+    }
+
+    async function handleTogglePublished() {
+        if (!page) return
+        try {
+            const updated = await pb.collection("pages").update<PbPage>(page.id, {
+                published: !page.published,
+            })
+            setPage(updated)
+        } catch (err) {
+            console.error("Toggle published failed:", err)
+            alert("Toggle published failed. Check console.")
         }
     }
 
@@ -101,6 +115,14 @@ export function App() {
             <header className="app-header">
                 <span className="app-title">{page.title}</span>
                 <span className="app-slug">/{page.slug}</span>
+                <label className="app-published-toggle">
+                    <input
+                        type="checkbox"
+                        checked={page.published}
+                        onChange={handleTogglePublished}
+                    />
+                    Published
+                </label>
                 <button onClick={handleDuplicate}>Duplicate</button>
                 <button onClick={handleLogout}>Logout</button>
             </header>

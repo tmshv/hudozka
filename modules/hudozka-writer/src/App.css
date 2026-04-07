@@ -53,3 +53,16 @@
 .app-error {
     color: #c00;
 }
+
+.app-published-toggle {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.app-published-toggle input {
+    cursor: pointer;
+}
