@@ -255,7 +255,7 @@ git commit -m "feat(writer): add BlockActions component for inline block menus"
 
 All text block types get thin NodeViews: a wrapper with `BlockActions` + `NodeViewContent` using the appropriate semantic HTML tag. Each extends its StarterKit node with `draggable: true`.
 
-- [ ] **Step 1: Create `src/nodes/textBlocks.tsx`**
+- [x] **Step 1: Create `src/nodes/textBlocks.tsx`**
 
 ```tsx
 import { ReactNodeViewRenderer, NodeViewWrapper, NodeViewContent } from "@tiptap/react"
@@ -390,7 +390,7 @@ export const DraggableHorizontalRule = HorizontalRule.extend({
 })
 ```
 
-- [ ] **Step 2: Export from `src/nodes/index.ts`**
+- [x] **Step 2: Export from `src/nodes/index.ts`**
 
 Add to the existing exports:
 
@@ -406,7 +406,7 @@ export {
 } from "./textBlocks"
 ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add src/nodes/textBlocks.tsx src/nodes/index.ts
