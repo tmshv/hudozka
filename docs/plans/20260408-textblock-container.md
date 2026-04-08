@@ -99,7 +99,7 @@ git commit -m "feat(writer): add TextBlock container node definition"
 - Modify: `modules/hudozka-writer/src/nodes/index.ts`
 - Delete: `modules/hudozka-writer/src/nodes/textBlocks.tsx`
 
-- [ ] **Step 1: Update WriterDocument content spec**
+- [x] **Step 1: Update WriterDocument content spec**
 
 In `WriterDocument.ts`, change the content from `"block+"` to an explicit list:
 
@@ -115,11 +115,11 @@ export const WriterDocument = Node.create({
 
 This prevents raw paragraphs/headings at the document top level — they must live inside a textBlock.
 
-- [ ] **Step 2: Delete textBlocks.tsx**
+- [x] **Step 2: Delete textBlocks.tsx**
 
 Delete the file `modules/hudozka-writer/src/nodes/textBlocks.tsx` entirely. All `DraggableXxx` exports are no longer needed.
 
-- [ ] **Step 3: Update index.ts exports**
+- [x] **Step 3: Update index.ts exports**
 
 Replace the DraggableXxx exports with the new TextBlock:
 
@@ -132,7 +132,7 @@ export { EmbedBlock } from "./EmbedBlock"
 export { CardGridBlock } from "./CardGridBlock"
 ```
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add -u modules/hudozka-writer/src/nodes/
