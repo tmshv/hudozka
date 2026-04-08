@@ -5,9 +5,10 @@ import "./BlockActions.css"
 export type BlockActionsProps = {
     editor: Editor
     getPos: () => number | undefined
+    showSplit?: boolean
 }
 
-export function BlockActions({ editor, getPos }: BlockActionsProps) {
+export function BlockActions({ editor, getPos, showSplit }: BlockActionsProps) {
     const getWrapper = useCallback(() => {
         const pos = getPos()
         if (typeof pos !== "number") return null
@@ -72,6 +73,49 @@ export function BlockActions({ editor, getPos }: BlockActionsProps) {
         }).run()
     }
 
+    const handleSplit = (e: React.MouseEvent) => {
+        e.preventDefault()
+        const pos = getPos()
+        if (typeof pos !== "number") return
+        const node = editor.state.doc.nodeAt(pos)
+        if (!node || node.childCount < 2) return
+
+        const { from } = editor.state.selection
+        let childOffset = pos + 1
+        let splitAfter = -1
+
+        for (let i = 0; i < node.childCount; i++) {
+            const child = node.child(i)
+            const childEnd = childOffset + child.nodeSize
+            if (from >= childOffset && from < childEnd) {
+                splitAfter = i
+                break
+            }
+            childOffset = childEnd
+        }
+
+        if (splitAfter < 0 || splitAfter >= node.childCount - 1) return
+
+        const firstChildren = []
+        const secondChildren = []
+        for (let i = 0; i < node.childCount; i++) {
+            if (i <= splitAfter) {
+                firstChildren.push(node.child(i))
+            } else {
+                secondChildren.push(node.child(i))
+            }
+        }
+
+        const { schema } = editor.state
+        const textBlockType = schema.nodes.textBlock
+        const first = textBlockType.create(null, firstChildren)
+        const second = textBlockType.create(null, secondChildren)
+
+        const tr = editor.state.tr
+        tr.replaceWith(pos, pos + node.nodeSize, [first, second])
+        editor.view.dispatch(tr)
+    }
+
     return (
         <div className="block-actions" contentEditable={false}>
             <button
@@ -81,6 +125,15 @@ export function BlockActions({ editor, getPos }: BlockActionsProps) {
             >
                 &times;
             </button>
+            {showSplit && (
+                <button
+                    className="block-action-btn block-action-split"
+                    title="Split block"
+                    onClick={handleSplit}
+                >
+                    &#x2702;
+                </button>
+            )}
             <div
                 className="block-action-btn block-drag-handle"
                 data-drag-handle

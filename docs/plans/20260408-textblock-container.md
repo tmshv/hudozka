@@ -198,7 +198,7 @@ git commit -m "feat(writer): update Editor extensions for TextBlock container"
 - Modify: `modules/hudozka-writer/src/components/BlockActions.tsx`
 - Modify: `modules/hudozka-writer/src/components/BlockActions.css`
 
-- [ ] **Step 1: Add showSplit prop and split handler**
+- [x] **Step 1: Add showSplit prop and split handler**
 
 Update `BlockActionsProps`:
 
@@ -295,7 +295,7 @@ return (
 )
 ```
 
-- [ ] **Step 2: Add CSS for split button**
+- [x] **Step 2: Add CSS for split button**
 
 Add to `BlockActions.css`:
 
@@ -307,7 +307,7 @@ Add to `BlockActions.css`:
 }
 ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add modules/hudozka-writer/src/components/BlockActions.tsx modules/hudozka-writer/src/components/BlockActions.css

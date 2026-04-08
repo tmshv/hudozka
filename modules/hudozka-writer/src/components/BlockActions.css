@@ -38,6 +38,12 @@
     background: #fff0f0;
 }
 
+.block-action-split:hover {
+    border-color: #2563eb;
+    color: #2563eb;
+    background: #eff6ff;
+}
+
 .block-drag-handle {
     cursor: grab;
 }
