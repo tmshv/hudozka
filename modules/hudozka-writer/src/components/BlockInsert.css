@@ -1,15 +1,13 @@
 .block-insert {
     position: relative;
-    height: 0;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding-left: 28px;
+    padding: 8px 0 8px 28px;
 }
 
 .block-insert-btn {
     position: relative;
-    top: -1px;
     width: 24px;
     height: 24px;
     border-radius: 50%;
