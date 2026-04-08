@@ -9,7 +9,7 @@ type BlockType = {
 }
 
 const BLOCK_TYPES: BlockType[] = [
-    { label: "Text", type: "paragraph" },
+    { label: "Text", type: "textBlock" },
     { label: "Image", type: "imageBlock", attrs: { id: "", imageId: "", wide: false, caption: "" } },
     { label: "File", type: "documentBlock", attrs: { id: "", fileId: "", title: "" } },
     { label: "Embed", type: "embedBlock", attrs: { id: "", src: "" } },
@@ -30,10 +30,10 @@ export function BlockMenu({ editor, position, onClose, filter }: BlockMenuProps)
 
     function handleInsert(block: BlockType) {
         const id = generateBlockId()
-        if (block.type === "paragraph") {
+        if (block.type === "textBlock") {
             editor.chain().focus().insertContentAt(position, {
-                type: "paragraph",
-                content: [],
+                type: "textBlock",
+                content: [{ type: "paragraph" }],
             }).run()
         } else {
             editor.chain().focus().insertContentAt(position, {

@@ -432,7 +432,7 @@ git commit -m "feat(writer): update serialization for TextBlock container"
 - Modify: `modules/hudozka-writer/src/components/BlockMenu.tsx`
 - Modify: `modules/hudozka-writer/src/extensions/SlashCommands.tsx`
 
-- [ ] **Step 1: Update BlockMenu — "Text" inserts a textBlock**
+- [x] **Step 1: Update BlockMenu — "Text" inserts a textBlock**
 
 In `BlockMenu.tsx`, change the "Text" entry in `BLOCK_TYPES`:
 
@@ -466,7 +466,7 @@ function handleInsert(block: BlockType) {
 }
 ```
 
-- [ ] **Step 2: Update SlashCommands — handle insertion inside textBlock**
+- [x] **Step 2: Update SlashCommands — handle insertion inside textBlock**
 
 In `SlashCommands.tsx`, update the `ITEMS` array:
 
@@ -587,7 +587,7 @@ function findTextBlockDepth($pos: ResolvedPos): number | null {
 }
 ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add modules/hudozka-writer/src/components/BlockMenu.tsx modules/hudozka-writer/src/extensions/SlashCommands.tsx
