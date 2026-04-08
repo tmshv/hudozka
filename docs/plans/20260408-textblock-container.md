@@ -147,7 +147,7 @@ git commit -m "feat(writer): replace DraggableXxx wrappers with TextBlock contai
 **Files:**
 - Modify: `modules/hudozka-writer/src/components/Editor.tsx`
 
-- [ ] **Step 1: Update imports and extensions list**
+- [x] **Step 1: Update imports and extensions list**
 
 Replace the imports at the top of Editor.tsx. Remove the DraggableXxx imports:
 
@@ -183,7 +183,7 @@ extensions: [
 
 Key change: StarterKit no longer disables paragraph, heading, bulletList, etc. — those are now standard StarterKit nodes rendered natively inside TextBlock. Only `document` is still disabled (replaced by WriterDocument).
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 ```bash
 git add modules/hudozka-writer/src/components/Editor.tsx

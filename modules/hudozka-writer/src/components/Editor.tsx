@@ -9,17 +9,11 @@ import { Toolbar } from "./Toolbar"
 import { DraftBanner } from "./DraftBanner"
 import {
     WriterDocument,
+    TextBlock,
     ImageBlock,
     DocumentBlock,
     EmbedBlock,
     CardGridBlock,
-    DraggableParagraph,
-    DraggableHeading,
-    DraggableBulletList,
-    DraggableOrderedList,
-    DraggableBlockquote,
-    DraggableCodeBlock,
-    DraggableHorizontalRule,
 } from "../nodes"
 import { SlashCommands } from "../extensions/SlashCommands"
 import "../nodes/nodes.css"
@@ -58,21 +52,8 @@ export function Editor({ page }: EditorProps) {
             WriterDocument,
             StarterKit.configure({
                 document: false,
-                paragraph: false,
-                heading: false,
-                bulletList: false,
-                orderedList: false,
-                blockquote: false,
-                codeBlock: false,
-                horizontalRule: false,
             }),
-            DraggableParagraph,
-            DraggableHeading,
-            DraggableBulletList,
-            DraggableOrderedList,
-            DraggableBlockquote,
-            DraggableCodeBlock,
-            DraggableHorizontalRule,
+            TextBlock,
             Markdown,
             Link.configure({ openOnClick: false }),
             ImageBlock,
