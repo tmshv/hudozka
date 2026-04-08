@@ -1,5 +1,6 @@
 import { useEffect, useCallback } from "react"
 import type { Editor } from "@tiptap/react"
+import { Fragment } from "@tiptap/pm/model"
 import "./BlockActions.css"
 
 export type BlockActionsProps = {
@@ -112,7 +113,7 @@ export function BlockActions({ editor, getPos, showSplit }: BlockActionsProps) {
         const second = textBlockType.create(null, secondChildren)
 
         const tr = editor.state.tr
-        tr.replaceWith(pos, pos + node.nodeSize, [first, second])
+        tr.replaceWith(pos, pos + node.nodeSize, Fragment.from([first, second]))
         editor.view.dispatch(tr)
     }
 

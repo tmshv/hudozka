@@ -1,6 +1,7 @@
 import { Extension } from "@tiptap/core"
 import { PluginKey } from "@tiptap/pm/state"
-import type { ResolvedPos } from "@tiptap/pm/model"
+import { Fragment } from "@tiptap/pm/model"
+import type { ResolvedPos, Node as PmNode } from "@tiptap/pm/model"
 import Suggestion from "@tiptap/suggestion"
 import type { SuggestionOptions, SuggestionProps, SuggestionKeyDownProps } from "@tiptap/suggestion"
 import { createRoot } from "react-dom/client"
@@ -203,7 +204,7 @@ export const SlashCommands = Extension.create({
 
                     const { schema } = editor.state
                     const textBlockType = schema.nodes.textBlock
-                    const fragments: Parameters<typeof editor.state.tr.replaceWith>[2][] = []
+                    const fragments: PmNode[] = []
 
                     // Build first textBlock (children 0..splitAfter) — skip if empty
                     if (splitAfter >= 0) {
@@ -236,7 +237,7 @@ export const SlashCommands = Extension.create({
                     }
 
                     const tr = editor.state.tr
-                    tr.replaceWith(textBlockPos, textBlockPos + textBlockNode.nodeSize, fragments)
+                    tr.replaceWith(textBlockPos, textBlockPos + textBlockNode.nodeSize, Fragment.from(fragments))
                     editor.view.dispatch(tr)
                 },
             } satisfies Partial<SuggestionOptions<SlashCommandItem, SlashCommandItem>>,
