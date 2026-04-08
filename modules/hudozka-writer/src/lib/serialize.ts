@@ -13,10 +13,13 @@ import { getMarkdownManager } from "./markdown"
 
 // -- DocV1 -> Tiptap JSON --
 
-function textBlockToTiptap(block: DocV1BlockText): JSONContent[] {
+function textBlockToTiptap(block: DocV1BlockText): JSONContent {
     const manager = getMarkdownManager()
     const parsed = manager.parse(block.text)
-    return parsed.content ?? []
+    return {
+        type: "textBlock",
+        content: parsed.content ?? [],
+    }
 }
 
 function imageBlockToTiptap(block: DocV1BlockImage): JSONContent {
@@ -68,7 +71,7 @@ export function docToTiptap(doc: DocV1): JSONContent {
     for (const block of doc.blocks) {
         switch (block.type) {
         case "text":
-            content.push(...textBlockToTiptap(block))
+            content.push(textBlockToTiptap(block))
             break
         case "image":
             content.push(imageBlockToTiptap(block))
@@ -93,17 +96,6 @@ export function docToTiptap(doc: DocV1): JSONContent {
 
 // -- Tiptap JSON -> DocV1 --
 
-const CUSTOM_BLOCK_TYPES = new Set([
-    "imageBlock",
-    "documentBlock",
-    "embedBlock",
-    "cardGridBlock",
-])
-
-function isCustomBlockNode(node: JSONContent): boolean {
-    return CUSTOM_BLOCK_TYPES.has(node.type ?? "")
-}
-
 function textNodesToMarkdown(nodes: JSONContent[]): string {
     const manager = getMarkdownManager()
     const doc: JSONContent = { type: "doc", content: nodes }
@@ -112,68 +104,65 @@ function textNodesToMarkdown(nodes: JSONContent[]): string {
 
 export function tiptapToDoc(content: JSONContent[]): DocV1 {
     const blocks: DocV1Block[] = []
-    let textBuffer: JSONContent[] = []
-
-    function flushTextBuffer() {
-        if (textBuffer.length === 0) return
-        const text = textNodesToMarkdown(textBuffer)
-        if (text.trim()) {
-            blocks.push({
-                type: "text",
-                id: generateBlockId(),
-                text,
-            })
-        }
-        textBuffer = []
-    }
 
     for (const node of content) {
-        if (isCustomBlockNode(node)) {
-            flushTextBuffer()
-            const attrs = node.attrs ?? {}
-
-            switch (node.type) {
-            case "imageBlock":
+        switch (node.type) {
+        case "textBlock": {
+            const text = textNodesToMarkdown(node.content ?? [])
+            if (text.trim()) {
                 blocks.push({
-                    type: "image",
-                    id: attrs.id ?? generateBlockId(),
-                    image: attrs.imageId ?? "",
-                    wide: attrs.wide ?? false,
-                    caption: attrs.caption ?? "",
+                    type: "text",
+                    id: generateBlockId(),
+                    text,
                 })
-                break
-
-            case "documentBlock":
-                blocks.push({
-                    type: "document",
-                    id: attrs.id ?? generateBlockId(),
-                    file: attrs.fileId ?? "",
-                    title: attrs.title ?? "",
-                })
-                break
-
-            case "embedBlock":
-                blocks.push({
-                    type: "embed",
-                    id: attrs.id ?? generateBlockId(),
-                    src: attrs.src ?? "",
-                })
-                break
-
-            case "cardGridBlock":
-                blocks.push({
-                    type: "card-grid",
-                    id: attrs.id ?? generateBlockId(),
-                    items: JSON.parse(attrs.items ?? "[]"),
-                })
-                break
             }
-        } else {
-            textBuffer.push(node)
+            break
+        }
+
+        case "imageBlock": {
+            const attrs = node.attrs ?? {}
+            blocks.push({
+                type: "image",
+                id: attrs.id ?? generateBlockId(),
+                image: attrs.imageId ?? "",
+                wide: attrs.wide ?? false,
+                caption: attrs.caption ?? "",
+            })
+            break
+        }
+
+        case "documentBlock": {
+            const attrs = node.attrs ?? {}
+            blocks.push({
+                type: "document",
+                id: attrs.id ?? generateBlockId(),
+                file: attrs.fileId ?? "",
+                title: attrs.title ?? "",
+            })
+            break
+        }
+
+        case "embedBlock": {
+            const attrs = node.attrs ?? {}
+            blocks.push({
+                type: "embed",
+                id: attrs.id ?? generateBlockId(),
+                src: attrs.src ?? "",
+            })
+            break
+        }
+
+        case "cardGridBlock": {
+            const attrs = node.attrs ?? {}
+            blocks.push({
+                type: "card-grid",
+                id: attrs.id ?? generateBlockId(),
+                items: JSON.parse(attrs.items ?? "[]"),
+            })
+            break
+        }
         }
     }
-
-    flushTextBuffer()
 
     return { version: 1, blocks }
 }

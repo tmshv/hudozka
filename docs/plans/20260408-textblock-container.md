@@ -321,7 +321,7 @@ git commit -m "feat(writer): add split button to BlockActions for text blocks"
 **Files:**
 - Modify: `modules/hudozka-writer/src/lib/serialize.ts`
 
-- [ ] **Step 1: Update docToTiptap — wrap text in textBlock**
+- [x] **Step 1: Update docToTiptap — wrap text in textBlock**
 
 Change `textBlockToTiptap` to return a single textBlock container wrapping the parsed content:
 
@@ -344,7 +344,7 @@ case "text":
     break
 ```
 
-- [ ] **Step 2: Update tiptapToDoc — handle textBlock container**
+- [x] **Step 2: Update tiptapToDoc — handle textBlock container**
 
 Replace the buffer-based approach. The new logic iterates top-level nodes and handles `textBlock` directly:
 
@@ -417,7 +417,7 @@ export function tiptapToDoc(content: JSONContent[]): DocV1 {
 
 Remove the `isCustomBlockNode` function and `CUSTOM_BLOCK_TYPES` set — no longer needed.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add modules/hudozka-writer/src/lib/serialize.ts
