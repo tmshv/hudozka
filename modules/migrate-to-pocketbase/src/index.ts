@@ -298,7 +298,8 @@ async function main() {
                 excerpt: p.excerpt ?? "",
                 doc,
                 tags: tagIds,
-                draft: false,
+                draft: null,
+                published: true,
             }
             if (p.date) data.date = p.date
             if (coverId) data.cover = coverId
