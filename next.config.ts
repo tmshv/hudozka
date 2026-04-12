@@ -5,7 +5,7 @@ const config: NextConfig = {
     trailingSlash: false,
     images: {
         remotePatterns: [
-            { hostname: "hudozkacdn.tmshv.com" },
+            { hostname: "hudozka.shlisselburg.org" },
             { hostname: "images.weserv.nl" },
             { hostname: "127.0.0.1" },
         ],
