@@ -23,8 +23,8 @@ dist
 tsconfig.tsbuildinfo
 .env
 
-pb_data/*.db*
-pb_data/storage
+pb/pb_data/*.db*
+pb/pb_data/storage
 
 # ralphex progress logs
 .ralphex/progress/
