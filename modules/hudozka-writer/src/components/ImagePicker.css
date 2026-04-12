@@ -1,0 +1,127 @@
+.picker-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.picker {
+    background: white;
+    border-radius: 8px;
+    width: 600px;
+    max-width: 90vw;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.picker-header {
+    display: flex;
+    gap: 4px;
+    padding: 8px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.picker-header button {
+    padding: 4px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+    cursor: pointer;
+}
+
+.picker-header button.active {
+    background: #213547;
+    color: white;
+    border-color: #213547;
+}
+
+.picker-close {
+    margin-left: auto !important;
+    font-size: 1.2rem;
+}
+
+.picker-browse {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px;
+}
+
+.picker-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 8px;
+}
+
+.picker-thumb {
+    border: 2px solid transparent;
+    border-radius: 4px;
+    padding: 0;
+    background: none;
+    cursor: pointer;
+    overflow: hidden;
+    aspect-ratio: 1;
+}
+
+.picker-thumb:hover {
+    border-color: #213547;
+}
+
+.picker-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.picker-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 8px;
+}
+
+.picker-pagination button {
+    padding: 4px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+    cursor: pointer;
+}
+
+.picker-pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.picker-loading {
+    text-align: center;
+    padding: 40px;
+    color: #888;
+}
+
+.picker-upload {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px;
+    align-items: flex-start;
+}
+
+.picker-upload button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    background: #213547;
+    color: white;
+    cursor: pointer;
+}
+
+.picker-upload button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}

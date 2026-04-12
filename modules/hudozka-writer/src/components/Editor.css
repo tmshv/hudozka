@@ -1,0 +1,88 @@
+.editor {
+    width: 100%;
+}
+
+.editor-content {
+    position: relative;
+}
+
+.editor-content .tiptap {
+    outline: none;
+    min-height: 400px;
+}
+
+.editor-content .tiptap > * + * {
+    margin-top: 0.75em;
+}
+
+.editor-content .tiptap h1 {
+    font-size: 2rem;
+}
+
+.editor-content .tiptap h2 {
+    font-size: 1.5rem;
+}
+
+.editor-content .tiptap h3 {
+    font-size: 1.25rem;
+}
+
+.editor-content .tiptap blockquote {
+    border-left: 3px solid #e0e0e0;
+    padding-left: 1rem;
+    color: #666;
+}
+
+.editor-content .tiptap pre {
+    background: #f5f5f5;
+    border-radius: 4px;
+    padding: 12px;
+    font-family: monospace;
+}
+
+.editor-content .tiptap code {
+    background: #f0f0f0;
+    border-radius: 2px;
+    padding: 0.1em 0.3em;
+    font-size: 0.9em;
+}
+
+.editor-content .tiptap hr {
+    border: none;
+    border-top: 1px solid #e0e0e0;
+    margin: 1.5em 0;
+}
+
+.editor-content .tiptap a {
+    color: #2563eb;
+    text-decoration: underline;
+}
+
+.editor-content .tiptap ul,
+.editor-content .tiptap ol {
+    padding-left: 1.5em;
+}
+
+.editor-markdown {
+    width: 100%;
+    min-height: 400px;
+    padding: 16px;
+    font-family: monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    resize: vertical;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.editor-markdown:focus {
+    border-color: #213547;
+}
+
+.editor-content .tiptap [data-node-view-wrapper].active-block > .node-view-content {
+    outline: 2px solid #d0d5dd;
+    outline-offset: 2px;
+    border-radius: 4px;
+}

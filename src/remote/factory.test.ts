@@ -1,29 +1,32 @@
 import { describe, it, expect } from "vitest"
 import { createFeedPages } from "./factory"
-import type { StrapiPage, StrapiTag } from "./types"
+import type { PbPage } from "./types"
 
-function stubPage(overrides: Partial<StrapiPage> = {}): StrapiPage {
+function stubPage(overrides: Partial<PbPage> = {}): PbPage {
     return {
-        id: 1,
+        id: "abc123",
+        collectionId: "pbc_1125843985",
+        collectionName: "pages",
+        created: "2026-01-01T00:00:00.000Z",
+        updated: "2026-01-01T00:00:00.000Z",
         title: "Test",
-        excerpt: "Excerpt",
         slug: "/test",
+        excerpt: "Excerpt",
         date: "2024-01-15",
-        published_at: "",
-        created_at: "",
-        updated_at: "",
-        content: [],
-        tags: [] as StrapiTag[],
+        cover: "",
+        doc: { version: 1, blocks: [] },
+        tags: [],
+        draft: false,
         ...overrides,
     }
 }
 
 describe("createFeedPages", () => {
-    it("should map strapi pages to feed pages", () => {
-        const pages = [stubPage({ id: 42, title: "Hello", slug: "/hello", date: "2024-03-01", excerpt: "Summary" })]
+    it("should map PB pages to feed pages", () => {
+        const pages = [stubPage({ id: "x1", title: "Hello", slug: "/hello", date: "2024-03-01", excerpt: "Summary" })]
         const result = createFeedPages(pages)
         expect(result).toEqual([{
-            id: "42",
+            id: "x1",
             title: "Hello",
             url: "/hello",
             date: "2024-03-01",
@@ -33,20 +36,15 @@ describe("createFeedPages", () => {
 
     it("should filter out pages without date", () => {
         const pages = [
-            stubPage({ id: 1, date: "2024-01-01" }),
-            stubPage({ id: 2, date: null }),
+            stubPage({ id: "a", date: "2024-01-01" }),
+            stubPage({ id: "b", date: "" }),
         ]
         const result = createFeedPages(pages)
         expect(result).toHaveLength(1)
-        expect(result[0].id).toBe("1")
+        expect(result[0].id).toBe("a")
     })
 
     it("should return empty array for empty input", () => {
         expect(createFeedPages([])).toEqual([])
-    })
-
-    it("should convert numeric id to string", () => {
-        const result = createFeedPages([stubPage({ id: 99 })])
-        expect(result[0].id).toBe("99")
     })
 })

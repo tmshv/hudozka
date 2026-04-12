@@ -7,6 +7,7 @@ const config: NextConfig = {
         remotePatterns: [
             { hostname: "hudozkacdn.tmshv.com" },
             { hostname: "images.weserv.nl" },
+            { hostname: "127.0.0.1" },
         ],
     },
 }

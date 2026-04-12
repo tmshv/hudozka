@@ -1,0 +1,24 @@
+.draft-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: #fff8e1;
+    border: 1px solid #ffe082;
+    border-radius: 4px;
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+}
+
+.draft-banner-discard {
+    padding: 4px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: white;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.draft-banner-discard:hover {
+    background: #f0f0f0;
+}

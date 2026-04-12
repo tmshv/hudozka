@@ -9,7 +9,7 @@ export type BreadcrumbPart = {
 }
 
 export type PageCardDto = {
-    id: number
+    id: string
     url: string
     title: string
     featured: boolean
@@ -79,7 +79,7 @@ export type Meta = {
 
 
 export type Tag = {
-    id: number
+    id: string
     name: string
     slug: string
     href: string
