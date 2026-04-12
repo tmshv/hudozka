@@ -2,9 +2,7 @@
 
 import s from "./app.module.css"
 
-import { useContext } from "react"
 import { Wrapper } from "../Wrapper"
-import { MenuContext } from "@/context/MenuContext"
 import { Footer } from "../Footer"
 import { Content } from "../Content"
 import { Breadcrumbs } from "../Breadcrumbs"
@@ -42,7 +40,6 @@ export function App({ showAuthor = false, ...props }: AppProps) {
     const hideBreadcrumbs = useMobile()
     const accessibility = useAccessibility()
     const pathname = usePathname()
-    const menu = useContext(MenuContext)
 
     return (
         <Wrapper

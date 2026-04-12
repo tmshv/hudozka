@@ -3,7 +3,7 @@ import { notFound } from "next/navigation"
 import { App } from "@/components/App"
 import { PageContent } from "@/components/PageContent"
 import { MetaBuilder, buildMetadata } from "@/lib/meta"
-import { getMenu, getPageBySlug, getUrls } from "@/remote/api"
+import { getPageBySlug, getUrls } from "@/remote/api"
 import { tail } from "@/lib/array"
 
 export const revalidate = 30

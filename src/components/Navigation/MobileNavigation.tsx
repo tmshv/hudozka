@@ -3,8 +3,7 @@
 import s from "./nav.module.css"
 
 import { Menu } from "../Menu"
-import { useCallback, useContext, useEffect, useRef } from "react"
-import { MenuContext } from "@/context/MenuContext"
+import { useCallback, useEffect, useRef } from "react"
 import { Box } from "@/ui/Box"
 import { Spacer } from "../Spacer"
 import HudozkaLogo from "../HudozkaLogo"
@@ -12,6 +11,7 @@ import { HudozkaTitle } from "../HudozkaTitle"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { HiOutlineMenuAlt4, HiOutlineX } from "react-icons/hi"
+import { menu } from "@/const"
 
 export type MobileNavigationProps = {
     className?: string
@@ -19,7 +19,6 @@ export type MobileNavigationProps = {
 }
 
 export function MobileNavigation({ className, style }: MobileNavigationProps) {
-    const menu = useContext(MenuContext)
     const detailsRef = useRef<HTMLDetailsElement>(null)
     const pathname = usePathname()
 

@@ -1,11 +1,10 @@
 import { Menu } from "../Menu"
-import { useContext } from "react"
-import { MenuContext } from "@/context/MenuContext"
 import { Box } from "@/ui/Box"
 import HudozkaLogo from "../HudozkaLogo"
 import Link from "next/link"
 import { AccessibilityButton } from "../AccessibilityButton"
 import { Spacer } from "../Spacer"
+import { menu } from "@/const"
 
 export type DesktopNavigationProps = {
     className?: string
@@ -13,8 +12,6 @@ export type DesktopNavigationProps = {
 }
 
 export function DesktopNavigation({ style, className }: DesktopNavigationProps) {
-    const menu = useContext(MenuContext)
-
     return (
         <Box wrap className={className} gap={"var(--size-s)"} style={style}>
             <Link href="/">
@@ -30,4 +27,3 @@ export function DesktopNavigation({ style, className }: DesktopNavigationProps) 
         </Box>
     )
 }
-

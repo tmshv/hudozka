@@ -142,29 +142,6 @@ export async function getHomeCards(): Promise<PageCardDto[]> {
     }
 }
 
-export async function getMenu(): Promise<MenuItem[]> {
-    try {
-        const kv = await pb.collection("kv").getFirstListItem<{ data: PbMenuData }>(
-            "key=\"menu\"",
-        )
-        const data = kv.data
-        if (!data.items || data.items.length === 0) {
-            return [{
-                href: "/",
-                name: data.homeLabel,
-            }]
-        }
-
-        const pageIds = data.items.map(i => i.page)
-        const pages = await fetchPagesByIds(pageIds)
-
-        return createMenu(data, pages)
-    } catch (error) {
-        console.error(`Failed to fetch menu: ${error}`)
-        return []
-    }
-}
-
 export async function getRecentPages(limit: number = 30): Promise<FeedPage[]> {
     try {
         const result = await pb.collection("pages").getList<PbPage>(1, limit, {

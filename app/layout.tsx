@@ -7,9 +7,7 @@ import "src/style/kazimir/video.css"
 import type { Metadata, Viewport } from "next"
 import Script from "next/script"
 import { Roboto } from "next/font/google"
-import { Providers } from "@/components/Providers"
 import { YMetrika } from "@/components/YMetrika"
-import { getMenu } from "@/remote/api"
 
 const roboto = Roboto({
     weight: ["300", "900"],
@@ -61,8 +59,6 @@ export const viewport: Viewport = {
 export const revalidate = 30
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-    const menu = await getMenu()
-
     return (
         <html lang="ru" className={roboto.className}>
             <head>
@@ -71,9 +67,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                 )}
             </head>
             <body>
-                <Providers menu={menu}>
-                    {children}
-                </Providers>
+                {children}
                 <Script src="https://culturaltracking.ru/static/js/spxl.js?pixelId=27154" data-pixel-id="27154" />
             </body>
         </html>
