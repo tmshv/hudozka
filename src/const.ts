@@ -9,10 +9,6 @@ export const menu: MenuItem[] = [
         href: "/",
     },
     {
-        name: "Предметы",
-        href: "/cources",
-    },
-    {
         name: "Коллектив",
         href: "/collective",
     },
