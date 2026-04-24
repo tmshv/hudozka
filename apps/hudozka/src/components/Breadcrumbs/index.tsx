@@ -37,6 +37,6 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = props => {
                     </li>
                 )
             })}
-        </nav >
+        </nav>
     )
 }
