@@ -59,7 +59,7 @@ jobs:
               run: npm ci
 
             - name: Type check
-              run: npx tsc --noEmit
+              run: npx tsc --noEmit -p apps/hudozka/tsconfig.json
 
     build:
         name: Build

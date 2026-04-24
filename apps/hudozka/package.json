@@ -1,0 +1,43 @@
+{
+    "name": "hudozka",
+    "private": true,
+    "version": "7.0.0",
+    "type": "module",
+    "description": "",
+    "scripts": {
+        "start": "next start",
+        "dev": "next dev --turbo",
+        "build": "next build",
+        "lint": "eslint .",
+        "format": "eslint --fix .",
+        "test": "vitest run"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tmshv/hudozka"
+    },
+    "author": "Roman Timashev",
+    "license": "ISC",
+    "dependencies": {
+        "@hudozka/hooks": "*",
+        "@hudozka/text": "*",
+        "@hudozka/ui": "*",
+        "@hudozka/utils": "*",
+        "@radix-ui/react-navigation-menu": "^1.2.0",
+        "@radix-ui/react-tooltip": "^1.2.0",
+        "classnames": "^2.5.0",
+        "dangerously-set-html-content": "^1.1.0",
+        "next": "^16.2.0",
+        "pocketbase": "^0.26.0",
+        "react": "^19.2.0",
+        "react-dom": "^19.2.0",
+        "react-icons": "^5.5.0",
+        "sharp": "^0.34.0",
+        "valtio": "^2.3.0"
+    },
+    "overrides": {
+        "dangerously-set-html-content": {
+            "react": "$react"
+        }
+    }
+}

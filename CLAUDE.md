@@ -8,11 +8,18 @@ Website for the Art School of Shlisselburg ([art.shlisselburg.org](https://art.s
 
 ## Commands
 
+From repo root (delegates to `apps/hudozka`):
+
 - `npm run dev` — dev server with Turbo (`next dev --turbo`)
 - `npm run build` — production build
-- `npm run lint` — ESLint checks
+- `npm run lint` — ESLint across the whole monorepo
 - `npm run format` — auto-fix lint issues
-- `npm test` — run unit tests (Vitest, non-watch mode)
+- `npm test` — run unit tests (Vitest) across every workspace
+
+Per-app:
+
+- `npm run dev -w apps/hudozka-writer` — writer UI (Vite)
+- `npm run migrate -w apps/migrate-to-pocketbase` — one-off migration script
 
 Node 24 required (see `mise.toml`). Deployed on Vercel.
 
@@ -22,9 +29,9 @@ Feature branches are named `issue-XXX` where `XXX` is the related GitHub issue n
 
 ## CI/CD
 
-- `Dockerfile` — multi-stage Alpine build with standalone Next.js output, pushed to GHCR
-- `.github/workflows/build-app.yaml` — builds and pushes Docker image on push to master
-- `.github/workflows/test-app.yml` — runs lint, tests, and build on PRs (build runs only after lint and tests pass)
+- `apps/hudozka/Dockerfile` — multi-stage Alpine build with standalone Next.js output, pushed to GHCR. Build context is the repo root so the workspace graph is available.
+- `.github/workflows/build-app.yaml` — builds and pushes Docker image on push to master (`file: ./apps/hudozka/Dockerfile`, `context: ./`).
+- `.github/workflows/test-app.yml` — runs lint, tests, typecheck, and build on PRs.
 
 ## Code Style
 
@@ -62,16 +69,20 @@ When adding or updating packages in `package.json`, do not specify the PATCH ver
 
 ## Key Directories
 
-- `src/app/` — App Router pages, layouts, and route handlers (layout, home page, `[...slug]` catch-all, not-found, sitemap, robots, feed)
-- `src/components/` — page-level and feature components (folder-per-component with `index.tsx` + `styles.module.css`)
-- `src/ui/` — reusable primitives (Box, Button, Picture, Panel, Overlay, Title, ThemeColor)
-- `src/remote/` — CMS integration (`api.ts` for fetching, `factory.ts` for transforms, `types.ts` for response shapes, `pb.ts` for the PocketBase client)
-- `src/store/` — Valtio stores (theme/accessibility, playback)
-- `src/hooks/` — custom hooks (`useMobile`, `useAccessibility`, `useDarkTheme`, `useReducedMotion`, `useToggle`, `useLockBodyScroll`, `useMediaQuery`)
-- `src/lib/` — pure utility functions (date, string, url, image, file, array, math, text, meta helpers)
-- `src/style/` — global CSS with CSS custom properties for theming
-- `modules/hudozka-writer/` — Vite-based Tiptap editor (ancillary)
-- `modules/migrate-to-pocketbase/` — one-off Strapi → PocketBase migration script
+- `apps/hudozka/src/app/` — App Router pages, layouts, route handlers (catch-all, not-found, sitemap, robots, feed)
+- `apps/hudozka/src/components/` — page-level and feature components (folder-per-component + `styles.module.css`)
+- `apps/hudozka/src/ui/` — Next/store-coupled UI that stays in the app: `Picture`, `ThemeColor`
+- `apps/hudozka/src/remote/` — PocketBase API client (`api.ts`, `factory.ts`, `types.ts`, `pb.ts`)
+- `apps/hudozka/src/store/` — Valtio stores (theme/accessibility, playback)
+- `apps/hudozka/src/hooks/` — business-coupled hooks: `useDarkTheme`, `useAccessibility`
+- `apps/hudozka/src/lib/` — app-only lib (currently just `meta.ts`)
+- `apps/hudozka/src/style/` — global CSS with CSS custom properties for theming
+- `packages/ui/` — `@hudozka/ui` — reusable primitives (Box, Button, Panel, Title, Overlay)
+- `packages/hooks/` — `@hudozka/hooks` — generic React hooks (useToggle, useLockBodyScroll, useMediaQuery, useMobile, useReducedMotion)
+- `packages/utils/` — `@hudozka/utils` — pure utilities (array, string, url, math, image, file, date)
+- `packages/text/` — `@hudozka/text` — markdown + typograf rendering
+- `apps/hudozka-writer/` — Vite-based Tiptap editor
+- `apps/migrate-to-pocketbase/` — one-off Strapi → PocketBase migration script
 - `pb/` — PocketBase instance (data, migrations)
 
 ## Styling
@@ -80,7 +91,7 @@ CSS Modules (`.module.css`) for component-scoped styles. Global theme via CSS cu
 
 ## TypeScript
 
-Path alias: `@/*` → `src/*`. Strict mode enabled. Target ES2020. `moduleDetection: "force"` in tsconfig (required because Next.js auto-generates `.next/types/validator.ts` without exports, which breaks `verbatimModuleSyntax`). Use `@/` path alias for all local imports, not `src/`. Legacy `src/` imports exist in the codebase but should not be used in new or modified code.
+Path alias: `@/*` → `src/*`. Strict mode enabled. Target ES2020. `moduleDetection: "force"` in tsconfig (required because Next.js auto-generates `.next/types/validator.ts` without exports, which breaks `verbatimModuleSyntax`). Use `@/` path alias for all local imports, not `src/`. Legacy `src/` imports exist in the codebase but should not be used in new or modified code. The `@/*` path alias is only configured in `apps/hudozka/tsconfig.json`; packages under `packages/*` use short relative imports.
 
 `verbatimModuleSyntax` is enabled — use `import type` for type-only imports. When importing both values and types from the same module, use separate `import` and `import type` statements:
 
@@ -111,22 +122,3 @@ Active modernization is tracked in GitHub issues #222–#238. Key items:
 - Some inline styles in `src/components/App/index.tsx` should be CSS modules.
 - `react-use` and `use-media` dependencies are unmaintained; only `useToggle` and `useLockBodyScroll` are used from `react-use`.
 
-## Planned: Monorepo Migration
-
-A migration to an npm-workspaces monorepo is planned but not yet executed. Spec and plan:
-
-- Design: `docs/specs/20260424-monorepo-design.md`
-- Implementation plan: `docs/plans/20260424-monorepo.md`
-
-Target layout (post-migration):
-
-- `apps/hudozka/` — this Next.js app
-- `apps/hudozka-writer/` — Vite-based Tiptap editor (from `modules/hudozka-writer`)
-- `apps/migrate-to-pocketbase/` — migration script (from `modules/migrate-to-pocketbase`)
-- `packages/ui/` — `@hudozka/ui`: Box, Button, Panel, Title, Overlay
-- `packages/hooks/` — `@hudozka/hooks`: generic React hooks
-- `packages/utils/` — `@hudozka/utils`: array, string, url, math, image, file, date
-- `packages/text/` — `@hudozka/text`: markdown-it + typograf wrappers
-- `pb/` — untouched
-
-Packages are consumed as TypeScript source (`"exports": { ".": "./src/index.ts" }`), no build step. `Picture` and `ThemeColor` stay in the web app (Next/Valtio-coupled). The `@/` path alias is only configured in `apps/hudozka/tsconfig.json`; packages use short relative imports. `Task 7.3` of the plan replaces this section with the post-migration version of Commands / Key Directories / CI/CD.
