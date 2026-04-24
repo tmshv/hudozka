@@ -4,15 +4,22 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Website for the Art School of Shlisselburg ([art.shlisselburg.org](https://art.shlisselburg.org)). Content is in Russian. Built with Next.js using the App Router and Strapi headless CMS as the backend. The project has migrated through Express → Angular 1 → React class components → Next.js (Pages Router) → Next.js (App Router); some legacy artifacts remain.
+Website for the Art School of Shlisselburg ([art.shlisselburg.org](https://art.shlisselburg.org)). Content is in Russian. Built with Next.js using the App Router and PocketBase as the backend (migrated from Strapi — see `pb/` and `src/remote/pb.ts`). The project has migrated through Express → Angular 1 → React class components → Next.js (Pages Router) → Next.js (App Router); some legacy artifacts remain.
 
 ## Commands
 
+From repo root (delegates to `apps/hudozka`):
+
 - `npm run dev` — dev server with Turbo (`next dev --turbo`)
 - `npm run build` — production build
-- `npm run lint` — ESLint checks
+- `npm run lint` — ESLint across the whole monorepo
 - `npm run format` — auto-fix lint issues
-- `npm test` — run unit tests (Vitest, non-watch mode)
+- `npm test` — run unit tests (Vitest) across every workspace
+
+Per-app:
+
+- `npm run dev -w apps/hudozka-writer` — writer UI (Vite)
+- `npm run migrate -w apps/migrate-to-pocketbase` — one-off migration script
 
 Node 24 required (see `mise.toml`). Deployed on Vercel.
 
@@ -22,9 +29,9 @@ Feature branches are named `issue-XXX` where `XXX` is the related GitHub issue n
 
 ## CI/CD
 
-- `Dockerfile` — multi-stage Alpine build with standalone Next.js output, pushed to GHCR
-- `.github/workflows/build-app.yaml` — builds and pushes Docker image on push to master
-- `.github/workflows/test-app.yml` — runs lint, tests, and build on PRs (build runs only after lint and tests pass)
+- `apps/hudozka/Dockerfile` — multi-stage Alpine build with standalone Next.js output, pushed to GHCR. Build context is the repo root so the workspace graph is available.
+- `.github/workflows/build-app.yaml` — builds and pushes Docker image on push to master (`file: ./apps/hudozka/Dockerfile`, `context: ./`).
+- `.github/workflows/test-app.yml` — runs lint, tests, typecheck, and build on PRs.
 
 ## Code Style
 
@@ -48,29 +55,35 @@ When adding or updating packages in `package.json`, do not specify the PATCH ver
 
 ## Architecture
 
-**App Router with SSG/ISR:** Pages are server components in the `app/` directory with `export const revalidate = 30`. The root layout (`app/layout.tsx`) fetches menu data and provides it via `MenuContext` through a `Providers` client component. The catch-all route `app/[...slug]/page.tsx` handles all dynamic content pages with `generateStaticParams` and `generateMetadata`.
+**App Router with SSG/ISR:** Pages are server components under `src/app/` with `export const revalidate = 30`. The root layout (`src/app/layout.tsx`) fetches menu data and passes it down. The catch-all route `src/app/[...slug]/page.tsx` handles all dynamic content pages with `generateStaticParams` and `generateMetadata`.
 
 **Server/client boundary:** Layout and page components are server components that fetch data. The `App` component (`src/components/App`) is a `"use client"` component that provides the layout chrome (navigation, breadcrumbs, footer). Content is passed as `children` from server pages through the client boundary. Components using hooks (`PageGrid`, `HomeContent`, `PageContent`, `Menu`, `MobileNavigation`, `Wrapper`) are marked `"use client"`.
 
-**Data flow:** Strapi CMS API (`hudozka.tmshv.com`) → `src/remote/api.ts` fetches data via `apiGet()` generic wrapper → `src/remote/factory.ts` normalizes CMS responses into app types (`src/types.ts`) → pages render token-based content blocks. The API layer uses a factory pattern with default-response fallbacks on failure.
+**Data flow:** PocketBase API → `src/remote/api.ts` fetches data via `apiGet()` generic wrapper → `src/remote/factory.ts` normalizes responses into app types (`src/types.ts`) → pages render token-based content blocks. The API layer uses a factory pattern with default-response fallbacks on failure. The legacy Strapi integration was removed (see commit "rm strapi"); `src/remote/pb.ts` is the PocketBase client.
 
 **Metadata:** Uses the Next.js Metadata API (`generateMetadata`, `export const metadata`). The `buildMetadata()` helper in `src/lib/meta.ts` bridges the app's `Meta` type to Next.js `Metadata` format.
 
 **Content tokens:** Pages are composed of flexible content blocks (tokens): `text`, `image`, `file`, `html`, `youtube`, `instagram`, `grid`. The `Token` discriminated union is defined in `src/types.ts`. Each token type maps to a renderer component in the `PageContent` client component.
 
-**State management:** Valtio for reactive state (`src/store/`). Theme/accessibility preferences in `theme` store, playback state in `play` store, school contact info and year range in `config` store. Navigation data passed via React Context (`src/context/MenuContext`), provided by the root layout.
+**State management:** Valtio for reactive state (`src/store/`). Theme/accessibility preferences in `theme` store, playback state in `play` store.
 
 ## Key Directories
 
-- `app/` — App Router pages, layouts, and route handlers (layout, home page, `[...slug]` catch-all, not-found, sitemap, robots, feed)
-- `src/components/` — page-level and feature components (folder-per-component with `index.tsx` + `styles.module.css`)
-- `src/ui/` — reusable primitives (Box, Button, Picture, Panel, Overlay, Title)
-- `src/remote/` — Strapi API integration (`api.ts` for fetching, `factory.ts` for transforms, `types.ts` for CMS response shapes)
-- `src/store/` — Valtio stores (theme/accessibility, playback config)
-- `src/hooks/` — custom hooks (`useMobile`, `useAccessibility`, `useDarkTheme`, `useReducedMotion`)
-- `src/lib/` — pure utility functions (date, string, url, image, file helpers)
-- `src/style/` — global CSS with CSS custom properties for theming
-- `modules/` — ancillary packages (strapi API client, sync tools, writer); excluded from tsconfig
+- `apps/hudozka/src/app/` — App Router pages, layouts, route handlers (catch-all, not-found, sitemap, robots, feed)
+- `apps/hudozka/src/components/` — page-level and feature components (folder-per-component + `styles.module.css`)
+- `apps/hudozka/src/ui/` — Next/store-coupled UI that stays in the app: `Picture`, `ThemeColor`
+- `apps/hudozka/src/remote/` — PocketBase API client (`api.ts`, `factory.ts`, `types.ts`, `pb.ts`)
+- `apps/hudozka/src/store/` — Valtio stores (theme/accessibility, playback)
+- `apps/hudozka/src/hooks/` — business-coupled hooks: `useDarkTheme`, `useAccessibility`
+- `apps/hudozka/src/lib/` — app-only lib (currently just `meta.ts`)
+- `apps/hudozka/src/style/` — global CSS with CSS custom properties for theming
+- `packages/ui/` — `@hudozka/ui` — reusable primitives (Box, Button, Panel, Title, Overlay)
+- `packages/hooks/` — `@hudozka/hooks` — generic React hooks (useToggle, useLockBodyScroll, useMediaQuery, useMobile, useReducedMotion)
+- `packages/utils/` — `@hudozka/utils` — pure utilities (array, string, url, math, image, file, date)
+- `packages/text/` — `@hudozka/text` — markdown + typograf rendering
+- `apps/hudozka-writer/` — Vite-based Tiptap editor
+- `apps/migrate-to-pocketbase/` — one-off Strapi → PocketBase migration script
+- `pb/` — PocketBase instance (data, migrations)
 
 ## Styling
 
@@ -78,7 +91,7 @@ CSS Modules (`.module.css`) for component-scoped styles. Global theme via CSS cu
 
 ## TypeScript
 
-Path alias: `@/*` → `src/*`. Strict mode enabled. Target ES2020. `moduleDetection: "force"` in tsconfig (required because Next.js auto-generates `.next/types/validator.ts` without exports, which breaks `verbatimModuleSyntax`). Use `@/` path alias for all local imports, not `src/`. Legacy `src/` imports exist in the codebase but should not be used in new or modified code.
+Path alias: `@/*` → `src/*`. Strict mode enabled. Target ES2020. `moduleDetection: "force"` in tsconfig (required because Next.js auto-generates `.next/types/validator.ts` without exports, which breaks `verbatimModuleSyntax`). Use `@/` path alias for all local imports, not `src/`. Legacy `src/` imports exist in the codebase but should not be used in new or modified code. The `@/*` path alias is only configured in `apps/hudozka/tsconfig.json`; packages under `packages/*` use short relative imports.
 
 `verbatimModuleSyntax` is enabled — use `import type` for type-only imports. When importing both values and types from the same module, use separate `import` and `import type` statements:
 
@@ -108,3 +121,4 @@ Active modernization is tracked in GitHub issues #222–#238. Key items:
 - Two orphaned `.scss` files in `src/style/` (`tape-viewer.scss`, `vertical-image.scss`) — not imported anywhere, no SCSS preprocessor configured.
 - Some inline styles in `src/components/App/index.tsx` should be CSS modules.
 - `react-use` and `use-media` dependencies are unmaintained; only `useToggle` and `useLockBodyScroll` are used from `react-use`.
+
