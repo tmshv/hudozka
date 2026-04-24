@@ -33,7 +33,9 @@
   },
   "exclude": [
     "node_modules",
-    "modules"
+    "modules",
+    "apps/hudozka-writer",
+    "apps/migrate-to-pocketbase"
   ],
   "include": [
     "next-env.d.ts",
