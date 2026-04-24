@@ -11,3 +11,7 @@
 .breadcrumbs li {
     margin-bottom: var(--size-xs);
 }
+
+.breadcrumbs a {
+    text-decoration: none;
+}

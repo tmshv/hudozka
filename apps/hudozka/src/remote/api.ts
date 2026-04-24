@@ -2,7 +2,43 @@ import { pb } from "./pb"
 import { createPage, createHomeCards, createMenu, createFeedPages } from "./factory"
 import type { PbPage, PbImage, PbFile, PbTag, PbHomeData, PbMenuData } from "./types"
 import type { DocV1Block } from "./doc"
-import type { MenuItem, Page, PageCardDto, FeedPage } from "@/types"
+import type { BreadcrumbPart, MenuItem, Page, PageCardDto, FeedPage } from "@/types"
+import { menu } from "@/const"
+
+const MAX_PARENT_DEPTH = 10
+
+function getParentId(parent: string | string[] | undefined): string | undefined {
+    if (!parent) return undefined
+    if (Array.isArray(parent)) return parent[0]
+    return parent
+}
+
+async function fetchParentChain(startId: string | undefined): Promise<PbPage[]> {
+    if (!startId) return []
+    const chain: PbPage[] = []
+    const visited = new Set<string>()
+    let currentId: string | undefined = startId
+    while (currentId && chain.length < MAX_PARENT_DEPTH) {
+        if (visited.has(currentId)) break
+        visited.add(currentId)
+        try {
+            const parent = await pb.collection("pages").getOne<PbPage>(currentId)
+            chain.unshift(parent)
+            currentId = getParentId(parent.parent)
+        } catch {
+            break
+        }
+    }
+    return chain
+}
+
+function buildBreadcrumb(record: PbPage, parents: PbPage[]): BreadcrumbPart[] {
+    if (parents.length === 0) return []
+    const home: BreadcrumbPart = { name: menu[0].name, href: "/" }
+    const ancestors: BreadcrumbPart[] = parents.map(p => ({ name: p.title, href: p.slug }))
+    const current: BreadcrumbPart = { name: record.title, href: record.slug }
+    return [home, ...ancestors, current]
+}
 
 function buildIdFilter(ids: string[]): string {
     return ids.map(id => `id="${id}"`).join(" || ")
@@ -90,12 +126,13 @@ export async function getPageBySlug(slug: string): Promise<Page | null> {
             refs.imageIds.add(record.cover)
         }
 
-        // Round 2: fetch images, files, tags, card-grid pages in parallel
-        const [images, files, tags, cardGridPages] = await Promise.all([
+        // Round 2: fetch images, files, tags, card-grid pages, parent chain in parallel
+        const [images, files, tags, cardGridPages, parentChain] = await Promise.all([
             fetchImagesByIds([...refs.imageIds]),
             fetchFilesByIds([...refs.fileIds]),
             fetchTagsByIds(record.tags),
             fetchPagesByIds([...refs.pageIds]),
+            fetchParentChain(getParentId(record.parent)),
         ])
 
         // Round 3: fetch cover images for card-grid pages
@@ -112,7 +149,8 @@ export async function getPageBySlug(slug: string): Promise<Page | null> {
         // Merge all images for card-grid covers
         const allCardGridImages = new Map([...images, ...cardGridImages])
 
-        return createPage(record, images, files, tags, cardGridPages, allCardGridImages)
+        const breadcrumb = buildBreadcrumb(record, parentChain)
+        return createPage(record, images, files, tags, cardGridPages, allCardGridImages, breadcrumb)
     } catch (error) {
         console.error(`Failed to fetch page: ${error}`)
         return null

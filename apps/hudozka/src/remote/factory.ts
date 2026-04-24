@@ -1,4 +1,4 @@
-import type { MenuItem, Page, Tag, PageCardDto, Pic, Token, FeedPage } from "@/types"
+import type { MenuItem, Page, Tag, PageCardDto, Pic, Token, FeedPage, BreadcrumbPart } from "@/types"
 import type { PbPage, PbImage, PbFile, PbTag, PbHomeData, PbMenuData } from "./types"
 import type { DocV1Block } from "./doc"
 import { typograf, markdownToHtml } from "@hudozka/text"
@@ -159,6 +159,7 @@ export function createPage(
     tags: PbTag[],
     cardGridPages: Map<string, PbPage>,
     cardGridImages: Map<string, PbImage>,
+    breadcrumb: BreadcrumbPart[] = [],
 ): Page {
     const cover = getCoverPic(record.cover, images)
 
@@ -190,6 +191,7 @@ export function createPage(
             ...tokens,
         ],
         tags: pageTags,
+        breadcrumb,
         featured: false,
     }
 }
