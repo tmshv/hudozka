@@ -5,7 +5,7 @@ import { Card } from "../Card"
 import type { CardLayout } from "../Card"
 import { Date } from "./Date"
 import { Spacer } from "../Spacer"
-import { Box } from "@/ui/Box"
+import { Box } from "@hudozka/ui"
 import { useMobile } from "@hudozka/hooks"
 
 function itemColumn(item: PageCardDto): string {

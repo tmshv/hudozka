@@ -1,5 +1,5 @@
 import { theme, toggleTheme } from "@/store/theme"
-import { Button } from "@/ui/Button"
+import { Button } from "@hudozka/ui"
 import { HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi"
 import { useSnapshot } from "valtio"
 

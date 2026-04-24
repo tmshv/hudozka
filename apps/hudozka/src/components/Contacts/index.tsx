@@ -1,7 +1,7 @@
 import s from "./contacts.module.css"
 
 import Link from "next/link"
-import { Title } from "@/ui/Title"
+import { Title } from "@hudozka/ui"
 import { contacts } from "@/const"
 
 export const Contacts: React.FC = () => {

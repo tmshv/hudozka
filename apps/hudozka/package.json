@@ -21,6 +21,7 @@
     "dependencies": {
         "@hudozka/hooks": "*",
         "@hudozka/text": "*",
+        "@hudozka/ui": "*",
         "@hudozka/utils": "*",
         "@radix-ui/react-navigation-menu": "^1.2.0",
         "@radix-ui/react-tooltip": "^1.2.0",

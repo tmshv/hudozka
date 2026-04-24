@@ -2,7 +2,7 @@ import s from "./styles.module.css"
 
 import cx from "classnames"
 import type { Tag } from "@/types"
-import { Button } from "@/ui/Button"
+import { Button } from "@hudozka/ui"
 
 const directionClass = {
     horizontal: "",

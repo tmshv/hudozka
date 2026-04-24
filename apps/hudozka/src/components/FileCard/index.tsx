@@ -5,7 +5,7 @@ import dynamic from "next/dynamic"
 import type { FileTokenData, Sign } from "@/types"
 import { ext, getResizedUrl, size } from "@hudozka/utils"
 import Link from "next/link"
-import { Box } from "@/ui/Box"
+import { Box } from "@hudozka/ui"
 
 const Signature = dynamic(() => import("./Signature").then(m => ({ default: m.Signature })), {
     ssr: false,

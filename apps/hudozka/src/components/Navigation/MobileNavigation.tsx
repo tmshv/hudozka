@@ -4,7 +4,7 @@ import s from "./nav.module.css"
 
 import { Menu } from "../Menu"
 import { useCallback, useEffect, useRef } from "react"
-import { Box } from "@/ui/Box"
+import { Box } from "@hudozka/ui"
 import { Spacer } from "../Spacer"
 import HudozkaLogo from "../HudozkaLogo"
 import { HudozkaTitle } from "../HudozkaTitle"

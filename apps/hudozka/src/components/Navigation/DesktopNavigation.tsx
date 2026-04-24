@@ -1,5 +1,5 @@
 import { Menu } from "../Menu"
-import { Box } from "@/ui/Box"
+import { Box } from "@hudozka/ui"
 import HudozkaLogo from "../HudozkaLogo"
 import Link from "next/link"
 import { AccessibilityButton } from "../AccessibilityButton"

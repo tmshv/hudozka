@@ -1,0 +1,20 @@
+{
+    "name": "@hudozka/ui",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "exports": {
+        ".": "./src/index.ts"
+    },
+    "scripts": {
+        "test": "vitest run"
+    },
+    "dependencies": {
+        "classnames": "^2.5.0",
+        "@hudozka/hooks": "*"
+    },
+    "peerDependencies": {
+        "react": ">=19",
+        "react-dom": ">=19"
+    }
+}
