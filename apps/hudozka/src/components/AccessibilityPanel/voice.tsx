@@ -1,12 +1,10 @@
 function useVoices() {
-    return window.speechSynthesis
-        .getVoices()
-        .map(v => {
-            return {
-                name: `${v.name} (${v.lang})`,
-                value: v.name,
-            }
-        })
+    return window.speechSynthesis.getVoices().map(v => {
+        return {
+            name: `${v.name} (${v.lang})`,
+            value: v.name,
+        }
+    })
 }
 
 export type VoiceSelectProps = React.SelectHTMLAttributes<HTMLSelectElement>

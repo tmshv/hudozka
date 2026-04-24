@@ -1,7 +1,6 @@
-import s from "./styles.module.css"
-
 import cx from "classnames"
 import Link from "next/link"
+import s from "./styles.module.css"
 
 const layoutClass = {
     simple: s.simple,
@@ -24,14 +23,8 @@ export const Card: React.FC<CardProps> = props => (
         className={cx(s.card, layoutClass["simple"])}
         style={props.style}
     >
-        <div className={s.image}>
-            {props.cover}
-        </div>
+        <div className={s.image}>{props.cover}</div>
 
-        <div className={s.body}>
-            {props.children}
-        </div>
+        <div className={s.body}>{props.children}</div>
     </Link>
 )
-
-

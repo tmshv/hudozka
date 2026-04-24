@@ -1,8 +1,8 @@
-import s from "./styles.module.css"
+import { Button } from "@hudozka/ui"
 
 import cx from "classnames"
 import type { Tag } from "@/types"
-import { Button } from "@hudozka/ui"
+import s from "./styles.module.css"
 
 const directionClass = {
     horizontal: "",
@@ -19,11 +19,7 @@ export type TagItemProps = {
 
 export const TagItem: React.FC<TagItemProps> = props => (
     <li>
-        <Button
-            href={props.href}
-            size={"small"}
-            disabled={true}
-        >
+        <Button href={props.href} size={"small"} disabled={true}>
             {props.children}
         </Button>
     </li>
@@ -37,11 +33,7 @@ export type TagListProps = {
 export const TagList: React.FC<TagListProps> = props => (
     <ul className={cx(s.tags, directionClass[props.direction])}>
         {props.items.map(x => (
-            <TagItem
-                key={x.slug}
-                href={x.href}
-                direction={props.direction}
-            >
+            <TagItem key={x.slug} href={x.href} direction={props.direction}>
                 {x.name}
             </TagItem>
         ))}

@@ -1,6 +1,5 @@
 import { state } from "./store/play"
 
-
 function play() {
     const synth = window.speechSynthesis
 
@@ -10,7 +9,7 @@ function play() {
     }
 
     const u = new SpeechSynthesisUtterance(a.textContent)
-    const voice = synth.getVoices().find((v) => v.name === state.voice)
+    const voice = synth.getVoices().find(v => v.name === state.voice)
     if (voice) {
         u.voice = voice
     }

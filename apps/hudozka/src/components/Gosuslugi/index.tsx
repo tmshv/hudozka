@@ -1,6 +1,6 @@
+import InnerHTML from "dangerously-set-html-content"
 import { useEffect } from "react"
 import { getCode } from "./lib"
-import InnerHTML from "dangerously-set-html-content"
 
 async function sleep(ms: number) {
     return new Promise(resolve => {
@@ -40,8 +40,5 @@ export const Gosuslugi: React.FC<GosuslugiProps> = () => {
         }
     }, [])
 
-    return (
-        <InnerHTML html={getCode()} />
-    )
+    return <InnerHTML html={getCode()} />
 }
-

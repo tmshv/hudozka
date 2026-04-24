@@ -5,8 +5,8 @@ import "src/style/marker/marker-table.css"
 import "src/style/kazimir/video.css"
 
 import type { Metadata, Viewport } from "next"
-import Script from "next/script"
 import { Roboto } from "next/font/google"
+import Script from "next/script"
 import { YMetrika } from "@/components/YMetrika"
 
 const roboto = Roboto({
@@ -17,10 +17,7 @@ const roboto = Roboto({
 
 export const metadata: Metadata = {
     verification: {
-        google: [
-            "8BxOTw-Q02DS2KAdcGcnIMwiPZ58DVB18XpOfRibCcg",
-            "A-TEemUw4hHpULUDCd6xhxfHnyRbgKtss90JGKXnSpw",
-        ],
+        google: ["8BxOTw-Q02DS2KAdcGcnIMwiPZ58DVB18XpOfRibCcg", "A-TEemUw4hHpULUDCd6xhxfHnyRbgKtss90JGKXnSpw"],
         other: {
             "yandex-verification": "643c7dac144b9dac",
             "msvalidate.01": "E878301FE3E3F12D233A6B1156889601",
@@ -38,7 +35,7 @@ export const metadata: Metadata = {
     },
     other: {
         "apple-mobile-web-app-capable": "yes",
-        "referrer": "unsafe-url",
+        referrer: "unsafe-url",
     },
     alternates: {
         types: {

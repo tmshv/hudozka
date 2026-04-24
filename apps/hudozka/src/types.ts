@@ -77,7 +77,6 @@ export type Meta = {
     twitterCreator: string
 }
 
-
 export type Tag = {
     id: string
     name: string
@@ -148,14 +147,7 @@ export type GridToken = {
     }
 }
 
-export type Token =
-    | TextToken
-    | ImageToken
-    | FileToken
-    | HtmlToken
-    | YoutubeToken
-    | InstagramToken
-    | GridToken
+export type Token = TextToken | ImageToken | FileToken | HtmlToken | YoutubeToken | InstagramToken | GridToken
 
 export type FeedPage = {
     id: string

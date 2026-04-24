@@ -16,7 +16,7 @@ export const Youtube: React.FC<{ url: string }> = props => {
             <iframe
                 src={src}
                 frameBorder="0"
-            // allowFullscreen
+                // allowFullscreen
             />
         </div>
     )

@@ -1,8 +1,8 @@
-import s from "./error.module.css"
+import Image from "next/image"
 
 import Link from "next/link"
-import Image from "next/image"
 import skull from "@/assets/graphics/skull.jpg"
+import s from "./error.module.css"
 
 export const NotFound: React.FC = () => (
     <section className={s.section}>
@@ -12,9 +12,7 @@ export const NotFound: React.FC = () => (
         </div>
 
         <div>
-            <Link href={"/"}>
-                На главную
-            </Link>
+            <Link href={"/"}>На главную</Link>
         </div>
     </section>
 )

@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from "vitest"
+import { beforeEach, describe, expect, it, vi } from "vitest"
 
 vi.mock("./pb", () => ({
     pb: {
@@ -7,7 +7,7 @@ vi.mock("./pb", () => ({
     },
 }))
 
-import { getUrls, getRecentPages } from "./api"
+import { getRecentPages, getUrls } from "./api"
 import { pb } from "./pb"
 
 beforeEach(() => {
@@ -16,10 +16,7 @@ beforeEach(() => {
 
 describe("getUrls", () => {
     it("should return slugs from all non-draft pages", async () => {
-        const mockGetFullList = vi.fn().mockResolvedValue([
-            { slug: "/info" },
-            { slug: "/2024/test" },
-        ])
+        const mockGetFullList = vi.fn().mockResolvedValue([{ slug: "/info" }, { slug: "/2024/test" }])
         vi.mocked(pb.collection).mockReturnValue({
             getFullList: mockGetFullList,
         } as never)
@@ -65,13 +62,15 @@ describe("getRecentPages", () => {
         } as never)
 
         const result = await getRecentPages()
-        expect(result).toEqual([{
-            id: "x1",
-            title: "Recent",
-            url: "/2024/recent",
-            date: "2024-03-01",
-            excerpt: "Summary",
-        }])
+        expect(result).toEqual([
+            {
+                id: "x1",
+                title: "Recent",
+                url: "/2024/recent",
+                date: "2024-03-01",
+                excerpt: "Summary",
+            },
+        ])
         expect(mockGetList).toHaveBeenCalledWith(1, 30, {
             filter: "date!='' && draft=false",
             sort: "-date",

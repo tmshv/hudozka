@@ -4,8 +4,9 @@ export type SpacerProps = {
     as?: keyof HTMLElementTagNameMap
 }
 
-export const Spacer: React.FC<SpacerProps> = ({ as = "div" }) => createElement(as, {
-    style: {
-        flex: 1,
-    },
-})
+export const Spacer: React.FC<SpacerProps> = ({ as = "div" }) =>
+    createElement(as, {
+        style: {
+            flex: 1,
+        },
+    })

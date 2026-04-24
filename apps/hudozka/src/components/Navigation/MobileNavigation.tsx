@@ -1,17 +1,16 @@
 "use client"
 
-import s from "./nav.module.css"
-
-import { Menu } from "../Menu"
-import { useCallback, useEffect, useRef } from "react"
 import { Box } from "@hudozka/ui"
-import { Spacer } from "../Spacer"
-import HudozkaLogo from "../HudozkaLogo"
-import { HudozkaTitle } from "../HudozkaTitle"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { useCallback, useEffect, useRef } from "react"
 import { HiOutlineMenuAlt4, HiOutlineX } from "react-icons/hi"
 import { menu } from "@/const"
+import HudozkaLogo from "../HudozkaLogo"
+import { HudozkaTitle } from "../HudozkaTitle"
+import { Menu } from "../Menu"
+import { Spacer } from "../Spacer"
+import s from "./nav.module.css"
 
 export type MobileNavigationProps = {
     className?: string

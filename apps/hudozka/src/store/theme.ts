@@ -1,8 +1,13 @@
-import { proxy, subscribe } from "valtio"
 import { clamp } from "@hudozka/utils"
+import { proxy, subscribe } from "valtio"
 
 export type ThemeName = "default" | "contrast"
-export type ColorSchemeVariant = "black-on-white" | "white-on-black" | "blue-on-blue" | "brown-on-yellow" | "green-on-brown"
+export type ColorSchemeVariant =
+    | "black-on-white"
+    | "white-on-black"
+    | "blue-on-blue"
+    | "brown-on-yellow"
+    | "green-on-brown"
 export type FontTypeVariant = "serif" | "sans-serif"
 
 const MIN_FONT_SIZE = 8

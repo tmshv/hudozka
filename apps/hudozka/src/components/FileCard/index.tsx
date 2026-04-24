@@ -1,11 +1,10 @@
-import s from "./filecard.module.css"
-
-import Image from "next/image"
-import dynamic from "next/dynamic"
-import type { FileTokenData, Sign } from "@/types"
-import { ext, getResizedUrl, size } from "@hudozka/utils"
-import Link from "next/link"
 import { Box } from "@hudozka/ui"
+import { ext, getResizedUrl, size } from "@hudozka/utils"
+import dynamic from "next/dynamic"
+import Image from "next/image"
+import Link from "next/link"
+import type { FileTokenData, Sign } from "@/types"
+import s from "./filecard.module.css"
 
 const Signature = dynamic(() => import("./Signature").then(m => ({ default: m.Signature })), {
     ssr: false,
@@ -42,14 +41,8 @@ export const FileCard: React.FC<FileCardProps> = props => {
 
             <div>
                 <Box align={false} gap={"var(--size-xs)"}>
-                    {!props.sign ? null : (
-                        <Signature
-                            {...props.sign}
-                        />
-                    )}
-                    <Link href={props.url}>
-                        {props.title}
-                    </Link>
+                    {!props.sign ? null : <Signature {...props.sign} />}
+                    <Link href={props.url}>{props.title}</Link>
                 </Box>
             </div>
 

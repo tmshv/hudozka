@@ -1,6 +1,5 @@
-import s from "./title.module.css"
-
 import { memo } from "react"
+import s from "./title.module.css"
 
 export type HudozkaTitleProps = {
     compact?: boolean
@@ -9,11 +8,7 @@ export type HudozkaTitleProps = {
 
 export const HudozkaTitle: React.FC<HudozkaTitleProps> = memo(({ style, compact = false }) => {
     if (compact) {
-        return (
-            <span>
-                Шлиссельбургская ДХШ
-            </span>
-        )
+        return <span>Шлиссельбургская ДХШ</span>
     }
     return (
         <h1 style={style} className={s.title}>

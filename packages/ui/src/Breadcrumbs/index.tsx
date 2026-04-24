@@ -1,7 +1,6 @@
-import s from "./styles.module.css"
-
-import { Button } from "../Button"
 import { insertBetween } from "@hudozka/utils"
+import { Button } from "../Button"
+import s from "./styles.module.css"
 
 export type Crumb = {
     name: string
@@ -30,12 +29,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = props => {
 
                 return (
                     <li key={x.href}>
-                        <Button
-                            href={x.href}
-                            theme={"ghost"}
-                            size={"small"}
-                            disabled={x.href === props.path}
-                        >
+                        <Button href={x.href} theme={"ghost"} size={"small"} disabled={x.href === props.path}>
                             {x.name}
                         </Button>
                     </li>

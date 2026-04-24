@@ -1,10 +1,10 @@
+import { tail } from "@hudozka/utils"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { App } from "@/components/App"
 import { PageContent } from "@/components/PageContent"
-import { MetaBuilder, buildMetadata } from "@/lib/meta"
+import { buildMetadata, MetaBuilder } from "@/lib/meta"
 import { getPageBySlug, getUrls } from "@/remote/api"
-import { tail } from "@hudozka/utils"
 
 export const revalidate = 30
 export const dynamicParams = true
@@ -45,7 +45,7 @@ export default async function SlugPage({ params }: Props) {
     }
 
     const breadcrumbSize = page.breadcrumb?.length ?? 0
-    const breadcrumbs = breadcrumbSize < 2 ? [] : page.breadcrumb ?? []
+    const breadcrumbs = breadcrumbSize < 2 ? [] : (page.breadcrumb ?? [])
 
     return (
         <App

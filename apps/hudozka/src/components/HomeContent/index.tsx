@@ -1,8 +1,8 @@
 "use client"
 
+import { useMobile } from "@hudozka/hooks"
 import { HudozkaTitle } from "@/components/HudozkaTitle"
 import { PageGrid } from "@/components/PageGrid"
-import { useMobile } from "@hudozka/hooks"
 import type { PageCardDto } from "@/types"
 
 export type HomeContentProps = {

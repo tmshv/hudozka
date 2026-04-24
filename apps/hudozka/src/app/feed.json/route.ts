@@ -10,7 +10,7 @@ export async function GET() {
         title: "Шлиссельбургская ДХШ",
         home_page_url: siteUrl,
         feed_url: `${siteUrl}/feed.json`,
-        items: pages.map((page) => ({
+        items: pages.map(page => ({
             id: `${siteUrl}${page.url}`,
             url: `${siteUrl}${page.url}`,
             title: page.title,

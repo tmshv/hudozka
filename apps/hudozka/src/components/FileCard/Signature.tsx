@@ -1,9 +1,7 @@
-import s from "./signature.module.css"
-
-import type { Sign } from "@/types"
-import { HiOutlineShieldCheck } from "react-icons/hi"
-
 import * as Tooltip from "@radix-ui/react-tooltip"
+import { HiOutlineShieldCheck } from "react-icons/hi"
+import type { Sign } from "@/types"
+import s from "./signature.module.css"
 
 export type SignatureProps = Sign
 export const Signature: React.FC<SignatureProps> = props => {

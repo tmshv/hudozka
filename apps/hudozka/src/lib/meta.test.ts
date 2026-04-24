@@ -1,5 +1,5 @@
-import { describe, it, expect } from "vitest"
-import { meta, MetaBuilder, buildMetadata } from "./meta"
+import { describe, expect, it } from "vitest"
+import { buildMetadata, MetaBuilder, meta } from "./meta"
 
 describe("meta", () => {
     it("should return defaults when called with empty object", () => {
@@ -25,10 +25,7 @@ describe("meta", () => {
 describe("MetaBuilder", () => {
     it("should support method chaining", () => {
         const builder = new MetaBuilder()
-        const result = builder
-            .setTitle("Test")
-            .setDescription("Desc")
-            .build()
+        const result = builder.setTitle("Test").setDescription("Desc").build()
 
         expect(result.title).toBe("Test")
         expect(result.description).toBe("Desc")
@@ -51,9 +48,7 @@ describe("MetaBuilder", () => {
     })
 
     it("should apply data from setData", () => {
-        const result = new MetaBuilder()
-            .setData({ url: "/test", type: "article" })
-            .build()
+        const result = new MetaBuilder().setData({ url: "/test", type: "article" }).build()
 
         expect(result.url).toBe("https://art.shlisselburg.org/test")
         expect(result.type).toBe("article")
@@ -115,7 +110,7 @@ describe("buildMetadata", () => {
         expect(result.title).toBe("Custom Page")
         expect(result.description).toBe("A custom description")
 
-        const og = result.openGraph as { url: string, images: { url: string, width: number, height: number }[] }
+        const og = result.openGraph as { url: string; images: { url: string; width: number; height: number }[] }
         expect(og.url).toBe("https://art.shlisselburg.org/custom")
         expect(og.images[0]).toEqual({
             url: "https://example.com/cover.jpg",
