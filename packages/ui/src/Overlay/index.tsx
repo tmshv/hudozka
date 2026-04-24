@@ -1,7 +1,6 @@
-import s from "./styles.module.css"
-
-import { Transition } from "./Transition"
 import { useLockBodyScroll, useReducedMotion } from "@hudozka/hooks"
+import s from "./styles.module.css"
+import { Transition } from "./Transition"
 
 export type OverlayProps = {
     children?: React.ReactNode
@@ -18,12 +17,9 @@ export const Overlay: React.FC<OverlayProps> = props => {
     useLockBodyScroll(props.show)
 
     return (
-        <Transition
-            duration={duration}
-            show={props.show}
-        >
+        <Transition duration={duration} show={props.show}>
             <div
-                onClick={(event) => {
+                onClick={event => {
                     if (event.target === event.currentTarget) {
                         props.onClickOverlay()
                     }

@@ -1,5 +1,5 @@
 import { renderHook } from "@testing-library/react"
-import { describe, it, expect, beforeEach } from "vitest"
+import { beforeEach, describe, expect, it } from "vitest"
 import { useLockBodyScroll } from "./useLockBodyScroll"
 
 describe("useLockBodyScroll", () => {
@@ -27,10 +27,7 @@ describe("useLockBodyScroll", () => {
     })
 
     it("responds to lock/unlock transitions", () => {
-        const { rerender } = renderHook(
-            ({ locked }) => useLockBodyScroll(locked),
-            { initialProps: { locked: false } },
-        )
+        const { rerender } = renderHook(({ locked }) => useLockBodyScroll(locked), { initialProps: { locked: false } })
         expect(document.body.style.overflow).toBe("")
         rerender({ locked: true })
         expect(document.body.style.overflow).toBe("hidden")

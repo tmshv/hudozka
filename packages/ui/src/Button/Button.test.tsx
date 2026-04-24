@@ -1,5 +1,5 @@
-import { render, screen, fireEvent } from "@testing-library/react"
-import { describe, it, expect, vi } from "vitest"
+import { fireEvent, render, screen } from "@testing-library/react"
+import { describe, expect, it, vi } from "vitest"
 import { Button } from "."
 
 describe("Button", () => {
@@ -19,7 +19,11 @@ describe("Button", () => {
 
     it("calls onClick with value when clicked", () => {
         const onClick = vi.fn()
-        render(<Button value="test-value" onClick={onClick}>Click</Button>)
+        render(
+            <Button value="test-value" onClick={onClick}>
+                Click
+            </Button>,
+        )
         fireEvent.click(screen.getByRole("button", { name: "Click" }))
         expect(onClick).toHaveBeenCalledOnce()
         expect(onClick).toHaveBeenCalledWith("test-value", expect.anything())

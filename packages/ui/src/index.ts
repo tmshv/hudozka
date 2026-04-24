@@ -1,6 +1,6 @@
 export * from "./Box"
 export * from "./Breadcrumbs"
 export * from "./Button"
+export * from "./Overlay"
 export * from "./Panel"
 export * from "./Title"
-export * from "./Overlay"

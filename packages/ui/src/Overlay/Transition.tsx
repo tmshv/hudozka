@@ -17,10 +17,7 @@ export function Transition(props: TransitionProps) {
             setMounted(false)
         }
     }, [opacity])
-    const transition = useMemo(
-        () => `all ${props.duration}ms`,
-        [props.duration],
-    )
+    const transition = useMemo(() => `all ${props.duration}ms`, [props.duration])
 
     if (props.show && !mounted) {
         setMounted(true)

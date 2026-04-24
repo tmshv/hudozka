@@ -1,5 +1,5 @@
-import { renderHook, act } from "@testing-library/react"
-import { describe, it, expect, beforeEach, vi } from "vitest"
+import { act, renderHook } from "@testing-library/react"
+import { beforeEach, describe, expect, it, vi } from "vitest"
 import { useMediaQuery } from "./useMediaQuery"
 
 describe("useMediaQuery", () => {
@@ -42,7 +42,7 @@ describe("useMediaQuery", () => {
 
         act(() => {
             matches.set(query, true)
-            listeners.get(query)?.forEach((cb) => cb())
+            listeners.get(query)?.forEach(cb => cb())
         })
         expect(result.current).toBe(true)
     })

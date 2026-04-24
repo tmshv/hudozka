@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest"
+import { describe, expect, it } from "vitest"
 import { insertBetween, tail } from "./array"
 
 describe("insertBetween", () => {
@@ -11,13 +11,11 @@ describe("insertBetween", () => {
     })
 
     it("should insert separators between items", () => {
-        expect(insertBetween(["a", "b", "c"], () => ",")).toEqual([
-            "a", ",", "b", ",", "c",
-        ])
+        expect(insertBetween(["a", "b", "c"], () => ",")).toEqual(["a", ",", "b", ",", "c"])
     })
 
     it("should pass index to separator function", () => {
-        const result = insertBetween(["a", "b", "c"], (i) => i)
+        const result = insertBetween(["a", "b", "c"], i => i)
         expect(result).toEqual(["a", 0, "b", 1, "c"])
     })
 })
