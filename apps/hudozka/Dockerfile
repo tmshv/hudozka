@@ -6,28 +6,30 @@ FROM base AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-# Install dependencies based on the preferred package manager
+# Copy workspace manifests (root + every workspace) to leverage npm ci caching.
 COPY package.json package-lock.json ./
+COPY apps/hudozka/package.json ./apps/hudozka/
+COPY apps/hudozka-writer/package.json ./apps/hudozka-writer/
+COPY apps/migrate-to-pocketbase/package.json ./apps/migrate-to-pocketbase/
+COPY packages/ ./packages/
+
 RUN npm ci
-RUN npm install --os=linux --libc=musl --cpu=x64 sharp
+RUN npm install --os=linux --libc=musl --cpu=x64 sharp --workspace apps/hudozka
 
 # Rebuild the source code only when needed
 FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps /app/apps/hudozka/node_modules ./apps/hudozka/node_modules
 COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED=1
 
-RUN npm run build
+RUN npm run build -w apps/hudozka
 
 # Production image, copy all the files and run next
 FROM base AS runner
 WORKDIR /app
-
-# sharp is required to be installed in standalone mode for the image optimization to function correctly.
-# Read more at: https://nextjs.org/docs/messages/sharp-missing-in-production
-# RUN npm install sharp
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
@@ -35,16 +37,16 @@ ENV NEXT_TELEMETRY_DISABLED=1
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-COPY --from=builder --chown=nextjs:nodejs /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/apps/hudozka/public ./apps/hudozka/public
 
 # Set the correct permission for prerender cache
-RUN mkdir .next
-RUN chown nextjs:nodejs .next
+RUN mkdir -p apps/hudozka/.next
+RUN chown nextjs:nodejs apps/hudozka/.next
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/apps/hudozka/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/apps/hudozka/.next/static ./apps/hudozka/.next/static
 
 USER nextjs
 
@@ -54,4 +56,5 @@ ENV PORT=3000
 # server.js is created by next build from the standalone output
 # https://nextjs.org/docs/pages/api-reference/next-config-js/output
 ENV HOSTNAME="0.0.0.0"
+WORKDIR /app/apps/hudozka
 CMD ["node", "server.js"]

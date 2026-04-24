@@ -39,6 +39,7 @@ jobs:
               uses: docker/build-push-action@v5
               with:
                   context: ./
+                  file: ./apps/hudozka/Dockerfile
                   push: true
                   platforms: linux/amd64
                   tags: |
