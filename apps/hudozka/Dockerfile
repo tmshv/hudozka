@@ -20,7 +20,6 @@ RUN npm install --os=linux --libc=musl --cpu=x64 sharp --workspace apps/hudozka
 FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
-COPY --from=deps /app/apps/hudozka/node_modules ./apps/hudozka/node_modules
 COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED=1
