@@ -4,16 +4,24 @@ import globals from "globals"
 
 export default defineConfig([
     globalIgnores([
-        ".next/**",
-        "out/**",
-        "build/**",
-        "modules/**",
-        "public/static/**",
-        "pb_data/**",
-        "pb_migrations/**",
-        "next-env.d.ts",
+        "**/node_modules/**",
+        "**/.next/**",
+        "**/dist/**",
+        "**/build/**",
+        "**/out/**",
+        "apps/hudozka/public/static/**",
+        "pb/pb_data/**",
+        "pb/pb_migrations/**",
+        "**/next-env.d.ts",
     ]),
-    ...nextVitals,
+    {
+        files: ["apps/hudozka/**/*.{js,jsx,ts,tsx}"],
+        extends: nextVitals,
+        rules: {
+            "react/jsx-uses-react": "error",
+            "react/jsx-uses-vars": "error",
+        },
+    },
     {
         languageOptions: {
             globals: globals.browser,
@@ -29,8 +37,6 @@ export default defineConfig([
             "no-tabs": "error",
             "no-var": "error",
             "space-before-function-paren": "off",
-            "react/jsx-uses-react": "error",
-            "react/jsx-uses-vars": "error",
         },
     },
 ])
