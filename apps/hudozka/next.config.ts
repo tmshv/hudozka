@@ -6,6 +6,7 @@ const config: NextConfig = {
     outputFileTracingRoot: path.join(process.cwd(), "../../"),
     trailingSlash: false,
     images: {
+        unoptimized: true,
         remotePatterns: [
             { hostname: "hudozka.shlisselburg.org" },
             { hostname: "images.weserv.nl" },
