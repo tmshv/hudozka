@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Website for the Art School of Shlisselburg ([art.shlisselburg.org](https://art.shlisselburg.org)). Content is in Russian. Built with Next.js using the App Router and Strapi headless CMS as the backend. The project has migrated through Express → Angular 1 → React class components → Next.js (Pages Router) → Next.js (App Router); some legacy artifacts remain.
+Website for the Art School of Shlisselburg ([art.shlisselburg.org](https://art.shlisselburg.org)). Content is in Russian. Built with Next.js using the App Router and PocketBase as the backend (migrated from Strapi — see `pb/` and `src/remote/pb.ts`). The project has migrated through Express → Angular 1 → React class components → Next.js (Pages Router) → Next.js (App Router); some legacy artifacts remain.
 
 ## Commands
 
@@ -48,29 +48,31 @@ When adding or updating packages in `package.json`, do not specify the PATCH ver
 
 ## Architecture
 
-**App Router with SSG/ISR:** Pages are server components in the `app/` directory with `export const revalidate = 30`. The root layout (`app/layout.tsx`) fetches menu data and provides it via `MenuContext` through a `Providers` client component. The catch-all route `app/[...slug]/page.tsx` handles all dynamic content pages with `generateStaticParams` and `generateMetadata`.
+**App Router with SSG/ISR:** Pages are server components under `src/app/` with `export const revalidate = 30`. The root layout (`src/app/layout.tsx`) fetches menu data and passes it down. The catch-all route `src/app/[...slug]/page.tsx` handles all dynamic content pages with `generateStaticParams` and `generateMetadata`.
 
 **Server/client boundary:** Layout and page components are server components that fetch data. The `App` component (`src/components/App`) is a `"use client"` component that provides the layout chrome (navigation, breadcrumbs, footer). Content is passed as `children` from server pages through the client boundary. Components using hooks (`PageGrid`, `HomeContent`, `PageContent`, `Menu`, `MobileNavigation`, `Wrapper`) are marked `"use client"`.
 
-**Data flow:** Strapi CMS API (`hudozka.tmshv.com`) → `src/remote/api.ts` fetches data via `apiGet()` generic wrapper → `src/remote/factory.ts` normalizes CMS responses into app types (`src/types.ts`) → pages render token-based content blocks. The API layer uses a factory pattern with default-response fallbacks on failure.
+**Data flow:** PocketBase API → `src/remote/api.ts` fetches data via `apiGet()` generic wrapper → `src/remote/factory.ts` normalizes responses into app types (`src/types.ts`) → pages render token-based content blocks. The API layer uses a factory pattern with default-response fallbacks on failure. The legacy Strapi integration was removed (see commit "rm strapi"); `src/remote/pb.ts` is the PocketBase client.
 
 **Metadata:** Uses the Next.js Metadata API (`generateMetadata`, `export const metadata`). The `buildMetadata()` helper in `src/lib/meta.ts` bridges the app's `Meta` type to Next.js `Metadata` format.
 
 **Content tokens:** Pages are composed of flexible content blocks (tokens): `text`, `image`, `file`, `html`, `youtube`, `instagram`, `grid`. The `Token` discriminated union is defined in `src/types.ts`. Each token type maps to a renderer component in the `PageContent` client component.
 
-**State management:** Valtio for reactive state (`src/store/`). Theme/accessibility preferences in `theme` store, playback state in `play` store, school contact info and year range in `config` store. Navigation data passed via React Context (`src/context/MenuContext`), provided by the root layout.
+**State management:** Valtio for reactive state (`src/store/`). Theme/accessibility preferences in `theme` store, playback state in `play` store.
 
 ## Key Directories
 
-- `app/` — App Router pages, layouts, and route handlers (layout, home page, `[...slug]` catch-all, not-found, sitemap, robots, feed)
+- `src/app/` — App Router pages, layouts, and route handlers (layout, home page, `[...slug]` catch-all, not-found, sitemap, robots, feed)
 - `src/components/` — page-level and feature components (folder-per-component with `index.tsx` + `styles.module.css`)
-- `src/ui/` — reusable primitives (Box, Button, Picture, Panel, Overlay, Title)
-- `src/remote/` — Strapi API integration (`api.ts` for fetching, `factory.ts` for transforms, `types.ts` for CMS response shapes)
-- `src/store/` — Valtio stores (theme/accessibility, playback config)
-- `src/hooks/` — custom hooks (`useMobile`, `useAccessibility`, `useDarkTheme`, `useReducedMotion`)
-- `src/lib/` — pure utility functions (date, string, url, image, file helpers)
+- `src/ui/` — reusable primitives (Box, Button, Picture, Panel, Overlay, Title, ThemeColor)
+- `src/remote/` — CMS integration (`api.ts` for fetching, `factory.ts` for transforms, `types.ts` for response shapes, `pb.ts` for the PocketBase client)
+- `src/store/` — Valtio stores (theme/accessibility, playback)
+- `src/hooks/` — custom hooks (`useMobile`, `useAccessibility`, `useDarkTheme`, `useReducedMotion`, `useToggle`, `useLockBodyScroll`, `useMediaQuery`)
+- `src/lib/` — pure utility functions (date, string, url, image, file, array, math, text, meta helpers)
 - `src/style/` — global CSS with CSS custom properties for theming
-- `modules/` — ancillary packages (strapi API client, sync tools, writer); excluded from tsconfig
+- `modules/hudozka-writer/` — Vite-based Tiptap editor (ancillary)
+- `modules/migrate-to-pocketbase/` — one-off Strapi → PocketBase migration script
+- `pb/` — PocketBase instance (data, migrations)
 
 ## Styling
 
@@ -108,3 +110,23 @@ Active modernization is tracked in GitHub issues #222–#238. Key items:
 - Two orphaned `.scss` files in `src/style/` (`tape-viewer.scss`, `vertical-image.scss`) — not imported anywhere, no SCSS preprocessor configured.
 - Some inline styles in `src/components/App/index.tsx` should be CSS modules.
 - `react-use` and `use-media` dependencies are unmaintained; only `useToggle` and `useLockBodyScroll` are used from `react-use`.
+
+## Planned: Monorepo Migration
+
+A migration to an npm-workspaces monorepo is planned but not yet executed. Spec and plan:
+
+- Design: `docs/specs/20260424-monorepo-design.md`
+- Implementation plan: `docs/plans/20260424-monorepo.md`
+
+Target layout (post-migration):
+
+- `apps/hudozka/` — this Next.js app
+- `apps/hudozka-writer/` — Vite-based Tiptap editor (from `modules/hudozka-writer`)
+- `apps/migrate-to-pocketbase/` — migration script (from `modules/migrate-to-pocketbase`)
+- `packages/ui/` — `@hudozka/ui`: Box, Button, Panel, Title, Overlay
+- `packages/hooks/` — `@hudozka/hooks`: generic React hooks
+- `packages/utils/` — `@hudozka/utils`: array, string, url, math, image, file, date
+- `packages/text/` — `@hudozka/text`: markdown-it + typograf wrappers
+- `pb/` — untouched
+
+Packages are consumed as TypeScript source (`"exports": { ".": "./src/index.ts" }`), no build step. `Picture` and `ThemeColor` stay in the web app (Next/Valtio-coupled). The `@/` path alias is only configured in `apps/hudozka/tsconfig.json`; packages use short relative imports. `Task 7.3` of the plan replaces this section with the post-migration version of Commands / Key Directories / CI/CD.

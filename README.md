@@ -1,6 +1,6 @@
 # [ART.SHLISSELBURG.ORG](https://art.shlisselburg.org)
 
-Website for the Art School of Shlisselburg. Built with Next.js and powered by Strapi CMS.
+Website for the Art School of Shlisselburg. Built with Next.js and powered by PocketBase (migrated from Strapi).
 
 Font: [«Shadow»](http://mishapanfilov.ru/font_shadow.html)
 
@@ -25,7 +25,7 @@ npm run dev
 The development server runs at [http://localhost:3000](http://localhost:3000) with Turbo mode enabled.
 
 ## Content Management
-Content is fetched from Strapi CMS and rendered using flexible content tokens:
+Content is fetched from PocketBase and rendered using flexible content tokens:
 - `text` — Markdown with Russian typography (Typograf)
 - `image` — Responsive images with blur hash
 - `file` — Document downloads
