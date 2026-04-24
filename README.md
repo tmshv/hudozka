@@ -4,6 +4,28 @@ Website for the Art School of Shlisselburg. Built with Next.js and powered by Po
 
 Font: [«Shadow»](http://mishapanfilov.ru/font_shadow.html)
 
+## Repo layout
+
+This is an npm-workspaces monorepo:
+
+- `apps/hudozka` — main Next.js app (art.shlisselburg.org)
+- `apps/hudozka-writer` — Vite-based content editor
+- `apps/migrate-to-pocketbase` — one-off migration script (Strapi → PocketBase)
+- `packages/ui` — `@hudozka/ui` — shared React primitives (Box, Button, Panel, Title, Overlay)
+- `packages/hooks` — `@hudozka/hooks` — generic React hooks
+- `packages/utils` — `@hudozka/utils` — pure utilities (array, string, url, math, image, file, date)
+- `packages/text` — `@hudozka/text` — markdown + typograf rendering
+- `pb/` — PocketBase instance (untouched by the monorepo migration)
+
+Common commands (from repo root):
+
+- `npm run dev` — run the web app dev server
+- `npm run build` — production build of the web app
+- `npm run lint` — lint the whole monorepo
+- `npm test` — run tests across every workspace
+- `npm run dev -w apps/hudozka-writer` — run the writer
+- `npm run migrate -w apps/migrate-to-pocketbase` — run the migration script
+
 ## Development
 
 ### Prerequisites
