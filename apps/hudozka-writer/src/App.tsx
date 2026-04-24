@@ -1,7 +1,7 @@
-import { useState, useEffect, useCallback } from "react"
-import { pb } from "./pb"
-import { Login } from "./components/Login"
+import { useCallback, useEffect, useState } from "react"
 import { Editor } from "./components/Editor"
+import { Login } from "./components/Login"
+import { pb } from "./pb"
 import type { PbPage } from "./types"
 import "./App.css"
 
@@ -22,9 +22,7 @@ export function App() {
         setLoading(true)
         setError("")
         try {
-            const record = await pb.collection("pages").getFirstListItem<PbPage>(
-                `slug="${slug}"`,
-            )
+            const record = await pb.collection("pages").getFirstListItem<PbPage>(`slug="${slug}"`)
             setPage(record)
         } catch {
             setError(`Page "${slug}" not found`)
@@ -87,7 +85,9 @@ export function App() {
     if (!slug) {
         return (
             <div className="app-message">
-                <p>Add <code>?page=slug</code> to the URL to edit a page.</p>
+                <p>
+                    Add <code>?page=slug</code> to the URL to edit a page.
+                </p>
                 <button onClick={handleLogout}>Logout</button>
             </div>
         )
@@ -116,11 +116,7 @@ export function App() {
                 <span className="app-title">{page.title}</span>
                 <span className="app-slug">/{page.slug}</span>
                 <label className="app-published-toggle">
-                    <input
-                        type="checkbox"
-                        checked={page.published}
-                        onChange={handleTogglePublished}
-                    />
+                    <input type="checkbox" checked={page.published} onChange={handleTogglePublished} />
                     Published
                 </label>
                 <button onClick={handleDuplicate}>Duplicate</button>

@@ -1,12 +1,12 @@
 import { Extension } from "@tiptap/core"
-import { PluginKey } from "@tiptap/pm/state"
+import type { Node as PmNode, ResolvedPos } from "@tiptap/pm/model"
 import { Fragment } from "@tiptap/pm/model"
-import type { ResolvedPos, Node as PmNode } from "@tiptap/pm/model"
+import { PluginKey } from "@tiptap/pm/state"
+import type { Editor } from "@tiptap/react"
+import type { SuggestionKeyDownProps, SuggestionOptions, SuggestionProps } from "@tiptap/suggestion"
 import Suggestion from "@tiptap/suggestion"
-import type { SuggestionOptions, SuggestionProps, SuggestionKeyDownProps } from "@tiptap/suggestion"
 import { createRoot } from "react-dom/client"
 import { generateBlockId } from "../lib/id"
-import type { Editor } from "@tiptap/react"
 import "./SlashCommands.css"
 
 type SlashCommandItem = {
@@ -34,7 +34,15 @@ function findTextBlockDepth($pos: ResolvedPos): number | null {
     return null
 }
 
-function SlashMenu({ items, command, selectedIndex }: { items: SlashCommandItem[]; command: (item: SlashCommandItem) => void; selectedIndex: number }) {
+function SlashMenu({
+    items,
+    command,
+    selectedIndex,
+}: {
+    items: SlashCommandItem[]
+    command: (item: SlashCommandItem) => void
+    selectedIndex: number
+}) {
     if (items.length === 0) return null
 
     return (
@@ -62,9 +70,7 @@ export const SlashCommands = Extension.create({
                 pluginKey: slashCommandsPluginKey,
                 startOfLine: true,
                 items: ({ query }: { query: string }) => {
-                    return ITEMS.filter((item) =>
-                        item.label.toLowerCase().includes(query.toLowerCase())
-                    )
+                    return ITEMS.filter(item => item.label.toLowerCase().includes(query.toLowerCase()))
                 },
                 render: () => {
                     let container: HTMLDivElement | null = null
@@ -76,11 +82,7 @@ export const SlashCommands = Extension.create({
                     function renderMenu() {
                         if (!root) return
                         root.render(
-                            <SlashMenu
-                                items={currentItems}
-                                command={currentCommand!}
-                                selectedIndex={selectedIndex}
-                            />
+                            <SlashMenu items={currentItems} command={currentCommand!} selectedIndex={selectedIndex} />,
                         )
                     }
 
@@ -153,7 +155,15 @@ export const SlashCommands = Extension.create({
                         },
                     }
                 },
-                command: ({ editor, range, props }: { editor: Editor; range: { from: number; to: number }; props: SlashCommandItem }) => {
+                command: ({
+                    editor,
+                    range,
+                    props,
+                }: {
+                    editor: Editor
+                    range: { from: number; to: number }
+                    props: SlashCommandItem
+                }) => {
                     // Delete the slash command text
                     editor.chain().focus().deleteRange(range).run()
 
@@ -193,7 +203,7 @@ export const SlashCommands = Extension.create({
                             if (curChild.content.size === 0 && i > 0) {
                                 splitAfter = i - 1
                             } else if (curChild.content.size === 0 && i === 0) {
-                                splitAfter = -1  // cursor in empty first child
+                                splitAfter = -1 // cursor in empty first child
                             } else {
                                 splitAfter = i
                             }
@@ -213,16 +223,14 @@ export const SlashCommands = Extension.create({
                             children.push(textBlockNode.child(i))
                         }
                         // Skip if all children are empty paragraphs
-                        const hasContent = children.some((c) => c.content.size > 0)
+                        const hasContent = children.some(c => c.content.size > 0)
                         if (hasContent) {
                             fragments.push(textBlockType.create(null, children))
                         }
                     }
 
                     // Insert the custom block
-                    fragments.push(schema.nodes[props.type].create(
-                        { ...props.attrs, id },
-                    ))
+                    fragments.push(schema.nodes[props.type].create({ ...props.attrs, id }))
 
                     // Build second textBlock (children after splitAfter) — skip empty
                     const remaining = []
@@ -231,7 +239,7 @@ export const SlashCommands = Extension.create({
                         remaining.push(textBlockNode.child(i))
                     }
                     // Filter out empty paragraphs at the edges
-                    const nonEmpty = remaining.filter((c) => c.content.size > 0)
+                    const nonEmpty = remaining.filter(c => c.content.size > 0)
                     if (nonEmpty.length > 0) {
                         fragments.push(textBlockType.create(null, remaining))
                     }

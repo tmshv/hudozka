@@ -1,12 +1,12 @@
-import { Node, mergeAttributes } from "@tiptap/core"
-import { ReactNodeViewRenderer, NodeViewWrapper } from "@tiptap/react"
+import { mergeAttributes, Node } from "@tiptap/core"
 import type { NodeViewProps } from "@tiptap/react"
-import { useState, useEffect } from "react"
-import { pb } from "../pb"
-import { FilePicker } from "../components/FilePicker"
-import type { PbFile } from "../types"
+import { NodeViewWrapper, ReactNodeViewRenderer } from "@tiptap/react"
+import { useEffect, useState } from "react"
 import { BlockActions } from "../components/BlockActions"
 import { BlockInsert } from "../components/BlockInsert"
+import { FilePicker } from "../components/FilePicker"
+import { pb } from "../pb"
+import type { PbFile } from "../types"
 
 function DocumentBlockView({ node, updateAttributes, editor, getPos }: NodeViewProps) {
     const { fileId, title } = node.attrs
@@ -15,11 +15,14 @@ function DocumentBlockView({ node, updateAttributes, editor, getPos }: NodeViewP
 
     useEffect(() => {
         if (!fileId) return
-        pb.collection("files").getOne<PbFile>(fileId).then((f) => {
-            setFilename(f.filename)
-        }).catch(() => {
-            setFilename(null)
-        })
+        pb.collection("files")
+            .getOne<PbFile>(fileId)
+            .then(f => {
+                setFilename(f.filename)
+            })
+            .catch(() => {
+                setFilename(null)
+            })
     }, [fileId])
 
     function handleSelect(newFileId: string) {
@@ -55,22 +58,14 @@ function DocumentBlockView({ node, updateAttributes, editor, getPos }: NodeViewP
                             type="text"
                             placeholder="Title"
                             value={title || ""}
-                            onChange={(e) => updateAttributes({ title: e.target.value })}
+                            onChange={e => updateAttributes({ title: e.target.value })}
                             className="node-document-title"
                         />
-                        <button
-                            className="node-image-pick-btn"
-                            onClick={() => setShowPicker(true)}
-                        >
+                        <button className="node-image-pick-btn" onClick={() => setShowPicker(true)}>
                             Pick
                         </button>
                     </div>
-                    {showPicker && (
-                        <FilePicker
-                            onSelect={handleSelect}
-                            onClose={() => setShowPicker(false)}
-                        />
-                    )}
+                    {showPicker && <FilePicker onSelect={handleSelect} onClose={() => setShowPicker(false)} />}
                 </div>
             </NodeViewWrapper>
             <BlockInsert editor={editor} getPos={getPos} />

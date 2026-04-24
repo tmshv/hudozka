@@ -1,6 +1,6 @@
-import { Node, mergeAttributes } from "@tiptap/core"
-import { ReactNodeViewRenderer, NodeViewWrapper, NodeViewContent } from "@tiptap/react"
+import { mergeAttributes, Node } from "@tiptap/core"
 import type { NodeViewProps } from "@tiptap/react"
+import { NodeViewContent, NodeViewWrapper, ReactNodeViewRenderer } from "@tiptap/react"
 import { BlockActions } from "../components/BlockActions"
 import { BlockInsert } from "../components/BlockInsert"
 

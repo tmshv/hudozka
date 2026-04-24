@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { pb } from "../pb"
 import type { PbFile } from "../types"
 import "./FilePicker.css"
@@ -56,21 +56,17 @@ export function FilePicker({ onSelect, onClose }: FilePickerProps) {
 
     return (
         <div className="picker-overlay" onClick={onClose}>
-            <div className="picker" onClick={(e) => e.stopPropagation()}>
+            <div className="picker" onClick={e => e.stopPropagation()}>
                 <div className="picker-header">
-                    <button
-                        className={tab === "browse" ? "active" : ""}
-                        onClick={() => setTab("browse")}
-                    >
+                    <button className={tab === "browse" ? "active" : ""} onClick={() => setTab("browse")}>
                         Browse
                     </button>
-                    <button
-                        className={tab === "upload" ? "active" : ""}
-                        onClick={() => setTab("upload")}
-                    >
+                    <button className={tab === "upload" ? "active" : ""} onClick={() => setTab("upload")}>
                         Upload
                     </button>
-                    <button className="picker-close" onClick={onClose}>×</button>
+                    <button className="picker-close" onClick={onClose}>
+                        ×
+                    </button>
                 </div>
 
                 {tab === "browse" && (
@@ -79,12 +75,8 @@ export function FilePicker({ onSelect, onClose }: FilePickerProps) {
                             <div className="picker-loading">Loading...</div>
                         ) : (
                             <div className="file-picker-list">
-                                {files.map((f) => (
-                                    <button
-                                        key={f.id}
-                                        className="file-picker-item"
-                                        onClick={() => onSelect(f.id)}
-                                    >
+                                {files.map(f => (
+                                    <button key={f.id} className="file-picker-item" onClick={() => onSelect(f.id)}>
                                         <span className="file-picker-icon">📎</span>
                                         <span className="file-picker-name">{f.filename}</span>
                                     </button>
@@ -92,17 +84,13 @@ export function FilePicker({ onSelect, onClose }: FilePickerProps) {
                             </div>
                         )}
                         <div className="picker-pagination">
-                            <button
-                                disabled={page <= 1}
-                                onClick={() => setPage((p) => p - 1)}
-                            >
+                            <button disabled={page <= 1} onClick={() => setPage(p => p - 1)}>
                                 Prev
                             </button>
-                            <span>{page} / {totalPages}</span>
-                            <button
-                                disabled={page >= totalPages}
-                                onClick={() => setPage((p) => p + 1)}
-                            >
+                            <span>
+                                {page} / {totalPages}
+                            </span>
+                            <button disabled={page >= totalPages} onClick={() => setPage(p => p + 1)}>
                                 Next
                             </button>
                         </div>

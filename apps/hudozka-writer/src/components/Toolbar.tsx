@@ -112,10 +112,7 @@ export function Toolbar({
                 >
                     Code
                 </button>
-                <button
-                    onClick={() => editor.chain().focus().setHorizontalRule().run()}
-                    title="Horizontal rule"
-                >
+                <button onClick={() => editor.chain().focus().setHorizontalRule().run()} title="Horizontal rule">
                     ---
                 </button>
             </div>
@@ -131,18 +128,10 @@ export function Toolbar({
             </div>
 
             <div className="toolbar-group toolbar-actions">
-                <button
-                    onClick={onSave}
-                    disabled={!canSave || saving}
-                    className="toolbar-save-btn"
-                >
+                <button onClick={onSave} disabled={!canSave || saving} className="toolbar-save-btn">
                     {saving ? "Saving..." : "Save"}
                 </button>
-                <button
-                    onClick={onPublish}
-                    disabled={!canPublish || publishing}
-                    className="toolbar-publish-btn"
-                >
+                <button onClick={onPublish} disabled={!canPublish || publishing} className="toolbar-publish-btn">
                     {publishing ? "Publishing..." : "Publish"}
                 </button>
             </div>

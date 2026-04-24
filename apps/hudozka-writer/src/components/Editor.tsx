@@ -1,24 +1,17 @@
-import { useEditor, EditorContent } from "@tiptap/react"
-import StarterKit from "@tiptap/starter-kit"
-import { Markdown } from "@tiptap/markdown"
 import Link from "@tiptap/extension-link"
-import { useState, useCallback, useRef, useEffect } from "react"
-import { pb } from "../pb"
-import { docToTiptap, tiptapToDoc } from "../lib/serialize"
-import { Toolbar } from "./Toolbar"
-import { DraftBanner } from "./DraftBanner"
-import {
-    WriterDocument,
-    TextBlock,
-    ImageBlock,
-    DocumentBlock,
-    EmbedBlock,
-    CardGridBlock,
-} from "../nodes"
+import { Markdown } from "@tiptap/markdown"
+import { EditorContent, useEditor } from "@tiptap/react"
+import StarterKit from "@tiptap/starter-kit"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { SlashCommands } from "../extensions/SlashCommands"
+import { docToTiptap, tiptapToDoc } from "../lib/serialize"
+import { CardGridBlock, DocumentBlock, EmbedBlock, ImageBlock, TextBlock, WriterDocument } from "../nodes"
+import { pb } from "../pb"
+import { DraftBanner } from "./DraftBanner"
+import { Toolbar } from "./Toolbar"
 import "../nodes/nodes.css"
 import "./Editor.css"
-import type { PbPage, DocV1 } from "../types"
+import type { DocV1, PbPage } from "../types"
 
 function serializeDoc(doc: DocV1): string {
     return JSON.stringify(doc)
@@ -157,14 +150,12 @@ export function Editor({ page }: EditorProps) {
                 markdownMode={markdownMode}
                 onToggleMarkdown={handleToggleMarkdown}
             />
-            {hasDraft && (
-                <DraftBanner onDiscard={handleDiscard} />
-            )}
+            {hasDraft && <DraftBanner onDiscard={handleDiscard} />}
             {markdownMode ? (
                 <textarea
                     className="editor-markdown"
                     value={markdownText}
-                    onChange={(e) => setMarkdownText(e.target.value)}
+                    onChange={e => setMarkdownText(e.target.value)}
                 />
             ) : (
                 <EditorContent editor={editor} className="editor-content" />
