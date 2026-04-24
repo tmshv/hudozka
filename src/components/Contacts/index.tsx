@@ -2,12 +2,9 @@ import s from "./contacts.module.css"
 
 import Link from "next/link"
 import { Title } from "@/ui/Title"
-import { useSnapshot } from "valtio"
-import { state } from "@/store/config"
+import { contacts } from "@/const"
 
-export const Contacts: React.FC = props => {
-    const { contacts } = useSnapshot(state)
-
+export const Contacts: React.FC = () => {
     return (
         <>
             <Title level={3}>Контактная информация</Title>
