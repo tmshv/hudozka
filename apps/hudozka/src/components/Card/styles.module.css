@@ -8,6 +8,11 @@
     text-decoration: none;
 }
 
+a.card,
+a.card:hover {
+    border-bottom: none;
+}
+
 .image {
     position: relative;
     width: 100%;
