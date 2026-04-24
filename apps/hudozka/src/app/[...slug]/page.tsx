@@ -4,7 +4,7 @@ import { App } from "@/components/App"
 import { PageContent } from "@/components/PageContent"
 import { MetaBuilder, buildMetadata } from "@/lib/meta"
 import { getPageBySlug, getUrls } from "@/remote/api"
-import { tail } from "@/lib/array"
+import { tail } from "@hudozka/utils"
 
 export const revalidate = 30
 export const dynamicParams = true

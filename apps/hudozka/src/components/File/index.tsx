@@ -1,7 +1,7 @@
 import s from "./styles.module.css"
 
 import type { FileDefinition } from "@/types"
-import { ext, size } from "src/lib/file"
+import { ext, size } from "@hudozka/utils"
 import Link from "next/link"
 import Image from "next/image"
 

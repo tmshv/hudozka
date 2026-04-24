@@ -1,5 +1,5 @@
 import { proxy, subscribe } from "valtio"
-import { clamp } from "@/lib/math"
+import { clamp } from "@hudozka/utils"
 
 export type ThemeName = "default" | "contrast"
 export type ColorSchemeVariant = "black-on-white" | "white-on-black" | "blue-on-blue" | "brown-on-yellow" | "green-on-brown"

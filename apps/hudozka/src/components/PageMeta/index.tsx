@@ -1,7 +1,7 @@
 import s from "./styles.module.css"
 
 import cx from "classnames"
-import { dateFormat } from "@/lib/date"
+import { dateFormat } from "@hudozka/utils"
 import type { Tag } from "@/types"
 import { TagList } from "../TagList"
 import type { Direction } from "../TagList"
