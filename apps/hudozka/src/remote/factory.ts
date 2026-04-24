@@ -1,7 +1,7 @@
 import type { MenuItem, Page, Tag, PageCardDto, Pic, Token, FeedPage } from "@/types"
 import type { PbPage, PbImage, PbFile, PbTag, PbHomeData, PbMenuData } from "./types"
 import type { DocV1Block } from "./doc"
-import { typograf, markdownToHtml } from "@/lib/text"
+import { typograf, markdownToHtml } from "@hudozka/text"
 import { pb } from "./pb"
 
 const md = (text: string) => typograf(markdownToHtml(text))

@@ -1,5 +1,5 @@
 import cx from "classnames"
-import { useReducedMotion } from "src/hooks/useReducedMotion"
+import { useReducedMotion } from "@hudozka/hooks"
 
 export type ContentProps = {
     style?: React.CSSProperties

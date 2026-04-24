@@ -5,7 +5,7 @@ import { dateFormat } from "@hudozka/utils"
 import type { Tag } from "@/types"
 import { TagList } from "../TagList"
 import type { Direction } from "../TagList"
-import { useMobile } from "@/hooks/useMobile"
+import { useMobile } from "@hudozka/hooks"
 
 export type PageMetaProps = {
     style?: React.CSSProperties

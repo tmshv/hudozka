@@ -2,7 +2,7 @@
 
 import { HudozkaTitle } from "@/components/HudozkaTitle"
 import { PageGrid } from "@/components/PageGrid"
-import { useMobile } from "@/hooks/useMobile"
+import { useMobile } from "@hudozka/hooks"
 import type { PageCardDto } from "@/types"
 
 export type HomeContentProps = {

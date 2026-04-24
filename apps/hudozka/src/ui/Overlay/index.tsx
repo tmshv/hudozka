@@ -1,8 +1,7 @@
 import s from "./styles.module.css"
 
 import { Transition } from "./Transition"
-import { useReducedMotion } from "@/hooks/useReducedMotion"
-import { useLockBodyScroll } from "@/hooks/useLockBodyScroll"
+import { useLockBodyScroll, useReducedMotion } from "@hudozka/hooks"
 
 export type OverlayProps = {
     children?: React.ReactNode
