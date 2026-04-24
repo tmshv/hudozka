@@ -1,5 +1,5 @@
-import PocketBase from "pocketbase"
 import { existsSync, readFileSync, writeFileSync } from "node:fs"
+import PocketBase from "pocketbase"
 
 const STATE_FILE = new URL("../.migrate-state.json", import.meta.url).pathname
 const POCKETBASE_URL = required("POCKETBASE_URL")
@@ -39,7 +39,7 @@ async function main() {
     const args = process.argv.slice(2)
     const targets = args.length > 0 ? args : [...KNOWN]
 
-    const unknown = targets.filter(t => !KNOWN.includes(t as typeof KNOWN[number]))
+    const unknown = targets.filter(t => !KNOWN.includes(t as (typeof KNOWN)[number]))
     if (unknown.length > 0) {
         console.error(`unknown collections: ${unknown.join(", ")}`)
         console.error(`known: ${KNOWN.join(", ")}`)
@@ -80,7 +80,7 @@ async function main() {
 }
 
 main().catch(e => {
-    const err = e as { message?: string, url?: string, status?: number, response?: { data?: unknown } }
+    const err = e as { message?: string; url?: string; status?: number; response?: { data?: unknown } }
     console.error("ERROR:", err.message)
     if (err.url) console.error("  url:", err.url, "status:", err.status)
     if (err.response?.data !== undefined) {

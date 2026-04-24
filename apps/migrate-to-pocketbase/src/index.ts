@@ -1,22 +1,14 @@
-import PocketBase from "pocketbase"
 import { customAlphabet } from "nanoid"
+import PocketBase from "pocketbase"
 
 const nanoid = customAlphabet("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", 10)
-import { readFileSync, writeFileSync, existsSync } from "node:fs"
-import type {
-    StrapiComponent,
-    StrapiMedia,
-    StrapiPageCard,
-} from "./strapi.ts"
-import {
-    fetchAllPages,
-    fetchHome,
-    fetchMenu,
-    fetchTags,
-} from "./strapi.ts"
-import { download, basenameFromUrl } from "./download.ts"
+
+import { existsSync, readFileSync, writeFileSync } from "node:fs"
 import { encodeBlur, imageDims } from "./blurhash.ts"
+import { basenameFromUrl, download } from "./download.ts"
 import { sha256 } from "./hash.ts"
+import type { StrapiComponent, StrapiMedia, StrapiPageCard } from "./strapi.ts"
+import { fetchAllPages, fetchHome, fetchMenu, fetchTags } from "./strapi.ts"
 
 const STRAPI_URL = process.env.STRAPI_URL ?? "https://hudozka.tmshv.com"
 const POCKETBASE_URL = required("POCKETBASE_URL")
@@ -25,7 +17,7 @@ const POCKETBASE_PASSWORD = required("POCKETBASE_PASSWORD")
 
 const STATE_FILE = new URL("../.migrate-state.json", import.meta.url).pathname
 const PHASES = ["tags", "images", "files", "pages", "rewrite", "kv"] as const
-type Phase = typeof PHASES[number]
+type Phase = (typeof PHASES)[number]
 
 function required(name: string): string {
     const v = process.env[name]
@@ -39,21 +31,21 @@ function required(name: string): string {
 // are strapi numeric ids; rewrite phase remaps them to PB string ids.
 type Ref = string | number
 type BlockBase = { id: string }
-type BlockText = BlockBase & { type: "text", text: string }
-type BlockImage = BlockBase & { type: "image", image: Ref, wide: boolean, caption: string }
-type BlockDocument = BlockBase & { type: "document", file: Ref, title: string }
-type BlockEmbed = BlockBase & { type: "embed", src: string }
-type CardRef = { page: Ref, layout: "small" | "medium" | "big" }
-type BlockCardGrid = BlockBase & { type: "card-grid", items: CardRef[] }
+type BlockText = BlockBase & { type: "text"; text: string }
+type BlockImage = BlockBase & { type: "image"; image: Ref; wide: boolean; caption: string }
+type BlockDocument = BlockBase & { type: "document"; file: Ref; title: string }
+type BlockEmbed = BlockBase & { type: "embed"; src: string }
+type CardRef = { page: Ref; layout: "small" | "medium" | "big" }
+type BlockCardGrid = BlockBase & { type: "card-grid"; items: CardRef[] }
 type Block = BlockText | BlockImage | BlockDocument | BlockEmbed | BlockCardGrid
 
-type DocContent = { version: 1, blocks: Block[] }
+type DocContent = { version: 1; blocks: Block[] }
 
 type State = {
-    tagMap: Record<string, string>,
-    imageMap: Record<string, string>,
-    fileMap: Record<string, string>,
-    pageMap: Record<string, string>,
+    tagMap: Record<string, string>
+    imageMap: Record<string, string>
+    fileMap: Record<string, string>
+    pageMap: Record<string, string>
 }
 
 function loadState(): State {
@@ -117,7 +109,9 @@ async function main() {
         fetchHome(STRAPI_URL),
         fetchMenu(STRAPI_URL),
     ])
-    console.log(`strapi: pages=${strapiPages.length} tags=${strapiTags.length} home.cards=${strapiHome.cards.length} menu.items=${strapiMenu.menu.items.length}`)
+    console.log(
+        `strapi: pages=${strapiPages.length} tags=${strapiTags.length} home.cards=${strapiHome.cards.length} menu.items=${strapiMenu.menu.items.length}`,
+    )
 
     // phase: tags
     if (phases.includes("tags")) {
@@ -174,9 +168,10 @@ async function main() {
                     continue
                 }
                 const filename = m.name || basenameFromUrl(m.url)
-                const dims = (m.width && m.height)
-                    ? { width: m.width, height: m.height }
-                    : (await imageDims(buf) ?? { width: 0, height: 0 })
+                const dims =
+                    m.width && m.height
+                        ? { width: m.width, height: m.height }
+                        : ((await imageDims(buf)) ?? { width: 0, height: 0 })
                 const blur = await encodeBlur(buf)
 
                 const form = new FormData()
@@ -196,19 +191,28 @@ async function main() {
                 const rec = await pb.collection("images").create(form)
                 imageMap.set(sid, rec.id)
                 imageHashIndex.set(hash, rec.id)
-                console.log(`  [${ii}/${imageMedia.size}] ${filename} (${dims.width}x${dims.height}, ${Math.round(buf.byteLength / 1024)}KB, blur=${blur ? blur.length + "ch" : "none"}) -> ${rec.id}`)
+                console.log(
+                    `  [${ii}/${imageMedia.size}] ${filename} (${dims.width}x${dims.height}, ${Math.round(buf.byteLength / 1024)}KB, blur=${blur ? blur.length + "ch" : "none"}) -> ${rec.id}`,
+                )
             } catch (e) {
                 console.error(`  [${ii}/${imageMedia.size}] image ${sid} failed:`)
-                console.error(`  strapi media:`, JSON.stringify({
-                    id: m.id,
-                    name: m.name,
-                    mime: m.mime,
-                    ext: m.ext,
-                    sizeKB: m.size,
-                    width: m.width,
-                    height: m.height,
-                    url: m.url,
-                }, null, 2))
+                console.error(
+                    `  strapi media:`,
+                    JSON.stringify(
+                        {
+                            id: m.id,
+                            name: m.name,
+                            mime: m.mime,
+                            ext: m.ext,
+                            sizeKB: m.size,
+                            width: m.width,
+                            height: m.height,
+                            url: m.url,
+                        },
+                        null,
+                        2,
+                    ),
+                )
                 printErr(e)
             }
         }
@@ -219,7 +223,7 @@ async function main() {
 
     // phase: files
     if (phases.includes("files")) {
-        const docMedia = new Map<number, { id: number, url: string, name: string, mime: string, size: number }>()
+        const docMedia = new Map<number, { id: number; url: string; name: string; mime: string; size: number }>()
         for (const p of strapiPages) {
             for (const c of p.content) {
                 if (c.__component === "hudozka.document" && c.media) {
@@ -307,7 +311,9 @@ async function main() {
             try {
                 const rec = await pb.collection("pages").create(data)
                 pageMap.set(p.id, rec.id)
-                console.log(`  [${pi}/${strapiPages.length}] ${p.slug} -> ${rec.id} (${blocks.length} blocks, ${tagIds.length} tags${coverId ? ", cover" : ""})`)
+                console.log(
+                    `  [${pi}/${strapiPages.length}] ${p.slug} -> ${rec.id} (${blocks.length} blocks, ${tagIds.length} tags${coverId ? ", cover" : ""})`,
+                )
             } catch (e) {
                 console.error(`  [${pi}/${strapiPages.length}] page ${p.id} (${p.slug}) failed:`)
                 printErr(e)
@@ -334,7 +340,9 @@ async function main() {
                 const rec = await pb.collection("pages").getOne(pbId, { fields: "doc" })
                 const doc = (rec as unknown as { doc: DocContent }).doc
                 const before = doc.blocks.length
-                doc.blocks = doc.blocks.map(b => remapBlock(b, imageMap, fileMap, pageMap)).filter((b): b is Block => b !== null)
+                doc.blocks = doc.blocks
+                    .map(b => remapBlock(b, imageMap, fileMap, pageMap))
+                    .filter((b): b is Block => b !== null)
                 dropped += before - doc.blocks.length
 
                 const tagIds = p.tags.map(t => tagMap.get(t.id)).filter((x): x is string => !!x)
@@ -355,7 +363,7 @@ async function main() {
         console.log(`\n[kv] creating home + menu...`)
         const homeCards = strapiHome.cards
             .map(c => ({ page: pageMap.get(c.page.id), layout: c.layout }))
-            .filter((c): c is { page: string, layout: "small" | "medium" | "big" } => !!c.page)
+            .filter((c): c is { page: string; layout: "small" | "medium" | "big" } => !!c.page)
 
         await pb.collection("kv").create({
             key: "home",
@@ -385,24 +393,24 @@ async function main() {
 function toBlock(c: StrapiComponent): Block | null {
     const id = nanoid()
     switch (c.__component) {
-    case "hudozka.text":
-        return { id, type: "text", text: c.text }
-    case "hudozka.image":
-        if (!c.media) return null
-        return { id, type: "image", image: c.media.id, wide: !!c.wide, caption: c.caption ?? "" }
-    case "hudozka.document":
-        if (!c.media) return null
-        return { id, type: "document", file: c.media.id, title: c.title ?? "" }
-    case "hudozka.embed":
-        return { id, type: "embed", src: c.src }
-    case "hudozka.card-grid": {
-        const items: CardRef[] = (c.items ?? [])
-            .filter((it: StrapiPageCard) => it && it.page)
-            .map((it: StrapiPageCard) => ({ page: it.page.id, layout: it.layout }))
-        return { id, type: "card-grid", items }
-    }
-    default:
-        return null
+        case "hudozka.text":
+            return { id, type: "text", text: c.text }
+        case "hudozka.image":
+            if (!c.media) return null
+            return { id, type: "image", image: c.media.id, wide: !!c.wide, caption: c.caption ?? "" }
+        case "hudozka.document":
+            if (!c.media) return null
+            return { id, type: "document", file: c.media.id, title: c.title ?? "" }
+        case "hudozka.embed":
+            return { id, type: "embed", src: c.src }
+        case "hudozka.card-grid": {
+            const items: CardRef[] = (c.items ?? [])
+                .filter((it: StrapiPageCard) => it && it.page)
+                .map((it: StrapiPageCard) => ({ page: it.page.id, layout: it.layout }))
+            return { id, type: "card-grid", items }
+        }
+        default:
+            return null
     }
 }
 
@@ -415,30 +423,30 @@ function remapBlock(
     pageMap: Map<number, string>,
 ): Block | null {
     switch (b.type) {
-    case "image": {
-        if (typeof b.image === "string") return b
-        const ref = imageMap.get(b.image)
-        if (!ref) return null
-        return { ...b, image: ref }
-    }
-    case "document": {
-        if (typeof b.file === "string") return b
-        const ref = fileMap.get(b.file)
-        if (!ref) return null
-        return { ...b, file: ref }
-    }
-    case "card-grid": {
-        const items = b.items
-            .map(it => {
-                if (typeof it.page === "string") return it
-                const mapped = pageMap.get(it.page)
-                return mapped ? { page: mapped, layout: it.layout } : null
-            })
-            .filter((x): x is CardRef => x !== null)
-        return { ...b, items }
-    }
-    default:
-        return b
+        case "image": {
+            if (typeof b.image === "string") return b
+            const ref = imageMap.get(b.image)
+            if (!ref) return null
+            return { ...b, image: ref }
+        }
+        case "document": {
+            if (typeof b.file === "string") return b
+            const ref = fileMap.get(b.file)
+            if (!ref) return null
+            return { ...b, file: ref }
+        }
+        case "card-grid": {
+            const items = b.items
+                .map(it => {
+                    if (typeof it.page === "string") return it
+                    const mapped = pageMap.get(it.page)
+                    return mapped ? { page: mapped, layout: it.layout } : null
+                })
+                .filter((x): x is CardRef => x !== null)
+            return { ...b, items }
+        }
+        default:
+            return b
     }
 }
 
@@ -453,7 +461,7 @@ async function buildHashIndex(pb: PocketBase, collection: string): Promise<Map<s
 }
 
 function printErr(e: unknown, input?: unknown) {
-    const err = e as { message?: string, url?: string, status?: number, response?: { data?: unknown } }
+    const err = e as { message?: string; url?: string; status?: number; response?: { data?: unknown } }
     console.error("ERROR:", err.message)
     if (err.url) console.error("  url:", err.url, "status:", err.status)
     if (input !== undefined) {
