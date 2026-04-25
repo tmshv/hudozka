@@ -1,5 +1,5 @@
 import { menu } from "@/const"
-import type { BreadcrumbPart, FeedPage, Page, PageCardDto, TagListing } from "@/types"
+import type { BreadcrumbPart, FeedPage, Page, PageCardDto, Tag, TagListing } from "@/types"
 import type { DocV1Block } from "./doc"
 import { createFeedPages, createHomeCards, createPage, createTag, createTagPageCards } from "./factory"
 import { pb } from "./pb"
@@ -221,5 +221,34 @@ export async function getPagesByTag(slug: string, page: number, perPage: number)
     } catch (error) {
         console.error(`Failed to fetch pages by tag "${slug}": ${error}`)
         return null
+    }
+}
+
+export async function getAllTagsWithCounts(): Promise<Tag[]> {
+    try {
+        const pages = await pb.collection("pages").getFullList<{ tags: string[] }>({
+            filter: "draft=false",
+            fields: "tags",
+        })
+
+        const counts = new Map<string, number>()
+        for (const p of pages) {
+            for (const tagId of p.tags) {
+                counts.set(tagId, (counts.get(tagId) ?? 0) + 1)
+            }
+        }
+
+        const tags = await pb.collection("tags").getFullList<PbTag>()
+
+        return tags
+            .map(t => createTag(t, counts.get(t.id) ?? 0))
+            .filter(t => t.count > 0)
+            .sort((a, b) => {
+                if (b.count !== a.count) return b.count - a.count
+                return a.name.localeCompare(b.name, "ru")
+            })
+    } catch (error) {
+        console.error(`Failed to fetch tags with counts: ${error}`)
+        return []
     }
 }
