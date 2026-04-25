@@ -50,6 +50,16 @@ function getCoverPic(coverId: string, images: Map<string, PbImage>): Pic {
     return DEFAULT_COVER
 }
 
+export function createTag(record: PbTag, count: number): Tag {
+    return {
+        id: record.id,
+        name: record.label,
+        slug: record.slug,
+        href: `/tags/${record.slug}`,
+        count,
+    }
+}
+
 export function isYoutubeUrl(url: string): boolean {
     return /youtube\.com/.test(url)
 }
@@ -172,13 +182,7 @@ export function createPage(
 ): Page {
     const cover = getCoverPic(record.cover, images)
 
-    const pageTags: Tag[] = tags.map(tag => ({
-        id: tag.id,
-        name: tag.label,
-        slug: tag.slug,
-        href: `/tags/${tag.slug}`,
-        count: 0,
-    }))
+    const pageTags: Tag[] = tags.map(tag => createTag(tag, 0))
 
     const tokens: Token[] = record.doc.blocks.map(block =>
         createPageToken(block, images, files, cardGridPages, cardGridImages),
@@ -263,4 +267,15 @@ export function createFeedPages(pages: PbPage[]): FeedPage[] {
             date: page.date,
             excerpt: page.excerpt,
         }))
+}
+
+export function createTagPageCards(pages: PbPage[], images: Map<string, PbImage>): PageCardDto[] {
+    return pages.map(page => ({
+        id: page.id,
+        url: page.slug,
+        title: page.title,
+        featured: false,
+        date: page.date || null,
+        cover: getCoverPic(page.cover, images),
+    }))
 }

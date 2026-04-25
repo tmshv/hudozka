@@ -1,0 +1,13 @@
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-s);
+    list-style: none;
+    padding: 0;
+    margin: var(--size-m) 0 var(--size-xl);
+}
+
+.count {
+    margin-left: var(--size-xs);
+    color: var(--color-text-second);
+}

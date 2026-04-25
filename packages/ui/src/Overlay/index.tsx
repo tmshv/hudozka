@@ -1,3 +1,5 @@
+"use client"
+
 import { useLockBodyScroll, useReducedMotion } from "@hudozka/hooks"
 import s from "./styles.module.css"
 import { Transition } from "./Transition"

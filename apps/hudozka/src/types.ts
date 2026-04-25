@@ -85,6 +85,14 @@ export type Tag = {
     count: number
 }
 
+export type TagListing = {
+    tag: Tag
+    items: PageCardDto[]
+    total: number
+    page: number
+    perPage: number
+}
+
 export type Pic = {
     src: string
     alt?: string
