@@ -1,7 +1,7 @@
 import { menu } from "@/const"
-import type { BreadcrumbPart, FeedPage, Page, PageCardDto } from "@/types"
+import type { BreadcrumbPart, FeedPage, Page, PageCardDto, TagListing } from "@/types"
 import type { DocV1Block } from "./doc"
-import { createFeedPages, createHomeCards, createPage } from "./factory"
+import { createFeedPages, createHomeCards, createPage, createTag, createTagPageCards } from "./factory"
 import { pb } from "./pb"
 import type { PbFile, PbHomeData, PbImage, PbPage, PbTag } from "./types"
 
@@ -195,5 +195,31 @@ export async function getAllTagSlugs(): Promise<string[]> {
     } catch (error) {
         console.error(`Failed to fetch tag slugs: ${error}`)
         return []
+    }
+}
+
+export async function getPagesByTag(slug: string, page: number, perPage: number): Promise<TagListing | null> {
+    try {
+        const tag = await pb.collection("tags").getFirstListItem<PbTag>(`slug="${slug}"`)
+
+        const result = await pb.collection("pages").getList<PbPage>(page, perPage, {
+            filter: `tags ~ "${tag.id}" && draft=false`,
+            sort: "-updated",
+            fields: "id,slug,title,cover,updated,date",
+        })
+
+        const coverIds = result.items.map(p => p.cover).filter(Boolean)
+        const images = await fetchImagesByIds(coverIds)
+
+        return {
+            tag: createTag(tag, result.totalItems),
+            items: createTagPageCards(result.items, images),
+            total: result.totalItems,
+            page,
+            perPage,
+        }
+    } catch (error) {
+        console.error(`Failed to fetch pages by tag "${slug}": ${error}`)
+        return null
     }
 }
