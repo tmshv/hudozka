@@ -2,7 +2,7 @@ import Link from "@tiptap/extension-link"
 import { Markdown } from "@tiptap/markdown"
 import { EditorContent, useEditor } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useRef, useState } from "react"
 import { SlashCommands } from "../extensions/SlashCommands"
 import { docToTiptap, tiptapToDoc } from "../lib/serialize"
 import { CardGridBlock, DocumentBlock, EmbedBlock, ImageBlock, TextBlock, WriterDocument } from "../nodes"
@@ -30,15 +30,10 @@ export function Editor({ page }: EditorProps) {
     const [hasDraft, setHasDraft] = useState(page.draft !== null)
     const [publishedDoc, setPublishedDoc] = useState(page.doc)
 
-    const snapshotRef = useRef("")
-
     const initialDoc = page.draft ?? page.doc
     const tiptapDoc = docToTiptap(initialDoc)
 
-    // Set initial snapshot
-    useEffect(() => {
-        snapshotRef.current = serializeDoc(initialDoc)
-    }, []) // eslint-disable-line react-hooks/exhaustive-deps
+    const snapshotRef = useRef(serializeDoc(initialDoc))
 
     const editor = useEditor({
         extensions: [

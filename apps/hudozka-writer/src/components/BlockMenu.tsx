@@ -57,7 +57,7 @@ export function BlockMenu({ editor, position, onClose, filter }: BlockMenuProps)
     return (
         <div className="block-menu">
             {filtered.map(block => (
-                <button key={block.type} className="block-menu-item" onClick={() => handleInsert(block)}>
+                <button type="button" key={block.type} className="block-menu-item" onClick={() => handleInsert(block)}>
                     {block.label}
                 </button>
             ))}

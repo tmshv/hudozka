@@ -38,21 +38,23 @@ function ImageBlockView({ node, updateAttributes, editor, getPos }: NodeViewProp
                 <div className="node-view-content">
                     <div className="node-block-label">Image</div>
                     {thumbnail ? (
-                        <img
-                            src={thumbnail}
-                            alt={caption || "image"}
-                            className="node-image-thumb"
+                        <button
+                            type="button"
+                            className="node-image-thumb-button"
                             onClick={() => setShowPicker(true)}
-                            style={{ cursor: "pointer" }}
-                        />
+                            style={{ cursor: "pointer", padding: 0, border: 0, background: "none" }}
+                        >
+                            <img src={thumbnail} alt={caption || "image"} className="node-image-thumb" />
+                        </button>
                     ) : (
-                        <div
+                        <button
+                            type="button"
                             className="node-image-placeholder"
                             onClick={() => setShowPicker(true)}
                             style={{ cursor: "pointer" }}
                         >
                             {imageId ? "Loading..." : "Click to select image"}
-                        </div>
+                        </button>
                     )}
                     <div className="node-image-controls">
                         <label>
@@ -70,7 +72,7 @@ function ImageBlockView({ node, updateAttributes, editor, getPos }: NodeViewProp
                             onChange={e => updateAttributes({ caption: e.target.value })}
                             className="node-image-caption"
                         />
-                        <button className="node-image-pick-btn" onClick={() => setShowPicker(true)}>
+                        <button type="button" className="node-image-pick-btn" onClick={() => setShowPicker(true)}>
                             Pick
                         </button>
                     </div>

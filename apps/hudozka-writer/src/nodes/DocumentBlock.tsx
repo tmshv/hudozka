@@ -37,21 +37,23 @@ function DocumentBlockView({ node, updateAttributes, editor, getPos }: NodeViewP
                 <div className="node-view-content">
                     <div className="node-block-label">File</div>
                     {fileId ? (
-                        <div
+                        <button
+                            type="button"
                             className="node-document-file"
                             onClick={() => setShowPicker(true)}
                             style={{ cursor: "pointer" }}
                         >
                             📎 {filename ?? fileId}
-                        </div>
+                        </button>
                     ) : (
-                        <div
+                        <button
+                            type="button"
                             className="node-document-placeholder"
                             onClick={() => setShowPicker(true)}
                             style={{ cursor: "pointer" }}
                         >
                             Click to select file
-                        </div>
+                        </button>
                     )}
                     <div className="node-document-controls">
                         <input
@@ -61,7 +63,7 @@ function DocumentBlockView({ node, updateAttributes, editor, getPos }: NodeViewP
                             onChange={e => updateAttributes({ title: e.target.value })}
                             className="node-document-title"
                         />
-                        <button className="node-image-pick-btn" onClick={() => setShowPicker(true)}>
+                        <button type="button" className="node-image-pick-btn" onClick={() => setShowPicker(true)}>
                             Pick
                         </button>
                     </div>

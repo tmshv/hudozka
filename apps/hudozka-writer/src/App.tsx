@@ -88,7 +88,9 @@ export function App() {
                 <p>
                     Add <code>?page=slug</code> to the URL to edit a page.
                 </p>
-                <button onClick={handleLogout}>Logout</button>
+                <button type="button" onClick={handleLogout}>
+                    Logout
+                </button>
             </div>
         )
     }
@@ -101,7 +103,9 @@ export function App() {
         return (
             <div className="app-message">
                 <p className="app-error">{error}</p>
-                <button onClick={handleLogout}>Logout</button>
+                <button type="button" onClick={handleLogout}>
+                    Logout
+                </button>
             </div>
         )
     }
@@ -119,8 +123,12 @@ export function App() {
                     <input type="checkbox" checked={page.published} onChange={handleTogglePublished} />
                     Published
                 </label>
-                <button onClick={handleDuplicate}>Duplicate</button>
-                <button onClick={handleLogout}>Logout</button>
+                <button type="button" onClick={handleDuplicate}>
+                    Duplicate
+                </button>
+                <button type="button" onClick={handleLogout}>
+                    Logout
+                </button>
             </header>
             <main className="app-main">
                 <Editor page={page} />

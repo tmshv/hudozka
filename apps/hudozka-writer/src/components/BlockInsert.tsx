@@ -30,7 +30,7 @@ export function BlockInsert({ editor, getPos }: BlockInsertProps) {
 
     return (
         <div className="block-insert" contentEditable={false}>
-            <button className="block-insert-btn" title="Add block" onClick={handleToggle}>
+            <button type="button" className="block-insert-btn" title="Add block" onClick={handleToggle}>
                 +
             </button>
             {menuOpen && (

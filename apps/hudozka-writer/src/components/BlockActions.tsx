@@ -123,11 +123,21 @@ export function BlockActions({ editor, getPos, showSplit }: BlockActionsProps) {
 
     return (
         <div className="block-actions" contentEditable={false}>
-            <button className="block-action-btn block-action-delete" title="Delete block" onClick={handleDelete}>
+            <button
+                type="button"
+                className="block-action-btn block-action-delete"
+                title="Delete block"
+                onClick={handleDelete}
+            >
                 &times;
             </button>
             {showSplit && (
-                <button className="block-action-btn block-action-split" title="Split block" onClick={handleSplit}>
+                <button
+                    type="button"
+                    className="block-action-btn block-action-split"
+                    title="Split block"
+                    onClick={handleSplit}
+                >
                     &#x2702;
                 </button>
             )}

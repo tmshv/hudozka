@@ -49,6 +49,7 @@ function SlashMenu({
         <div className="slash-menu">
             {items.map((item, index) => (
                 <button
+                    type="button"
                     key={item.type}
                     className={`slash-menu-item${index === selectedIndex ? " slash-menu-item--selected" : ""}`}
                     onClick={() => command(item)}
@@ -80,9 +81,9 @@ export const SlashCommands = Extension.create({
                     let currentCommand: ((item: SlashCommandItem) => void) | null = null
 
                     function renderMenu() {
-                        if (!root) return
+                        if (!root || !currentCommand) return
                         root.render(
-                            <SlashMenu items={currentItems} command={currentCommand!} selectedIndex={selectedIndex} />,
+                            <SlashMenu items={currentItems} command={currentCommand} selectedIndex={selectedIndex} />,
                         )
                     }
 

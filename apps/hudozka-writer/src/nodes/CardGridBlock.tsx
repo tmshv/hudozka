@@ -1,7 +1,7 @@
 import { mergeAttributes, Node } from "@tiptap/core"
 import type { NodeViewProps } from "@tiptap/react"
 import { NodeViewWrapper, ReactNodeViewRenderer } from "@tiptap/react"
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { BlockActions } from "../components/BlockActions"
 import { BlockInsert } from "../components/BlockInsert"
 import { pb } from "../pb"
@@ -13,7 +13,7 @@ type ResolvedItem = {
 }
 
 function CardGridBlockView({ node, editor, getPos }: NodeViewProps) {
-    const items = JSON.parse(node.attrs.items || "[]")
+    const items = useMemo<Array<{ page: string }>>(() => JSON.parse(node.attrs.items || "[]"), [node.attrs.items])
     const [resolved, setResolved] = useState<ResolvedItem[]>([])
     const [loading, setLoading] = useState(false)
 
@@ -25,7 +25,7 @@ function CardGridBlockView({ node, editor, getPos }: NodeViewProps) {
 
         setLoading(true)
         Promise.all(
-            items.map(async (item: { page: string }) => {
+            items.map(async item => {
                 try {
                     const page = await pb.collection("pages").getOne<PbPage>(item.page)
                     return { page: item.page, title: page.title }
@@ -37,7 +37,7 @@ function CardGridBlockView({ node, editor, getPos }: NodeViewProps) {
             setResolved(results)
             setLoading(false)
         })
-    }, [node.attrs.items])
+    }, [items])
 
     return (
         <>
