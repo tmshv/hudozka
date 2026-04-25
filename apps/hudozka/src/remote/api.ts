@@ -226,10 +226,13 @@ export async function getPagesByTag(slug: string, page: number, perPage: number)
 
 export async function getAllTagsWithCounts(): Promise<Tag[]> {
     try {
-        const pages = await pb.collection("pages").getFullList<{ tags: string[] }>({
-            filter: "draft=false",
-            fields: "tags",
-        })
+        const [pages, tags] = await Promise.all([
+            pb.collection("pages").getFullList<{ tags: string[] }>({
+                filter: "draft=false",
+                fields: "tags",
+            }),
+            pb.collection("tags").getFullList<PbTag>(),
+        ])
 
         const counts = new Map<string, number>()
         for (const p of pages) {
@@ -237,8 +240,6 @@ export async function getAllTagsWithCounts(): Promise<Tag[]> {
                 counts.set(tagId, (counts.get(tagId) ?? 0) + 1)
             }
         }
-
-        const tags = await pb.collection("tags").getFullList<PbTag>()
 
         return tags
             .map(t => createTag(t, counts.get(t.id) ?? 0))
