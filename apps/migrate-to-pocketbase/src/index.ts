@@ -192,7 +192,7 @@ async function main() {
                 imageMap.set(sid, rec.id)
                 imageHashIndex.set(hash, rec.id)
                 console.log(
-                    `  [${ii}/${imageMedia.size}] ${filename} (${dims.width}x${dims.height}, ${Math.round(buf.byteLength / 1024)}KB, blur=${blur ? blur.length + "ch" : "none"}) -> ${rec.id}`,
+                    `  [${ii}/${imageMedia.size}] ${filename} (${dims.width}x${dims.height}, ${Math.round(buf.byteLength / 1024)}KB, blur=${blur ? `${blur.length}ch` : "none"}) -> ${rec.id}`,
                 )
             } catch (e) {
                 console.error(`  [${ii}/${imageMedia.size}] image ${sid} failed:`)
@@ -405,7 +405,7 @@ function toBlock(c: StrapiComponent): Block | null {
             return { id, type: "embed", src: c.src }
         case "hudozka.card-grid": {
             const items: CardRef[] = (c.items ?? [])
-                .filter((it: StrapiPageCard) => it && it.page)
+                .filter((it: StrapiPageCard) => it?.page)
                 .map((it: StrapiPageCard) => ({ page: it.page.id, layout: it.layout }))
             return { id, type: "card-grid", items }
         }
