@@ -19,7 +19,7 @@ export type TagItemProps = {
 
 export const TagItem: React.FC<TagItemProps> = props => (
     <li>
-        <Button href={props.href} size={"small"} disabled={true}>
+        <Button href={props.href} size={"small"}>
             {props.children}
         </Button>
     </li>

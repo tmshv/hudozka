@@ -1,7 +1,7 @@
 import { menu } from "@/const"
-import type { BreadcrumbPart, FeedPage, Page, PageCardDto } from "@/types"
+import type { BreadcrumbPart, FeedPage, Page, PageCardDto, Tag, TagListing } from "@/types"
 import type { DocV1Block } from "./doc"
-import { createFeedPages, createHomeCards, createPage } from "./factory"
+import { createFeedPages, createHomeCards, createPage, createTag, createTagPageCards } from "./factory"
 import { pb } from "./pb"
 import type { PbFile, PbHomeData, PbImage, PbPage, PbTag } from "./types"
 
@@ -182,6 +182,67 @@ export async function getRecentPages(limit: number = 30): Promise<FeedPage[]> {
         return createFeedPages(result.items)
     } catch (error) {
         console.error(`Failed to fetch recent pages: ${error}`)
+        return []
+    }
+}
+
+export async function getAllTagSlugs(): Promise<string[]> {
+    const tags = await getAllTagsWithCounts()
+    return tags.map(t => t.slug)
+}
+
+export async function getPagesByTag(slug: string, page: number, perPage: number): Promise<TagListing | null> {
+    try {
+        const tag = await pb.collection("tags").getFirstListItem<PbTag>(`slug="${slug}"`)
+
+        const result = await pb.collection("pages").getList<PbPage>(page, perPage, {
+            filter: `tags.id ?= "${tag.id}" && draft!=true`,
+            sort: "-updated",
+            fields: "id,slug,title,cover,updated,date",
+        })
+
+        const coverIds = result.items.map(p => p.cover).filter(Boolean)
+        const images = await fetchImagesByIds(coverIds)
+
+        return {
+            tag: createTag(tag, result.totalItems),
+            items: createTagPageCards(result.items, images),
+            total: result.totalItems,
+            page,
+            perPage,
+        }
+    } catch (error) {
+        console.error(`Failed to fetch pages by tag "${slug}": ${error}`)
+        return null
+    }
+}
+
+export async function getAllTagsWithCounts(): Promise<Tag[]> {
+    try {
+        const [pages, tags] = await Promise.all([
+            pb.collection("pages").getFullList<{ tags: string[] }>({
+                filter: "draft!=true",
+                fields: "tags",
+            }),
+            pb.collection("tags").getFullList<PbTag>(),
+        ])
+
+        const counts = new Map<string, number>()
+        for (const p of pages) {
+            for (const tagId of p.tags) {
+                counts.set(tagId, (counts.get(tagId) ?? 0) + 1)
+            }
+        }
+
+        return tags
+            .map(t => createTag(t, counts.get(t.id) ?? 0))
+            .filter(t => t.count > 0)
+            .sort((a, b) => {
+                if (b.count !== a.count) return b.count - a.count
+                return a.name.localeCompare(b.name, "ru")
+            })
+    } catch (error) {
+        console.error(`Failed to fetch tags with counts: ${error}`)
         return []
     }
 }
