@@ -39,6 +39,8 @@ describe("Button", () => {
 
     it("applies disabled class when disabled is true", () => {
         const { container } = render(<Button disabled>Disabled</Button>)
-        expect(container.firstElementChild!.className).toMatch(/disabled/)
+        const el = container.firstElementChild
+        if (!el) throw new Error("expected rendered element")
+        expect(el.className).toMatch(/disabled/)
     })
 })

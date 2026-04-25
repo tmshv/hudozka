@@ -20,25 +20,29 @@ describe("Box", () => {
 
     it("applies vertical class", () => {
         const { container } = render(<Box vertical>v</Box>)
-        const el = container.firstElementChild!
+        const el = container.firstElementChild
+        if (!el) throw new Error("expected rendered element")
         expect(el.className).toMatch(/vertical/)
     })
 
     it("applies center class", () => {
         const { container } = render(<Box center>c</Box>)
-        const el = container.firstElementChild!
+        const el = container.firstElementChild
+        if (!el) throw new Error("expected rendered element")
         expect(el.className).toMatch(/center/)
     })
 
     it("applies wrap class", () => {
         const { container } = render(<Box wrap>w</Box>)
-        const el = container.firstElementChild!
+        const el = container.firstElementChild
+        if (!el) throw new Error("expected rendered element")
         expect(el.className).toMatch(/wrap/)
     })
 
     it("passes gap to inline style", () => {
         const { container } = render(<Box gap={8}>g</Box>)
-        const el = container.firstElementChild!
+        const el = container.firstElementChild
+        if (!el) throw new Error("expected rendered element")
         expect(el).toHaveStyle({ gap: "8px" })
     })
 })

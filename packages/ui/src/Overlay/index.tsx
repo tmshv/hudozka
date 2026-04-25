@@ -24,6 +24,11 @@ export const Overlay: React.FC<OverlayProps> = props => {
                         props.onClickOverlay()
                     }
                 }}
+                onKeyDown={event => {
+                    if (event.key === "Escape") {
+                        props.onClickOverlay()
+                    }
+                }}
                 className={s.overlay}
                 style={props.style}
             >

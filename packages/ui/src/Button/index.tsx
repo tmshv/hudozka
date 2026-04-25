@@ -31,13 +31,14 @@ export const Button: React.FC<ButtonProps> = ({ size = "default", theme = "defau
     const className = cx(s.button, sizeClass[size], themeClass[theme], {
         [s.disabled]: disabled,
     })
+    const { onClick: onClickProp, value } = props
     const onClick = useCallback<MouseEventHandler<HTMLButtonElement>>(
         event => {
-            if (typeof props.onClick === "function") {
-                props.onClick(props.value, event)
+            if (typeof onClickProp === "function") {
+                onClickProp(value, event)
             }
         },
-        [props],
+        [onClickProp, value],
     )
 
     if (props.href) {
@@ -49,7 +50,7 @@ export const Button: React.FC<ButtonProps> = ({ size = "default", theme = "defau
     }
 
     return (
-        <button className={className} style={props.style} onClick={onClick}>
+        <button type="button" className={className} style={props.style} onClick={onClick}>
             {props.children}
         </button>
     )
