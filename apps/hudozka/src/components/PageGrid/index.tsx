@@ -1,3 +1,5 @@
+"use client"
+
 import { useMobile } from "@hudozka/hooks"
 import { Box } from "@hudozka/ui"
 import Image from "next/image"
