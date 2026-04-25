@@ -196,7 +196,7 @@ export async function getPagesByTag(slug: string, page: number, perPage: number)
         const tag = await pb.collection("tags").getFirstListItem<PbTag>(`slug="${slug}"`)
 
         const result = await pb.collection("pages").getList<PbPage>(page, perPage, {
-            filter: `tags ~ "${tag.id}" && draft=false`,
+            filter: `tags.id ?= "${tag.id}" && draft!=true`,
             sort: "-updated",
             fields: "id,slug,title,cover,updated,date",
         })
@@ -221,7 +221,7 @@ export async function getAllTagsWithCounts(): Promise<Tag[]> {
     try {
         const [pages, tags] = await Promise.all([
             pb.collection("pages").getFullList<{ tags: string[] }>({
-                filter: "draft=false",
+                filter: "draft!=true",
                 fields: "tags",
             }),
             pb.collection("tags").getFullList<PbTag>(),
