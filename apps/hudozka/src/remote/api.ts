@@ -187,15 +187,8 @@ export async function getRecentPages(limit: number = 30): Promise<FeedPage[]> {
 }
 
 export async function getAllTagSlugs(): Promise<string[]> {
-    try {
-        const records = await pb.collection("tags").getFullList<PbTag>({
-            fields: "slug",
-        })
-        return records.map(r => r.slug)
-    } catch (error) {
-        console.error(`Failed to fetch tag slugs: ${error}`)
-        return []
-    }
+    const tags = await getAllTagsWithCounts()
+    return tags.map(t => t.slug)
 }
 
 export async function getPagesByTag(slug: string, page: number, perPage: number): Promise<TagListing | null> {
