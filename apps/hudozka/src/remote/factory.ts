@@ -268,3 +268,14 @@ export function createFeedPages(pages: PbPage[]): FeedPage[] {
             excerpt: page.excerpt,
         }))
 }
+
+export function createTagPageCards(pages: PbPage[], images: Map<string, PbImage>): PageCardDto[] {
+    return pages.map(page => ({
+        id: page.id,
+        url: page.slug,
+        title: page.title,
+        featured: false,
+        date: page.date || null,
+        cover: getCoverPic(page.cover, images),
+    }))
+}
