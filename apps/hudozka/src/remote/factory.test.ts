@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest"
-import { createFeedPages } from "./factory"
-import type { PbPage } from "./types"
+import { createFeedPages, createTag } from "./factory"
+import type { PbPage, PbTag } from "./types"
 
 function stubPage(overrides: Partial<PbPage> = {}): PbPage {
     return {
@@ -45,5 +45,31 @@ describe("createFeedPages", () => {
 
     it("should return empty array for empty input", () => {
         expect(createFeedPages([])).toEqual([])
+    })
+})
+
+function stubTag(overrides: Partial<PbTag> = {}): PbTag {
+    return {
+        id: "tag1",
+        collectionId: "pbc_tags",
+        collectionName: "tags",
+        created: "2026-01-01T00:00:00.000Z",
+        updated: "2026-01-01T00:00:00.000Z",
+        slug: "watercolor",
+        label: "Акварель",
+        ...overrides,
+    }
+}
+
+describe("createTag", () => {
+    it("maps PB tag to app Tag with href and count", () => {
+        const tag = createTag(stubTag(), 7)
+        expect(tag).toEqual({
+            id: "tag1",
+            name: "Акварель",
+            slug: "watercolor",
+            href: "/tags/watercolor",
+            count: 7,
+        })
     })
 })
