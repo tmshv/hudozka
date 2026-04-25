@@ -29,7 +29,9 @@ export default async function TagsIndexPage() {
             }}
             breadcrumbs={breadcrumbs}
         >
-            <Title level={1}>Метки</Title>
+            <Title level={1} style={{ marginBottom: "var(--size-l)" }}>
+                Метки
+            </Title>
             <TagsIndex items={tags} />
         </App>
     )

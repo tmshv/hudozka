@@ -77,7 +77,9 @@ export default async function TagPage({ params, searchParams }: Props) {
             }}
             breadcrumbs={breadcrumbs}
         >
-            <Title level={1}>{listing.tag.name}</Title>
+            <Title level={1} style={{ marginBottom: "var(--size-l)" }}>
+                {listing.tag.name}
+            </Title>
             {listing.items.length === 0 ? (
                 <p>Пока нет записей.</p>
             ) : (
