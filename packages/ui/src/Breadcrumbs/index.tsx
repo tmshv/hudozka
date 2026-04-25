@@ -1,12 +1,16 @@
 import s from "./styles.module.css"
 
-import type { BreadcrumbPart } from "@/types"
-import { Button } from "@hudozka/ui"
+import { Button } from "../Button"
 import { insertBetween } from "@hudozka/utils"
+
+export type Crumb = {
+    name: string
+    href: string
+}
 
 export type BreadcrumbsProps = {
     style?: React.CSSProperties
-    items: BreadcrumbPart[]
+    items: Crumb[]
     path: string
 }
 
@@ -37,6 +41,6 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = props => {
                     </li>
                 )
             })}
-        </nav >
+        </nav>
     )
 }

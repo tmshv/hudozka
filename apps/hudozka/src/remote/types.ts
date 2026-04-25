@@ -36,6 +36,7 @@ export type PbPage = PbRecord & {
     doc: DocV1
     tags: string[]
     draft: boolean
+    parent?: string | string[]
 }
 
 export type PbTag = PbRecord & {
