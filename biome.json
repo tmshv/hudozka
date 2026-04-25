@@ -1,5 +1,5 @@
 {
-    "$schema": "https://biomejs.dev/schemas/2.4.11/schema.json",
+    "$schema": "https://biomejs.dev/schemas/2.4.13/schema.json",
     "formatter": {
         "enabled": true,
         "indentStyle": "space",
@@ -27,7 +27,12 @@
             "suspicious": {
                 "noExplicitAny": "error",
                 "noDebugger": "error",
-                "noConsole": "error",
+                "noConsole": {
+                    "level": "error",
+                    "options": {
+                        "allow": ["error", "warn"]
+                    }
+                },
                 "noArrayIndexKey": "error",
                 "noShadowRestrictedNames": "error",
                 "noVar": "error"
@@ -46,9 +51,24 @@
             "complexity": {
                 "noForEach": "error",
                 "noBannedTypes": "error"
+            },
+            "security": {
+                "noDangerouslySetInnerHtml": "off"
             }
         }
     },
+    "overrides": [
+        {
+            "includes": ["apps/migrate-to-pocketbase/**"],
+            "linter": {
+                "rules": {
+                    "suspicious": {
+                        "noConsole": "off"
+                    }
+                }
+            }
+        }
+    ],
     "files": {
         "includes": ["**/src/**/*.ts", "**/src/**/*.tsx", "**/src/**/*.js"]
     }
