@@ -1,12 +1,12 @@
 "use client"
 
-import { Page } from "@/components/Page"
-import { Html } from "@/components/Html"
-import { Youtube } from "@/components/Youtube"
-import { Picture } from "@/ui/Picture"
 import { FileCard } from "@/components/FileCard"
+import { Html } from "@/components/Html"
+import { Page } from "@/components/Page"
 import { PageGrid } from "@/components/PageGrid"
-import type { Tag, Token, Sign } from "@/types"
+import { Youtube } from "@/components/Youtube"
+import type { Sign, Tag, Token } from "@/types"
+import { Picture } from "@/ui/Picture"
 
 export type PageContentProps = {
     tags: Tag[]
@@ -17,74 +17,41 @@ export type PageContentProps = {
 
 export function PageContent({ tags, date, tokens, documentSignature }: PageContentProps) {
     return (
-        <Page
-            tags={tags}
-            date={date ? new Date(date) : undefined}
-        >
+        <Page tags={tags} date={date ? new Date(date) : undefined}>
             <article className={"article"}>
-                {tokens.map((x, i) => {
+                {tokens.map(x => {
                     switch (x.token) {
-                    case "html":
-                        return (
-                            <Html
-                                key={i}
-                                html={x.data}
-                            />
-                        )
+                        case "html":
+                            return <Html key={x.id} html={x.data} />
 
-                    case "instagram":
-                        return (
-                            <Html
-                                key={i}
-                                html={x.data.embed}
-                            />
-                        )
+                        case "instagram":
+                            return <Html key={x.id} html={x.data.embed} />
 
-                    case "youtube":
-                        return (
-                            <Youtube
-                                key={i}
-                                url={x.data.url}
-                            />
-                        )
+                        case "youtube":
+                            return <Youtube key={x.id} url={x.data.url} />
 
-                    case "image":
-                        return (
-                            <Picture
-                                key={i}
-                                src={x.data.src}
-                                alt={x.data.alt}
-                                width={x.data.width}
-                                height={x.data.height}
-                                caption={x.data.caption}
-                                blur={x.data.blur}
-                                wide={x.wide}
-                            />
-                        )
+                        case "image":
+                            return (
+                                <Picture
+                                    key={x.id}
+                                    src={x.data.src}
+                                    alt={x.data.alt}
+                                    width={x.data.width}
+                                    height={x.data.height}
+                                    caption={x.data.caption}
+                                    blur={x.data.blur}
+                                    wide={x.wide}
+                                />
+                            )
 
-                    case "file":
-                        return (
-                            <FileCard
-                                key={i}
-                                sign={documentSignature}
-                                {...x.data}
-                            />
-                        )
+                        case "file":
+                            return <FileCard key={x.id} sign={documentSignature} {...x.data} />
 
-                    case "grid":
-                        return (
-                            <PageGrid
-                                key={i}
-                                items={x.data.items}
-                            />
-                        )
+                        case "grid":
+                            return <PageGrid key={x.id} items={x.data.items} />
 
-                    default:
-                        return (
-                            <pre key={i}>
-                                {JSON.stringify(x)}
-                            </pre>
-                        )
+                        default:
+                            return <pre key={(x as { id: string }).id}>{JSON.stringify(x)}</pre>
                     }
                 })}
             </article>

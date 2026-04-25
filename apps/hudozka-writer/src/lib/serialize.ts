@@ -2,11 +2,11 @@ import type { JSONContent } from "@tiptap/core"
 import type {
     DocV1,
     DocV1Block,
-    DocV1BlockText,
-    DocV1BlockImage,
+    DocV1BlockCardGrid,
     DocV1BlockDocument,
     DocV1BlockEmbed,
-    DocV1BlockCardGrid,
+    DocV1BlockImage,
+    DocV1BlockText,
 } from "../types"
 import { generateBlockId } from "./id"
 import { getMarkdownManager } from "./markdown"
@@ -70,21 +70,21 @@ export function docToTiptap(doc: DocV1): JSONContent {
 
     for (const block of doc.blocks) {
         switch (block.type) {
-        case "text":
-            content.push(textBlockToTiptap(block))
-            break
-        case "image":
-            content.push(imageBlockToTiptap(block))
-            break
-        case "document":
-            content.push(documentBlockToTiptap(block))
-            break
-        case "embed":
-            content.push(embedBlockToTiptap(block))
-            break
-        case "card-grid":
-            content.push(cardGridBlockToTiptap(block))
-            break
+            case "text":
+                content.push(textBlockToTiptap(block))
+                break
+            case "image":
+                content.push(imageBlockToTiptap(block))
+                break
+            case "document":
+                content.push(documentBlockToTiptap(block))
+                break
+            case "embed":
+                content.push(embedBlockToTiptap(block))
+                break
+            case "card-grid":
+                content.push(cardGridBlockToTiptap(block))
+                break
         }
     }
 
@@ -107,60 +107,60 @@ export function tiptapToDoc(content: JSONContent[]): DocV1 {
 
     for (const node of content) {
         switch (node.type) {
-        case "textBlock": {
-            const text = textNodesToMarkdown(node.content ?? [])
-            if (text.trim()) {
-                blocks.push({
-                    type: "text",
-                    id: generateBlockId(),
-                    text,
-                })
+            case "textBlock": {
+                const text = textNodesToMarkdown(node.content ?? [])
+                if (text.trim()) {
+                    blocks.push({
+                        type: "text",
+                        id: generateBlockId(),
+                        text,
+                    })
+                }
+                break
             }
-            break
-        }
 
-        case "imageBlock": {
-            const attrs = node.attrs ?? {}
-            blocks.push({
-                type: "image",
-                id: attrs.id ?? generateBlockId(),
-                image: attrs.imageId ?? "",
-                wide: attrs.wide ?? false,
-                caption: attrs.caption ?? "",
-            })
-            break
-        }
+            case "imageBlock": {
+                const attrs = node.attrs ?? {}
+                blocks.push({
+                    type: "image",
+                    id: attrs.id ?? generateBlockId(),
+                    image: attrs.imageId ?? "",
+                    wide: attrs.wide ?? false,
+                    caption: attrs.caption ?? "",
+                })
+                break
+            }
 
-        case "documentBlock": {
-            const attrs = node.attrs ?? {}
-            blocks.push({
-                type: "document",
-                id: attrs.id ?? generateBlockId(),
-                file: attrs.fileId ?? "",
-                title: attrs.title ?? "",
-            })
-            break
-        }
+            case "documentBlock": {
+                const attrs = node.attrs ?? {}
+                blocks.push({
+                    type: "document",
+                    id: attrs.id ?? generateBlockId(),
+                    file: attrs.fileId ?? "",
+                    title: attrs.title ?? "",
+                })
+                break
+            }
 
-        case "embedBlock": {
-            const attrs = node.attrs ?? {}
-            blocks.push({
-                type: "embed",
-                id: attrs.id ?? generateBlockId(),
-                src: attrs.src ?? "",
-            })
-            break
-        }
+            case "embedBlock": {
+                const attrs = node.attrs ?? {}
+                blocks.push({
+                    type: "embed",
+                    id: attrs.id ?? generateBlockId(),
+                    src: attrs.src ?? "",
+                })
+                break
+            }
 
-        case "cardGridBlock": {
-            const attrs = node.attrs ?? {}
-            blocks.push({
-                type: "card-grid",
-                id: attrs.id ?? generateBlockId(),
-                items: JSON.parse(attrs.items ?? "[]"),
-            })
-            break
-        }
+            case "cardGridBlock": {
+                const attrs = node.attrs ?? {}
+                blocks.push({
+                    type: "card-grid",
+                    id: attrs.id ?? generateBlockId(),
+                    items: JSON.parse(attrs.items ?? "[]"),
+                })
+                break
+            }
         }
     }
 

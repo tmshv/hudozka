@@ -25,21 +25,29 @@ export type BlockMenuProps = {
 
 export function BlockMenu({ editor, position, onClose, filter }: BlockMenuProps) {
     const filtered = filter
-        ? BLOCK_TYPES.filter((b) => b.label.toLowerCase().includes(filter.toLowerCase()))
+        ? BLOCK_TYPES.filter(b => b.label.toLowerCase().includes(filter.toLowerCase()))
         : BLOCK_TYPES
 
     function handleInsert(block: BlockType) {
         const id = generateBlockId()
         if (block.type === "textBlock") {
-            editor.chain().focus().insertContentAt(position, {
-                type: "textBlock",
-                content: [{ type: "paragraph" }],
-            }).run()
+            editor
+                .chain()
+                .focus()
+                .insertContentAt(position, {
+                    type: "textBlock",
+                    content: [{ type: "paragraph" }],
+                })
+                .run()
         } else {
-            editor.chain().focus().insertContentAt(position, {
-                type: block.type,
-                attrs: { ...block.attrs, id },
-            }).run()
+            editor
+                .chain()
+                .focus()
+                .insertContentAt(position, {
+                    type: block.type,
+                    attrs: { ...block.attrs, id },
+                })
+                .run()
         }
         onClose()
     }
@@ -48,12 +56,8 @@ export function BlockMenu({ editor, position, onClose, filter }: BlockMenuProps)
 
     return (
         <div className="block-menu">
-            {filtered.map((block) => (
-                <button
-                    key={block.type}
-                    className="block-menu-item"
-                    onClick={() => handleInsert(block)}
-                >
+            {filtered.map(block => (
+                <button type="button" key={block.type} className="block-menu-item" onClick={() => handleInsert(block)}>
                     {block.label}
                 </button>
             ))}
@@ -61,5 +65,5 @@ export function BlockMenu({ editor, position, onClose, filter }: BlockMenuProps)
     )
 }
 
-export { BLOCK_TYPES }
 export type { BlockType }
+export { BLOCK_TYPES }

@@ -77,7 +77,6 @@ export type Meta = {
     twitterCreator: string
 }
 
-
 export type Tag = {
     id: string
     name: string
@@ -96,11 +95,13 @@ export type Pic = {
 }
 
 export type TextToken = {
+    id: string
     token: "text"
     data: string
 }
 
 export type ImageToken = {
+    id: string
     token: "image"
     wide: boolean
     data: Pic
@@ -117,16 +118,19 @@ export type FileTokenData = {
 }
 
 export type FileToken = {
+    id: string
     token: "file"
     data: FileTokenData
 }
 
 export type HtmlToken = {
+    id: string
     token: "html"
     data: string
 }
 
 export type YoutubeToken = {
+    id: string
     token: "youtube"
     data: {
         url: string
@@ -134,6 +138,7 @@ export type YoutubeToken = {
 }
 
 export type InstagramToken = {
+    id: string
     token: "instagram"
     data: {
         url: string
@@ -142,20 +147,14 @@ export type InstagramToken = {
 }
 
 export type GridToken = {
+    id: string
     token: "grid"
     data: {
         items: PageCardDto[]
     }
 }
 
-export type Token =
-    | TextToken
-    | ImageToken
-    | FileToken
-    | HtmlToken
-    | YoutubeToken
-    | InstagramToken
-    | GridToken
+export type Token = TextToken | ImageToken | FileToken | HtmlToken | YoutubeToken | InstagramToken | GridToken
 
 export type FeedPage = {
     id: string

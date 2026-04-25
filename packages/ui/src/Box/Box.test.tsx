@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react"
-import { describe, it, expect } from "vitest"
+import { describe, expect, it } from "vitest"
 import { Box } from "."
 
 describe("Box", () => {
@@ -20,25 +20,29 @@ describe("Box", () => {
 
     it("applies vertical class", () => {
         const { container } = render(<Box vertical>v</Box>)
-        const el = container.firstElementChild!
+        const el = container.firstElementChild
+        if (!el) throw new Error("expected rendered element")
         expect(el.className).toMatch(/vertical/)
     })
 
     it("applies center class", () => {
         const { container } = render(<Box center>c</Box>)
-        const el = container.firstElementChild!
+        const el = container.firstElementChild
+        if (!el) throw new Error("expected rendered element")
         expect(el.className).toMatch(/center/)
     })
 
     it("applies wrap class", () => {
         const { container } = render(<Box wrap>w</Box>)
-        const el = container.firstElementChild!
+        const el = container.firstElementChild
+        if (!el) throw new Error("expected rendered element")
         expect(el.className).toMatch(/wrap/)
     })
 
     it("passes gap to inline style", () => {
         const { container } = render(<Box gap={8}>g</Box>)
-        const el = container.firstElementChild!
+        const el = container.firstElementChild
+        if (!el) throw new Error("expected rendered element")
         expect(el).toHaveStyle({ gap: "8px" })
     })
 })

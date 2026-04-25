@@ -1,12 +1,12 @@
-import { Node, mergeAttributes } from "@tiptap/core"
-import { ReactNodeViewRenderer, NodeViewWrapper } from "@tiptap/react"
+import { mergeAttributes, Node } from "@tiptap/core"
 import type { NodeViewProps } from "@tiptap/react"
-import { pb } from "../pb"
-import type { PbImage } from "../types"
-import { useState, useEffect } from "react"
-import { ImagePicker } from "../components/ImagePicker"
+import { NodeViewWrapper, ReactNodeViewRenderer } from "@tiptap/react"
+import { useEffect, useState } from "react"
 import { BlockActions } from "../components/BlockActions"
 import { BlockInsert } from "../components/BlockInsert"
+import { ImagePicker } from "../components/ImagePicker"
+import { pb } from "../pb"
+import type { PbImage } from "../types"
 
 function ImageBlockView({ node, updateAttributes, editor, getPos }: NodeViewProps) {
     const { imageId, wide, caption } = node.attrs
@@ -15,12 +15,15 @@ function ImageBlockView({ node, updateAttributes, editor, getPos }: NodeViewProp
 
     useEffect(() => {
         if (!imageId) return
-        pb.collection("images").getOne<PbImage>(imageId).then((img) => {
-            const url = pb.files.getURL(img, img.file, { thumb: "300x200" })
-            setThumbnail(url)
-        }).catch(() => {
-            setThumbnail(null)
-        })
+        pb.collection("images")
+            .getOne<PbImage>(imageId)
+            .then(img => {
+                const url = pb.files.getURL(img, img.file, { thumb: "300x200" })
+                setThumbnail(url)
+            })
+            .catch(() => {
+                setThumbnail(null)
+            })
     }, [imageId])
 
     function handleSelect(newImageId: string) {
@@ -35,28 +38,30 @@ function ImageBlockView({ node, updateAttributes, editor, getPos }: NodeViewProp
                 <div className="node-view-content">
                     <div className="node-block-label">Image</div>
                     {thumbnail ? (
-                        <img
-                            src={thumbnail}
-                            alt={caption || "image"}
-                            className="node-image-thumb"
+                        <button
+                            type="button"
+                            className="node-image-thumb-button"
                             onClick={() => setShowPicker(true)}
-                            style={{ cursor: "pointer" }}
-                        />
+                            style={{ cursor: "pointer", padding: 0, border: 0, background: "none" }}
+                        >
+                            <img src={thumbnail} alt={caption || "image"} className="node-image-thumb" />
+                        </button>
                     ) : (
-                        <div
+                        <button
+                            type="button"
                             className="node-image-placeholder"
                             onClick={() => setShowPicker(true)}
                             style={{ cursor: "pointer" }}
                         >
                             {imageId ? "Loading..." : "Click to select image"}
-                        </div>
+                        </button>
                     )}
                     <div className="node-image-controls">
                         <label>
                             <input
                                 type="checkbox"
                                 checked={wide}
-                                onChange={(e) => updateAttributes({ wide: e.target.checked })}
+                                onChange={e => updateAttributes({ wide: e.target.checked })}
                             />
                             Wide
                         </label>
@@ -64,22 +69,14 @@ function ImageBlockView({ node, updateAttributes, editor, getPos }: NodeViewProp
                             type="text"
                             placeholder="Caption"
                             value={caption || ""}
-                            onChange={(e) => updateAttributes({ caption: e.target.value })}
+                            onChange={e => updateAttributes({ caption: e.target.value })}
                             className="node-image-caption"
                         />
-                        <button
-                            className="node-image-pick-btn"
-                            onClick={() => setShowPicker(true)}
-                        >
+                        <button type="button" className="node-image-pick-btn" onClick={() => setShowPicker(true)}>
                             Pick
                         </button>
                     </div>
-                    {showPicker && (
-                        <ImagePicker
-                            onSelect={handleSelect}
-                            onClose={() => setShowPicker(false)}
-                        />
-                    )}
+                    {showPicker && <ImagePicker onSelect={handleSelect} onClose={() => setShowPicker(false)} />}
                 </div>
             </NodeViewWrapper>
             <BlockInsert editor={editor} getPos={getPos} />

@@ -16,4 +16,3 @@ export function tail<T>(items: T[]): T[] {
     const [_, ...rest] = items
     return rest
 }
-

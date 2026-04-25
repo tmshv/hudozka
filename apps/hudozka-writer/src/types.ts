@@ -77,12 +77,7 @@ export type DocV1BlockCardGrid = {
     items: DocV1BlockCardGridItem[]
 }
 
-export type DocV1Block =
-    | DocV1BlockText
-    | DocV1BlockImage
-    | DocV1BlockDocument
-    | DocV1BlockEmbed
-    | DocV1BlockCardGrid
+export type DocV1Block = DocV1BlockText | DocV1BlockImage | DocV1BlockDocument | DocV1BlockEmbed | DocV1BlockCardGrid
 
 export type DocV1 = {
     version: 1

@@ -1,10 +1,10 @@
-import { Menu } from "../Menu"
 import { Box } from "@hudozka/ui"
-import HudozkaLogo from "../HudozkaLogo"
 import Link from "next/link"
-import { AccessibilityButton } from "../AccessibilityButton"
-import { Spacer } from "../Spacer"
 import { menu } from "@/const"
+import { AccessibilityButton } from "../AccessibilityButton"
+import HudozkaLogo from "../HudozkaLogo"
+import { Menu } from "../Menu"
+import { Spacer } from "../Spacer"
 
 export type DesktopNavigationProps = {
     className?: string
@@ -18,9 +18,7 @@ export function DesktopNavigation({ style, className }: DesktopNavigationProps) 
                 <HudozkaLogo />
             </Link>
 
-            <Menu
-                items={menu}
-            />
+            <Menu items={menu} />
 
             <Spacer />
             <AccessibilityButton />

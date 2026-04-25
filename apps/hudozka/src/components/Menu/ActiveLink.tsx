@@ -6,11 +6,9 @@ export type ActiveLinkProps = {
     children?: React.ReactNode
 }
 
-export const ActiveLink: React.FC<ActiveLinkProps> = props => props.href
-    ? (
-        <Link href={props.href}>
-            {props.children}
-        </Link>
+export const ActiveLink: React.FC<ActiveLinkProps> = props =>
+    props.href ? (
+        <Link href={props.href}>{props.children}</Link>
     ) : (
         <span style={props.activeStyle}>{props.children}</span>
     )

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { pb } from "../pb"
 import type { PbImage } from "../types"
 import "./ImagePicker.css"
@@ -18,23 +18,25 @@ export function ImagePicker({ onSelect, onClose }: ImagePickerProps) {
     const fileRef = useRef<HTMLInputElement>(null)
 
     useEffect(() => {
-        loadImages(page)
-    }, [page])
-
-    async function loadImages(p: number) {
+        let cancelled = false
         setLoading(true)
-        try {
-            const result = await pb.collection("images").getList<PbImage>(p, 20, {
-                sort: "-created",
+        pb.collection("images")
+            .getList<PbImage>(page, 20, { sort: "-created" })
+            .then(result => {
+                if (cancelled) return
+                setImages(result.items)
+                setTotalPages(result.totalPages)
             })
-            setImages(result.items)
-            setTotalPages(result.totalPages)
-        } catch (err) {
-            console.error("Failed to load images:", err)
-        } finally {
-            setLoading(false)
+            .catch(err => {
+                if (!cancelled) console.error("Failed to load images:", err)
+            })
+            .finally(() => {
+                if (!cancelled) setLoading(false)
+            })
+        return () => {
+            cancelled = true
         }
-    }
+    }, [page])
 
     async function handleUpload() {
         const file = fileRef.current?.files?.[0]
@@ -64,22 +66,30 @@ export function ImagePicker({ onSelect, onClose }: ImagePickerProps) {
     }
 
     return (
-        <div className="picker-overlay" onClick={onClose}>
-            <div className="picker" onClick={(e) => e.stopPropagation()}>
+        <div
+            className="picker-overlay"
+            onClick={onClose}
+            onKeyDown={e => {
+                if (e.key === "Escape") onClose()
+            }}
+        >
+            <div
+                className="picker"
+                onClick={e => e.stopPropagation()}
+                onKeyDown={e => {
+                    e.stopPropagation()
+                }}
+            >
                 <div className="picker-header">
-                    <button
-                        className={tab === "browse" ? "active" : ""}
-                        onClick={() => setTab("browse")}
-                    >
+                    <button type="button" className={tab === "browse" ? "active" : ""} onClick={() => setTab("browse")}>
                         Browse
                     </button>
-                    <button
-                        className={tab === "upload" ? "active" : ""}
-                        onClick={() => setTab("upload")}
-                    >
+                    <button type="button" className={tab === "upload" ? "active" : ""} onClick={() => setTab("upload")}>
                         Upload
                     </button>
-                    <button className="picker-close" onClick={onClose}>×</button>
+                    <button type="button" className="picker-close" onClick={onClose}>
+                        ×
+                    </button>
                 </div>
 
                 {tab === "browse" && (
@@ -88,8 +98,9 @@ export function ImagePicker({ onSelect, onClose }: ImagePickerProps) {
                             <div className="picker-loading">Loading...</div>
                         ) : (
                             <div className="picker-grid">
-                                {images.map((img) => (
+                                {images.map(img => (
                                     <button
+                                        type="button"
                                         key={img.id}
                                         className="picker-thumb"
                                         onClick={() => onSelect(img.id)}
@@ -100,17 +111,13 @@ export function ImagePicker({ onSelect, onClose }: ImagePickerProps) {
                             </div>
                         )}
                         <div className="picker-pagination">
-                            <button
-                                disabled={page <= 1}
-                                onClick={() => setPage((p) => p - 1)}
-                            >
+                            <button type="button" disabled={page <= 1} onClick={() => setPage(p => p - 1)}>
                                 Prev
                             </button>
-                            <span>{page} / {totalPages}</span>
-                            <button
-                                disabled={page >= totalPages}
-                                onClick={() => setPage((p) => p + 1)}
-                            >
+                            <span>
+                                {page} / {totalPages}
+                            </span>
+                            <button type="button" disabled={page >= totalPages} onClick={() => setPage(p => p + 1)}>
                                 Next
                             </button>
                         </div>
@@ -120,7 +127,7 @@ export function ImagePicker({ onSelect, onClose }: ImagePickerProps) {
                 {tab === "upload" && (
                     <div className="picker-upload">
                         <input type="file" accept="image/*" ref={fileRef} />
-                        <button onClick={handleUpload} disabled={uploading}>
+                        <button type="button" onClick={handleUpload} disabled={uploading}>
                             {uploading ? "Uploading..." : "Upload"}
                         </button>
                     </div>

@@ -1,6 +1,6 @@
+import InnerHTML from "dangerously-set-html-content"
 import { useEffect } from "react"
 import { getCode } from "./lib"
-import InnerHTML from "dangerously-set-html-content"
 
 async function sleep(ms: number) {
     return new Promise(resolve => {
@@ -21,9 +21,7 @@ async function repeat(delay: number, times: number, fn: () => void): Promise<voi
     }
 }
 
-export type GosuslugiProps = {}
-
-export const Gosuslugi: React.FC<GosuslugiProps> = () => {
+export function Gosuslugi() {
     useEffect(() => {
         let mount = true
         repeat(1000, 50, () => {
@@ -40,8 +38,5 @@ export const Gosuslugi: React.FC<GosuslugiProps> = () => {
         }
     }, [])
 
-    return (
-        <InnerHTML html={getCode()} />
-    )
+    return <InnerHTML html={getCode()} />
 }
-

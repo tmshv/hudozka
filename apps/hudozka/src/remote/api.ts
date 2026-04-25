@@ -1,9 +1,9 @@
-import { pb } from "./pb"
-import { createPage, createHomeCards, createMenu, createFeedPages } from "./factory"
-import type { PbPage, PbImage, PbFile, PbTag, PbHomeData, PbMenuData } from "./types"
-import type { DocV1Block } from "./doc"
-import type { BreadcrumbPart, MenuItem, Page, PageCardDto, FeedPage } from "@/types"
 import { menu } from "@/const"
+import type { BreadcrumbPart, FeedPage, Page, PageCardDto } from "@/types"
+import type { DocV1Block } from "./doc"
+import { createFeedPages, createHomeCards, createPage } from "./factory"
+import { pb } from "./pb"
+import type { PbFile, PbHomeData, PbImage, PbPage, PbTag } from "./types"
 
 const MAX_PARENT_DEPTH = 10
 
@@ -82,17 +82,17 @@ function collectBlockRefs(blocks: DocV1Block[]) {
 
     for (const block of blocks) {
         switch (block.type) {
-        case "image":
-            imageIds.add(block.image)
-            break
-        case "document":
-            fileIds.add(block.file)
-            break
-        case "card-grid":
-            for (const item of block.items) {
-                pageIds.add(item.page)
-            }
-            break
+            case "image":
+                imageIds.add(block.image)
+                break
+            case "document":
+                fileIds.add(block.file)
+                break
+            case "card-grid":
+                for (const item of block.items) {
+                    pageIds.add(item.page)
+                }
+                break
         }
     }
 
@@ -114,9 +114,7 @@ export async function getUrls(): Promise<string[]> {
 
 export async function getPageBySlug(slug: string): Promise<Page | null> {
     try {
-        const record = await pb.collection("pages").getFirstListItem<PbPage>(
-            `slug="${slug}"`,
-        )
+        const record = await pb.collection("pages").getFirstListItem<PbPage>(`slug="${slug}"`)
 
         // Collect all referenced IDs from blocks
         const refs = collectBlockRefs(record.doc.blocks)
@@ -142,9 +140,8 @@ export async function getPageBySlug(slug: string): Promise<Page | null> {
                 cardGridCoverIds.add(page.cover)
             }
         }
-        const cardGridImages = cardGridCoverIds.size > 0
-            ? await fetchImagesByIds([...cardGridCoverIds])
-            : new Map<string, PbImage>()
+        const cardGridImages =
+            cardGridCoverIds.size > 0 ? await fetchImagesByIds([...cardGridCoverIds]) : new Map<string, PbImage>()
 
         // Merge all images for card-grid covers
         const allCardGridImages = new Map([...images, ...cardGridImages])
@@ -159,18 +156,14 @@ export async function getPageBySlug(slug: string): Promise<Page | null> {
 
 export async function getHomeCards(): Promise<PageCardDto[]> {
     try {
-        const kv = await pb.collection("kv").getFirstListItem<{ data: PbHomeData }>(
-            "key=\"home\"",
-        )
+        const kv = await pb.collection("kv").getFirstListItem<{ data: PbHomeData }>('key="home"')
         const data = kv.data
         if (!data.cards || data.cards.length === 0) return []
 
         const pageIds = data.cards.map(c => c.page)
         const pages = await fetchPagesByIds(pageIds)
 
-        const coverIds = [...pages.values()]
-            .map(p => p.cover)
-            .filter(Boolean)
+        const coverIds = [...pages.values()].map(p => p.cover).filter(Boolean)
         const images = await fetchImagesByIds(coverIds)
 
         return createHomeCards(data, pages, images)

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { pb } from "../pb"
 import type { PbFile } from "../types"
 import "./FilePicker.css"
@@ -18,23 +18,25 @@ export function FilePicker({ onSelect, onClose }: FilePickerProps) {
     const fileRef = useRef<HTMLInputElement>(null)
 
     useEffect(() => {
-        loadFiles(page)
-    }, [page])
-
-    async function loadFiles(p: number) {
+        let cancelled = false
         setLoading(true)
-        try {
-            const result = await pb.collection("files").getList<PbFile>(p, 20, {
-                sort: "-created",
+        pb.collection("files")
+            .getList<PbFile>(page, 20, { sort: "-created" })
+            .then(result => {
+                if (cancelled) return
+                setFiles(result.items)
+                setTotalPages(result.totalPages)
             })
-            setFiles(result.items)
-            setTotalPages(result.totalPages)
-        } catch (err) {
-            console.error("Failed to load files:", err)
-        } finally {
-            setLoading(false)
+            .catch(err => {
+                if (!cancelled) console.error("Failed to load files:", err)
+            })
+            .finally(() => {
+                if (!cancelled) setLoading(false)
+            })
+        return () => {
+            cancelled = true
         }
-    }
+    }, [page])
 
     async function handleUpload() {
         const file = fileRef.current?.files?.[0]
@@ -55,22 +57,30 @@ export function FilePicker({ onSelect, onClose }: FilePickerProps) {
     }
 
     return (
-        <div className="picker-overlay" onClick={onClose}>
-            <div className="picker" onClick={(e) => e.stopPropagation()}>
+        <div
+            className="picker-overlay"
+            onClick={onClose}
+            onKeyDown={e => {
+                if (e.key === "Escape") onClose()
+            }}
+        >
+            <div
+                className="picker"
+                onClick={e => e.stopPropagation()}
+                onKeyDown={e => {
+                    e.stopPropagation()
+                }}
+            >
                 <div className="picker-header">
-                    <button
-                        className={tab === "browse" ? "active" : ""}
-                        onClick={() => setTab("browse")}
-                    >
+                    <button type="button" className={tab === "browse" ? "active" : ""} onClick={() => setTab("browse")}>
                         Browse
                     </button>
-                    <button
-                        className={tab === "upload" ? "active" : ""}
-                        onClick={() => setTab("upload")}
-                    >
+                    <button type="button" className={tab === "upload" ? "active" : ""} onClick={() => setTab("upload")}>
                         Upload
                     </button>
-                    <button className="picker-close" onClick={onClose}>×</button>
+                    <button type="button" className="picker-close" onClick={onClose}>
+                        ×
+                    </button>
                 </div>
 
                 {tab === "browse" && (
@@ -79,8 +89,9 @@ export function FilePicker({ onSelect, onClose }: FilePickerProps) {
                             <div className="picker-loading">Loading...</div>
                         ) : (
                             <div className="file-picker-list">
-                                {files.map((f) => (
+                                {files.map(f => (
                                     <button
+                                        type="button"
                                         key={f.id}
                                         className="file-picker-item"
                                         onClick={() => onSelect(f.id)}
@@ -92,17 +103,13 @@ export function FilePicker({ onSelect, onClose }: FilePickerProps) {
                             </div>
                         )}
                         <div className="picker-pagination">
-                            <button
-                                disabled={page <= 1}
-                                onClick={() => setPage((p) => p - 1)}
-                            >
+                            <button type="button" disabled={page <= 1} onClick={() => setPage(p => p - 1)}>
                                 Prev
                             </button>
-                            <span>{page} / {totalPages}</span>
-                            <button
-                                disabled={page >= totalPages}
-                                onClick={() => setPage((p) => p + 1)}
-                            >
+                            <span>
+                                {page} / {totalPages}
+                            </span>
+                            <button type="button" disabled={page >= totalPages} onClick={() => setPage(p => p + 1)}>
                                 Next
                             </button>
                         </div>
@@ -112,7 +119,7 @@ export function FilePicker({ onSelect, onClose }: FilePickerProps) {
                 {tab === "upload" && (
                     <div className="picker-upload">
                         <input type="file" ref={fileRef} />
-                        <button onClick={handleUpload} disabled={uploading}>
+                        <button type="button" onClick={handleUpload} disabled={uploading}>
                             {uploading ? "Uploading..." : "Upload"}
                         </button>
                     </div>

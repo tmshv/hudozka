@@ -1,6 +1,6 @@
-import s from "./nav.module.css"
 import { DesktopNavigation } from "./DesktopNavigation"
 import { MobileNavigation } from "./MobileNavigation"
+import s from "./nav.module.css"
 
 export type NavigationProps = {
     style?: React.CSSProperties

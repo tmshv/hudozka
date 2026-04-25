@@ -1,17 +1,14 @@
 import type { Metadata } from "next"
 import { App } from "@/components/App"
 import { HomeContent } from "@/components/HomeContent"
-import { MetaBuilder, buildMetadata } from "@/lib/meta"
+import { buildMetadata, MetaBuilder } from "@/lib/meta"
 import { getHomeCards } from "@/remote/api"
 
 export const revalidate = 30
 
 export async function generateMetadata(): Promise<Metadata> {
     const title = "Шлиссельбургская ДХШ"
-    const m = new MetaBuilder()
-        .setTitle(title)
-        .setData({ url: "/" })
-        .build()
+    const m = new MetaBuilder().setTitle(title).setData({ url: "/" }).build()
     return buildMetadata(m)
 }
 

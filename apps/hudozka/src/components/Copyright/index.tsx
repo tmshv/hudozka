@@ -3,7 +3,5 @@ export type CopyrightProps = {
 }
 
 export function Copyright({ years }: CopyrightProps) {
-    return (
-        <span>©&nbsp;{years} Шлиссельбургская детская художественная школа</span>
-    )
+    return <span>©&nbsp;{years} Шлиссельбургская детская художественная школа</span>
 }

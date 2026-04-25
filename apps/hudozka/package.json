@@ -8,8 +8,8 @@
         "start": "next start",
         "dev": "next dev --turbo",
         "build": "next build",
-        "lint": "eslint .",
-        "format": "eslint --fix .",
+        "lint": "biome check",
+        "format": "biome check --write",
         "test": "vitest run"
     },
     "repository": {

@@ -1,5 +1,5 @@
-import { useState } from "react"
 import type { Editor } from "@tiptap/react"
+import { useState } from "react"
 import { BlockMenu } from "./BlockMenu"
 import "./BlockInsert.css"
 
@@ -30,20 +30,12 @@ export function BlockInsert({ editor, getPos }: BlockInsertProps) {
 
     return (
         <div className="block-insert" contentEditable={false}>
-            <button
-                className="block-insert-btn"
-                title="Add block"
-                onClick={handleToggle}
-            >
+            <button type="button" className="block-insert-btn" title="Add block" onClick={handleToggle}>
                 +
             </button>
             {menuOpen && (
                 <div className="block-insert-menu">
-                    <BlockMenu
-                        editor={editor}
-                        position={insertPos}
-                        onClose={handleClose}
-                    />
+                    <BlockMenu editor={editor} position={insertPos} onClose={handleClose} />
                 </div>
             )}
         </div>

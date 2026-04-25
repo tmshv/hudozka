@@ -1,5 +1,5 @@
-import { useState } from "react"
 import type { FormEvent } from "react"
+import { useState } from "react"
 import { pb } from "../pb"
 import "./Login.css"
 
@@ -36,14 +36,14 @@ export function Login({ onLogin }: LoginProps) {
                     type="email"
                     placeholder="Email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={e => setEmail(e.target.value)}
                     required
                 />
                 <input
                     type="password"
                     placeholder="Password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={e => setPassword(e.target.value)}
                     required
                 />
                 <button type="submit" disabled={loading}>

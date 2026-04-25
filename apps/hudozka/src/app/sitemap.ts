@@ -16,7 +16,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         },
     ]
 
-    const dynamicPages: MetadataRoute.Sitemap = urls.map((path) => ({
+    const dynamicPages: MetadataRoute.Sitemap = urls.map(path => ({
         url: `${siteUrl}${path}`,
         changeFrequency: "daily",
     }))

@@ -1,6 +1,5 @@
-import s from "./panel.module.css"
-
 import { Box } from "../Box"
+import s from "./panel.module.css"
 
 export type PanelProps = {
     children?: React.ReactNode
@@ -9,16 +8,16 @@ export type PanelProps = {
     ghost?: boolean
 }
 
-export function Panel({
-    style,
-    className,
-    children,
-    ghost = false,
-}: PanelProps) {
+export function Panel({ style, className, children, ghost = false }: PanelProps) {
     const variant = ghost ? s.ghost : s.default
 
     return (
-        <Box vertical align={false} className={`${s.panel} ${variant}${className ? ` ${className}` : ""}`} style={style}>
+        <Box
+            vertical
+            align={false}
+            className={`${s.panel} ${variant}${className ? ` ${className}` : ""}`}
+            style={style}
+        >
             {children}
         </Box>
     )

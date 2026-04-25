@@ -38,22 +38,6 @@
     margin: 0;
 }
 
-.viewsettings a {
-    border: 1px solid;
-    text-decoration: none;
-    padding: 4px 10px;
-    cursor: pointer;
-
-    color: black;
-}
-.viewsettings a:hover {
-    background-color: #cfcfcf !important;
-    color: #000 !important;
-}
-.viewsettings a:focus {
-    outline: 1px solid !important;
-}
-
 .viewsettings .block {
     display: inline-block;
     vertical-align: top;
@@ -63,8 +47,23 @@
     margin: 2px;
 }
 
-.viewsettings .block a {
+.viewsettings .block button {
+    display: inline-block;
+    border: 1px solid;
+    text-decoration: none;
+    padding: 4px 10px;
     margin-right: 8px;
+    cursor: pointer;
+    background-color: transparent;
+    color: black;
+    font: inherit;
+}
+.viewsettings .block button:hover {
+    background-color: #cfcfcf !important;
+    color: #000 !important;
+}
+.viewsettings .block button:focus {
+    outline: 1px solid !important;
 }
 
 .viewsettings button {

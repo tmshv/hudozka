@@ -1,5 +1,5 @@
-import { renderHook, act } from "@testing-library/react"
-import { describe, it, expect, beforeEach, vi } from "vitest"
+import { act, renderHook } from "@testing-library/react"
+import { beforeEach, describe, expect, it, vi } from "vitest"
 import { useMediaQuery } from "./useMediaQuery"
 
 describe("useMediaQuery", () => {
@@ -13,10 +13,12 @@ describe("useMediaQuery", () => {
         vi.stubGlobal("matchMedia", (query: string) => ({
             matches: matches.get(query) ?? false,
             addEventListener: (_: string, cb: () => void) => {
-                if (!listeners.has(query)) {
-                    listeners.set(query, new Set())
+                let set = listeners.get(query)
+                if (!set) {
+                    set = new Set()
+                    listeners.set(query, set)
                 }
-                listeners.get(query)!.add(cb)
+                set.add(cb)
             },
             removeEventListener: (_: string, cb: () => void) => {
                 listeners.get(query)?.delete(cb)
@@ -42,7 +44,9 @@ describe("useMediaQuery", () => {
 
         act(() => {
             matches.set(query, true)
-            listeners.get(query)?.forEach((cb) => cb())
+            for (const cb of listeners.get(query) ?? []) {
+                cb()
+            }
         })
         expect(result.current).toBe(true)
     })

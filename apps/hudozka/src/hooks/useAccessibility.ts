@@ -1,5 +1,5 @@
-import { theme } from "@/store/theme"
 import { useSnapshot } from "valtio"
+import { theme } from "@/store/theme"
 
 function useAccessibility(): boolean {
     const t = useSnapshot(theme)

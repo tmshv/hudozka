@@ -1,9 +1,9 @@
-import s from "./button.module.css"
+import cx from "classnames"
 
 import Link from "next/link"
-import cx from "classnames"
-import { useCallback } from "react"
 import type { MouseEvent, MouseEventHandler } from "react"
+import { useCallback } from "react"
+import s from "./button.module.css"
 
 const sizeClass = {
     default: s.sizeDefault,
@@ -31,11 +31,15 @@ export const Button: React.FC<ButtonProps> = ({ size = "default", theme = "defau
     const className = cx(s.button, sizeClass[size], themeClass[theme], {
         [s.disabled]: disabled,
     })
-    const onClick = useCallback<MouseEventHandler<HTMLButtonElement>>(event => {
-        if (typeof props.onClick === "function") {
-            props.onClick(props.value, event)
-        }
-    }, [props])
+    const { onClick: onClickProp, value } = props
+    const onClick = useCallback<MouseEventHandler<HTMLButtonElement>>(
+        event => {
+            if (typeof onClickProp === "function") {
+                onClickProp(value, event)
+            }
+        },
+        [onClickProp, value],
+    )
 
     if (props.href) {
         return (
@@ -46,11 +50,7 @@ export const Button: React.FC<ButtonProps> = ({ size = "default", theme = "defau
     }
 
     return (
-        <button
-            className={className}
-            style={props.style}
-            onClick={onClick}
-        >
+        <button type="button" className={className} style={props.style} onClick={onClick}>
             {props.children}
         </button>
     )

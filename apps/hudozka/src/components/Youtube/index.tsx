@@ -2,7 +2,7 @@ export type YoutubeProps = {
     url: string
 }
 
-export const Youtube: React.FC<{ url: string }> = props => {
+export function Youtube(props: YoutubeProps) {
     const url = new URL(props.url)
     const videoId = url.searchParams.get("v")
     if (!videoId) {
@@ -13,11 +13,7 @@ export const Youtube: React.FC<{ url: string }> = props => {
 
     return (
         <div className="kazimir__video">
-            <iframe
-                src={src}
-                frameBorder="0"
-            // allowFullscreen
-            />
+            <iframe title="YouTube video player" src={src} frameBorder="0" />
         </div>
     )
 }

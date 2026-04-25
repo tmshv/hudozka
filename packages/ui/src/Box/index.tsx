@@ -1,7 +1,6 @@
-import s from "./box.module.css"
-
 import classnames from "classnames/bind"
 import { createElement } from "react"
+import s from "./box.module.css"
 
 const cx = classnames.bind(s)
 

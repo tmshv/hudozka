@@ -1,6 +1,6 @@
-import { useEffect, useCallback } from "react"
-import type { Editor } from "@tiptap/react"
 import { Fragment } from "@tiptap/pm/model"
+import type { Editor } from "@tiptap/react"
+import { useCallback, useEffect } from "react"
 import "./BlockActions.css"
 
 export type BlockActionsProps = {
@@ -68,10 +68,14 @@ export function BlockActions({ editor, getPos, showSplit }: BlockActionsProps) {
         if (typeof pos !== "number") return
         const node = editor.state.doc.nodeAt(pos)
         if (!node) return
-        editor.chain().focus().deleteRange({
-            from: pos,
-            to: pos + node.nodeSize,
-        }).run()
+        editor
+            .chain()
+            .focus()
+            .deleteRange({
+                from: pos,
+                to: pos + node.nodeSize,
+            })
+            .run()
     }
 
     const handleSplit = (e: React.MouseEvent) => {
@@ -120,6 +124,7 @@ export function BlockActions({ editor, getPos, showSplit }: BlockActionsProps) {
     return (
         <div className="block-actions" contentEditable={false}>
             <button
+                type="button"
                 className="block-action-btn block-action-delete"
                 title="Delete block"
                 onClick={handleDelete}
@@ -128,6 +133,7 @@ export function BlockActions({ editor, getPos, showSplit }: BlockActionsProps) {
             </button>
             {showSplit && (
                 <button
+                    type="button"
                     className="block-action-btn block-action-split"
                     title="Split block"
                     onClick={handleSplit}
@@ -135,12 +141,7 @@ export function BlockActions({ editor, getPos, showSplit }: BlockActionsProps) {
                     &#x2702;
                 </button>
             )}
-            <div
-                className="block-action-btn block-drag-handle"
-                data-drag-handle
-                draggable
-                title="Drag to reorder"
-            >
+            <div className="block-action-btn block-drag-handle" data-drag-handle draggable title="Drag to reorder">
                 &#x2807;
             </div>
         </div>

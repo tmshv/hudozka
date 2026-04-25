@@ -1,8 +1,8 @@
-import type { MenuItem, Page, Tag, PageCardDto, Pic, Token, FeedPage, BreadcrumbPart } from "@/types"
-import type { PbPage, PbImage, PbFile, PbTag, PbHomeData, PbMenuData } from "./types"
+import { markdownToHtml, typograf } from "@hudozka/text"
+import type { BreadcrumbPart, FeedPage, MenuItem, Page, PageCardDto, Pic, Tag, Token } from "@/types"
 import type { DocV1Block } from "./doc"
-import { typograf, markdownToHtml } from "@hudozka/text"
 import { pb } from "./pb"
+import type { PbFile, PbHomeData, PbImage, PbMenuData, PbPage, PbTag } from "./types"
 
 const md = (text: string) => typograf(markdownToHtml(text))
 
@@ -54,15 +54,17 @@ export function isYoutubeUrl(url: string): boolean {
     return /youtube\.com/.test(url)
 }
 
-export function createEmbed(src: string): Token {
+export function createEmbed(id: string, src: string): Token {
     if (isYoutubeUrl(src)) {
         return {
+            id,
             token: "youtube",
             data: { url: src },
         }
     }
 
     return {
+        id,
         token: "html",
         data: `<iframe src="${src}" width="100%" height="480" frameborder="0"></iframe>`,
     }
@@ -76,78 +78,85 @@ export function createPageToken(
     cardGridImages: Map<string, PbImage>,
 ): Token {
     switch (block.type) {
-    case "text":
-        return {
-            token: "html",
-            data: md(block.text),
+        case "text":
+            return {
+                id: block.id,
+                token: "html",
+                data: md(block.text),
+            }
+
+        case "image": {
+            const image = images.get(block.image)
+            if (!image) {
+                return { id: block.id, token: "text", data: "" }
+            }
+            return {
+                id: block.id,
+                token: "image",
+                wide: block.wide,
+                data: imageRecordToPic(image, {
+                    alt: block.caption,
+                    caption: block.caption,
+                }),
+            }
         }
 
-    case "image": {
-        const image = images.get(block.image)
-        if (!image) {
-            return { token: "text", data: "" }
+        case "document": {
+            const file = files.get(block.file)
+            if (!file) {
+                return { id: block.id, token: "text", data: "" }
+            }
+            const fileUrl = pbFileUrl(file.collectionId, file.id, file.file)
+            return {
+                id: block.id,
+                token: "file",
+                data: {
+                    url: fileUrl,
+                    slug: "",
+                    image_url: fileUrl,
+                    file_url: fileUrl,
+                    title: block.title,
+                    file_size: file.size,
+                    file_format: file.mime,
+                },
+            }
         }
-        return {
-            token: "image",
-            wide: block.wide,
-            data: imageRecordToPic(image, {
-                alt: block.caption,
-                caption: block.caption,
-            }),
-        }
-    }
 
-    case "document": {
-        const file = files.get(block.file)
-        if (!file) {
-            return { token: "text", data: "" }
-        }
-        const fileUrl = pbFileUrl(file.collectionId, file.id, file.file)
-        return {
-            token: "file",
-            data: {
-                url: fileUrl,
-                slug: "",
-                image_url: fileUrl,
-                file_url: fileUrl,
-                title: block.title,
-                file_size: file.size,
-                file_format: file.mime,
-            },
-        }
-    }
+        case "embed":
+            return createEmbed(block.id, block.src)
 
-    case "embed":
-        return createEmbed(block.src)
-
-    case "card-grid": {
-        const items: PageCardDto[] = block.items
-            .map(item => {
-                const page = cardGridPages.get(item.page)
-                if (!page) {
-                    return null
-                }
-                const cover = getCoverPic(page.cover, cardGridImages)
-                return {
-                    id: page.id,
-                    url: page.slug,
-                    title: page.title,
-                    featured: item.layout === "big" || item.layout === "medium",
-                    date: page.date || null,
-                    cover,
-                }
-            })
-            .filter((x): x is PageCardDto => x !== null)
-        return {
-            token: "grid",
-            data: { items },
+        case "card-grid": {
+            const items: PageCardDto[] = block.items
+                .map(item => {
+                    const page = cardGridPages.get(item.page)
+                    if (!page) {
+                        return null
+                    }
+                    const cover = getCoverPic(page.cover, cardGridImages)
+                    return {
+                        id: page.id,
+                        url: page.slug,
+                        title: page.title,
+                        featured: item.layout === "big" || item.layout === "medium",
+                        date: page.date || null,
+                        cover,
+                    }
+                })
+                .filter((x): x is PageCardDto => x !== null)
+            return {
+                id: block.id,
+                token: "grid",
+                data: { items },
+            }
         }
-    }
 
-    default:
-        return {
-            token: "text",
-            data: JSON.stringify(block),
+        default: {
+            const fallback = block as DocV1Block
+            return {
+                id: fallback.id,
+                token: "text",
+                data: JSON.stringify(fallback),
+            }
         }
     }
 }
@@ -185,6 +194,7 @@ export function createPage(
         cover,
         tokens: [
             {
+                id: `${record.id}__title`,
                 token: "html",
                 data: md(`# ${record.title}`),
             },
@@ -220,10 +230,7 @@ export function createHomeCards(
         .filter((x): x is PageCardDto => x !== null)
 }
 
-export function createMenu(
-    data: PbMenuData,
-    pages: Map<string, PbPage>,
-): MenuItem[] {
+export function createMenu(data: PbMenuData, pages: Map<string, PbPage>): MenuItem[] {
     const items: MenuItem[] = data.items
         .map(item => {
             const page = pages.get(item.page)
@@ -237,10 +244,13 @@ export function createMenu(
         })
         .filter((x): x is MenuItem => x !== null)
 
-    return [{
-        href: "/",
-        name: data.homeLabel,
-    }, ...items]
+    return [
+        {
+            href: "/",
+            name: data.homeLabel,
+        },
+        ...items,
+    ]
 }
 
 export function createFeedPages(pages: PbPage[]): FeedPage[] {

@@ -12,8 +12,8 @@ From repo root (delegates to `apps/hudozka`):
 
 - `npm run dev` — dev server with Turbo (`next dev --turbo`)
 - `npm run build` — production build
-- `npm run lint` — ESLint across the whole monorepo
-- `npm run format` — auto-fix lint issues
+- `npm run lint` — Biome lint + format check across the whole monorepo (`biome check`)
+- `npm run format` — auto-fix lint and format issues (`biome check --write`)
 - `npm test` — run unit tests (Vitest) across every workspace
 
 Per-app:
@@ -35,7 +35,7 @@ Feature branches are named `issue-XXX` where `XXX` is the related GitHub issue n
 
 ## Code Style
 
-ESLint 9 flat config (`eslint.config.js`) with native `eslint-config-next` 16.x support. Extends `next/core-web-vitals`. Enforces: no semicolons, double quotes, 4-space indentation, always-multiline trailing commas, `eol-last`.
+Biome (`biome.json`) handles formatting and linting. Style: no semicolons, double quotes, 4-space indentation, always-multiline trailing commas, LF line endings, 120-column line width. Lint scope is limited to `**/src/**/*.{ts,tsx,js}` via `files.includes`. Console calls are restricted to `console.error`/`console.warn` (full `console.*` is allowed only inside `apps/migrate-to-pocketbase`). `noDangerouslySetInnerHtml` is disabled because the site renders trusted CMS HTML. Inline `biome-ignore` / `eslint-disable` comments are not used — fix the underlying issue instead.
 
 **React components:** Use regular function declarations (not arrow functions) and `type` for props. Do not use `React.FC`.
 

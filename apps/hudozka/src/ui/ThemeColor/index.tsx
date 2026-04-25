@@ -8,10 +8,5 @@ export type ThemeColorProps = {
 export const ThemeColor: React.FC<ThemeColorProps> = ({ color, darkColor }) => {
     const dark = useDarkTheme()
 
-    return (
-        <meta
-            name="theme-color"
-            content={dark ? darkColor : color}
-        />
-    )
+    return <meta name="theme-color" content={dark ? darkColor : color} />
 }

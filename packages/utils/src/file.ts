@@ -7,18 +7,14 @@ const mime = new Map([
 ])
 
 export function ext(mimeType: string): string {
-    if (mime.has(mimeType)) {
-        return mime.get(mimeType)!
-    }
-
-    return mimeType
+    return mime.get(mimeType) ?? mimeType
 }
 
 export function size(bytes: number, precision = 1): string {
     if (Number.isNaN(bytes) || !Number.isFinite(bytes)) return ""
 
     const number = Math.floor(Math.log(bytes) / Math.log(1024))
-    const size = (bytes / Math.pow(1024, Math.floor(number))).toFixed(precision)
+    const size = (bytes / 1024 ** Math.floor(number)).toFixed(precision)
 
     return `${size} ${units[number]}`
 }

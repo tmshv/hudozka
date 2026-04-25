@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest"
+import { describe, expect, it } from "vitest"
 import { queryList } from "./url"
 
 describe("queryList", () => {
@@ -11,8 +11,6 @@ describe("queryList", () => {
     })
 
     it("should join multiple values with &", () => {
-        expect(queryList("tag", ["art", "music", "photo"])).toBe(
-            "tag=art&tag=music&tag=photo",
-        )
+        expect(queryList("tag", ["art", "music", "photo"])).toBe("tag=art&tag=music&tag=photo")
     })
 })

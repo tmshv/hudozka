@@ -1,11 +1,11 @@
-import { Node, mergeAttributes } from "@tiptap/core"
-import { ReactNodeViewRenderer, NodeViewWrapper } from "@tiptap/react"
+import { mergeAttributes, Node } from "@tiptap/core"
 import type { NodeViewProps } from "@tiptap/react"
-import { useState, useEffect } from "react"
-import { pb } from "../pb"
-import type { PbPage } from "../types"
+import { NodeViewWrapper, ReactNodeViewRenderer } from "@tiptap/react"
+import { useEffect, useMemo, useState } from "react"
 import { BlockActions } from "../components/BlockActions"
 import { BlockInsert } from "../components/BlockInsert"
+import { pb } from "../pb"
+import type { PbPage } from "../types"
 
 type ResolvedItem = {
     page: string
@@ -13,7 +13,7 @@ type ResolvedItem = {
 }
 
 function CardGridBlockView({ node, editor, getPos }: NodeViewProps) {
-    const items = JSON.parse(node.attrs.items || "[]")
+    const items = useMemo<Array<{ page: string }>>(() => JSON.parse(node.attrs.items || "[]"), [node.attrs.items])
     const [resolved, setResolved] = useState<ResolvedItem[]>([])
     const [loading, setLoading] = useState(false)
 
@@ -25,33 +25,31 @@ function CardGridBlockView({ node, editor, getPos }: NodeViewProps) {
 
         setLoading(true)
         Promise.all(
-            items.map(async (item: { page: string }) => {
+            items.map(async item => {
                 try {
                     const page = await pb.collection("pages").getOne<PbPage>(item.page)
                     return { page: item.page, title: page.title }
                 } catch {
                     return { page: item.page, title: null }
                 }
-            })
-        ).then((results) => {
+            }),
+        ).then(results => {
             setResolved(results)
             setLoading(false)
         })
-    }, [node.attrs.items])
+    }, [items])
 
     return (
         <>
             <NodeViewWrapper className="node-view-block node-readonly-block">
                 <BlockActions editor={editor} getPos={getPos} />
                 <div className="node-view-content">
-                    <div className="node-block-label">
-                        Card Grid ({items.length})
-                    </div>
+                    <div className="node-block-label">Card Grid ({items.length})</div>
                     {loading ? (
                         <div className="node-block-info">Loading...</div>
                     ) : (
                         <ul className="node-cardgrid-list">
-                            {resolved.map((item) => (
+                            {resolved.map(item => (
                                 <li key={item.page} className="node-cardgrid-item">
                                     {item.title ?? item.page}
                                 </li>

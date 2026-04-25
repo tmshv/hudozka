@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest"
+import { describe, expect, it } from "vitest"
 import { getResizedUrl } from "./image"
 
 describe("getResizedUrl", () => {
@@ -7,9 +7,7 @@ describe("getResizedUrl", () => {
             width: 800,
             height: 600,
         })
-        expect(result).toBe(
-            "https://images.weserv.nl/?url=example.com/img.jpg&w=800&h=600&n=1",
-        )
+        expect(result).toBe("https://images.weserv.nl/?url=example.com/img.jpg&w=800&h=600&n=1")
     })
 
     it("should use custom n parameter", () => {
@@ -18,8 +16,6 @@ describe("getResizedUrl", () => {
             height: 300,
             n: -1,
         })
-        expect(result).toBe(
-            "https://images.weserv.nl/?url=example.com/img.jpg&w=400&h=300&n=-1",
-        )
+        expect(result).toBe("https://images.weserv.nl/?url=example.com/img.jpg&w=400&h=300&n=-1")
     })
 })

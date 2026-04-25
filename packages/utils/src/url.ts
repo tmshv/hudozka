@@ -3,7 +3,5 @@ export function queryList(key: string, values: string[]): string {
         return ""
     }
 
-    return values
-        .map(value => `${key}=${value}`)
-        .join("&")
+    return values.map(value => `${key}=${value}`).join("&")
 }
