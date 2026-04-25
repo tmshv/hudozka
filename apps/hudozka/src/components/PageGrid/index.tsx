@@ -6,7 +6,7 @@ import type { CardLayout } from "../Card"
 import { Card } from "../Card"
 import { CardGrid } from "../CardGrid"
 import { Spacer } from "../Spacer"
-import { Date } from "./Date"
+import { DateLine } from "./Date"
 
 function itemColumn(item: PageCardDto): string {
     return item.featured ? "span 2" : "auto"
@@ -20,7 +20,7 @@ export type PageGridProps = {
     items: PageCardDto[]
 }
 
-export const PageGrid: React.FC<PageGridProps> = props => {
+export function PageGrid(props: PageGridProps) {
     const mobile = useMobile()
 
     return (
@@ -38,13 +38,13 @@ export const PageGrid: React.FC<PageGridProps> = props => {
                         {item.title}
                         <Spacer />
                         {!item.date ? null : (
-                            <Date
+                            <DateLine
                                 style={{
                                     marginTop: "var(--size-m)",
                                 }}
                             >
                                 {item.date}
-                            </Date>
+                            </DateLine>
                         )}
                     </Box>
                 ) : (

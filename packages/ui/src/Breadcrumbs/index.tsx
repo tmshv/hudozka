@@ -1,4 +1,4 @@
-import { insertBetween } from "@hudozka/utils"
+import { Fragment } from "react"
 import { Button } from "../Button"
 import s from "./styles.module.css"
 
@@ -13,28 +13,23 @@ export type BreadcrumbsProps = {
     path: string
 }
 
-export const Breadcrumbs: React.FC<BreadcrumbsProps> = props => {
-    const items = insertBetween(props.items, () => "/")
-
+export function Breadcrumbs(props: BreadcrumbsProps) {
     return (
         <nav className={s.breadcrumbs} style={props.style}>
-            {items.map((x, i) => {
-                if (typeof x === "string") {
-                    return (
-                        <li key={i}>
-                            <span style={{ margin: "0 var(--size-xs)" }}>{x}</span>
+            {props.items.map((x, i) => (
+                <Fragment key={x.href}>
+                    {i > 0 && (
+                        <li>
+                            <span style={{ margin: "0 var(--size-xs)" }}>/</span>
                         </li>
-                    )
-                }
-
-                return (
-                    <li key={x.href}>
+                    )}
+                    <li>
                         <Button href={x.href} theme={"ghost"} size={"small"} disabled={x.href === props.path}>
                             {x.name}
                         </Button>
                     </li>
-                )
-            })}
+                </Fragment>
+            ))}
         </nav>
     )
 }

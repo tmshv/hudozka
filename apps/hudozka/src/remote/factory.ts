@@ -54,15 +54,17 @@ export function isYoutubeUrl(url: string): boolean {
     return /youtube\.com/.test(url)
 }
 
-export function createEmbed(src: string): Token {
+export function createEmbed(id: string, src: string): Token {
     if (isYoutubeUrl(src)) {
         return {
+            id,
             token: "youtube",
             data: { url: src },
         }
     }
 
     return {
+        id,
         token: "html",
         data: `<iframe src="${src}" width="100%" height="480" frameborder="0"></iframe>`,
     }
@@ -78,6 +80,7 @@ export function createPageToken(
     switch (block.type) {
         case "text":
             return {
+                id: block.id,
                 token: "html",
                 data: md(block.text),
             }
@@ -85,9 +88,10 @@ export function createPageToken(
         case "image": {
             const image = images.get(block.image)
             if (!image) {
-                return { token: "text", data: "" }
+                return { id: block.id, token: "text", data: "" }
             }
             return {
+                id: block.id,
                 token: "image",
                 wide: block.wide,
                 data: imageRecordToPic(image, {
@@ -100,10 +104,11 @@ export function createPageToken(
         case "document": {
             const file = files.get(block.file)
             if (!file) {
-                return { token: "text", data: "" }
+                return { id: block.id, token: "text", data: "" }
             }
             const fileUrl = pbFileUrl(file.collectionId, file.id, file.file)
             return {
+                id: block.id,
                 token: "file",
                 data: {
                     url: fileUrl,
@@ -118,7 +123,7 @@ export function createPageToken(
         }
 
         case "embed":
-            return createEmbed(block.src)
+            return createEmbed(block.id, block.src)
 
         case "card-grid": {
             const items: PageCardDto[] = block.items
@@ -139,16 +144,20 @@ export function createPageToken(
                 })
                 .filter((x): x is PageCardDto => x !== null)
             return {
+                id: block.id,
                 token: "grid",
                 data: { items },
             }
         }
 
-        default:
+        default: {
+            const fallback = block as DocV1Block
             return {
+                id: fallback.id,
                 token: "text",
-                data: JSON.stringify(block),
+                data: JSON.stringify(fallback),
             }
+        }
     }
 }
 
@@ -185,6 +194,7 @@ export function createPage(
         cover,
         tokens: [
             {
+                id: `${record.id}__title`,
                 token: "html",
                 data: md(`# ${record.title}`),
             },

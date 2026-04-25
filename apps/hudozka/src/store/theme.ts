@@ -120,7 +120,7 @@ export function setLetterSpacingFour() {
     theme.letterSpacing = 4
 }
 
-const unsubscribe = subscribe(theme, () => {
+subscribe(theme, () => {
     document.documentElement.style.setProperty("--font-size-default", `${theme.fontSize}pt`)
     document.documentElement.style.setProperty("--font-size-second", `${theme.fontSize}pt`)
     document.documentElement.style.setProperty("--font-size-accent", `${theme.fontSize}pt`)
@@ -132,9 +132,9 @@ const unsubscribe = subscribe(theme, () => {
     }
 
     // TODO remove this from here and move this logic directly to body tag after moving from pages to app
-    document.body.classList.forEach(name => {
+    for (const name of [...document.body.classList]) {
         document.body.classList.remove(name)
-    })
+    }
     if (theme.theme === "contrast") {
         document.body.classList.add("theme-contrast")
         document.body.classList.add(theme.colorScheme)

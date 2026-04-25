@@ -2,11 +2,6 @@ import cx from "classnames"
 import Link from "next/link"
 import s from "./styles.module.css"
 
-const layoutClass = {
-    simple: s.simple,
-    featured: s.featured,
-}
-
 export type CardLayout = "simple" | "featured"
 export type CardProps = {
     children?: React.ReactNode
@@ -16,15 +11,12 @@ export type CardProps = {
     layout: CardLayout
 }
 
-export const Card: React.FC<CardProps> = props => (
-    <Link
-        href={props.href}
-        // className={cx(s.card, layoutClass[props.layout])}
-        className={cx(s.card, layoutClass["simple"])}
-        style={props.style}
-    >
-        <div className={s.image}>{props.cover}</div>
+export function Card(props: CardProps) {
+    return (
+        <Link href={props.href} className={cx(s.card, s.simple)} style={props.style}>
+            <div className={s.image}>{props.cover}</div>
 
-        <div className={s.body}>{props.children}</div>
-    </Link>
-)
+            <div className={s.body}>{props.children}</div>
+        </Link>
+    )
+}

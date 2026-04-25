@@ -4,7 +4,7 @@ function play() {
     const synth = window.speechSynthesis
 
     const a = document.querySelector("article")
-    if (!a || !a.textContent) {
+    if (!a?.textContent) {
         return
     }
 

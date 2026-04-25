@@ -28,8 +28,11 @@ export function MobileNavigation({ className, style }: MobileNavigationProps) {
     }, [])
 
     useEffect(() => {
-        close()
-    }, [pathname, close])
+        if (!pathname) return
+        if (detailsRef.current) {
+            detailsRef.current.open = false
+        }
+    }, [pathname])
 
     return (
         <nav className={className}>
@@ -46,7 +49,7 @@ export function MobileNavigation({ className, style }: MobileNavigationProps) {
                     </summary>
                     <div className={s.panel}>
                         <div className={s.panelClose}>
-                            <button className={s.toggle} onClick={close}>
+                            <button type="button" className={s.toggle} onClick={close}>
                                 <HiOutlineX size={24} />
                             </button>
                         </div>

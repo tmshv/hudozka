@@ -24,7 +24,7 @@ export const FileCard: React.FC<FileCardProps> = props => {
                 <div className={s.image}>
                     <Image
                         className={s.image}
-                        loader={({ src, width, quality }) => {
+                        loader={({ src, width }) => {
                             return getResizedUrl(src, {
                                 width,
                                 height: width,

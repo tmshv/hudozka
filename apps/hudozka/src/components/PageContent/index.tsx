@@ -19,21 +19,21 @@ export function PageContent({ tags, date, tokens, documentSignature }: PageConte
     return (
         <Page tags={tags} date={date ? new Date(date) : undefined}>
             <article className={"article"}>
-                {tokens.map((x, i) => {
+                {tokens.map(x => {
                     switch (x.token) {
                         case "html":
-                            return <Html key={i} html={x.data} />
+                            return <Html key={x.id} html={x.data} />
 
                         case "instagram":
-                            return <Html key={i} html={x.data.embed} />
+                            return <Html key={x.id} html={x.data.embed} />
 
                         case "youtube":
-                            return <Youtube key={i} url={x.data.url} />
+                            return <Youtube key={x.id} url={x.data.url} />
 
                         case "image":
                             return (
                                 <Picture
-                                    key={i}
+                                    key={x.id}
                                     src={x.data.src}
                                     alt={x.data.alt}
                                     width={x.data.width}
@@ -45,13 +45,13 @@ export function PageContent({ tags, date, tokens, documentSignature }: PageConte
                             )
 
                         case "file":
-                            return <FileCard key={i} sign={documentSignature} {...x.data} />
+                            return <FileCard key={x.id} sign={documentSignature} {...x.data} />
 
                         case "grid":
-                            return <PageGrid key={i} items={x.data.items} />
+                            return <PageGrid key={x.id} items={x.data.items} />
 
                         default:
-                            return <pre key={i}>{JSON.stringify(x)}</pre>
+                            return <pre key={(x as { id: string }).id}>{JSON.stringify(x)}</pre>
                     }
                 })}
             </article>

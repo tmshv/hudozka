@@ -21,9 +21,7 @@ async function repeat(delay: number, times: number, fn: () => void): Promise<voi
     }
 }
 
-export type GosuslugiProps = {}
-
-export const Gosuslugi: React.FC<GosuslugiProps> = () => {
+export function Gosuslugi() {
     useEffect(() => {
         let mount = true
         repeat(1000, 50, () => {
