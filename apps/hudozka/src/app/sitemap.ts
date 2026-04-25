@@ -1,9 +1,9 @@
 import type { MetadataRoute } from "next"
 import { siteUrl } from "@/const"
-import { getUrls } from "@/remote/api"
+import { getAllTagSlugs, getUrls } from "@/remote/api"
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const urls = await getUrls()
+    const [urls, tagSlugs] = await Promise.all([getUrls(), getAllTagSlugs()])
 
     const staticPages: MetadataRoute.Sitemap = [
         {
@@ -14,6 +14,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             url: `${siteUrl}/collective`,
             changeFrequency: "daily",
         },
+        {
+            url: `${siteUrl}/tags`,
+            changeFrequency: "weekly",
+        },
     ]
 
     const dynamicPages: MetadataRoute.Sitemap = urls.map(path => ({
@@ -21,5 +25,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         changeFrequency: "daily",
     }))
 
-    return [...staticPages, ...dynamicPages]
+    const tagPages: MetadataRoute.Sitemap = tagSlugs.map(slug => ({
+        url: `${siteUrl}/tags/${slug}`,
+        changeFrequency: "weekly",
+    }))
+
+    return [...staticPages, ...dynamicPages, ...tagPages]
 }
