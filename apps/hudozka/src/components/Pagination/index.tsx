@@ -1,3 +1,4 @@
+import cx from "classnames"
 import Link from "next/link"
 import s from "./styles.module.css"
 
@@ -46,7 +47,7 @@ export function Pagination(props: PaginationProps) {
             <ul className={s.pagination}>
                 <li>
                     {isFirst ? (
-                        <span className={`${s.item} ${s.disabled}`}>← Назад</span>
+                        <span className={cx(s.item, s.disabled)}>← Назад</span>
                     ) : (
                         <Link className={s.item} href={pageHref(props.basePath, props.page - 1)}>
                             ← Назад
@@ -56,9 +57,9 @@ export function Pagination(props: PaginationProps) {
                 {pages.map(({ key, value }) => (
                     <li key={key}>
                         {value === "..." ? (
-                            <span className={`${s.item} ${s.ellipsis}`}>…</span>
+                            <span className={cx(s.item, s.ellipsis)}>…</span>
                         ) : value === props.page ? (
-                            <span className={`${s.item} ${s.current}`} aria-current="page">
+                            <span className={cx(s.item, s.current)} aria-current="page">
                                 {value}
                             </span>
                         ) : (
@@ -70,7 +71,7 @@ export function Pagination(props: PaginationProps) {
                 ))}
                 <li>
                     {isLast ? (
-                        <span className={`${s.item} ${s.disabled}`}>Вперёд →</span>
+                        <span className={cx(s.item, s.disabled)}>Вперёд →</span>
                     ) : (
                         <Link className={s.item} href={pageHref(props.basePath, props.page + 1)}>
                             Вперёд →
