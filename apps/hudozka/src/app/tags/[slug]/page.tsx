@@ -29,8 +29,7 @@ function parsePage(value: string | undefined): number {
 }
 
 export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
-    const { slug } = await params
-    const sp = await searchParams
+    const [{ slug }, sp] = await Promise.all([params, searchParams])
     const page = parsePage(sp.page)
 
     const listing = await getPagesByTag(slug, page, PER_PAGE)
@@ -51,8 +50,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
 }
 
 export default async function TagPage({ params, searchParams }: Props) {
-    const { slug } = await params
-    const sp = await searchParams
+    const [{ slug }, sp] = await Promise.all([params, searchParams])
     const page = parsePage(sp.page)
 
     const listing = await getPagesByTag(slug, page, PER_PAGE)
