@@ -8,7 +8,7 @@
         "wipe": "node --env-file=.env --experimental-strip-types --no-warnings=ExperimentalWarning src/wipe.ts"
     },
     "dependencies": {
-        "nanoid": "^5.0.0",
+        "nanoid": "^5.1.16",
         "pocketbase": "^0.26.0",
         "sharp": "^0.33.0"
     },
