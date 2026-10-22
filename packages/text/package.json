@@ -10,7 +10,7 @@
         "test": "vitest run"
     },
     "dependencies": {
-        "markdown-it": "^14.3.2",
+        "markdown-it": "^14.3.3",
         "typograf": "^7.6.0"
     },
     "devDependencies": {
